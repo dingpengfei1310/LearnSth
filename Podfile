@@ -6,5 +6,6 @@ pod 'MBProgressHUD'
 pod 'CocoaHTTPServer'
 pod 'MGSwipeTableCell'
 pod 'SSZipArchive'
+pod 'SDWebImage'
 
 end

@@ -11,13 +11,13 @@
 
 #import "WiFiUploadManager.h"
 
+
 @interface ViewController () {
     HTTPServer *httpServer;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
 
-@property (nonatomic, strong) NSMutableArray *mutArray;
 
 @end
 
@@ -35,8 +35,6 @@
     
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     [self.view addSubview:_imageView];
-    
-    [_mutArray addObject:@(2)];
 }
 
 - (void) wifiUpload:(id)semder {
@@ -83,8 +81,8 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    [self scanFileAtPath:doc];
+//    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//    [self scanFileAtPath:doc];
 }
 
 - (void)didReceiveMemoryWarning {
