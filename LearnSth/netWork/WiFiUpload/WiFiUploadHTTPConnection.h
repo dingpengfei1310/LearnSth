@@ -8,6 +8,6 @@
 
 #import "HTTPConnection.h"
 
-@interface UploadHTTPConnection : HTTPConnection
+@interface WiFiUploadHTTPConnection : HTTPConnection
 
 @end

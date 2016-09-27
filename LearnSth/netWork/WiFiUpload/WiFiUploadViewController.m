@@ -9,10 +9,14 @@
 #import "WiFiUploadViewController.h"
 #import "WiFiUploadManager.h"
 
-@interface WiFiUploadViewController ()
+#import <SSZipArchive/ZipArchive.h>
+
+@interface WiFiUploadViewController () <SSZipArchiveDelegate>
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UILabel *tipLabel;
+
+@property (nonatomic, strong) NSString *fileName;
 
 @end
 
@@ -61,22 +65,32 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadProgress:) name:FileUploadProgressNotification object:nil];
 }
 
-#pragma mark Notification Callback
+#pragma mark WiFiUploadNotification Callback
 - (void)fileUploadStart:(NSNotification *)nof {
     NSString *fileName = nof.object[@"fileName"];
+    self.fileName = fileName;
     NSLog(@"Start Upload <%@>",fileName);
 }
 
 - (void)fileUploadFinish:(NSNotification *)nof {
     NSLog(@"File Upload Finished.");
-    
     _tipLabel.hidden = NO;
+    
+//    NSString *folder = [WiFiUploadManager shareManager].savePath;
+//    NSString *filePath = [folder stringByAppendingPathComponent:self.fileName];
+//    [SSZipArchive unzipFileAtPath:filePath toDestination:[WiFiUploadManager shareManager].savePath delegate:self];
 }
 
 - (void)fileUploadProgress:(NSNotification *)nof {
     CGFloat progress = [nof.object[@"progress"] doubleValue];
     _progressView.progress = progress;
 }
+
+#pragma mark ZipNotification
+- (void)zipArchiveProgressEvent:(unsigned long long)loaded total:(unsigned long long)total {
+    _progressView.progress = loaded * 1.0 / total;
+}
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

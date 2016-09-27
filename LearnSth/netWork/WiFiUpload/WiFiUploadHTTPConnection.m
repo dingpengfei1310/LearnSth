@@ -6,7 +6,7 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "UploadHTTPConnection.h"
+#import "WiFiUploadHTTPConnection.h"
 #import "WiFiUploadManager.h"
 
 #import "HTTPLogging.h"
@@ -19,7 +19,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UploadHTTPConnection () {
+@interface WiFiUploadHTTPConnection () {
     MultipartFormDataParser* parser;
     NSFileHandle* storeFile;
     NSMutableArray*	uploadedFiles;
@@ -32,7 +32,7 @@
 
 static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE;
 
-@implementation UploadHTTPConnection
+@implementation WiFiUploadHTTPConnection
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path
 {

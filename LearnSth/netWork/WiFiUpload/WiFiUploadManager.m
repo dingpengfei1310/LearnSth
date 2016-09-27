@@ -10,7 +10,7 @@
 #import "WiFiUploadViewController.h"
 
 #import "HTTPServer.h"
-#import "UploadHTTPConnection.h"
+#import "WiFiUploadHTTPConnection.h"
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
@@ -35,7 +35,8 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
 - (instancetype) init {
     if (self = [super init]) {
         self.webPath = [[NSBundle mainBundle] resourcePath];
-        self.savePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+//        self.savePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     }
     return self;
 }
@@ -52,7 +53,7 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
     server.port = port;
     self.httpServer = server;
     [self.httpServer setDocumentRoot:self.webPath];
-    [self.httpServer setConnectionClass:[UploadHTTPConnection class]];
+    [self.httpServer setConnectionClass:[WiFiUploadHTTPConnection class]];
     NSError *error = nil;
     [self.httpServer start:&error];
     return error == nil;

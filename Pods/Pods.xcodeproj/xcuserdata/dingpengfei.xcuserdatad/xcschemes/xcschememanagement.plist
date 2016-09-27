@@ -24,7 +24,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MGSwipeTableCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-LearnSth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SSZipArchive.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,6 +42,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>159C06CDDB0CCBDBF7B4E336264CB72B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1A8356BEA0A5841D3D7014234DA6D9F1</key>
 		<dict>
 			<key>primary</key>
@@ -42,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7460E7201A277F7A283A761B940DA7AF</key>
+		<key>8C463CD491D989B457394A7AA95384BC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -53,6 +68,11 @@
 			<true/>
 		</dict>
 		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF5F698F1AE3CD225DF949D406CED953</key>
 		<dict>
 			<key>primary</key>
 			<true/>
