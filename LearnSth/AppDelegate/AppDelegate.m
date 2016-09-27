@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "TabBarViewController.h"
 
 #import "CocoaLumberjack.h"
 
@@ -46,9 +46,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    ViewController *controller = [[ViewController alloc] init];
-    
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
+    TabBarViewController *controller = [[TabBarViewController alloc] init];
+    self.window.rootViewController = controller;
     
     return YES;
 }

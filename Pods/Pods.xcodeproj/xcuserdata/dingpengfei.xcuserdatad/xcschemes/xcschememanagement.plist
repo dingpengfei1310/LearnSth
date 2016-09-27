@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GPUImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,12 +62,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4EC8E8197FA44117DCCFEFA0C1722AE7</key>
+		<key>4280F76DD9CFA232493E58958A7C621B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F3424DD9AFE1C5F3741CB843BCC9AE3</key>
+		<key>45003C7B3BBF7CE27E04808C132F626A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6610362E50A6DE8BACCA1F2885CD9157</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8281A90D2ED8516397DFDB69A4150642</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -73,11 +88,6 @@
 			<true/>
 		</dict>
 		<key>B32BCE8088319B63DCD6BA8488784966</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B79857C0285785CD827A5CAAAC3C6FAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

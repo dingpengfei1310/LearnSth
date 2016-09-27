@@ -7,5 +7,6 @@ pod 'CocoaHTTPServer'
 pod 'MGSwipeTableCell'
 pod 'SSZipArchive'
 pod 'SDWebImage'
+pod 'GPUImage'
 
 end

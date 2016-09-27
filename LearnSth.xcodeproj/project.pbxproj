@@ -14,6 +14,9 @@
 		1B34924D1D93AC1E005C4800 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B34924C1D93AC1E005C4800 /* WiFiUploadManager.m */; };
 		1B3492531D93B0E4005C4800 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3492521D93B0E4005C4800 /* WiFiUploadHTTPConnection.m */; };
 		1B3492561D93B60A005C4800 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3492551D93B60A005C4800 /* WiFiUploadViewController.m */; };
+		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
+		1BD1761F1D9A73FA00C28051 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761E1D9A73FA00C28051 /* ImageViewController.m */; };
+		1BD176211D9A760400C28051 /* 000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BD176201D9A760400C28051 /* 000.jpg */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -59,6 +62,11 @@
 		1B3492521D93B0E4005C4800 /* WiFiUploadHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadHTTPConnection.m; sourceTree = "<group>"; };
 		1B3492541D93B60A005C4800 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B3492551D93B60A005C4800 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
+		1BD1761D1D9A73FA00C28051 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		1BD1761E1D9A73FA00C28051 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		1BD176201D9A760400C28051 /* 000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 000.jpg; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +147,16 @@
 			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
+		1BD1761C1D9A73EA00C28051 /* imageConrtroller */ = {
+			isa = PBXGroup;
+			children = (
+				1BD176201D9A760400C28051 /* 000.jpg */,
+				1BD1761D1D9A73FA00C28051 /* ImageViewController.h */,
+				1BD1761E1D9A73FA00C28051 /* ImageViewController.m */,
+			);
+			path = imageConrtroller;
+			sourceTree = "<group>";
+		};
 		1BF7F6BA1D92492200F8E5B1 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +228,8 @@
 			children = (
 				1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */,
 				1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */,
+				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
+				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -217,6 +237,7 @@
 		1BF7F7011D924C5100F8E5B1 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				1BD1761C1D9A73EA00C28051 /* imageConrtroller */,
 				1BF7F7021D924C5100F8E5B1 /* ViewController.h */,
 				1BF7F7031D924C5100F8E5B1 /* ViewController.m */,
 				1B0B7E531D98CB9C00E2B8B5 /* TableViewController.h */,
@@ -385,6 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BD176211D9A760400C28051 /* 000.jpg in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				1B3492461D93A804005C4800 /* upload.html in Resources */,
 				1B3492451D93A804005C4800 /* index.html in Resources */,
@@ -464,6 +486,7 @@
 			files = (
 				1BF7F7161D92697000F8E5B1 /* LineView.m in Sources */,
 				1BF7F70B1D92678400F8E5B1 /* HttpManager.m in Sources */,
+				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1BF7F7081D92673C00F8E5B1 /* ConnectManager.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B3492531D93B0E4005C4800 /* WiFiUploadHTTPConnection.m in Sources */,
@@ -473,6 +496,7 @@
 				1B34924D1D93AC1E005C4800 /* WiFiUploadManager.m in Sources */,
 				1BF7F7111D92687E00F8E5B1 /* ResponseModel.m in Sources */,
 				1B3492561D93B60A005C4800 /* WiFiUploadViewController.m in Sources */,
+				1BD1761F1D9A73FA00C28051 /* ImageViewController.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
