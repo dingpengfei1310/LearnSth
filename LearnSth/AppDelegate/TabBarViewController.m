@@ -9,6 +9,7 @@
 #import "TabBarViewController.h"
 
 #import "ViewController.h"
+#import "LiveViewController.h"
 #import "ImageViewController.h"
 
 @interface TabBarViewController ()
@@ -21,12 +22,15 @@
     [super viewDidLoad];
     
     ViewController *controller = [[ViewController alloc] init];
-    UINavigationController *nController = [[UINavigationController alloc] initWithRootViewController:controller];
+    UINavigationController *NVC = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    LiveViewController *liveController = [[LiveViewController alloc] init];
+    UINavigationController *liveNVC = [[UINavigationController alloc] initWithRootViewController:liveController];
     
     ImageViewController *imageController = [[ImageViewController alloc] init];
-    UINavigationController *imageN = [[UINavigationController alloc] initWithRootViewController:imageController];
+    UINavigationController *imageNVC = [[UINavigationController alloc] initWithRootViewController:imageController];
     
-    self.viewControllers = @[nController,imageN];
+    self.viewControllers = @[NVC,liveNVC,imageNVC];
     
 }
 

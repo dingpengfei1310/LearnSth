@@ -9,4 +9,6 @@ pod 'SSZipArchive'
 pod 'SDWebImage'
 pod 'GPUImage'
 
+pod 'PLCameraStreamingKit'
+
 end
