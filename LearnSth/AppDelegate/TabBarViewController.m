@@ -32,6 +32,14 @@
     
     self.viewControllers = @[NVC,liveNVC,imageNVC];
     
+    UITabBarItem *item1 = self.tabBar.items[0];
+    item1.title = @"1";
+    
+    UITabBarItem *item2 = self.tabBar.items[1];
+    item2.title = @"2";
+    
+    UITabBarItem *item3 = self.tabBar.items[2];
+    item3.title = @"3";
 }
 
 - (void)didReceiveMemoryWarning {

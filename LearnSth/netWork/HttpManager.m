@@ -11,6 +11,10 @@
 #import "ResponseModel.h"
 #import "TodayModel.h"
 
+#import "AFNetworking.h"
+
+static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
+
 @implementation HttpManager
 
 + (instancetype)shareManager {
@@ -25,8 +29,10 @@
 }
 
 - (void)getList {
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"screcommend/getInfo"];
+    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.63:8080/td/operate/screcommend/getInfo"];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSString *paramString = @"jsonText={'pageno':'1','size':'3'}";
     request.HTTPBody = [paramString dataUsingEncoding:NSUTF8StringEncoding];
@@ -54,6 +60,10 @@
         
     }];
     [task resume];
+}
+
+- (void)getStockData {
+    
 }
 
 @end

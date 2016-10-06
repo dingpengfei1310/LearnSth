@@ -35,14 +35,14 @@
 //    UIImage *currentFilteredVideoFrame = [stillImageFilter imageFromCurrentFramebuffer];
     
     
-    GPUImageSepiaFilter *stillImageFilter2 = [[GPUImageSepiaFilter alloc] init];
-    UIImage *quickFilteredImage = [stillImageFilter2 imageByFilteringImage:inputImage];
-    
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 320)];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.image = quickFilteredImage;
-    [self.view addSubview:imageView];
+//    GPUImageSepiaFilter *stillImageFilter2 = [[GPUImageSepiaFilter alloc] init];
+//    UIImage *quickFilteredImage = [stillImageFilter2 imageByFilteringImage:inputImage];
+//    
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 320)];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    imageView.image = quickFilteredImage;
+//    [self.view addSubview:imageView];
     
 }
 

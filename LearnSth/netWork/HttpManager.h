@@ -15,4 +15,6 @@
 ///
 - (void)getList;
 
+- (void)getStockData;
+
 @end
