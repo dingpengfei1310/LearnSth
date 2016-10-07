@@ -79,7 +79,7 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     NSDictionary *parameters = @{
                                  @"dateTime":@"",
                                  @"pageno":@"1",
-                                 @"size":@"100",
+                                 @"size":@"1000",
                                  @"dataType":@"F,S"
                                  };
     

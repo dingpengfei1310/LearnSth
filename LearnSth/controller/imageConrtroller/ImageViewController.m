@@ -9,8 +9,11 @@
 #import "ImageViewController.h"
 
 #import "GPUImage.h"
+#import "FuturesModel.h"
 
-@interface ImageViewController ()
+@interface ImageViewController ()<UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 
@@ -44,9 +47,36 @@
 //    imageView.image = quickFilteredImage;
 //    [self.view addSubview:imageView];
     
+    self.dataArray = [NSArray arrayWithArray:[FuturesModel queryFuturesWithPage:1 size:20]];
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,
+                                                                           self.view.frame.size.width,
+                                                                           self.view.frame.size.height)
+                                                          style:UITableViewStylePlain];
+    tableView.tableFooterView = [[UIView alloc] init];
+    tableView.rowHeight = 50;
+    tableView.dataSource = self;
+    [self.view addSubview:tableView];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        NSLog(@"cell is empty");
+    }
+    
+    FuturesModel *futureModle = self.dataArray[indexPath.row];
+    
+    cell.textLabel.text = futureModle.contractName;
+    cell.detailTextLabel.text = futureModle.updateDate;
+    
+    return cell;
+}
 
 
 - (void)didReceiveMemoryWarning {

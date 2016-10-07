@@ -7,12 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "TableViewController.h"
 
 #import "WiFiUploadManager.h"
 #import "HttpManager.h"
 
-#import "SQLManager.h"
+#import "FuturesModel.h"
 
 @interface ViewController ()
 
@@ -26,7 +25,9 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
-    [[HttpManager shareManager] getStockDataWithParamer:nil success:^(id responseData) {
+    [[HttpManager shareManager] getFutureDataWithParamer:nil success:^(id responseData) {
+//        NSArray *array = [FuturesModel futureWithArray:responseData];
+//        [FuturesModel saveFuturesWithFuturesModelArray:array];
         
     } failure:^(NSError *error) {
         
@@ -43,8 +44,6 @@
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
     
-//    NSArray *array = [[SQLManager manager] queryFuturesWithPage:<#(NSInteger)#> size:<#(NSInteger)#>];
-//    NSLog(@"%@",array);
 }
 
 - (void)scanFileAtPath:(NSString *)filePath {

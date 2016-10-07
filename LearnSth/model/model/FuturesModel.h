@@ -41,8 +41,10 @@
 
 + (NSArray<FuturesModel *> *)futureWithArray:(NSArray *)array;
 
-- (void)saveFuturesWithFuturesModel:(FuturesModel *)futuresModel;
++ (void)saveFuturesWithFuturesModel:(FuturesModel *)futuresModel;
++ (void)saveFuturesWithFuturesModelArray:(NSArray<FuturesModel *> *)futuresModelArray;
 
++ (NSArray<FuturesModel *> *)queryFuturesWithPage:(NSInteger)page size:(NSInteger)size;
 
 
 @end
