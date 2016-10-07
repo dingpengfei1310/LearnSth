@@ -12,11 +12,9 @@
 #import "WiFiUploadManager.h"
 #import "HttpManager.h"
 
-@interface ViewController () {
-    HTTPServer *httpServer;
-}
+#import "SQLManager.h"
 
-@property (nonatomic, strong) UIImageView *imageView;
+@interface ViewController ()
 
 
 @end
@@ -28,14 +26,11 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 30, 100, 30)];
-    label.text = @"Home";
-    [self.view addSubview:label];
-    
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-    [self.view addSubview:_imageView];
-    
-    [[HttpManager shareManager] getFutureData];
+    [[HttpManager shareManager] getStockDataWithParamer:nil success:^(id responseData) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void) wifiUpload:(id)semder {
@@ -45,12 +40,11 @@
     if (success) {
         NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
         NSLog(@"PATH = %@",manager.savePath);
-        [[WiFiUploadManager shareManager] showWiFiPageFrontViewController:self.navigationController];
+        [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
     
-//    TableViewController *controller = [[TableViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
-    
+//    NSArray *array = [[SQLManager manager] queryFuturesWithPage:<#(NSInteger)#> size:<#(NSInteger)#>];
+//    NSLog(@"%@",array);
 }
 
 - (void)scanFileAtPath:(NSString *)filePath {

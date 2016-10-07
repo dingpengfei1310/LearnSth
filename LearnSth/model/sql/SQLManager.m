@@ -12,7 +12,9 @@
 
 @interface SQLManager ()
 
-@property (nonatomic, strong) FMDatabase *db;
+@property (nonatomic, strong) FMDatabaseQueue *dbQueue;
+
+@property (nonatomic, copy) NSString *dbPath;
 
 @end
 
@@ -24,45 +26,29 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[SQLManager alloc] init];
-        [self initialize];
     });
     
     return manager;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (FMDatabaseQueue *)dbQueue {
+    return _dbQueue;
+}
+
 - (void)initialize {
-    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSLog(@"%@",document);
-    NSString *path = [NSString stringWithFormat:@"temp.db"];
+    NSString *path = [document stringByAppendingPathComponent:@"temp.db"];
     
-    _db = [FMDatabase databaseWithPath:path];
-    
-    [_db executeUpdate:@"create table if not exists futures_table ("
-     "exchangeNo varchar(64),"
-     "commodityNo varchar(10),"
-     "commodityName varchar(40),"
-     "code varchar(64),"
-     "contractNo varchar(50),"
-     "contractName varchar(50),"
-     "futuresType varchar(2),"
-     "productDot varchar(20),"
-     "upperTick varchar(20),"
-     "regDate varchar(8),"
-     "expiryDate varchar(8),"
-     "dotNum varchar(11),"
-     "currencyNo varchar(10),"
-     "lowerTick varchar(11),"
-     "exchangeNo2 varchar(10),"
-     "deposit varchar(20),"
-     "depositPercent varchar(20),"
-     "firstNoticeDay varchar(10),"
-     "updateDate varchar(20),"
-     "commodityType varchar(2),"
-     "pyName varchar(64),"
-     "PRIMARY KEY (exchangeNo,code)"
-     ");"];
-    
-    
+    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
 }
 
 

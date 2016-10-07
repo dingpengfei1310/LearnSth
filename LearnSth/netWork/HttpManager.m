@@ -8,10 +8,11 @@
 
 #import "HttpManager.h"
 
-#import "ResponseModel.h"
 #import "TodayModel.h"
 
 #import "AFNetworking.h"
+
+#import "SQLManager.h"
 
 static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
 
@@ -40,36 +41,21 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *dataObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"%@",dataObject);
-        
-        ResponseModel *responseModel = [[ResponseModel alloc] init];
-        [responseModel setValuesForKeysWithDictionary:dataObject];
-        NSLog(@"%@",responseModel.data);
-        
-        //        NSArray *list = [dataObject objectForKey:@"data"];
-        //        NSArray *array = [TodayModel objectWithArray:list];
-        //
-        //        for (TodayModel *todayModel in array) {
-        //            if (todayModel.reason) {
-        //                NSLog(@"%@",todayModel.reason);
-        //            } else {
-        //                NSLog(@"%@",todayModel.contractName);
-        //            }
-        //        }
-        
+        NSArray *list = [dataObject objectForKey:@"data"];
+        NSArray *array = [TodayModel objectWithArray:list];
         
     }];
     
     [task resume];
 }
 
-- (void)getStockData {
+- (void)getStockDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"scstock/getScStock"];
     
     NSDictionary *parameters = @{
                                  @"dateTime":@"",
                                  @"pageno":@"1",
-                                 @"size":@"100",
+                                 @"size":@"10",
                                  @"dataType":@"0"
                                  };
     
@@ -80,14 +66,14 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     [manager POST:urlString parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
+        NSArray *array = [responseObject objectForKey:@"scStock"];
+        success(array);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
     }];
-    
 }
 
-- (void)getFutureData {
+- (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"scfutures/getScFutures"];
     
     NSDictionary *parameters = @{
@@ -104,7 +90,9 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     [manager POST:urlString parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
+        
+        NSArray *dataArray = [responseObject objectForKey:@"scFutures"];
+        success(dataArray);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
     }];

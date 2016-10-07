@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^Success)(id responseData);
+typedef void (^Failure)(NSError *error);
+
+
+
 @interface HttpManager : NSObject
 
 + (instancetype)shareManager;
@@ -15,8 +20,8 @@
 ///
 - (void)getList;
 
-- (void)getStockData;
+- (void)getStockDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
-- (void)getFutureData;
+- (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
 @end

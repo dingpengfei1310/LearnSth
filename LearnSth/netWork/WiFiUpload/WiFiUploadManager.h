@@ -29,6 +29,6 @@ extern NSString * const FileUploadDidEndNotification;
 - (NSString *)ip;
 - (UInt16)port;
 
-- (void)showWiFiPageFrontViewController:(UIViewController *)viewController;
+- (void)showWiFiPageViewController:(UIViewController *)viewController;
 
 @end

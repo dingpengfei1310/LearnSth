@@ -67,7 +67,7 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
     [self.httpServer stop];
 }
 
-- (void)showWiFiPageFrontViewController:(UIViewController *)viewController {
+- (void)showWiFiPageViewController:(UIViewController *)viewController {
     WiFiUploadViewController *controller = [[WiFiUploadViewController alloc] init];
     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
 }
