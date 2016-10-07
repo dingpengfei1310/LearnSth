@@ -10,7 +10,7 @@
 #import "TableViewController.h"
 
 #import "WiFiUploadManager.h"
-
+#import "HttpManager.h"
 
 @interface ViewController () {
     HTTPServer *httpServer;
@@ -25,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"viewDidLoad");
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
@@ -35,6 +34,8 @@
     
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     [self.view addSubview:_imageView];
+    
+    [[HttpManager shareManager] getFutureData];
 }
 
 - (void) wifiUpload:(id)semder {

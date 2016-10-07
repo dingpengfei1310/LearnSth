@@ -19,6 +19,7 @@
 		1BD907361D9B65E3008744B8 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD907321D9B65E3008744B8 /* TableViewController.m */; };
 		1BD907371D9B65E3008744B8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD907341D9B65E3008744B8 /* ViewController.m */; };
 		1BD9073A1D9B65F9008744B8 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD907391D9B65F9008744B8 /* LiveViewController.m */; };
+		1BEE09251DA74D1C0032101E /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEE09241DA74D1C0032101E /* SQLManager.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -72,6 +73,8 @@
 		1BD907341D9B65E3008744B8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1BD907381D9B65F9008744B8 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		1BD907391D9B65F9008744B8 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
+		1BEE09231DA74D1C0032101E /* SQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLManager.h; sourceTree = "<group>"; };
+		1BEE09241DA74D1C0032101E /* SQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLManager.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -180,6 +183,15 @@
 			path = liveController;
 			sourceTree = "<group>";
 		};
+		1BEE09221DA74CFB0032101E /* sql */ = {
+			isa = PBXGroup;
+			children = (
+				1BEE09231DA74D1C0032101E /* SQLManager.h */,
+				1BEE09241DA74D1C0032101E /* SQLManager.m */,
+			);
+			path = sql;
+			sourceTree = "<group>";
+		};
 		1BF7F6BA1D92492200F8E5B1 = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +294,7 @@
 		1BF7F70C1D92687E00F8E5B1 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1BEE09221DA74CFB0032101E /* sql */,
 				1BF7F70D1D92687E00F8E5B1 /* ResponseModel.h */,
 				1BF7F70E1D92687E00F8E5B1 /* ResponseModel.m */,
 				1BF7F70F1D92687E00F8E5B1 /* TodayModel.h */,
@@ -507,6 +520,7 @@
 			files = (
 				1BD9073A1D9B65F9008744B8 /* LiveViewController.m in Sources */,
 				1BD907371D9B65E3008744B8 /* ViewController.m in Sources */,
+				1BEE09251DA74D1C0032101E /* SQLManager.m in Sources */,
 				1BF7F7161D92697000F8E5B1 /* LineView.m in Sources */,
 				1BF7F70B1D92678400F8E5B1 /* HttpManager.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,

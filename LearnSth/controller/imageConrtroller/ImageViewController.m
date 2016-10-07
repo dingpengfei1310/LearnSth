@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     
-    UIImage *inputImage = [UIImage imageNamed:@"000.jpg"];
+//    UIImage *inputImage = [UIImage imageNamed:@"000.jpg"];
     
 //    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
 ////    GPUImageSepiaFilter *stillImageFilter = [[GPUImageSepiaFilter alloc] init];

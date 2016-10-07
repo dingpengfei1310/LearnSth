@@ -17,4 +17,6 @@
 
 - (void)getStockData;
 
+- (void)getFutureData;
+
 @end
