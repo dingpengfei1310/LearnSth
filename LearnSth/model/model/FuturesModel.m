@@ -14,6 +14,10 @@
 
 @implementation FuturesModel
 
+- (void)setValue:(id)value forKey:(NSString *)key {
+    [super setValue:value forKey:key];
+}
+
 + (NSArray<FuturesModel *> *)futureWithArray:(NSArray *)array {
     NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:array.count];
     

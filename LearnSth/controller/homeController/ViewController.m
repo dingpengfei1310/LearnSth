@@ -25,13 +25,14 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
-    [[HttpManager shareManager] getFutureDataWithParamer:nil success:^(id responseData) {
-//        NSArray *array = [FuturesModel futureWithArray:responseData];
-//        [FuturesModel saveFuturesWithFuturesModelArray:array];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+//    [[HttpManager shareManager] getFutureDataWithParamer:nil success:^(id responseData) {
+////        NSArray *array = [FuturesModel futureWithArray:responseData];
+////        [FuturesModel saveFuturesWithFuturesModelArray:array];
+////        NSLog(@"%@",responseData[0]);
+//    } failure:^(NSError *error) {
+//        
+//    }];
+    
 }
 
 - (void) wifiUpload:(id)semder {
@@ -44,39 +45,6 @@
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
     
-}
-
-- (void)scanFileAtPath:(NSString *)filePath {
-    NSFileManager *manager = [NSFileManager defaultManager];
-    
-    NSString *path;
-    NSDirectoryEnumerator *myDirectoryEnumerator = [manager enumeratorAtPath:filePath];
-    while ((path = [myDirectoryEnumerator nextObject]) != nil) {
-        NSLog(@"%@",path);
-    }
-    
-//    NSArray *fileNames =  [manager contentsOfDirectoryAtPath:filePath error:nil];
-//    for (NSString *fileName in fileNames) {
-//        NSString* fullPath = [filePath stringByAppendingPathComponent:fileName];
-//        
-//        BOOL flag;
-//        if([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&flag]) {
-//            if (flag) {
-//                [self scanFileAtPath:fullPath];
-//                
-//            } else {
-//                NSLog(@"%@",fileName);
-//            }
-//            
-//        }
-        
-//    }
-    
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-//    [self scanFileAtPath:doc];
 }
 
 - (void)didReceiveMemoryWarning {

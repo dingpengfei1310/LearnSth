@@ -67,7 +67,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-        NSLog(@"cell is empty");
     }
     
     FuturesModel *futureModle = self.dataArray[indexPath.row];
