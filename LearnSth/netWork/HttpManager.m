@@ -6,24 +6,23 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "HttpManager.h"
-
-#import "TodayModel.h"
+#import "HttpRequestManager.h"
 
 #import "AFNetworking.h"
 
+#import "TodayModel.h"
 #import "SQLManager.h"
 
 static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
 
-@implementation HttpManager
+@implementation HttpRequestManager
 
 + (instancetype)shareManager {
-    static HttpManager *manager = nil;
+    static HttpRequestManager *manager = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[HttpManager alloc] init];
+        manager = [[HttpRequestManager alloc] init];
     });
     
     return manager;
@@ -44,6 +43,7 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
         NSArray *list = [dataObject objectForKey:@"data"];
         NSArray *array = [TodayModel objectWithArray:list];
         
+        NSLog(@"%@",array);
     }];
     
     [task resume];
@@ -76,10 +76,7 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
 - (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"scfutures/getScFutures"];
     
-    NSDictionary *parameters = @{
-                                 @"dateTime":@"",
-                                 @"pageno":@"1",
-                                 @"size":@"1000",
+    NSDictionary *parameters = @{@"dateTime":@"",@"pageno":@"1",@"size":@"1000",
                                  @"dataType":@"F,S"
                                  };
     
@@ -97,6 +94,24 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
         NSLog(@"%@", error);
     }];
 }
+
+- (void)getHotLiveListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
+    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"text/javascript",@"application/json",nil];
+    
+    [manager GET:urlString parameters:@{@"page":@"1"} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *array = [[responseObject objectForKey:@"data"] objectForKey:@"list"];
+        success(array);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
+
 
 - (NSString *)JsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {

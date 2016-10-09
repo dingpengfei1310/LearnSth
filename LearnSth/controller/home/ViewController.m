@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 #import "WiFiUploadManager.h"
-#import "HttpManager.h"
+#import "HttpRequestManager.h"
 
 #import "FuturesModel.h"
 
@@ -26,13 +26,12 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
 //    [[HttpManager shareManager] getFutureDataWithParamer:nil success:^(id responseData) {
-////        NSArray *array = [FuturesModel futureWithArray:responseData];
-////        [FuturesModel saveFuturesWithFuturesModelArray:array];
-////        NSLog(@"%@",responseData[0]);
+//        NSArray *array = [FuturesModel futureWithArray:responseData];
+//        [FuturesModel saveFuturesWithFuturesModelArray:array];
+//        NSLog(@"%@",responseData[0]);
 //    } failure:^(NSError *error) {
-//        
+//        NSLog(@"%@",error);
 //    }];
-    
 }
 
 - (void) wifiUpload:(id)semder {

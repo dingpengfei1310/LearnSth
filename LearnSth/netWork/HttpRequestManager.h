@@ -12,8 +12,7 @@ typedef void (^Success)(id responseData);
 typedef void (^Failure)(NSError *error);
 
 
-
-@interface HttpManager : NSObject
+@interface HttpRequestManager : NSObject
 
 + (instancetype)shareManager;
 
@@ -23,5 +22,8 @@ typedef void (^Failure)(NSError *error);
 - (void)getStockDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
 - (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
+
+///直播
+- (void)getHotLiveListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
 @end
