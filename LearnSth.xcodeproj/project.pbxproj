@@ -20,6 +20,10 @@
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
+		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
+		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
+		1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */; };
+		1B6E7DB81DAB91FD006F058B /* UserListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
@@ -75,6 +79,14 @@
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
+		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
+		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		1B6E7DB11DAB8FBD006F058B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		1B6E7DB21DAB8FBD006F058B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		1B6E7DB41DAB91FD006F058B /* UserListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewCell.h; sourceTree = "<group>"; };
+		1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewCell.m; sourceTree = "<group>"; };
+		1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewCell.xib; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +197,8 @@
 			children = (
 				1B0B34351DAB2F840053CAB5 /* FuturesModel.h */,
 				1B0B34361DAB2F840053CAB5 /* FuturesModel.m */,
+				1B6E7DB11DAB8FBD006F058B /* UserModel.h */,
+				1B6E7DB21DAB8FBD006F058B /* UserModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -194,6 +208,9 @@
 			children = (
 				1B0B343C1DAB30B30053CAB5 /* LineView.h */,
 				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
+				1B6E7DB41DAB91FD006F058B /* UserListViewCell.h */,
+				1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */,
+				1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -278,6 +295,9 @@
 				1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */,
 				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
 				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
+				1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */,
+				1B6E7DAE1DAB8941006F058B /* BaseViewController.h */,
+				1B6E7DAF1DAB8941006F058B /* BaseViewController.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -462,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
+				1B6E7DB81DAB91FD006F058B /* UserListViewCell.xib in Resources */,
 				1B3492461D93A804005C4800 /* upload.html in Resources */,
 				1B3492451D93A804005C4800 /* index.html in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
@@ -545,6 +566,8 @@
 				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */,
+				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
+				1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
@@ -553,6 +576,7 @@
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
+				1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

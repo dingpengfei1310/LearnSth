@@ -8,10 +8,9 @@
 
 #import "LiveViewController.h"
 
+#import "UIImageView+WebCache.h"
 #import "HttpRequestManager.h"
 #import "LiveModel.h"
-
-#import "UIImageView+AFNetworking.h"
 
 #import "PLPlayerViewController.h"
 
@@ -77,8 +76,7 @@ static NSString *identifier = @"cell";
     LiveModel *model = self.list[indexPath.item];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-//    [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
-    [imageView setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:[UIImage imageNamed:@"lookup"]];
     [cell.contentView addSubview:imageView];
     
     return cell;

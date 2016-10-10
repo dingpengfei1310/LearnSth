@@ -20,7 +20,10 @@ typedef void (^Failure)(NSError *error);
 
 - (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
-///直播
+///热门直播
 - (void)getHotLiveListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
+
+///
+- (void)getUserListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
 @end

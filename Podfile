@@ -10,5 +10,6 @@ pod 'SSZipArchive'
 pod 'GPUImage'
 pod 'FMDB'
 pod 'PLPlayerKit'
+pod 'SDWebImage'
 
 end

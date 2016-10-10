@@ -10,19 +10,28 @@
 
 #import "WiFiUploadManager.h"
 
-@interface UserViewController ()
+@interface UserViewController ()<UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
+
+static NSString *identifier = @"cell";
 
 @implementation UserViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
-    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    _tableView.tableFooterView = [[UIView alloc] init];
+    _tableView.dataSource = self;
+    _tableView.rowHeight = 50;
+    [self.view addSubview:_tableView];
 }
 
+#pragma mark
 - (void)wifiUpload:(id)semder {
     WiFiUploadManager *manager = [WiFiUploadManager shareManager];
     BOOL success = [manager startHTTPServerAtPort:10000];
@@ -33,6 +42,17 @@
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
     
+}
+
+#pragma mark
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {

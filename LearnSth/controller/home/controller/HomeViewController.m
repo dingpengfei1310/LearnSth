@@ -8,21 +8,64 @@
 
 #import "HomeViewController.h"
 
+#import "UIImageView+WebCache.h"
+#import "HttpRequestManager.h"
+#import "UserModel.h"
 
-@interface HomeViewController ()<UITextFieldDelegate>
+#import "UserListViewCell.h"
 
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *userList;
 
 @end
+
+static NSString *identifier = @"cell";
 
 @implementation HomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UITextField *tt = [[UITextField alloc] initWithFrame:CGRectMake(20, 100, 200, 30)];
-    tt.layer.borderWidth = 0.5;
-    tt.delegate = self;
-    [self.view addSubview:tt];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)
+                                              style:UITableViewStylePlain];
+//    [_tableView registerClass:[UserListViewCell class] forCellReuseIdentifier:identifier];
+    [_tableView registerNib:[UINib nibWithNibName:@"UserListViewCell" bundle:nil] forCellReuseIdentifier:identifier];
+    _tableView.tableFooterView = [[UIView alloc] init];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.rowHeight = 70;
+    [self.view addSubview:_tableView];
+    
+    
+    [[HttpRequestManager shareManager] getUserListWithParamer:nil success:^(id responseData) {
+        self.userList = [UserModel userWithArray:responseData];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.userList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    UserModel *user = self.userList[indexPath.row];
+    cell.titleLabel.text = user.userName;
+    cell.subTitleLabel.text = user.groupName;
+    
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:user.image] placeholderImage:[UIImage imageNamed:@"lookup"]];
+//    [cell.headerImageView setImageWithURL:[NSURL URLWithString:user.image] placeholderImage:nil];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 

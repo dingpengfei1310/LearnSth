@@ -43,6 +43,9 @@ PODS:
   - PLPlayerKit/precompiled (2.2.4):
     - HappyDNS (~> 0.3.10)
     - pili-librtmp (= 1.0.4)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SSZipArchive (1.5)
 
 DEPENDENCIES:
@@ -53,6 +56,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MGSwipeTableCell
   - PLPlayerKit
+  - SDWebImage
   - SSZipArchive
 
 SPEC CHECKSUMS:
@@ -67,8 +71,9 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: bafeb5f351124544c9364ecbdf24c7b06a37d340
   pili-librtmp: bc768bc3971edad732fd5e66f0ee991fa1a0a257
   PLPlayerKit: 30e419fa90e84df34922e6dd5d5833d7e4348bf4
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SSZipArchive: 29daace2bccb90a47de2837744da397728ff9207
 
-PODFILE CHECKSUM: 5ef8f879dc6a1520dc4f5e1b2f947d9e81737683
+PODFILE CHECKSUM: 09e890aa82e48031338bb96d4cfac12f56146e98
 
 COCOAPODS: 1.0.1

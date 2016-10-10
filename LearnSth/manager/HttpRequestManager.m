@@ -9,7 +9,6 @@
 #import "HttpRequestManager.h"
 
 #import "AFNetworking.h"
-
 #import "SQLManager.h"
 
 static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
@@ -54,9 +53,8 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
 - (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"scfutures/getScFutures"];
     
-    NSDictionary *parameters = @{@"dateTime":@"",@"pageno":@"1",@"size":@"1000",
-                                 @"dataType":@"F,S"
-                                 };
+    NSDictionary *parameters = @{@"pageno":@"1",@"size":@"1000",
+                                 @"dataType":@"F,S",@"dateTime":@""};
     
     NSString *jsonString = [self JsonModel:parameters];
     NSDictionary *param = @{@"jsonText": jsonString};
@@ -93,7 +91,29 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     }];
 }
 
+- (void)getUserListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"scgroup/getrank"];
+    
+    NSDictionary *parameters = @{@"pageno":@"1",@"size":@"10"};
+    
+    NSString *jsonString = [self JsonModel:parameters];
+    NSDictionary *param = @{@"jsonText": jsonString};
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager POST:urlString parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *userArray = [responseObject objectForKey:@"data"];
+        success(userArray);
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
 
+
+#pragma mark
 - (NSString *)JsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel options:NSJSONWritingPrettyPrinted error:nil];
