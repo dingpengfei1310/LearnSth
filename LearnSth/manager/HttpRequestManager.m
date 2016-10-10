@@ -10,7 +10,6 @@
 
 #import "AFNetworking.h"
 
-#import "TodayModel.h"
 #import "SQLManager.h"
 
 static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
@@ -26,27 +25,6 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     });
     
     return manager;
-}
-
-- (void)getList {
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"screcommend/getInfo"];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    NSString *paramString = @"jsonText={'pageno':'1','size':'3'}";
-//    request.HTTPBody = [paramString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *dataObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        
-        NSArray *list = [dataObject objectForKey:@"data"];
-        NSArray *array = [TodayModel objectWithArray:list];
-        
-        NSLog(@"%@",array);
-    }];
-    
-    [task resume];
 }
 
 - (void)getStockDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
@@ -99,7 +77,10 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/json",@"text/javascript",@"application/json",nil];
+    
+    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [multSet addObject:@"text/html"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
     
     [manager GET:urlString parameters:@{@"page":@"1"} progress:^(NSProgress * _Nonnull uploadProgress) {
         

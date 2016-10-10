@@ -12,14 +12,14 @@
 		1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341B1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m */; };
 		1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341D1DAB20C60053CAB5 /* WiFiUploadManager.m */; };
 		1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341F1DAB20C60053CAB5 /* WiFiUploadViewController.m */; };
-		1B0B34291DAB213C0053CAB5 /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34261DAB213C0053CAB5 /* FuturesModel.m */; };
-		1B0B342A1DAB213C0053CAB5 /* TodayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34281DAB213C0053CAB5 /* TodayModel.m */; };
-		1B0B342D1DAB217A0053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B342C1DAB217A0053CAB5 /* LineView.m */; };
+		1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */; };
+		1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34361DAB2F840053CAB5 /* FuturesModel.m */; };
+		1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34391DAB30A20053CAB5 /* HomeViewController.m */; };
+		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
-		1BD1761F1D9A73FA00C28051 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761E1D9A73FA00C28051 /* ImageViewController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -28,7 +28,6 @@
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */; };
-		CF97EBD01DAA49D600E1EDD7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBCA1DAA49D600E1EDD7 /* ViewController.m */; };
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
 		DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */; };
@@ -62,19 +61,19 @@
 		1B0B341D1DAB20C60053CAB5 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B0B341E1DAB20C60053CAB5 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B0B341F1DAB20C60053CAB5 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
-		1B0B34251DAB213C0053CAB5 /* FuturesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuturesModel.h; sourceTree = "<group>"; };
-		1B0B34261DAB213C0053CAB5 /* FuturesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuturesModel.m; sourceTree = "<group>"; };
-		1B0B34271DAB213C0053CAB5 /* TodayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayModel.h; sourceTree = "<group>"; };
-		1B0B34281DAB213C0053CAB5 /* TodayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayModel.m; sourceTree = "<group>"; };
-		1B0B342B1DAB217A0053CAB5 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
-		1B0B342C1DAB217A0053CAB5 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
+		1B0B34301DAB2F0F0053CAB5 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		1B0B34351DAB2F840053CAB5 /* FuturesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuturesModel.h; sourceTree = "<group>"; };
+		1B0B34361DAB2F840053CAB5 /* FuturesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuturesModel.m; sourceTree = "<group>"; };
+		1B0B34381DAB30A20053CAB5 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		1B0B34391DAB30A20053CAB5 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		1B0B343C1DAB30B30053CAB5 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
+		1B0B343D1DAB30B30053CAB5 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
-		1BD1761D1D9A73FA00C28051 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
-		1BD1761E1D9A73FA00C28051 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,8 +91,6 @@
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF97EBC71DAA49D600E1EDD7 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
-		CF97EBC91DAA49D600E1EDD7 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CF97EBCA1DAA49D600E1EDD7 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CF97EBD51DAA4A2600E1EDD7 /* LiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveModel.h; sourceTree = "<group>"; };
 		CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveModel.m; sourceTree = "<group>"; };
 		CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
@@ -154,6 +151,50 @@
 			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
+		1B0B342E1DAB2ED60053CAB5 /* userCenter */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B342F1DAB2ED60053CAB5 /* controller */,
+			);
+			path = userCenter;
+			sourceTree = "<group>";
+		};
+		1B0B342F1DAB2ED60053CAB5 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B34301DAB2F0F0053CAB5 /* UserViewController.h */,
+				1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		1B0B34331DAB2F5B0053CAB5 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B34381DAB30A20053CAB5 /* HomeViewController.h */,
+				1B0B34391DAB30A20053CAB5 /* HomeViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		1B0B34341DAB2F5B0053CAB5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B34351DAB2F840053CAB5 /* FuturesModel.h */,
+				1B0B34361DAB2F840053CAB5 /* FuturesModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		1B0B343B1DAB30B30053CAB5 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1B0B343C1DAB30B30053CAB5 /* LineView.h */,
+				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		1B3492421D93A804005C4800 /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,21 +202,6 @@
 				1B3492441D93A804005C4800 /* upload.html */,
 			);
 			path = Web;
-			sourceTree = "<group>";
-		};
-		1BD1761C1D9A73EA00C28051 /* imageConrtroller */ = {
-			isa = PBXGroup;
-			children = (
-				1B0B342B1DAB217A0053CAB5 /* LineView.h */,
-				1B0B342C1DAB217A0053CAB5 /* LineView.m */,
-				1B0B34251DAB213C0053CAB5 /* FuturesModel.h */,
-				1B0B34261DAB213C0053CAB5 /* FuturesModel.m */,
-				1B0B34271DAB213C0053CAB5 /* TodayModel.h */,
-				1B0B34281DAB213C0053CAB5 /* TodayModel.m */,
-				1BD1761D1D9A73FA00C28051 /* ImageViewController.h */,
-				1BD1761E1D9A73FA00C28051 /* ImageViewController.m */,
-			);
-			path = imageConrtroller;
 			sourceTree = "<group>";
 		};
 		1BF7F6BA1D92492200F8E5B1 = {
@@ -258,7 +284,7 @@
 			children = (
 				CF97EBC61DAA49D600E1EDD7 /* home */,
 				CF97EBCB1DAA49D600E1EDD7 /* live */,
-				1BD1761C1D9A73EA00C28051 /* imageConrtroller */,
+				1B0B342E1DAB2ED60053CAB5 /* userCenter */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -275,10 +301,11 @@
 		CF97EBC61DAA49D600E1EDD7 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				1B0B343B1DAB30B30053CAB5 /* view */,
+				1B0B34331DAB2F5B0053CAB5 /* controller */,
+				1B0B34341DAB2F5B0053CAB5 /* model */,
 				CF97EBC71DAA49D600E1EDD7 /* TableViewController.h */,
 				CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */,
-				CF97EBC91DAA49D600E1EDD7 /* ViewController.h */,
-				CF97EBCA1DAA49D600E1EDD7 /* ViewController.m */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -506,19 +533,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
+				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
 				1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */,
 				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
+				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
+				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
-				1B0B34291DAB213C0053CAB5 /* FuturesModel.m in Sources */,
-				1B0B342D1DAB217A0053CAB5 /* LineView.m in Sources */,
-				1B0B342A1DAB213C0053CAB5 /* TodayModel.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
-				CF97EBD01DAA49D600E1EDD7 /* ViewController.m in Sources */,
-				1BD1761F1D9A73FA00C28051 /* ImageViewController.m in Sources */,
 				1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,

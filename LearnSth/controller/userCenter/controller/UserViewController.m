@@ -1,40 +1,29 @@
 //
-//  ViewController.m
+//  UserViewController.m
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 16/9/21.
+//  Created by 丁鹏飞 on 16/10/10.
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "UserViewController.h"
 
 #import "WiFiUploadManager.h"
-#import "HttpRequestManager.h"
 
-#import "FuturesModel.h"
-
-@interface ViewController ()
-
+@interface UserViewController ()
 
 @end
 
-@implementation ViewController
+@implementation UserViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(wifiUpload:)];
     
-//    [[HttpManager shareManager] getFutureDataWithParamer:nil success:^(id responseData) {
-//        NSArray *array = [FuturesModel futureWithArray:responseData];
-//        [FuturesModel saveFuturesWithFuturesModelArray:array];
-//        NSLog(@"%@",responseData[0]);
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
 }
 
-- (void) wifiUpload:(id)semder {
+- (void)wifiUpload:(id)semder {
     WiFiUploadManager *manager = [WiFiUploadManager shareManager];
     BOOL success = [manager startHTTPServerAtPort:10000];
     
@@ -48,7 +37,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

@@ -16,9 +16,6 @@ typedef void (^Failure)(NSError *error);
 
 + (instancetype)shareManager;
 
-///
-- (void)getList;
-
 - (void)getStockDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
 
 - (void)getFutureDataWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;

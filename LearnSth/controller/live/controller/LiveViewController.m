@@ -59,7 +59,6 @@ static NSString *identifier = @"cell";
     [[HttpRequestManager shareManager] getHotLiveListWithParamer:nil success:^(id responseData) {
         NSArray *array = [LiveModel liveWithArray:responseData];
         self.list = [NSArray arrayWithArray:array];
-//        NSLog(@"%@",array[0]);
         [self.collectionView reloadData];
         
     } failure:^(NSError *error) {

@@ -8,9 +8,9 @@
 
 #import "TabBarViewController.h"
 
-#import "ViewController.h"
+#import "HomeViewController.h"
 #import "LiveViewController.h"
-#import "ImageViewController.h"
+#import "UserViewController.h"
 
 @interface TabBarViewController ()
 
@@ -21,25 +21,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ViewController *controller = [[ViewController alloc] init];
-    UINavigationController *NVC = [[UINavigationController alloc] initWithRootViewController:controller];
+    HomeViewController *homeController = [[HomeViewController alloc] init];
+    UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
     
     LiveViewController *liveController = [[LiveViewController alloc] init];
     UINavigationController *liveNVC = [[UINavigationController alloc] initWithRootViewController:liveController];
     
-    ImageViewController *imageController = [[ImageViewController alloc] init];
-    UINavigationController *imageNVC = [[UINavigationController alloc] initWithRootViewController:imageController];
+    UserViewController *userController = [[UserViewController alloc] init];
+    UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
     
-    self.viewControllers = @[NVC,liveNVC,imageNVC];
+    self.viewControllers = @[homeNVC,liveNVC,userNVC];
     
     UITabBarItem *item1 = self.tabBar.items[0];
-    item1.title = @"1";
+    item1.title = @"home";
     
     UITabBarItem *item2 = self.tabBar.items[1];
-    item2.title = @"2";
+    item2.title = @"live";
     
     UITabBarItem *item3 = self.tabBar.items[2];
-    item3.title = @"3";
+    item3.title = @"user";
 }
 
 - (void)didReceiveMemoryWarning {
