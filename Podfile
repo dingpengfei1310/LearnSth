@@ -9,5 +9,6 @@ pod 'MGSwipeTableCell'
 pod 'SSZipArchive'
 pod 'GPUImage'
 pod 'FMDB'
+pod 'PLPlayerKit'
 
 end

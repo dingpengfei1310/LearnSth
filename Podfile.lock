@@ -32,8 +32,17 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - GPUImage (0.1.7)
+  - HappyDNS (0.3.10)
   - MBProgressHUD (1.0.0)
   - MGSwipeTableCell (1.5.5)
+  - pili-librtmp (1.0.4)
+  - PLPlayerKit (2.2.4):
+    - HappyDNS (~> 0.3.10)
+    - pili-librtmp (= 1.0.4)
+    - PLPlayerKit/precompiled (= 2.2.4)
+  - PLPlayerKit/precompiled (2.2.4):
+    - HappyDNS (~> 0.3.10)
+    - pili-librtmp (= 1.0.4)
   - SSZipArchive (1.5)
 
 DEPENDENCIES:
@@ -43,6 +52,7 @@ DEPENDENCIES:
   - GPUImage
   - MBProgressHUD
   - MGSwipeTableCell
+  - PLPlayerKit
   - SSZipArchive
 
 SPEC CHECKSUMS:
@@ -52,10 +62,13 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MGSwipeTableCell: bafeb5f351124544c9364ecbdf24c7b06a37d340
+  pili-librtmp: bc768bc3971edad732fd5e66f0ee991fa1a0a257
+  PLPlayerKit: 30e419fa90e84df34922e6dd5d5833d7e4348bf4
   SSZipArchive: 29daace2bccb90a47de2837744da397728ff9207
 
-PODFILE CHECKSUM: 95aac035bbbf51b83790dbd4407d95d246670a79
+PODFILE CHECKSUM: 5ef8f879dc6a1520dc4f5e1b2f947d9e81737683
 
 COCOAPODS: 1.0.1
