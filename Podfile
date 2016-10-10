@@ -9,6 +9,5 @@ pod 'MGSwipeTableCell'
 pod 'SSZipArchive'
 pod 'GPUImage'
 pod 'FMDB'
-pod 'PLCameraStreamingKit'
 
 end

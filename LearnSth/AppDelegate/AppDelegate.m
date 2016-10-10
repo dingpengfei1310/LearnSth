@@ -11,7 +11,6 @@
 
 #import "CocoaLumberjack.h"
 
-#import <PLCameraStreamingKit/PLCameraStreamingKit.h>
 
 @interface AppDelegate ()
 
@@ -39,9 +38,6 @@
     DDLogDebug(@"DDLogDebug");      // green
     DDLogInfo(@"DDLogInfo");        // pink
     DDLogVerbose(@"DDLogVerbose");  // gray
-    
-    
-    [PLStreamingEnv initEnv];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
