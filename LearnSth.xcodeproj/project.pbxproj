@@ -16,6 +16,7 @@
 		1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34361DAB2F840053CAB5 /* FuturesModel.m */; };
 		1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34391DAB30A20053CAB5 /* HomeViewController.m */; };
 		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
+		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
@@ -69,6 +70,8 @@
 		1B0B34391DAB30A20053CAB5 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		1B0B343C1DAB30B30053CAB5 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
 		1B0B343D1DAB30B30053CAB5 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
+		1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
+		1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 			children = (
 				CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */,
 				CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */,
+				1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */,
+				1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -544,6 +549,7 @@
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
+				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,

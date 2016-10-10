@@ -13,7 +13,7 @@
 
 #import "UIImageView+AFNetworking.h"
 
-//#import <PLCameraStreamingKit/PLCameraStreamingKit.h>
+#import "PLPlayerViewController.h"
 
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -85,10 +85,10 @@ static NSString *identifier = @"cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
-//    controller.live = self.list[indexPath.item];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
+    PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
+    controller.live = self.list[indexPath.item];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
