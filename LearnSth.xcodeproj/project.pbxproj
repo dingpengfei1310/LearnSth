@@ -304,11 +304,11 @@
 		CF97EBC61DAA49D600E1EDD7 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				1B0B343B1DAB30B30053CAB5 /* view */,
 				1B0B34331DAB2F5B0053CAB5 /* controller */,
 				1B0B34341DAB2F5B0053CAB5 /* model */,
 				CF97EBC71DAA49D600E1EDD7 /* TableViewController.h */,
 				CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */,
+				1B0B343B1DAB30B30053CAB5 /* view */,
 			);
 			path = home;
 			sourceTree = "<group>";
