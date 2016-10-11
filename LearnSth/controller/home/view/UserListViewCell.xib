@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,7 +25,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="Snt-cM-ESy"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -34,20 +33,18 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="PeA-qb-4kw"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="KJ4-Tr-SAr" firstAttribute="top" secondItem="Ta5-Me-xcG" secondAttribute="bottom" id="4QV-PG-2hl"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Ta5-Me-xcG" secondAttribute="trailing" constant="10" id="5GM-K4-3UZ"/>
                     <constraint firstItem="7X7-SS-Tjg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Mqc-E5-oRW"/>
                     <constraint firstItem="Ta5-Me-xcG" firstAttribute="leading" secondItem="7X7-SS-Tjg" secondAttribute="trailing" constant="10" id="O6X-Cu-pCw"/>
                     <constraint firstItem="KJ4-Tr-SAr" firstAttribute="leading" secondItem="7X7-SS-Tjg" secondAttribute="trailing" constant="10" id="Wm9-a6-0c2"/>
                     <constraint firstItem="Ta5-Me-xcG" firstAttribute="top" secondItem="7X7-SS-Tjg" secondAttribute="top" id="as6-Y6-Kgu"/>
                     <constraint firstItem="7X7-SS-Tjg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ozg-wX-B6m"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="KJ4-Tr-SAr" secondAttribute="trailing" constant="10" id="t7o-8a-fVF"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -55,7 +52,7 @@
                 <outlet property="subTitleLabel" destination="KJ4-Tr-SAr" id="l7T-jT-OQ3"/>
                 <outlet property="titleLabel" destination="Ta5-Me-xcG" id="k8A-nT-99x"/>
             </connections>
-            <point key="canvasLocation" x="-523" y="39"/>
+            <point key="canvasLocation" x="-1224" y="-20"/>
         </tableViewCell>
     </objects>
 </document>

@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface UserListViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subTitleLabel;
+
+
 
 @end

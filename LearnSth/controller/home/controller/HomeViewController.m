@@ -60,9 +60,25 @@ static NSString *identifier = @"cell";
     cell.subTitleLabel.text = user.groupName;
     
     [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:user.image] placeholderImage:[UIImage imageNamed:@"lookup"]];
-//    [cell.headerImageView setImageWithURL:[NSURL URLWithString:user.image] placeholderImage:nil];
     
     return cell;
+}
+
+- (UIImage *)cornerImage:(UIImage *)originalImage {
+    CGRect rect = CGRectMake(0, 0, originalImage.size.width, originalImage.size.height);
+    
+    UIGraphicsBeginImageContextWithOptions(originalImage.size, NO, [UIScreen mainScreen].scale);
+    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:originalImage.size.width / 2.0];
+//    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft cornerRadii:originalImage.size];
+    CGContextAddPath(UIGraphicsGetCurrentContext(), bezierPath.CGPath);
+    CGContextClip(UIGraphicsGetCurrentContext());
+//    [originalImage drawInRect:rect];
+    
+    CGContextDrawPath(UIGraphicsGetCurrentContext(), kCGPathFill);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -10,7 +10,7 @@
 
 #import "WiFiUploadManager.h"
 
-@interface UserViewController ()<UITableViewDataSource>
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -27,8 +27,11 @@ static NSString *identifier = @"cell";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
+    _tableView.delegate = self;
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
+    
+    
 }
 
 #pragma mark
@@ -41,7 +44,6 @@ static NSString *identifier = @"cell";
         NSLog(@"PATH = %@",manager.savePath);
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
-    
 }
 
 #pragma mark
@@ -53,6 +55,9 @@ static NSString *identifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)didReceiveMemoryWarning {

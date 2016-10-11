@@ -20,6 +20,10 @@
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
+		1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */; };
+		1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9D1DAC8E8800DA2661 /* BHBMyDrawer.m */; };
+		1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9F1DAC8E8800DA2661 /* BHBPaintPath.m */; };
+		1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
 		1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */; };
@@ -79,6 +83,14 @@
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
+		1B3CFA9A1DAC8E8800DA2661 /* BHBDrawBoarderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBDrawBoarderView.h; sourceTree = "<group>"; };
+		1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBDrawBoarderView.m; sourceTree = "<group>"; };
+		1B3CFA9C1DAC8E8800DA2661 /* BHBMyDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBMyDrawer.h; sourceTree = "<group>"; };
+		1B3CFA9D1DAC8E8800DA2661 /* BHBMyDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBMyDrawer.m; sourceTree = "<group>"; };
+		1B3CFA9E1DAC8E8800DA2661 /* BHBPaintPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBPaintPath.h; sourceTree = "<group>"; };
+		1B3CFA9F1DAC8E8800DA2661 /* BHBPaintPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBPaintPath.m; sourceTree = "<group>"; };
+		1B3CFAA01DAC8E8800DA2661 /* BHBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBScrollView.h; sourceTree = "<group>"; };
+		1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBScrollView.m; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -224,6 +236,29 @@
 			path = Web;
 			sourceTree = "<group>";
 		};
+		1B3CFA981DAC8E8800DA2661 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */ = {
+			isa = PBXGroup;
+			children = (
+				1B3CFA9A1DAC8E8800DA2661 /* BHBDrawBoarderView.h */,
+				1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */,
+				1B3CFA9C1DAC8E8800DA2661 /* BHBMyDrawer.h */,
+				1B3CFA9D1DAC8E8800DA2661 /* BHBMyDrawer.m */,
+				1B3CFA9E1DAC8E8800DA2661 /* BHBPaintPath.h */,
+				1B3CFA9F1DAC8E8800DA2661 /* BHBPaintPath.m */,
+				1B3CFAA01DAC8E8800DA2661 /* BHBScrollView.h */,
+				1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */,
+			);
+			path = BHBDrawBoarder;
+			sourceTree = "<group>";
+		};
 		1BF7F6BA1D92492200F8E5B1 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +288,7 @@
 				1BF7F7011D924C5100F8E5B1 /* controller */,
 				1B0B34141DAB207E0053CAB5 /* manager */,
 				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
+				1B3CFA981DAC8E8800DA2661 /* utils */,
 				1B3492421D93A804005C4800 /* Web */,
 			);
 			path = LearnSth;
@@ -562,22 +598,26 @@
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
+				1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */,
 				1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */,
 				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */,
+				1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */,
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
+				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
+				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
