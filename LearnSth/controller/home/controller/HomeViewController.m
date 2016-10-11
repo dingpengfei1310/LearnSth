@@ -14,7 +14,7 @@
 
 #import "UserListViewCell.h"
 
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *userList;
@@ -37,13 +37,13 @@ static NSString *identifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
-    
     [[HttpRequestManager shareManager] getUserListWithParamer:nil success:^(id responseData) {
         self.userList = [UserModel userWithArray:responseData];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];
+    
 }
 
 #pragma mark
@@ -93,7 +93,7 @@ static NSString *identifier = @"cell";
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"%@",string);
+    NSLog(@"%@ - %@",string,textField.textInputMode.primaryLanguage);
     
     if (!textField.textInputMode.primaryLanguage) {
         return NO;

@@ -11,7 +11,7 @@
 
 #import <Photos/Photos.h>
 
-@interface PhotoLiarbraryViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface PhotoLiarbraryViewController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) PHFetchResult *fetchResult;
@@ -38,6 +38,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     
     PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
     
@@ -76,6 +78,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    
+}
+
 #pragma mark
 - (void)getAllAlbum {
     // 列出所有相册智能相册
@@ -102,6 +108,24 @@ static NSString * const reuseIdentifier = @"Cell";
     controller.fetchResult = assetsFetchResults;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+//    [self createAlbum];
+}
+
+- (void)createAlbum {
+//    let fetchResult = PHCollection.fetchCollectionsInCollectionList(collectionList, options: nil)
+//    let createSubAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(title!)
+//    let albumPlaceholder = createSubAlbumRequest.placeholderForCreatedAssetCollection
+//    let folderChangeRequest = PHCollectionListChangeRequest.init(forCollectionList: collectionList, childCollections: fetchResult)
+//    folderChangeRequest?.addChildCollections([albumPlaceholder])
+    
+    
+//    [PHCollection fetchCollectionsInCollectionList:<#(nonnull PHCollectionList *)#> options:<#(nullable PHFetchOptions *)#>];
+    
+//    [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"新相册"];
+    
+    UIImage *image = [UIImage imageNamed:@"lookup"];
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
 - (void)didReceiveMemoryWarning {
