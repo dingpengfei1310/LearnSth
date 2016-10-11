@@ -7,7 +7,6 @@
 //
 
 #import "FuturesModel.h"
-
 #import "SQLManager.h"
 
 #import <objc/runtime.h>

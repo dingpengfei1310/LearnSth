@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34161DAB20C60053CAB5 /* HttpRequestManager.m */; };
 		1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34181DAB20C60053CAB5 /* SQLManager.m */; };
-		1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341B1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m */; };
-		1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341D1DAB20C60053CAB5 /* WiFiUploadManager.m */; };
-		1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B341F1DAB20C60053CAB5 /* WiFiUploadViewController.m */; };
 		1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */; };
 		1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34361DAB2F840053CAB5 /* FuturesModel.m */; };
 		1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34391DAB30A20053CAB5 /* HomeViewController.m */; };
@@ -26,6 +23,9 @@
 		1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */; };
 		1B3CFAA81DACBE2800DA2661 /* PhotoLiarbraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */; };
 		1B3CFAAB1DACBE4800DA2661 /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */; };
+		1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAAE1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m */; };
+		1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */; };
+		1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
 		1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */; };
@@ -66,12 +66,6 @@
 		1B0B34161DAB20C60053CAB5 /* HttpRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequestManager.m; sourceTree = "<group>"; };
 		1B0B34171DAB20C60053CAB5 /* SQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLManager.h; sourceTree = "<group>"; };
 		1B0B34181DAB20C60053CAB5 /* SQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLManager.m; sourceTree = "<group>"; };
-		1B0B341A1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadHTTPConnection.h; sourceTree = "<group>"; };
-		1B0B341B1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadHTTPConnection.m; sourceTree = "<group>"; };
-		1B0B341C1DAB20C60053CAB5 /* WiFiUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadManager.h; sourceTree = "<group>"; };
-		1B0B341D1DAB20C60053CAB5 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
-		1B0B341E1DAB20C60053CAB5 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
-		1B0B341F1DAB20C60053CAB5 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
 		1B0B34301DAB2F0F0053CAB5 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		1B0B34351DAB2F840053CAB5 /* FuturesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuturesModel.h; sourceTree = "<group>"; };
@@ -97,6 +91,12 @@
 		1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLiarbraryViewController.m; sourceTree = "<group>"; };
 		1B3CFAA91DACBE4800DA2661 /* PhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosViewController.h; sourceTree = "<group>"; };
 		1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosViewController.m; sourceTree = "<group>"; };
+		1B3CFAAD1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadHTTPConnection.h; sourceTree = "<group>"; };
+		1B3CFAAE1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadHTTPConnection.m; sourceTree = "<group>"; };
+		1B3CFAAF1DACDF8B00DA2661 /* WiFiUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadManager.h; sourceTree = "<group>"; };
+		1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
+		1B3CFAB11DACDF8B00DA2661 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
+		1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -166,22 +166,8 @@
 				1B0B34161DAB20C60053CAB5 /* HttpRequestManager.m */,
 				1B0B34171DAB20C60053CAB5 /* SQLManager.h */,
 				1B0B34181DAB20C60053CAB5 /* SQLManager.m */,
-				1B0B34191DAB20C60053CAB5 /* WiFiUpload */,
 			);
 			path = manager;
-			sourceTree = "<group>";
-		};
-		1B0B34191DAB20C60053CAB5 /* WiFiUpload */ = {
-			isa = PBXGroup;
-			children = (
-				1B0B341A1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.h */,
-				1B0B341B1DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m */,
-				1B0B341C1DAB20C60053CAB5 /* WiFiUploadManager.h */,
-				1B0B341D1DAB20C60053CAB5 /* WiFiUploadManager.m */,
-				1B0B341E1DAB20C60053CAB5 /* WiFiUploadViewController.h */,
-				1B0B341F1DAB20C60053CAB5 /* WiFiUploadViewController.m */,
-			);
-			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
 		1B0B342E1DAB2ED60053CAB5 /* userCenter */ = {
@@ -249,6 +235,7 @@
 		1B3CFA981DAC8E8800DA2661 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */,
 				1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */,
 			);
 			path = utils;
@@ -267,6 +254,19 @@
 				1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */,
 			);
 			path = BHBDrawBoarder;
+			sourceTree = "<group>";
+		};
+		1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */ = {
+			isa = PBXGroup;
+			children = (
+				1B3CFAAD1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.h */,
+				1B3CFAAE1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m */,
+				1B3CFAAF1DACDF8B00DA2661 /* WiFiUploadManager.h */,
+				1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */,
+				1B3CFAB11DACDF8B00DA2661 /* WiFiUploadViewController.h */,
+				1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */,
+			);
+			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
 		1BF7F6BA1D92492200F8E5B1 = {
@@ -610,26 +610,26 @@
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
 				1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */,
-				1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */,
+				1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */,
 				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				1B3CFAA81DACBE2800DA2661 /* PhotoLiarbraryViewController.m in Sources */,
-				1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */,
 				1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */,
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
+				1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
-				1B0B34231DAB20C60053CAB5 /* WiFiUploadManager.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,
+				1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

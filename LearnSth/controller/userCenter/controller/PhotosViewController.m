@@ -66,9 +66,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)];
     [cell.contentView addSubview:imageView];
-    
+//    CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)
+//    PHImageManagerMaximumSize
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)
+                                               targetSize:PHImageManagerMaximumSize
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {

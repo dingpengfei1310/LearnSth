@@ -10,15 +10,12 @@
 
 #import "PhotoLiarbraryViewController.h"
 
-
 #import "WiFiUploadManager.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-
 @property (nonatomic, strong) NSArray *dataArray;;
-
 
 @end
 
