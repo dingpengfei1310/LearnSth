@@ -9,9 +9,6 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
-#import "CocoaLumberjack.h"
-
-
 @interface AppDelegate ()
 
 @end
@@ -20,20 +17,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-//    setenv("XcodeColors", "YES", 0);
-//    static const int ddLogLevel = DDLogLevelVerbose;//定义日志级别
-//    
-//    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelDebug];// 初始化DDLog日志输出
-//    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];// 启用颜色区分
-////    [DDTTYLogger sharedInstance].logFormatter = [MyCustomFormatter sharedInstance];
-//    [[DDTTYLogger sharedInstance] setForegroundColor:[UIColor grayColor] backgroundColor:nil forFlag:DDLogFlagVerbose];
-//    
-//    DDLogError(@"DDLogError");      // red
-//    DDLogWarn(@"DDLogWarn");        // orange
-//    DDLogDebug(@"DDLogDebug");      // green
-//    DDLogInfo(@"DDLogInfo");        // pink
-//    DDLogVerbose(@"DDLogVerbose");  // gray
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

@@ -3,6 +3,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,34 +20,31 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-SS-Tjg">
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="Fkw-jo-gSH"/>
-                            <constraint firstAttribute="height" constant="50" id="Xi2-Wt-vNT"/>
+                            <constraint firstAttribute="width" secondItem="7X7-SS-Tjg" secondAttribute="height" multiplier="1:1" id="Ccz-tf-QzF"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ta5-Me-xcG">
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="Snt-cM-ESy"/>
-                        </constraints>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ4-Tr-SAr">
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="PeA-qb-4kw"/>
-                        </constraints>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="KJ4-Tr-SAr" firstAttribute="height" secondItem="Ta5-Me-xcG" secondAttribute="height" id="0Mg-co-Q27"/>
                     <constraint firstItem="KJ4-Tr-SAr" firstAttribute="top" secondItem="Ta5-Me-xcG" secondAttribute="bottom" id="4QV-PG-2hl"/>
+                    <constraint firstItem="Ta5-Me-xcG" firstAttribute="height" secondItem="7X7-SS-Tjg" secondAttribute="height" multiplier="0.5" id="K7p-Ij-LIL"/>
                     <constraint firstItem="7X7-SS-Tjg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Mqc-E5-oRW"/>
                     <constraint firstItem="Ta5-Me-xcG" firstAttribute="leading" secondItem="7X7-SS-Tjg" secondAttribute="trailing" constant="10" id="O6X-Cu-pCw"/>
                     <constraint firstItem="KJ4-Tr-SAr" firstAttribute="leading" secondItem="7X7-SS-Tjg" secondAttribute="trailing" constant="10" id="Wm9-a6-0c2"/>
                     <constraint firstItem="Ta5-Me-xcG" firstAttribute="top" secondItem="7X7-SS-Tjg" secondAttribute="top" id="as6-Y6-Kgu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ta5-Me-xcG" secondAttribute="trailing" constant="10" id="gfY-Ur-ftX"/>
                     <constraint firstItem="7X7-SS-Tjg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ozg-wX-B6m"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="7X7-SS-Tjg" secondAttribute="bottom" constant="1" id="sJn-ld-gLb"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -52,7 +52,7 @@
                 <outlet property="subTitleLabel" destination="KJ4-Tr-SAr" id="l7T-jT-OQ3"/>
                 <outlet property="titleLabel" destination="Ta5-Me-xcG" id="k8A-nT-99x"/>
             </connections>
-            <point key="canvasLocation" x="-1224" y="-20"/>
+            <point key="canvasLocation" x="-1996" y="-102"/>
         </tableViewCell>
     </objects>
 </document>

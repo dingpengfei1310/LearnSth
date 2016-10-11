@@ -10,21 +10,22 @@
 
 @implementation UserListViewCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"UserListViewCell" owner:nil options:nil] firstObject];
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-//    NSLog(@"awakeFromNib");
-    
-    self.headerImageView.layer.masksToBounds = YES;
-    self.headerImageView.layer.cornerRadius = 25;
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
 }
-
-
 
 
 @end

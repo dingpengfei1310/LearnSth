@@ -8,11 +8,17 @@
 
 #import "UserViewController.h"
 
+#import "PhotoLiarbraryViewController.h"
+
+
 #import "WiFiUploadManager.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) NSArray *dataArray;;
+
 
 @end
 
@@ -23,6 +29,8 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.dataArray = @[@"上传文件",@"查看相册"];
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
@@ -31,11 +39,33 @@ static NSString *identifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
-    
 }
 
 #pragma mark
-- (void)wifiUpload:(id)semder {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    cell.textLabel.text = self.dataArray[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row == 0) {
+        [self wifiUpload];
+    } else {
+        [self photoLiarbraryBrowers];
+    }
+}
+
+#pragma mark
+- (void)wifiUpload {
     WiFiUploadManager *manager = [WiFiUploadManager shareManager];
     BOOL success = [manager startHTTPServerAtPort:10000];
     
@@ -46,18 +76,10 @@ static NSString *identifier = @"cell";
     }
 }
 
-#pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)photoLiarbraryBrowers {
+    PhotoLiarbraryViewController *controller = [[PhotoLiarbraryViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -30,12 +30,11 @@ static NSString *identifier = @"cell";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)
                                               style:UITableViewStylePlain];
-//    [_tableView registerClass:[UserListViewCell class] forCellReuseIdentifier:identifier];
-    [_tableView registerNib:[UINib nibWithNibName:@"UserListViewCell" bundle:nil] forCellReuseIdentifier:identifier];
+    [_tableView registerClass:[UserListViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.rowHeight = 70;
+    _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
     
@@ -59,7 +58,11 @@ static NSString *identifier = @"cell";
     cell.titleLabel.text = user.userName;
     cell.subTitleLabel.text = user.groupName;
     
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:user.image] placeholderImage:[UIImage imageNamed:@"lookup"]];
+    cell.headerImageView.layer.masksToBounds = YES;
+    cell.headerImageView.layer.cornerRadius = 15;
+    
+    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:user.image]
+                            placeholderImage:[UIImage imageNamed:@"lookup"]];
     
     return cell;
 }
@@ -68,11 +71,14 @@ static NSString *identifier = @"cell";
     CGRect rect = CGRectMake(0, 0, originalImage.size.width, originalImage.size.height);
     
     UIGraphicsBeginImageContextWithOptions(originalImage.size, NO, [UIScreen mainScreen].scale);
-    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:originalImage.size.width / 2.0];
-//    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft cornerRadii:originalImage.size];
+    
+    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect
+                                                      byRoundingCorners:UIRectCornerAllCorners
+                                                            cornerRadii:originalImage.size];
+    
     CGContextAddPath(UIGraphicsGetCurrentContext(), bezierPath.CGPath);
     CGContextClip(UIGraphicsGetCurrentContext());
-//    [originalImage drawInRect:rect];
+    [originalImage drawInRect:rect];
     
     CGContextDrawPath(UIGraphicsGetCurrentContext(), kCGPathFill);
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -82,6 +88,7 @@ static NSString *identifier = @"cell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

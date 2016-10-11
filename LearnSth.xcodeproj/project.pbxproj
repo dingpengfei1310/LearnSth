@@ -24,6 +24,8 @@
 		1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9D1DAC8E8800DA2661 /* BHBMyDrawer.m */; };
 		1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9F1DAC8E8800DA2661 /* BHBPaintPath.m */; };
 		1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */; };
+		1B3CFAA81DACBE2800DA2661 /* PhotoLiarbraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */; };
+		1B3CFAAB1DACBE4800DA2661 /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
 		1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */; };
@@ -91,6 +93,10 @@
 		1B3CFA9F1DAC8E8800DA2661 /* BHBPaintPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBPaintPath.m; sourceTree = "<group>"; };
 		1B3CFAA01DAC8E8800DA2661 /* BHBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBScrollView.h; sourceTree = "<group>"; };
 		1B3CFAA11DAC8E8800DA2661 /* BHBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBScrollView.m; sourceTree = "<group>"; };
+		1B3CFAA61DACBE2800DA2661 /* PhotoLiarbraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLiarbraryViewController.h; sourceTree = "<group>"; };
+		1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLiarbraryViewController.m; sourceTree = "<group>"; };
+		1B3CFAA91DACBE4800DA2661 /* PhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosViewController.h; sourceTree = "<group>"; };
+		1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosViewController.m; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -191,6 +197,10 @@
 			children = (
 				1B0B34301DAB2F0F0053CAB5 /* UserViewController.h */,
 				1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */,
+				1B3CFAA61DACBE2800DA2661 /* PhotoLiarbraryViewController.h */,
+				1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */,
+				1B3CFAA91DACBE4800DA2661 /* PhotosViewController.h */,
+				1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -595,6 +605,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B3CFAAB1DACBE4800DA2661 /* PhotosViewController.m in Sources */,
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
@@ -602,6 +613,7 @@
 				1B0B34241DAB20C60053CAB5 /* WiFiUploadViewController.m in Sources */,
 				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
+				1B3CFAA81DACBE2800DA2661 /* PhotoLiarbraryViewController.m in Sources */,
 				1B0B34221DAB20C60053CAB5 /* WiFiUploadHTTPConnection.m in Sources */,
 				1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */,
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
