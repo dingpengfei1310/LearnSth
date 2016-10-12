@@ -71,6 +71,26 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
     }];
 }
 
+- (void)getADListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
+    NSString * urlString = @"http://live.9158.com/Living/GetAD";
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [multSet addObject:@"text/html"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
+    
+    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *array = [responseObject objectForKey:@"data"];
+        success(array);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
+
 - (void)getHotLiveListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure {
     NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     

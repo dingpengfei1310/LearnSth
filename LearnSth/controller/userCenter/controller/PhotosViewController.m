@@ -7,16 +7,26 @@
 //
 
 #import "PhotosViewController.h"
+#import "DDImageBrowserView.h"
 
-@interface PhotosViewController ()<UICollectionViewDataSource>
+@interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSMutableArray *thumbImages;
 
 @end
 
 @implementation PhotosViewController
 
 static NSString * const reuseIdentifier = @"Cell";
+
+- (NSArray *)thumbImages {
+    if (!_thumbImages) {
+        _thumbImages = [NSMutableArray array];
+    }
+    
+    return _thumbImages;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +53,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
     
     [self.view addSubview:_collectionView];
@@ -66,20 +77,31 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)];
     [cell.contentView addSubview:imageView];
-//    CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)
-//    PHImageManagerMaximumSize
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:PHImageManagerMaximumSize
+                                               targetSize:CGSizeMake(ScreenWidth / 2, ScreenWidth / 2)
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                                                 imageView.image = result;
+                                                [self.thumbImages addObject:result];
                                             }];
     
     
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DDImageBrowserView *imageBrowserView = [[DDImageBrowserView alloc] initWithFrame:self.view.window.bounds];
+    imageBrowserView.imageBrowserDelegate = self;
+    imageBrowserView.imageCount = self.fetchResult.count;
+    [imageBrowserView selectImageOfIndex:indexPath.item];
+    [imageBrowserView show];
+}
+
+#pragma mark - DDImageBrowserDelegate
+- (UIImage *)imageBrowser:(DDImageBrowserView *)imageBrowser placeholderImageOfIndex:(NSInteger)index {
+    return self.thumbImages[index];
+}
 
 
 @end

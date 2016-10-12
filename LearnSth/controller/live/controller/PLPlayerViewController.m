@@ -31,11 +31,31 @@
     
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.hidesBarsOnTap = YES;
+    
+    [self navigationBarColorClear];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self.player play];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.hidesBarsOnTap = NO;
+    
+    [self navigationBarColorRestore];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

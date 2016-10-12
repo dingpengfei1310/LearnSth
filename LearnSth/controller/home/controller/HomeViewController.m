@@ -10,14 +10,20 @@
 
 #import "UIImageView+WebCache.h"
 #import "HttpRequestManager.h"
+
 #import "UserModel.h"
+#import "ADModel.h"
 
 #import "UserListViewCell.h"
 
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "XRCarouselView.h"
+
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *userList;
+
+@property (nonatomic, strong) NSArray *adList;
 
 @end
 
@@ -28,14 +34,24 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 49)
                                               style:UITableViewStylePlain];
     [_tableView registerClass:[UserListViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = 50;
+    _tableView.sectionHeaderHeight = ScreenWidth * 0.24;
     [self.view addSubview:_tableView];
+    
+    [[HttpRequestManager shareManager] getADListWithParamer:nil success:^(id responseData) {
+        NSLog(@"%@",responseData);
+        self.adList = [ADModel adWithArray:responseData];
+        
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
     
     [[HttpRequestManager shareManager] getUserListWithParamer:nil success:^(id responseData) {
         self.userList = [UserModel userWithArray:responseData];
@@ -65,6 +81,19 @@ static NSString *identifier = @"cell";
                             placeholderImage:[UIImage imageNamed:@"lookup"]];
     
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSMutableArray *imageUrls = [NSMutableArray arrayWithCapacity:self.adList.count];
+    for (ADModel *topAD in self.adList) {
+        [imageUrls addObject:topAD.imageUrl];
+    }
+    
+    XRCarouselView *headerView = [XRCarouselView carouselViewWithImageArray:imageUrls describeArray:nil];
+    headerView.time = 2.0;
+    headerView.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth * 0.24);
+    
+    return headerView;
 }
 
 - (UIImage *)cornerImage:(UIImage *)originalImage {

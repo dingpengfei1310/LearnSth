@@ -11,4 +11,14 @@
 
 @interface BaseViewController : UIViewController
 
+/**
+ *  导航栏设为透明
+ */
+- (void)navigationBarColorClear;
+
+/**
+ *  导航栏恢复
+ */
+- (void)navigationBarColorRestore;
+
 @end
