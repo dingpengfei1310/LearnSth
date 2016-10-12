@@ -38,7 +38,7 @@
 		1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */; };
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
-		CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */; };
+		CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */; };
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
 		CFED1D1F1DAD2322006A3721 /* DDImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */; };
@@ -133,8 +133,8 @@
 		1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
-		CF97EBC71DAA49D600E1EDD7 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		CF2FEC7C1DAE6F1200933DE6 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		CF97EBD51DAA4A2600E1EDD7 /* LiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveModel.h; sourceTree = "<group>"; };
 		CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveModel.m; sourceTree = "<group>"; };
 		CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
@@ -390,6 +390,7 @@
 		1BF7F7011D924C5100F8E5B1 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				CF2FEC7B1DAE6EFB00933DE6 /* common */,
 				CF97EBC61DAA49D600E1EDD7 /* home */,
 				CF97EBCB1DAA49D600E1EDD7 /* live */,
 				1B0B342E1DAB2ED60053CAB5 /* userCenter */,
@@ -406,13 +407,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CF2FEC7B1DAE6EFB00933DE6 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				CF2FEC7C1DAE6F1200933DE6 /* WebViewController.h */,
+				CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		CF97EBC61DAA49D600E1EDD7 /* home */ = {
 			isa = PBXGroup;
 			children = (
 				1B0B34331DAB2F5B0053CAB5 /* controller */,
 				1B0B34341DAB2F5B0053CAB5 /* model */,
-				CF97EBC71DAA49D600E1EDD7 /* TableViewController.h */,
-				CF97EBC81DAA49D600E1EDD7 /* TableViewController.m */,
 				1B0B343B1DAB30B30053CAB5 /* view */,
 			);
 			path = home;
@@ -695,6 +703,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B3CFAAB1DACBE4800DA2661 /* PhotosViewController.m in Sources */,
+				CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */,
 				CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */,
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
@@ -702,7 +711,6 @@
 				1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */,
 				CFED1D201DAD2322006A3721 /* DDImageZoomView.m in Sources */,
 				1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */,
-				CF97EBCF1DAA49D600E1EDD7 /* TableViewController.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */,
 				1B3CFAA81DACBE2800DA2661 /* PhotoLiarbraryViewController.m in Sources */,

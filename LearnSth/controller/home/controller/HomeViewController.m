@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "WebViewController.h"
 
 #import "UIImageView+WebCache.h"
 #import "HttpRequestManager.h"
@@ -16,9 +17,9 @@
 
 #import "UserListViewCell.h"
 
-#import "XRCarouselView.h"
+#import "SDCycleScrollView.h"
 
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *userList;
@@ -45,7 +46,7 @@ static NSString *identifier = @"cell";
     [self.view addSubview:_tableView];
     
     [[HttpRequestManager shareManager] getADListWithParamer:nil success:^(id responseData) {
-        NSLog(@"%@",responseData);
+        
         self.adList = [ADModel adWithArray:responseData];
         
         [self.tableView reloadData];
@@ -89,11 +90,18 @@ static NSString *identifier = @"cell";
         [imageUrls addObject:topAD.imageUrl];
     }
     
-    XRCarouselView *headerView = [XRCarouselView carouselViewWithImageArray:imageUrls describeArray:nil];
-    headerView.time = 2.0;
-    headerView.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth * 0.24);
+    if (imageUrls.count == 0) {
+        return nil;
+    }
     
-    return headerView;
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth,ScreenWidth * 0.24)delegate:self placeholderImage:[UIImage imageNamed:@"lookup"]];
+    
+    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    
+    cycleScrollView.imageURLStringsGroup = imageUrls;
+    
+    return cycleScrollView;
 }
 
 - (UIImage *)cornerImage:(UIImage *)originalImage {
@@ -118,19 +126,18 @@ static NSString *identifier = @"cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
 }
 
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"%@ - %@",string,textField.textInputMode.primaryLanguage);
+#pragma mark
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    ADModel *model = self.adList[index];
     
-    if (!textField.textInputMode.primaryLanguage) {
-        return NO;
-    } else if (string.length > 1) {
-        return ![self stringContainsEmoji:string];
-    }
-    
-    return YES;
+    WebViewController *controller = [[WebViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    controller.urlString = model.link;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (BOOL)stringContainsEmoji:(NSString *)string {

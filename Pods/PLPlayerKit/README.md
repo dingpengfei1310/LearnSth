@@ -1,14 +1,13 @@
 # PLPlayerKit
 
-PLPlayerKit 是一个适用于 iOS 的音视频播放器 SDK，可高度定制化和二次开发，特色是支持 RTMP, HTTP-FLV 和 HLS 直播流媒体播放。
+PLPlayerKit 是一个适用于 iOS 的音视频播放器 SDK，可高度定制化和二次开发，特色是支持 RTMP 和 HLS 直播流媒体播放。
 
 功能特性
 
 - [x] RTMP 直播流播放
-- [x] HTTP-FLV 直播流播放
 - [x] HLS 播放
 - [x] 高可定制
-- [x] 音频播放
+- [x] 音频后台播放
 - [x] RTMP 直播首屏秒开支持
 - [x] RTMP 直播累积延迟消除技术
 
@@ -45,23 +44,10 @@ pod install
 
 ### 示例代码
 
-在 `AppDelegate.m` 中进行 SDK 初始化
-
-```Objective-C
-#import <PLPlayerKit/PLPlayerEnv.h>
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [PLPlayerEnv initEnv];
-    // Override point for customization after application launch.
-    return YES;
-}
-```
-
 在需要的地方添加
 
 ```Objective-C
-#import <PLPlayerKit/PLPlayerKit.h>
+#import <PLPlayerKit/PLPlayer.h>
 ```
 
 初始化 PLPlayerOption
@@ -72,11 +58,6 @@ PLPlayerOption *option = [PLPlayerOption defaultOption];
 
 // 更改需要修改的 option 属性键所对应的值
 [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
-[option setOptionValue:@1000 forKey:PLPlayerOptionKeyMaxL1BufferDuration];
-[option setOptionValue:@1000 forKey:PLPlayerOptionKeyMaxL2BufferDuration];
-[option setOptionValue:@(YES) forKey:PLPlayerOptionKeyVideoToolbox];
-[option setOptionValue:@(kPLLogInfo) forKey:PLPlayerOptionKeyLogLevel];
-[option setOptionValue:[QNDnsManager new] forKey:PLPlayerOptionKeyDNSManager];
 
 ```
 
@@ -151,47 +132,15 @@ self.player.delegate = self;
 分辨可以检查是否可以播放以及当前 category 的设置是否可以后台播放。
 
 ## 版本历史
-- 2.2.4 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.2.4.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.2.4.md))
-- 缺陷
-  - 修复与 CocoaLumberjack 符号冲突的问题
-- 2.2.3 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.2.3.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.2.3.md))
-- 功能
-  - 新增 QoS 功能
-  - 新增渲染数据回调
-  - 新增截图功能
-  - 新增 MP3 后台播放
-- 缺陷
-  - 修复后台播放时，触发超时重连，丢失 sps/pps，回到前台画面停住，声音正常的问题
-  - 修复 RTMP 扩展时间戳的问题
-  - 修复播放器释放阻塞主线程的问题
-  - 优化音视频同步机制
-  - 优化 caching 状态检查
-- 2.2.2 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.2.2.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.2.2.md))
-- 功能
-  - 新增 AAC HEV2 音频支持
-  - 新增 SDK 自动重连功能，默认不开启
-- 缺陷
-  - 修复长时间播放偶发解码 crash
-  - 修复 pause/resmue 快速调用导致 crash
-  - 修复重连未更换服务器 IP
-  - 修复 rtmp 硬解播放视频抖动
-  - 修复 flv 开始播放偶发黑屏
-  - 修复 flv 超时机制失效
-- 2.2.1 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.2.1.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.2.1.md))
-- 功能
-  - 支持 SDK 日志级别设置
-  - 新增 HappyDNS 支持
-- 缺陷
-  - 修复回看状态不准确问题
-  - 修复跳转第三方应用，出现内存增加
-  - 修复播放卡住 caching 状态
 - 2.2.0 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.2.0.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.2.0.md))
 - 功能
 	- 新增硬解功能
 	- 新增 http-flv 支持
 	- 新增 iOS9 下的纯 IPV6 环境支持
+
 - 缺陷
 	- 修复快速进入退出黑屏
+
 - 优化
 	- 追帧策略优化
 	- 退出后台停止视频解码

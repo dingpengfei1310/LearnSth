@@ -14,9 +14,13 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - CocoaAsyncSocket (7.5.0):
-    - CocoaAsyncSocket/GCD (= 7.5.0)
-  - CocoaAsyncSocket/GCD (7.5.0)
+  - CocoaAsyncSocket (7.4.3):
+    - CocoaAsyncSocket/All (= 7.4.3)
+  - CocoaAsyncSocket/All (7.4.3):
+    - CocoaAsyncSocket/GCD
+    - CocoaAsyncSocket/RunLoop
+  - CocoaAsyncSocket/GCD (7.4.3)
+  - CocoaAsyncSocket/RunLoop (7.4.3)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
@@ -32,21 +36,18 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - GPUImage (0.1.7)
-  - HappyDNS (0.3.10)
-  - MBProgressHUD (1.0.0)
-  - MGSwipeTableCell (1.5.5)
-  - pili-librtmp (1.0.4)
-  - PLPlayerKit (2.2.4):
-    - HappyDNS (~> 0.3.10)
-    - pili-librtmp (= 1.0.4)
-    - PLPlayerKit/precompiled (= 2.2.4)
-  - PLPlayerKit/precompiled (2.2.4):
-    - HappyDNS (~> 0.3.10)
-    - pili-librtmp (= 1.0.4)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
-  - SSZipArchive (1.5)
+  - MBProgressHUD (0.9.2)
+  - MJRefresh (3.1.3)
+  - pili-librtmp (1.0.2)
+  - PLPlayerKit (2.2.0):
+    - pili-librtmp
+    - PLPlayerKit/precompiled (= 2.2.0)
+  - PLPlayerKit/precompiled (2.2.0):
+    - pili-librtmp
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - SSZipArchive (1.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -54,26 +55,25 @@ DEPENDENCIES:
   - FMDB
   - GPUImage
   - MBProgressHUD
-  - MGSwipeTableCell
+  - MJRefresh
   - PLPlayerKit
   - SDWebImage
   - SSZipArchive
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
+  CocoaAsyncSocket: a18c75dca4b08723628a0bacca6e94803d90be91
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MGSwipeTableCell: bafeb5f351124544c9364ecbdf24c7b06a37d340
-  pili-librtmp: bc768bc3971edad732fd5e66f0ee991fa1a0a257
-  PLPlayerKit: 30e419fa90e84df34922e6dd5d5833d7e4348bf4
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SSZipArchive: 29daace2bccb90a47de2837744da397728ff9207
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJRefresh: e9005c294dd8a3d08cc7c50eea2b5016673f29c4
+  pili-librtmp: 97dc6774ac4ebb9935f04d5f35f3f6d8c4a4f37c
+  PLPlayerKit: 1cef24f72d517519c74e797581fccc2db8db1a2e
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SSZipArchive: 251093c65f98d6ea282c50bc404bfa631d9fd721
 
-PODFILE CHECKSUM: 09e890aa82e48031338bb96d4cfac12f56146e98
+PODFILE CHECKSUM: 675e740daca661811277c50d7b7d5d35d2202915
 
 COCOAPODS: 1.0.1
