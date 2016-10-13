@@ -16,6 +16,7 @@
 #import "ADModel.h"
 
 #import "SDCycleScrollView.h"
+#import "DDImageCycleView.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
@@ -30,10 +31,13 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24)delegate:self placeholderImage:nil];
+//    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24) delegate:self placeholderImage:nil];
+//
+//    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+//    cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+//    [self.view addSubview:cycleScrollView];
     
-    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    DDImageCycleView *cycleScrollView = [[DDImageCycleView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24)];
     [self.view addSubview:cycleScrollView];
     
     [[HttpRequestManager shareManager] getADListWithParamer:nil success:^(id responseData) {
@@ -45,7 +49,8 @@ static NSString *identifier = @"cell";
             [imageUrls addObject:topAD.imageUrl];
         }
         
-        cycleScrollView.imageURLStringsGroup = imageUrls;
+//        cycleScrollView.imageURLStringsGroup = imageUrls;
+        cycleScrollView.imageArray = imageUrls;
         
     } failure:^(NSError *error) {
         
