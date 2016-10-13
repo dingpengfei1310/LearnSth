@@ -44,6 +44,7 @@
         
         //添加手势监听图片的点击
 //        [_scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick)]];
+        
         _currImageView = [[UIImageView alloc] init];
         [_scrollView addSubview:_currImageView];
         _otherImageView = [[UIImageView alloc] init];
@@ -53,25 +54,19 @@
 }
 
 #pragma mark- 构造方法
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.scrollView];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame imageArray:(NSArray *)imageArray {
     if (self = [super initWithFrame:frame]) {
         self.imageArray = imageArray;
     }
     return self;
-}
-
-//- (instancetype)initWithImageArray:(NSArray *)imageArray imageClickBlock:(void(^)(NSInteger index))imageClickBlock {
-//    if (self = [self initWithFrame:CGRectZero imageArray:imageArray]) {
-//        self.imageClickBlock = imageClickBlock;
-//    }
-//    return self;
-//}
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    [self addSubview:self.scrollView];
-//    [self addSubview:self.describeLabel];
-    [self addSubview:self.pageControl];
 }
 
 #pragma mark 设置图片数组

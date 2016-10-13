@@ -891,6 +891,7 @@
 			baseConfigurationReference = E971E9F2094EB28D744E4041 /* Pods-LearnSth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				INFOPLIST_FILE = LearnSth/Info.plist;
@@ -906,6 +907,7 @@
 			baseConfigurationReference = 413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				INFOPLIST_FILE = LearnSth/Info.plist;

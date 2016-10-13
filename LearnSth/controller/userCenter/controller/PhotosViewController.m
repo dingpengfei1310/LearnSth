@@ -22,7 +22,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (NSArray *)thumbImages {
     if (!_thumbImages) {
-        _thumbImages = [NSMutableArray array];
+        _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
     }
     
     return _thumbImages;
@@ -40,6 +40,7 @@ static NSString * const reuseIdentifier = @"Cell";
             
         } else {
             NSAssert(NO, @"Fetch collection not PHCollection: %@", self.assetCollection);
+            return;
         }
     }
     
@@ -57,6 +58,7 @@ static NSString * const reuseIdentifier = @"Cell";
     _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
     
     [self.view addSubview:_collectionView];
+    
 }
 
 
@@ -79,13 +81,18 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height)];
     [cell.contentView addSubview:imageView];
+    
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.synchronous = YES;
+    
     [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:CGSizeMake(itemSize.width * 2, itemSize.height * 2)
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                                                 imageView.image = result;
-                                                [self.thumbImages addObject:result];
+                                                self.thumbImages[indexPath.row] = result;
                                             }];
     
     
@@ -102,6 +109,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - DDImageBrowserDelegate
 - (UIImage *)imageBrowser:(DDImageBrowserView *)imageBrowser placeholderImageOfIndex:(NSInteger)index {
+    UIImage *image = self.thumbImages[index];
+    NSLog(@"%@",[NSValue valueWithCGSize:image.size]);
     return self.thumbImages[index];
 }
 

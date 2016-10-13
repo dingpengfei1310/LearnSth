@@ -14,12 +14,17 @@
 
 #pragma mark 调试的时候输出日志, 发布的时候不输出
 
-#ifdef DEBUG
-# define NSLog(...) NSLog(__VA_ARGS__)
-#else
-# define NSLog(...)
-#endif
+//#ifdef DEBUG
+//# define NSLog(...) NSLog(__VA_ARGS__)
+//#else
+//# define NSLog(...)
+//#endif
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(FORMAT, ...) nil
+#endif
 
 #pragma mark
 
