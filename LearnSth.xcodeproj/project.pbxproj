@@ -16,6 +16,7 @@
 		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */; };
+		1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
 		1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */; };
@@ -41,7 +42,6 @@
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
 		CFED1D1F1DAD2322006A3721 /* DDImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */; };
-		CFED1D201DAD2322006A3721 /* DDImageZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D1E1DAD2322006A3721 /* DDImageZoomView.m */; };
 		CFED1D3B1DAD3AC8006A3721 /* XRCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */; };
 		CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3D1DAD3B78006A3721 /* ADModel.m */; };
 		CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D421DAD4408006A3721 /* TAAbstractDotView.m */; };
@@ -89,6 +89,8 @@
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B26B26D1DAF63AE0051FE04 /* DDImageCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageCycleView.h; sourceTree = "<group>"; };
 		1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageCycleView.m; sourceTree = "<group>"; };
+		1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserCell.h; sourceTree = "<group>"; };
+		1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserCell.m; sourceTree = "<group>"; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1B3CFA9A1DAC8E8800DA2661 /* BHBDrawBoarderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBDrawBoarderView.h; sourceTree = "<group>"; };
@@ -140,8 +142,6 @@
 		CFED1D1A1DAD2322006A3721 /* DDImageBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserConfig.h; sourceTree = "<group>"; };
 		CFED1D1B1DAD2322006A3721 /* DDImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserView.h; sourceTree = "<group>"; };
 		CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserView.m; sourceTree = "<group>"; };
-		CFED1D1D1DAD2322006A3721 /* DDImageZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageZoomView.h; sourceTree = "<group>"; };
-		CFED1D1E1DAD2322006A3721 /* DDImageZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageZoomView.m; sourceTree = "<group>"; };
 		CFED1D391DAD3AC8006A3721 /* XRCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRCarouselView.h; sourceTree = "<group>"; };
 		CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRCarouselView.m; sourceTree = "<group>"; };
 		CFED1D3C1DAD3B78006A3721 /* ADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
@@ -466,8 +466,8 @@
 				CFED1D1A1DAD2322006A3721 /* DDImageBrowserConfig.h */,
 				CFED1D1B1DAD2322006A3721 /* DDImageBrowserView.h */,
 				CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */,
-				CFED1D1D1DAD2322006A3721 /* DDImageZoomView.h */,
-				CFED1D1E1DAD2322006A3721 /* DDImageZoomView.m */,
+				1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */,
+				1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */,
 			);
 			path = DDImageBrowser;
 			sourceTree = "<group>";
@@ -713,7 +713,6 @@
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
 				1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */,
-				CFED1D201DAD2322006A3721 /* DDImageZoomView.m in Sources */,
 				1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
 				CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */,
@@ -731,6 +730,7 @@
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
 				CFED1D3B1DAD3AC8006A3721 /* XRCarouselView.m in Sources */,
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
+				1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */,

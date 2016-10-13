@@ -115,7 +115,6 @@ static NSString * const reuseIdentifier = @"Cell";
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                                                 [imageBrowser setImageOfIndex:index withImage:result];
                                             }];
-
 }
 
 @end

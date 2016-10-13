@@ -1,15 +1,15 @@
 //
-//  DDImageZoomView.h
-//  ReadyJob
+//  DDImageBrowserCell.h
+//  LearnSth
 //
-//  Created by 丁鹏飞 on 16/8/4.
+//  Created by 丁鹏飞 on 16/10/13.
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "DDImageBrowserConfig.h"
 
-@interface DDImageZoomView : UIView
+@interface DDImageBrowserCell : UITableViewCell
 
 - (void)setImageWithUrl:(NSURL *)url placeholderIamge:(UIImage *)placeholder;
 

@@ -18,4 +18,4 @@
 
 /* 动画时间 */
 #define  DDImageBrowserShowAnimationDuration 0.2
-#define  DDImageBrowserHideAnimationDuration 0.1
+#define  DDImageBrowserHideAnimationDuration 0.2

@@ -7,9 +7,7 @@
 //
 
 #import "DDImageBrowserView.h"
-#import "DDImageZoomView.h"
-
-#import <objc/runtime.h>
+#import "DDImageBrowserCell.h"
 
 @interface DDImageBrowserView ()<UITableViewDataSource,UITableViewDelegate> {
     CGFloat viewWidth;
@@ -22,8 +20,6 @@
 @end
 
 static NSString * const identifier = @"Cell";
-static char imageZoomViewKey;
-
 
 @implementation DDImageBrowserView
 
@@ -45,12 +41,13 @@ static char imageZoomViewKey;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.pagingEnabled = YES;
+    _tableView.rowHeight = viewWidth;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:identifier];
     [self addSubview:_tableView];
     
     _currentIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight - 40, viewWidth, 20)];
@@ -71,25 +68,15 @@ static char imageZoomViewKey;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
-    cell.contentView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
-    
-    DDImageZoomView *imageView = [[DDImageZoomView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
-    [cell.contentView addSubview:imageView];
-    
-    [imageView setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
+    [cell setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
               placeholderIamge:[self placeholderImageOfIndex:indexPath.row]];
-    
-    objc_setAssociatedObject(cell, &imageZoomViewKey, imageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     //单击
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     [singleTap setNumberOfTapsRequired:1];
-    [imageView addGestureRecognizer:singleTap];
+    [cell addGestureRecognizer:singleTap];
     
     //双击
 //    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
@@ -98,10 +85,6 @@ static char imageZoomViewKey;
 //    [singleTap requireGestureRecognizerToFail:doubleTap];
     
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return viewWidth;
 }
 
 #pragma mark
@@ -133,8 +116,8 @@ static char imageZoomViewKey;
 #pragma mark
 //双击
 - (void)doubleTapAction:(UITapGestureRecognizer *)recognizer {
-    DDImageZoomView *zoomView = (DDImageZoomView *)recognizer.view;
-    [zoomView doubleTapToZommWithScale:1];
+    DDImageBrowserCell *cell = (DDImageBrowserCell *)recognizer.view;
+    [cell doubleTapToZommWithScale:1];
 }
 
 //移出
@@ -168,12 +151,9 @@ static char imageZoomViewKey;
 }
 
 - (void)setImageOfIndex:(NSInteger)index withImage:(UIImage *)image {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    
-    DDImageZoomView *imageZoomView = objc_getAssociatedObject(cell, &imageZoomViewKey);
-    [imageZoomView setImageWithUrl:nil placeholderIamge:image];
+    DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [cell setImageWithUrl:nil placeholderIamge:image];
 }
-
 
 @end
 

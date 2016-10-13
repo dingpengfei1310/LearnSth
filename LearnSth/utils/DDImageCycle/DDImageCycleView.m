@@ -8,6 +8,12 @@
 
 #import "DDImageCycleView.h"
 
+@interface DDImageCycleView ()
+
+@property (nonatomic , strong) UIScrollView *scrollView;
+
+@end
+
 @implementation DDImageCycleView
 
 

@@ -20,11 +20,10 @@
 //网络图片地址。。不实现此方法，会默认显示占位图
 - (NSURL *)imageBrowser:(DDImageBrowserView *)imageBrowser imageUrlOfIndex:(NSInteger)index;
 
-//实现此方法，可以操作显示
+//
 - (void)imageBrowser:(DDImageBrowserView *)imageBrowser didScrollToIndex:(NSInteger)index;
 
 @end
-
 
 
 @interface DDImageBrowserView : UIView
@@ -35,9 +34,10 @@
 
 - (void)show;
 
+//首次显示，跳转到指定页数
 - (void)selectImageOfIndex:(NSInteger)index;
 
+//显示高清图使用，显示对应页的高清图
 - (void)setImageOfIndex:(NSInteger)index withImage:(UIImage *)image;
-
 
 @end
