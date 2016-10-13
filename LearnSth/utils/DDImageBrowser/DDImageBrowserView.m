@@ -9,6 +9,8 @@
 #import "DDImageBrowserView.h"
 #import "DDImageZoomView.h"
 
+#import <objc/runtime.h>
+
 @interface DDImageBrowserView ()<UITableViewDataSource,UITableViewDelegate> {
     CGFloat viewWidth;
     CGFloat viewHeight;
@@ -20,6 +22,8 @@
 @end
 
 static NSString * const identifier = @"Cell";
+static char imageZoomViewKey;
+
 
 @implementation DDImageBrowserView
 
@@ -80,17 +84,18 @@ static NSString * const identifier = @"Cell";
     [imageView setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
               placeholderIamge:[self placeholderImageOfIndex:indexPath.row]];
     
-    //双击
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [imageView addGestureRecognizer:doubleTap];
+    objc_setAssociatedObject(cell, &imageZoomViewKey, imageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     //单击
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     [singleTap setNumberOfTapsRequired:1];
     [imageView addGestureRecognizer:singleTap];
     
-    [singleTap requireGestureRecognizerToFail:doubleTap];
+    //双击
+//    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+//    [doubleTap setNumberOfTapsRequired:2];
+//    [imageView addGestureRecognizer:doubleTap];
+//    [singleTap requireGestureRecognizerToFail:doubleTap];
     
     return cell;
 }
@@ -99,6 +104,7 @@ static NSString * const identifier = @"Cell";
     return viewWidth;
 }
 
+#pragma mark
 - (UIImage *)placeholderImageOfIndex:(NSInteger)index {
     if ([self.imageBrowserDelegate respondsToSelector:@selector(imageBrowser:placeholderImageOfIndex:)]) {
         return [self.imageBrowserDelegate imageBrowser:self placeholderImageOfIndex:index];
@@ -113,11 +119,18 @@ static NSString * const identifier = @"Cell";
     return nil;
 }
 
+#pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollView.contentOffset];
     self.currentIndexLabel.text = _currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
+    
+    if ([self.imageBrowserDelegate respondsToSelector:@selector(imageBrowser:didScrollToIndex:)]) {
+        [self.imageBrowserDelegate imageBrowser:self didScrollToIndex:indexPath.row];
+    }
+    
 }
 
+#pragma mark
 //双击
 - (void)doubleTapAction:(UITapGestureRecognizer *)recognizer {
     DDImageZoomView *zoomView = (DDImageZoomView *)recognizer.view;
@@ -148,7 +161,21 @@ static NSString * const identifier = @"Cell";
 - (void)selectImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.currentIndexLabel.text = _currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
+    
+    if ([self.imageBrowserDelegate respondsToSelector:@selector(imageBrowser:didScrollToIndex:)]) {
+        [self.imageBrowserDelegate imageBrowser:self didScrollToIndex:index];
+    }
+}
+
+- (void)setImageOfIndex:(NSInteger)index withImage:(UIImage *)image {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    
+    DDImageZoomView *imageZoomView = objc_getAssociatedObject(cell, &imageZoomViewKey);
+    [imageZoomView setImageWithUrl:nil placeholderIamge:image];
 }
 
 
 @end
+
+
+

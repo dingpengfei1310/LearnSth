@@ -68,7 +68,6 @@ static NSString * const reuseIdentifier = @"Cell";
         [self getAllAlbum];
         [self.view addSubview:self.tableView];
         
-        
     } else {
         UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight * 0.2, ScreenWidth, 30)];
         tipLabel.textAlignment = NSTextAlignmentCenter;
@@ -84,10 +83,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark
 - (void)getAllAlbum {
-    // 列出所有相册智能相册
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    self.fetchResult = smartAlbums;
+    // 列出所有智能相册
+//    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+//    self.fetchResult = smartAlbums;
     
+    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+    self.fetchResult = smartAlbums;
 }
 
 - (void)getUserAlbum {

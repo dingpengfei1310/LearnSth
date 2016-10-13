@@ -75,10 +75,12 @@ static NSString * const reuseIdentifier = @"Cell";
     
     PHAsset *asset = self.fetchResult[indexPath.row];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4)];
+    CGSize itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height)];
     [cell.contentView addSubview:imageView];
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:CGSizeMake(ScreenWidth / 2, ScreenWidth / 2)
+                                               targetSize:CGSizeMake(itemSize.width * 2, itemSize.height * 2)
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
@@ -103,5 +105,20 @@ static NSString * const reuseIdentifier = @"Cell";
     return self.thumbImages[index];
 }
 
+- (void)imageBrowser:(DDImageBrowserView *)imageBrowser didScrollToIndex:(NSInteger)index {
+    PHAsset *asset = self.fetchResult[index];
+    
+    [[PHImageManager defaultManager] requestImageForAsset:asset
+                                               targetSize:PHImageManagerMaximumSize
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:nil
+                                            resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                                                [imageBrowser setImageOfIndex:index withImage:result];
+                                            }];
+
+}
 
 @end
+
+
+

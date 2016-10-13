@@ -15,6 +15,7 @@
 		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
 		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
+		1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
 		1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */; };
@@ -28,8 +29,6 @@
 		1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
-		1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */; };
-		1B6E7DB81DAB91FD006F058B /* UserListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
@@ -88,6 +87,8 @@
 		1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
 		1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1B26B26D1DAF63AE0051FE04 /* DDImageCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageCycleView.h; sourceTree = "<group>"; };
+		1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageCycleView.m; sourceTree = "<group>"; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1B3CFA9A1DAC8E8800DA2661 /* BHBDrawBoarderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBDrawBoarderView.h; sourceTree = "<group>"; };
@@ -113,9 +114,6 @@
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		1B6E7DB11DAB8FBD006F058B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		1B6E7DB21DAB8FBD006F058B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
-		1B6E7DB41DAB91FD006F058B /* UserListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewCell.h; sourceTree = "<group>"; };
-		1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewCell.m; sourceTree = "<group>"; };
-		1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewCell.xib; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,11 +250,17 @@
 			children = (
 				1B0B343C1DAB30B30053CAB5 /* LineView.h */,
 				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
-				1B6E7DB41DAB91FD006F058B /* UserListViewCell.h */,
-				1B6E7DB51DAB91FD006F058B /* UserListViewCell.m */,
-				1B6E7DB61DAB91FD006F058B /* UserListViewCell.xib */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		1B26B26C1DAF636A0051FE04 /* DDImageCycle */ = {
+			isa = PBXGroup;
+			children = (
+				1B26B26D1DAF63AE0051FE04 /* DDImageCycleView.h */,
+				1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */,
+			);
+			path = DDImageCycle;
 			sourceTree = "<group>";
 		};
 		1B3492421D93A804005C4800 /* Web */ = {
@@ -271,6 +275,7 @@
 		1B3CFA981DAC8E8800DA2661 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				1B26B26C1DAF636A0051FE04 /* DDImageCycle */,
 				CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */,
 				CFED1D381DAD3AC8006A3721 /* XRCarouselView */,
 				CFED1D191DAD2322006A3721 /* DDImageBrowser */,
@@ -625,7 +630,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
-				1B6E7DB81DAB91FD006F058B /* UserListViewCell.xib in Resources */,
 				1B3492461D93A804005C4800 /* upload.html in Resources */,
 				1B3492451D93A804005C4800 /* index.html in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
@@ -729,8 +733,8 @@
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
+				1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
-				1B6E7DB71DAB91FD006F058B /* UserListViewCell.m in Sources */,
 				CFED1D541DAD4408006A3721 /* SDCycleScrollView.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				CFED1D551DAD4408006A3721 /* UIView+SDExtension.m in Sources */,

@@ -15,14 +15,9 @@
 #import "UserModel.h"
 #import "ADModel.h"
 
-#import "UserListViewCell.h"
-
 #import "SDCycleScrollView.h"
 
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *userList;
+@interface HomeViewController ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) NSArray *adList;
 
@@ -35,98 +30,26 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 49)
-                                              style:UITableViewStylePlain];
-    [_tableView registerClass:[UserListViewCell class] forCellReuseIdentifier:identifier];
-    _tableView.tableFooterView = [[UIView alloc] init];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.rowHeight = 50;
-    _tableView.sectionHeaderHeight = ScreenWidth * 0.24;
-    [self.view addSubview:_tableView];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24)delegate:self placeholderImage:nil];
+    
+    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    [self.view addSubview:cycleScrollView];
     
     [[HttpRequestManager shareManager] getADListWithParamer:nil success:^(id responseData) {
         
         self.adList = [ADModel adWithArray:responseData];
         
-        [self.tableView reloadData];
+        NSMutableArray *imageUrls = [NSMutableArray arrayWithCapacity:self.adList.count];
+        for (ADModel *topAD in self.adList) {
+            [imageUrls addObject:topAD.imageUrl];
+        }
+        
+        cycleScrollView.imageURLStringsGroup = imageUrls;
+        
     } failure:^(NSError *error) {
         
     }];
-    
-    [[HttpRequestManager shareManager] getUserListWithParamer:nil success:^(id responseData) {
-        self.userList = [UserModel userWithArray:responseData];
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        
-    }];
-    
-}
-
-#pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.userList.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    UserModel *user = self.userList[indexPath.row];
-    cell.titleLabel.text = user.userName;
-    cell.subTitleLabel.text = user.groupName;
-    
-    cell.headerImageView.layer.masksToBounds = YES;
-    cell.headerImageView.layer.cornerRadius = 15;
-    
-    [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:user.image]
-                            placeholderImage:[UIImage imageNamed:@"lookup"]];
-    
-    return cell;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSMutableArray *imageUrls = [NSMutableArray arrayWithCapacity:self.adList.count];
-    for (ADModel *topAD in self.adList) {
-        [imageUrls addObject:topAD.imageUrl];
-    }
-    
-    if (imageUrls.count == 0) {
-        return nil;
-    }
-    
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth,ScreenWidth * 0.24)delegate:self placeholderImage:[UIImage imageNamed:@"lookup"]];
-    
-    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    cycleScrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-    
-    cycleScrollView.imageURLStringsGroup = imageUrls;
-    
-    return cycleScrollView;
-}
-
-- (UIImage *)cornerImage:(UIImage *)originalImage {
-    CGRect rect = CGRectMake(0, 0, originalImage.size.width, originalImage.size.height);
-    
-    UIGraphicsBeginImageContextWithOptions(originalImage.size, NO, [UIScreen mainScreen].scale);
-    
-    UIBezierPath *bezierPath =  [UIBezierPath bezierPathWithRoundedRect:rect
-                                                      byRoundingCorners:UIRectCornerAllCorners
-                                                            cornerRadii:originalImage.size];
-    
-    CGContextAddPath(UIGraphicsGetCurrentContext(), bezierPath.CGPath);
-    CGContextClip(UIGraphicsGetCurrentContext());
-    [originalImage drawInRect:rect];
-    
-    CGContextDrawPath(UIGraphicsGetCurrentContext(), kCGPathFill);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     
 }
 
