@@ -137,13 +137,4 @@
 
 }
 
-#pragma mark
-- (void)doubleTapToZommWithScale:(CGFloat)scale {
-    if (self.scrollView.zoomScale == 1) {
-        [self.scrollView setZoomScale:DDImageBrowserMaxZoom animated:YES];
-    } else {
-        [self.scrollView setZoomScale:1 animated:YES];
-    }
-}
-
 @end

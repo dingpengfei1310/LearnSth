@@ -15,7 +15,6 @@
 		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
 		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
-		1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */; };
 		1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
@@ -42,7 +41,6 @@
 		CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */; };
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
-		CFED1D3B1DAD3AC8006A3721 /* XRCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */; };
 		CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3D1DAD3B78006A3721 /* ADModel.m */; };
 		CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D421DAD4408006A3721 /* TAAbstractDotView.m */; };
 		CFED1D501DAD4408006A3721 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D441DAD4408006A3721 /* TAAnimatedDotView.m */; };
@@ -87,8 +85,6 @@
 		1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
 		1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		1B26B26D1DAF63AE0051FE04 /* DDImageCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageCycleView.h; sourceTree = "<group>"; };
-		1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageCycleView.m; sourceTree = "<group>"; };
 		1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserCell.h; sourceTree = "<group>"; };
 		1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserCell.m; sourceTree = "<group>"; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -142,8 +138,6 @@
 		CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		CFED1D1A1DAD2322006A3721 /* DDImageBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserConfig.h; sourceTree = "<group>"; };
-		CFED1D391DAD3AC8006A3721 /* XRCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRCarouselView.h; sourceTree = "<group>"; };
-		CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRCarouselView.m; sourceTree = "<group>"; };
 		CFED1D3C1DAD3B78006A3721 /* ADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
 		CFED1D3D1DAD3B78006A3721 /* ADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		CFED1D411DAD4408006A3721 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -254,15 +248,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		1B26B26C1DAF636A0051FE04 /* DDImageCycle */ = {
-			isa = PBXGroup;
-			children = (
-				1B26B26D1DAF63AE0051FE04 /* DDImageCycleView.h */,
-				1B26B26E1DAF63AE0051FE04 /* DDImageCycleView.m */,
-			);
-			path = DDImageCycle;
-			sourceTree = "<group>";
-		};
 		1B3492421D93A804005C4800 /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,9 +260,7 @@
 		1B3CFA981DAC8E8800DA2661 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				1B26B26C1DAF636A0051FE04 /* DDImageCycle */,
 				CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */,
-				CFED1D381DAD3AC8006A3721 /* XRCarouselView */,
 				CFED1D191DAD2322006A3721 /* DDImageBrowser */,
 				1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */,
 				1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */,
@@ -470,15 +453,6 @@
 				1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */,
 			);
 			path = DDImageBrowser;
-			sourceTree = "<group>";
-		};
-		CFED1D381DAD3AC8006A3721 /* XRCarouselView */ = {
-			isa = PBXGroup;
-			children = (
-				CFED1D391DAD3AC8006A3721 /* XRCarouselView.h */,
-				CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */,
-			);
-			path = XRCarouselView;
 			sourceTree = "<group>";
 		};
 		CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */ = {
@@ -728,13 +702,11 @@
 				CFED1D501DAD4408006A3721 /* TAAnimatedDotView.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
-				CFED1D3B1DAD3AC8006A3721 /* XRCarouselView.m in Sources */,
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
 				1BFD75FC1DB09B9D00A75E3B /* DDImageBrowserController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
-				1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				CFED1D541DAD4408006A3721 /* SDCycleScrollView.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
