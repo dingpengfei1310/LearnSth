@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
-#import "UIImageView+WebCache.h"
 #import "HttpRequestManager.h"
 
 #import "UserModel.h"
@@ -30,6 +29,9 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+}
+
+- (void)topAdBanner {
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24)
                                                                             delegate:self placeholderImage:nil];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
@@ -50,7 +52,6 @@ static NSString *identifier = @"cell";
     } failure:^(NSError *error) {
         
     }];
-    
 }
 
 #pragma mark

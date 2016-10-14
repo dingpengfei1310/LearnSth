@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "AppConfiguration.h"
+#import "UIImageView+WebCache.h"
 
 @interface BaseViewController : UIViewController
 

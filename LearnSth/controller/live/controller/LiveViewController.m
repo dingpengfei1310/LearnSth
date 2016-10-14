@@ -8,7 +8,6 @@
 
 #import "LiveViewController.h"
 
-#import "UIImageView+WebCache.h"
 #import "HttpRequestManager.h"
 #import "LiveModel.h"
 
