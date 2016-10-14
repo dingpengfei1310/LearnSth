@@ -24,7 +24,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)
                                                   style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.dataSource = self;
@@ -84,10 +84,10 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (void)getAllAlbum {
     // 列出所有智能相册
-//    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-//    self.fetchResult = smartAlbums;
+    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+//    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+    
     self.fetchResult = smartAlbums;
 }
 

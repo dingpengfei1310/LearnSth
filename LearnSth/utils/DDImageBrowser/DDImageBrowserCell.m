@@ -60,16 +60,18 @@
     
 }
 
-- (void)setImageWithUrl:(NSURL *)url placeholderIamge:(UIImage *)placeholder {
-    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+- (void)setImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)placeholder {
+    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];//移除子视图
     
     self.scrollView.zoomScale = 1.0;
     [self.contentView addSubview:self.scrollView];
     
+    //首先显示本地图片
     [self updateImage:placeholder];
     
+    //加载网络图片
+    if (!url) return;
     [self startActivityIndicatorView];
-    
     [_photoImageView sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self stopActivityIndicatorView];

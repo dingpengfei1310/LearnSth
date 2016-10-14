@@ -38,10 +38,10 @@
 		1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */; };
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
+		1BFD75FC1DB09B9D00A75E3B /* DDImageBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */; };
 		CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */; };
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
-		CFED1D1F1DAD2322006A3721 /* DDImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */; };
 		CFED1D3B1DAD3AC8006A3721 /* XRCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */; };
 		CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3D1DAD3B78006A3721 /* ADModel.m */; };
 		CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D421DAD4408006A3721 /* TAAbstractDotView.m */; };
@@ -132,6 +132,8 @@
 		1BF7F6ED1D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1BFD75FA1DB09B9D00A75E3B /* DDImageBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserController.h; sourceTree = "<group>"; };
+		1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserController.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF2FEC7C1DAE6F1200933DE6 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -140,8 +142,6 @@
 		CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		CFED1D1A1DAD2322006A3721 /* DDImageBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserConfig.h; sourceTree = "<group>"; };
-		CFED1D1B1DAD2322006A3721 /* DDImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserView.h; sourceTree = "<group>"; };
-		CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserView.m; sourceTree = "<group>"; };
 		CFED1D391DAD3AC8006A3721 /* XRCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRCarouselView.h; sourceTree = "<group>"; };
 		CFED1D3A1DAD3AC8006A3721 /* XRCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRCarouselView.m; sourceTree = "<group>"; };
 		CFED1D3C1DAD3B78006A3721 /* ADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
@@ -464,10 +464,10 @@
 			isa = PBXGroup;
 			children = (
 				CFED1D1A1DAD2322006A3721 /* DDImageBrowserConfig.h */,
-				CFED1D1B1DAD2322006A3721 /* DDImageBrowserView.h */,
-				CFED1D1C1DAD2322006A3721 /* DDImageBrowserView.m */,
 				1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */,
 				1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */,
+				1BFD75FA1DB09B9D00A75E3B /* DDImageBrowserController.h */,
+				1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */,
 			);
 			path = DDImageBrowser;
 			sourceTree = "<group>";
@@ -732,6 +732,7 @@
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */,
 				1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */,
+				1BFD75FC1DB09B9D00A75E3B /* DDImageBrowserController.m in Sources */,
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B26B26F1DAF63AE0051FE04 /* DDImageCycleView.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
@@ -741,7 +742,6 @@
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,
 				CFED1D511DAD4408006A3721 /* TADotView.m in Sources */,
 				1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */,
-				CFED1D1F1DAD2322006A3721 /* DDImageBrowserView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,8 @@
 //
 
 #import "PhotosViewController.h"
-#import "DDImageBrowserView.h"
+
+#import "DDImageBrowserController.h"
 
 @interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 
@@ -49,7 +50,7 @@ static NSString * const reuseIdentifier = @"Cell";
     flowLayout.minimumLineSpacing = 10;
     flowLayout.minimumInteritemSpacing = 10;
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
                                          collectionViewLayout:flowLayout];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     _collectionView.backgroundColor = [UIColor whiteColor];
@@ -83,15 +84,16 @@ static NSString * const reuseIdentifier = @"Cell";
     [cell.contentView addSubview:imageView];
     
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = YES;
     
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:CGSizeMake(itemSize.width * 2, itemSize.height * 2)
+                                               targetSize:CGSizeZero
                                               contentMode:PHImageContentModeAspectFit
-                                                  options:nil
+                                                  options:options
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                imageView.image = result;
+                                                
+                                                imageView.image = [self resizeImage:result];
                                                 self.thumbImages[indexPath.row] = result;
                                             }];
     
@@ -99,32 +101,60 @@ static NSString * const reuseIdentifier = @"Cell";
     return cell;
 }
 
+- (UIImage *)resizeImage:(UIImage *)originalImage {
+    if (!originalImage) return nil;
+    
+    CGFloat imageWidth = CGImageGetWidth([originalImage CGImage]);
+    CGFloat imageHeight = CGImageGetHeight([originalImage CGImage]);
+    CGRect rect;
+    
+    if (imageWidth > imageHeight) {
+        rect = CGRectMake((imageWidth - imageHeight) / 2.0, 0, imageHeight, imageHeight);
+    } else {
+        rect = CGRectMake(0, (imageHeight - imageWidth) / 2.0, imageWidth, imageWidth);
+    }
+    
+    CGImageRef cgImage = CGImageCreateWithImageInRect(originalImage.CGImage, rect);
+    UIImage *resultImage = [UIImage imageWithCGImage:cgImage];;
+    CGImageRelease(cgImage);
+    
+    return resultImage;
+}
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DDImageBrowserView *imageBrowserView = [[DDImageBrowserView alloc] initWithFrame:self.view.window.bounds];
-    imageBrowserView.imageBrowserDelegate = self;
-    imageBrowserView.imageCount = self.fetchResult.count;
-    [imageBrowserView selectImageOfIndex:indexPath.item];
-    [imageBrowserView show];
+    
+    DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
+    controller.browserDelegate = self;
+    controller.thumbImages = self.thumbImages;
+    controller.currentIndex = indexPath.row;
+    
+    [self presentViewController:controller animated:YES completion:nil];
+    
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - DDImageBrowserDelegate
-- (UIImage *)imageBrowser:(DDImageBrowserView *)imageBrowser placeholderImageOfIndex:(NSInteger)index {
-    UIImage *image = self.thumbImages[index];
-    NSLog(@"%@",[NSValue valueWithCGSize:image.size]);
+- (UIImage *)controller:(DDImageBrowserController *)controller placeholderImageOfIndex:(NSInteger)index {
     return self.thumbImages[index];
 }
 
-- (void)imageBrowser:(DDImageBrowserView *)imageBrowser didScrollToIndex:(NSInteger)index {
+- (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
     
+    //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
     [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:PHImageManagerMaximumSize
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                [imageBrowser setImageOfIndex:index withImage:result];
+                                                [controller showHighQualityImageOfIndex:index withImage:result];
                                             }];
 }
+
+//- (NSURL *)controller:(DDImageBrowserController *)controller imageUrlOfIndex:(NSInteger)index {
+//    return nil;
+//}
 
 @end
 

@@ -11,7 +11,8 @@
 
 @interface DDImageBrowserCell : UITableViewCell
 
-- (void)setImageWithUrl:(NSURL *)url placeholderIamge:(UIImage *)placeholder;
+///可以显示网络图片和本地图片（包括占位图和高清图）
+- (void)setImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)placeholder;
 
 - (void)doubleTapToZommWithScale:(CGFloat)scale;
 

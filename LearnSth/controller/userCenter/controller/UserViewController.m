@@ -25,10 +25,10 @@ static NSString *identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"User";
     self.dataArray = @[@"上传文件",@"查看相册"];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
