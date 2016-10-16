@@ -13,8 +13,8 @@
 #endif /* DDImageBrowserConfig_h */
 
 /* 缩放比例 */
-#define  DDImageBrowserMaxZoom 3
-#define  DDImageBrowserMinZoom 0.5
+#define  DDImageBrowserMaxZoom 2
+#define  DDImageBrowserMinZoom 1
 
 /* 动画时间 */
 #define  DDImageBrowserShowAnimationDuration 0.2

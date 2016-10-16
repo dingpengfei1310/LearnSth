@@ -9,6 +9,7 @@
 #import "PhotosViewController.h"
 
 #import "DDImageBrowserController.h"
+#import "DDVideoPlayController.h"
 
 @interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 
@@ -59,9 +60,7 @@ static NSString * const reuseIdentifier = @"Cell";
     _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
     
     [self.view addSubview:_collectionView];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -76,12 +75,25 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    PHAsset *asset = self.fetchResult[indexPath.row];
+    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
     
+    PHAsset *asset = self.fetchResult[indexPath.row];
     CGSize itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height)];
     [cell.contentView addSubview:imageView];
+    
+    if (asset.mediaType == PHAssetMediaTypeVideo) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemSize.height - 15, itemSize.width, 15)];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:10];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+        label.text = @"video";
+        [cell.contentView addSubview:label];
+    }
     
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
@@ -124,14 +136,24 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+//    PHAsset *asset = self.fetchResult[indexPath.row];
+//    if (asset.mediaType == PHAssetMediaTypeImage) {
+//        
+//    } else {
+//        
+//        //        PHImageFileURLKey
+//        
+//        
+//    }
+    
     DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
     controller.browserDelegate = self;
     controller.thumbImages = self.thumbImages;
     controller.currentIndex = indexPath.row;
     
-    [self presentViewController:controller animated:YES completion:nil];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:nvc animated:YES completion:nil];
     
-//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - DDImageBrowserDelegate
@@ -149,6 +171,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                                   options:nil
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                                                 [controller showHighQualityImageOfIndex:index withImage:result];
+                                                
                                             }];
 }
 

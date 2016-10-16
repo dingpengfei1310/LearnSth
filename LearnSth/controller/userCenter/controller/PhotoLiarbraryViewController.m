@@ -72,7 +72,7 @@ static NSString * const reuseIdentifier = @"Cell";
         self.nameList = @[@"相机胶卷",@"我的照片流",@"视频",@"最近添加",@"屏幕快照"];
         self.typeList = @[
                           @(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
-                          @(PHAssetCollectionSubtypeAlbumRegular),
+                          @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
                           @(PHAssetCollectionSubtypeSmartAlbumVideos),
                           @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded),
                           @(PHAssetCollectionSubtypeSmartAlbumScreenshots)
@@ -125,68 +125,6 @@ static NSString * const reuseIdentifier = @"Cell";
     controller.fetchResult = assetsFetchResults;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
-}
-
-#pragma mark - 保存照片到新建相册
-- (PHFetchResult<PHAsset *> *)createAssets {
-    UIImage *image = [UIImage imageNamed:@"lookup"];
-    
-    __block NSString *createdAssetId = nil;
-    // 添加图片到【相机胶卷】
-    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-        createdAssetId = [PHAssetChangeRequest creationRequestForAssetFromImage:image].placeholderForCreatedAsset.localIdentifier;
-    } error:nil];
-    // 在保存完毕后取出图片
-    return [PHAsset fetchAssetsWithLocalIdentifiers:@[createdAssetId] options:nil];
-}
-
-- (PHAssetCollection *)createAssetCollection {
-    // 获取软件的名字作为相册的标题(如果需求不是要软件名称作为相册名字就可以自己把这里改成想要的名称)
-    NSString *title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-//    NSString *title = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
-    // 获得所有的自定义相册
-    PHFetchResult *collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    
-    for (PHAssetCollection *collection in collections) {
-        if ([collection.localizedTitle isEqualToString:title]) {
-            return collection;
-        }
-    }
-    // 代码执行到这里，说明还没有自定义相册
-    __block NSString *createdCollectionId = nil;
-    // 创建一个新的相册
-    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-        createdCollectionId = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection.localIdentifier;
-    } error:nil];
-    
-    // 创建完毕后再取出相册
-    return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionId] options:nil].firstObject;
-}
-
-//保存图片到相册
--(void)saveImageIntoAlbum {
-    // 获得相片
-    PHFetchResult<PHAsset *> *createdAssets = [self createAssets];
-    // 获得相册
-    PHAssetCollection *createdCollection = [self createAssetCollection];
-    
-    if (createdAssets == nil || createdCollection == nil) {
-        NSLog(@"%@",@"保存失败");
-        return;
-    }
-    // 将相片添加到相册
-    NSError *error = nil;
-    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-        PHAssetCollectionChangeRequest *request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:createdCollection];
-        [request insertAssets:createdAssets atIndexes:[NSIndexSet indexSetWithIndex:0]];
-    } error:&error];
-    // 保存结果
-    if (error) {
-        NSLog(@"%@",@"保存失败");
-    } else {
-        NSLog(@"%@",@"保存成功");
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -216,7 +154,12 @@ static NSString * const reuseIdentifier = @"Cell";
         return cell;
     } else {
         NSInteger subType = [self.typeList[indexPath.row] integerValue];
-        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:subType options:nil];
+        PHFetchResult *smartAlbums;
+        if (indexPath.row == 1) {
+            smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:subType options:nil];
+        } else {
+            smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:subType options:nil];
+        }
         
         PHFetchResult *fetchResult;
         

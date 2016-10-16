@@ -27,6 +27,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor blackColor];
     
     viewWidth = [UIScreen mainScreen].bounds.size.width;
@@ -44,13 +45,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
+    
     if (self.imageCount > 0) {
         [self showImageOfIndex:self.currentIndex];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 - (UITableView *)tableView {
