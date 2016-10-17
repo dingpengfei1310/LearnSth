@@ -11,7 +11,6 @@
 
 #import <Photos/Photos.h>
 
-
 @interface PhotoLiarbraryViewController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -62,9 +61,7 @@ static NSString * const reuseIdentifier = @"Cell";
     } else if (currentStatus == PHAuthorizationStatusAuthorized) {
         
         [self checkAuthorizationStatusWith:YES];
-        
     }
-    
 }
 
 - (void)checkAuthorizationStatusWith:(BOOL)status {
@@ -80,7 +77,9 @@ static NSString * const reuseIdentifier = @"Cell";
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
         
-//        [self getUserAlbum];
+        if (TARGET_OS_SIMULATOR) {
+            [self getAllAlbum];
+        }
         
         self.fetchResult = [NSMutableArray arrayWithCapacity:self.nameList.count];
         [self.view addSubview:self.tableView];
@@ -156,6 +155,7 @@ static NSString * const reuseIdentifier = @"Cell";
         NSInteger subType = [self.typeList[indexPath.row] integerValue];
         PHFetchResult *smartAlbums;
         if (indexPath.row == 1) {
+            //照片流
             smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:subType options:nil];
         } else {
             smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:subType options:nil];
@@ -167,6 +167,7 @@ static NSString * const reuseIdentifier = @"Cell";
             PHAssetCollection *assetCollection = smartAlbums[0];
             // 从每一个智能相册中获取到的 PHFetchResult 中包含的才是真正的资源（PHAsset）
             fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+            
             self.fetchResult[indexPath.row] = fetchResult;
         }
         

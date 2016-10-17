@@ -10,7 +10,7 @@
 
 #import "UIImageView+WebCache.h"
 
-@interface DDImageBrowserCell ()<UIScrollViewDelegate> {
+@interface DDImageBrowserCell ()<UIScrollViewDelegate,UIGestureRecognizerDelegate> {
     CGFloat viewWidth;
     CGFloat viewHeight;
 }
@@ -46,6 +46,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
+    _scrollView.userInteractionEnabled = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.maximumZoomScale = DDImageBrowserMaxZoom;
@@ -53,7 +54,6 @@
     
     _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _photoImageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _photoImageView.userInteractionEnabled = YES;
     _photoImageView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
     _photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_photoImageView];
@@ -65,6 +65,8 @@
     
     self.scrollView.zoomScale = 1.0;
     [self.contentView addSubview:self.scrollView];
+    
+    [self.contentView addGestureRecognizer:self.scrollView.pinchGestureRecognizer];
     
     //首先显示本地图片
     [self updateImage:placeholder];
@@ -134,7 +136,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
 }
 
 @end

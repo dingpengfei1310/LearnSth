@@ -16,6 +16,8 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UILabel *currentIndexLabel;
 
 @end
@@ -33,13 +35,14 @@ static NSString * const reuseIdentifier = @"Cell";
     viewWidth = [UIScreen mainScreen].bounds.size.width;
     viewHeight = [UIScreen mainScreen].bounds.size.height;
     
-    //点击
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(singleTapAction:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [self.view addGestureRecognizer:singleTap];
+//    //点击
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                                                                action:@selector(singleTapAction:)];
+//    [singleTap setNumberOfTapsRequired:1];
+//    [self.view addGestureRecognizer:singleTap];
     
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.topView];
     [self.view addSubview:self.currentIndexLabel];
 }
 
@@ -53,6 +56,11 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (UITableView *)tableView {
@@ -74,6 +82,19 @@ static NSString * const reuseIdentifier = @"Cell";
     return _tableView;
 }
 
+- (UIView *)topView {
+    if (!_topView) {
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 64)];
+        _topView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+        
+        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
+        [backButton setTitle:@"<<" forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_topView addSubview:backButton];
+    }
+    return _topView;
+}
+
 - (UILabel *)currentIndexLabel {
     if (!_currentIndexLabel) {
         _currentIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight - 40, viewWidth, 20)];
@@ -85,19 +106,31 @@ static NSString * const reuseIdentifier = @"Cell";
     return _currentIndexLabel;
 }
 
+- (void)backClick:(UIButton *)button {
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark
 - (void)setThumbImages:(NSArray *)thumbImages {
     _thumbImages = thumbImages;
     self.imageCount = thumbImages.count;
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.imageCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
     if (self.thumbImages) {
@@ -109,6 +142,14 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.topView.hidden = !self.topView.hidden;
+    
+    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
+        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
+    }
 }
 
 #pragma mark

@@ -99,7 +99,7 @@ static NSString * const reuseIdentifier = @"Cell";
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = YES;
     
-    [[PHImageManager defaultManager] requestImageForAsset:asset
+    [[PHCachingImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:CGSizeZero
                                               contentMode:PHImageContentModeAspectFit
                                                   options:options
@@ -136,24 +136,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-//    PHAsset *asset = self.fetchResult[indexPath.row];
-//    if (asset.mediaType == PHAssetMediaTypeImage) {
-//        
-//    } else {
-//        
-//        //        PHImageFileURLKey
-//        
-//        
-//    }
-    
     DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
     controller.browserDelegate = self;
     controller.thumbImages = self.thumbImages;
     controller.currentIndex = indexPath.row;
     
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:nvc animated:YES completion:nil];
+//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+//    [self presentViewController:controller animated:YES completion:nil];
     
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - DDImageBrowserDelegate
@@ -161,11 +152,15 @@ static NSString * const reuseIdentifier = @"Cell";
     return self.thumbImages[index];
 }
 
+//- (NSURL *)controller:(DDImageBrowserController *)controller imageUrlOfIndex:(NSInteger)index {
+//    return nil;
+//}
+
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
     
     //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
-    [[PHImageManager defaultManager] requestImageForAsset:asset
+    [[PHCachingImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:PHImageManagerMaximumSize
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
@@ -175,9 +170,12 @@ static NSString * const reuseIdentifier = @"Cell";
                                             }];
 }
 
-//- (NSURL *)controller:(DDImageBrowserController *)controller imageUrlOfIndex:(NSInteger)index {
-//    return nil;
-//}
+- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index {
+    PHAsset *asset = self.fetchResult[index];
+    if (asset.mediaType == PHAssetMediaTypeVideo) {
+//        AVPlayerItem *item = [AVPlayerItem alloc] initWithURL:<#(nonnull NSURL *)#>;
+    }
+}
 
 @end
 

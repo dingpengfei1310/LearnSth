@@ -23,6 +23,9 @@
 //滑动的操作
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index;
 
+//点击的操作
+- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index;
+
 @end
 
 
