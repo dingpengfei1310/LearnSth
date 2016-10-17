@@ -7,11 +7,13 @@
 //
 
 #import "LiveViewController.h"
+#import "PLPlayerViewController.h"
 
+#import "MJRefresh.h"
 #import "HttpRequestManager.h"
+
 #import "LiveModel.h"
 
-#import "PLPlayerViewController.h"
 
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -29,38 +31,43 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//#if TARGET_IPHONE_SIMULATOR
-//
-//#elif TARGET_OS_IPHONE
-//    
-//    PLVideoCaptureConfiguration *videoCaptureConfiguration = [PLVideoCaptureConfiguration defaultConfiguration];
-//    PLAudioCaptureConfiguration *audioCaptureConfiguration = [PLAudioCaptureConfiguration defaultConfiguration];
-//    PLVideoStreamingConfiguration *videoStreamingConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
-//    PLAudioStreamingConfiguration *audioStreamingConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
-//    
-//    self.session = [[PLCameraStreamingSession alloc] initWithVideoCaptureConfiguration:videoCaptureConfiguration audioCaptureConfiguration:audioCaptureConfiguration videoStreamingConfiguration:videoStreamingConfiguration audioStreamingConfiguration:audioStreamingConfiguration stream:nil videoOrientation:AVCaptureVideoOrientationPortrait];
-//#endif
-    
-    CGFloat itemWidth = (self.view.frame.size.width - 30) / 2;
+    CGFloat itemWidth = (ScreenWidth - 30) / 2;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64 - 50) collectionViewLayout:flowLayout];
     _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     [self.view addSubview:_collectionView];
     
+    NSArray *images = @[[UIImage imageNamed:@"reflesh1"],[UIImage imageNamed:@"reflesh2"],[UIImage imageNamed:@"reflesh3"]];
+    
+    MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    [gifHeader setImages:images forState:MJRefreshStatePulling];
+    [gifHeader setImages:images forState:MJRefreshStateRefreshing];
+    
+    gifHeader.lastUpdatedTimeLabel.hidden = YES;
+    gifHeader.stateLabel.hidden = YES;
+    
+    _collectionView.mj_header = gifHeader;
+    [_collectionView.mj_header beginRefreshing];
+}
+
+- (void)refreshData {
     [[HttpRequestManager shareManager] getHotLiveListWithParamer:nil success:^(id responseData) {
+        [self.collectionView.mj_header endRefreshing];
+        
         NSArray *array = [LiveModel liveWithArray:responseData];
         self.list = [NSArray arrayWithArray:array];
         [self.collectionView reloadData];
         
     } failure:^(NSError *error) {
-        
+        [self.collectionView.mj_header endRefreshing];
     }];
 }
 

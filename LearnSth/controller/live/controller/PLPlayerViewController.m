@@ -29,6 +29,8 @@
     
     [self.view addSubview:self.player.playerView];
     
+    self.player.backgroundPlayEnable = YES;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -53,6 +55,8 @@
     self.navigationController.hidesBarsOnTap = NO;
     
     [self navigationBarColorRestore];
+    
+    [self.player stop];
 }
 
 
