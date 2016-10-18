@@ -142,6 +142,17 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGRect rect;
+    if (self.topView.frame.origin.y) {
+        rect = CGRectMake(0, -64, viewWidth, 64);
+    } else {
+        rect = CGRectMake(0, 0, viewWidth, 64);
+    }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.topView.frame = rect;
+    }];
+    
     self.topView.hidden = !self.topView.hidden;
     
     if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
