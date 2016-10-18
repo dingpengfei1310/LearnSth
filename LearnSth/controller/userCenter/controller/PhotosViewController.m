@@ -48,8 +48,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
-    flowLayout.minimumLineSpacing = 10;
-    flowLayout.minimumInteritemSpacing = 10;
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10);
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
                                          collectionViewLayout:flowLayout];
@@ -57,14 +56,13 @@ static NSString * const reuseIdentifier = @"Cell";
     _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
-    _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
+    _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     
     [self.view addSubview:_collectionView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -140,9 +138,6 @@ static NSString * const reuseIdentifier = @"Cell";
     controller.browserDelegate = self;
     controller.thumbImages = self.thumbImages;
     controller.currentIndex = indexPath.row;
-    
-//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-//    [self presentViewController:controller animated:YES completion:nil];
     
     [self.navigationController pushViewController:controller animated:YES];
 }

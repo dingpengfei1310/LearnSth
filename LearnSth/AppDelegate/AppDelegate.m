@@ -24,6 +24,8 @@
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
+    
     NSDictionary *titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17],NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
     

@@ -14,17 +14,14 @@
 
 #import "LiveModel.h"
 
-
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-//@property (nonatomic, strong) PLCameraStreamingSession *session;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *list;
 
 @end
 
 static NSString *identifier = @"cell";
-
 
 @implementation LiveViewController
 
@@ -93,12 +90,6 @@ static NSString *identifier = @"cell";
     controller.live = self.list[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-//    [self.view addSubview:self.session.previewView];
 }
 
 - (void)didReceiveMemoryWarning {
