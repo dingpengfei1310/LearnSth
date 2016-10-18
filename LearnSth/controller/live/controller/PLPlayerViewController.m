@@ -42,11 +42,6 @@
     self.navigationController.hidesBarsOnTap = YES;
     
     [self navigationBarColorClear];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
     [self.player play];
 }
 
@@ -58,8 +53,6 @@
     
     [self.player stop];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

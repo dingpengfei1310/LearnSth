@@ -41,11 +41,6 @@
     UITabBarItem *item3 = self.tabBar.items[2];
     item3.title = @"user";
     
-//    [self setSelectedIndex:2];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {
