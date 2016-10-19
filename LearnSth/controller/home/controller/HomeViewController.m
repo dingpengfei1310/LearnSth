@@ -31,6 +31,9 @@ static NSString *identifier = @"cell";
     
 }
 
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+}
+
 - (void)topAdBanner {
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, ScreenWidth,ScreenWidth * 0.24)
                                                                             delegate:self placeholderImage:nil];

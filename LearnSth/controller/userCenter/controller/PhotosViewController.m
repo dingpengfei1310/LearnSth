@@ -168,11 +168,14 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-//        AVPlayerItem *item = [AVPlayerItem alloc] initWithURL:<#(nonnull NSURL *)#>;
+        NSLog(@"play");
+        
+        
     }
 }
 
 @end
+
 
 
 

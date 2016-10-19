@@ -87,6 +87,7 @@ static NSString *BASEURl = @"http://192.168.1.63:8080/td/operate/";
         NSArray *array = [responseObject objectForKey:@"data"];
         success(array);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        success(error);
         NSLog(@"%@", error);
     }];
 }
