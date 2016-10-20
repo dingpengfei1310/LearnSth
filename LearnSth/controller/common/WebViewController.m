@@ -19,13 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    [self.view addSubview:_webView];
+    if (self.urlString) {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        [self.view addSubview:_webView];
+        
+        NSURL *url = [NSURL URLWithString:self.urlString];
+        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+        
+        NSLog(@"%@",self.urlString);
+    }
     
-    NSURL *url = [NSURL URLWithString:self.urlString];
-    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
-    
-    NSLog(@"%@",self.urlString);
 }
 
 - (void)didReceiveMemoryWarning {

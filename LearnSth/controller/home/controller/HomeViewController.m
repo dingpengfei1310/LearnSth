@@ -11,10 +11,11 @@
 
 #import "HttpRequestManager.h"
 
-#import "UserModel.h"
 #import "ADModel.h"
 
 #import "SDCycleScrollView.h"
+
+#import "LineView.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
@@ -29,9 +30,7 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self topAdBanner];
 }
 
 - (void)topAdBanner {

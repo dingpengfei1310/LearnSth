@@ -23,10 +23,12 @@
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
-    CGContextSetLineWidth(context, 1.0);
     
     int height = CGRectGetHeight(rect);
-    int count = CGRectGetWidth(rect) / 2;
+    int count = CGRectGetWidth(rect);
+    CGFloat lindWidth = CGRectGetWidth(rect) / count * 0.4;
+    
+//    CGContextSetLineWidth(context, CGRectGetWidth(rect) / count * 0.5);
     
 //    CGContextMoveToPoint(context, 0.0, 0.0);
 //    
@@ -40,14 +42,14 @@
 //        CGContextMoveToPoint(context, pointX, pointY);
 //    }
     
-    for (int i = 0; i < count / 2; i++) {
-        int pointX = 4 * i;
+    for (int i = 0; i < count; i++) {
+        int pointX = i;
         int pointY = arc4random() % height;
         
         CGPoint start = CGPointMake(pointX, 0);
         CGPoint end = CGPointMake(pointX, pointY);
         
-        [self drawLineWithContext:context volumePointStart:start volumePoint:end volcolor:[UIColor greenColor] width:1.0];
+        [self drawLineWithContext:context volumePointStart:start volumePoint:end volcolor:[UIColor greenColor] width:lindWidth];
     }
     
 }
