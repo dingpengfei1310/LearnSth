@@ -15,6 +15,10 @@
 		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
 		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
+		1B1765371DB9A212004A572D /* SKPanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1765361DB9A212004A572D /* SKPanoramaView.m */; };
+		1B1765391DB9A225004A572D /* goldenGate.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1765381DB9A225004A572D /* goldenGate.png */; };
+		1B17657B1DB9ECC5004A572D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17657A1DB9ECC5004A572D /* AnimationView.m */; };
+		1B17657E1DBA129A004A572D /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17657D1DBA129A004A572D /* NSString+Tool.m */; };
 		1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
@@ -87,6 +91,13 @@
 		1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
 		1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1B1765351DB9A212004A572D /* SKPanoramaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPanoramaView.h; sourceTree = "<group>"; };
+		1B1765361DB9A212004A572D /* SKPanoramaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPanoramaView.m; sourceTree = "<group>"; };
+		1B1765381DB9A225004A572D /* goldenGate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldenGate.png; sourceTree = "<group>"; };
+		1B1765791DB9ECC5004A572D /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
+		1B17657A1DB9ECC5004A572D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
+		1B17657C1DBA129A004A572D /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
+		1B17657D1DBA129A004A572D /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
 		1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserCell.h; sourceTree = "<group>"; };
 		1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserCell.m; sourceTree = "<group>"; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -250,8 +261,19 @@
 			children = (
 				1B0B343C1DAB30B30053CAB5 /* LineView.h */,
 				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
+				1B1765791DB9ECC5004A572D /* AnimationView.h */,
+				1B17657A1DB9ECC5004A572D /* AnimationView.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		1B1765341DB9A212004A572D /* SKPanoramaView */ = {
+			isa = PBXGroup;
+			children = (
+				1B1765351DB9A212004A572D /* SKPanoramaView.h */,
+				1B1765361DB9A212004A572D /* SKPanoramaView.m */,
+			);
+			path = SKPanoramaView;
 			sourceTree = "<group>";
 		};
 		1B3492421D93A804005C4800 /* Web */ = {
@@ -266,10 +288,13 @@
 		1B3CFA981DAC8E8800DA2661 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				1B1765341DB9A212004A572D /* SKPanoramaView */,
 				CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */,
 				CFED1D191DAD2322006A3721 /* DDImageBrowser */,
 				1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */,
 				1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */,
+				1B17657C1DBA129A004A572D /* NSString+Tool.h */,
+				1B17657D1DBA129A004A572D /* NSString+Tool.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -413,6 +438,7 @@
 		CF97EBC61DAA49D600E1EDD7 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				1B1765381DB9A225004A572D /* goldenGate.png */,
 				1B0B34331DAB2F5B0053CAB5 /* controller */,
 				1B0B34341DAB2F5B0053CAB5 /* model */,
 				1B0B343B1DAB30B30053CAB5 /* view */,
@@ -613,6 +639,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B1765391DB9A225004A572D /* goldenGate.png in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				1B3492461D93A804005C4800 /* upload.html in Resources */,
 				1B3492451D93A804005C4800 /* index.html in Resources */,
@@ -691,11 +718,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B3CFAAB1DACBE4800DA2661 /* PhotosViewController.m in Sources */,
+				1B17657B1DB9ECC5004A572D /* AnimationView.m in Sources */,
 				CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */,
 				CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */,
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
+				1B17657E1DBA129A004A572D /* NSString+Tool.m in Sources */,
 				1B3CFAA51DAC8E8800DA2661 /* BHBScrollView.m in Sources */,
 				1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */,
 				1B0B34201DAB20C60053CAB5 /* HttpRequestManager.m in Sources */,
@@ -721,6 +750,7 @@
 				CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				CFED1D541DAD4408006A3721 /* SDCycleScrollView.m in Sources */,
+				1B1765371DB9A212004A572D /* SKPanoramaView.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				CFED1D551DAD4408006A3721 /* UIView+SDExtension.m in Sources */,
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,

@@ -7,10 +7,11 @@
 //
 
 #import "WebViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface WebViewController ()
 
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
@@ -20,7 +21,7 @@
     [super viewDidLoad];
     
     if (self.urlString) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
         [self.view addSubview:_webView];
         
         NSURL *url = [NSURL URLWithString:self.urlString];
