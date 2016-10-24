@@ -15,7 +15,6 @@
 		1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B343D1DAB30B30053CAB5 /* LineView.m */; };
 		1B0B34441DAB3E150053CAB5 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
-		1B1765371DB9A212004A572D /* SKPanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1765361DB9A212004A572D /* SKPanoramaView.m */; };
 		1B17657B1DB9ECC5004A572D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17657A1DB9ECC5004A572D /* AnimationView.m */; };
 		1B17657E1DBA129A004A572D /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B17657D1DBA129A004A572D /* NSString+Tool.m */; };
 		1B217F6E1DBDB70A00C69666 /* UIViewController+Swizzled.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B217F3B1DBDB70A00C69666 /* UIViewController+Swizzled.m */; };
@@ -112,8 +111,6 @@
 		1B0B34421DAB3E150053CAB5 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
 		1B0B34431DAB3E150053CAB5 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		1B1765351DB9A212004A572D /* SKPanoramaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPanoramaView.h; sourceTree = "<group>"; };
-		1B1765361DB9A212004A572D /* SKPanoramaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPanoramaView.m; sourceTree = "<group>"; };
 		1B1765791DB9ECC5004A572D /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
 		1B17657A1DB9ECC5004A572D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		1B17657C1DBA129A004A572D /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
@@ -331,15 +328,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		1B1765341DB9A212004A572D /* SKPanoramaView */ = {
-			isa = PBXGroup;
-			children = (
-				1B1765351DB9A212004A572D /* SKPanoramaView.h */,
-				1B1765361DB9A212004A572D /* SKPanoramaView.m */,
-			);
-			path = SKPanoramaView;
-			sourceTree = "<group>";
-		};
 		1B217F391DBDB70A00C69666 /* UIViewController+Swizzled */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,7 +456,6 @@
 				1B217F391DBDB70A00C69666 /* UIViewController+Swizzled */,
 				1B217F3C1DBDB70A00C69666 /* MJRefresh */,
 				1B217F6B1DBDB70A00C69666 /* MBProgressHUD */,
-				1B1765341DB9A212004A572D /* SKPanoramaView */,
 				CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */,
 				CFED1D191DAD2322006A3721 /* DDImageBrowser */,
 				1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */,
@@ -945,7 +932,6 @@
 				1B217F7F1DBDB70A00C69666 /* NSBundle+MJRefresh.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
 				CFED1D541DAD4408006A3721 /* SDCycleScrollView.m in Sources */,
-				1B1765371DB9A212004A572D /* SKPanoramaView.m in Sources */,
 				1B217F6E1DBDB70A00C69666 /* UIViewController+Swizzled.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				1B217F811DBDB70A00C69666 /* UIScrollView+MJRefresh.m in Sources */,
