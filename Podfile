@@ -11,5 +11,6 @@ target 'LearnSth' do
     pod 'PLPlayerKit'
     pod 'SDWebImage'
     pod 'MJRefresh'
+    pod 'UIViewController+Swizzled'
     
 end

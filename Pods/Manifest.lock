@@ -48,6 +48,7 @@ PODS:
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SSZipArchive (1.2)
+  - UIViewController+Swizzled (1.4)
 
 DEPENDENCIES:
   - AFNetworking
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - PLPlayerKit
   - SDWebImage
   - SSZipArchive
+  - UIViewController+Swizzled
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -73,7 +75,8 @@ SPEC CHECKSUMS:
   PLPlayerKit: 1cef24f72d517519c74e797581fccc2db8db1a2e
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SSZipArchive: 251093c65f98d6ea282c50bc404bfa631d9fd721
+  UIViewController+Swizzled: 1cd9397598ede6930f94fbcac4b43d63c7aa0dbb
 
-PODFILE CHECKSUM: 675e740daca661811277c50d7b7d5d35d2202915
+PODFILE CHECKSUM: 367b7747152b4b63ff7f9b74d824bac0fa1cb85d
 
 COCOAPODS: 1.0.1

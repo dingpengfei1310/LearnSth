@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8C463CD491D989B457394A7AA95384BC'
-               BlueprintName = 'MGSwipeTableCell'
+               BlueprintIdentifier = '237566490F9B12619A5B62C5588DDCAD'
+               BlueprintName = 'UIViewController+Swizzled'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libMGSwipeTableCell.a'>
+               BuildableName = 'libUIViewController+Swizzled.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
