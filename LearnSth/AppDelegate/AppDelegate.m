@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
+#ifdef DEBUG
 #import "UIViewController+Swizzled.h"
+#endif
 
 @interface AppDelegate ()
 
@@ -20,7 +22,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+#ifdef DEBUG
     SWIZZ_IT
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
