@@ -8,7 +8,9 @@
 
 #import "HomeViewController.h"
 
+
 @interface HomeViewController ()
+
 
 @end
 
@@ -18,10 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {

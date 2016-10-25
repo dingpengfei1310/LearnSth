@@ -62,6 +62,9 @@
 		1BD323BA1DBEEF18004090F6 /* HUDsuccess.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BD323B61DBEEF18004090F6 /* HUDsuccess.png */; };
 		1BD323BB1DBEEF18004090F6 /* HUDsuccess@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BD323B71DBEEF18004090F6 /* HUDsuccess@2x.png */; };
 		1BD323BF1DBEEF76004090F6 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */; };
+		1BD323C71DBEFB30004090F6 /* XManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323C21DBEFB30004090F6 /* XManager.m */; };
+		1BD323C81DBEFB30004090F6 /* XSpotLight.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323C41DBEFB30004090F6 /* XSpotLight.m */; };
+		1BD323C91DBEFB30004090F6 /* XSpotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323C61DBEFB30004090F6 /* XSpotView.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -208,6 +211,12 @@
 		1BD323B71DBEEF18004090F6 /* HUDsuccess@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUDsuccess@2x.png"; sourceTree = "<group>"; };
 		1BD323BD1DBEEF76004090F6 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
+		1BD323C11DBEFB30004090F6 /* XManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XManager.h; sourceTree = "<group>"; };
+		1BD323C21DBEFB30004090F6 /* XManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XManager.m; sourceTree = "<group>"; };
+		1BD323C31DBEFB30004090F6 /* XSpotLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSpotLight.h; sourceTree = "<group>"; };
+		1BD323C41DBEFB30004090F6 /* XSpotLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSpotLight.m; sourceTree = "<group>"; };
+		1BD323C51DBEFB30004090F6 /* XSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSpotView.h; sourceTree = "<group>"; };
+		1BD323C61DBEFB30004090F6 /* XSpotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSpotView.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -470,6 +479,7 @@
 				1BD323A81DBEEEB8004090F6 /* MBProgressHUD */,
 				1B217F3C1DBDB70A00C69666 /* MJRefresh */,
 				CFED1D3F1DAD4408006A3721 /* SDCycleScrollView */,
+				1BD323C01DBEFB30004090F6 /* SpotLight */,
 				1BD3239F1DBEEEB8004090F6 /* TPKeyboardAvoiding */,
 				1B217F391DBDB70A00C69666 /* UIViewController+Swizzled */,
 				1B3CFAAC1DACDF8B00DA2661 /* WiFiUpload */,
@@ -540,6 +550,19 @@
 				1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		1BD323C01DBEFB30004090F6 /* SpotLight */ = {
+			isa = PBXGroup;
+			children = (
+				1BD323C11DBEFB30004090F6 /* XManager.h */,
+				1BD323C21DBEFB30004090F6 /* XManager.m */,
+				1BD323C31DBEFB30004090F6 /* XSpotLight.h */,
+				1BD323C41DBEFB30004090F6 /* XSpotLight.m */,
+				1BD323C51DBEFB30004090F6 /* XSpotView.h */,
+				1BD323C61DBEFB30004090F6 /* XSpotView.m */,
+			);
+			path = SpotLight;
 			sourceTree = "<group>";
 		};
 		1BF7F6BA1D92492200F8E5B1 = {
@@ -977,6 +1000,7 @@
 				CFED1D501DAD4408006A3721 /* TAAnimatedDotView.m in Sources */,
 				1B217F711DBDB70A00C69666 /* MJRefreshComponent.m in Sources */,
 				1B0B34371DAB2F840053CAB5 /* FuturesModel.m in Sources */,
+				1BD323C81DBEFB30004090F6 /* XSpotLight.m in Sources */,
 				CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */,
 				1B3CFAA41DAC8E8800DA2661 /* BHBPaintPath.m in Sources */,
 				1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */,
@@ -991,6 +1015,7 @@
 				1B217F6E1DBDB70A00C69666 /* UIViewController+Swizzled.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				1B217F811DBDB70A00C69666 /* UIScrollView+MJRefresh.m in Sources */,
+				1BD323C71DBEFB30004090F6 /* XManager.m in Sources */,
 				1B217F731DBDB70A00C69666 /* MJRefreshHeader.m in Sources */,
 				1B217F781DBDB70A00C69666 /* MJRefreshBackNormalFooter.m in Sources */,
 				1B217F7C1DBDB70A00C69666 /* MJRefreshStateHeader.m in Sources */,
@@ -998,6 +1023,7 @@
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,
 				CFED1D511DAD4408006A3721 /* TADotView.m in Sources */,
 				1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */,
+				1BD323C91DBEFB30004090F6 /* XSpotView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

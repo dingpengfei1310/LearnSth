@@ -11,12 +11,14 @@
 @implementation NSString (Tool)
 
 - (NSString *)pinyin {
-    NSMutableString *str = [self mutableCopy];
+    NSMutableString *pinyin = [self mutableCopy];
     
-    CFStringTransform(( CFMutableStringRef)str, NULL, kCFStringTransformMandarinLatin, NO);
-    CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+//    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripDiacritics, NO);
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
     
-    return [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    return [pinyin stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return pinyin;
 }
 
 //是否包含emoj
