@@ -49,6 +49,8 @@
 		1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAAE1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m */; };
 		1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */; };
 		1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */; };
+		1B667C611DBF5765002A35D6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C601DBF5765002A35D6 /* MessageViewController.m */; };
+		1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C641DBF5841002A35D6 /* MessageViewCell.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
@@ -188,6 +190,10 @@
 		1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B3CFAB11DACDF8B00DA2661 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1B667C5F1DBF5765002A35D6 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		1B667C601DBF5765002A35D6 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		1B667C631DBF5841002A35D6 /* MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewCell.h; sourceTree = "<group>"; };
+		1B667C641DBF5841002A35D6 /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -307,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				1B0B342F1DAB2ED60053CAB5 /* controller */,
+				1B667C621DBF57FE002A35D6 /* view */,
 			);
 			path = userCenter;
 			sourceTree = "<group>";
@@ -320,6 +327,8 @@
 				1B3CFAA71DACBE2800DA2661 /* PhotoLiarbraryViewController.m */,
 				1B3CFAA91DACBE4800DA2661 /* PhotosViewController.h */,
 				1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */,
+				1B667C5F1DBF5765002A35D6 /* MessageViewController.h */,
+				1B667C601DBF5765002A35D6 /* MessageViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -513,6 +522,15 @@
 				1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */,
 			);
 			path = WiFiUpload;
+			sourceTree = "<group>";
+		};
+		1B667C621DBF57FE002A35D6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1B667C631DBF5841002A35D6 /* MessageViewCell.h */,
+				1B667C641DBF5841002A35D6 /* MessageViewCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		1BD3239F1DBEEEB8004090F6 /* TPKeyboardAvoiding */ = {
@@ -965,6 +983,7 @@
 				1B217F6F1DBDB70A00C69666 /* MJRefreshAutoFooter.m in Sources */,
 				1B17657B1DB9ECC5004A572D /* AnimationView.m in Sources */,
 				1BD323AD1DBEEEB8004090F6 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				1B667C611DBF5765002A35D6 /* MessageViewController.m in Sources */,
 				CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */,
 				CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */,
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
@@ -1017,6 +1036,7 @@
 				1B217F811DBDB70A00C69666 /* UIScrollView+MJRefresh.m in Sources */,
 				1BD323C71DBEFB30004090F6 /* XManager.m in Sources */,
 				1B217F731DBDB70A00C69666 /* MJRefreshHeader.m in Sources */,
+				1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */,
 				1B217F781DBDB70A00C69666 /* MJRefreshBackNormalFooter.m in Sources */,
 				1B217F7C1DBDB70A00C69666 /* MJRefreshStateHeader.m in Sources */,
 				CFED1D551DAD4408006A3721 /* UIView+SDExtension.m in Sources */,

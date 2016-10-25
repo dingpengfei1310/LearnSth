@@ -10,4 +10,6 @@
 
 @interface DDVideoPlayController : UIViewController
 
+@property (nonatomic, strong) NSURL *playerUrl;
+
 @end

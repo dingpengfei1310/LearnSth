@@ -8,7 +8,11 @@
 
 #import "DDVideoPlayController.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 @interface DDVideoPlayController ()
+
+@property (nonatomic, strong) AVPlayer *player;
 
 @end
 
@@ -16,12 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:nil];
+    _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+    
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    [self.view.layer addSublayer:playerLayer];
+    
+    [_player play];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 
