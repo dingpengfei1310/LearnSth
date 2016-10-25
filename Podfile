@@ -9,6 +9,5 @@ target 'LearnSth' do
     pod 'FMDB'
     pod 'PLPlayerKit'
     pod 'SDWebImage'
-    pod 'MBProgressHUD'
     
 end

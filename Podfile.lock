@@ -36,7 +36,6 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - GPUImage (0.1.7)
-  - MBProgressHUD (1.0.0)
   - pili-librtmp (1.0.2)
   - PLPlayerKit (2.2.0):
     - pili-librtmp
@@ -53,7 +52,6 @@ DEPENDENCIES:
   - CocoaHTTPServer
   - FMDB
   - GPUImage
-  - MBProgressHUD
   - PLPlayerKit
   - SDWebImage
   - SSZipArchive
@@ -65,12 +63,11 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   pili-librtmp: 97dc6774ac4ebb9935f04d5f35f3f6d8c4a4f37c
   PLPlayerKit: 1cef24f72d517519c74e797581fccc2db8db1a2e
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SSZipArchive: 251093c65f98d6ea282c50bc404bfa631d9fd721
 
-PODFILE CHECKSUM: e84cde45ab5fa7f0bc37c553692aa9e29bd03eed
+PODFILE CHECKSUM: edc337aae80bcc5c9c9caca8e503f46f5e2de345
 
 COCOAPODS: 1.0.1
