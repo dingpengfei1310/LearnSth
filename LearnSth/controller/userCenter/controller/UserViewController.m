@@ -8,14 +8,15 @@
 
 #import "UserViewController.h"
 
-#import "PhotoLiarbraryViewController.h"
-
 #import "WiFiUploadManager.h"
+
+#import "PhotoLiarbraryViewController.h"
+#import "MessageViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 
@@ -26,7 +27,7 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"User";
-    self.dataArray = @[@"上传文件",@"查看相册"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息"];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
@@ -35,6 +36,7 @@ static NSString *identifier = @"cell";
     _tableView.delegate = self;
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
+    
     
 }
 
@@ -56,8 +58,13 @@ static NSString *identifier = @"cell";
     
     if (indexPath.row == 0) {
         [self wifiUpload];
-    } else {
-        [self photoLiarbraryBrowers];
+    } else if (indexPath.row == 1) {
+        PhotoLiarbraryViewController *controller = [[PhotoLiarbraryViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 2) {
+        MessageViewController *controller = [[MessageViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
@@ -71,12 +78,6 @@ static NSString *identifier = @"cell";
         NSLog(@"PATH = %@",manager.savePath);
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
-}
-
-- (void)photoLiarbraryBrowers {
-    PhotoLiarbraryViewController *controller = [[PhotoLiarbraryViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

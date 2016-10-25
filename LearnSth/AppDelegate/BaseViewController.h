@@ -10,6 +10,7 @@
 
 #import "AppConfiguration.h"
 #import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
 
 @interface BaseViewController : UIViewController
 
@@ -22,5 +23,14 @@
  *  导航栏恢复
  */
 - (void)navigationBarColorRestore;
+
+///
+- (void)loading;
+
+- (void)showSuccess:(NSString *)success;
+- (void)showError:(NSString *)error;
+- (void)showMessage:(NSString *)message;
+
+- (void)hideHUD;
 
 @end

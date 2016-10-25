@@ -12,24 +12,12 @@
 
 @end
 
-
 @implementation HomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    if (self.isViewLoaded) {
-        NSLog(@"isViewLoaded");
-    }
 }
 
-- (void)becomeActive {
-    if (self.view.window) {
-        NSLog(@"becomeActive");
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -30,6 +30,8 @@ static NSString * const reuseIdentifier = @"Cell";
     return _thumbImages;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -154,6 +156,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
     
+    
     //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
     [[PHCachingImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:PHImageManagerMaximumSize
@@ -165,14 +168,21 @@ static NSString * const reuseIdentifier = @"Cell";
                                             }];
 }
 
-- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index {
-    PHAsset *asset = self.fetchResult[index];
-    if (asset.mediaType == PHAssetMediaTypeVideo) {
-        NSLog(@"play");
-        
-        
-    }
-}
+//- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index {
+//    PHAsset *asset = self.fetchResult[index];
+//    if (asset.mediaType == PHAssetMediaTypeVideo) {
+//        NSLog(@"play");
+//        
+//        [[PHCachingImageManager defaultManager] requestImageForAsset:asset
+//                                                          targetSize:PHImageManagerMaximumSize
+//                                                         contentMode:PHImageContentModeAspectFit
+//                                                             options:nil
+//                                                       resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+//                                                           NSString *url = info[@"PHImageFileURLKey"];
+//                                                           
+//                                                       }];
+//    }
+//}
 
 @end
 

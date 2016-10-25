@@ -153,9 +153,9 @@ static NSString * const reuseIdentifier = @"Cell";
         self.topView.frame = rect;
     }];
     
-    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
-        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
-    }
+//    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
+//        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
+//    }
 }
 
 #pragma mark
