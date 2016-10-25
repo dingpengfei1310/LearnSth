@@ -88,7 +88,7 @@ static const CGFloat SKPanoramaRotationFactor = 4.0f;
     _minimumXOffset = 0;
     _maximumXOffset = _scrollView.contentSize.width - _scrollView.frame.size.width;
     
-//    _timer = [NSTimer timerWithTimeInterval:SKAnimationUpdateInterval target:self selector:@selector(transition) userInfo:nil repeats:YES];
+    _timer = [NSTimer timerWithTimeInterval:SKAnimationUpdateInterval target:self selector:@selector(transition) userInfo:nil repeats:YES];
 //    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
