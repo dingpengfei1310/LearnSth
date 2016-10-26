@@ -10,6 +10,10 @@
 
 @interface NSString (Tool)
 
+///拼音
 - (NSString *)pinyin;
+
+///MD5加密
+- (NSString *)MD5String;
 
 @end

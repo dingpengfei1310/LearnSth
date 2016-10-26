@@ -26,7 +26,8 @@ static NSString *reuseIdentifier = @"cell";
     self.title = @"消息";
     self.dataArray = @[@"上传文件法国代购电饭锅电饭锅电饭锅电饭锅地方地方顾客都反馈个大反派看过吗",@"查看相册从 v 变成 v 巴格达也让特有人同意让他依然讨厌热天有人同意恢复光滑风格化风格化风格化风格化风格化",@"好好学习"];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+                                              style:UITableViewStylePlain];
     [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
@@ -34,6 +35,9 @@ static NSString *reuseIdentifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
+//    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+//    _tableView.tableHeaderView = searchController.searchBar;
+//    self.definesPresentationContext = YES;
 }
 
 #pragma mark

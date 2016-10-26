@@ -8,6 +8,8 @@
 
 #import "NSString+Tool.h"
 
+#import <CommonCrypto/CommonDigest.h>
+
 @implementation NSString (Tool)
 
 - (NSString *)pinyin {
@@ -19,6 +21,20 @@
     
 //    return [pinyin stringByReplacingOccurrencesOfString:@" " withString:@""];
     return pinyin;
+}
+
+- (NSString *)MD5String {
+    const char * input = [self UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(input, (CC_LONG)strlen(input), result);
+    
+    NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [digest appendFormat:@"%02X", result[i]];
+    }
+    
+    return digest;
 }
 
 //是否包含emoj
