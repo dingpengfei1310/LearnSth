@@ -30,6 +30,15 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [self setNavigationBar];
+    
+    TabBarViewController *controller = [[TabBarViewController alloc] init];
+    self.window.rootViewController = controller;
+    
+    return YES;
+}
+
+- (void)setNavigationBar {
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
@@ -37,10 +46,14 @@
     NSDictionary *titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17],NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
     
-    TabBarViewController *controller = [[TabBarViewController alloc] init];
-    self.window.rootViewController = controller;
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, 0)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    UIImage *backButtonImage = [UIImage imageNamed:@"backButtonImage"];
+    UIImage *resizeableImage = [backButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     
-    return YES;
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
+                                                      forState:UIControlStateNormal
+                                                    barMetrics:UIBarMetricsDefault];
 }
 
 - (UIImage *)getImageWithColor:(UIColor *)color {

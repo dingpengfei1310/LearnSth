@@ -69,6 +69,7 @@ static NSString *identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 2) {
         MessageViewController *controller = [[MessageViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
     

@@ -51,7 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
         _topView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.8];
         
         UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
-        [backButton setImage:[UIImage imageNamed:@"backImage"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"backButtonImage"] forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_topView addSubview:backButton];
     }
