@@ -13,7 +13,9 @@
 #import "PhotoLiarbraryViewController.h"
 #import "MessageViewController.h"
 
-@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "PopoverViewController.h"
+
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -48,6 +50,9 @@ static NSString *identifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+//    [cell addGestureRecognizer:longPress];
+    
     cell.textLabel.text = self.dataArray[indexPath.row];
     
     return cell;
@@ -66,6 +71,37 @@ static NSString *identifier = @"cell";
         MessageViewController *controller = [[MessageViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
+    
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
+}
+
+- (void)longPress:(UILongPressGestureRecognizer *)gesture {
+    
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        CGPoint point = [gesture locationInView:self.tableView];
+        NSIndexPath *indexpath = [self.tableView indexPathForRowAtPoint:point];
+        
+        UIView *view = gesture.view;
+        
+        PopoverViewController *popoverController = [[PopoverViewController alloc] init];
+        popoverController.content = self.dataArray[indexpath.row];
+        popoverController.modalPresentationStyle = UIModalPresentationPopover;
+        popoverController.preferredContentSize = CGSizeMake(100, 50);
+        
+        UIPopoverPresentationController *popover = popoverController.popoverPresentationController;
+        popover.sourceView = view;
+        popover.sourceRect = view.bounds;
+        popover.delegate = self;
+        popover.backgroundColor = [UIColor greenColor];
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+        
+        [self presentViewController:popoverController animated:YES completion:nil];
+    }
+    
 }
 
 #pragma mark

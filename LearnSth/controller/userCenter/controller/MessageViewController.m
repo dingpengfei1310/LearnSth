@@ -34,6 +34,9 @@ static NSString *reuseIdentifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
+    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+    _tableView.tableHeaderView = searchController.searchBar;
+    self.definesPresentationContext = YES;
 }
 
 #pragma mark

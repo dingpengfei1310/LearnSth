@@ -49,6 +49,7 @@
 		1B3CFAB31DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAAE1DACDF8B00DA2661 /* WiFiUploadHTTPConnection.m */; };
 		1B3CFAB41DACDF8B00DA2661 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */; };
 		1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */; };
+		1B5372D41DC04A2000A1CDDD /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5372D31DC04A2000A1CDDD /* PopoverViewController.m */; };
 		1B667C611DBF5765002A35D6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C601DBF5765002A35D6 /* MessageViewController.m */; };
 		1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C641DBF5841002A35D6 /* MessageViewCell.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
@@ -190,6 +191,8 @@
 		1B3CFAB01DACDF8B00DA2661 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B3CFAB11DACDF8B00DA2661 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B3CFAB21DACDF8B00DA2661 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1B5372D21DC04A2000A1CDDD /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
+		1B5372D31DC04A2000A1CDDD /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
 		1B667C5F1DBF5765002A35D6 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		1B667C601DBF5765002A35D6 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		1B667C631DBF5841002A35D6 /* MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewCell.h; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				1B3CFAAA1DACBE4800DA2661 /* PhotosViewController.m */,
 				1B667C5F1DBF5765002A35D6 /* MessageViewController.h */,
 				1B667C601DBF5765002A35D6 /* MessageViewController.m */,
+				1B5372D21DC04A2000A1CDDD /* PopoverViewController.h */,
+				1B5372D31DC04A2000A1CDDD /* PopoverViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1006,6 +1011,7 @@
 				1B217F791DBDB70A00C69666 /* MJRefreshBackStateFooter.m in Sources */,
 				1BD323B01DBEEEB8004090F6 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				CF357E751DB3953C00103323 /* UIImage+SaveToAlbum.m in Sources */,
+				1B5372D41DC04A2000A1CDDD /* PopoverViewController.m in Sources */,
 				1B217F761DBDB70A00C69666 /* MJRefreshAutoStateFooter.m in Sources */,
 				CF357E781DB39F7200103323 /* DDVideoPlayController.m in Sources */,
 				1B217F801DBDB70A00C69666 /* UIScrollView+MJExtension.m in Sources */,

@@ -8,9 +8,7 @@
 
 #import "HomeViewController.h"
 
-
 @interface HomeViewController ()
-
 
 @end
 
@@ -20,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController:)];
     
 }
 
