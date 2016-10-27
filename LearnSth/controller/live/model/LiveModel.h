@@ -33,6 +33,9 @@
 @property (nonatomic, copy) NSString *grade;
 @property (nonatomic, copy) NSString *curexp;
 
+@property (nonatomic, copy) NSString *nation;
+@property (nonatomic, copy) NSString *nationFlag;
+
 + (NSArray<LiveModel *> *)liveWithArray:(NSArray *)array;
 
 @end

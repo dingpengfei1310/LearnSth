@@ -22,4 +22,8 @@
     return [NSArray arrayWithArray:tempArray];
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    
+}
+
 @end
