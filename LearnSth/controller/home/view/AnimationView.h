@@ -10,4 +10,9 @@
 
 @interface AnimationView : UIView
 
+- (void)startProgress;
+- (void)stopProgress;
+
+- (void)startColorfulProgress;
+
 @end

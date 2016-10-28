@@ -34,8 +34,11 @@
     cellWidth = [UIScreen mainScreen].bounds.size.width;
     
     _background = [[UIImageView alloc] init];
-    _background.image = [UIImage imageNamed:@"messageCellBackground"];
     [self.contentView addSubview:_background];
+    
+    UIImage *image = [UIImage imageNamed:@"messageCellBackground"];//694*262
+//    _background.image = [image stretchableImageWithLeftCapWidth:<#(NSInteger)#> topCapHeight:<#(NSInteger)#>];
+    _background.image = image;
     
     _contentLabel = [[UILabel alloc] init];
     _contentLabel.numberOfLines = 0;

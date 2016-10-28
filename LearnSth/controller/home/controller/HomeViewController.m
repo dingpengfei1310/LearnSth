@@ -8,7 +8,11 @@
 
 #import "HomeViewController.h"
 
+#import "AnimationView.h"
+
 @interface HomeViewController ()
+
+@property (nonatomic, strong) AnimationView *aView;
 
 @end
 
@@ -19,8 +23,17 @@
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController:)];
     
+    _aView = [[AnimationView alloc] initWithFrame:CGRectMake(20, 84, 100, 100)];
+    [self.view addSubview:_aView];
+    
+//    [_aView startColorfulProgress];
+    
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

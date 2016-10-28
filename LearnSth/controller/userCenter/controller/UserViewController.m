@@ -39,7 +39,6 @@ static NSString *identifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
-    
 }
 
 #pragma mark
