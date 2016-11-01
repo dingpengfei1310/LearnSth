@@ -9,7 +9,7 @@
 #import "WebViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface WebViewController ()
+@interface WebViewController ()<UIAlertViewDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
 

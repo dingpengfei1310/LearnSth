@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "WebViewController.h"
 
 @interface HomeViewController ()
 
@@ -17,13 +18,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
+}
+
+- (void)popoverController {
+    WebViewController *controller = [[WebViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)didReceiveMemoryWarning {

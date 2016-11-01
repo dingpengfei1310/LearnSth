@@ -7,10 +7,9 @@
 //
 
 #import "MessageViewCell.h"
+#import "Masonry.h"
 
-@interface MessageViewCell() {
-    CGFloat cellWidth;
-}
+@interface MessageViewCell()
 
 @property (nonatomic, strong) UIImageView *background;
 @property (nonatomic, strong) UILabel *contentLabel;
@@ -31,8 +30,6 @@
 }
 
 - (void)initSubView {
-    cellWidth = [UIScreen mainScreen].bounds.size.width;
-    
     _background = [[UIImageView alloc] init];
     [self.contentView addSubview:_background];
     
@@ -47,10 +44,20 @@
 }
 
 - (void)layoutSubviews {
+    CGFloat cellWidth = CGRectGetWidth(self.frame);
     CGFloat cellHeight = CGRectGetHeight(self.frame);
     
-    _background.frame = CGRectMake(5, 5, cellWidth - 10, cellHeight - 10);
-    _contentLabel.frame = CGRectMake(20, 20, cellWidth - 40, cellHeight - 40);
+    [_background mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@5);
+        make.left.mas_equalTo(5);
+        make.size.mas_equalTo(CGSizeMake(cellWidth - 10, cellHeight - 10));
+    }];
+    
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@20);
+        make.left.mas_equalTo(20);
+        make.size.mas_equalTo(CGSizeMake(cellWidth - 40, cellHeight - 40));
+    }];
 }
 
 - (void)setContent:(NSString *)content {

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import "AppConfiguration.h"
+
+#import "Utils.h"
+
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
 

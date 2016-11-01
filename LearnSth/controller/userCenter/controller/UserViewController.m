@@ -13,9 +13,10 @@
 #import "PhotoLiarbraryViewController.h"
 #import "MessageViewController.h"
 
-#import "PopoverViewController.h"
+#import "LoginViewController.h"
+#import "UserInfoViewController.h"
 
-@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate>
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -39,6 +40,27 @@ static NSString *identifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)loginClick {
+    if (![Utils isLogin]) {
+        LoginViewController *controller = [[LoginViewController alloc] init];
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+        [self presentViewController:nvc animated:YES completion:nil];
+    } else {
+        UserInfoViewController *controller = [[UserInfoViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark
@@ -48,9 +70,6 @@ static NSString *identifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-//    [cell addGestureRecognizer:longPress];
     
     cell.textLabel.text = self.dataArray[indexPath.row];
     
@@ -70,36 +89,6 @@ static NSString *identifier = @"cell";
         MessageViewController *controller = [[MessageViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
-    }
-    
-}
-
-#pragma mark - UIPopoverPresentationControllerDelegate
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
-    return UIModalPresentationNone;
-}
-
-- (void)longPress:(UILongPressGestureRecognizer *)gesture {
-    
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        CGPoint point = [gesture locationInView:self.tableView];
-        NSIndexPath *indexpath = [self.tableView indexPathForRowAtPoint:point];
-        
-        UIView *view = gesture.view;
-        
-        PopoverViewController *popoverController = [[PopoverViewController alloc] init];
-        popoverController.content = self.dataArray[indexpath.row];
-        popoverController.modalPresentationStyle = UIModalPresentationPopover;
-        popoverController.preferredContentSize = CGSizeMake(100, 50);
-        
-        UIPopoverPresentationController *popover = popoverController.popoverPresentationController;
-        popover.sourceView = view;
-        popover.sourceRect = view.bounds;
-        popover.delegate = self;
-        popover.backgroundColor = [UIColor greenColor];
-        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-        
-        [self presentViewController:popoverController animated:YES completion:nil];
     }
     
 }

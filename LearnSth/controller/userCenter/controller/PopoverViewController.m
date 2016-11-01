@@ -8,25 +8,29 @@
 
 #import "PopoverViewController.h"
 
-@interface PopoverViewController () {
+@interface PopoverViewController () <UITableViewDataSource,UITableViewDelegate>{
     CGFloat viewWidth;
     CGFloat ViewHeight;
 }
 
-@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
+
+static NSString *identifier = @"cell";
 
 @implementation PopoverViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _contentLabel = [[UILabel alloc] init];
-    _contentLabel.textAlignment = NSTextAlignmentCenter;
-    _contentLabel.text = self.content;
-    _contentLabel.font = [UIFont systemFontOfSize:15];
-    [self.view addSubview:_contentLabel];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    _tableView.tableFooterView = [[UIView alloc] init];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.rowHeight = 50;
+    [self.view addSubview:_tableView];
     
 }
 
@@ -36,8 +40,28 @@
     viewWidth = CGRectGetWidth(self.view.frame);
     ViewHeight = CGRectGetHeight(self.view.frame);
     
-    _contentLabel.frame = CGRectMake(0, 10, viewWidth, 30);
+    _tableView.frame = CGRectMake(0, 0, viewWidth, ViewHeight);
+}
+
+#pragma mark
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
+    cell.textLabel.text = self.dataArray[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
+        [self.delegate controller:self didSelectAtIndex:indexPath.row];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
