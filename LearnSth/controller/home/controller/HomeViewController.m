@@ -9,6 +9,8 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
+#import "AnimationView.h"
+
 @interface HomeViewController ()
 
 @end
@@ -20,6 +22,9 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
+    
+//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
+//    [self.view addSubview:aView];
 }
 
 - (void)popoverController {

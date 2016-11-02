@@ -13,6 +13,5 @@
 - (void)startProgress;
 - (void)stopProgress;
 
-- (void)startColorfulProgress;
 
 @end

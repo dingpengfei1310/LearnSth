@@ -14,16 +14,12 @@ static NSString *Nickname = @"nickname";
 @implementation Utils
 
 + (void)remoAllObjects {
-//    [[NSUserDefaults standardUserDefaults] remo];
-//    NSString*appDomain = [[NSBundle mainBundle] bundleIdentifier];
-//    
-//    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+//    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+//    for(NSString * key in [dict allKeys]) {
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+//    }
     
-    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    for(NSString * key in [dict allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-//        NSLog(@"%@ -- %@",key,[[NSUserDefaults standardUserDefaults] objectForKey:key]);
-    }
+    
 }
 
 #pragma mark

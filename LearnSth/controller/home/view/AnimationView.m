@@ -14,6 +14,9 @@
 }
 
 @property (nonatomic, strong) CAShapeLayer *baseCircleLayer;
+
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
+
 @property (nonatomic, strong) NSMutableArray *progressLayers;
 
 @end
@@ -31,91 +34,76 @@ CGFloat const totalDuration = 3.0;
         radius = width * 0.5 - 10;
         
         if (radius > 0) {
-            [self addBaseLayer];
+//            [self.layer addSublayer:self.baseCircleLayer];
+//            [self roation];
             
-            [self setGradientLayer];
+//            [self startProgress];
             
-            [self startProgress];
+//            [self.layer addSublayer:self.gradientLayer];
+//            [self setGradientLayer];
+            
         }
         
     }
     return self;
 }
 
-- (void)addBaseLayer {
-    _baseCircleLayer = [CAShapeLayer layer];
+- (CAShapeLayer *)baseCircleLayer {
+    if (!_baseCircleLayer) {
+        _baseCircleLayer = [CAShapeLayer layer];
+        _baseCircleLayer.lineWidth = lineWidth;
+        _baseCircleLayer.bounds = self.bounds;
+        _baseCircleLayer.fillColor = [UIColor clearColor].CGColor;
+        _baseCircleLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+        _baseCircleLayer.position = CGPointMake(width * 0.5, height * 0.5);
+        
+        
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(width * 0.5, height * 0.5)
+                                                                  radius:radius
+                                                              startAngle:0
+                                                                endAngle:M_PI * 1.8
+                                                               clockwise:YES];
+        
+        _baseCircleLayer.path = bezierPath.CGPath;
+    }
     
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(width * 0.5, height * 0.5)
-                                                              radius:radius
-                                                          startAngle:0
-                                                            endAngle:M_PI * 2
-                                                           clockwise:YES];
-    _baseCircleLayer.path = bezierPath.CGPath;
-    _baseCircleLayer.lineWidth = lineWidth;
-    _baseCircleLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-    _baseCircleLayer.fillColor = self.backgroundColor.CGColor;
-    
-    [self.layer addSublayer:_baseCircleLayer];
-    
+    return _baseCircleLayer;
+}
+
+- (CAGradientLayer *)gradientLayer {
+    if (!_gradientLayer) {
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = self.bounds;
+        [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
+        [_gradientLayer setEndPoint:CGPointMake(1.0, 1.0)];
+    }
+    return _gradientLayer;
 }
 
 #pragma mark
-- (void)addProgressLayer {
-    for (int i = 0; i < 3; i++) {
-        CAShapeLayer *progressLayer = [CAShapeLayer layer];
-        progressLayer.path = _baseCircleLayer.path;
-        progressLayer.fillColor = [[UIColor clearColor] CGColor];
-        progressLayer.strokeColor = [[self randomColor] CGColor];
-        progressLayer.lineWidth = lineWidth;
-        progressLayer.strokeEnd = 0.3 * (i + 1);
-        progressLayer.strokeStart = 0.3 * i;
-        
-        [self.layer addSublayer:progressLayer];
-        [self.progressLayers addObject:progressLayer];
-    }
-}
-
-- (void)updateAnimations {
-    
-    for (int i = 0; i < self.progressLayers.count; i++) {
-        CAShapeLayer *progressLayer = self.progressLayers[i];
-        CABasicAnimation *strokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        strokeEnd.repeatCount = MAXFLOAT;
-        strokeEnd.duration = totalDuration;
-        strokeEnd.fromValue = @(progressLayer.strokeStart);
-        strokeEnd.toValue = @(progressLayer.strokeEnd);
-        strokeEnd.autoreverses = YES;
-        [progressLayer addAnimation:strokeEnd forKey:@""];
-    }
-    
-}
-
-- (void)startColorfulProgress {
-    if (!_progressLayers) {
-        _progressLayers = [NSMutableArray array];
-    }
-    [_progressLayers removeAllObjects];
-    
-    [self addProgressLayer];
-    [self updateAnimations];
+- (void)roation {
+    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    strokeStart.repeatCount = MAXFLOAT;
+    strokeStart.duration = 2;
+    strokeStart.fromValue = @(0);
+    strokeStart.toValue = @(M_PI * 2);
+    [self.baseCircleLayer addAnimation:strokeStart forKey:@""];
 }
 
 #pragma mark
 - (void)startProgress {
-    [_baseCircleLayer removeAllAnimations];
+    [self.baseCircleLayer removeAllAnimations];
     
     CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
-    strokeStart.delegate = self;
-//    strokeStart.repeatCount = MAXFLOAT;
+//    strokeStart.repeatCount = NSIntegerMax;
     strokeStart.duration = 2;
     strokeStart.fromValue = @(0);
     strokeStart.toValue = @(0.3);
-    [_baseCircleLayer addAnimation:strokeStart forKey:@""];
+    [self.baseCircleLayer addAnimation:strokeStart forKey:@""];
     
     
     CABasicAnimation *strokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-//    strokeEnd.delegate = self;
-//    strokeEnd.repeatCount = MAXFLOAT;
+    strokeEnd.repeatCount = NSIntegerMax;
     strokeEnd.duration = 2;
     strokeEnd.fromValue = @(0);
     strokeEnd.toValue = @(1);
@@ -124,36 +112,50 @@ CGFloat const totalDuration = 3.0;
     //同时使用才有效，保持动画结束的状态
     //    strokeEnd.removedOnCompletion = NO;
     //    strokeEnd.fillMode = kCAFillModeForwards;
-    [_baseCircleLayer addAnimation:strokeEnd forKey:@""];
+    [self.baseCircleLayer addAnimation:strokeEnd forKey:@""];
 }
 
 - (void)stopProgress {
-    [_baseCircleLayer removeAllAnimations];
 }
 
 - (void)setGradientLayer {
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = CGRectMake(0, 0, width, 5);
-    [gradientLayer setStartPoint:CGPointMake(0.0, 0.5)];
-    [gradientLayer setEndPoint:CGPointMake(1.0, 0.5)];
-    [self.layer addSublayer:gradientLayer];
-    
     NSMutableArray *colors = [NSMutableArray array];
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         UIColor *color= [self randomColor];
         [colors addObject:(id)[color CGColor]];
     }
-    [gradientLayer setColors:colors];
+    [self.gradientLayer setColors:colors];
+    
+    CATextLayer *textLayer = [CATextLayer layer];
+    textLayer.foregroundColor = [UIColor blackColor].CGColor;
+    textLayer.string = @"加载中\n哈哈哈\n成功了";
+    textLayer.fontSize = 20;
+    textLayer.wrapped = YES;
+    textLayer.contentsScale = [UIScreen mainScreen].scale;
+    textLayer.frame = CGRectMake(0, 0, width, height);
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    [self.gradientLayer setMask:textLayer];
+    
+//    CADisplayLink *disPalyLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(setColors)];
+//    disPalyLink.frameInterval = 30;
+//    [disPalyLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
+
+- (void)setColors {
+    NSMutableArray *colors = [NSMutableArray array];
+    for (int i = 0; i < 5; i++) {
+        UIColor *color= [self randomColor];
+        [colors addObject:(id)[color CGColor]];
+    }
+    [self.gradientLayer setColors:colors];
+}
+
 
 #pragma mark
 - (void)animationDidStart:(CAAnimation *)anim {
-    
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self setGradientLayer];
-    [self startProgress];
 }
 
 #pragma mark
@@ -167,3 +169,5 @@ CGFloat const totalDuration = 3.0;
 
 
 @end
+
+
