@@ -53,7 +53,6 @@
 		1B667C611DBF5765002A35D6 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C601DBF5765002A35D6 /* MessageViewController.m */; };
 		1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B667C641DBF5841002A35D6 /* MessageViewCell.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
-		1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DB21DAB8FBD006F058B /* UserModel.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BD323AD1DBEEEB8004090F6 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323A11DBEEEB8004090F6 /* TPKeyboardAvoidingCollectionView.m */; };
 		1BD323AE1DBEEEB8004090F6 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323A31DBEEEB8004090F6 /* TPKeyboardAvoidingScrollView.m */; };
@@ -76,6 +75,7 @@
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		1BFD3DE51DC839EF006B5FAB /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD3DE41DC839EF006B5FAB /* UserInfoViewController.m */; };
 		1BFD75FC1DB09B9D00A75E3B /* DDImageBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */; };
+		1BFE47001DCB232D00E9BDEC /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFE46FF1DCB232D00E9BDEC /* UserModel.m */; };
 		CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */; };
 		CF357E751DB3953C00103323 /* UIImage+SaveToAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = CF357E741DB3953C00103323 /* UIImage+SaveToAlbum.m */; };
 		CF357E781DB39F7200103323 /* DDVideoPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF357E771DB39F7200103323 /* DDVideoPlayController.m */; };
@@ -200,8 +200,6 @@
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		1B6E7DB11DAB8FBD006F058B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		1B6E7DB21DAB8FBD006F058B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BD323A01DBEEEB8004090F6 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
@@ -242,6 +240,8 @@
 		1BFD3DE41DC839EF006B5FAB /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		1BFD75FA1DB09B9D00A75E3B /* DDImageBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserController.h; sourceTree = "<group>"; };
 		1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserController.m; sourceTree = "<group>"; };
+		1BFE46FE1DCB232D00E9BDEC /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		1BFE46FF1DCB232D00E9BDEC /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF2FEC7C1DAE6F1200933DE6 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -316,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				1B0B342F1DAB2ED60053CAB5 /* controller */,
+				1BFE46FD1DCB1A5600E9BDEC /* model */,
 				1B667C621DBF57FE002A35D6 /* view */,
 			);
 			path = userCenter;
@@ -356,8 +357,6 @@
 			children = (
 				1B0B34351DAB2F840053CAB5 /* FuturesModel.h */,
 				1B0B34361DAB2F840053CAB5 /* FuturesModel.m */,
-				1B6E7DB11DAB8FBD006F058B /* UserModel.h */,
-				1B6E7DB21DAB8FBD006F058B /* UserModel.m */,
 				CFED1D3C1DAD3B78006A3721 /* ADModel.h */,
 				CFED1D3D1DAD3B78006A3721 /* ADModel.m */,
 			);
@@ -668,6 +667,15 @@
 				1B0B342E1DAB2ED60053CAB5 /* userCenter */,
 			);
 			path = controller;
+			sourceTree = "<group>";
+		};
+		1BFE46FD1DCB1A5600E9BDEC /* model */ = {
+			isa = PBXGroup;
+			children = (
+				1BFE46FE1DCB232D00E9BDEC /* UserModel.h */,
+				1BFE46FF1DCB232D00E9BDEC /* UserModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		3FB33C495512F7CBF308965E /* Pods */ = {
@@ -1000,7 +1008,6 @@
 				1B217F7E1DBDB70A00C69666 /* MJRefreshConst.m in Sources */,
 				1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */,
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
-				1B6E7DB31DAB8FBD006F058B /* UserModel.m in Sources */,
 				1B217F791DBDB70A00C69666 /* MJRefreshBackStateFooter.m in Sources */,
 				1BD323B01DBEEEB8004090F6 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				CF357E751DB3953C00103323 /* UIImage+SaveToAlbum.m in Sources */,
@@ -1030,6 +1037,7 @@
 				1BD323BF1DBEEF76004090F6 /* NSString+Tool.m in Sources */,
 				1B217F7F1DBDB70A00C69666 /* NSBundle+MJRefresh.m in Sources */,
 				1B0B34211DAB20C60053CAB5 /* SQLManager.m in Sources */,
+				1BFE47001DCB232D00E9BDEC /* UserModel.m in Sources */,
 				CFED1D541DAD4408006A3721 /* SDCycleScrollView.m in Sources */,
 				1B217F6E1DBDB70A00C69666 /* UIViewController+Swizzled.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,

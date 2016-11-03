@@ -10,6 +10,11 @@
 
 @interface UserModel : NSObject
 
+@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSString *nickname;//昵称
+@property (nonatomic, copy) NSString *username;//
+@property (nonatomic, copy) NSString *mobile;
+
 @property (nonatomic, copy) NSString *acceptPkTimes;
 @property (nonatomic, copy) NSString *buysellRatio;
 @property (nonatomic, copy) NSString *createBy;
@@ -24,9 +29,10 @@
 @property (nonatomic, copy) NSString *pkWin;
 @property (nonatomic, copy) NSString *updateBy;
 @property (nonatomic, copy) NSString *updateDate;
-@property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *userName;
+
 @property (nonatomic, copy) NSString *winRate;
+
++ (instancetype)user;
 
 + (NSArray<UserModel *> *)userWithArray:(NSArray *)array;
 

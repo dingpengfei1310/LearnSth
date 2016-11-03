@@ -16,4 +16,7 @@
 ///MD5加密
 - (NSString *)MD5String;
 
+///手机号码
+- (BOOL)validatePhoneNumber;
+
 @end

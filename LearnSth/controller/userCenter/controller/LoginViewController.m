@@ -9,8 +9,13 @@
 #import "LoginViewController.h"
 
 #import "TPKeyboardAvoidingScrollView.h"
+#import "UserModel.h"
+#import "NSString+Tool.h"
 
 @interface LoginViewController ()
+
+@property (nonatomic, strong) UITextField *accountField;
+@property (nonatomic, strong) UITextField *passwordField;
 
 @end
 
@@ -39,14 +44,16 @@ const CGFloat fieldHeight = 30;
     accountField.borderStyle = UITextBorderStyleRoundedRect;
     accountField.frame = CGRectMake(fieldMargin, 60, ScreenWidth - fieldMargin * 2, fieldHeight);
     accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    accountField.leftViewMode = UITextFieldViewModeAlways;
+    _accountField = accountField;
     
     UITextField *pwdField = [[UITextField alloc] init];
     pwdField.borderStyle = UITextBorderStyleRoundedRect;
     pwdField.frame = CGRectMake(fieldMargin, CGRectGetMaxY(accountField.frame) + fieldMargin, ScreenWidth - fieldMargin * 2, fieldHeight);
     pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [scrollView addSubview:accountField];
-    [scrollView addSubview:pwdField];
+    _passwordField = pwdField;
+    
+    [scrollView addSubview:_accountField];
+    [scrollView addSubview:_passwordField];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(scrollView.frame) - 40, ScreenWidth, 40)];
     [button setBackgroundColor:[UIColor redColor]];
@@ -56,8 +63,13 @@ const CGFloat fieldHeight = 30;
 }
 
 - (void)loginClick {
-    [Utils setIsLogin:YES];
-    [self dismiss];
+    if ([_accountField.text validatePhoneNumber]) {
+        [[UserModel user] setMobile:self.accountField.text];
+        [Utils setIsLogin:YES];
+        [self dismiss];
+    } else {
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

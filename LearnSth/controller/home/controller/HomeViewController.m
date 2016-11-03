@@ -22,9 +22,9 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
+    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
+    [self.view addSubview:aView];
     
-//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
-//    [self.view addSubview:aView];
 }
 
 - (void)popoverController {

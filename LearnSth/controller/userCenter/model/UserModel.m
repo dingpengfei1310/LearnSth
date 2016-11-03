@@ -10,6 +10,17 @@
 
 @implementation UserModel
 
++ (instancetype)user {
+    static UserModel *user = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        user = [[self alloc] init];
+    });
+    
+    return user;
+}
+
 + (NSArray<UserModel *> *)userWithArray:(NSArray *)array {
     NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:array.count];
     
@@ -20,6 +31,10 @@
     }
     
     return [NSArray arrayWithArray:tempArray];
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    
 }
 
 @end

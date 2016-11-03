@@ -78,6 +78,29 @@
     return returnValue;
 }
 
+- (BOOL)validateNumber {
+    NSString *number=@"^[0-9]+$";
+    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    return [numberPre evaluateWithObject:self];
+}
+
+- (BOOL)validatePhoneNumber {
+    NSString *number=@"^1[3|4|5|7|8][0-9]\\d{8}$";
+    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    return [numberPre evaluateWithObject:self];
+}
+
+- (BOOL)validateIDCardNumber {
+    NSString *number=@"\\d{14}[[0-9],0-9xX]";
+    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    return [numberPre evaluateWithObject:self];
+}
+
+//- (BOOL)validateEmailAddress {
+//    NSString *number = @"^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\.\\w+([-.]\\w+)*$";
+//    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+//    return [numberPre evaluateWithObject:self];
+//}
 
 @end
 

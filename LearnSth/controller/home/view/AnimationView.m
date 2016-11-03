@@ -39,8 +39,8 @@ CGFloat const totalDuration = 3.0;
             
 //            [self startProgress];
             
-//            [self.layer addSublayer:self.gradientLayer];
-//            [self setGradientLayer];
+            [self.layer addSublayer:self.gradientLayer];
+            [self setGradientLayer];
             
         }
         
@@ -56,7 +56,9 @@ CGFloat const totalDuration = 3.0;
         _baseCircleLayer.fillColor = [UIColor clearColor].CGColor;
         _baseCircleLayer.strokeColor = [UIColor lightGrayColor].CGColor;
         _baseCircleLayer.position = CGPointMake(width * 0.5, height * 0.5);
-        
+//        _baseCircleLayer.contentsScale = [UIScreen mainScreen].scale;
+//        _baseCircleLayer.contentsCenter;
+//        _baseCircleLayer.mask = nil;
         
         UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(width * 0.5, height * 0.5)
                                                                   radius:radius
@@ -74,6 +76,7 @@ CGFloat const totalDuration = 3.0;
     if (!_gradientLayer) {
         _gradientLayer = [CAGradientLayer layer];
         _gradientLayer.frame = self.bounds;
+        _gradientLayer.position = CGPointMake(width * 0.5, height * 0.5 + 10);
         [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
         [_gradientLayer setEndPoint:CGPointMake(1.0, 1.0)];
     }
@@ -126,6 +129,15 @@ CGFloat const totalDuration = 3.0;
     }
     [self.gradientLayer setColors:colors];
     
+//    UIBezierPath *bezier = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, width, 2)];
+//    CAShapeLayer *layer = [CAShapeLayer layer];
+//    layer.lineWidth = 0.1;
+//    layer.fillColor = [UIColor whiteColor].CGColor;
+//    layer.strokeColor = [UIColor whiteColor].CGColor;
+//    layer.path = bezier.CGPath;
+//    
+//    self.gradientLayer.mask = layer;
+    
     CATextLayer *textLayer = [CATextLayer layer];
     textLayer.foregroundColor = [UIColor blackColor].CGColor;
     textLayer.string = @"加载中\n哈哈哈\n成功了";
@@ -161,8 +173,8 @@ CGFloat const totalDuration = 3.0;
 #pragma mark
 - (UIColor *)randomColor {
     NSInteger r = arc4random() % 255;
-    NSInteger g = arc4random() % 255;
-    NSInteger b = arc4random() % 255;
+    NSInteger g = arc4random() % 200;
+    NSInteger b = arc4random() % 100;
     
     return [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:1.0];
 }

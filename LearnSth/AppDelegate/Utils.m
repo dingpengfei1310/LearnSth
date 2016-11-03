@@ -14,12 +14,10 @@ static NSString *Nickname = @"nickname";
 @implementation Utils
 
 + (void)remoAllObjects {
-//    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-//    for(NSString * key in [dict allKeys]) {
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-//    }
-    
-    
+    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    for(NSString * key in [dict allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
 }
 
 #pragma mark

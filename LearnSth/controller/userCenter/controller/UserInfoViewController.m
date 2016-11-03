@@ -10,6 +10,7 @@
 
 #import "PopoverViewController.h"
 
+#import "UserModel.h"
 #import "Utils.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,PopoverViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -83,7 +84,9 @@ static NSString *reuseIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    
+    if (indexPath.row == 1 && [UserModel user].mobile) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",self.dataArray[indexPath.row],[UserModel user].mobile];
+    }
     return cell;
 }
 
