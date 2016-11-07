@@ -27,7 +27,11 @@ const CGFloat fieldHeight = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     [self createSubViews];
 }
@@ -37,7 +41,8 @@ const CGFloat fieldHeight = 30;
 }
 
 - (void)createSubViews {
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+    CGRect scrollRect = CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64);
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
     [self.view addSubview:scrollView];
     
     UITextField *accountField = [[UITextField alloc] init];
@@ -46,16 +51,19 @@ const CGFloat fieldHeight = 30;
     accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _accountField = accountField;
     
-    UITextField *pwdField = [[UITextField alloc] init];
+    CGFloat pwdFieldY = CGRectGetMaxY(accountField.frame) + fieldMargin;
+    CGFloat pwdFieldW = ScreenWidth - fieldMargin * 2;
+    CGRect pwdFieldRect = CGRectMake(fieldMargin, pwdFieldY, pwdFieldW, fieldHeight);
+    UITextField *pwdField = [[UITextField alloc] initWithFrame:pwdFieldRect];
     pwdField.borderStyle = UITextBorderStyleRoundedRect;
-    pwdField.frame = CGRectMake(fieldMargin, CGRectGetMaxY(accountField.frame) + fieldMargin, ScreenWidth - fieldMargin * 2, fieldHeight);
     pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _passwordField = pwdField;
     
     [scrollView addSubview:_accountField];
     [scrollView addSubview:_passwordField];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(scrollView.frame) - 40, ScreenWidth, 40)];
+    CGRect buttonRect = CGRectMake(0, CGRectGetHeight(scrollView.frame) - 40, ScreenWidth, 40);
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
     [button setBackgroundColor:[UIColor redColor]];
     [button setTitle:@"登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
@@ -68,7 +76,7 @@ const CGFloat fieldHeight = 30;
         [Utils setIsLogin:YES];
         [self dismiss];
     } else {
-        
+        [self showError:@"手机号不正确"];
     }
 }
 

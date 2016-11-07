@@ -32,7 +32,8 @@ static NSString *identifier = @"cell";
     self.title = @"User";
     self.dataArray = @[@"上传文件",@"查看相册",@"消息"];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+                                              style:UITableViewStylePlain];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
@@ -40,10 +41,19 @@ static NSString *identifier = @"cell";
     _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventValueChanged];
+    _tableView.refreshControl = refreshControl;
+    
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)loadData:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    NSLog(@"loadData");
 }
 
 - (void)viewWillAppear:(BOOL)animated {

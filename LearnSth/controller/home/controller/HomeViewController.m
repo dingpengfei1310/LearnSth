@@ -9,8 +9,6 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
-#import "AnimationView.h"
-
 @interface HomeViewController ()
 
 @end
@@ -20,17 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
-    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
-    [self.view addSubview:aView];
+//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
+//    [self.view addSubview:aView];
     
-}
-
-- (void)popoverController {
-    WebViewController *controller = [[WebViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+//    EmitterLayer *aView = [[EmitterLayer alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
+//    [self.view addSubview:aView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,6 +34,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

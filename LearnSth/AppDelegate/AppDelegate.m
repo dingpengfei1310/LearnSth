@@ -22,9 +22,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-#ifdef DEBUG
-    SWIZZ_IT
-#endif
+//#ifdef DEBUG
+//    SWIZZ_IT
+//#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

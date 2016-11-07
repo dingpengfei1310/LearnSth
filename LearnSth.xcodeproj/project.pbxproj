@@ -66,6 +66,7 @@
 		1BD323BF1DBEEF76004090F6 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */; };
 		1BEAFB1D1DC726FD00E15BA1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */; };
 		1BEAFB201DC72C4700E15BA1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1F1DC72C4700E15BA1 /* Utils.m */; };
+		1BF77B821DCC13400015B73F /* EmitterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF77B811DCC13400015B73F /* EmitterLayer.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -222,6 +223,8 @@
 		1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1BEAFB1E1DC72C4700E15BA1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		1BEAFB1F1DC72C4700E15BA1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		1BF77B801DCC13400015B73F /* EmitterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterLayer.h; sourceTree = "<group>"; };
+		1BF77B811DCC13400015B73F /* EmitterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmitterLayer.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
 				1B1765791DB9ECC5004A572D /* AnimationView.h */,
 				1B17657A1DB9ECC5004A572D /* AnimationView.m */,
+				1BF77B801DCC13400015B73F /* EmitterLayer.h */,
+				1BF77B811DCC13400015B73F /* EmitterLayer.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1045,6 +1050,7 @@
 				1B217F731DBDB70A00C69666 /* MJRefreshHeader.m in Sources */,
 				1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */,
 				1B217F781DBDB70A00C69666 /* MJRefreshBackNormalFooter.m in Sources */,
+				1BF77B821DCC13400015B73F /* EmitterLayer.m in Sources */,
 				1B217F7C1DBDB70A00C69666 /* MJRefreshStateHeader.m in Sources */,
 				CFED1D551DAD4408006A3721 /* UIView+SDExtension.m in Sources */,
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,

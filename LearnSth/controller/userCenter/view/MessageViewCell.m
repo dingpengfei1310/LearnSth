@@ -32,9 +32,7 @@
 - (void)initSubView {
     _background = [[UIImageView alloc] init];
     [self.contentView addSubview:_background];
-    
     UIImage *image = [UIImage imageNamed:@"messageCellBackground"];//694*262
-//    _background.image = [image stretchableImageWithLeftCapWidth:<#(NSInteger)#> topCapHeight:<#(NSInteger)#>];
     _background.image = image;
     
     _contentLabel = [[UILabel alloc] init];
@@ -58,6 +56,9 @@
         make.left.mas_equalTo(20);
         make.size.mas_equalTo(CGSizeMake(cellWidth - 40, cellHeight - 40));
     }];
+    
+//    self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+//    self.layer.shadowOpacity = 0.5;
 }
 
 - (void)setContent:(NSString *)content {
