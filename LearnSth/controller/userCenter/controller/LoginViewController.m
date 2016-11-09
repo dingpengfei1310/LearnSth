@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
 
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserModel.h"
@@ -34,6 +35,9 @@ const CGFloat fieldHeight = 30;
     self.navigationItem.rightBarButtonItem = rightItem;
     
     [self createSubViews];
+    
+    
+    
 }
 
 - (void)dismiss {
@@ -63,11 +67,18 @@ const CGFloat fieldHeight = 30;
     [scrollView addSubview:_passwordField];
     
     CGRect buttonRect = CGRectMake(0, CGRectGetHeight(scrollView.frame) - 40, ScreenWidth, 40);
-    UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
-    [button setBackgroundColor:[UIColor redColor]];
-    [button setTitle:@"登录" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:button];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:buttonRect];
+    [loginButton setBackgroundColor:[UIColor redColor]];
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:loginButton];
+    
+//    CGRect buttonRect1 = CGRectMake(0, CGRectGetHeight(scrollView.frame) - 40 - 40, ScreenWidth, 40);
+//    UIButton *regButton = [[UIButton alloc] initWithFrame:buttonRect1];
+//    [regButton setBackgroundColor:[UIColor redColor]];
+//    [regButton setTitle:@"注册" forState:UIControlStateNormal];
+//    [regButton addTarget:self action:@selector(regClick) forControlEvents:UIControlEventTouchUpInside];
+//    [scrollView addSubview:regButton];
 }
 
 - (void)loginClick {
@@ -78,6 +89,12 @@ const CGFloat fieldHeight = 30;
     } else {
         [self showError:@"手机号不正确"];
     }
+}
+
+- (void)regClick {
+    RegisterViewController *controller = [[RegisterViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

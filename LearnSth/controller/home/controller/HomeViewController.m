@@ -9,6 +9,9 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
+#import "AnimationView.h"
+#import "LightSpotView.h"
+
 @interface HomeViewController ()
 
 @end
@@ -18,13 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
-//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
+//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 200, 200)];
 //    [self.view addSubview:aView];
     
-//    EmitterLayer *aView = [[EmitterLayer alloc] initWithFrame:CGRectMake(50, 124, 100, 100)];
-//    [self.view addSubview:aView];
+}
+
+- (void)popoverController {
 }
 
 - (void)viewDidAppear:(BOOL)animated {

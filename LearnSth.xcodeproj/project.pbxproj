@@ -37,7 +37,9 @@
 		1B217F801DBDB70A00C69666 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B217F661DBDB70A00C69666 /* UIScrollView+MJExtension.m */; };
 		1B217F811DBDB70A00C69666 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B217F681DBDB70A00C69666 /* UIScrollView+MJRefresh.m */; };
 		1B217F821DBDB70A00C69666 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B217F6A1DBDB70A00C69666 /* UIView+MJExtension.m */; };
+		1B234FE81DD060650036B9D1 /* LightSpotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B234FE71DD060650036B9D1 /* LightSpotView.m */; };
 		1B26B2721DAF7B430051FE04 /* DDImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */; };
+		1B2DA1C31DD162030096F158 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DA1C21DD162030096F158 /* RegisterViewController.m */; };
 		1B3492451D93A804005C4800 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492431D93A804005C4800 /* index.html */; };
 		1B3492461D93A804005C4800 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B3492441D93A804005C4800 /* upload.html */; };
 		1B3CFAA21DAC8E8800DA2661 /* BHBDrawBoarderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CFA9B1DAC8E8800DA2661 /* BHBDrawBoarderView.m */; };
@@ -66,7 +68,6 @@
 		1BD323BF1DBEEF76004090F6 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */; };
 		1BEAFB1D1DC726FD00E15BA1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */; };
 		1BEAFB201DC72C4700E15BA1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1F1DC72C4700E15BA1 /* Utils.m */; };
-		1BF77B821DCC13400015B73F /* EmitterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF77B811DCC13400015B73F /* EmitterLayer.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -170,8 +171,12 @@
 		1B217F681DBDB70A00C69666 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		1B217F691DBDB70A00C69666 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		1B217F6A1DBDB70A00C69666 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		1B234FE61DD060650036B9D1 /* LightSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightSpotView.h; sourceTree = "<group>"; };
+		1B234FE71DD060650036B9D1 /* LightSpotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightSpotView.m; sourceTree = "<group>"; };
 		1B26B2701DAF7B430051FE04 /* DDImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserCell.h; sourceTree = "<group>"; };
 		1B26B2711DAF7B430051FE04 /* DDImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserCell.m; sourceTree = "<group>"; };
+		1B2DA1C11DD162030096F158 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		1B2DA1C21DD162030096F158 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1B3492431D93A804005C4800 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1B3492441D93A804005C4800 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1B3CFA9A1DAC8E8800DA2661 /* BHBDrawBoarderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHBDrawBoarderView.h; sourceTree = "<group>"; };
@@ -223,8 +228,6 @@
 		1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1BEAFB1E1DC72C4700E15BA1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		1BEAFB1F1DC72C4700E15BA1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		1BF77B801DCC13400015B73F /* EmitterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterLayer.h; sourceTree = "<group>"; };
-		1BF77B811DCC13400015B73F /* EmitterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmitterLayer.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				1BFD3DE41DC839EF006B5FAB /* UserInfoViewController.m */,
 				1B0B34301DAB2F0F0053CAB5 /* UserViewController.h */,
 				1B0B34311DAB2F0F0053CAB5 /* UserViewController.m */,
+				1B2DA1C11DD162030096F158 /* RegisterViewController.h */,
+				1B2DA1C21DD162030096F158 /* RegisterViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -373,8 +378,8 @@
 				1B0B343D1DAB30B30053CAB5 /* LineView.m */,
 				1B1765791DB9ECC5004A572D /* AnimationView.h */,
 				1B17657A1DB9ECC5004A572D /* AnimationView.m */,
-				1BF77B801DCC13400015B73F /* EmitterLayer.h */,
-				1BF77B811DCC13400015B73F /* EmitterLayer.m */,
+				1B234FE61DD060650036B9D1 /* LightSpotView.h */,
+				1B234FE71DD060650036B9D1 /* LightSpotView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1017,6 +1022,8 @@
 				1BD323B01DBEEEB8004090F6 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				CF357E751DB3953C00103323 /* UIImage+SaveToAlbum.m in Sources */,
 				1B5372D41DC04A2000A1CDDD /* PopoverViewController.m in Sources */,
+				1B2DA1C31DD162030096F158 /* RegisterViewController.m in Sources */,
+				1B234FE81DD060650036B9D1 /* LightSpotView.m in Sources */,
 				1B217F761DBDB70A00C69666 /* MJRefreshAutoStateFooter.m in Sources */,
 				1BEAFB201DC72C4700E15BA1 /* Utils.m in Sources */,
 				CF357E781DB39F7200103323 /* DDVideoPlayController.m in Sources */,
@@ -1050,7 +1057,6 @@
 				1B217F731DBDB70A00C69666 /* MJRefreshHeader.m in Sources */,
 				1B667C651DBF5841002A35D6 /* MessageViewCell.m in Sources */,
 				1B217F781DBDB70A00C69666 /* MJRefreshBackNormalFooter.m in Sources */,
-				1BF77B821DCC13400015B73F /* EmitterLayer.m in Sources */,
 				1B217F7C1DBDB70A00C69666 /* MJRefreshStateHeader.m in Sources */,
 				CFED1D551DAD4408006A3721 /* UIView+SDExtension.m in Sources */,
 				1B3CFAA31DAC8E8800DA2661 /* BHBMyDrawer.m in Sources */,
@@ -1205,7 +1211,6 @@
 			baseConfigurationReference = E971E9F2094EB28D744E4041 /* Pods-LearnSth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;
@@ -1224,7 +1229,6 @@
 			baseConfigurationReference = 413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;

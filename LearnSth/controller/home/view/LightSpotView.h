@@ -1,13 +1,13 @@
 //
-//  EmitterLayer.h
+//  LightSpotView.h
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 16/11/4.
+//  Created by 丁鹏飞 on 16/11/7.
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface EmitterLayer : UIView
+@interface LightSpotView : UIView
 
 @end

@@ -38,6 +38,12 @@
     return YES;
 }
 
+- (void)regSuccess {
+    
+    TabBarViewController *controller = [[TabBarViewController alloc] init];
+    self.window.rootViewController = controller;
+}
+
 - (void)setNavigationBar {
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

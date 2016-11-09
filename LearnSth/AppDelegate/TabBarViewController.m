@@ -32,14 +32,22 @@
     
     self.viewControllers = @[homeNVC,liveNVC,userNVC];
     
-    UITabBarItem *item1 = self.tabBar.items[0];
-    item1.title = @"home";
+    NSDictionary *textAttributeNormal = @{
+                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
+                                          NSForegroundColorAttributeName:[UIColor grayColor]
+                                          };
+    NSDictionary *textAttributeSelect = @{
+                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
+                                          NSForegroundColorAttributeName:[UIColor redColor]
+                                          };
+    NSArray *itemTitles = @[@"home",@"live",@"user"];
     
-    UITabBarItem *item2 = self.tabBar.items[1];
-    item2.title = @"live";
-    
-    UITabBarItem *item3 = self.tabBar.items[2];
-    item3.title = @"user";
+    for (int i = 0; i < itemTitles.count; i++) {
+        UITabBarItem *item = self.tabBar.items[i];
+        item.title = itemTitles[i];
+        [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
+        [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
+    }
     
 }
 

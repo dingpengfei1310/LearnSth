@@ -7,6 +7,8 @@
 //
 
 #import "AnimationView.h"
+#import "LightSpotView.h"
+
 
 @interface AnimationView ()<CAAnimationDelegate> {
     CGFloat width,height;
@@ -17,7 +19,7 @@
 
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
-@property (nonatomic, strong) NSMutableArray *progressLayers;
+@property (nonatomic, strong) CAEmitterLayer *emitterLayer;
 
 @end
 
@@ -34,20 +36,25 @@ CGFloat const totalDuration = 3.0;
         radius = width * 0.5 - 10;
         
         if (radius > 0) {
+            
 //            [self.layer addSublayer:self.baseCircleLayer];
+            
 //            [self roation];
             
-//            [self startProgress];
+//            [self strokeStart];
             
-            [self.layer addSublayer:self.gradientLayer];
-            [self setGradientLayer];
+//            [self positionAnimation];
             
+//            [self setGradientLayerText];
+            
+            [self emitterLayerFly];
         }
         
     }
     return self;
 }
 
+#pragma mark
 - (CAShapeLayer *)baseCircleLayer {
     if (!_baseCircleLayer) {
         _baseCircleLayer = [CAShapeLayer layer];
@@ -76,11 +83,21 @@ CGFloat const totalDuration = 3.0;
     if (!_gradientLayer) {
         _gradientLayer = [CAGradientLayer layer];
         _gradientLayer.frame = self.bounds;
-        _gradientLayer.position = CGPointMake(width * 0.5, height * 0.5 + 10);
+        _gradientLayer.position = CGPointMake(width * 0.5, height * 0.5);
         [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
         [_gradientLayer setEndPoint:CGPointMake(1.0, 1.0)];
     }
     return _gradientLayer;
+}
+
+- (CAEmitterLayer *)emitterLayer {
+    if (!_emitterLayer) {
+        _emitterLayer = [CAEmitterLayer layer];
+        _emitterLayer.emitterPosition = CGPointMake(width * 0.5, height * 0.5);
+        _emitterLayer.emitterSize = self.frame.size;
+        _emitterLayer.emitterMode = kCAEmitterLayerPoints;
+    }
+    return _emitterLayer;
 }
 
 #pragma mark
@@ -93,16 +110,13 @@ CGFloat const totalDuration = 3.0;
     [self.baseCircleLayer addAnimation:strokeStart forKey:@""];
 }
 
-#pragma mark
-- (void)startProgress {
-    [self.baseCircleLayer removeAllAnimations];
-    
-    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+- (void)strokeStart {
+//    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
 //    strokeStart.repeatCount = NSIntegerMax;
-    strokeStart.duration = 2;
-    strokeStart.fromValue = @(0);
-    strokeStart.toValue = @(0.3);
-    [self.baseCircleLayer addAnimation:strokeStart forKey:@""];
+//    strokeStart.duration = 2;
+//    strokeStart.fromValue = @(0);
+//    strokeStart.toValue = @(1.0);
+//    [self.baseCircleLayer addAnimation:strokeStart forKey:@""];
     
     
     CABasicAnimation *strokeEnd = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -118,12 +132,37 @@ CGFloat const totalDuration = 3.0;
     [self.baseCircleLayer addAnimation:strokeEnd forKey:@""];
 }
 
-- (void)stopProgress {
+- (void)positionAnimation {
+    UIBezierPath *bezier = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, width * 0.8, 2)];
+    CAShapeLayer *lineLayer = [CAShapeLayer layer];
+    lineLayer.path = bezier.CGPath;
+    lineLayer.lineWidth = 0.1;
+    lineLayer.fillColor = [UIColor whiteColor].CGColor;
+    lineLayer.strokeColor = [UIColor whiteColor].CGColor;
+    lineLayer.bounds = CGRectMake(0, 0, width * 0.8, 2);
+    lineLayer.position = CGPointMake(width * 0.5, height - 20);
+    
+    [self.layer addSublayer:lineLayer];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.bounds = CGRectMake(0, 0, 13.5, 13.5);
+    shapeLayer.position = lineLayer.position;
+    shapeLayer.contents = (id)[UIImage imageNamed:@"lightDot"].CGImage;
+    [self.layer addSublayer:shapeLayer];
+    
+    CABasicAnimation *position = [CABasicAnimation animationWithKeyPath:@"position"];
+    position.repeatCount = NSIntegerMax;
+    position.duration = 1.0;
+    position.fromValue = [NSValue valueWithCGPoint:CGPointMake(width * 0.1, shapeLayer.position.y)];;
+    position.toValue = [NSValue valueWithCGPoint:CGPointMake(width * 0.8, shapeLayer.position.y)];
+    [shapeLayer addAnimation:position forKey:@""];
 }
 
-- (void)setGradientLayer {
+- (void)setGradientLayerText {
+    [self.layer addSublayer:self.gradientLayer];
+    
     NSMutableArray *colors = [NSMutableArray array];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         UIColor *color= [self randomColor];
         [colors addObject:(id)[color CGColor]];
     }
@@ -162,12 +201,26 @@ CGFloat const totalDuration = 3.0;
     [self.gradientLayer setColors:colors];
 }
 
-
-#pragma mark
-- (void)animationDidStart:(CAAnimation *)anim {
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- (void)emitterLayerFly {
+    [self.layer addSublayer:self.emitterLayer];
+    
+    CAEmitterCell *cell = [CAEmitterCell emitterCell];
+    cell.contents = (id)[UIImage imageNamed:@"lightDot"].CGImage;
+    cell.birthRate = 10;
+    cell.lifetime = 3;
+    
+    cell.velocity = 9.8;
+    cell.velocityRange = 200;
+    
+    cell.emissionRange = M_PI * 2;
+    
+    cell.scale = 0.1;
+    cell.scaleRange = 0.6;
+    
+    cell.alphaRange = 0.5;
+    cell.alphaSpeed = -0.15;
+    
+    self.emitterLayer.emitterCells = @[cell];
 }
 
 #pragma mark
