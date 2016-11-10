@@ -10,8 +10,5 @@
 
 @interface AnimationView : UIView
 
-//- (void)startProgress;
-//- (void)stopProgress;
-
 
 @end

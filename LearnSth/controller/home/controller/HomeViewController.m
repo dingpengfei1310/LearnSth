@@ -10,9 +10,10 @@
 #import "WebViewController.h"
 
 #import "AnimationView.h"
-#import "LightSpotView.h"
 
 @interface HomeViewController ()
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -29,6 +30,7 @@
 }
 
 - (void)popoverController {
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

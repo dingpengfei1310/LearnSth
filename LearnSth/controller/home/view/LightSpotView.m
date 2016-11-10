@@ -58,6 +58,7 @@ CGFloat const BACKGROUND_ALPHA = 0.7;
     CGContextDrawRadialGradient(context, gradientRef, center, 0, center, width * 0.4,kCGGradientDrawsBeforeStartLocation);
     
     CGColorSpaceRelease(colorSpace);
+    CGGradientRelease(gradientRef);
 }
 
 -(void)_background:(CGRect)rect
