@@ -10,6 +10,7 @@
 #import "WebViewController.h"
 
 #import "AnimationView.h"
+#import "UIImage+Tool.h"
 
 @interface HomeViewController ()
 
@@ -28,6 +29,8 @@
 //    [self.view addSubview:aView];
     
 }
+
+
 
 - (void)popoverController {
     
