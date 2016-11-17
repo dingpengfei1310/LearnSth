@@ -9,7 +9,6 @@
 #import "PhotosViewController.h"
 
 #import "DDImageBrowserController.h"
-#import "DDVideoPlayController.h"
 
 @interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 

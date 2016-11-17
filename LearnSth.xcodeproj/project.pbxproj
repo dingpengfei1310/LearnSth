@@ -81,7 +81,6 @@
 		1BFE47001DCB232D00E9BDEC /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFE46FF1DCB232D00E9BDEC /* UserModel.m */; };
 		CF2FEC7E1DAE6F1200933DE6 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */; };
 		CF357E751DB3953C00103323 /* UIImage+SaveToAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = CF357E741DB3953C00103323 /* UIImage+SaveToAlbum.m */; };
-		CF357E781DB39F7200103323 /* DDVideoPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF357E771DB39F7200103323 /* DDVideoPlayController.m */; };
 		CF97EBD71DAA4A2600E1EDD7 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */; };
 		CF97EBDE1DAA4F0100E1EDD7 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF97EBDA1DAA4F0100E1EDD7 /* LiveViewController.m */; };
 		CFED1D3E1DAD3B78006A3721 /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CFED1D3D1DAD3B78006A3721 /* ADModel.m */; };
@@ -256,8 +255,6 @@
 		CF2FEC7D1DAE6F1200933DE6 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		CF357E731DB3953C00103323 /* UIImage+SaveToAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SaveToAlbum.h"; sourceTree = "<group>"; };
 		CF357E741DB3953C00103323 /* UIImage+SaveToAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SaveToAlbum.m"; sourceTree = "<group>"; };
-		CF357E761DB39F7200103323 /* DDVideoPlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDVideoPlayController.h; sourceTree = "<group>"; };
-		CF357E771DB39F7200103323 /* DDVideoPlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDVideoPlayController.m; sourceTree = "<group>"; };
 		CF97EBD51DAA4A2600E1EDD7 /* LiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveModel.h; sourceTree = "<group>"; };
 		CF97EBD61DAA4A2600E1EDD7 /* LiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveModel.m; sourceTree = "<group>"; };
 		CF97EBD91DAA4F0100E1EDD7 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
@@ -760,8 +757,6 @@
 				1BFD75FB1DB09B9D00A75E3B /* DDImageBrowserController.m */,
 				CF357E731DB3953C00103323 /* UIImage+SaveToAlbum.h */,
 				CF357E741DB3953C00103323 /* UIImage+SaveToAlbum.m */,
-				CF357E761DB39F7200103323 /* DDVideoPlayController.h */,
-				CF357E771DB39F7200103323 /* DDVideoPlayController.m */,
 			);
 			path = DDImageBrowser;
 			sourceTree = "<group>";
@@ -1031,7 +1026,6 @@
 				1B234FE81DD060650036B9D1 /* LightSpotView.m in Sources */,
 				1B217F761DBDB70A00C69666 /* MJRefreshAutoStateFooter.m in Sources */,
 				1BEAFB201DC72C4700E15BA1 /* Utils.m in Sources */,
-				CF357E781DB39F7200103323 /* DDVideoPlayController.m in Sources */,
 				1B217F801DBDB70A00C69666 /* UIScrollView+MJExtension.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,

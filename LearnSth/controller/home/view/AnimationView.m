@@ -7,8 +7,7 @@
 //
 
 #import "AnimationView.h"
-#import "LightSpotView.h"
-
+#import <CoreText/CoreText.h>
 
 @interface AnimationView ()<CAAnimationDelegate> {
     CGFloat width,height;
@@ -23,7 +22,7 @@
 
 @end
 
-CGFloat const lineWidth = 2.0;
+CGFloat const lineWidth = 1.0;
 CGFloat const totalDuration = 3.0;
 
 @implementation AnimationView
@@ -47,7 +46,10 @@ CGFloat const totalDuration = 3.0;
             
 //            [self setGradientLayerText];
             
-            [self emitterLayerFly];
+//            [self emitterLayerFly];
+            
+            [self textWithPath];
+            
         }
         
     }
@@ -98,6 +100,10 @@ CGFloat const totalDuration = 3.0;
         _emitterLayer.emitterMode = kCAEmitterLayerPoints;
     }
     return _emitterLayer;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
 }
 
 #pragma mark
@@ -221,6 +227,74 @@ CGFloat const totalDuration = 3.0;
     cell.alphaSpeed = -0.15;
     
     self.emitterLayer.emitterCells = @[cell];
+}
+
+- (void)textWithPath {
+    
+    CAShapeLayer *textLayer = [CAShapeLayer layer];
+    textLayer.geometryFlipped = YES;
+    textLayer.lineWidth = lineWidth;
+    textLayer.bounds = self.bounds;
+    textLayer.fillColor = [UIColor clearColor].CGColor;
+    textLayer.strokeColor = [UIColor purpleColor].CGColor;
+    [self.layer addSublayer:textLayer];
+    textLayer.position = CGPointMake(width * 0.5, height * 0.5);
+    
+    
+    NSString *string = @"HELLO WORLD";
+    UIFont *ui_font = [UIFont systemFontOfSize:30];
+    
+    CTFontRef font = CTFontCreateWithName((CFStringRef)ui_font.fontName,ui_font.pointSize,NULL);
+    CGMutablePathRef letters = CGPathCreateMutable();
+    
+    //这里设置画线的字体和大小
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, kCTFontAttributeName,nil];
+    
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string
+                                                                     attributes:attrs];
+    CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)attrString);
+    CFArrayRef runArray = CTLineGetGlyphRuns(line);
+    
+    // for each RUN
+    for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++) {
+        // Get FONT for this run
+        CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
+        CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
+        
+        // for each GLYPH in run
+        for (CFIndex runGlyphIndex = 0; runGlyphIndex < CTRunGetGlyphCount(run); runGlyphIndex++) {
+            CFRange thisGlyphRange = CFRangeMake(runGlyphIndex, 1);
+            CGGlyph glyph;
+            CGPoint position;
+            CTRunGetGlyphs(run, thisGlyphRange, &glyph);
+            CTRunGetPositions(run, thisGlyphRange, &position);
+            
+            {
+                CGPathRef letter = CTFontCreatePathForGlyph(runFont, glyph, NULL);
+                CGAffineTransform t = CGAffineTransformMakeTranslation(position.x, position.y);
+                CGPathAddPath(letters, &t, letter);
+                CGPathRelease(letter);
+            }
+        }
+    }
+    
+    CFRelease(font);
+    CFRelease(line);
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointZero];
+    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
+    
+    textLayer.path = path.CGPath;
+    
+    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    strokeStart.repeatCount = NSIntegerMax;
+    strokeStart.duration = 3;
+    strokeStart.fromValue = @(0.0);
+    strokeStart.toValue = @(1.0);
+    [textLayer addAnimation:strokeStart forKey:@""];
+    
+    CGPathRelease(letters);
 }
 
 #pragma mark
