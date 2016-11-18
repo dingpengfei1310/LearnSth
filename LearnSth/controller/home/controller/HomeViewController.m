@@ -10,7 +10,7 @@
 #import "WebViewController.h"
 
 #import "AnimationView.h"
-#import "UIImage+Tool.h"
+#import "FoldView.h"
 
 @interface HomeViewController ()
 
@@ -26,6 +26,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
 //    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 200, 200)];
+//    [self.view addSubview:aView];
+    
+//    FoldView *aView = [[FoldView alloc] initWithFrame:CGRectMake(50, 124, 200, 200)];
 //    [self.view addSubview:aView];
     
 }

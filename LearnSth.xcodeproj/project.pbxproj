@@ -68,6 +68,8 @@
 		1BD323BF1DBEEF76004090F6 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD323BE1DBEEF76004090F6 /* NSString+Tool.m */; };
 		1BEAFB1D1DC726FD00E15BA1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */; };
 		1BEAFB201DC72C4700E15BA1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAFB1F1DC72C4700E15BA1 /* Utils.m */; };
+		1BF52C2D1DDECCF5007F9B34 /* FPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF52C2C1DDECCF5007F9B34 /* FPSLabel.m */; };
+		1BF52C301DDEF3B9007F9B34 /* FoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF52C2F1DDEF3B9007F9B34 /* FoldView.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -228,6 +230,10 @@
 		1BEAFB1C1DC726FD00E15BA1 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1BEAFB1E1DC72C4700E15BA1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		1BEAFB1F1DC72C4700E15BA1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		1BF52C2B1DDECCF5007F9B34 /* FPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSLabel.h; sourceTree = "<group>"; };
+		1BF52C2C1DDECCF5007F9B34 /* FPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSLabel.m; sourceTree = "<group>"; };
+		1BF52C2E1DDEF3B9007F9B34 /* FoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldView.h; sourceTree = "<group>"; };
+		1BF52C2F1DDEF3B9007F9B34 /* FoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldView.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -380,6 +386,8 @@
 				1B17657A1DB9ECC5004A572D /* AnimationView.m */,
 				1B234FE61DD060650036B9D1 /* LightSpotView.h */,
 				1B234FE71DD060650036B9D1 /* LightSpotView.m */,
+				1BF52C2E1DDEF3B9007F9B34 /* FoldView.h */,
+				1BF52C2F1DDEF3B9007F9B34 /* FoldView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -500,6 +508,7 @@
 		1B3CFA981DAC8E8800DA2661 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				1BF52C2A1DDECC23007F9B34 /* FPSLabel */,
 				1B3CFA991DAC8E8800DA2661 /* BHBDrawBoarder */,
 				1BD323BC1DBEEF76004090F6 /* Category */,
 				CFED1D191DAD2322006A3721 /* DDImageBrowser */,
@@ -587,6 +596,15 @@
 				1BFDB1201DD46A8B00E8A7B8 /* UIImage+Tool.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		1BF52C2A1DDECC23007F9B34 /* FPSLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1BF52C2B1DDECCF5007F9B34 /* FPSLabel.h */,
+				1BF52C2C1DDECCF5007F9B34 /* FPSLabel.m */,
+			);
+			path = FPSLabel;
 			sourceTree = "<group>";
 		};
 		1BF7F6BA1D92492200F8E5B1 = {
@@ -1004,6 +1022,7 @@
 				CFED1D4F1DAD4408006A3721 /* TAAbstractDotView.m in Sources */,
 				1B0B343A1DAB30A20053CAB5 /* HomeViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
+				1BF52C301DDEF3B9007F9B34 /* FoldView.m in Sources */,
 				1B0B343E1DAB30B30053CAB5 /* LineView.m in Sources */,
 				1BD323B21DBEEEB8004090F6 /* MBProgressHUD.m in Sources */,
 				1B217F7A1DBDB70A00C69666 /* MJRefreshGifHeader.m in Sources */,
@@ -1029,6 +1048,7 @@
 				1B217F801DBDB70A00C69666 /* UIScrollView+MJExtension.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
 				1B0B34321DAB2F0F0053CAB5 /* UserViewController.m in Sources */,
+				1BF52C2D1DDECCF5007F9B34 /* FPSLabel.m in Sources */,
 				1BD323AF1DBEEEB8004090F6 /* TPKeyboardAvoidingTableView.m in Sources */,
 				CFED1D521DAD4408006A3721 /* TAPageControl.m in Sources */,
 				1B3CFAB51DACDF8B00DA2661 /* WiFiUploadViewController.m in Sources */,

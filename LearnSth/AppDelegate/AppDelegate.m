@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
+#import "FPSLabel.h"
+
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"
 #endif
@@ -34,6 +36,9 @@
     
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;
+    
+//    FPSLabel *label = [[FPSLabel alloc] initWithFrame:CGRectMake(20, 84, 100, 30)];
+//    [self.window addSubview:label];
     
     return YES;
 }
