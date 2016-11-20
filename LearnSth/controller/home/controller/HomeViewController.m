@@ -9,12 +9,16 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
+#import "HttpManager.h"
+#import "SDCycleScrollView.h"
+#import "ADModel.h"
+
 #import "AnimationView.h"
-#import "FoldView.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) SDCycleScrollView *bannerView;
+@property (nonatomic, strong) NSArray *bannerList;
 
 @end
 
@@ -23,22 +27,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
-//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake(50, 124, 200, 200)];
-//    [self.view addSubview:aView];
+    _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenWidth * 300 / 1242)];
+    _bannerView.delegate = self;
+    [self.view addSubview:_bannerView];
     
-//    FoldView *aView = [[FoldView alloc] initWithFrame:CGRectMake(50, 124, 200, 200)];
-//    [self.view addSubview:aView];
+    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
+    aView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:aView];
     
+    [self getAdBanner];
+}
+
+- (void)getAdBanner {
+    
+    [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
+        [self hideHUD];
+        
+        if (error) {
+            [self showErrorWithError:error];
+        } else {
+            NSArray *banners = [ADModel adWithArray:list];
+            self.bannerList = banners;
+            
+            NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:banners.count];
+            [banners enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [imageStringArray addObject:obj.imageUrl];
+            }];
+            
+            [_bannerView setImageURLStringsGroup:imageStringArray];
+        }
+    }];
 }
 
 - (void)popoverController {
     
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+#pragma mark
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    ADModel *model = self.bannerList[index];
+    
+    if (model.link.length > 0) {
+        WebViewController *controller = [[WebViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        controller.title = model.title;
+        controller.urlString = model.link;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

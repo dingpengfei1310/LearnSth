@@ -29,6 +29,7 @@ static NSString *reuseIdentifier = @"cell";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
                                               style:UITableViewStylePlain];
     [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
+    _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -47,6 +48,8 @@ static NSString *reuseIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     cell.content = self.dataArray[indexPath.row];
     

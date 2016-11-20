@@ -47,41 +47,22 @@
 }
 
 #pragma mark
-- (void)loading {
-    [self showMessage:nil toView:nil];
-}
-
-- (void)showSuccess:(NSString *)success {
-    [self showSuccess:success toView:nil];
-}
-
-- (void)showError:(NSString *)error {
-    [self showError:error toView:nil];
-}
-
-- (void)showMessage:(NSString *)message {
-    [self showMessage:message toView:nil];
-}
-
-- (void)hideHUD {
-    [self hideHUDForView:nil];
-}
-
-#pragma mark
 - (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view {
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
+    hud.label.font = [UIFont systemFontOfSize:12];
     // 设置图片
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", icon]]];
     // 再设置模式
     hud.mode = MBProgressHUDModeCustomView;
-//    hud.animationType = MBProgressHUDAnimationZoom;
+    //    hud.animationType = MBProgressHUDAnimationZoom;
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     
-    hud.bezelView.backgroundColor = [UIColor lightGrayColor];
+//    hud.backgroundView.backgroundColor = [UIColor clearColor];
+//    hud.bezelView.backgroundColor = [UIColor redColor];
     
     // 1秒之后再消失
     [hud hideAnimated:YES afterDelay:1.0];
@@ -101,11 +82,19 @@
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = message;
+    hud.label.font = [UIFont systemFontOfSize:14];
+    
+    hud.bezelView.backgroundColor = [UIColor clearColor];
+    if (message) {
+        hud.mode = MBProgressHUDModeText;
+        hud.contentColor = [UIColor whiteColor];
+        
+        hud.bezelView.backgroundColor = [UIColor blackColor];
+    }
     
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     
-    hud.bezelView.backgroundColor = [UIColor lightGrayColor];
     return hud;
 }
 
@@ -113,5 +102,37 @@
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     [MBProgressHUD hideHUDForView:view animated:YES];
 }
+
+#pragma mark
+- (void)loading {
+    [self showMessage:nil toView:nil];
+}
+
+- (void)showSuccess:(NSString *)success {
+    [self showSuccess:success toView:nil];
+}
+
+- (void)showError:(NSString *)error {
+    [self showError:error toView:nil];
+}
+
+- (void)showErrorWithError:(NSError *)error {
+    NSString *messege = [error.userInfo objectForKey:@"message"];
+    if(!messege) {
+        messege = @"网络异常";
+    }
+    [self showError:messege];
+}
+
+- (void)showMessage:(NSString *)message {
+    [self showMessage:message toView:nil];
+}
+
+
+- (void)hideHUD {
+    [self hideHUDForView:nil];
+}
+
+
 
 @end

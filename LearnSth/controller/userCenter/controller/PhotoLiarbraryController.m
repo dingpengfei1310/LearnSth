@@ -6,26 +6,26 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "PhotoLiarbraryViewController.h"
+#import "PhotoLiarbraryController.h"
 #import "PhotosViewController.h"
 
 #import <Photos/Photos.h>
 
-@interface PhotoLiarbraryViewController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
+@interface PhotoLiarbraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *nameList;
 @property (nonatomic, strong) NSArray *typeList;
 
-@property (nonatomic, strong) NSMutableArray *fetchResult;
+@property (nonatomic, strong) NSMutableArray *albumList;
 
-@property (nonnull, strong) PHFetchResult *result;
+@property (nonatomic, strong) PHFetchResult *smartAlbum;
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
 
-@implementation PhotoLiarbraryViewController
+@implementation PhotoLiarbraryController
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -67,6 +67,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)checkAuthorizationStatusWith:(BOOL)status {
     if (status) {
         self.nameList = @[@"相机胶卷",@"我的照片流",@"视频",@"最近添加",@"屏幕快照"];
+        
         self.typeList = @[
                           @(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
                           @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
@@ -78,10 +79,10 @@ static NSString * const reuseIdentifier = @"Cell";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
         
         if (TARGET_OS_SIMULATOR) {
-            [self getAllAlbum];
+            [self getSmartAlbum];
         }
         
-        self.fetchResult = [NSMutableArray arrayWithCapacity:self.nameList.count];
+        self.albumList = [NSMutableArray arrayWithCapacity:self.nameList.count];
         [self.view addSubview:self.tableView];
         
     } else {
@@ -98,7 +99,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark
-- (void)getAllAlbum {
+- (void)getSmartAlbum {
     // 列出所有智能相册
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                           subtype:PHAssetCollectionSubtypeAlbumRegular
@@ -106,13 +107,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
 //    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
     
-    self.result = smartAlbums;
+    self.smartAlbum = smartAlbums;
 }
 
 - (void)getUserAlbum {
     // 列出所有用户创建的相册
     PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
-    self.result = topLevelUserCollections;
+    self.smartAlbum = topLevelUserCollections;
 }
 
 - (void)getAllPhotosOrderByTime {
@@ -135,8 +136,8 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.result) {
-        return self.result.count;
+    if (self.smartAlbum) {
+        return self.smartAlbum.count;
     }
     return self.nameList.count;
 }
@@ -144,9 +145,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    if (self.result) {
+    if (self.smartAlbum) {
         
-        PHAssetCollection *assetCollection = self.result[indexPath.row];
+        PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
         
         PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
         
@@ -174,7 +175,7 @@ static NSString * const reuseIdentifier = @"Cell";
             // 从每一个智能相册中获取到的 PHFetchResult 中包含的才是真正的资源（PHAsset）
             fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
             
-            self.fetchResult[indexPath.row] = fetchResult;
+            self.albumList[indexPath.row] = fetchResult;
         }
         
         cell.textLabel.text = [NSString stringWithFormat:@"%@(%ld)",self.nameList[indexPath.row],fetchResult.count];
@@ -187,11 +188,11 @@ static NSString * const reuseIdentifier = @"Cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     PhotosViewController *controller = [[PhotosViewController alloc] init];
-    if (self.result) {
-        PHAssetCollection *assetCollection = self.result[indexPath.row];
+    if (self.smartAlbum) {
+        PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
         controller.assetCollection = assetCollection;
     } else {
-        controller.fetchResult = self.fetchResult[indexPath.row];
+        controller.fetchResult = self.albumList[indexPath.row];
     }
     
     [self.navigationController pushViewController:controller animated:YES];

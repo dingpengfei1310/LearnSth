@@ -10,14 +10,14 @@
 #import "PLPlayerViewController.h"
 
 #import "MJRefresh.h"
-#import "HttpRequestManager.h"
+#import "HttpManager.h"
 
 #import "LiveModel.h"
 
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *list;
+@property (nonatomic, strong) NSArray *liveList;
 
 @end
 
@@ -56,27 +56,27 @@ static NSString *identifier = @"cell";
 }
 
 - (void)refreshData {
-    [[HttpRequestManager shareManager] getHotLiveListWithParamer:nil success:^(id responseData) {
+    [[HttpManager shareManager] getHotLiveListWithParamers:nil completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
         
-        NSArray *array = [LiveModel liveWithArray:responseData];
-        self.list = [NSArray arrayWithArray:array];
-        [self.collectionView reloadData];
-        
-    } failure:^(NSError *error) {
-        [self.collectionView.mj_header endRefreshing];
+        if (error) {
+            [self showErrorWithError:error];
+        } else {
+            self.liveList = [LiveModel liveWithArray:list];
+            [self.collectionView reloadData];
+        }
     }];
 }
 
 #pragma mark
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.list.count;
+    return self.liveList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    LiveModel *model = self.list[indexPath.item];
+    LiveModel *model = self.liveList[indexPath.item];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
     [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:[UIImage imageNamed:@"lookup"]];
@@ -87,7 +87,7 @@ static NSString *identifier = @"cell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
-    controller.live = self.list[indexPath.item];
+    controller.live = self.liveList[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

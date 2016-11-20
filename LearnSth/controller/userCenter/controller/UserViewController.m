@@ -10,7 +10,7 @@
 
 #import "WiFiUploadManager.h"
 
-#import "PhotoLiarbraryViewController.h"
+#import "PhotoLiarbraryController.h"
 #import "MessageViewController.h"
 
 #import "LoginViewController.h"
@@ -92,7 +92,7 @@ static NSString *identifier = @"cell";
     if (indexPath.row == 0) {
         [self wifiUpload];
     } else if (indexPath.row == 1) {
-        PhotoLiarbraryViewController *controller = [[PhotoLiarbraryViewController alloc] init];
+        PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 2) {

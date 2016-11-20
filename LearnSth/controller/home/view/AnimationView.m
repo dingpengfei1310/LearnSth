@@ -48,8 +48,9 @@ CGFloat const totalDuration = 3.0;
             
 //            [self emitterLayerFly];
             
-            [self textWithPath];
+//            [self textWithPath];
             
+            [self drawString];
         }
         
     }
@@ -295,6 +296,69 @@ CGFloat const totalDuration = 3.0;
     [textLayer addAnimation:strokeStart forKey:@""];
     
     CGPathRelease(letters);
+}
+
+- (void)drawString {
+    NSString *sourthPath = [[NSBundle mainBundle] pathForResource:@"SDSloganPoints"
+                                                     ofType:@"plist"];
+    NSArray *pathArray = [NSArray arrayWithContentsOfFile:sourthPath];
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    for (int i = 0; i < pathArray.count; i++) {
+        NSArray *subArray = pathArray[i];
+        
+        for (int j = 0; j < subArray.count; j++) {
+            if (j == 0) {
+                [path moveToPoint:[self convertStringToCGPoint:subArray[j]]];
+            } else {
+                NSArray *pointArray = subArray[j];
+                
+                if (pointArray.count == 3) {
+                    [path addCurveToPoint:[self convertStringToCGPoint:pointArray[0]]
+                            controlPoint1:[self convertStringToCGPoint:pointArray[1]]
+                            controlPoint2:[self convertStringToCGPoint:pointArray[2]]];
+                } else {
+                    [path addLineToPoint:[self convertStringToCGPoint:pointArray[0]]];
+                }
+                
+            }
+        }
+    }
+    
+    CAShapeLayer *textLayer = [CAShapeLayer layer];
+    textLayer.lineWidth = 0.5;
+    textLayer.bounds = self.bounds;
+    textLayer.fillColor = [UIColor clearColor].CGColor;
+    textLayer.strokeColor = [UIColor purpleColor].CGColor;
+    [self.layer addSublayer:textLayer];
+    textLayer.position = CGPointMake(width * 0.5, height * 0.5);
+    
+    textLayer.path = path.CGPath;
+    
+    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    strokeStart.duration = 3;
+    strokeStart.fromValue = @(0.0);
+    strokeStart.toValue = @(1.0);
+    
+    CABasicAnimation *colorAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+    colorAnimation.duration = 6.0;
+    colorAnimation.timingFunction = [[CAMediaTimingFunction alloc] initWithControlPoints:0.2: 0.5: 0.5: 0.7];
+    colorAnimation.fromValue = (__bridge id _Nullable)([UIColor clearColor].CGColor);
+    colorAnimation.toValue = (__bridge id _Nullable)([UIColor purpleColor].CGColor);
+    
+    CAAnimationGroup *group = [[CAAnimationGroup alloc] init];
+    group.animations = @[strokeStart,colorAnimation];
+    group.repeatCount = 1;
+    group.duration = 6;
+    group.removedOnCompletion = NO;
+    group.fillMode = kCAFillModeForwards;
+    [textLayer addAnimation:group forKey:@""];
+}
+
+- (CGPoint)convertStringToCGPoint:(NSString *)string {
+    NSArray *points = [string componentsSeparatedByString:@","];
+    return CGPointMake([points[0] floatValue], [points[1] floatValue]);
 }
 
 #pragma mark

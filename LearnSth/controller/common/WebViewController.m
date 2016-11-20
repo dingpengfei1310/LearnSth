@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     if (self.urlString) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
         [self.view addSubview:_webView];
         
         NSURL *url = [NSURL URLWithString:self.urlString];

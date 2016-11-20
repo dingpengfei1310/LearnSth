@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface PhotoLiarbraryViewController : BaseViewController
+@interface PhotoLiarbraryController : BaseViewController
 
 @end

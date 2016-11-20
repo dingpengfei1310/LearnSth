@@ -32,6 +32,7 @@
 
 - (void)showSuccess:(NSString *)success;
 - (void)showError:(NSString *)error;
+- (void)showErrorWithError:(NSError *)error;
 - (void)showMessage:(NSString *)message;
 
 - (void)hideHUD;

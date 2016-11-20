@@ -20,14 +20,14 @@
 
 @end
 
-const CGFloat fieldMargin = 30;
+const CGFloat fieldMargin = 40;
 const CGFloat fieldHeight = 30;
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"登录";
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭"
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
@@ -53,14 +53,16 @@ const CGFloat fieldHeight = 30;
     accountField.borderStyle = UITextBorderStyleRoundedRect;
     accountField.frame = CGRectMake(fieldMargin, 60, ScreenWidth - fieldMargin * 2, fieldHeight);
     accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    accountField.keyboardType = UIKeyboardTypeNumberPad;
     _accountField = accountField;
     
-    CGFloat pwdFieldY = CGRectGetMaxY(accountField.frame) + fieldMargin;
+    CGFloat pwdFieldY = CGRectGetMaxY(accountField.frame) + fieldMargin / 2;
     CGFloat pwdFieldW = ScreenWidth - fieldMargin * 2;
     CGRect pwdFieldRect = CGRectMake(fieldMargin, pwdFieldY, pwdFieldW, fieldHeight);
     UITextField *pwdField = [[UITextField alloc] initWithFrame:pwdFieldRect];
     pwdField.borderStyle = UITextBorderStyleRoundedRect;
     pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    pwdField.keyboardType = UIKeyboardTypeASCIICapable;
     _passwordField = pwdField;
     
     [scrollView addSubview:_accountField];
