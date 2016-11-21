@@ -27,6 +27,8 @@ typedef void (^Failure)(NSError *error);
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion;
 
 ///
-- (void)getUserListWithParamer:(NSDictionary *)paramer success:(Success)success failure:(Failure)failure;
+- (void)getUserListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion;
+
+
 
 @end

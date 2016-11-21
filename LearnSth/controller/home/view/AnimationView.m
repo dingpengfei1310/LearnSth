@@ -299,6 +299,7 @@ CGFloat const totalDuration = 3.0;
 }
 
 - (void)drawString {
+    //width:170
     NSString *sourthPath = [[NSBundle mainBundle] pathForResource:@"SDSloganPoints"
                                                      ofType:@"plist"];
     NSArray *pathArray = [NSArray arrayWithContentsOfFile:sourthPath];
@@ -318,6 +319,8 @@ CGFloat const totalDuration = 3.0;
                     [path addCurveToPoint:[self convertStringToCGPoint:pointArray[0]]
                             controlPoint1:[self convertStringToCGPoint:pointArray[1]]
                             controlPoint2:[self convertStringToCGPoint:pointArray[2]]];
+                    
+//                    [path addLineToPoint:[self convertStringToCGPoint:pointArray[2]]];
                 } else {
                     [path addLineToPoint:[self convertStringToCGPoint:pointArray[0]]];
                 }

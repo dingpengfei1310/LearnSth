@@ -8,65 +8,62 @@
 
 #import "LineView.h"
 
-@implementation LineView
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+@implementation LineView {
+    CGFloat width,height;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        width = CGRectGetWidth(frame);
+        height = CGRectGetHeight(frame);
+        
+       
         
     }
     return self;
 }
 
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+//    [self drawLine];
+    
+    [self drawCurve];
+}
+
+#pragma mark
+
+- (void)drawLine {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
+    CGFloat lineWidth = 10;
     
-    int height = CGRectGetHeight(rect);
-    int count = CGRectGetWidth(rect);
-    CGFloat lindWidth = CGRectGetWidth(rect) / count * 0.4;
-    
-//    CGContextSetLineWidth(context, CGRectGetWidth(rect) / count * 0.5);
-    
-//    CGContextMoveToPoint(context, 0.0, 0.0);
-//    
-//    for (int i = 1; i < count; i++) {
-//        int pointX = 2 * i;
-//        int pointY = arc4random() % height;
-//        
-//        CGContextAddLineToPoint(context, pointX, pointY);
-//        CGContextStrokePath(context);
-//        
-//        CGContextMoveToPoint(context, pointX, pointY);
-//    }
-    
-    for (int i = 0; i < count; i++) {
-        int pointX = i;
-        int pointY = arc4random() % height;
+    for (int i = 0; i < 10; i++) {
+        int pointX = i * lineWidth;
+        int pointY = arc4random() % 100 + 10;
         
         CGPoint start = CGPointMake(pointX, 0);
         CGPoint end = CGPointMake(pointX, pointY);
         
-        [self drawLineWithContext:context volumePointStart:start volumePoint:end volcolor:[UIColor greenColor] width:lindWidth];
+        [[UIColor greenColor] set];
+        CGContextSetLineWidth(context, lineWidth * 0.8);
+        const CGPoint point[] = {start,end};
+        CGContextStrokeLineSegments(context, point, 2);
+        
     }
-    
 }
 
--(void)drawLineWithContext:(CGContextRef)context volumePointStart:(CGPoint)volumePointStart volumePoint:(CGPoint)volumePoint volcolor:(UIColor*)color width:(CGFloat)width{
+- (void)drawCurve {
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetShouldAntialias(context, NO);
-    // 设置颜色和线宽
-    [color setStroke];
+    CGContextMoveToPoint(context, 10, 10);
+    CGContextAddLineToPoint(context, 15, 30);
     
-    //NSLog(@"分时页面 画线   drawVolWithContext   width = %f", width);
-    CGContextSetLineWidth(context, width);
+    CGContextAddCurveToPoint(context, 40, 40, 100, 10, 200, 200);
     
-    //画分时量能线
-    const CGPoint point[] = {volumePointStart,volumePoint};
-    CGContextStrokeLineSegments(context, point, 2);
+    [[UIColor greenColor] set];
+    CGContextStrokePath(context);
     
 }
 

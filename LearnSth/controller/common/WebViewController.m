@@ -9,7 +9,7 @@
 #import "WebViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface WebViewController ()<UIAlertViewDelegate>
+@interface WebViewController ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
 
@@ -22,15 +22,23 @@
     
     if (self.urlString) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+        _webView.navigationDelegate = self;
         [self.view addSubview:_webView];
         
         NSURL *url = [NSURL URLWithString:self.urlString];
         [_webView loadRequest:[NSURLRequest requestWithURL:url]];
         
         NSLog(@"%@",self.urlString);
+        
+        [self loading];
     }
-    
 }
+
+#pragma mark
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self hideHUD];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

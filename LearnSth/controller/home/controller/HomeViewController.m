@@ -14,6 +14,7 @@
 #import "ADModel.h"
 
 #import "AnimationView.h"
+#import "LineView.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
@@ -27,17 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
     
     _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenWidth * 300 / 1242)];
     _bannerView.delegate = self;
     [self.view addSubview:_bannerView];
     
-    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
-    aView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:aView];
+//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
+//    aView.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:aView];
+    
+//    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
+//    [self.view addSubview:aView];
     
     [self getAdBanner];
+    
+    
+    
 }
 
 - (void)getAdBanner {
@@ -59,10 +66,11 @@
             [_bannerView setImageURLStringsGroup:imageStringArray];
         }
     }];
+    
 }
 
 - (void)popoverController {
-    
+    [self getAdBanner];
 }
 
 #pragma mark
@@ -74,7 +82,10 @@
         controller.hidesBottomBarWhenPushed = YES;
         controller.title = model.title;
         controller.urlString = model.link;
-        [self.navigationController pushViewController:controller animated:YES];
+        
+        [UIView transitionFromView:self.view toView:controller.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            [self.navigationController pushViewController:controller animated:NO];
+        }];
     }
     
 }
