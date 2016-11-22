@@ -54,12 +54,12 @@
     hud.label.text = text;
     hud.label.font = [UIFont systemFontOfSize:12];
     hud.contentColor = [UIColor whiteColor];
+    hud.margin = 10;
     
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", icon]]];
     
     hud.mode = MBProgressHUDModeCustomView;
     hud.animationType = MBProgressHUDAnimationZoom;
-    hud.removeFromSuperViewOnHide = YES;
     
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
@@ -67,11 +67,13 @@
 }
 
 - (void)showSuccess:(NSString *)success toView:(UIView *)view {
-    [self show:success icon:@"HUDsuccess.png" view:view];
+    [self show:success icon:@"" view:view];
+//    [self show:success icon:@"HUDsuccess.png" view:view];
 }
 
 - (void)showError:(NSString *)error toView:(UIView *)view{
-    [self show:error icon:@"HUDerror.png" view:view];
+    [self show:error icon:@"" view:view];
+//    [self show:error icon:@"HUDerror.png" view:view];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
@@ -81,6 +83,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = message;
     hud.label.font = [UIFont systemFontOfSize:14];
+    hud.margin = 10;
     
     hud.bezelView.backgroundColor = [UIColor clearColor];
     
@@ -90,8 +93,6 @@
         
         hud.bezelView.backgroundColor = [UIColor blackColor];
     }
-    
-    hud.removeFromSuperViewOnHide = YES;
     
     return hud;
 }

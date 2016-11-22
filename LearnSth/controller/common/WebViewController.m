@@ -11,7 +11,7 @@
 
 @interface WebViewController ()<WKNavigationDelegate>
 
-@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) WKWebView *KWebView;
 
 @end
 
@@ -21,16 +21,15 @@
     [super viewDidLoad];
     
     if (self.urlString) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
-        _webView.navigationDelegate = self;
-        [self.view addSubview:_webView];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+        _KWebView.navigationDelegate = self;
+        [self.view addSubview:_KWebView];
         
         NSURL *url = [NSURL URLWithString:self.urlString];
-        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+        [_KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         
         NSLog(@"%@",self.urlString);
-        
-        [self loading];
+//        [self loading];
     }
 }
 
@@ -38,7 +37,6 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self hideHUD];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

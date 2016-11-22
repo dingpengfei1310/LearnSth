@@ -103,8 +103,10 @@ CGFloat const totalDuration = 3.0;
     return _emitterLayer;
 }
 
+#pragma mark
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
+    NSLog(@"drawRect");
 }
 
 #pragma mark

@@ -53,6 +53,8 @@
     CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
     UIImage *result = [[UIImage alloc] initWithCGImage:imageRef];
     
+    CGImageRelease(imageRef);
+    
     return result;
 }
 

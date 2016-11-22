@@ -21,9 +21,21 @@
 @property (nonatomic, strong) SDCycleScrollView *bannerView;
 @property (nonatomic, strong) NSArray *bannerList;
 
+@property (nonatomic, strong) UILabel *tipLabel;
+
 @end
 
 @implementation HomeViewController
+
+- (UILabel *)tipLabel {
+    if (!_tipLabel) {
+        _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+        
+        _tipLabel.text = @"vvcvv";
+    }
+    
+    return _tipLabel;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,12 +54,10 @@
 //    [self.view addSubview:aView];
     
     [self getAdBanner];
-    
-    
-    
 }
 
 - (void)getAdBanner {
+    [self loading];
     
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
         [self hideHUD];
@@ -82,10 +92,11 @@
         controller.hidesBottomBarWhenPushed = YES;
         controller.title = model.title;
         controller.urlString = model.link;
+        [self.navigationController pushViewController:controller animated:YES];
         
-        [UIView transitionFromView:self.view toView:controller.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            [self.navigationController pushViewController:controller animated:NO];
-        }];
+//        [UIView transitionFromView:self.view toView:controller.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+//            [self.navigationController pushViewController:controller animated:NO];
+//        }];
     }
     
 }
