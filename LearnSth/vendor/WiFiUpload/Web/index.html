@@ -71,16 +71,6 @@
     
     </style>
     <body>
-        
-        <script type="text/javascript" src="zepto.min.js"></script>
-        <script type="text/javascript" src="mdialog.js"></script>
-        
-        <script type="text/javascript">
-            $("#submit").click(function(){
-                new TipBox({type:'success',str:'操作成功',hasBtn:true});
-            });
-        </script>
-            
         <div id="container">
             <div id="form">
                 <h2>WiFi File Upload</h2>
@@ -95,10 +85,9 @@
                             <input class="uploadField" name="path2" readonly>
                                 <input class="uploadButton" type="button" value="Open" onclick="document.form.upload2.click()">
                     </div>
-                    <div id="submit"><input type="submit" value="Submit" id="submit"></div>
+                    <div id="submit"><input type="submit" value="Submit"></div>
                 </form>
             </div>
         </div>
     </body>
-    
 </html>
