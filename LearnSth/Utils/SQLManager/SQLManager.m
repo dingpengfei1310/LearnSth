@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;
 
-@property (nonatomic, copy) NSString *dbPath;
+//@property (nonatomic, copy) NSString *dbPath;
 
 @end
 
@@ -39,10 +39,6 @@
     return self;
 }
 
-- (FMDatabaseQueue *)dbQueue {
-    return _dbQueue;
-}
-
 - (void)initialize {
     NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSLog(@"%@",document);
@@ -51,6 +47,26 @@
     _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
 }
 
+- (FMDatabaseQueue *)dbQueue {
+    return _dbQueue;
+}
 
+#pragma mark
+- (NSArray *)get {
+    NSMutableArray *mutArray;
+    
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *sql = @"";
+        
+        FMResultSet *result = [db executeQuery:sql];
+        while (result.next) {
+            NSString *name = [result stringForColumn:@""];
+            [mutArray addObject:name];
+        }
+        
+    }];
+    
+    return [NSArray arrayWithArray:mutArray];
+}
 
 @end

@@ -14,28 +14,15 @@
 #import "ADModel.h"
 
 #import "AnimationView.h"
-#import "LineView.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) SDCycleScrollView *bannerView;
 @property (nonatomic, strong) NSArray *bannerList;
 
-@property (nonatomic, strong) UILabel *tipLabel;
-
 @end
 
 @implementation HomeViewController
-
-- (UILabel *)tipLabel {
-    if (!_tipLabel) {
-        _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-        
-        _tipLabel.text = @"vvcvv";
-    }
-    
-    return _tipLabel;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +41,11 @@
 //    [self.view addSubview:aView];
     
     [self getAdBanner];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)getAdBanner {

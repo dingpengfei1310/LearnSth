@@ -21,20 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    PLPlayerOption *option = [PLPlayerOption defaultOption];
-    [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
-    NSURL *url = [NSURL URLWithString:self.live.flv];
-    self.player = [PLPlayer playerWithURL:url option:option];
-    self.player.delegate = self;
-    
     [self.view addSubview:self.player.playerView];
-    
-    self.player.backgroundPlayEnable = YES;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,8 +37,28 @@
     self.navigationController.hidesBarsOnTap = NO;
     
     [self navigationBarColorRestore];
-    
     [self.player stop];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark
+- (PLPlayer *)player {
+    if (!_player) {
+        PLPlayerOption *option = [PLPlayerOption defaultOption];
+        [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
+        
+        NSURL *url = [NSURL URLWithString:self.live.flv];
+        
+        _player = [PLPlayer playerWithURL:url option:option];
+        _player.delegate = self;
+        
+        _player.backgroundPlayEnable = YES;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+    return _player;
 }
 
 - (void)didReceiveMemoryWarning {

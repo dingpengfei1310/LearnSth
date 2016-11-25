@@ -28,31 +28,8 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGFloat itemWidth = (ScreenWidth - 30) / 2;
-    
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64 - 50) collectionViewLayout:flowLayout];
-    _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
-    [self.view addSubview:_collectionView];
-    
-    NSArray *images = @[[UIImage imageNamed:@"reflesh1"],[UIImage imageNamed:@"reflesh2"],[UIImage imageNamed:@"reflesh3"]];
-    
-    MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    [gifHeader setImages:images forState:MJRefreshStatePulling];
-    [gifHeader setImages:images forState:MJRefreshStateRefreshing];
-    
-    gifHeader.lastUpdatedTimeLabel.hidden = YES;
-    gifHeader.stateLabel.hidden = YES;
-    
-    _collectionView.mj_header = gifHeader;
-    [_collectionView.mj_header beginRefreshing];
+    [self.view addSubview:self.collectionView];
+    [self.collectionView.mj_header beginRefreshing];
 }
 
 - (void)refreshData {
@@ -65,6 +42,7 @@ static NSString *identifier = @"cell";
             self.liveList = [LiveModel liveWithArray:list];
             [self.collectionView reloadData];
         }
+        
     }];
 }
 
@@ -92,9 +70,42 @@ static NSString *identifier = @"cell";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+#pragma mark
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        CGFloat itemWidth = (ScreenWidth - 30) / 2;
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        
+        CGRect collectionViewRect = CGRectMake(0, 64, ScreenWidth, ScreenHeight - 113);
+        _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
+                                             collectionViewLayout:flowLayout];
+        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
+        
+        NSArray *images = @[[UIImage imageNamed:@"reflesh1"],[UIImage imageNamed:@"reflesh2"],[UIImage imageNamed:@"reflesh3"]];
+        
+        MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingTarget:self
+                                                                      refreshingAction:@selector(refreshData)];
+        [gifHeader setImages:images forState:MJRefreshStatePulling];
+        [gifHeader setImages:images forState:MJRefreshStateRefreshing];
+        
+        gifHeader.lastUpdatedTimeLabel.hidden = YES;
+        gifHeader.stateLabel.hidden = YES;
+        
+        _collectionView.mj_header = gifHeader;
+    }
+    
+    return _collectionView;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

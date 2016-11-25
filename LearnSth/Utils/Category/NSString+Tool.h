@@ -10,7 +10,7 @@
 
 @interface NSString (Tool)
 
-///拼音
+///拼音,系统自带，性能很差
 - (NSString *)pinyin;
 
 ///MD5加密

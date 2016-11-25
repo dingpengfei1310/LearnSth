@@ -16,6 +16,8 @@
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 
+#import "HttpManager.h"
+
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -30,16 +32,9 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"User";
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息"];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
-                                              style:UITableViewStylePlain];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
-    _tableView.tableFooterView = [[UIView alloc] init];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.rowHeight = 50;
-    [self.view addSubview:_tableView];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息"];
+    [self.view addSubview:self.tableView];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventValueChanged];
@@ -51,14 +46,23 @@ static NSString *identifier = @"cell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
-- (void)loadData:(UIRefreshControl *)refreshControl {
-    [refreshControl endRefreshing];
-    NSLog(@"loadData");
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+}
+
+#pragma mark
+- (void)loadData:(UIRefreshControl *)refreshControl {
+    
+    [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
+        [refreshControl endRefreshing];
+        
+        if (error) {
+            [self showErrorWithError:error];
+        } else {
+            NSLog(@"%@",list);
+        }
+    }];
 }
 
 - (void)loginClick {
@@ -70,6 +74,17 @@ static NSString *identifier = @"cell";
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
+- (void)wifiUpload {
+    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
+    BOOL success = [manager startHTTPServerAtPort:10000];
+    
+    if (success) {
+        NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
+        NSLog(@"PATH = %@",manager.savePath);
+        [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
     }
 }
 
@@ -103,20 +118,23 @@ static NSString *identifier = @"cell";
     
 }
 
-#pragma mark
-- (void)wifiUpload {
-    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
-    BOOL success = [manager startHTTPServerAtPort:10000];
-    
-    if (success) {
-        NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
-        NSLog(@"PATH = %@",manager.savePath);
-        [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+                                                  style:UITableViewStylePlain];
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+        
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    }
+    return _tableView;
 }
 
 

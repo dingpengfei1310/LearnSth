@@ -24,10 +24,12 @@ typedef void (^Failure)(NSError *error);
 - (void)getAdBannerListCompletion:(SuccessArray)completion;
 
 ///热门直播
-- (void)getHotLiveListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion;
+- (void)getHotLiveListWithParamers:(NSDictionary *)paramers
+                        completion:(SuccessArray)completion;
 
 ///
-- (void)getUserListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion;
+- (void)getUserListWithParamers:(NSDictionary *)paramers
+                     completion:(SuccessArray)completion;
 
 
 

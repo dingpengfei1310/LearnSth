@@ -26,8 +26,10 @@ const NSInteger errorCodeDefault = 123;
     return manager;
 }
 
-- (void)getDataWithString:(NSString *)urlString paramets:(NSDictionary *)paramets success:(Success)success failure:(Failure)failure {
-    
+- (void)getDataWithString:(NSString *)urlString
+                 paramets:(NSDictionary *)paramets
+                  success:(Success)success
+                  failure:(Failure)failure {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
@@ -47,26 +49,17 @@ const NSInteger errorCodeDefault = 123;
 }
 
 #pragma mark
-- (void)getAdBannerListSuccess:(Success)success failure:(Failure)failure {
-    NSString * urlString = @"http://live.9158.com/Living/GetAD";
-    
-    [self getDataWithString:urlString paramets:nil success:^(id responseData) {
-        NSArray *array = [responseData objectForKey:@"data"];
-        success(array);
-    } failure:^(NSError *error) {
-        failure(error);
-    }];
-}
-
 - (void)getAdBannerListCompletion:(SuccessArray)completion {
-    NSString * urlString = @"http://live.9158.com/Living/GetAD";
     
+    NSString * urlString = @"http://live.9158.com/Living/GetAD";
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"data"];
         completion(array,nil);
         
 //        NSDictionary *info = @{@"message":@"不知道啥错误"};
-//        NSError *error = [NSError errorWithDomain:@"GetAD" code:errorCodeDefault userInfo:info];
+//        NSError *error = [NSError errorWithDomain:@"GetAD"
+//                                             code:errorCodeDefault
+//                                         userInfo:info];
 //        completion(nil,error);
         
     } failure:^(NSError *error) {
@@ -74,17 +67,23 @@ const NSInteger errorCodeDefault = 123;
     }];
 }
 
-- (void)getHotLiveListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion {
+- (void)getHotLiveListWithParamers:(NSDictionary *)paramers
+                        completion:(SuccessArray)completion {
+    
     NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     [self getDataWithString:urlString paramets:@{@"page":@"1"} success:^(id responseData) {
+        
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         completion(array,nil);
     } failure:^(NSError *error) {
+        
         completion(nil,error);
     }];
 }
 
-- (void)getUserListWithParamers:(NSDictionary *)paramers completion:(SuccessArray)completion {
+- (void)getUserListWithParamers:(NSDictionary *)paramers
+                     completion:(SuccessArray)completion {
+    
     NSString *BASEURl = @"http://192.168.1.203:9090/sctd/";
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
     
@@ -116,8 +115,10 @@ const NSInteger errorCodeDefault = 123;
 #pragma mark
 - (NSString *)JsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
-        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel options:NSJSONWritingPrettyPrinted error:nil];
-        NSString * jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel
+                                                            options:NSJSONWritingPrettyPrinted error:nil];
+        NSString * jsonStr = [[NSString alloc] initWithData:jsonData
+                                                   encoding:NSUTF8StringEncoding];
         return jsonStr;
     }
     return nil;

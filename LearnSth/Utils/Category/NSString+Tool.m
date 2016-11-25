@@ -37,6 +37,13 @@
     return digest;
 }
 
+- (BOOL)validatePhoneNumber {
+    NSString *number=@"^1[3|4|5|7|8][0-9]\\d{8}$";
+    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    return [numberPre evaluateWithObject:self];
+}
+
+#pragma mark
 //是否包含emoj
 - (BOOL)stringContainsEmoji:(NSString *)string {
     __block BOOL returnValue = NO;
@@ -84,11 +91,7 @@
     return [numberPre evaluateWithObject:self];
 }
 
-- (BOOL)validatePhoneNumber {
-    NSString *number=@"^1[3|4|5|7|8][0-9]\\d{8}$";
-    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
-    return [numberPre evaluateWithObject:self];
-}
+
 
 - (BOOL)validateIDCardNumber {
     NSString *number=@"\\d{14}[[0-9],0-9xX]";
