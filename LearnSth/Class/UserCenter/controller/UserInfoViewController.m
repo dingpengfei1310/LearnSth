@@ -29,13 +29,6 @@ static NSString *reuseIdentifier = @"cell";
     self.title = @"个人信息";
     
     self.dataArray = @[@"头像",@"昵称"];
-    
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
-    _tableView.tableFooterView = [[UIView alloc] init];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.rowHeight = 50;
     [self.view addSubview:_tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
@@ -52,6 +45,7 @@ static NSString *reuseIdentifier = @"cell";
     
 }
 
+#pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
     PopoverViewController *popoverController = [[PopoverViewController alloc] init];
     popoverController.delegate = self;
@@ -73,6 +67,14 @@ static NSString *reuseIdentifier = @"cell";
 - (void)loginOut {
     [Utils remoAllObjects];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)openUserCameraWithType:(UIImagePickerControllerSourceType)type {
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    pickerController.delegate = self;
+    pickerController.allowsEditing = YES;
+    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:pickerController animated:YES completion:nil];
 }
 
 #pragma mark
@@ -123,7 +125,6 @@ static NSString *reuseIdentifier = @"cell";
         [actionSheet addAction:cancelAction];
         [actionSheet addAction:albumAction];
         
-        
         [self presentViewController:actionSheet animated:YES completion:nil];
     } else if (indexPath.row == 1) {
         
@@ -154,14 +155,6 @@ static NSString *reuseIdentifier = @"cell";
     }
 }
 
-- (void)openUserCameraWithType:(UIImagePickerControllerSourceType)type {
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    pickerController.delegate = self;
-    pickerController.allowsEditing = YES;
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:pickerController animated:YES completion:nil];
-}
-
 #pragma mark - UIPopoverPresentationControllerDelegate
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
@@ -175,6 +168,20 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+                                                  style:UITableViewStylePlain];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+    }
+    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

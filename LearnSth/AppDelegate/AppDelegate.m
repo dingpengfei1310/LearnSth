@@ -43,11 +43,7 @@
     return YES;
 }
 
-- (void)regSuccess {
-    
-    TabBarViewController *controller = [[TabBarViewController alloc] init];
-    self.window.rootViewController = controller;
-}
+#pragma mark
 
 - (void)setNavigationBar {
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
@@ -65,6 +61,12 @@
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
                                                       forState:UIControlStateNormal
                                                     barMetrics:UIBarMetricsDefault];
+}
+
+#pragma mark
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"%@",notification.userInfo);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

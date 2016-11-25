@@ -21,10 +21,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark
 - (void)navigationBarColorClear {
     UIImage *image = [self getImageWithColor:[UIColor clearColor]];
@@ -44,6 +40,35 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+#pragma mark
+- (void)loading {
+    [self showMessage:nil toView:nil];
+}
+
+- (void)showSuccess:(NSString *)success {
+    [self showSuccess:success toView:nil];
+}
+
+- (void)showError:(NSString *)error {
+    [self showError:error toView:nil];
+}
+
+- (void)showErrorWithError:(NSError *)error {
+    NSString *messege = [error.userInfo objectForKey:@"message"];
+    if(!messege) {
+        messege = @"网络异常";
+    }
+    [self showError:messege];
+}
+
+- (void)showMessage:(NSString *)message {
+    [self showMessage:message toView:nil];
+}
+
+- (void)hideHUD {
+    [self hideHUDForView:nil];
 }
 
 #pragma mark
@@ -102,34 +127,9 @@
     [MBProgressHUD hideHUDForView:view animated:YES];
 }
 
-#pragma mark
-- (void)loading {
-    [self showMessage:nil toView:nil];
-}
 
-- (void)showSuccess:(NSString *)success {
-    [self showSuccess:success toView:nil];
-}
-
-- (void)showError:(NSString *)error {
-    [self showError:error toView:nil];
-}
-
-- (void)showErrorWithError:(NSError *)error {
-    NSString *messege = [error.userInfo objectForKey:@"message"];
-    if(!messege) {
-        messege = @"网络异常";
-    }
-    [self showError:messege];
-}
-
-- (void)showMessage:(NSString *)message {
-    [self showMessage:message toView:nil];
-}
-
-
-- (void)hideHUD {
-    [self hideHUDForView:nil];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 

@@ -33,7 +33,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"本地通知"];
     [self.view addSubview:self.tableView];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -53,16 +53,7 @@ static NSString *identifier = @"cell";
 
 #pragma mark
 - (void)loadData:(UIRefreshControl *)refreshControl {
-    
-    [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
-        [refreshControl endRefreshing];
-        
-        if (error) {
-            [self showErrorWithError:error];
-        } else {
-            NSLog(@"%@",list);
-        }
-    }];
+    [refreshControl endRefreshing];
 }
 
 - (void)loginClick {
@@ -114,6 +105,26 @@ static NSString *identifier = @"cell";
         MessageViewController *controller = [[MessageViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 3) {
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        
+        localNotification.alertTitle = @"alertTitle";
+        localNotification.alertBody = @"alertBody";
+        
+        NSDictionary *userInfo = @{@"message":@"老师开发建设的房间里看到手机发呆就是封疆大吏舒服"};
+        localNotification.userInfo = userInfo;
+        
+        NSDate *now = [NSDate date];
+        NSDate *fireDate = [NSDate dateWithTimeInterval:10 sinceDate:now];
+        localNotification.fireDate = fireDate;
+        
+        UIUserNotificationType type =  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type
+                                                                                 categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
     
 }

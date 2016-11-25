@@ -27,6 +27,7 @@
  */
 - (void)navigationBarColorRestore;
 
+#pragma mark
 ///
 - (void)loading;
 

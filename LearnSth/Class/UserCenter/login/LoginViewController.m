@@ -13,7 +13,7 @@
 #import "UserModel.h"
 #import "NSString+Tool.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *accountField;
 @property (nonatomic, strong) UITextField *passwordField;
@@ -75,14 +75,21 @@ const CGFloat fieldHeight = 30;
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.accountField) {
+        if (range.location > 10) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark
 - (UITextField *)accountField {
     if (!_accountField) {
         _accountField = [[UITextField alloc] init];
+        _accountField.delegate = self;
         _accountField.borderStyle = UITextBorderStyleRoundedRect;
         _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _accountField.keyboardType = UIKeyboardTypeNumberPad;
@@ -112,5 +119,11 @@ const CGFloat fieldHeight = 30;
     
     return _loginButton;
 }
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 
 @end

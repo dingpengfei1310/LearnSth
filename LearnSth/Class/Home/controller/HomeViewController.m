@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(popoverController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenWidth * 300 / 1242)];
     _bannerView.delegate = self;
@@ -40,7 +40,7 @@
 //    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
 //    [self.view addSubview:aView];
     
-    [self getAdBanner];
+    [self getHomeAdBanner];
     
 }
 
@@ -48,7 +48,8 @@
     [super viewWillAppear:animated];
 }
 
-- (void)getAdBanner {
+#pragma mark
+- (void)getHomeAdBanner {
     [self loading];
     
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
@@ -71,11 +72,10 @@
     
 }
 
-- (void)popoverController {
-    [self getAdBanner];
+- (void)homeRightItemClick {
 }
 
-#pragma mark
+#pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     ADModel *model = self.bannerList[index];
     
@@ -85,10 +85,6 @@
         controller.title = model.title;
         controller.urlString = model.link;
         [self.navigationController pushViewController:controller animated:YES];
-        
-//        [UIView transitionFromView:self.view toView:controller.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-//            [self.navigationController pushViewController:controller animated:NO];
-//        }];
     }
     
 }
