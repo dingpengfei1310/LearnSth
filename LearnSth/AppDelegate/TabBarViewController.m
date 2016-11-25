@@ -8,9 +8,9 @@
 
 #import "TabBarViewController.h"
 
-#import "HomeViewController.h"
-#import "LiveViewController.h"
-#import "UserViewController.h"
+//#import "HomeViewController.h"
+//#import "LiveViewController.h"
+//#import "UserViewController.h"
 
 @interface TabBarViewController ()
 
@@ -21,16 +21,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    HomeViewController *homeController = [[HomeViewController alloc] init];
-    UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
-    
-    LiveViewController *liveController = [[LiveViewController alloc] init];
-    UINavigationController *liveNVC = [[UINavigationController alloc] initWithRootViewController:liveController];
-    
-    UserViewController *userController = [[UserViewController alloc] init];
-    UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
-    
-    self.viewControllers = @[homeNVC,liveNVC,userNVC];
+//    HomeViewController *homeController = [[HomeViewController alloc] init];
+//    UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
+//    
+//    LiveViewController *liveController = [[LiveViewController alloc] init];
+//    UINavigationController *liveNVC = [[UINavigationController alloc] initWithRootViewController:liveController];
+//    
+//    UserViewController *userController = [[UserViewController alloc] init];
+//    UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
+//    
+//    self.viewControllers = @[homeNVC,liveNVC,userNVC];
     
     NSDictionary *textAttributeNormal = @{
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
