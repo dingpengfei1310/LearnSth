@@ -7,6 +7,7 @@
 //
 
 #import "UserInfoViewController.h"
+#import "ProvinceViewController.h"
 
 #import "PopoverViewController.h"
 
@@ -28,8 +29,8 @@ static NSString *reuseIdentifier = @"cell";
     [super viewDidLoad];
     self.title = @"个人信息";
     
-    self.dataArray = @[@"头像",@"昵称"];
-    [self.view addSubview:_tableView];
+    self.dataArray = @[@"头像",@"昵称",@"城市"];
+    [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
     
@@ -69,12 +70,74 @@ static NSString *reuseIdentifier = @"cell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark 上传头像
+- (void)showAlertControllerOnUplodUserHeader {
+    UIAlertController *actionSheet;
+    actionSheet = [UIAlertController alertControllerWithTitle:@"上传头像"
+                                                      message:nil
+                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *albumAction;
+    albumAction = [UIAlertAction actionWithTitle:@"相册"
+                                           style:UIAlertActionStyleDefault
+                                         handler:^(UIAlertAction * _Nonnull action) {
+                                             [self openUserCameraWithType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+                                         }];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIAlertAction *cameraAction;
+        cameraAction = [UIAlertAction actionWithTitle:@"相机"
+                                                style:UIAlertActionStyleDefault
+                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                  [self openUserCameraWithType:UIImagePickerControllerSourceTypeCamera];
+                                              }];
+        [actionSheet addAction:cameraAction];
+    }
+    
+    
+    [actionSheet addAction:cancelAction];
+    [actionSheet addAction:albumAction];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
 - (void)openUserCameraWithType:(UIImagePickerControllerSourceType)type {
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     pickerController.delegate = self;
     pickerController.allowsEditing = YES;
     pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:pickerController animated:YES completion:nil];
+}
+
+#pragma mark 修改昵称
+- (void)showAlertControllerOnChangeUsername {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入昵称";
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              
+                                                              NSArray *textFields = alert.textFields;
+                                                              UITextField *field = textFields[0];
+                                                              [Utils setUserNickname:field.text];
+                                                          }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:certainAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark
@@ -86,8 +149,8 @@ static NSString *reuseIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    if (indexPath.row == 1 && [UserModel user].mobile) {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",self.dataArray[indexPath.row],[UserModel user].mobile];
+    if (indexPath.row == 1 && [UserModel userManager].mobile) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",self.dataArray[indexPath.row],[UserModel userManager].mobile];
     }
     return cell;
 }
@@ -96,62 +159,14 @@ static NSString *reuseIdentifier = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        UIAlertController *actionSheet;
-        actionSheet = [UIAlertController alertControllerWithTitle:@"上传头像"
-                                                          message:nil
-                                                   preferredStyle:UIAlertControllerStyleActionSheet];
+        [self showAlertControllerOnUplodUserHeader];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:nil];
-        UIAlertAction *albumAction;
-        albumAction = [UIAlertAction actionWithTitle:@"相册"
-                                               style:UIAlertActionStyleDefault
-                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                 [self openUserCameraWithType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-                                                              }];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            UIAlertAction *cameraAction;
-            cameraAction = [UIAlertAction actionWithTitle:@"相机"
-                                                    style:UIAlertActionStyleDefault
-                                                  handler:^(UIAlertAction * _Nonnull action) {
-                                                      [self openUserCameraWithType:UIImagePickerControllerSourceTypeCamera];
-                                                  }];
-            [actionSheet addAction:cameraAction];
-        }
-        
-        
-        [actionSheet addAction:cancelAction];
-        [actionSheet addAction:albumAction];
-        
-        [self presentViewController:actionSheet animated:YES completion:nil];
     } else if (indexPath.row == 1) {
+        [self showAlertControllerOnChangeUsername];
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称"
-                                                                                 message:nil
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"请输入昵称";
-        }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:nil];
-        UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定"
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  
-                                                                  NSArray *textFields = alert.textFields;
-                                                                  UITextField *field = textFields[0];
-                                                                  [Utils setUserNickname:field.text];
-        }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:certainAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+    } else if (indexPath.row == 2) {
+        ProvinceViewController *contoller = [[ProvinceViewController alloc] init];
+        [self.navigationController pushViewController:contoller animated:YES];
     }
 }
 

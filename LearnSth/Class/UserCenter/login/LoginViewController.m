@@ -67,7 +67,7 @@ const CGFloat fieldHeight = 30;
 
 - (void)loginClick {
     if ([_accountField.text validatePhoneNumber]) {
-        [[UserModel user] setMobile:self.accountField.text];
+        [[UserModel userManager] setMobile:self.accountField.text];
         [Utils setIsLogin:YES];
         [self dismiss];
     } else {
@@ -89,6 +89,7 @@ const CGFloat fieldHeight = 30;
 - (UITextField *)accountField {
     if (!_accountField) {
         _accountField = [[UITextField alloc] init];
+        _accountField.placeholder = @"请输入用户名";
         _accountField.delegate = self;
         _accountField.borderStyle = UITextBorderStyleRoundedRect;
         _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -100,6 +101,7 @@ const CGFloat fieldHeight = 30;
 - (UITextField *)passwordField {
     if (!_passwordField) {
         _passwordField = [[UITextField alloc] init];
+        _passwordField.placeholder = @"请输入密码";
         _passwordField.borderStyle = UITextBorderStyleRoundedRect;
         _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passwordField.keyboardType = UIKeyboardTypeNumberPad;

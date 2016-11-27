@@ -32,7 +32,7 @@
 
 @property (nonatomic, copy) NSString *winRate;
 
-+ (instancetype)user;
++ (instancetype)userManager;
 
 + (NSArray<UserModel *> *)userWithArray:(NSArray *)array;
 

@@ -19,4 +19,7 @@
 + (void)setUserNickname:(NSString *)name;
 + (NSString *)userNickname;
 
++ (void)setChooseUserNotification;
++ (BOOL)haveChooseUserNotification;
+
 @end

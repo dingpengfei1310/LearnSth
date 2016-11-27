@@ -79,6 +79,37 @@ static NSString *identifier = @"cell";
     }
 }
 
+- (void)userLocationNotifications {
+    UIUserNotificationSettings *currentSettings =  [UIApplication sharedApplication].currentUserNotificationSettings;
+    
+    if (![Utils haveChooseUserNotification] || currentSettings.types != UIUserNotificationTypeNone) {
+        
+        if (![Utils haveChooseUserNotification]) {
+            UIUserNotificationType type =  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge;
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type
+                                                                                     categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.alertTitle = @"alertTitle";
+        localNotification.alertBody = @"alertBody";
+        
+        NSDictionary *userInfo = @{@"message":@"老师开发建设的房间里看到手机发呆就是封疆大吏舒服"};
+        localNotification.userInfo = userInfo;
+        
+        NSDate *now = [NSDate date];
+        NSDate *fireDate = [NSDate dateWithTimeInterval:10 sinceDate:now];
+        localNotification.fireDate = fireDate;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        
+    } else {
+        [self showError:@"您已关闭通知，请到设置里打开"];
+    }
+    
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -97,34 +128,22 @@ static NSString *identifier = @"cell";
     
     if (indexPath.row == 0) {
         [self wifiUpload];
+        
     } else if (indexPath.row == 1) {
+        
         PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
+        
     } else if (indexPath.row == 2) {
+        
         MessageViewController *controller = [[MessageViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
+        
     } else if (indexPath.row == 3) {
         
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        
-        localNotification.alertTitle = @"alertTitle";
-        localNotification.alertBody = @"alertBody";
-        
-        NSDictionary *userInfo = @{@"message":@"老师开发建设的房间里看到手机发呆就是封疆大吏舒服"};
-        localNotification.userInfo = userInfo;
-        
-        NSDate *now = [NSDate date];
-        NSDate *fireDate = [NSDate dateWithTimeInterval:10 sinceDate:now];
-        localNotification.fireDate = fireDate;
-        
-        UIUserNotificationType type =  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type
-                                                                                 categories:nil];
-        
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        [self userLocationNotifications];
     }
     
 }

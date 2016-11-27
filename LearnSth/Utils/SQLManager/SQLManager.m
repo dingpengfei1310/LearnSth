@@ -40,10 +40,11 @@
 }
 
 - (void)initialize {
-    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSLog(@"%@",document);
-    NSString *path = [document stringByAppendingPathComponent:@"temp.db"];
+//    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//    NSLog(@"%@",document);
+//    NSString *path = [document stringByAppendingPathComponent:@"temp.db"];
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"province.db" ofType:nil];
     _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
 }
 
@@ -52,21 +53,52 @@
 }
 
 #pragma mark
-- (NSArray *)get {
-    NSMutableArray *mutArray;
+- (NSArray *)getProvinces {
+    NSMutableArray *mutArray = [NSMutableArray array];
     
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        NSString *sql = @"";
+        NSString *sql = @"select * from t_address where parent_id = '0'";
         
         FMResultSet *result = [db executeQuery:sql];
         while (result.next) {
-            NSString *name = [result stringForColumn:@""];
-            [mutArray addObject:name];
+            NSString *provinceId = [result stringForColumn:@"id"];
+            NSString *provinceName = [result stringForColumn:@"name"];
+            NSString *parentId = [result stringForColumn:@"parent_id"];
+            NSDictionary *province = @{@"id":provinceId,
+                                       @"name":provinceName,
+                                       @"parent_id":parentId};
+            
+            [mutArray addObject:province];
         }
         
     }];
     
     return [NSArray arrayWithArray:mutArray];
 }
+
+- (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId {
+    NSMutableArray *mutArray = [NSMutableArray array];
+    
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *sql = [NSString stringWithFormat:@"select * from t_address where parent_id = '%@'",provinceId];
+        
+        FMResultSet *result = [db executeQuery:sql];
+        while (result.next) {
+            NSString *cityId = [result stringForColumn:@"id"];
+            NSString *cityName = [result stringForColumn:@"name"];
+            NSString *parentId = [result stringForColumn:@"parent_id"];
+            NSDictionary *province = @{@"id":cityId,
+                                       @"name":cityName,
+                                       @"parent_id":parentId};
+            
+            [mutArray addObject:province];
+        }
+        
+    }];
+    
+    return [NSArray arrayWithArray:mutArray];
+}
+
+
 
 @end

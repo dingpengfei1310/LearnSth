@@ -10,15 +10,15 @@
 
 @implementation UserModel
 
-+ (instancetype)user {
-    static UserModel *user = nil;
++ (instancetype)userManager {
+    static UserModel *userModel = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        user = [[self alloc] init];
+        userModel = [[self alloc] init];
     });
     
-    return user;
+    return userModel;
 }
 
 + (NSArray<UserModel *> *)userWithArray:(NSArray *)array {

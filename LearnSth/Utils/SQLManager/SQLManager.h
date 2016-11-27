@@ -17,6 +17,8 @@
 
 - (FMDatabaseQueue *)dbQueue;
 
-
+#pragma mark
+- (NSArray *)getProvinces;
+- (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId;
 
 @end

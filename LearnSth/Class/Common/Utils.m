@@ -8,8 +8,9 @@
 
 #import "Utils.h"
 
-static NSString *IsLogin = @"userLogin";
-static NSString *Nickname = @"nickname";
+static NSString *IsLogin = @"UserLogin";
+static NSString *Nickname = @"Nickname";
+static NSString *ChooseUserNotification = @"ChooseUserNotification";
 
 @implementation Utils
 
@@ -39,4 +40,16 @@ static NSString *Nickname = @"nickname";
     return [[NSUserDefaults standardUserDefaults] stringForKey:Nickname];
 }
 
+
+#pragma mark
++ (void)setChooseUserNotification {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:ChooseUserNotification];
+}
+
++ (BOOL)haveChooseUserNotification {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ChooseUserNotification];
+}
+
 @end
+
+

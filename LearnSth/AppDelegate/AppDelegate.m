@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
-#import "FPSLabel.h"
+#import "Utils.h"
 
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"
@@ -37,9 +37,6 @@
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;
     
-//    FPSLabel *label = [[FPSLabel alloc] initWithFrame:CGRectMake(20, 84, 100, 30)];
-//    [self.window addSubview:label];
-    
     return YES;
 }
 
@@ -56,7 +53,7 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, 0)
                                                          forBarMetrics:UIBarMetricsDefault];
     UIImage *backButtonImage = [UIImage imageNamed:@"backButtonImage"];
-    UIImage *resizeableImage = [backButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    UIImage *resizeableImage = [backButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
     
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
                                                       forState:UIControlStateNormal
@@ -66,7 +63,21 @@
 #pragma mark
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if (application.applicationState == UIApplicationStateActive) {
+//        UIApplicationOpenURLOptionsAnnotationKey
+    } else {
+        
+    }
+    
     NSLog(@"%@",notification.userInfo);
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    if (notificationSettings.types == 0) {
+        
+    } else {
+        
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
