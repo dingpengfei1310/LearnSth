@@ -48,19 +48,34 @@ const NSInteger errorCodeDefault = 123;
          }];
 }
 
+- (void)postDataWithString:(NSString *)urlString
+                 paramets:(NSDictionary *)paramets
+                  success:(Success)success
+                  failure:(Failure)failure {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [multSet addObject:@"text/html"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
+    manager.requestSerializer.timeoutInterval = 30;
+    
+    [manager POST:urlString
+      parameters:paramets
+        progress:^(NSProgress * _Nonnull uploadProgress) {}
+         success:^(NSURLSessionDataTask *task, id responseObject) {
+             success(responseObject);
+         }
+         failure:^(NSURLSessionDataTask *task, NSError *error) {
+             failure(error);
+         }];
+}
+
 #pragma mark
 - (void)getAdBannerListCompletion:(SuccessArray)completion {
-    
     NSString * urlString = @"http://live.9158.com/Living/GetAD";
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"data"];
         completion(array,nil);
-        
-//        NSDictionary *info = @{@"message":@"不知道啥错误"};
-//        NSError *error = [NSError errorWithDomain:@"GetAD"
-//                                             code:errorCodeDefault
-//                                         userInfo:info];
-//        completion(nil,error);
         
     } failure:^(NSError *error) {
         completion(nil,error);

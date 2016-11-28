@@ -62,7 +62,6 @@
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
-		1B2D07F61DE7E8DB0034C22D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -83,6 +82,7 @@
 		1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserModel.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
+		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
 		1BDCED711DE57D97002A27B5 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6F1DE57D97002A27B5 /* upload.html */; };
@@ -1089,6 +1089,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */,
 				1B099C871DE7E57400161396 /* MJRefreshBackGifFooter.m in Sources */,
 				1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */,
 				1B099C801DE7E57400161396 /* MJRefreshBackFooter.m in Sources */,
@@ -1128,7 +1129,6 @@
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
-				1B2D07F61DE7E8DB0034C22D /* HomeViewController.m in Sources */,
 				1B099C991DE7E57400161396 /* UIView+SDExtension.m in Sources */,
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
 				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,

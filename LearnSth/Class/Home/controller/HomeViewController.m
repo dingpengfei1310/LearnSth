@@ -73,6 +73,7 @@
 }
 
 - (void)homeRightItemClick {
+    
 }
 
 #pragma mark - SDCycleScrollViewDelegate
@@ -86,7 +87,6 @@
         controller.urlString = model.link;
         [self.navigationController pushViewController:controller animated:YES];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {

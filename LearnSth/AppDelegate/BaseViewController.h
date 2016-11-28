@@ -11,8 +11,6 @@
 #import "AppConfiguration.h"
 
 #import "Utils.h"
-
-#import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
 
 @interface BaseViewController : UIViewController

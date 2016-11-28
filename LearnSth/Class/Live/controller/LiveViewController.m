@@ -14,6 +14,8 @@
 
 #import "LiveModel.h"
 
+#import "UIImageView+WebCache.h"
+
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
