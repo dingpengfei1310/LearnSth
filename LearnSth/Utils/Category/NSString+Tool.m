@@ -8,9 +8,27 @@
 
 #import "NSString+Tool.h"
 
+#import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Tool)
+
+//+ (void)load {
+//    Method lowercaseString = class_getInstanceMethod([self class], @selector(lowercaseString));
+//    Method dd_lowercaseString = class_getInstanceMethod([self class], @selector(dd_lowercaseString));
+//    
+//    if (!class_addMethod([self class], @selector(dd_lowercaseString), method_getImplementation(dd_lowercaseString), method_getTypeEncoding(dd_lowercaseString))) {
+//        method_exchangeImplementations(lowercaseString, dd_lowercaseString);
+//    }
+//}
+//
+//#pragma mark - 自定义
+//- (void)dd_lowercaseString {
+//    NSLog(@"准备小写^_^");
+//    [self dd_lowercaseString];
+//}
+
+#pragma mark
 
 - (NSString *)pinyin {
     NSMutableString *pinyin = [self mutableCopy];

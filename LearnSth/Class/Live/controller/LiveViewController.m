@@ -19,7 +19,7 @@
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *liveList;
+@property (nonatomic, copy) NSArray *liveList;
 
 @end
 

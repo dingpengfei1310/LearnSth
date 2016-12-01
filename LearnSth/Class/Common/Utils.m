@@ -9,16 +9,21 @@
 #import "Utils.h"
 
 static NSString *IsLogin = @"UserLogin";
-static NSString *Nickname = @"Nickname";
+static NSString *UserAccount = @"UserAccount";
 static NSString *ChooseUserNotification = @"ChooseUserNotification";
 
 @implementation Utils
 
 + (void)remoAllObjects {
-    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    for(NSString * key in [dict allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-    }
+//    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+//    for(NSString * key in [dict allKeys]) {
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+//    }
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:IsLogin];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserAccount];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ChooseUserNotification];
+    
 }
 
 #pragma mark
@@ -32,12 +37,12 @@ static NSString *ChooseUserNotification = @"ChooseUserNotification";
 
 
 #pragma mark
-+ (void)setUserNickname:(NSString *)name {
-    [[NSUserDefaults standardUserDefaults] setObject:name forKey:Nickname];
++ (void)setUserAccount:(NSString *)name {
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:UserAccount];
 }
 
-+ (NSString *)userNickname {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:Nickname];
++ (NSString *)userAccount {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:UserAccount];
 }
 
 

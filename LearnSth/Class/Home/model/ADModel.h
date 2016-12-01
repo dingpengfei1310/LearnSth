@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface ADModel : NSObject
 
 /** 新增时间 */

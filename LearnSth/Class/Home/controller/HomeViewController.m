@@ -18,12 +18,11 @@
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) SDCycleScrollView *bannerView;
-@property (nonatomic, strong) NSArray *bannerList;
+@property (nonatomic, copy) NSArray *bannerList;
 
 @end
 
 @implementation HomeViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -40,12 +39,13 @@
 //    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
 //    [self.view addSubview:aView];
     
-    [self getHomeAdBanner];
     
+    [self getHomeAdBanner];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
 }
 
 #pragma mark
@@ -58,11 +58,11 @@
         if (error) {
             [self showErrorWithError:error];
         } else {
-            NSArray *banners = [ADModel adWithArray:list];
-            self.bannerList = banners;
+            NSArray *adArray = [ADModel adWithArray:list];
+            self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];;
             
-            NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:banners.count];
-            [banners enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:self.bannerList.count];
+            [self.bannerList enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [imageStringArray addObject:obj.imageUrl];
             }];
             

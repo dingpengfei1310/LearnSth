@@ -10,7 +10,5 @@
 
 @interface HomeViewController : BaseViewController
 
-- (void)getHomeAdBanner;
-
 @end
 

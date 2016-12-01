@@ -7,8 +7,30 @@
 //
 
 #import "ADModel.h"
+#import <objc/runtime.h>
+
+@interface ADModel ()<NSCopying>
+
+@end
 
 @implementation ADModel
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    ADModel *adModle = [ADModel allocWithZone:zone];
+    
+    unsigned int outCount;
+    objc_property_t *propertities = class_copyPropertyList([ADModel class], &outCount);
+    for (int i = 0; i < outCount; i++) {
+        objc_property_t property = propertities[i];
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        
+        [adModle setValue:[self valueForKey:propertyName] forKey:propertyName];
+    }
+    
+    return adModle;
+}
+
+#pragma mark
 
 + (NSArray<ADModel *> *)adWithArray:(NSArray *)array {
     NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:array.count];
@@ -25,5 +47,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
 }
+
+
 
 @end

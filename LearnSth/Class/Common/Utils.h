@@ -16,8 +16,8 @@
 + (void)setIsLogin:(BOOL)login;
 + (BOOL)isLogin;
 
-+ (void)setUserNickname:(NSString *)name;
-+ (NSString *)userNickname;
++ (void)setUserAccount:(NSString *)name;
++ (NSString *)userAccount;
 
 + (void)setChooseUserNotification;
 + (BOOL)haveChooseUserNotification;

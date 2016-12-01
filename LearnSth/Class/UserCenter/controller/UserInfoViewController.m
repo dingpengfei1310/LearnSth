@@ -12,7 +12,6 @@
 #import "PopoverViewController.h"
 
 #import "UserModel.h"
-#import "Utils.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,PopoverViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -131,7 +130,7 @@ static NSString *reuseIdentifier = @"cell";
                                                               
                                                               NSArray *textFields = alert.textFields;
                                                               UITextField *field = textFields[0];
-                                                              [Utils setUserNickname:field.text];
+                                                              [[UserModel userManager] setNickname:field.text];
                                                           }];
     
     [alert addAction:cancelAction];
@@ -147,10 +146,13 @@ static NSString *reuseIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+    }
     
     cell.textLabel.text = self.dataArray[indexPath.row];
     if (indexPath.row == 1 && [UserModel userManager].mobile) {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",self.dataArray[indexPath.row],[UserModel userManager].mobile];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@",[Utils userAccount],[UserModel userManager].mobile];
     }
     return cell;
 }
@@ -190,7 +192,6 @@ static NSString *reuseIdentifier = @"cell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
                                                   style:UITableViewStylePlain];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
