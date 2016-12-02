@@ -24,21 +24,13 @@ static NSString *reuseIdentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
-    self.dataArray = @[@"上传文件法国代购电饭锅电饭锅电饭锅电饭锅地方地方顾客都反馈个大反派看过吗",@"查看相册从 v 变成 v 巴格达也让特有人同意让他依然讨厌热天有人同意恢复光滑风格化风格化风格化风格化风格化",@"好好学习"];
+    self.dataArray = @[
+                       @"浅copy:指针复制，不会创建一个新的对象。\n深copy:内容复制，会创建一个新的对象。",
+                       @"对immutableObject，即不可变对象，执行copy，会得到不可变对象，并且是浅copy。\n对immutableObject，即不可变对象，执行mutableCopy，会得到可变对象，并且是深copy。\n对mutableObject，即可变对象，执行copy，会得到不可变对象，并且是深copy。\n对mutableObject，即可变对象，执行mutableCopy，会得到可变对象，并且是深copy。",
+                       @"如果想完美的解决NSArray嵌套NSArray这种情形，可以使用归档、解档的方式。\n归档和解档的前提是NSArray中所有的对象都实现了NSCoding协议。"
+                       ];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
-                                              style:UITableViewStylePlain];
-    [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
-    _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _tableView.tableFooterView = [[UIView alloc] init];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.rowHeight = 50;
-    [self.view addSubview:_tableView];
-    
-//    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-//    _tableView.tableHeaderView = searchController.searchBar;
-//    self.definesPresentationContext = YES;
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark
@@ -49,10 +41,9 @@ static NSString *reuseIdentifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    cell.backgroundColor = [UIColor clearColor];
     
     cell.content = self.dataArray[indexPath.row];
-    
     return cell;
 }
 
@@ -73,6 +64,20 @@ static NSString *reuseIdentifier = @"cell";
     return size.height + 40;
 }
 
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
+                                                  style:UITableViewStylePlain];
+        [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
+        _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+    }
+    return _tableView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

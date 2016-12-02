@@ -54,18 +54,22 @@
 
 #pragma mark
 - (NSArray *)getProvinces {
+    return [self getCitiesWithProvinceId:@"0"];
+}
+
+- (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId {
     NSMutableArray *mutArray = [NSMutableArray array];
     
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        NSString *sql = @"select * from t_address where parent_id = '0'";
+        NSString *sql = [NSString stringWithFormat:@"select * from t_address where parent_id = '%@'",provinceId];
         
         FMResultSet *result = [db executeQuery:sql];
         while (result.next) {
-            NSString *provinceId = [result stringForColumn:@"id"];
-            NSString *provinceName = [result stringForColumn:@"name"];
+            NSString *cityId = [result stringForColumn:@"id"];
+            NSString *cityName = [result stringForColumn:@"name"];
             NSString *parentId = [result stringForColumn:@"parent_id"];
-            NSDictionary *province = @{@"id":provinceId,
-                                       @"name":provinceName,
+            NSDictionary *province = @{@"id":cityId,
+                                       @"name":cityName,
                                        @"parent_id":parentId};
             
             [mutArray addObject:province];
@@ -76,11 +80,11 @@
     return [NSArray arrayWithArray:mutArray];
 }
 
-- (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId {
+- (NSArray *)searchResultWith:(NSString *)text {
     NSMutableArray *mutArray = [NSMutableArray array];
     
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        NSString *sql = [NSString stringWithFormat:@"select * from t_address where parent_id = '%@'",provinceId];
+        NSString *sql = [NSString stringWithFormat:@"select * from t_address where name like '%%%@%%'",text];
         
         FMResultSet *result = [db executeQuery:sql];
         while (result.next) {

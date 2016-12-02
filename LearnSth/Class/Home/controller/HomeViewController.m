@@ -15,6 +15,8 @@
 
 #import "AnimationView.h"
 
+#import "UIImageView+WebCache.h"
+
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) SDCycleScrollView *bannerView;
@@ -28,9 +30,10 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
-    _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenWidth * 300 / 1242)];
+    _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenWidth * 300 / 1242)];
     _bannerView.delegate = self;
     [self.view addSubview:_bannerView];
+    [self getHomeAdBanner];
     
 //    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
 //    aView.backgroundColor = [UIColor whiteColor];
@@ -39,8 +42,7 @@
 //    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
 //    [self.view addSubview:aView];
     
-    
-    [self getHomeAdBanner];
+    [[SDImageCache sharedImageCache] getSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

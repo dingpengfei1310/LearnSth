@@ -20,5 +20,6 @@
 #pragma mark
 - (NSArray *)getProvinces;
 - (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId;
+- (NSArray *)searchResultWith:(NSString *)text;
 
 @end

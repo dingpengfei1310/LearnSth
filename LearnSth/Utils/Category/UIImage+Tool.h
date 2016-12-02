@@ -18,8 +18,14 @@
 
 @interface UIImage (Tool)
 
-- (UIImage *)resizeImageWithSize:(CGSize)size;
++ (UIImage *)imageWithColor:(UIColor *)color;
 
+- (UIImage *)resizeImageWithSize:(CGSize)size;
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius;
+
+///默认名字为app名字
+- (void)saveImageIntoAlbum;
+- (void)saveImageIntoAlbumWithTitle:(NSString *)title;
+
 
 @end

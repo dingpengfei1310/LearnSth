@@ -81,7 +81,7 @@ static NSString *identifier = @"cell";
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, 64, ScreenWidth, ScreenHeight - 113);
+        CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];

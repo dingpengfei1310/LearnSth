@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UILabel *tipLabel;
 
-@property (nonatomic, strong) NSString *fileName;
+@property (nonatomic, copy) NSString *fileName;
 
 @end
 

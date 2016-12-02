@@ -22,4 +22,9 @@
 + (void)setChooseUserNotification;
 + (BOOL)haveChooseUserNotification;
 
++ (long long)folderSizeAtPath:(NSString *)path;
++ (long long)fileSizeAtPath:(NSString *)path;
++ (void)clearCacheAtPath:(NSString *)path;
+
+
 @end

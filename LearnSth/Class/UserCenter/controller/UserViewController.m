@@ -8,15 +8,13 @@
 
 #import "UserViewController.h"
 
-#import "WiFiUploadManager.h"
-
 #import "PhotoLiarbraryController.h"
 #import "MessageViewController.h"
-
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 
 #import "HttpManager.h"
+#import "WiFiUploadManager.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -33,7 +31,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"本地通知"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存"];
     [self.view addSubview:self.tableView];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -54,6 +52,7 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (void)loadData:(UIRefreshControl *)refreshControl {
     [refreshControl endRefreshing];
+    [self.tableView reloadData];
 }
 
 - (void)loginClick {
@@ -79,35 +78,29 @@ static NSString *identifier = @"cell";
     }
 }
 
-- (void)userLocationNotifications {
-    UIUserNotificationSettings *currentSettings =  [UIApplication sharedApplication].currentUserNotificationSettings;
+- (void)clearDiskCache {
+    [self showMessage:nil];
     
-    if (![Utils haveChooseUserNotification] || currentSettings.types != UIUserNotificationTypeNone) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+        [Utils clearCacheAtPath:cachePath];
         
-        if (![Utils haveChooseUserNotification]) {
-            UIUserNotificationType type =  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge;
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type
-                                                                                     categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }
+        dispatch_async(dispatch_get_main_queue(),^{
+            [self hideHUD];
+            [self.tableView reloadData];
+        });
         
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        localNotification.alertTitle = @"alertTitle";
-        localNotification.alertBody = @"alertBody";
-        
-        NSDictionary *userInfo = @{@"message":@"老师开发建设的房间里看到手机发呆就是封疆大吏舒服"};
-        localNotification.userInfo = userInfo;
-        
-        NSDate *now = [NSDate date];
-        NSDate *fireDate = [NSDate dateWithTimeInterval:10 sinceDate:now];
-        localNotification.fireDate = fireDate;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        
-    } else {
-        [self showError:@"您已关闭通知，请到设置里打开"];
-    }
+    });
+}
+
+- (CGFloat)calculateDiskCacheSize {
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+//    NSLog(@"%@",cachePath);
     
+    long long longSize = [Utils folderSizeAtPath:cachePath];
+    CGFloat cacheSize = longSize / 1024.0 / 1024.0;
+    
+    return cacheSize;
 }
 
 #pragma mark
@@ -117,8 +110,21 @@ static NSString *identifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    }
     cell.textLabel.text = self.dataArray[indexPath.row];
+    
+    if (indexPath.row == 3) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            CGFloat cacheSize = [self calculateDiskCacheSize];
+            
+            dispatch_async(dispatch_get_main_queue(),^{
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",cacheSize];
+            });
+            
+        });
+    }
     
     return cell;
 }
@@ -143,7 +149,7 @@ static NSString *identifier = @"cell";
         
     } else if (indexPath.row == 3) {
         
-        [self userLocationNotifications];
+        [self clearDiskCache];
     }
     
 }
@@ -155,14 +161,12 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
                                                   style:UITableViewStylePlain];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
-        
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     }
     return _tableView;
 }

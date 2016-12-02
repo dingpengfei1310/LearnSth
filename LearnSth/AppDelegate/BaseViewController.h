@@ -13,7 +13,9 @@
 #import "Utils.h"
 #import "MBProgressHUD.h"
 
-@interface BaseViewController : UIViewController
+@interface BaseViewController : UIViewController {
+    CGFloat ViewFrameOrigin_X;
+}
 
 /**
  *  导航栏设为透明

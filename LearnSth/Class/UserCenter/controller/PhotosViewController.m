@@ -51,7 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
     flowLayout.itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10);
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
                                          collectionViewLayout:flowLayout];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     _collectionView.backgroundColor = [UIColor whiteColor];

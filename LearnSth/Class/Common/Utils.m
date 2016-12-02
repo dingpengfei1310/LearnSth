@@ -55,6 +55,54 @@ static NSString *ChooseUserNotification = @"ChooseUserNotification";
     return [[NSUserDefaults standardUserDefaults] boolForKey:ChooseUserNotification];
 }
 
+#pragma mark
++ (long long)folderSizeAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    long long folderSize = 0;
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
+        
+        for (NSString *fileName in childerFiles) {
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            
+            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
+                long long size = [fileManager attributesOfItemAtPath:fileAbsolutePath error:nil].fileSize;
+                folderSize += size;
+            }
+        }
+    }
+    
+    return folderSize;
+}
+
++ (long long)fileSizeAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        long long size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size;
+    }
+    
+    return 0;
+}
+
++ (void)clearCacheAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
+        
+        for (NSString *fileName in childerFiles) {
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            
+            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
+                [fileManager removeItemAtPath:fileAbsolutePath error:NULL];
+            }
+        }
+    }
+}
+
 @end
 
 

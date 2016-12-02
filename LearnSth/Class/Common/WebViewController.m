@@ -63,7 +63,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (UIProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 5)];
+        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, 5)];
         _progressView.progressTintColor = [UIColor greenColor];
     }
     return _progressView;
@@ -71,7 +71,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)];
         _KWebView.navigationDelegate = self;
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }

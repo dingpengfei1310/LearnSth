@@ -103,7 +103,7 @@ const NSInteger errorCodeDefault = 123;
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
     
     NSDictionary *dict = @{@"pageno":@"1",@"size":@"10",@"groupName":@""};
-    NSString *jsonString = [self JsonModel:dict];
+    NSString *jsonString = [self jsonModel:dict];
     NSDictionary *params = @{@"jsonText": jsonString};
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -128,7 +128,7 @@ const NSInteger errorCodeDefault = 123;
 
 
 #pragma mark
-- (NSString *)JsonModel:(NSDictionary *)dictModel {
+- (NSString *)jsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel
                                                             options:NSJSONWritingPrettyPrinted error:nil];
@@ -139,6 +139,15 @@ const NSInteger errorCodeDefault = 123;
     return nil;
 }
 
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    NSDictionary *dict;
+    if (jsonString) {
+        NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:NULL];
+    }
+    
+    return dict;
+}
 
 @end
 

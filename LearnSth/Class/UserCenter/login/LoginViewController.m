@@ -31,7 +31,7 @@ const CGFloat fieldHeight = 30;
     [super viewDidLoad];
     self.title = @"登录";
     
-    CGRect scrollRect = CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64);
+    CGRect scrollRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
     [self.view addSubview:scrollView];
     
