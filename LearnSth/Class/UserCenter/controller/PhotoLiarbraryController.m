@@ -15,8 +15,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) NSArray *nameList;
-@property (nonatomic, strong) NSArray *typeList;
+@property (nonatomic, copy) NSArray *nameList;
+@property (nonatomic, copy) NSArray *typeList;
 
 @property (nonatomic, strong) NSMutableArray *albumList;
 

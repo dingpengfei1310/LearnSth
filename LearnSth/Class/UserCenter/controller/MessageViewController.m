@@ -13,7 +13,7 @@
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, copy) NSArray *dataArray;
 
 @end
 

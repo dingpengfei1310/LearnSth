@@ -14,7 +14,7 @@
 @interface ProvinceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *provinces;
+@property (nonatomic, copy) NSArray *provinces;
 
 @end
 

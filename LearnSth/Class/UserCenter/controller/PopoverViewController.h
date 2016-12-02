@@ -18,7 +18,7 @@
 
 @interface PopoverViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, copy) NSArray *dataArray;
 
 @property (nonatomic, weak) id<PopoverViewControllerDelegate> delegate;
 
