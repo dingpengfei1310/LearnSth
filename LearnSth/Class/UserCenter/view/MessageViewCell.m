@@ -8,6 +8,7 @@
 
 #import "MessageViewCell.h"
 #import "Masonry.h"
+#import "UIColor+Tool.h"
 
 @interface MessageViewCell()
 
@@ -57,11 +58,11 @@
         make.size.mas_equalTo(CGSizeMake(cellWidth - 40, cellHeight - 40));
     }];
     
-    CGRect rect = CGRectMake(0, 0, cellWidth - 10, cellHeight - 10);
+    CGRect rect = CGRectMake(0, 0, cellWidth - 19, cellHeight - 19);
     self.contentLabelView.layer.shadowPath = [UIBezierPath bezierPathWithRect:rect].CGPath;
     self.contentLabelView.layer.shadowOpacity = 0.1;
+    self.contentLabelView.layer.shadowColor = [UIColor grayColor].CGColor;
     self.contentLabelView.layer.cornerRadius = 3;
-    self.contentLabelView.layer.masksToBounds = YES;
 }
 
 - (void)setContent:(NSString *)content {
@@ -71,8 +72,11 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
 }
 
 
 @end
+
+
+
+

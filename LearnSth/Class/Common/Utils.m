@@ -10,7 +10,6 @@
 
 static NSString *IsLogin = @"UserLogin";
 static NSString *UserAccount = @"UserAccount";
-static NSString *ChooseUserNotification = @"ChooseUserNotification";
 
 @implementation Utils
 
@@ -22,7 +21,6 @@ static NSString *ChooseUserNotification = @"ChooseUserNotification";
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:IsLogin];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserAccount];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ChooseUserNotification];
     
 }
 
@@ -45,15 +43,6 @@ static NSString *ChooseUserNotification = @"ChooseUserNotification";
     return [[NSUserDefaults standardUserDefaults] stringForKey:UserAccount];
 }
 
-
-#pragma mark
-+ (void)setChooseUserNotification {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:ChooseUserNotification];
-}
-
-+ (BOOL)haveChooseUserNotification {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:ChooseUserNotification];
-}
 
 #pragma mark
 + (long long)folderSizeAtPath:(NSString *)path {

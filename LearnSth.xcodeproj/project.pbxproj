@@ -81,6 +81,7 @@
 		1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserModel.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
+		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
@@ -269,6 +270,8 @@
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tool.h"; sourceTree = "<group>"; };
+		1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tool.m"; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BDCED6E1DE57D97002A27B5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				1B099BDD1DE7E57400161396 /* NSString+Tool.m */,
 				1B099BDE1DE7E57400161396 /* UIImage+Tool.h */,
 				1B099BDF1DE7E57400161396 /* UIImage+Tool.m */,
+				1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */,
+				1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -717,6 +722,8 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */,
+				CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */,
 				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
 				1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */,
 				1B2D07E01DE7E8DB0034C22D /* PhotoLiarbraryController.h */,
@@ -725,14 +732,12 @@
 				1B2D07E31DE7E8DB0034C22D /* PhotosViewController.m */,
 				1B2D07E41DE7E8DB0034C22D /* PopoverViewController.h */,
 				1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */,
+				CFEAB8C91DE983CC00CB9DDF /* ProvinceViewController.h */,
+				CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */,
 				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
-				CFEAB8C91DE983CC00CB9DDF /* ProvinceViewController.h */,
-				CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */,
-				CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */,
-				CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -847,14 +852,14 @@
 		1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
+				1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */,
 				1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */,
 				1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */,
-				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
-				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
-				1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */,
 				1B6E7DAE1DAB8941006F058B /* BaseViewController.h */,
 				1B6E7DAF1DAB8941006F058B /* BaseViewController.m */,
+				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
+				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
+				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -1087,6 +1092,7 @@
 				1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */,
 				1B099C871DE7E57400161396 /* MJRefreshBackGifFooter.m in Sources */,
 				1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */,
+				1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */,
 				1B099C801DE7E57400161396 /* MJRefreshBackFooter.m in Sources */,
 				1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */,
 				1B099C821DE7E57400161396 /* MJRefreshFooter.m in Sources */,

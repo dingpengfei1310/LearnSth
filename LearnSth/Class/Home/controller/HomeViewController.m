@@ -42,7 +42,6 @@
 //    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
 //    [self.view addSubview:aView];
     
-    [[SDImageCache sharedImageCache] getSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
