@@ -45,11 +45,10 @@ static NSString *identifier = @"cell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 #pragma mark
-- (void)loadData:(UIRefreshControl *)refreshControl {
+- (void)refreshData:(UIRefreshControl *)refreshControl {
     [refreshControl endRefreshing];
     [self.tableView reloadData];
 }
@@ -167,16 +166,16 @@ static NSString *identifier = @"cell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                   style:UITableViewStylePlain];
-        _tableView.frame= CGRectMake(0, ViewFrameOrigin_X + ScreenWidth * 0.5, ScreenWidth, ScreenHeight - 64 - ScreenWidth * 0.5);
+        CGFloat topHeight = ScreenWidth * 0.5;
+        _tableView.frame= CGRectMake(0, ViewFrameOrigin_X + topHeight, ScreenWidth, ScreenHeight - 64 - topHeight);
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
         
         _tableView.tableFooterView = [[UIView alloc] init];
-//        _tableView.tableHeaderView = self.topImageView;
         
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventValueChanged];
+        [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
         _tableView.refreshControl = refreshControl;
         
     }

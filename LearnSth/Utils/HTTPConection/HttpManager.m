@@ -84,7 +84,7 @@ const NSInteger errorCodeDefault = 123;
 
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion {
-    
+//    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     [self getDataWithString:urlString paramets:@{@"page":@"1"} success:^(id responseData) {
         

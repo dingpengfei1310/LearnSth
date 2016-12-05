@@ -80,6 +80,8 @@
 		1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserModel.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */; };
+		1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */; };
+		1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
@@ -267,6 +269,10 @@
 		1B2D07F11DE7E8DB0034C22D /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
+		1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Tool.h"; sourceTree = "<group>"; };
+		1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Tool.m"; sourceTree = "<group>"; };
+		1B54C64B1DF5370F001DF134 /* UICollectionView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Tool.h"; sourceTree = "<group>"; };
+		1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Tool.m"; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -349,10 +355,14 @@
 			children = (
 				1B099BDC1DE7E57400161396 /* NSString+Tool.h */,
 				1B099BDD1DE7E57400161396 /* NSString+Tool.m */,
-				1B099BDE1DE7E57400161396 /* UIImage+Tool.h */,
-				1B099BDF1DE7E57400161396 /* UIImage+Tool.m */,
 				1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */,
 				1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */,
+				1B099BDE1DE7E57400161396 /* UIImage+Tool.h */,
+				1B099BDF1DE7E57400161396 /* UIImage+Tool.m */,
+				1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */,
+				1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */,
+				1B54C64B1DF5370F001DF134 /* UICollectionView+Tool.h */,
+				1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1107,6 +1117,7 @@
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
 				1B099C8A1DE7E57400161396 /* MJRefreshGifHeader.m in Sources */,
 				1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */,
+				1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */,
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */,
 				1B099C921DE7E57400161396 /* UIView+MJExtension.m in Sources */,
@@ -1134,6 +1145,7 @@
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
 				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,
 				1B099C6E1DE7E57400161396 /* UIImage+Tool.m in Sources */,
+				1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */,
 				1B099C851DE7E57400161396 /* MJRefreshAutoNormalFooter.m in Sources */,
 				1B099C811DE7E57400161396 /* MJRefreshComponent.m in Sources */,
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,

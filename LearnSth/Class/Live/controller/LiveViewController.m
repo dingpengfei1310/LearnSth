@@ -11,10 +11,9 @@
 
 #import "MJRefresh.h"
 #import "HttpManager.h"
-
 #import "LiveModel.h"
-
 #import "UIImageView+WebCache.h"
+#import "UICollectionView+Tool.h"
 
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -31,7 +30,12 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     
     [self.view addSubview:self.collectionView];
-    [self.collectionView.mj_header beginRefreshing];
+//    [self.collectionView.mj_header beginRefreshing];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.collectionView setClickBlock:^{
+        [weakSelf.collectionView.mj_header beginRefreshing];
+    }];
 }
 
 - (void)refreshData {
@@ -79,13 +83,12 @@ static NSString *identifier = @"cell";
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
         CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
