@@ -25,7 +25,6 @@ static char reloadBlockKey;
 }
 
 - (void)dd_reloadData {
-    NSLog(@"UITableView -- dd_reloadData");
     [self checkEmpty];
     [self dd_reloadData];
 }
@@ -40,8 +39,7 @@ static char reloadBlockKey;
         sections = [dataSource numberOfSectionsInTableView:self];
     }
     for (NSInteger i = 0; i < sections; i++) {
-        NSInteger rows = [dataSource tableView:self numberOfRowsInSection:i];
-        if (rows) {
+        if ([dataSource tableView:self numberOfRowsInSection:i]) {
             isEmpty = NO;
         }
     }
@@ -54,12 +52,10 @@ static char reloadBlockKey;
 }
 
 - (void)showEmptyView {
-    
     if (![self placeholderView]) {
         [self createPlaceHolderView];
         [self addSubview:[self placeholderView]];
     }
-    
     [self placeholderView].hidden = NO;
 }
 
@@ -110,8 +106,6 @@ static char reloadBlockKey;
 }
 
 @end
-
-
 
 
 

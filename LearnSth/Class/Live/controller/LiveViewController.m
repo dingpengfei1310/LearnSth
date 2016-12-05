@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, copy) NSArray *liveList;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -30,7 +31,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     
     [self.view addSubview:self.collectionView];
-//    [self.collectionView.mj_header beginRefreshing];
+    [self.collectionView.mj_header beginRefreshing];
     
     __weak typeof(self) weakSelf = self;
     [self.collectionView setClickBlock:^{
@@ -48,7 +49,6 @@ static NSString *identifier = @"cell";
             self.liveList = [LiveModel liveWithArray:list];
             [self.collectionView reloadData];
         }
-        
     }];
 }
 

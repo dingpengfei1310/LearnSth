@@ -25,9 +25,7 @@ static char reloadBlockKey;
 }
 
 - (void)dd_reloadData {
-    
-//    [self checkEmpty];
-    NSLog(@"UICollectionView -- dd_reloadData");
+    [self checkEmpty];
     [self dd_reloadData];
 }
 
@@ -41,8 +39,7 @@ static char reloadBlockKey;
         sections = [dataSource numberOfSectionsInCollectionView:self];
     }
     for (NSInteger i = 0; i < sections; i++) {
-        NSInteger items = [dataSource collectionView:self numberOfItemsInSection:i];
-        if (items) {
+        if ([dataSource collectionView:self numberOfItemsInSection:i]) {
             isEmpty = NO;
         }
     }
@@ -55,12 +52,10 @@ static char reloadBlockKey;
 }
 
 - (void)showEmptyView {
-    
     if (![self placeholderView]) {
         [self createPlaceHolderView];
         [self addSubview:[self placeholderView]];
     }
-    
     [self placeholderView].hidden = NO;
 }
 
@@ -110,5 +105,7 @@ static char reloadBlockKey;
     }
 }
 
-
 @end
+
+
+

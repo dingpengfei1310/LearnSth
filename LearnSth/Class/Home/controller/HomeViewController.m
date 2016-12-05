@@ -9,18 +9,20 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 
+#import "BannerScrollView.h"
 #import "HttpManager.h"
-#import "SDCycleScrollView.h"
 #import "ADModel.h"
 
 #import "AnimationView.h"
 
 #import "UIImageView+WebCache.h"
 
-@interface HomeViewController ()<SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong) SDCycleScrollView *bannerView;
+@interface HomeViewController ()
+
 @property (nonatomic, copy) NSArray *bannerList;
+
+@property (nonatomic, strong) BannerScrollView *bannerScrollView;
 
 @end
 
@@ -30,9 +32,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
-    _bannerView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenWidth * 300 / 1242)];
-    _bannerView.delegate = self;
-    [self.view addSubview:_bannerView];
+    [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
     
 //    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
@@ -67,27 +67,37 @@
                 [imageStringArray addObject:obj.imageUrl];
             }];
             
-            [_bannerView setImageURLStringsGroup:imageStringArray];
+            [_bannerScrollView setImageArray:imageStringArray];
         }
     }];
-    
 }
 
 - (void)homeRightItemClick {
     
 }
 
-#pragma mark - SDCycleScrollViewDelegate
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-    ADModel *model = self.bannerList[index];
-    
-    if (model.link.length > 0) {
-        WebViewController *controller = [[WebViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        controller.title = model.title;
-        controller.urlString = model.link;
-        [self.navigationController pushViewController:controller animated:YES];
+#pragma mark
+- (BannerScrollView *)bannerScrollView {
+    if (!_bannerScrollView) {
+        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenWidth * 0.24)];
+        
+        __weak typeof(self) weakSelf = self;
+        _bannerScrollView.imageClickBlock = ^(NSInteger index) {
+            
+            ADModel *model = weakSelf.bannerList[index];
+            
+            if (model.link.length > 0) {
+                WebViewController *controller = [[WebViewController alloc] init];
+                controller.hidesBottomBarWhenPushed = YES;
+                controller.title = model.title;
+                controller.urlString = model.link;
+                [weakSelf.navigationController pushViewController:controller animated:YES];
+            }
+            
+        };
     }
+    
+    return _bannerScrollView;
 }
 
 - (void)didReceiveMemoryWarning {
