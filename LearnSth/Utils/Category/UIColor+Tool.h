@@ -10,6 +10,9 @@
 
 @interface UIColor (Tool)
 
++ (UIColor *)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
++ (UIColor *)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b alpha:(CGFloat)alpha;
+
 + (UIColor *)colorWithHex:(NSInteger)hex;
 + (UIColor *)colorWithHex:(NSInteger)hex alpha:(CGFloat)alpha;
 

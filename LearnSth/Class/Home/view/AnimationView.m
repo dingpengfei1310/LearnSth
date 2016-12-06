@@ -29,7 +29,7 @@ CGFloat const totalDuration = 3.0;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        self.backgroundColor = [UIColor blackColor];
         width = CGRectGetWidth(frame);
         height = CGRectGetHeight(frame);
         radius = width * 0.5 - 10;
@@ -50,63 +50,17 @@ CGFloat const totalDuration = 3.0;
             
 //            [self textWithPath];
             
-            [self drawString];
+//            [self drawString];
         }
         
     }
     return self;
 }
 
-#pragma mark
-- (CAShapeLayer *)baseCircleLayer {
-    if (!_baseCircleLayer) {
-        _baseCircleLayer = [CAShapeLayer layer];
-        _baseCircleLayer.lineWidth = lineWidth;
-        _baseCircleLayer.bounds = self.bounds;
-        _baseCircleLayer.fillColor = [UIColor clearColor].CGColor;
-        _baseCircleLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-        _baseCircleLayer.position = CGPointMake(width * 0.5, height * 0.5);
-//        _baseCircleLayer.contentsScale = [UIScreen mainScreen].scale;
-//        _baseCircleLayer.contentsCenter;
-//        _baseCircleLayer.mask = nil;
-        
-        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(width * 0.5, height * 0.5)
-                                                                  radius:radius
-                                                              startAngle:0
-                                                                endAngle:M_PI * 1.8
-                                                               clockwise:YES];
-        
-        _baseCircleLayer.path = bezierPath.CGPath;
-    }
-    
-    return _baseCircleLayer;
-}
-
-- (CAGradientLayer *)gradientLayer {
-    if (!_gradientLayer) {
-        _gradientLayer = [CAGradientLayer layer];
-        _gradientLayer.frame = self.bounds;
-        _gradientLayer.position = CGPointMake(width * 0.5, height * 0.5);
-        [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
-        [_gradientLayer setEndPoint:CGPointMake(1.0, 1.0)];
-    }
-    return _gradientLayer;
-}
-
-- (CAEmitterLayer *)emitterLayer {
-    if (!_emitterLayer) {
-        _emitterLayer = [CAEmitterLayer layer];
-        _emitterLayer.emitterPosition = CGPointMake(width * 0.5, height * 0.5);
-        _emitterLayer.emitterSize = self.frame.size;
-        _emitterLayer.emitterMode = kCAEmitterLayerPoints;
-    }
-    return _emitterLayer;
-}
-
-#pragma mark
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    NSLog(@"drawRect");
+    
+    [self lightSpotWithRect:rect];
 }
 
 #pragma mark
@@ -180,8 +134,8 @@ CGFloat const totalDuration = 3.0;
 //    UIBezierPath *bezier = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, width, 2)];
 //    CAShapeLayer *layer = [CAShapeLayer layer];
 //    layer.lineWidth = 0.1;
-//    layer.fillColor = [UIColor whiteColor].CGColor;
-//    layer.strokeColor = [UIColor whiteColor].CGColor;
+//    layer.fillColor = KBaseWhiteColor.CGColor;
+//    layer.strokeColor = KBaseWhiteColor.CGColor;
 //    layer.path = bezier.CGPath;
 //    
 //    self.gradientLayer.mask = layer;
@@ -199,15 +153,6 @@ CGFloat const totalDuration = 3.0;
 //    CADisplayLink *disPalyLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(setColors)];
 //    disPalyLink.frameInterval = 30;
 //    [disPalyLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-}
-
-- (void)setColors {
-    NSMutableArray *colors = [NSMutableArray array];
-    for (int i = 0; i < 5; i++) {
-        UIColor *color= [self randomColor];
-        [colors addObject:(id)[color CGColor]];
-    }
-    [self.gradientLayer setColors:colors];
 }
 
 - (void)emitterLayerFly {
@@ -349,8 +294,8 @@ CGFloat const totalDuration = 3.0;
     CABasicAnimation *colorAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
     colorAnimation.duration = 6.0;
     colorAnimation.timingFunction = [[CAMediaTimingFunction alloc] initWithControlPoints:0.2: 0.5: 0.5: 0.7];
-    colorAnimation.fromValue = (__bridge id _Nullable)([UIColor clearColor].CGColor);
-    colorAnimation.toValue = (__bridge id _Nullable)([UIColor purpleColor].CGColor);
+    colorAnimation.fromValue = (__bridge id)([UIColor clearColor].CGColor);
+    colorAnimation.toValue = (__bridge id)([UIColor purpleColor].CGColor);
     
     CAAnimationGroup *group = [[CAAnimationGroup alloc] init];
     group.animations = @[strokeStart,colorAnimation];
@@ -366,6 +311,31 @@ CGFloat const totalDuration = 3.0;
     return CGPointMake([points[0] floatValue], [points[1] floatValue]);
 }
 
+- (void)lightSpotWithRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGFloat locations[] = {0.0, 1.0};
+    NSArray *colors = @[(id)[UIColor greenColor].CGColor, (id)[UIColor redColor].CGColor];
+    CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpace, (CFArrayRef  _Nullable)colors, locations);
+    
+    
+    CGContextSaveGState(context);
+    
+    CGContextAddEllipseInRect(context, rect);
+    CGContextClip(context);
+    CGContextDrawLinearGradient(context, gradientRef, CGPointMake(0, 0), CGPointMake(50, 50), kCGGradientDrawsBeforeStartLocation);
+//    CGPoint center = CGPointMake(width * 0.5, height * 0.5);
+//    CGContextDrawRadialGradient(context, gradientRef, center, 0, center, height * 0.5, kCGGradientDrawsBeforeStartLocation);
+    
+    CGContextRestoreGState(context);
+    
+    
+    CGColorSpaceRelease(colorSpace);
+    CGGradientRelease(gradientRef);
+}
+
+
 #pragma mark
 - (UIColor *)randomColor {
     NSInteger r = arc4random() % 255;
@@ -375,7 +345,64 @@ CGFloat const totalDuration = 3.0;
     return [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:1.0];
 }
 
+- (void)setColors {
+    NSMutableArray *colors = [NSMutableArray array];
+    for (int i = 0; i < 5; i++) {
+        UIColor *color= [self randomColor];
+        [colors addObject:(id)[color CGColor]];
+    }
+    [self.gradientLayer setColors:colors];
+}
+
+
+#pragma mark
+- (CAShapeLayer *)baseCircleLayer {
+    if (!_baseCircleLayer) {
+        _baseCircleLayer = [CAShapeLayer layer];
+        _baseCircleLayer.lineWidth = lineWidth;
+        _baseCircleLayer.bounds = self.bounds;
+        _baseCircleLayer.fillColor = [UIColor clearColor].CGColor;
+        _baseCircleLayer.strokeColor = [UIColor blackColor].CGColor;
+        _baseCircleLayer.position = CGPointMake(width * 0.5, height * 0.5);
+        //        _baseCircleLayer.contentsScale = [UIScreen mainScreen].scale;
+        //        _baseCircleLayer.contentsCenter;
+        //        _baseCircleLayer.mask = nil;
+        
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(width * 0.5, height * 0.5)
+                                                                  radius:radius
+                                                              startAngle:0
+                                                                endAngle:M_PI * 1.8
+                                                               clockwise:YES];
+        
+        _baseCircleLayer.path = bezierPath.CGPath;
+    }
+    
+    return _baseCircleLayer;
+}
+
+- (CAGradientLayer *)gradientLayer {
+    if (!_gradientLayer) {
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = self.bounds;
+        _gradientLayer.position = CGPointMake(width * 0.5, height * 0.5);
+        [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
+        [_gradientLayer setEndPoint:CGPointMake(1.0, 1.0)];
+    }
+    return _gradientLayer;
+}
+
+- (CAEmitterLayer *)emitterLayer {
+    if (!_emitterLayer) {
+        _emitterLayer = [CAEmitterLayer layer];
+        _emitterLayer.emitterPosition = CGPointMake(width * 0.5, height * 0.5);
+        _emitterLayer.emitterSize = self.frame.size;
+        _emitterLayer.emitterMode = kCAEmitterLayerPoints;
+    }
+    return _emitterLayer;
+}
+
 
 @end
+
 
 

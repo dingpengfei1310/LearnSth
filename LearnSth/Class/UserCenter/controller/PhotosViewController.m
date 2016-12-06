@@ -7,7 +7,6 @@
 //
 
 #import "PhotosViewController.h"
-
 #import "DDImageBrowserController.h"
 
 @interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
@@ -17,20 +16,9 @@
 
 @end
 
-@implementation PhotosViewController
-
 static NSString * const reuseIdentifier = @"Cell";
 
-- (NSArray *)thumbImages {
-    if (!_thumbImages) {
-        _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
-    }
-    
-    return _thumbImages;
-}
-
-
-
+@implementation PhotosViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -47,23 +35,7 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }
     
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10);
-    
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
-                                         collectionViewLayout:flowLayout];
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    _collectionView.backgroundColor = [UIColor whiteColor];
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
-    _collectionView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
-    
-    [self.view addSubview:_collectionView];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    [self.view addSubview:self.collectionView];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -75,7 +47,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier
                                                                            forIndexPath:indexPath];
     
-    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [cell.contentView.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
     }];
     
@@ -104,12 +76,9 @@ static NSString * const reuseIdentifier = @"Cell";
                                               contentMode:PHImageContentModeAspectFit
                                                   options:options
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                
                                                 imageView.image = [self resizeImage:result];
                                                 self.thumbImages[indexPath.row] = result;
                                             }];
-    
-    
     return cell;
 }
 
@@ -133,9 +102,7 @@ static NSString * const reuseIdentifier = @"Cell";
     return resultImage;
 }
 
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
     controller.browserDelegate = self;
     controller.thumbImages = self.thumbImages;
@@ -155,16 +122,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
-    
-    
     //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
     [[PHCachingImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:PHImageManagerMaximumSize
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
-                                            resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                                            resultHandler:^(UIImage *result, NSDictionary *info) {
                                                 [controller showHighQualityImageOfIndex:index withImage:result];
-                                                
                                             }];
 }
 
@@ -183,6 +147,36 @@ static NSString * const reuseIdentifier = @"Cell";
 //                                                       }];
 //    }
 //}
+
+#pragma mark
+- (NSArray *)thumbImages {
+    if (!_thumbImages) {
+        _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
+    }
+    return _thumbImages;
+}
+
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        
+        CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
+        _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
+                                             collectionViewLayout:flowLayout];
+        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+    }
+    return _collectionView;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 
 @end
 

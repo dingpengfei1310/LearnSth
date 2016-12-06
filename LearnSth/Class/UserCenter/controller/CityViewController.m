@@ -8,7 +8,6 @@
 
 #import "CityViewController.h"
 #import "SQLManager.h"
-#import "UIImage+Tool.h"
 
 @interface CityViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 

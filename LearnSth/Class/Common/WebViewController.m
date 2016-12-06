@@ -64,7 +64,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 - (UIProgressView *)progressView {
     if (!_progressView) {
         _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, 5)];
-        _progressView.progressTintColor = [UIColor greenColor];
+        _progressView.progressTintColor = KBaseBlueColor;
     }
     return _progressView;
 }

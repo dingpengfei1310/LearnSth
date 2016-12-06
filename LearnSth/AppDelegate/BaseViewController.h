@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Utils.h"
 #import "AppConfiguration.h"
 
-#import "Utils.h"
 #import "MBProgressHUD.h"
+#import "UIImage+Tool.h"
 
 @interface BaseViewController : UIViewController {
     CGFloat ViewFrameOrigin_X;

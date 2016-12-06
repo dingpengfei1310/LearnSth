@@ -15,13 +15,9 @@
 
 #import "AnimationView.h"
 
-#import "UIImageView+WebCache.h"
-
-
 @interface HomeViewController ()
 
 @property (nonatomic, copy) NSArray *bannerList;
-
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 
 @end
@@ -33,13 +29,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self.view addSubview:self.bannerScrollView];
+    self.bannerScrollView.backgroundColor = KBackgroundColor;
     [self getHomeAdBanner];
     
-//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(_bannerView.frame) + 20, 170, 100)];
+//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(self.bannerScrollView.frame) + 20, 170, 100)];
 //    aView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:aView];
-    
-//    LineView *aView = [[LineView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bannerView.frame) + 20, ScreenWidth, 200)];
 //    [self.view addSubview:aView];
     
 }
@@ -51,10 +45,7 @@
 
 #pragma mark
 - (void)getHomeAdBanner {
-    [self loading];
-    
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
-        [self hideHUD];
         
         if (error) {
             [self showErrorWithError:error];
@@ -67,7 +58,7 @@
                 [imageStringArray addObject:obj.imageUrl];
             }];
             
-            [_bannerScrollView setImageArray:imageStringArray];
+            [self.bannerScrollView setImageArray:imageStringArray];
         }
     }];
 }

@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import "UIImage+Tool.h"
 
 @interface BaseViewController ()
 

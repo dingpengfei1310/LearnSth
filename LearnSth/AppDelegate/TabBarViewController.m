@@ -34,13 +34,13 @@
     
     NSDictionary *textAttributeNormal = @{
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                          NSForegroundColorAttributeName:[UIColor grayColor]
+                                          NSForegroundColorAttributeName:KBaseTextColor
                                           };
     NSDictionary *textAttributeSelect = @{
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                          NSForegroundColorAttributeName:[UIColor redColor]
+                                          NSForegroundColorAttributeName:KBaseBlueColor
                                           };
-    NSArray *itemTitles = @[@"home",@"live",@"user"];
+    NSArray *itemTitles = @[@"home",@"hot",@"user"];
     
     for (int i = 0; i < itemTitles.count; i++) {
         UITabBarItem *item = self.tabBar.items[i];

@@ -12,22 +12,22 @@
 static char placeHolderKey;
 static char reloadBlockKey;
 
-@implementation UICollectionView (Tool)
+@implementation UICollectionView (Tool) 
 
-+ (void)load {
-    Method reloadData = class_getInstanceMethod([UICollectionView class], @selector(reloadData));
-    Method dd_reloadData = class_getInstanceMethod([UICollectionView class], @selector(dd_reloadData));
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(reloadData, dd_reloadData);
-    });
-}
-
-- (void)dd_reloadData {
-    [self checkEmpty];
-    [self dd_reloadData];
-}
+//+ (void)load {
+//    Method reloadData = class_getInstanceMethod([UICollectionView class], @selector(reloadData));
+//    Method dd_reloadData = class_getInstanceMethod([UICollectionView class], @selector(dd_reloadData));
+//    
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        method_exchangeImplementations(reloadData, dd_reloadData);
+//    });
+//}
+//
+//- (void)dd_reloadData {
+//    [self checkEmpty];
+//    [self dd_reloadData];
+//}
 
 #pragma mark
 - (void)checkEmpty {

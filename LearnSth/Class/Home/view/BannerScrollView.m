@@ -12,13 +12,15 @@
 @interface BannerScrollView ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, assign) NSInteger currentPage;
-
 @property (nonatomic, strong) UIPageControl *pageControl;
 
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *centerImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
+
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger currentPage;
 
 @end
 
@@ -31,6 +33,9 @@
     if (self = [super initWithFrame:frame]) {
         width = frame.size.width;
         height = frame.size.height;
+        
+        [self addSubview:self.indicatorView];
+        [self.indicatorView startAnimating];
     }
     return self;
 }
@@ -43,13 +48,6 @@
     }];
     
     [self addSubview:self.scrollView];
-    if (imageArray.count > 1) {
-        [self addSubview:self.pageControl];
-        self.pageControl.numberOfPages = imageArray.count;
-        self.pageControl.currentPage = 0;
-        
-        self.scrollView.contentSize = CGSizeMake(width * 3, height);
-    }
     
     for (int i = 0; i < 3; i++) {
         NSInteger index = (imageArray.count - 1 + i) % imageArray.count;
@@ -57,7 +55,7 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width * i, 0, width, height)];
         imageView.userInteractionEnabled = YES;
         NSURL *url = [NSURL URLWithString:imageArray[index]];
-        [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
+        [imageView sd_setImageWithURL:url placeholderImage:nil];
         [self.scrollView addSubview:imageView];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick)];
@@ -73,20 +71,24 @@
     }
     
     [self.scrollView setContentOffset:CGPointMake(width, 0)];
+    if (imageArray.count > 1) {
+        [self addSubview:self.pageControl];
+        self.pageControl.numberOfPages = imageArray.count;
+        self.pageControl.currentPage = 0;
+        
+        self.scrollView.contentSize = CGSizeMake(width * 3, height);
+        
+        [self setUpTimer];
+    }
 }
 
 #pragma mark UIScrollViewDelegate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self setUpTimer];
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self scrollToCenter:scrollView];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self scrollToCenter:scrollView];
-}
-
-- (void)scrollToCenter:(UIScrollView *)scrollView {
-    NSInteger leftPage;
-    NSInteger rightPage;
+    [self invalidateTimer];
     
     if (scrollView.contentOffset.x > width) {
         self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
@@ -95,26 +97,62 @@
         self.currentPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
     }
     
+    [self scrollToCenter];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.x > width) {
+        self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
+        
+    } else if (scrollView.contentOffset.x < width) {
+        self.currentPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
+    }
+    
+    [self scrollToCenter];
+    
+    [self.timer fire];
+}
+
+#pragma mark
+- (void)setUpTimer {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(autoScroll) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)invalidateTimer {
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)scrollToCenter {
+    NSInteger leftPage;
+    NSInteger rightPage;
+    
     leftPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
     rightPage = (self.currentPage + 1 ) % self.imageArray.count;
     
     [self.leftImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[leftPage]]
-                          placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
+                          placeholderImage:nil];
     
     [self.centerImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentPage]]
-                            placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
+                            placeholderImage:nil];
     
     [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[rightPage]]
-                           placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
+                           placeholderImage:nil];
     
     self.pageControl.currentPage = self.currentPage;
-    [scrollView setContentOffset:CGPointMake(width, 0)];
+    [self.scrollView setContentOffset:CGPointMake(width, 0)];
 }
 
 - (void)imageClick {
     if (self.imageClickBlock) {
         self.imageClickBlock(self.currentPage);
     }
+}
+
+- (void)autoScroll {
+    self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
+    [self scrollToCenter];
 }
 
 #pragma mark
@@ -133,9 +171,22 @@
     if (!_pageControl) {
         _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, height - 20, width, 20)];
         _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-        _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+        _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
     }
     return _pageControl;
 }
 
+- (UIActivityIndicatorView *)indicatorView {
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.frame = CGRectMake(0, 0, 20, 20);
+        _indicatorView.center = CGPointMake(width * 0.5, height * 0.5);
+    }
+    
+    return _indicatorView;
+}
+
+
 @end
+
+

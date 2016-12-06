@@ -24,21 +24,14 @@ static NSString *identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
-    _tableView.tableFooterView = [[UIView alloc] init];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.rowHeight = 50;
-    [self.view addSubview:_tableView];
-    
+    [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    viewWidth = CGRectGetWidth(self.view.frame);
-    ViewHeight = CGRectGetHeight(self.view.frame);
+    viewWidth = CGRectGetWidth(self.view.bounds);
+    ViewHeight = CGRectGetHeight(self.view.bounds);
     
     _tableView.frame = CGRectMake(0, 0, viewWidth, ViewHeight);
 }
@@ -50,7 +43,19 @@ static NSString *identifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
     
+    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj removeFromSuperview];
+    }];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, viewWidth, 0.5)];
+    lineView.backgroundColor = KBackgroundColor;
+    [cell.contentView addSubview:lineView];
+    
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text = self.dataArray[indexPath.row];
     
     return cell;
@@ -62,6 +67,20 @@ static NSString *identifier = @"cell";
     if ([self.delegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
         [self.delegate controller:self didSelectAtIndex:indexPath.row];
     }
+}
+
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+    }
+    
+    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

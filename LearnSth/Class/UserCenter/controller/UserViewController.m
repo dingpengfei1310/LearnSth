@@ -80,8 +80,7 @@ static NSString *identifier = @"cell";
     [self showMessage:nil];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-        [Utils clearCacheAtPath:cachePath];
+        [Utils clearCacheAtPath:kCachePath];
         
         dispatch_async(dispatch_get_main_queue(),^{
             [self hideHUD];
@@ -92,11 +91,9 @@ static NSString *identifier = @"cell";
 }
 
 - (CGFloat)calculateDiskCacheSize {
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-//    NSLog(@"%@",cachePath);
-    
-    long long longSize = [Utils folderSizeAtPath:cachePath];
+    long long longSize = [Utils folderSizeAtPath:kCachePath];
     CGFloat cacheSize = longSize / 1024.0 / 1024.0;
+//    NSLog(@"%@",kCachePath);
     
     return cacheSize;
 }

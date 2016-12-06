@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0921DF6564C005F3059 /* PPNumberButton.m */; };
+		1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0951DF6A626005F3059 /* BannerScrollView.m */; };
 		1B099C6D1DE7E57400161396 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BDD1DE7E57400161396 /* NSString+Tool.m */; };
 		1B099C6E1DE7E57400161396 /* UIImage+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BDF1DE7E57400161396 /* UIImage+Tool.m */; };
 		1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BE21DE7E57400161396 /* HttpManager.m */; };
@@ -65,7 +67,6 @@
 		1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
 		1B2D07FB1DE7E8DB0034C22D /* FoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CE1DE7E8DB0034C22D /* FoldView.m */; };
-		1B2D07FC1DE7E8DB0034C22D /* LightSpotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D01DE7E8DB0034C22D /* LightSpotView.m */; };
 		1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D21DE7E8DB0034C22D /* LineView.m */; };
 		1B2D07FE1DE7E8DB0034C22D /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D61DE7E8DB0034C22D /* LiveViewController.m */; };
 		1B2D07FF1DE7E8DB0034C22D /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D81DE7E8DB0034C22D /* PLPlayerViewController.m */; };
@@ -82,7 +83,6 @@
 		1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */; };
 		1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */; };
 		1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */; };
-		1B54C6501DF54311001DF134 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64F1DF54311001DF134 /* BannerScrollView.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
@@ -126,6 +126,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B08C0911DF6564C005F3059 /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
+		1B08C0921DF6564C005F3059 /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
+		1B08C0941DF6A626005F3059 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
+		1B08C0951DF6A626005F3059 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		1B099BDC1DE7E57400161396 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B099BDD1DE7E57400161396 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
 		1B099BDE1DE7E57400161396 /* UIImage+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tool.h"; sourceTree = "<group>"; };
@@ -240,8 +244,6 @@
 		1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		1B2D07CD1DE7E8DB0034C22D /* FoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldView.h; sourceTree = "<group>"; };
 		1B2D07CE1DE7E8DB0034C22D /* FoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldView.m; sourceTree = "<group>"; };
-		1B2D07CF1DE7E8DB0034C22D /* LightSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightSpotView.h; sourceTree = "<group>"; };
-		1B2D07D01DE7E8DB0034C22D /* LightSpotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightSpotView.m; sourceTree = "<group>"; };
 		1B2D07D11DE7E8DB0034C22D /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
 		1B2D07D21DE7E8DB0034C22D /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		1B2D07D51DE7E8DB0034C22D /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
@@ -274,8 +276,6 @@
 		1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Tool.m"; sourceTree = "<group>"; };
 		1B54C64B1DF5370F001DF134 /* UICollectionView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Tool.h"; sourceTree = "<group>"; };
 		1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Tool.m"; sourceTree = "<group>"; };
-		1B54C64E1DF54311001DF134 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
-		1B54C64F1DF54311001DF134 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
 		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -343,6 +343,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B08C0901DF6564C005F3059 /* PPNumberButton */ = {
+			isa = PBXGroup;
+			children = (
+				1B08C0911DF6564C005F3059 /* PPNumberButton.h */,
+				1B08C0921DF6564C005F3059 /* PPNumberButton.m */,
+			);
+			path = PPNumberButton;
+			sourceTree = "<group>";
+		};
 		1B099BDA1DE7E57400161396 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +406,7 @@
 				1B099BFB1DE7E57400161396 /* FPSLabel */,
 				1B099BFE1DE7E57400161396 /* MBProgressHUD */,
 				1B099C051DE7E57400161396 /* MJRefresh */,
+				1B08C0901DF6564C005F3059 /* PPNumberButton */,
 				1B099C341DE7E57400161396 /* SDCycleScrollView */,
 				1B099C441DE7E57400161396 /* TPKeyboardAvoiding */,
 				1B099C4D1DE7E57400161396 /* UIViewController+Swizzled */,
@@ -662,8 +672,6 @@
 			children = (
 				1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */,
 				1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */,
-				1B54C64E1DF54311001DF134 /* BannerScrollView.h */,
-				1B54C64F1DF54311001DF134 /* BannerScrollView.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -684,10 +692,10 @@
 			children = (
 				1B2D07CB1DE7E8DB0034C22D /* AnimationView.h */,
 				1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */,
+				1B08C0941DF6A626005F3059 /* BannerScrollView.h */,
+				1B08C0951DF6A626005F3059 /* BannerScrollView.m */,
 				1B2D07CD1DE7E8DB0034C22D /* FoldView.h */,
 				1B2D07CE1DE7E8DB0034C22D /* FoldView.m */,
-				1B2D07CF1DE7E8DB0034C22D /* LightSpotView.h */,
-				1B2D07D01DE7E8DB0034C22D /* LightSpotView.m */,
 				1B2D07D11DE7E8DB0034C22D /* LineView.h */,
 				1B2D07D21DE7E8DB0034C22D /* LineView.m */,
 			);
@@ -1117,9 +1125,9 @@
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
-				1B54C6501DF54311001DF134 /* BannerScrollView.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
+				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
 				1B099C8A1DE7E57400161396 /* MJRefreshGifHeader.m in Sources */,
 				1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */,
@@ -1137,7 +1145,6 @@
 				1B099C8E1DE7E57400161396 /* MJRefreshConst.m in Sources */,
 				1B099C891DE7E57400161396 /* MJRefreshBackStateFooter.m in Sources */,
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,
-				1B2D07FC1DE7E8DB0034C22D /* LightSpotView.m in Sources */,
 				1B099C861DE7E57400161396 /* MJRefreshAutoStateFooter.m in Sources */,
 				CFEAB8CE1DE9849700CB9DDF /* CityViewController.m in Sources */,
 				1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */,
@@ -1165,6 +1172,7 @@
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,
 				1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
+				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				CFEAB8C81DE97E8700CB9DDF /* Utils.m in Sources */,
 				1B099C8F1DE7E57400161396 /* NSBundle+MJRefresh.m in Sources */,
 				1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */,
@@ -1333,7 +1341,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -1351,8 +1359,8 @@
 			baseConfigurationReference = 413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;

@@ -8,7 +8,6 @@
 
 #import "MessageViewCell.h"
 #import "Masonry.h"
-#import "UIColor+Tool.h"
 
 @interface MessageViewCell()
 

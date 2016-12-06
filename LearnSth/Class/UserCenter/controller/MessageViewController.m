@@ -70,7 +70,7 @@ static NSString *reuseIdentifier = @"cell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
                                                   style:UITableViewStylePlain];
         [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
-        _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _tableView.backgroundColor = KBackgroundColor;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;

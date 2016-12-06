@@ -13,7 +13,9 @@
 #import "HttpManager.h"
 #import "LiveModel.h"
 #import "UIImageView+WebCache.h"
+
 #import "UICollectionView+Tool.h"
+#import "Aspects.h"
 
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -29,6 +31,7 @@ static NSString *identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"^_^";
     
     [self.view addSubview:self.collectionView];
     [self.collectionView.mj_header beginRefreshing];
@@ -39,6 +42,14 @@ static NSString *identifier = @"cell";
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
+        [self.collectionView checkEmpty];
+    } error:NULL];
+}
+
 - (void)refreshData {
     [[HttpManager shareManager] getHotLiveListWithParamers:nil completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
@@ -47,8 +58,8 @@ static NSString *identifier = @"cell";
             [self showErrorWithError:error];
         } else {
             self.liveList = [LiveModel liveWithArray:list];
-            [self.collectionView reloadData];
         }
+        [self.collectionView reloadData];
     }];
 }
 
@@ -88,7 +99,7 @@ static NSString *identifier = @"cell";
         CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _collectionView.backgroundColor = KBackgroundColor;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];

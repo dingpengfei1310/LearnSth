@@ -8,13 +8,9 @@
 
 #import "SQLManager.h"
 
-#import "FMDB.h"
-
 @interface SQLManager ()
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;
-
-//@property (nonatomic, copy) NSString *dbPath;
 
 @end
 
@@ -44,8 +40,8 @@
 //    NSLog(@"%@",document);
 //    NSString *path = [document stringByAppendingPathComponent:@"temp.db"];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"province.db" ofType:nil];
-    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+    NSString *resouncePath = [[NSBundle mainBundle] pathForResource:@"province.db" ofType:nil];
+    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:resouncePath];
 }
 
 - (FMDatabaseQueue *)dbQueue {
@@ -74,7 +70,6 @@
             
             [mutArray addObject:province];
         }
-        
     }];
     
     return [NSArray arrayWithArray:mutArray];
@@ -97,12 +92,12 @@
             
             [mutArray addObject:province];
         }
-        
     }];
     
     return [NSArray arrayWithArray:mutArray];
 }
 
 
-
 @end
+
+

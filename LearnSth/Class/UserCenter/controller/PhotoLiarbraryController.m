@@ -27,19 +27,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 @implementation PhotoLiarbraryController
 
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
-                                                  style:UITableViewStylePlain];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.tableFooterView = [[UIView alloc] init];
-    }
-    
-    return _tableView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -197,6 +184,20 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [self.navigationController pushViewController:controller animated:YES];
     
+}
+
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
+                                                  style:UITableViewStylePlain];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.tableFooterView = [[UIView alloc] init];
+    }
+    
+    return _tableView;
 }
 
 

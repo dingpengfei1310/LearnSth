@@ -28,7 +28,9 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许查看相册</string>
+	<string>允许查看您的相册，获得更好的体验</string>
+	<key>NSCameraUsageDescription</key>
+	<string>允许使用相机，获得更好的体验</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

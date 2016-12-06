@@ -23,7 +23,7 @@
 @end
 
 const CGFloat fieldMargin = 40;
-const CGFloat fieldHeight = 30;
+const CGFloat fieldHeight = 40;
 
 @implementation LoginViewController
 
@@ -112,7 +112,7 @@ const CGFloat fieldHeight = 30;
 - (UIButton *)loginButton {
     if (!_loginButton) {
         _loginButton = [[UIButton alloc] init];
-        [_loginButton setBackgroundColor:[UIColor redColor]];
+        [_loginButton setBackgroundColor:KBaseBlueColor];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
         [_loginButton addTarget:self
                          action:@selector(loginClick)

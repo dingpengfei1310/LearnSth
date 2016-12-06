@@ -9,31 +9,39 @@
 #ifndef AppConfiguration_h
 #define AppConfiguration_h
 
-
 #endif /* AppConfiguration_h */
 
-#pragma mark 调试的时候输出日志, 发布的时候不输出
-
+#pragma mark
 //#ifdef DEBUG
 //# define NSLog(...) NSLog(__VA_ARGS__)
 //#else
 //# define NSLog(...)
 //#endif
 
-//#pragma mark
-//#ifdef DEBUG
-//#define NSLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-//#else
-//#define NSLog(FORMAT, ...) nil
-//#endif
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(FORMAT, ...) nil
+#endif
+
+//[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String]
 
 #pragma mark
 
 #define ScreenWidth           [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight          [UIScreen mainScreen].bounds.size.height
 
-#define kDocumentPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
-#define kCachePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+#define kDocumentPath         [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
+#define kCachePath            [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+
+
+#pragma mark
+
+#define KBaseBlueColor        [UIColor colorWithRed:21 / 255.0 green:166 / 255.0 blue:246 / 255.0 alpha:1.0]
+#define KBaseTextColor        [UIColor grayColor]
+#define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
+
+
 
 
 

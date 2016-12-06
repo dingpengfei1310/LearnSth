@@ -14,7 +14,6 @@
 @interface SQLManager : NSObject
 
 + (instancetype)manager;
-
 - (FMDatabaseQueue *)dbQueue;
 
 #pragma mark

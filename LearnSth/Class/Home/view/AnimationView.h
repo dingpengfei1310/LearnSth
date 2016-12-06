@@ -10,5 +10,4 @@
 
 @interface AnimationView : UIView
 
-
 @end

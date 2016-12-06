@@ -35,7 +35,7 @@
     addressLabel.textAlignment = NSTextAlignmentCenter;
     addressLabel.layer.masksToBounds = YES;
     addressLabel.layer.cornerRadius = 5;
-    addressLabel.backgroundColor = [UIColor purpleColor];
+    addressLabel.backgroundColor = [UIColor grayColor];
     addressLabel.textColor = [UIColor whiteColor];
     addressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     addressLabel.text = [NSString stringWithFormat:@"http://%@:%@",manager.ip,@(manager.port)];
@@ -90,7 +90,6 @@
 - (void)zipArchiveProgressEvent:(unsigned long long)loaded total:(unsigned long long)total {
     _progressView.progress = loaded * 1.0 / total;
 }
-
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

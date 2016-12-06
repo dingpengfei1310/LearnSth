@@ -33,8 +33,8 @@ static NSString *reuseIdentifier = @"cell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight - 40, ScreenWidth, 40)];
-    [button setBackgroundColor:[UIColor redColor]];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, ScreenHeight - 144, ScreenWidth - 80, 40)];
+    [button setBackgroundColor:KBaseBlueColor];
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
@@ -42,16 +42,17 @@ static NSString *reuseIdentifier = @"cell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
+    NSArray *popoverDataArray = @[@"Hello",@"Word"];
+    
     PopoverViewController *popoverController = [[PopoverViewController alloc] init];
     popoverController.delegate = self;
-    popoverController.dataArray = @[@"Hello",@"Word"];
+    popoverController.dataArray = popoverDataArray;
     popoverController.modalPresentationStyle = UIModalPresentationPopover;
-    popoverController.preferredContentSize = CGSizeMake(120, self.dataArray.count * 50);
+    popoverController.preferredContentSize = CGSizeMake(80, popoverDataArray.count * 50);
     
     UIPopoverPresentationController *popover = popoverController.popoverPresentationController;
 //    popover.barButtonItem = item;
@@ -107,7 +108,7 @@ static NSString *reuseIdentifier = @"cell";
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     pickerController.delegate = self;
     pickerController.allowsEditing = YES;
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    pickerController.sourceType = type;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 

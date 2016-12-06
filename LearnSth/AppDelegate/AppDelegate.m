@@ -10,6 +10,7 @@
 #import "TabBarViewController.h"
 
 #import "Utils.h"
+#import "AppConfiguration.h"
 
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"
@@ -43,7 +44,8 @@
 #pragma mark
 
 - (void)setNavigationBar {
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    
+    [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setTranslucent:YES];
