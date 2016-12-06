@@ -101,16 +101,7 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.x > width) {
-        self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
-        
-    } else if (scrollView.contentOffset.x < width) {
-        self.currentPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
-    }
-    
     [self scrollToCenter];
-    
-    [self.timer fire];
 }
 
 #pragma mark
