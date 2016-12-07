@@ -70,6 +70,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     if (!_KWebView) {
         _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)];
         _KWebView.navigationDelegate = self;
+        _KWebView.scrollView.showsVerticalScrollIndicator = NO;
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _KWebView;

@@ -33,6 +33,8 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.navigationItem.title = @"^_^";
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  " style:UIBarButtonItemStylePlain target:self action:@selector(hideCollectionView)];
+    
     [self.view addSubview:self.collectionView];
     [self.collectionView.mj_header beginRefreshing];
     
@@ -50,6 +52,7 @@ static NSString *identifier = @"cell";
     } error:NULL];
 }
 
+#pragma mark
 - (void)refreshData {
     [[HttpManager shareManager] getHotLiveListWithParamers:nil completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
@@ -61,6 +64,10 @@ static NSString *identifier = @"cell";
         }
         [self.collectionView reloadData];
     }];
+}
+
+- (void)hideCollectionView {
+    self.collectionView.hidden = !self.collectionView.hidden;
 }
 
 #pragma mark
