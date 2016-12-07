@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class UserModel;
+
 @interface Utils : NSObject
 
 + (void)remoAllObjects;
@@ -16,8 +18,8 @@
 + (void)setIsLogin:(BOOL)login;
 + (BOOL)isLogin;
 
-+ (void)setUserAccount:(NSString *)name;
-+ (NSString *)userAccount;
++ (void)setUserModel:(UserModel *)model;
++ (UserModel *)userModel;
 
 + (long long)folderSizeAtPath:(NSString *)path;
 + (long long)fileSizeAtPath:(NSString *)path;

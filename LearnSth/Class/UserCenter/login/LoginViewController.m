@@ -23,7 +23,7 @@
 @end
 
 const CGFloat fieldMargin = 40;
-const CGFloat fieldHeight = 40;
+const CGFloat fieldHeight = 35;
 
 @implementation LoginViewController
 
@@ -66,9 +66,12 @@ const CGFloat fieldHeight = 40;
 }
 
 - (void)loginClick {
-    if ([_accountField.text validatePhoneNumber]) {
+    if ([self.accountField.text validatePhoneNumber]) {
         [[UserModel userManager] setMobile:self.accountField.text];
         [Utils setIsLogin:YES];
+        
+        [Utils setUserModel:[UserModel userManager]];
+        
         [self dismiss];
     } else {
         [self showError:@"手机号不正确"];

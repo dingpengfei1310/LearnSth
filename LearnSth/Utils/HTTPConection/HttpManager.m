@@ -99,10 +99,10 @@ const NSInteger errorCodeDefault = 123;
 - (void)getUserListWithParamers:(NSDictionary *)paramers
                      completion:(SuccessArray)completion {
     
-    NSString *BASEURl = @"http://192.168.1.203:9090/sctd/";
+    NSString *BASEURl = @"http://192.168.1.212:8080/sctd/";
     NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
     
-    NSDictionary *dict = @{@"pageno":@"1",@"size":@"10",@"groupName":@""};
+    NSDictionary *dict = @{@"pageno":@"1",@"size":@"20",@"groupName":@""};
     NSString *jsonString = [self jsonModel:dict];
     NSDictionary *params = @{@"jsonText": jsonString};
     

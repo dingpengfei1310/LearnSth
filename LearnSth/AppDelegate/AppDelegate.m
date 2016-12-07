@@ -22,7 +22,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //#ifdef DEBUG
@@ -37,6 +36,8 @@
     
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;
+    
+    [Utils userModel];
     
     return YES;
 }

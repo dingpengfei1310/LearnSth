@@ -74,6 +74,7 @@ static NSString *identifier = @"cell";
     [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
     }];
+    cell.backgroundColor = [UIColor whiteColor];
     
     LiveModel *model = self.liveList[indexPath.item];
     
@@ -81,13 +82,13 @@ static NSString *identifier = @"cell";
     [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
     [cell.contentView addSubview:imageView];
     
-    CGFloat itemWidth = CGRectGetWidth(cell.bounds);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemWidth - 25, itemWidth, 25)];
-    label.font = [UIFont systemFontOfSize:10];
-    label.textColor = [UIColor whiteColor];
-    label.text = model.signatures;
-    label.numberOfLines = 0;
-    [cell.contentView addSubview:label];
+//    CGFloat itemWidth = CGRectGetWidth(cell.bounds);
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemWidth - 25, itemWidth, 25)];
+//    label.font = [UIFont systemFontOfSize:10];
+//    label.textColor = [UIColor whiteColor];
+//    label.text = model.signatures;
+//    label.numberOfLines = 0;
+//    [cell.contentView addSubview:label];
     
     return cell;
 }

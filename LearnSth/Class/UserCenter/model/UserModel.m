@@ -7,9 +7,30 @@
 //
 
 #import "UserModel.h"
+#import <objc/runtime.h>
+
+@interface UserModel ()<NSCopying>
+
+@end
 
 @implementation UserModel
 
+- (instancetype)copyWithZone:(NSZone *)zone {
+    UserModel *userModel = [UserModel allocWithZone:zone];
+    
+    unsigned int outCount;
+    objc_property_t *propertities = class_copyPropertyList([UserModel class], &outCount);
+    for (int i = 0; i < outCount; i++) {
+        objc_property_t property = propertities[i];
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        
+        [userModel setValue:[self valueForKey:propertyName] forKey:propertyName];
+    }
+    
+    return userModel;
+}
+
+#pragma mark
 + (instancetype)userManager {
     static UserModel *userModel = nil;
     
@@ -21,21 +42,28 @@
     return userModel;
 }
 
-+ (NSArray<UserModel *> *)userWithArray:(NSArray *)array {
-    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:array.count];
+- (NSDictionary *)dictionary {
+    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     
-    for (NSDictionary *dict in array) {
-        UserModel *futuresModel = [[UserModel alloc] init];
-        [futuresModel setValuesForKeysWithDictionary:dict];
-        [tempArray addObject:futuresModel];
+    unsigned int outCount;
+    objc_property_t *propertities = class_copyPropertyList([UserModel class], &outCount);
+    for (int i = 0; i < outCount; i++) {
+        objc_property_t property = propertities[i];
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        
+        [mutDict setValue:[self valueForKey:propertyName] forKey:propertyName];
     }
     
-    return [NSArray arrayWithArray:tempArray];
+    return mutDict;
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
 }
 
+//- (void)setValue:(id)value forKey:(NSString *)key {
+//    NSLog(@"%@ - %@",key,[value class]);
+//    [super setValue:value forKey:key];
+//}
 
 @end

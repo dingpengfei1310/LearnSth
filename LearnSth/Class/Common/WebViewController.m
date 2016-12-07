@@ -12,7 +12,6 @@
 @interface WebViewController ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) WKWebView *KWebView;
-
 @property (nonatomic, strong) UIProgressView *progressView;
 
 @end
@@ -25,13 +24,11 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [super viewDidLoad];
     
     if (self.urlString) {
-        
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         
         [self.view addSubview:self.KWebView];
         [self.view addSubview:self.progressView];
-        
     }
 }
 

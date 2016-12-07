@@ -8,8 +8,11 @@
 
 #import "Utils.h"
 
-static NSString *IsLogin = @"UserLogin";
-static NSString *UserAccount = @"UserAccount";
+#import "UserModel.h"
+
+
+static NSString *KIsLoginCache = @"UserLoginCache";
+static NSString *KUserModelCache = @"UserModelCache";
 
 @implementation Utils
 
@@ -19,28 +22,41 @@ static NSString *UserAccount = @"UserAccount";
 //        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
 //    }
     
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:IsLogin];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserAccount];
-    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KUserModelCache];
 }
 
 #pragma mark
 + (void)setIsLogin:(BOOL)login {
-    [[NSUserDefaults standardUserDefaults] setBool:login forKey:IsLogin];
+    [[NSUserDefaults standardUserDefaults] setBool:login forKey:KIsLoginCache];
 }
 
 + (BOOL)isLogin {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:IsLogin];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
 }
 
+
+//#pragma mark
+//+ (void)setUserAccount:(NSString *)name {
+//    [[NSUserDefaults standardUserDefaults] setObject:name forKey:KUserAccount];
+//}
+//
+//+ (NSString *)userAccount {
+//    return [[NSUserDefaults standardUserDefaults] stringForKey:KUserAccount];
+//}
 
 #pragma mark
-+ (void)setUserAccount:(NSString *)name {
-    [[NSUserDefaults standardUserDefaults] setObject:name forKey:UserAccount];
++ (void)setUserModel:(UserModel *)model {
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[model dictionary]];
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserModelCache];
 }
 
-+ (NSString *)userAccount {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:UserAccount];
++ (UserModel *)userModel {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserModelCache];
+    UserModel *model = [UserModel userManager];
+    [model setValuesForKeysWithDictionary:dict];
+    
+    return model;
 }
 
 

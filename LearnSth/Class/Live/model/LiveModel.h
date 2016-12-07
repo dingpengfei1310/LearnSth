@@ -10,31 +10,32 @@
 
 @interface LiveModel : NSObject
 
-@property (nonatomic, copy) NSString *allnum;
-@property (nonatomic, copy) NSString *roomid;
-@property (nonatomic, copy) NSString *serverid;
-@property (nonatomic, copy) NSString *gps;
+@property (nonatomic, strong) NSNumber *allnum;
+@property (nonatomic, strong) NSNumber *roomid;
+@property (nonatomic, strong) NSNumber *serverid;
+@property (nonatomic, strong) NSNumber *starlevel;
+@property (nonatomic, strong) NSNumber *level;
+
+@property (nonatomic, strong) NSNumber *useridx;
+@property (nonatomic, strong) NSNumber *gender;
 
 @property (nonatomic, copy) NSString *flv;
 
 @property (nonatomic, copy) NSString *familyName;
-@property (nonatomic, copy) NSString *useridx;
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *gender;
 @property (nonatomic, copy) NSString *myname;
+@property (nonatomic, copy) NSString *nation;
+@property (nonatomic, copy) NSString *nationFlag;
 
 @property (nonatomic, copy) NSString *smallpic;
 @property (nonatomic, copy) NSString *bigpic;
-
 @property (nonatomic, copy) NSString *signatures;
-@property (nonatomic, copy) NSString *starlevel;
-@property (nonatomic, copy) NSString *level;
+@property (nonatomic, copy) NSString *gps;
 
-@property (nonatomic, copy) NSString *grade;
-@property (nonatomic, copy) NSString *curexp;
-
-@property (nonatomic, copy) NSString *nation;
-@property (nonatomic, copy) NSString *nationFlag;
+@property (nonatomic, strong) NSNumber *grade;
+@property (nonatomic, strong) NSNumber *curexp;
+@property (nonatomic, strong) NSNumber *isSign;
+@property (nonatomic, strong) NSNumber *pos;
 
 + (NSArray<LiveModel *> *)liveWithArray:(NSArray *)array;
 
