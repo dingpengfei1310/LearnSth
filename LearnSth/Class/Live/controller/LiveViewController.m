@@ -80,7 +80,7 @@ static NSString *identifier = @"cell";
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
     controller.live = self.liveList[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;

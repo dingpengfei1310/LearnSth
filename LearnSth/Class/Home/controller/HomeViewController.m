@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "WebViewController.h"
+#import "SearchAddressController.h"
 
 #import "BannerScrollView.h"
 #import "HttpManager.h"
@@ -64,7 +65,9 @@
 }
 
 - (void)homeRightItemClick {
-    
+//    SearchAddressController *controller = [[SearchAddressController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -76,7 +79,6 @@
         _bannerScrollView.imageClickBlock = ^(NSInteger index) {
             
             ADModel *model = weakSelf.bannerList[index];
-            
             if (model.link.length > 0) {
                 WebViewController *controller = [[WebViewController alloc] init];
                 controller.hidesBottomBarWhenPushed = YES;
@@ -84,7 +86,6 @@
                 controller.urlString = model.link;
                 [weakSelf.navigationController pushViewController:controller animated:YES];
             }
-            
         };
     }
     
@@ -95,4 +96,7 @@
     [super didReceiveMemoryWarning];
 }
 
+
 @end
+
+

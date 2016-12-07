@@ -9,9 +9,8 @@
 #import "CityViewController.h"
 #import "SQLManager.h"
 
-@interface CityViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface CityViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *result;
 
@@ -24,36 +23,14 @@
     self.title = @"地区";
     
     [self.view addSubview:self.tableView];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
-    self.searchController.searchBar.delegate = self;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    if (self.searchController.active) {
-        self.searchController.active = NO;
-    }
-}
-
-#pragma mark UISearchBarDelegate
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.result = [[SQLManager manager] searchResultWith:searchBar.text];
-    [self.tableView reloadData];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.result = [[SQLManager manager] getCitiesWithProvinceId:self.province[@"id"]];
-    [self.tableView reloadData];
 }
 
 #pragma mark
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.result.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = @"cityCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
@@ -66,8 +43,12 @@
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"全部";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
 }
 
 #pragma mark
@@ -87,17 +68,6 @@
         _result = [[SQLManager manager] getCitiesWithProvinceId:self.province[@"id"]];
     }
     return _result;
-}
-
-- (UISearchController *)searchController {
-    if (!_searchController) {
-        _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-        _searchController.dimsBackgroundDuringPresentation = NO;
-        _searchController.obscuresBackgroundDuringPresentation = NO;
-        _searchController.hidesNavigationBarDuringPresentation = NO;
-    }
-    
-    return _searchController;
 }
 
 - (void)didReceiveMemoryWarning {

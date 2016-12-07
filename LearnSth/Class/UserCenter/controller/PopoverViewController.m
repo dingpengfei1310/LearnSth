@@ -32,8 +32,7 @@ static NSString *identifier = @"cell";
     
     viewWidth = CGRectGetWidth(self.view.bounds);
     ViewHeight = CGRectGetHeight(self.view.bounds);
-    
-    _tableView.frame = CGRectMake(0, 0, viewWidth, ViewHeight);
+    self.tableView.frame = CGRectMake(0, 0, viewWidth, ViewHeight);
 }
 
 #pragma mark

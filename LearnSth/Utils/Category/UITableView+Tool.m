@@ -14,20 +14,20 @@ static char reloadBlockKey;
 
 @implementation UITableView (Tool)
 
-+ (void)load {
-    Method reloadData = class_getInstanceMethod([UITableView class], @selector(reloadData));
-    Method dd_reloadData = class_getInstanceMethod([UITableView class], @selector(dd_reloadData));
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(reloadData, dd_reloadData);
-    });
-}
-
-- (void)dd_reloadData {
-    [self checkEmpty];
-    [self dd_reloadData];
-}
+//+ (void)load {
+//    Method reloadData = class_getInstanceMethod([UITableView class], @selector(reloadData));
+//    Method dd_reloadData = class_getInstanceMethod([UITableView class], @selector(dd_reloadData));
+//    
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        method_exchangeImplementations(reloadData, dd_reloadData);
+//    });
+//}
+//
+//- (void)dd_reloadData {
+//    [self checkEmpty];
+//    [self dd_reloadData];
+//}
 
 #pragma mark
 - (void)checkEmpty {

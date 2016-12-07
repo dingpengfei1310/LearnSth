@@ -14,6 +14,8 @@ typedef void (^ReloadClickBlock)(void);
 
 @property (nonatomic, copy) ReloadClickBlock clickBlock;
 
+- (void)checkEmpty;
+
 @end
 
 
