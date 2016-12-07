@@ -71,11 +71,23 @@ static NSString *identifier = @"cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
+    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj removeFromSuperview];
+    }];
+    
     LiveModel *model = self.liveList[indexPath.item];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:[UIImage imageNamed:@"lookup"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
     [cell.contentView addSubview:imageView];
+    
+    CGFloat itemWidth = CGRectGetWidth(cell.bounds);
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemWidth - 25, itemWidth, 25)];
+    label.font = [UIFont systemFontOfSize:10];
+    label.textColor = [UIColor whiteColor];
+    label.text = model.signatures;
+    label.numberOfLines = 0;
+    [cell.contentView addSubview:label];
     
     return cell;
 }

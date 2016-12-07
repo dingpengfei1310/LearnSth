@@ -26,7 +26,7 @@
 @implementation HomeViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationItem.title = @"^_^";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self.view addSubview:self.bannerScrollView];
