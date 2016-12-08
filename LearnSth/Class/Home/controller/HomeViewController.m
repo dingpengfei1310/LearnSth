@@ -14,12 +14,15 @@
 #import "HttpManager.h"
 #import "ADModel.h"
 
-#import "AnimationView.h"
+#import "FoldPaperView.h"
+#import "UIView+Origami.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, copy) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
+
+@property (nonatomic, strong) FoldPaperView *foldView;
 
 @end
 
@@ -30,16 +33,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self.view addSubview:self.bannerScrollView];
-    self.bannerScrollView.backgroundColor = KBackgroundColor;
     [self getHomeAdBanner];
     
-    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(self.bannerScrollView.frame) + 20, 170, 100)];
-//    aView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:aView];
+    CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
+    _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
+    [self.view addSubview:_foldView];
     
-    UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(100, CGRectGetMaxY(aView.frame) + 20, 100, 30)];
-    field.text = @"field";
-    [self.view addSubview:field];
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanHandle:)];
+    [self.view addGestureRecognizer:pan];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,11 +71,30 @@
 //    SearchAddressController *controller = [[SearchAddressController alloc] init];
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
+    
+    [self.foldView showOrigamiTransitionWith:self.view
+                               NumberOfFolds:3
+                                    Duration:2.0
+                                   Direction:XYOrigamiDirectionFromRight
+                                  completion:^(BOOL finished) {
+                                      //                                        self.closeBtn.hidden = NO;
+                                  }];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touchesEnded");
+-(void)viewPanHandle:(UIPanGestureRecognizer *) pan{
+    CGPoint location = [pan locationInView:self.view];
+    CGFloat initialLocation = 0.0;
+    
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        initialLocation = location.x;
+    } else if (pan.state == UIGestureRecognizerStateChanged) {
+        CGFloat scale = (location.x - initialLocation) / ScreenWidth;
+        
+        [self.foldView foldPaperWith:fabs(scale)];
+    }
+    
 }
+
 
 #pragma mark
 - (BannerScrollView *)bannerScrollView {

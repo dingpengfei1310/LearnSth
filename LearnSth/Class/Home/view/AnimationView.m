@@ -62,18 +62,6 @@ CGFloat const totalDuration = 3.0;
     [self lightSpotWithRect:rect];
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    return self;
-}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    return YES;
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"AnimationView -- touchesEnded");
-}
-
 #pragma mark
 - (void)roation {
     CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];

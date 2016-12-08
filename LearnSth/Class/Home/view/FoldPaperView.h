@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FoldView : UIView
+@interface FoldPaperView : UIView
+
+- (void)foldPaperWith:(CGFloat)scale;
 
 @end
