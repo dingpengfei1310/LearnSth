@@ -15,7 +15,7 @@
 #import "ADModel.h"
 
 #import "FoldPaperView.h"
-#import "UIView+Origami.h"
+#import "UIView+FoldPaper.h"
 
 @interface HomeViewController ()
 
@@ -38,9 +38,6 @@
     CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
     _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
     [self.view addSubview:_foldView];
-    
-    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanHandle:)];
-    [self.view addGestureRecognizer:pan];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -72,29 +69,8 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    [self.foldView showOrigamiTransitionWith:self.view
-                               NumberOfFolds:3
-                                    Duration:2.0
-                                   Direction:XYOrigamiDirectionFromRight
-                                  completion:^(BOOL finished) {
-                                      //                                        self.closeBtn.hidden = NO;
-                                  }];
+    [self.foldView showFoldPaperOn:self.view];
 }
-
--(void)viewPanHandle:(UIPanGestureRecognizer *) pan{
-    CGPoint location = [pan locationInView:self.view];
-    CGFloat initialLocation = 0.0;
-    
-    if (pan.state == UIGestureRecognizerStateBegan) {
-        initialLocation = location.x;
-    } else if (pan.state == UIGestureRecognizerStateChanged) {
-        CGFloat scale = (location.x - initialLocation) / ScreenWidth;
-        
-        [self.foldView foldPaperWith:fabs(scale)];
-    }
-    
-}
-
 
 #pragma mark
 - (BannerScrollView *)bannerScrollView {
