@@ -33,10 +33,13 @@
     self.bannerScrollView.backgroundColor = KBackgroundColor;
     [self getHomeAdBanner];
     
-//    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(self.bannerScrollView.frame) + 20, 170, 100)];
+    AnimationView *aView = [[AnimationView alloc] initWithFrame:CGRectMake((ScreenWidth - 170) * 0.5, CGRectGetMaxY(self.bannerScrollView.frame) + 20, 170, 100)];
 //    aView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:aView];
+    [self.view addSubview:aView];
     
+    UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(100, CGRectGetMaxY(aView.frame) + 20, 100, 30)];
+    field.text = @"field";
+    [self.view addSubview:field];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -67,6 +70,10 @@
 //    SearchAddressController *controller = [[SearchAddressController alloc] init];
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touchesEnded");
 }
 
 #pragma mark

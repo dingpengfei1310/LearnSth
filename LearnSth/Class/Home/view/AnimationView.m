@@ -59,8 +59,19 @@ CGFloat const totalDuration = 3.0;
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    
     [self lightSpotWithRect:rect];
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    return self;
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    return YES;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"AnimationView -- touchesEnded");
 }
 
 #pragma mark
