@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) FoldPaperView *foldView;
 
+//@property (nonatomic, assign) NSInteger count;
+
 @end
 
 @implementation HomeViewController
@@ -36,12 +38,21 @@
     [self getHomeAdBanner];
     
     CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
-    _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
-    [self.view addSubview:_foldView];
+//    _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
+//    [self.view addSubview:_foldView];
+    
+    
+    
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.bannerScrollView setUpTimer];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.bannerScrollView invalidateTimer];
 }
 
 #pragma mark
@@ -69,7 +80,7 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    [self.foldView showFoldPaperOn:self.view];
+//    [self.foldView showFoldPaperOn:self.view];
 }
 
 #pragma mark

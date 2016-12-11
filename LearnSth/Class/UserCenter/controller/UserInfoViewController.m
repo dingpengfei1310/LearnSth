@@ -33,7 +33,8 @@ static NSString *reuseIdentifier = @"cell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, ScreenHeight - 144, ScreenWidth - 80, 40)];
+    CGRect buttonRect = CGRectMake(40, ScreenHeight - 144, ScreenWidth - 80, 40);
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
     [button setBackgroundColor:KBaseBlueColor];
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
@@ -114,9 +115,7 @@ static NSString *reuseIdentifier = @"cell";
 
 #pragma mark 修改昵称
 - (void)showAlertControllerOnChangeUsername {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入昵称";
@@ -125,14 +124,14 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              
-                                                              NSArray *textFields = alert.textFields;
-                                                              UITextField *field = textFields[0];
-                                                              [[UserModel userManager] setNickname:field.text];
-                                                          }];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *field = textFields[0];
+        [[UserModel userManager] setUsername:field.text];
+        
+        [self.tableView reloadData];
+        [Utils setUserModel:[UserModel userManager]];
+    }];
     
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
@@ -148,12 +147,12 @@ static NSString *reuseIdentifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    if (indexPath.row == 1 && [UserModel userManager].mobile) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].mobile];
+    if (indexPath.row == 1 && [UserModel userManager].username) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].username];
     }
     return cell;
 }

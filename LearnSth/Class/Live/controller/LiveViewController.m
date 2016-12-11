@@ -20,7 +20,7 @@
 @interface LiveViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, copy) NSArray *liveList;
+@property (nonatomic, strong) NSMutableArray *liveList;
 @property (nonatomic, assign) NSInteger page;
 
 @end
@@ -35,6 +35,7 @@ static NSString *identifier = @"cell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  " style:UIBarButtonItemStylePlain target:self action:@selector(hideCollectionView)];
     
+    self.page = 1;
     [self.view addSubview:self.collectionView];
     [self.collectionView.mj_header beginRefreshing];
     
@@ -54,13 +55,22 @@ static NSString *identifier = @"cell";
 
 #pragma mark
 - (void)refreshData {
-    [[HttpManager shareManager] getHotLiveListWithParamers:nil completion:^(NSArray *list, NSError *error) {
+    NSDictionary *params = @{@"page":[@(self.page) stringValue]};
+    [[HttpManager shareManager] getHotLiveListWithParamers:params completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
         
         if (error) {
             [self showErrorWithError:error];
+            if (self.page > 1) {
+                self.page--;
+            }
         } else {
-            self.liveList = [LiveModel liveWithArray:list];
+            if (self.page == 1) {
+                self.liveList = [NSMutableArray arrayWithArray:[LiveModel liveWithArray:list]];
+            } else {
+                [self.liveList addObjectsFromArray:[LiveModel liveWithArray:list]];
+            }
         }
         [self.collectionView reloadData];
     }];
@@ -126,8 +136,10 @@ static NSString *identifier = @"cell";
         
         NSArray *images = @[[UIImage imageNamed:@"reflesh1"],[UIImage imageNamed:@"reflesh2"],[UIImage imageNamed:@"reflesh3"]];
         
-        MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingTarget:self
-                                                                      refreshingAction:@selector(refreshData)];
+        MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+            self.page = 1;
+            [self refreshData];
+        }];
         [gifHeader setImages:images forState:MJRefreshStatePulling];
         [gifHeader setImages:images forState:MJRefreshStateRefreshing];
         
@@ -135,6 +147,11 @@ static NSString *identifier = @"cell";
         gifHeader.stateLabel.hidden = YES;
         
         _collectionView.mj_header = gifHeader;
+        
+        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            self.page++;
+            [self refreshData];
+        }];
     }
     
     return _collectionView;

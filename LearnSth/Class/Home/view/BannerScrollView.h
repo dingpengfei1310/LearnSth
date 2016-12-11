@@ -15,4 +15,7 @@ typedef void (^ImageClickBlock)(NSInteger index);
 @property (nonatomic, copy) NSArray *imageArray;
 @property (nonatomic, copy) ImageClickBlock imageClickBlock;
 
+- (void)setUpTimer;
+- (void)invalidateTimer;
+
 @end

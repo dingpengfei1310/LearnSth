@@ -8,6 +8,7 @@
 
 #import "BannerScrollView.h"
 #import "UIImageView+WebCache.h"
+#import "AppConfiguration.h"
 
 @interface BannerScrollView ()<UIScrollViewDelegate>
 
@@ -98,8 +99,14 @@
 
 #pragma mark
 - (void)setUpTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(autoScroll) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    if (self.imageArray.count < 2) {
+        return;
+    }
+    if (!_timer) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(autoScroll) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    }
+    
 }
 
 - (void)invalidateTimer {
@@ -162,9 +169,11 @@
 
 - (UIPageControl *)pageControl {
     if (!_pageControl) {
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, height - 20, width, 20)];
-        _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-        _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+        CGFloat pageWidth = self.imageArray.count * 20;
+        CGRect pageRect = CGRectMake(width - pageWidth, height - 15, pageWidth, 10);
+        _pageControl = [[UIPageControl alloc] initWithFrame:pageRect];
+        _pageControl.pageIndicatorTintColor = KBackgroundColor;
+        _pageControl.currentPageIndicatorTintColor = KBaseBlueColor;
     }
     return _pageControl;
 }

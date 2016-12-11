@@ -8,11 +8,12 @@
 
 #import "WebViewController.h"
 #import <WebKit/WebKit.h>
+#import "WebProgressView.h"
 
 @interface WebViewController ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) WKWebView *KWebView;
-@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) WebProgressView *progressView;
 
 @end
 
@@ -23,17 +24,52 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setLeftItemsWithCanGoBack:NO];
+    
     if (self.urlString) {
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         
         [self.view addSubview:self.KWebView];
-        [self.view addSubview:self.progressView];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.progressView removeFromSuperview];
+}
+
+#pragma mark
+- (void)setLeftItemsWithCanGoBack:(BOOL)flag {
+    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(webBackClick)];
+    if (flag) {
+        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
+        self.navigationItem.leftBarButtonItems = @[item,closeItem];
+        
+    } else {
+        self.navigationItem.leftBarButtonItems = nil;
+        self.navigationItem.leftBarButtonItem = item;
+    }
+}
+
+- (void)webBackClick {
+    if ([self.KWebView canGoBack]) {
+        [self.KWebView goBack];
+    } else {
+        [self closeController];
+    }
+}
+
+- (void)closeController {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark
@@ -44,8 +80,15 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 #pragma mark WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    [self.progressView removeFromSuperview];
+    self.progressView.progress = 0;
+    [self.navigationController.view addSubview:self.progressView];
+}
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
+    [self setLeftItemsWithCanGoBack:[webView canGoBack]];
 }
 
 #pragma mark
@@ -58,14 +101,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 #pragma mark
-- (UIProgressView *)progressView {
-    if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, 5)];
-        _progressView.progressTintColor = KBaseBlueColor;
-    }
-    return _progressView;
-}
-
 - (WKWebView *)KWebView {
     if (!_KWebView) {
         _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)];
@@ -76,5 +111,15 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     return _KWebView;
 }
 
+- (WebProgressView *)progressView {
+    if (!_progressView) {
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 62 + ViewFrameOrigin_X, ScreenWidth, 2)];
+    }
+    return _progressView;
+}
 
 @end
+
+
+
+
