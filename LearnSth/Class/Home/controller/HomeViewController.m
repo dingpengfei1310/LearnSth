@@ -37,7 +37,7 @@
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
     
-    CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
+//    CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
 //    _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
 //    [self.view addSubview:_foldView];
     

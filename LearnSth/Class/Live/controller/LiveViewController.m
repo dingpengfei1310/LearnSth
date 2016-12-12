@@ -43,6 +43,7 @@ static NSString *identifier = @"cell";
     [self.collectionView setClickBlock:^{
         [weakSelf.collectionView.mj_header beginRefreshing];
     }];
+    self.collectionView.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
