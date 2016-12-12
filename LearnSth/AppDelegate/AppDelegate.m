@@ -11,6 +11,7 @@
 
 #import "Utils.h"
 #import "AppConfiguration.h"
+#import "AFNetworkReachabilityManager.h"
 
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"
@@ -38,6 +39,7 @@
     self.window.rootViewController = controller;
     
     [Utils userModel];
+    [self networkMonitoring];
     
     return YES;
 }
@@ -56,12 +58,40 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, 0)
                                                          forBarMetrics:UIBarMetricsDefault];
-    UIImage *backButtonImage = [UIImage imageNamed:@"backButtonImage"];
-    UIImage *resizeableImage = [backButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
+    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
+    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
     
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
                                                       forState:UIControlStateNormal
                                                     barMetrics:UIBarMetricsDefault];
+}
+
+- (void)networkMonitoring {
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            CGFloat width = [UIScreen mainScreen].bounds.size.width;
+            UIView *networkView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
+            UILabel *networkLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, width, 44)];
+            networkLabel.text = @"网络已断开连接";
+            networkLabel.textColor = [UIColor whiteColor];
+            networkLabel.backgroundColor = [UIColor clearColor];
+            networkLabel.textAlignment = NSTextAlignmentCenter;
+            [networkView addSubview:networkLabel];
+            [self.window addSubview:networkView];
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                networkView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:1.5 animations:^{
+                    networkView.alpha = 0.1;
+                } completion:^(BOOL finished) {
+                    [networkView removeFromSuperview];
+                }];
+            }];
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 #pragma mark

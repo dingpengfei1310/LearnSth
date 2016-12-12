@@ -30,7 +30,7 @@
     
 //    [self drawLine];
     
-    [self drawCurve];
+//    [self drawCurve];
 }
 
 #pragma mark

@@ -86,7 +86,7 @@ const NSInteger errorCodeDefault = 123;
                         completion:(SuccessArray)completion {
 //    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
     NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
-    [self getDataWithString:urlString paramets:@{@"page":@"1"} success:^(id responseData) {
+    [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         completion(array,nil);
