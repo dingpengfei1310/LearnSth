@@ -101,7 +101,6 @@
 		1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */; };
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
-		1BFB8B201DF95C0800386EDD /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB8B1F1DF95C0800386EDD /* UIView+Origami.m */; };
 		CF67C23B1DF99EA600EFFDBB /* UIView+FoldPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */; };
 		CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C21DE97E7700CB9DDF /* province.db */; };
 		CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */; };
@@ -308,8 +307,6 @@
 		1BF7F6ED1D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1BFB8B1E1DF95C0800386EDD /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
-		1BFB8B1F1DF95C0800386EDD /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF67C2391DF99EA600EFFDBB /* UIView+FoldPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FoldPaper.h"; sourceTree = "<group>"; };
 		CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FoldPaper.m"; sourceTree = "<group>"; };
@@ -384,8 +381,6 @@
 				1B099BDF1DE7E57400161396 /* UIImage+Tool.m */,
 				1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */,
 				1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */,
-				1BFB8B1E1DF95C0800386EDD /* UIView+Origami.h */,
-				1BFB8B1F1DF95C0800386EDD /* UIView+Origami.m */,
 				CF67C2391DF99EA600EFFDBB /* UIView+FoldPaper.h */,
 				CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */,
 			);
@@ -1143,7 +1138,6 @@
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
 				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
-				1BFB8B201DF95C0800386EDD /* UIView+Origami.m in Sources */,
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
 				1B099C8A1DE7E57400161396 /* MJRefreshGifHeader.m in Sources */,
 				1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */,
