@@ -91,8 +91,8 @@
     if (pan.state == UIGestureRecognizerStateBegan) {
         self.initialLocation = location.x;
     }
-    NSLog(@"y:%@",[self.rightImageView.layer valueForKeyPath:@"transform.rotation.y"]);
-    NSLog(@"x:%@",[self.rightImageView.layer valueForKeyPath:@"transform.rotation.x"]);
+//    NSLog(@"y:%@",[self.rightImageView.layer valueForKeyPath:@"transform.rotation.y"]);
+//    NSLog(@"x:%@",[self.rightImageView.layer valueForKeyPath:@"transform.rotation.x"]);
     
     CGFloat conversioFactor = M_PI/(CGRectGetWidth(self.bounds)-self.initialLocation);
     self.rightImageView.layer.transform = [self getTransForm3DWithAngle:(location.x-self.initialLocation)*conversioFactor];

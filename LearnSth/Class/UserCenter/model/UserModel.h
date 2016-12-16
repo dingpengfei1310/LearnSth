@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *mobile;
 
+@property (nonatomic, copy) NSString *province;
+@property (nonatomic, copy) NSString *city;
 
 + (instancetype)userManager;
 

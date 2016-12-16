@@ -8,10 +8,13 @@
 
 #import "ProvinceViewController.h"
 #import "CityViewController.h"
+#import "SearchResultController.h"
 
 #import "SQLManager.h"
 
-@interface ProvinceViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ProvinceViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating>
+
+@property (nonatomic, strong) UISearchController *searchController;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *provinces;
@@ -22,7 +25,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -62,6 +68,15 @@
 }
 
 #pragma mark
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    if (searchController.searchBar.text.length > 0) {
+        SearchResultController *controller = (SearchResultController *)self.searchController.searchResultsController;
+        controller.dataArray = [[SQLManager manager] searchResultWith:searchController.searchBar.text];
+    }
+}
+
+#pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
@@ -78,6 +93,19 @@
         _provinces = [[SQLManager manager] getProvinces];
     }
     return _provinces;
+}
+
+- (UISearchController *)searchController {
+    if (!_searchController) {
+        SearchResultController *resultController = [[SearchResultController alloc] init];
+        _searchController = [[UISearchController alloc] initWithSearchResultsController:resultController];
+        _searchController.searchResultsUpdater = self;
+//        _searchController.dimsBackgroundDuringPresentation = NO;
+//        _searchController.obscuresBackgroundDuringPresentation = NO;
+//        _searchController.hidesNavigationBarDuringPresentation = NO;
+    }
+    
+    return _searchController;
 }
 
 - (void)didReceiveMemoryWarning {

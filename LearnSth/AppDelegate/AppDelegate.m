@@ -56,14 +56,16 @@
     NSDictionary *titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17],NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, 0)
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin)
                                                          forBarMetrics:UIBarMetricsDefault];
     UIImage *image = [UIImage imageNamed:@"backButtonImage"];
-    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
+//    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 42, 0, 42)];//26 42
+//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
+//                                                      forState:UIControlStateNormal
+//                                                    barMetrics:UIBarMetricsDefault];
     
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
-                                                      forState:UIControlStateNormal
-                                                    barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackIndicatorImage:image];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
 }
 
 - (void)networkMonitoring {

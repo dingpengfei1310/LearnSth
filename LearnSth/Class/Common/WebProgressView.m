@@ -25,7 +25,9 @@
 }
 
 - (void)setProgress:(CGFloat)progress {
-    self.gradientLayer.position = CGPointMake(CGRectGetWidth(self.frame) * progress, CGRectGetHeight(self.frame) * 0.5);
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat height = CGRectGetHeight(self.frame);
+    _gradientLayer.frame = CGRectMake(0, 0, width * progress, height);
 }
 
 #pragma mark
@@ -33,18 +35,16 @@
     if (!_gradientLayer) {
         CGFloat height = CGRectGetHeight(self.frame);
         _gradientLayer = [CAGradientLayer layer];
-        _gradientLayer.frame = self.bounds;
+        _gradientLayer.frame = CGRectZero;
         
-        _gradientLayer.anchorPoint = CGPointMake(1.0, height * 0.5);
-        _gradientLayer.position = CGPointMake(0, height * 0.5);
-        _gradientLayer.startPoint = CGPointMake(0.5, 0.5);
+        _gradientLayer.startPoint = CGPointMake(0, 0.5);
         _gradientLayer.endPoint = CGPointMake(1.0, 0.5);
         
         _gradientLayer.cornerRadius = height * 0.5;
-        _gradientLayer.locations = @[@0.8,@0.8,@1.0];
+        _gradientLayer.locations = @[@0.0,@0.5,@1.0];
         _gradientLayer.colors = @[
                                   (id)[UIColor clearColor].CGColor,
-                                  (id)[UIColor colorWithWhite:1.0 alpha:0.0].CGColor,
+                                  (id)[UIColor colorWithWhite:1.0 alpha:0.5].CGColor,
                                   (id)[UIColor whiteColor].CGColor
                                   ];
     }

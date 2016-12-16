@@ -8,23 +8,16 @@
 
 #import "HomeViewController.h"
 #import "WebViewController.h"
-#import "SearchAddressController.h"
 
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
-
-#import "FoldPaperView.h"
-#import "UIView+FoldPaper.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, copy) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 
-@property (nonatomic, strong) FoldPaperView *foldView;
-
-//@property (nonatomic, assign) NSInteger count;
 
 @end
 
@@ -36,12 +29,6 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
-    
-//    CGFloat aViewOriginY = CGRectGetMaxY(self.bannerScrollView.frame);
-//    _foldView = [[FoldPaperView alloc] initWithFrame:CGRectMake(0, aViewOriginY, ScreenWidth, ScreenWidth * 43 / 75)];
-//    [self.view addSubview:_foldView];
-    
-    
     
 }
 
@@ -76,11 +63,7 @@
 }
 
 - (void)homeRightItemClick {
-//    SearchAddressController *controller = [[SearchAddressController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
     
-//    [self.foldView showFoldPaperOn:self.view];
 }
 
 #pragma mark

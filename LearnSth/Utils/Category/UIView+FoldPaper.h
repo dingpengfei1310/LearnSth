@@ -10,6 +10,6 @@
 
 @interface UIView (FoldPaper)
 
-- (void)showFoldPaperOn:(UIView *)view;
+- (void)showFoldPaperWithFolds:(NSInteger)folds duration:(CGFloat)duration;
 
 @end

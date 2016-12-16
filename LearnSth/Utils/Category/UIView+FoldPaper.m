@@ -10,148 +10,114 @@
 
 @implementation UIView (FoldPaper)
 
-- (void)showFoldPaperOn:(UIView *)view {
-    [self showFoldPaperOn:view folds:1 duration:3.0];
-}
-
-- (void)showFoldPaperOn:(UIView *)view folds:(NSInteger)folds duration:(CGFloat)duration {
+- (void)showFoldPaperWithFolds:(NSInteger)folds duration:(CGFloat)duration {
+    if (!self.superview) {
+        return;
+    }
     CGRect frame = self.frame;
-    CGPoint anchorPoint = CGPointMake(1, 0.5);
     
-    UIGraphicsBeginImageContext(frame.size);
+    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 2);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewSnapShot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    //set 3D depth
+    CGPoint anchorPoint = CGPointMake(1.0, 0.5);
+    UIView *foldView = [[UIView alloc] initWithFrame:frame];
+    [self.superview addSubview:foldView];
+    
     CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = -2.0 / 1000.0;
-    CALayer *origamiLayer = [CALayer layer];
-    origamiLayer.frame = self.bounds;
-    origamiLayer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1].CGColor;
-    origamiLayer.sublayerTransform = transform;
-    [self.layer addSublayer:origamiLayer];
+    transform.m34 = -3.0 / 1000.0;
+    CALayer *foldLayer = [CALayer layer];
+    foldLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);;
+    foldLayer.sublayerTransform = transform;
+    [foldView.layer addSublayer:foldLayer];
     
-    double startAngle;
-    CGFloat frameWidth = self.bounds.size.width;
-    CGFloat frameHeight = self.bounds.size.height;
-    CGFloat foldWidth = frameWidth / (folds * 2);
-    
+    CGFloat startAngle;
     for (int i = 0; i < folds * 2; i++) {
-        
-        if(i == 0)
-            startAngle = -M_PI_2;
-        else {
+        if(i == 0) {
+            startAngle = - M_PI_2;
+        } else {
             if (i % 2)
                 startAngle = M_PI;
             else
-                startAngle = -M_PI;
+                startAngle = - M_PI;
         }
-    
-        CGRect imageFrame = CGRectMake(frameWidth - (i+1) * foldWidth, 0, foldWidth, frameHeight);
         
-        CATransformLayer *transLayer = [self transformLayerFromImage:viewSnapShot Frame:imageFrame Duration:duration AnchorPiont:anchorPoint StartAngle:startAngle EndAngle:0];
-        [origamiLayer addSublayer:transLayer];
-        origamiLayer = transLayer;
+        CATransformLayer *transLayer = [self layerFromImage:viewSnapShot index:i count:folds * 2 anchorPiont:anchorPoint startAngle:startAngle];
+        [foldLayer addSublayer:transLayer];
+        foldLayer = transLayer;
     }
     
-//    [CATransaction begin];
-//    [CATransaction setCompletionBlock:^{
-//        self.frame = selfFrame;
-//        [origamiLayer removeFromSuperlayer];
-//    }];
-//    
-//    [CATransaction setValue:[NSNumber numberWithFloat:duration] forKey:kCATransactionAnimationDuration];
-////    CAAnimation *openAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x" function:openFunction fromValue:self.frame.origin.x+self.frame.size.width/2 toValue:selfFrame.origin.x+self.frame.size.width/2];
-//    
-//    CAAnimation *openAnimation = [self animationWithKeyPath:@"position.x" fromValue:self.frame.origin.x+self.frame.size.width/2 toValue:selfFrame.origin.x+self.frame.size.width/2];
-//    openAnimation.fillMode = kCAFillModeBackwards;
-//    [openAnimation setRemovedOnCompletion:NO];
-//    [self.layer addAnimation:openAnimation forKey:@"position"];
-//    [CATransaction commit];
+    CAAnimation *openAnimation = [self animationWithKeyPath:@"position.x" fromValue:self.frame.size.width toValue:self.frame.size.width * 0.5];
+    openAnimation.fillMode = kCAFillModeForwards;
+    openAnimation.duration = duration;
+    [openAnimation setRemovedOnCompletion:NO];
+    [foldView.layer addAnimation:openAnimation forKey:@"position"];
+    
+    self.hidden = YES;
+    self.frame = CGRectMake(frame.size.width, frame.origin.y, 0, frame.size.height);
+    [UIView animateWithDuration:duration animations:^{
+        self.frame = frame;
+    } completion:^(BOOL finished) {
+        [foldView removeFromSuperview];
+        self.hidden = NO;
+    }];
 }
 
-#pragma mark
-- (CATransformLayer *)transformLayerFromImage:(UIImage *)image Frame:(CGRect)frame Duration:(CGFloat)duration AnchorPiont:(CGPoint)anchorPoint StartAngle:(double)start EndAngle:(double)end {
+- (CATransformLayer *)layerFromImage:(UIImage *)image index:(NSInteger)index count:(NSInteger)count anchorPiont:(CGPoint)anchorPoint startAngle:(CGFloat)startAngle {
+    CGFloat width = self.bounds.size.width;
+    CGFloat height = self.bounds.size.height;
+    CGFloat foldWidth = width / count;
+    CGRect frame = CGRectMake(0, 0, width -  index * foldWidth, height);
     
     CATransformLayer *jointLayer = [CATransformLayer layer];
     jointLayer.anchorPoint = anchorPoint;
-    CGFloat layerWidth = frame.origin.x + frame.size.width;
-    jointLayer.frame = CGRectMake(0, 0, layerWidth, frame.size.height);
-    jointLayer.position = CGPointMake(layerWidth, frame.size.height/2);
+    jointLayer.frame = frame;
+    jointLayer.position = CGPointMake(width -  index * foldWidth, height * 0.5);
     
-    //map image onto transform layer
     CALayer *imageLayer = [CALayer layer];
-    imageLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    imageLayer.frame = CGRectMake(0, 0, foldWidth, height);
     imageLayer.anchorPoint = anchorPoint;
-    imageLayer.position = CGPointMake(layerWidth*anchorPoint.x, frame.size.height/2);
+    imageLayer.position = CGPointMake(width -  index * foldWidth, height * 0.5);
     [jointLayer addSublayer:imageLayer];
-    CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, frame);
+    
+    CGRect rect = CGRectMake(CGImageGetWidth(image.CGImage) / count * (count - index - 1), 0, CGImageGetWidth(image.CGImage) / count, CGImageGetHeight(image.CGImage));
+    CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, rect);
     imageLayer.contents = (__bridge id)imageCrop;
-    imageLayer.backgroundColor = [UIColor clearColor].CGColor;
     
-//    //add shadow
-//    NSInteger index = frame.origin.x/frame.size.width;
-//    double shadowAniOpacity;
-//    CAGradientLayer *shadowLayer = [CAGradientLayer layer];
-//    shadowLayer.frame = imageLayer.bounds;
-//    shadowLayer.backgroundColor = [UIColor darkGrayColor].CGColor;
-//    shadowLayer.opacity = 0.0;
-//    shadowLayer.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
-//    if (index%2) {
-//        shadowLayer.startPoint = CGPointMake(0, 0.5);
-//        shadowLayer.endPoint = CGPointMake(1, 0.5);
-//        shadowAniOpacity = (anchorPoint.x)?0.24:0.32;
-//    }
-//    else {
-//        shadowLayer.startPoint = CGPointMake(1, 0.5);
-//        shadowLayer.endPoint = CGPointMake(0, 0.5);
-//        shadowAniOpacity = (anchorPoint.x)?0.32:0.24;
-//    }
-//    [imageLayer addSublayer:shadowLayer];
-    
-    //animate open/close animation
     CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    [animation setDuration:duration];
-    [animation setFromValue:[NSNumber numberWithDouble:start]];
-    [animation setToValue:[NSNumber numberWithDouble:end]];
+    [animation setDuration:2.0];
+    [animation setFromValue:[NSNumber numberWithDouble:startAngle]];
+    [animation setToValue:[NSNumber numberWithDouble:0]];
     [animation setRemovedOnCompletion:NO];
-//    [jointLayer addAnimation:animation forKey:@"jointAnimation"];
-    
-//    //animate shadow opacity
-//    animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//    [animation setDuration:duration];
-//    [animation setFromValue:[NSNumber numberWithDouble:(start)?shadowAniOpacity:0]];
-//    [animation setToValue:[NSNumber numberWithDouble:(start)?0:shadowAniOpacity]];
-//    [animation setRemovedOnCompletion:NO];
-//    [shadowLayer addAnimation:animation forKey:nil];
+    [jointLayer addAnimation:animation forKey:@"jointAnimation"];
     
     return jointLayer;
 }
 
-//- (CAKeyframeAnimation *)animationWithKeyPath:(NSString *)path fromValue:(double)fromValue toValue:(double)toValue
-//{
-//    // get a keyframe animation to set up
-//    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:path];
-//    // break the time into steps (the more steps, the smoother the animation)
-//    NSUInteger steps = 100;
-//    NSMutableArray *values = [NSMutableArray arrayWithCapacity:steps];
-//    double time = 0.0;
-//    double timeStep = 1.0 / (double)(steps - 1);
-//    for(NSUInteger i = 0; i < steps; i++) {
-//        double value = fromValue + ([self openFunction:time] * (toValue - fromValue));
-//        [values addObject:[NSNumber numberWithDouble:value]];
-//        time += timeStep;
-//    }
-//    // we want linear animation between keyframes, with equal time steps
-//    animation.calculationMode = kCAAnimationLinear;
-//    // set keyframes and we're done
-//    [animation setValues:values];
-//    return animation;
-//}
-//
-//- (double)openFunction:(double)time {
-//    return sin(time*M_PI_2);
-//}
+- (CAKeyframeAnimation *)animationWithKeyPath:(NSString *)path fromValue:(double)fromValue toValue:(double)toValue
+{
+    // get a keyframe animation to set up
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:path];
+    // break the time into steps (the more steps, the smoother the animation)
+    NSUInteger steps = 100;
+    NSMutableArray *values = [NSMutableArray arrayWithCapacity:steps];
+    double time = 0.0;
+    double timeStep = 1.0 / (double)(steps - 1);
+    for(NSUInteger i = 0; i < steps; i++) {
+        double value = fromValue + ([self openFunction:time] * (toValue - fromValue));
+        [values addObject:[NSNumber numberWithDouble:value]];
+        time += timeStep;
+    }
+    // we want linear animation between keyframes, with equal time steps
+    animation.calculationMode = kCAAnimationLinear;
+    // set keyframes and we're done
+    [animation setValues:values];
+    return animation;
+}
+
+- (double)openFunction:(double)time {
+    return sin(time*M_PI_2);
+}
 
 @end

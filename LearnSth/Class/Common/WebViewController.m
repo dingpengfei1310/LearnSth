@@ -113,7 +113,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WebProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 62 + ViewFrameOrigin_X, ScreenWidth, 2)];
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + ViewFrameOrigin_X, ScreenWidth, 3)];
     }
     return _progressView;
 }

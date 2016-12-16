@@ -81,11 +81,11 @@
 		1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserModel.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */; };
+		1B42B6BE1E011E1C00E3DB5E /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B42B6BC1E011E1C00E3DB5E /* UIView+Origami.m */; };
 		1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */; };
 		1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
-		1BB154891DF7A6E3007E847D /* SearchAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB154881DF7A6E2007E847D /* SearchAddressController.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
@@ -94,6 +94,7 @@
 		1BDCED761DE58812002A27B5 /* mdialog.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED731DE58812002A27B5 /* mdialog.js */; };
 		1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED741DE58812002A27B5 /* zepto.min.js */; };
 		1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED781DE58D10002A27B5 /* testHUD.html */; };
+		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
@@ -275,6 +276,8 @@
 		1B2D07F11DE7E8DB0034C22D /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
+		1B42B6BC1E011E1C00E3DB5E /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
+		1B42B6BD1E011E1C00E3DB5E /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
 		1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Tool.h"; sourceTree = "<group>"; };
 		1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Tool.m"; sourceTree = "<group>"; };
 		1B54C64B1DF5370F001DF134 /* UICollectionView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Tool.h"; sourceTree = "<group>"; };
@@ -284,8 +287,6 @@
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tool.h"; sourceTree = "<group>"; };
 		1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tool.m"; sourceTree = "<group>"; };
-		1BB154871DF7A6E2007E847D /* SearchAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAddressController.h; sourceTree = "<group>"; };
-		1BB154881DF7A6E2007E847D /* SearchAddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAddressController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BDCED6E1DE57D97002A27B5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -294,6 +295,8 @@
 		1BDCED731DE58812002A27B5 /* mdialog.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mdialog.js; sourceTree = "<group>"; };
 		1BDCED741DE58812002A27B5 /* zepto.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.min.js; sourceTree = "<group>"; };
 		1BDCED781DE58D10002A27B5 /* testHUD.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = testHUD.html; sourceTree = "<group>"; };
+		1BF3B3B91E03737E0061DD5A /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
+		1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -386,6 +389,8 @@
 				1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */,
 				CF67C2391DF99EA600EFFDBB /* UIView+FoldPaper.h */,
 				CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */,
+				1B42B6BD1E011E1C00E3DB5E /* UIView+Origami.h */,
+				1B42B6BC1E011E1C00E3DB5E /* UIView+Origami.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -685,8 +690,6 @@
 			children = (
 				1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */,
 				1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */,
-				1BB154871DF7A6E2007E847D /* SearchAddressController.h */,
-				1BB154881DF7A6E2007E847D /* SearchAddressController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -760,6 +763,8 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				1BF3B3B91E03737E0061DD5A /* SearchResultController.h */,
+				1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */,
 				CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */,
 				CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */,
 				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
@@ -1141,6 +1146,7 @@
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				1B42B6BE1E011E1C00E3DB5E /* UIView+Origami.m in Sources */,
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
 				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
@@ -1197,7 +1203,6 @@
 				1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */,
 				1B2D07FF1DE7E8DB0034C22D /* PLPlayerViewController.m in Sources */,
 				1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */,
-				1BB154891DF7A6E3007E847D /* SearchAddressController.m in Sources */,
 				1B099C9D1DE7E57400161396 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */,
 				1B099C911DE7E57400161396 /* UIScrollView+MJRefresh.m in Sources */,
@@ -1206,6 +1211,7 @@
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,
+				1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */,
 				1B099C831DE7E57400161396 /* MJRefreshHeader.m in Sources */,
 				1B099C881DE7E57400161396 /* MJRefreshBackNormalFooter.m in Sources */,
 				1B099C8C1DE7E57400161396 /* MJRefreshStateHeader.m in Sources */,
