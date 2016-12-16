@@ -763,8 +763,6 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				1BF3B3B91E03737E0061DD5A /* SearchResultController.h */,
-				1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */,
 				CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */,
 				CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */,
 				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
@@ -777,6 +775,8 @@
 				1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */,
 				CFEAB8C91DE983CC00CB9DDF /* ProvinceViewController.h */,
 				CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */,
+				1BF3B3B91E03737E0061DD5A /* SearchResultController.h */,
+				1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */,
 				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,

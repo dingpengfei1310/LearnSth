@@ -40,11 +40,11 @@
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
                                           NSForegroundColorAttributeName:KBaseBlueColor
                                           };
-    NSArray *itemTitles = @[@"home",@"hot",@"user"];
+    NSArray *itemTitles = @[@"Home",@"Hot",@"User"];
     
     for (int i = 0; i < itemTitles.count; i++) {
         UITabBarItem *item = self.tabBar.items[i];
-        item.title = itemTitles[i];
+        [item setTitle:itemTitles[i]];
         [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
         [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
     }
@@ -53,7 +53,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

@@ -36,10 +36,17 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        userModel = [[self alloc] init];
+        userModel = [[UserModel alloc] init];
     });
     
     return userModel;
+}
+
+- (instancetype)init {
+    if (!self) {
+        self = [super init];
+    }
+    return self;
 }
 
 - (NSDictionary *)dictionary {

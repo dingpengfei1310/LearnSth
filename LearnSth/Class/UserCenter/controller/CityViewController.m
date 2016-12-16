@@ -7,12 +7,14 @@
 //
 
 #import "CityViewController.h"
+
 #import "SQLManager.h"
+#import "UserModel.h"
 
 @interface CityViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray *result;
+@property (nonatomic, copy) NSArray *dataArray;
 
 @end
 
@@ -26,8 +28,16 @@
 }
 
 #pragma mark
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"全部";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.result.count;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -37,18 +47,24 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    NSDictionary *city = self.result[indexPath.row];
+    NSDictionary *city = self.dataArray[indexPath.row];
     cell.textLabel.text = city[@"name"];
     
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"全部";
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *city = self.dataArray[indexPath.row];
+    [UserModel userManager].province = self.province[@"name"];
+    [UserModel userManager].city = city[@"name"];
+    [Utils setUserModel:[UserModel userManager]];
+    
+    NSInteger index = self.navigationController.viewControllers.count - 3;
+    if (index >= 0) {
+        UIViewController *controller = self.navigationController.viewControllers[index];
+        [self.navigationController popToViewController:controller animated:YES];
+    }
+    
 }
 
 #pragma mark
@@ -63,11 +79,11 @@
     return _tableView;
 }
 
-- (NSArray *)result {
-    if (!_result) {
-        _result = [[SQLManager manager] getCitiesWithProvinceId:self.province[@"id"]];
+- (NSArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [[SQLManager manager] getCitiesWithProvinceId:self.province[@"id"]];
     }
-    return _result;
+    return _dataArray;
 }
 
 - (void)didReceiveMemoryWarning {
