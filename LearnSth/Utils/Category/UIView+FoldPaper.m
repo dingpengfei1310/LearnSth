@@ -92,6 +92,8 @@
     [animation setRemovedOnCompletion:NO];
     [jointLayer addAnimation:animation forKey:@"jointAnimation"];
     
+    CGImageRelease(imageCrop);
+    
     return jointLayer;
 }
 

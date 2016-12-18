@@ -10,7 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "WebProgressView.h"
 
-@interface WebViewController ()<WKNavigationDelegate>
+@interface WebViewController ()<WKNavigationDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) WKWebView *KWebView;
 @property (nonatomic, strong) WebProgressView *progressView;
@@ -25,7 +25,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [super viewDidLoad];
     
     [self setLeftItemsWithCanGoBack:NO];
-    
     if (self.urlString) {
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
@@ -40,24 +39,31 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
     [self.progressView removeFromSuperview];
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }
 
 #pragma mark
 - (void)setLeftItemsWithCanGoBack:(BOOL)flag {
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -8;
+    
     UIImage *image = [UIImage imageNamed:@"backButtonImage"];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self
-                                                            action:@selector(webBackClick)];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(webBackClick)];
+    
     if (flag) {
-        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
-        self.navigationItem.leftBarButtonItems = @[item,closeItem];
+        UIBarButtonItem *spaceItem1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        spaceItem1.width = -8;
         
+        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
+        
+        self.navigationItem.leftBarButtonItems = @[spaceItem,backItem,spaceItem1,closeItem];
     } else {
-        self.navigationItem.leftBarButtonItems = nil;
-        self.navigationItem.leftBarButtonItem = item;
+        self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
     }
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)webBackClick {
@@ -89,6 +95,10 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
     [self setLeftItemsWithCanGoBack:[webView canGoBack]];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return YES;
 }
 
 #pragma mark

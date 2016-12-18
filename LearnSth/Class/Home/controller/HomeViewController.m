@@ -12,10 +12,11 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
+#import "ProvinceViewController.h"
 
 @interface HomeViewController ()
 
-@property (nonatomic, copy) NSArray *bannerList;
+@property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 
 
@@ -29,7 +30,6 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -63,7 +63,8 @@
 }
 
 - (void)homeRightItemClick {
-    
+//    ProvinceViewController *controller = [[ProvinceViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -81,6 +82,7 @@
                 controller.title = model.title;
                 controller.urlString = model.link;
                 [weakSelf.navigationController pushViewController:controller animated:YES];
+                
             }
         };
     }

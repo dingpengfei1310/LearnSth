@@ -69,7 +69,7 @@ static char reloadBlockKey;
 }
 
 - (void)setPlaceholderView:(UIView *)placeholderView {
-    objc_setAssociatedObject(self, &placeHolderKey, placeholderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &placeHolderKey, placeholderView, OBJC_ASSOCIATION_RETAIN);
 }
 
 - (ReloadClickBlock)clickBlock {
@@ -77,7 +77,7 @@ static char reloadBlockKey;
 }
 
 - (void)setClickBlock:(ReloadClickBlock)clickBlock {
-    objc_setAssociatedObject(self, &reloadBlockKey, clickBlock, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, &reloadBlockKey, clickBlock, OBJC_ASSOCIATION_RETAIN);
 }
 
 #pragma mark

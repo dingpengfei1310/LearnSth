@@ -18,9 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Search Result";
     
-    NSLog(@"SearchResultController - viewDidLoad");
     [self.view addSubview:self.tableView];
 }
 

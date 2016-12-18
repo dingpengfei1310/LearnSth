@@ -17,6 +17,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark

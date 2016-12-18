@@ -31,6 +31,7 @@
     self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
 }
 
+#pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.provinces.count;
 }
@@ -68,7 +69,6 @@
 }
 
 #pragma mark
-
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (searchController.searchBar.text.length > 0) {
         SearchResultController *controller = (SearchResultController *)self.searchController.searchResultsController;

@@ -40,9 +40,9 @@
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
                                           NSForegroundColorAttributeName:KBaseBlueColor
                                           };
-    NSArray *itemTitles = @[@"Home",@"Hot",@"User"];
+    NSArray *itemTitles = @[@"Home",@"Live",@"User"];
     
-    for (int i = 0; i < itemTitles.count; i++) {
+    for (int i = 0; i < self.tabBar.items.count; i++) {
         UITabBarItem *item = self.tabBar.items[i];
         [item setTitle:itemTitles[i]];
         [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];

@@ -56,8 +56,7 @@
     NSDictionary *titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17],NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin)
-                                                         forBarMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
     UIImage *image = [UIImage imageNamed:@"backButtonImage"];
 //    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 42, 0, 42)];//26 42
 //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage

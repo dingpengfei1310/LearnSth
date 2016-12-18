@@ -153,7 +153,7 @@ static NSString *reuseIdentifier = @"cell";
     cell.textLabel.text = self.dataArray[indexPath.row];
     if (indexPath.row == 1 && [UserModel userManager].username) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].username];
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row == 2 && [UserModel userManager].city) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].city];
     }
     
