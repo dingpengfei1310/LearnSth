@@ -12,6 +12,7 @@
 #import "MessageViewController.h"
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
+#import "FileScanViewController.h"
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
@@ -34,17 +35,13 @@ static NSString *identifier = @"cell";
     self.title = @"User";
     
     [self.view addSubview:self.topImageView];
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 #pragma mark
@@ -129,6 +126,7 @@ static NSString *identifier = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
+        
         [self wifiUpload];
         
     } else if (indexPath.row == 1) {
@@ -146,17 +144,22 @@ static NSString *identifier = @"cell";
     } else if (indexPath.row == 3) {
         
         [self clearDiskCache];
+        
+    } else if (indexPath.row == 4) {
+        
+        FileScanViewController *controller = [[FileScanViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
     }
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat scale = 1 - (scrollView.contentOffset.y / 200);
-    scale = (scale >= 1) ? scale : 1;
-    
-    self.topImageView.transform = CGAffineTransformMakeScale(scale, scale);
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    CGFloat scale = 1 - (scrollView.contentOffset.y / 200);
+//    scale = (scale >= 1) ? scale : 1;
+//    
+//    self.topImageView.transform = CGAffineTransformMakeScale(scale, scale);
+//}
 
 #pragma mark
 - (UITableView *)tableView {

@@ -12,13 +12,15 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
-#import "ProvinceViewController.h"
+
+#import "UIButton+Tool.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 
+@property (nonatomic, strong) UIButton *button;
 
 @end
 
@@ -30,6 +32,20 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.backgroundColor = KBaseBlueColor;
+    button.frame = CGRectMake(20, 200, 100, 100);
+    [self.view addSubview:button];
+    
+    UIImage *image = [[UIImage imageNamed:@"reflesh1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [button setImage:image forState:UIControlStateNormal];
+    
+    [button setTitle:@"titletitleitle" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [button setImagePoisition:ImagePoisitionTop];
+    _button = button;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -63,8 +79,7 @@
 }
 
 - (void)homeRightItemClick {
-//    ProvinceViewController *controller = [[ProvinceViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
+    [_button setImagePoisition:ImagePoisitionTop];
 }
 
 #pragma mark
@@ -89,6 +104,7 @@
     
     return _bannerScrollView;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

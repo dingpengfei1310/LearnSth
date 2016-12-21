@@ -102,6 +102,9 @@
 		1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */; };
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
+		1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */; };
+		1BF9B0DF1E0A5977005B0EDF /* UIButton+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DE1E0A5977005B0EDF /* UIButton+Tool.m */; };
+		1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCF0301E09380E00DA222E /* FileScanViewController.m */; };
 		CF67C23B1DF99EA600EFFDBB /* UIView+FoldPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */; };
 		CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */; };
 		CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C21DE97E7700CB9DDF /* province.db */; };
@@ -311,6 +314,12 @@
 		1BF7F6ED1D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1BF9B0DA1E0A2B6C005B0EDF /* BasePreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePreviewItem.h; sourceTree = "<group>"; };
+		1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePreviewItem.m; sourceTree = "<group>"; };
+		1BF9B0DD1E0A5977005B0EDF /* UIButton+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Tool.h"; sourceTree = "<group>"; };
+		1BF9B0DE1E0A5977005B0EDF /* UIButton+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Tool.m"; sourceTree = "<group>"; };
+		1BFCF02F1E09380E00DA222E /* FileScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileScanViewController.h; sourceTree = "<group>"; };
+		1BFCF0301E09380E00DA222E /* FileScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileScanViewController.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF67C2391DF99EA600EFFDBB /* UIView+FoldPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FoldPaper.h"; sourceTree = "<group>"; };
 		CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FoldPaper.m"; sourceTree = "<group>"; };
@@ -391,6 +400,8 @@
 				CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */,
 				1B42B6BD1E011E1C00E3DB5E /* UIView+Origami.h */,
 				1B42B6BC1E011E1C00E3DB5E /* UIView+Origami.m */,
+				1BF9B0DD1E0A5977005B0EDF /* UIButton+Tool.h */,
+				1BF9B0DE1E0A5977005B0EDF /* UIButton+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -781,6 +792,8 @@
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
+				1BFCF02F1E09380E00DA222E /* FileScanViewController.h */,
+				1BFCF0301E09380E00DA222E /* FileScanViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -801,6 +814,8 @@
 			children = (
 				1B2D07F01DE7E8DB0034C22D /* UserModel.h */,
 				1B2D07F11DE7E8DB0034C22D /* UserModel.m */,
+				1BF9B0DA1E0A2B6C005B0EDF /* BasePreviewItem.h */,
+				1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1147,6 +1162,7 @@
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1B42B6BE1E011E1C00E3DB5E /* UIView+Origami.m in Sources */,
+				1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */,
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
 				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
@@ -1155,6 +1171,7 @@
 				1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */,
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */,
+				1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */,
 				1B099C921DE7E57400161396 /* UIView+MJExtension.m in Sources */,
 				1B2D080A1DE7E8DB0034C22D /* MessageViewCell.m in Sources */,
 				1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */,
@@ -1189,6 +1206,7 @@
 				1B2D08001DE7E8DB0034C22D /* LiveModel.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
+				1BF9B0DF1E0A5977005B0EDF /* UIButton+Tool.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,

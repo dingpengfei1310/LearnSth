@@ -45,7 +45,7 @@
         
         _gradientLayer.locations = @[@0.0,@0.5,@1.0];
         _gradientLayer.colors = @[
-                                  (id)[UIColor clearColor].CGColor,
+                                  (id)[UIColor colorWithWhite:1.0 alpha:0.1].CGColor,
                                   (id)[UIColor colorWithWhite:1.0 alpha:0.5].CGColor,
                                   (id)[UIColor whiteColor].CGColor
                                   ];

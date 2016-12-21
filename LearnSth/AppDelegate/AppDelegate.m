@@ -34,12 +34,12 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
+    [self networkMonitoring];
+    
+    [Utils userModel];
     
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;
-    
-    [Utils userModel];
-    [self networkMonitoring];
     
     return YES;
 }
@@ -53,16 +53,19 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setTranslucent:YES];
     
-    NSDictionary *titleTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:17],NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+                                 NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
 //    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
-    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
+//    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
 //    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 42, 0, 42)];//26 42
 //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
 //                                                      forState:UIControlStateNormal
 //                                                    barMetrics:UIBarMetricsDefault];
     
+    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
     [[UINavigationBar appearance] setBackIndicatorImage:image];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
 }

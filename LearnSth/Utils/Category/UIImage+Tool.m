@@ -39,7 +39,7 @@
     
     [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius] addClip];
     [[self getCenterImage] drawInRect:rect];
-    CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), [UIColor whiteColor].CGColor);
+//    CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), [UIColor whiteColor].CGColor);
     UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

@@ -35,8 +35,8 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
 - (instancetype) init {
     if (self = [super init]) {
         self.webPath = [[NSBundle mainBundle] resourcePath];
-//        self.savePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-        self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//        self.savePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+        self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     }
     return self;
 }
@@ -82,8 +82,7 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
     
     success = getifaddrs(&interfaces);
     
-    if (success == 0) { // 0 表示获取成功
-        
+    if (success == 0) {// 0 表示获取成功
         temp_addr = interfaces;
         while (temp_addr != NULL) {
             if( temp_addr->ifa_addr->sa_family == AF_INET) {
