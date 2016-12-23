@@ -13,7 +13,7 @@
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 
@@ -40,41 +40,28 @@ static NSString *reuseIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
     
     cell.content = self.dataArray[indexPath.row];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *content = self.dataArray[indexPath.row];
-    
-    UIFont *font = [UIFont systemFontOfSize:15];
-    
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
-    [style setLineSpacing:3.0];
-    NSDictionary *attribute = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:style};
-    
-    CGSize size = [content boundingRectWithSize:CGSizeMake(ScreenWidth - 40, MAXFLOAT)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:attribute
-                                        context:nil].size;
-    
-    return size.height + 40;
-}
-
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
+        CGRect frame = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
+        _tableView = [[UITableView alloc] initWithFrame:frame
                                                   style:UITableViewStylePlain];
-        [_tableView registerClass:[MessageViewCell class] forCellReuseIdentifier:reuseIdentifier];
+        UINib *nib = [UINib nibWithNibName:@"MessageViewCell" bundle:[NSBundle mainBundle]];
+        [_tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+        
         _tableView.backgroundColor = KBackgroundColor;
         _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 50;
+        
+        _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.estimatedRowHeight = 100;
     }
     return _tableView;
 }

@@ -73,6 +73,22 @@ static NSString *identifier = @"cell";
     }
 }
 
+- (void)showAlertOnClearDiskCache {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要清除缓存吗" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self clearDiskCache];
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:certainAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)clearDiskCache {
     [self showMessage:nil];
     
@@ -143,7 +159,7 @@ static NSString *identifier = @"cell";
         
     } else if (indexPath.row == 3) {
         
-        [self clearDiskCache];
+        [self showAlertOnClearDiskCache];
         
     } else if (indexPath.row == 4) {
         
@@ -171,6 +187,7 @@ static NSString *identifier = @"cell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
         
         _tableView.tableFooterView = [[UIView alloc] init];
         

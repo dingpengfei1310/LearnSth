@@ -48,7 +48,6 @@
         [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
         [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {

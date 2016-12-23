@@ -41,7 +41,8 @@
     UIImage *image = [[UIImage imageNamed:@"reflesh1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [button setImage:image forState:UIControlStateNormal];
     
-    [button setTitle:@"titletitleitle" forState:UIControlStateNormal];
+    [button setTitle:@"00" forState:UIControlStateNormal];
+//    [button setTitle:@"titletitle1234567890titletitle" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [button setImagePoisition:ImagePoisitionTop];

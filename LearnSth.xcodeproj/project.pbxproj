@@ -62,6 +62,7 @@
 		1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C541DE7E57400161396 /* WiFiUploadManager.m */; };
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
+		1B15352D1E0B702D00445EEE /* MessageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B15352C1E0B702D00445EEE /* MessageViewCell.xib */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */; };
@@ -239,6 +240,7 @@
 		1B099C551DE7E57400161396 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B099C561DE7E57400161396 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1B15352C1E0B702D00445EEE /* MessageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewCell.xib; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 			children = (
 				1B2D07F31DE7E8DB0034C22D /* MessageViewCell.h */,
 				1B2D07F41DE7E8DB0034C22D /* MessageViewCell.m */,
+				1B15352C1E0B702D00445EEE /* MessageViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1059,6 +1062,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B15352D1E0B702D00445EEE /* MessageViewCell.xib in Resources */,
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1B099C7A1DE7E57400161396 /* HUDerror.png in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
