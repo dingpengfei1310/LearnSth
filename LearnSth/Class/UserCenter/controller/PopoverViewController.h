@@ -8,18 +8,11 @@
 
 #import "BaseViewController.h"
 
-@class PopoverViewController;
-
-@protocol PopoverViewControllerDelegate <NSObject>
-
-- (void)controller:(PopoverViewController *)controller didSelectAtIndex:(NSInteger)index;
-
-@end
-
 @interface PopoverViewController :BaseViewController
 
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, copy) void (^SelectIndex)(NSInteger index);
 
-@property (nonatomic, weak) id<PopoverViewControllerDelegate> delegate;
+@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) UIPopoverPresentationController *popover;
 
 @end

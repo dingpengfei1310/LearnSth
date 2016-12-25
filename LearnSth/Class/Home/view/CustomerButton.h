@@ -1,21 +1,22 @@
 //
-//  UIButton+Tool.h
+//  CustomerButton.h
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 16/12/21.
+//  Created by 丁鹏飞 on 16/12/25.
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,ImagePoisition) {
+    ImagePoisitionDefault,
     ImagePoisitionTop,
     ImagePoisitionLeft,
     ImagePoisitionBottom,
     ImagePoisitionRight,
 };
 
-@interface UIButton (Tool)
+@interface CustomerButton : UIButton
 
 - (void)setImagePoisition:(ImagePoisition)position;
 

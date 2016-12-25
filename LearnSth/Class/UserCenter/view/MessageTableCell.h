@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageViewCell : UITableViewCell
+@interface MessageTableCell : UITableViewCell
 
 @property (nonatomic, copy) NSString *content;
 

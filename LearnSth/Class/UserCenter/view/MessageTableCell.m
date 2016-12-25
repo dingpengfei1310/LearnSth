@@ -6,17 +6,16 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "MessageViewCell.h"
-#import "Masonry.h"
+#import "MessageTableCell.h"
 
-@interface MessageViewCell()
+@interface MessageTableCell()
 
 @property (weak, nonatomic) IBOutlet UIView *contentBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 @end
 
-@implementation MessageViewCell
+@implementation MessageTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -54,7 +53,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 
 @end
 

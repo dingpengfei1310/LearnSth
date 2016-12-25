@@ -7,7 +7,7 @@
 //
 
 #import "PhotoLiarbraryController.h"
-#import "PhotosViewController.h"
+#import "PhotosCollectionController.h"
 
 #import <Photos/Photos.h>
 
@@ -29,6 +29,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"我的相册";
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
@@ -77,8 +78,20 @@ static NSString * const reuseIdentifier = @"Cell";
         tipLabel.textAlignment = NSTextAlignmentCenter;
         tipLabel.text = @"请打开权限";
         [self.view addSubview:tipLabel];
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight * 0.2 + 50, ScreenWidth, 40)];
+        [button setTitle:@"去设置" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(goIntoSetting:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:button];
     }
-    
+}
+
+- (void)goIntoSetting:(id)sender {
+    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    if([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
@@ -110,9 +123,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
     PHFetchResult *assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
     
-    PhotosViewController *controller = [[PhotosViewController alloc] init];
+    PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
     controller.fetchResult = assetsFetchResults;
-    
+    controller.title = @"我的照片";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -174,23 +187,23 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PhotosViewController *controller = [[PhotosViewController alloc] init];
+    PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
     if (self.smartAlbum) {
         PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
         controller.assetCollection = assetCollection;
+        controller.title = assetCollection.localizedTitle;
     } else {
         controller.fetchResult = self.albumList[indexPath.row];
+        controller.title = self.nameList[indexPath.row];
     }
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
-                                                  style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

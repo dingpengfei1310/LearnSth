@@ -16,8 +16,6 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UILabel *currentIndexLabel;
 
 @end
@@ -25,51 +23,6 @@
 static NSString * const reuseIdentifier = @"Cell";
 
 @implementation DDImageBrowserController
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, viewHeight, viewWidth)
-                                                  style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.pagingEnabled = YES;
-        _tableView.rowHeight = viewWidth;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
-        [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:reuseIdentifier];
-    }
-    
-    return _tableView;
-}
-
-- (UIView *)topView {
-    if (!_topView) {
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 64)];
-        _topView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.8];
-        
-        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
-        [backButton setImage:[UIImage imageNamed:@"backButtonImage"] forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_topView addSubview:backButton];
-    }
-    return _topView;
-}
-
-- (UILabel *)currentIndexLabel {
-    if (!_currentIndexLabel) {
-        _currentIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight - 40, viewWidth, 20)];
-        _currentIndexLabel.backgroundColor = [UIColor clearColor];
-        _currentIndexLabel.textColor = [UIColor whiteColor];
-        _currentIndexLabel.font = [UIFont systemFontOfSize:15];
-        _currentIndexLabel.textAlignment = NSTextAlignmentCenter;
-    }
-    return _currentIndexLabel;
-}
-
-#pragma mark
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -79,43 +32,33 @@ static NSString * const reuseIdentifier = @"Cell";
     viewWidth = [UIScreen mainScreen].bounds.size.width;
     viewHeight = [UIScreen mainScreen].bounds.size.height;
     
-//    //点击
-//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-//                                                                                action:@selector(singleTapAction:)];
-//    [singleTap setNumberOfTapsRequired:1];
-//    [self.view addGestureRecognizer:singleTap];
-    
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.topView];
     [self.view addSubview:self.currentIndexLabel];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBarHidden = YES;
-    
+    self.navigationController.hidesBarsOnTap = YES;
     if (self.imageCount > 0) {
         [self showImageOfIndex:self.currentIndex];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self backClick:nil];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.hidesBarsOnTap = NO;
 }
+
+#pragma mark
 
 - (void)backClick:(UIButton *)button {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
-#pragma mark
 - (void)setThumbImages:(NSArray *)thumbImages {
     _thumbImages = thumbImages;
     self.imageCount = thumbImages.count;
@@ -142,17 +85,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGRect rect;
-    if (self.topView.frame.origin.y == 0) {
-        rect = CGRectMake(0, -64, viewWidth, 64);
-    } else {
-        rect = CGRectMake(0, 0, viewWidth, 64);
-    }
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        self.topView.frame = rect;
-    }];
-    
 //    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
 //        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
 //    }
@@ -174,11 +106,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark
-//点击移出
-- (void)singleTapAction:(UITapGestureRecognizer *)recognizer {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)showImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -206,6 +133,38 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
 }
+
+#pragma mark
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, viewHeight, viewWidth)
+                                                  style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.pagingEnabled = YES;
+        _tableView.rowHeight = viewWidth;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
+        [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:reuseIdentifier];
+    }
+    
+    return _tableView;
+}
+
+- (UILabel *)currentIndexLabel {
+    if (!_currentIndexLabel) {
+        _currentIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight - 40, viewWidth, 20)];
+        _currentIndexLabel.backgroundColor = [UIColor clearColor];
+        _currentIndexLabel.textColor = [UIColor whiteColor];
+        _currentIndexLabel.font = [UIFont systemFontOfSize:15];
+        _currentIndexLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _currentIndexLabel;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

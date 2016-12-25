@@ -50,7 +50,7 @@
     
     QLPreviewController *previewController = [[QLPreviewController alloc] init];
     previewController.dataSource = self;
-    [self.navigationController pushViewController:previewController animated:YES];
+    [self presentViewController:previewController animated:YES completion:nil];
 }
 
 #pragma mark - QLPreviewControllerDataSource

@@ -54,7 +54,7 @@
     [[UINavigationBar appearance] setTranslucent:YES];
     
     NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                  NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     

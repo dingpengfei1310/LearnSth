@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import <Photos/Photos.h>
 
-@interface PhotosViewController : BaseViewController
+@interface PhotosCollectionController : BaseViewController
 
 @property (nonatomic, strong) PHAssetCollection *assetCollection;//一个相册或相册集合
 

@@ -33,7 +33,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.navigationItem.title = @"Live";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  " style:UIBarButtonItemStylePlain target:self action:@selector(hideCollectionView)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(hideCollectionView)];
     
     self.page = 1;
     [self.view addSubview:self.collectionView];

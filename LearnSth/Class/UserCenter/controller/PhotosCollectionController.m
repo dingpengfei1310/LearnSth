@@ -6,10 +6,12 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "PhotosViewController.h"
+#import "PhotosCollectionController.h"
+
+#import "PhotosCollectionCell.h"
 #import "DDImageBrowserController.h"
 
-@interface PhotosViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
+@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *thumbImages;
@@ -17,8 +19,10 @@
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
+const CGFloat interitemSpacing = 5.0;
+const NSInteger column = 4;
 
-@implementation PhotosViewController
+@implementation PhotosCollectionController
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -44,44 +48,38 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier
-                                                                           forIndexPath:indexPath];
-    
-    [cell.contentView.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
+    PhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     PHAsset *asset = self.fetchResult[indexPath.row];
-    CGSize itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemSize.width, itemSize.height)];
-    [cell.contentView addSubview:imageView];
-    
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemSize.height - 15, itemSize.width, 15)];
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:10];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
-        label.text = @"video";
-        [cell.contentView addSubview:label];
+        cell.videoLabel.text = @"Video";
     }
     
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = YES;
     
-    [[PHCachingImageManager defaultManager] requestImageForAsset:asset
+    [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:CGSizeZero
                                               contentMode:PHImageContentModeAspectFit
                                                   options:options
-                                            resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                                                imageView.image = [self resizeImage:result];
+                                            resultHandler:^(UIImage * result, NSDictionary * info) {
+                                                cell.photoImageView.image = [self resizeImage:result];
                                                 self.thumbImages[indexPath.row] = result;
                                             }];
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
+    controller.browserDelegate = self;
+    controller.thumbImages = self.thumbImages;
+    controller.currentIndex = indexPath.row;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark
 - (UIImage *)resizeImage:(UIImage *)originalImage {
     if (!originalImage) return nil;
     
@@ -102,15 +100,6 @@ static NSString * const reuseIdentifier = @"Cell";
     return resultImage;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
-    controller.browserDelegate = self;
-    controller.thumbImages = self.thumbImages;
-    controller.currentIndex = indexPath.row;
-    
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
 #pragma mark - DDImageBrowserDelegate
 - (UIImage *)controller:(DDImageBrowserController *)controller placeholderImageOfIndex:(NSInteger)index {
     return self.thumbImages[index];
@@ -123,7 +112,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
     //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
-    [[PHCachingImageManager defaultManager] requestImageForAsset:asset
+    [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:PHImageManagerMaximumSize
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
@@ -158,14 +147,18 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
+        CGFloat itemWidth = (ScreenWidth - (column + 1) * interitemSpacing) / column;
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = CGSizeMake((ScreenWidth - 50) / 4, (ScreenWidth - 50) / 4);
-        flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+        flowLayout.sectionInset = UIEdgeInsetsMake(5, interitemSpacing, 5, interitemSpacing);
+        flowLayout.minimumInteritemSpacing = interitemSpacing;
+        flowLayout.minimumLineSpacing = interitemSpacing;
         
         CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];
+        [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;

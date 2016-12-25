@@ -186,7 +186,7 @@ static NSString *identifier = @"cell";
         _tableView.frame= CGRectMake(0, ViewFrameOrigin_X + topHeight, ScreenWidth, ScreenHeight - 64 - topHeight);
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 50;
+        _tableView.rowHeight = 60;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         
         _tableView.tableFooterView = [[UIView alloc] init];

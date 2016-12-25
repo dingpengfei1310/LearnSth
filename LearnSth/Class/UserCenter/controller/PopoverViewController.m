@@ -25,10 +25,12 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
+    
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.preferredContentSize = CGSizeMake(80, self.dataArray.count * 50);
     
     viewWidth = CGRectGetWidth(self.view.bounds);
     ViewHeight = CGRectGetHeight(self.view.bounds);
@@ -61,11 +63,8 @@ static NSString *identifier = @"cell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if ([self.delegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
-        [self.delegate controller:self didSelectAtIndex:indexPath.row];
-    }
+    self.SelectIndex(indexPath.row);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark
@@ -74,12 +73,23 @@ static NSString *identifier = @"cell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.scrollEnabled = NO;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
     }
     
     return _tableView;
+}
+
+- (UIPopoverPresentationController *)popover {
+    if (!_popover) {
+        _popover = self.popoverPresentationController;
+        _popover.backgroundColor = [UIColor whiteColor];
+        _popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+    
+    return _popover;
 }
 
 - (void)didReceiveMemoryWarning {

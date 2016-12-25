@@ -8,7 +8,7 @@
 
 #import "MessageViewController.h"
 
-#import "MessageViewCell.h"
+#import "MessageTableCell.h"
 
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -39,7 +39,7 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    MessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
     cell.content = self.dataArray[indexPath.row];
     return cell;
@@ -51,7 +51,7 @@ static NSString *reuseIdentifier = @"cell";
         CGRect frame = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
         _tableView = [[UITableView alloc] initWithFrame:frame
                                                   style:UITableViewStylePlain];
-        UINib *nib = [UINib nibWithNibName:@"MessageViewCell" bundle:[NSBundle mainBundle]];
+        UINib *nib = [UINib nibWithNibName:@"MessageTableCell" bundle:[NSBundle mainBundle]];
         [_tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
         
         _tableView.backgroundColor = KBackgroundColor;

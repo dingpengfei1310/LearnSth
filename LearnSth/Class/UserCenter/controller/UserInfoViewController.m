@@ -13,7 +13,7 @@
 
 #import "UserModel.h"
 
-@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,PopoverViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataArray;
@@ -41,27 +41,21 @@ static NSString *reuseIdentifier = @"cell";
     [self.view addSubview:button];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
-    NSArray *popoverDataArray = @[@"Hello",@"Word"];
+    NSArray *array = @[@"Hello",@"Word"];
     
     PopoverViewController *popoverController = [[PopoverViewController alloc] init];
-    popoverController.delegate = self;
-    popoverController.dataArray = popoverDataArray;
     popoverController.modalPresentationStyle = UIModalPresentationPopover;
-    popoverController.preferredContentSize = CGSizeMake(80, popoverDataArray.count * 50);
+    popoverController.dataArray = array;
     
-    UIPopoverPresentationController *popover = popoverController.popoverPresentationController;
-//    popover.barButtonItem = item;
-    popover.sourceView = self.navigationController.navigationBar;
-    popover.sourceRect = CGRectMake(ScreenWidth - 30, 44, 0, 0);
-    popover.delegate = self;
-    popover.backgroundColor = [UIColor whiteColor];
-    popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    popoverController.popover.delegate = self;
+    popoverController.popover.sourceView = self.navigationController.navigationBar;
+    popoverController.popover.sourceRect = CGRectMake(ScreenWidth - 32, 44, 0, 0);
+    
+    popoverController.SelectIndex = ^(NSInteger index) {
+        NSLog(@"%@",array[index]);
+    };
     
     [self presentViewController:popoverController animated:YES completion:nil];
 }
@@ -85,7 +79,7 @@ static NSString *reuseIdentifier = @"cell";
     albumAction = [UIAlertAction actionWithTitle:@"相册"
                                            style:UIAlertActionStyleDefault
                                          handler:^(UIAlertAction * _Nonnull action) {
-                                             [self openUserCameraWithType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+                                             [self openUserCameraWithType:UIImagePickerControllerSourceTypePhotoLibrary];
                                          }];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -105,11 +99,11 @@ static NSString *reuseIdentifier = @"cell";
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-- (void)openUserCameraWithType:(UIImagePickerControllerSourceType)type {
+- (void)openUserCameraWithType:(UIImagePickerControllerSourceType)sourceType {
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     pickerController.delegate = self;
     pickerController.allowsEditing = YES;
-    pickerController.sourceType = type;
+    pickerController.sourceType = sourceType;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 
@@ -178,11 +172,6 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark - UIPopoverPresentationControllerDelegate
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
-}
-
-- (void)controller:(PopoverViewController *)controller didSelectAtIndex:(NSInteger)index {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"%@",controller.dataArray[index]);
 }
 
 #pragma mark 
