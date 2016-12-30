@@ -10,11 +10,14 @@
 
 #import "SQLManager.h"
 #import "UserModel.h"
+#import "Utils.h"
 
-@interface CityViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "AddressDataSource.h"
 
-@property (nonatomic, strong) UITableView *tableView;
+@interface CityViewController ()
+
 @property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) AddressDataSource *dataSource;
 
 @end
 
@@ -24,35 +27,17 @@
     [super viewDidLoad];
     self.title = @"地区";
     
-    [self.view addSubview:self.tableView];
+    CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
+        cell.textLabel.text = info[@"name"];
+    };
+    _dataSource = [[AddressDataSource alloc] initWithDatas:self.dataArray
+                                                identifier:@"cell"
+                                                 cellBlock:block];
+    
+    self.tableView.dataSource = _dataSource;
 }
 
 #pragma mark
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"全部";
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"cityCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    
-    NSDictionary *city = self.dataArray[indexPath.row];
-    cell.textLabel.text = city[@"name"];
-    
-    return cell;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *city = self.dataArray[indexPath.row];
     [UserModel userManager].province = self.province[@"name"];
@@ -64,21 +49,9 @@
         UIViewController *controller = self.navigationController.viewControllers[index];
         [self.navigationController popToViewController:controller animated:YES];
     }
-    
 }
 
 #pragma mark
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
-                                                 style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-    }
-    
-    return _tableView;
-}
-
 - (NSArray *)dataArray {
     if (!_dataArray) {
         _dataArray = [[SQLManager manager] getCitiesWithProvinceId:self.province[@"id"]];

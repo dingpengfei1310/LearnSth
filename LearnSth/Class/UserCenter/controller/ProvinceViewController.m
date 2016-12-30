@@ -29,6 +29,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+    
 }
 
 #pragma mark
@@ -41,7 +42,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -63,7 +64,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *province = self.provinces[indexPath.row];
 
-    CityViewController *cityVC = [[CityViewController alloc]init];
+    CityViewController *cityVC = [[CityViewController alloc] initWithStyle:UITableViewStyleGrouped];
     cityVC.province = province;
     [self.navigationController pushViewController:cityVC animated:YES];
 }

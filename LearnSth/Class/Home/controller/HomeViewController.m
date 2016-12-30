@@ -12,7 +12,6 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
-#import "LineView.h"
 
 @interface HomeViewController ()
 
@@ -31,10 +30,6 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
-    
-    LineView *lineView = [[LineView alloc] initWithFrame:CGRectMake(0, 100, 320, 320)];
-    
-    [self.view addSubview:lineView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
