@@ -31,7 +31,6 @@
 }
 
 #pragma mark
-
 + (NSArray<ADModel *> *)adWithArray:(NSArray *)array {
     NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:array.count];
     

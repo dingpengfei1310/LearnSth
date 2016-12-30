@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger,ImagePoisition) {
     ImagePoisitionRight,
 };
 
-@interface CustomerButton : UIButton
+@interface CustomizeButton : UIButton
 
 - (void)setImagePoisition:(ImagePoisition)position;
 

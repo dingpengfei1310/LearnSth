@@ -65,7 +65,6 @@
 		1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B15352C1E0B702D00445EEE /* MessageTableCell.xib */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
-		1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
 		1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */; };
 		1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D21DE7E8DB0034C22D /* LineView.m */; };
@@ -95,6 +94,8 @@
 		1BDCED761DE58812002A27B5 /* mdialog.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED731DE58812002A27B5 /* mdialog.js */; };
 		1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED741DE58812002A27B5 /* zepto.min.js */; };
 		1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED781DE58D10002A27B5 /* testHUD.html */; };
+		1BE0EC081E10C4B300B9099A /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0EC061E10C4B300B9099A /* LiveCollectionCell.m */; };
+		1BE0EC091E10C4B300B9099A /* LiveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BE0EC071E10C4B300B9099A /* LiveCollectionCell.xib */; };
 		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
@@ -105,7 +106,7 @@
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */; };
 		1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCF0301E09380E00DA222E /* FileScanViewController.m */; };
-		CF1A49561E0FA007007FD07D /* CustomerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomerButton.m */; };
+		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
 		CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */; };
 		CF67C23B1DF99EA600EFFDBB /* UIView+FoldPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = CF67C23A1DF99EA600EFFDBB /* UIView+FoldPaper.m */; };
@@ -249,8 +250,6 @@
 		1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		1B2D07C51DE7E8DB0034C22D /* ADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
 		1B2D07C61DE7E8DB0034C22D /* ADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
-		1B2D07C71DE7E8DB0034C22D /* FuturesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuturesModel.h; sourceTree = "<group>"; };
-		1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuturesModel.m; sourceTree = "<group>"; };
 		1B2D07CB1DE7E8DB0034C22D /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
 		1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldPaperView.h; sourceTree = "<group>"; };
@@ -302,6 +301,9 @@
 		1BDCED731DE58812002A27B5 /* mdialog.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mdialog.js; sourceTree = "<group>"; };
 		1BDCED741DE58812002A27B5 /* zepto.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.min.js; sourceTree = "<group>"; };
 		1BDCED781DE58D10002A27B5 /* testHUD.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = testHUD.html; sourceTree = "<group>"; };
+		1BE0EC051E10C4B300B9099A /* LiveCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionCell.h; sourceTree = "<group>"; };
+		1BE0EC061E10C4B300B9099A /* LiveCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionCell.m; sourceTree = "<group>"; };
+		1BE0EC071E10C4B300B9099A /* LiveCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCollectionCell.xib; sourceTree = "<group>"; };
 		1BF3B3B91E03737E0061DD5A /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
 		1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,8 +325,8 @@
 		1BFCF02F1E09380E00DA222E /* FileScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileScanViewController.h; sourceTree = "<group>"; };
 		1BFCF0301E09380E00DA222E /* FileScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileScanViewController.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
-		CF1A49541E0FA007007FD07D /* CustomerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerButton.h; sourceTree = "<group>"; };
-		CF1A49551E0FA007007FD07D /* CustomerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerButton.m; sourceTree = "<group>"; };
+		CF1A49541E0FA007007FD07D /* CustomizeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizeButton.h; sourceTree = "<group>"; };
+		CF1A49551E0FA007007FD07D /* CustomizeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizeButton.m; sourceTree = "<group>"; };
 		CF1A49571E0FBD76007FD07D /* PhotosCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosCollectionCell.h; sourceTree = "<group>"; };
 		CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosCollectionCell.m; sourceTree = "<group>"; };
 		CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionCell.xib; sourceTree = "<group>"; };
@@ -715,8 +717,6 @@
 			children = (
 				1B2D07C51DE7E8DB0034C22D /* ADModel.h */,
 				1B2D07C61DE7E8DB0034C22D /* ADModel.m */,
-				1B2D07C71DE7E8DB0034C22D /* FuturesModel.h */,
-				1B2D07C81DE7E8DB0034C22D /* FuturesModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -732,8 +732,8 @@
 				1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */,
 				1B2D07D11DE7E8DB0034C22D /* LineView.h */,
 				1B2D07D21DE7E8DB0034C22D /* LineView.m */,
-				CF1A49541E0FA007007FD07D /* CustomerButton.h */,
-				CF1A49551E0FA007007FD07D /* CustomerButton.m */,
+				CF1A49541E0FA007007FD07D /* CustomizeButton.h */,
+				CF1A49551E0FA007007FD07D /* CustomizeButton.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -743,6 +743,7 @@
 			children = (
 				1B2D07D41DE7E8DB0034C22D /* controller */,
 				1B2D07D91DE7E8DB0034C22D /* model */,
+				1BE0EC041E10C48400B9099A /* view */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -843,6 +844,16 @@
 				1BDCED6F1DE57D97002A27B5 /* upload.html */,
 			);
 			path = Web;
+			sourceTree = "<group>";
+		};
+		1BE0EC041E10C48400B9099A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1BE0EC051E10C4B300B9099A /* LiveCollectionCell.h */,
+				1BE0EC061E10C4B300B9099A /* LiveCollectionCell.m */,
+				1BE0EC071E10C4B300B9099A /* LiveCollectionCell.xib */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		1BF7F6BA1D92492200F8E5B1 = {
@@ -1102,6 +1113,7 @@
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
+				1BE0EC091E10C4B300B9099A /* LiveCollectionCell.xib in Resources */,
 				1B099C7D1DE7E57400161396 /* HUDsuccess@2x.png in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
@@ -1187,6 +1199,7 @@
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B099C701DE7E57400161396 /* SQLManager.m in Sources */,
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
+				1BE0EC081E10C4B300B9099A /* LiveCollectionCell.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
@@ -1218,7 +1231,7 @@
 				1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */,
 				1B099C901DE7E57400161396 /* UIScrollView+MJExtension.m in Sources */,
 				1B099C6D1DE7E57400161396 /* NSString+Tool.m in Sources */,
-				CF1A49561E0FA007007FD07D /* CustomerButton.m in Sources */,
+				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
 				1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */,
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
@@ -1241,7 +1254,6 @@
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,
-				1B2D07F81DE7E8DB0034C22D /* FuturesModel.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				CFEAB8C81DE97E8700CB9DDF /* Utils.m in Sources */,

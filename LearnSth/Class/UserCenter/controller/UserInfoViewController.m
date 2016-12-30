@@ -33,7 +33,7 @@ static NSString *reuseIdentifier = @"cell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
     
-    CGRect buttonRect = CGRectMake(40, ScreenHeight - 144, ScreenWidth - 80, 40);
+    CGRect buttonRect = CGRectMake(40, Screen_H - 144, Screen_W - 80, 40);
     UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
     [button setBackgroundColor:KBaseBlueColor];
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -51,7 +51,7 @@ static NSString *reuseIdentifier = @"cell";
     
     popoverController.popover.delegate = self;
     popoverController.popover.sourceView = self.navigationController.navigationBar;
-    popoverController.popover.sourceRect = CGRectMake(ScreenWidth - 32, 44, 0, 0);
+    popoverController.popover.sourceRect = CGRectMake(Screen_W - 32, 44, 0, 0);
     
     popoverController.SelectIndex = ^(NSInteger index) {
         NSLog(@"%@",array[index]);
@@ -118,15 +118,15 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSArray *textFields = alert.textFields;
-        UITextField *field = textFields[0];
-        [[UserModel userManager] setUsername:field.text];
-        
-        [self.tableView reloadData];
-        [Utils setUserModel:[UserModel userManager]];
-    }];
-    
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              NSArray *textFields = alert.textFields;
+                                                              UITextField *field = textFields[0];
+                                                              [[UserModel userManager] setUsername:field.text];
+                                                              
+                                                              [self.tableView reloadData];
+                                                              [Utils setUserModel:[UserModel userManager]];
+                                                          }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
     
@@ -182,7 +182,7 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
                                                   style:UITableViewStylePlain];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;

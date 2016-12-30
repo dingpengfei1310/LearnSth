@@ -54,7 +54,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark
-
 - (void)backClick:(UIButton *)button {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -65,7 +64,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.imageCount;
 }
@@ -167,7 +165,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

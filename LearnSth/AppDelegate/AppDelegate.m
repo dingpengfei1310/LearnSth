@@ -45,13 +45,11 @@
 }
 
 #pragma mark
-
 - (void)setNavigationBar {
     
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
-    [[UINavigationBar appearance] setTranslucent:YES];
     
     NSDictionary *attributes = @{
                                  NSFontAttributeName:[UIFont boldSystemFontOfSize:18],

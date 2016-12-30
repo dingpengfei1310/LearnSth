@@ -14,6 +14,7 @@
 #import "LiveModel.h"
 #import "UIImageView+WebCache.h"
 
+#import "LiveCollectionCell.h"
 #import "UICollectionView+Tool.h"
 #import "Aspects.h"
 
@@ -25,6 +26,7 @@
 
 @end
 
+const NSInteger liveColumn = 2;
 static NSString *identifier = @"cell";
 
 @implementation LiveViewController
@@ -87,26 +89,11 @@ static NSString *identifier = @"cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    
-    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
-    cell.backgroundColor = [UIColor whiteColor];
+    LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     LiveModel *model = self.liveList[indexPath.item];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
-    [cell.contentView addSubview:imageView];
-    
-//    CGFloat itemWidth = CGRectGetWidth(cell.bounds);
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, itemWidth - 25, itemWidth, 25)];
-//    label.font = [UIFont systemFontOfSize:10];
-//    label.textColor = [UIColor whiteColor];
-//    label.text = model.signatures;
-//    label.numberOfLines = 0;
-//    [cell.contentView addSubview:label];
+    [cell.liveImageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
+    cell.signaturesLabel.text = model.signatures;
     
     return cell;
 }
@@ -121,38 +108,40 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat itemWidth = (ScreenWidth - 30) / 2;
+        CGFloat itemWidth = (Screen_W - (liveColumn + 1) * 10) / liveColumn;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 113);
+        CGRect collectionViewRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = KBackgroundColor;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
         
-        NSArray *images = @[[UIImage imageNamed:@"reflesh1"],[UIImage imageNamed:@"reflesh2"],[UIImage imageNamed:@"reflesh3"]];
+        UINib *nib = [UINib nibWithNibName:@"LiveCollectionCell" bundle:[NSBundle mainBundle]];
+        [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
         
-        MJRefreshGifHeader *gifHeader = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+        _collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             self.page = 1;
             [self refreshData];
         }];
+        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            self.page++;
+            [self refreshData];
+        }];
+        
+        MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;
+        NSArray *images = @[[UIImage imageNamed:@"reflesh1"],
+                            [UIImage imageNamed:@"reflesh2"],
+                            [UIImage imageNamed:@"reflesh3"]];
         [gifHeader setImages:images forState:MJRefreshStatePulling];
         [gifHeader setImages:images forState:MJRefreshStateRefreshing];
         
         gifHeader.lastUpdatedTimeLabel.hidden = YES;
         gifHeader.stateLabel.hidden = YES;
-        
-        _collectionView.mj_header = gifHeader;
-        
-        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            self.page++;
-            [self refreshData];
-        }];
     }
     
     return _collectionView;

@@ -15,7 +15,7 @@
 #import "UIImage+Tool.h"
 
 @interface BaseViewController : UIViewController {
-    CGFloat ViewFrameOrigin_X;
+    CGFloat ViewFrame_X;
 }
 
 /**

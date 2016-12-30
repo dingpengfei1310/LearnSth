@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     
-    CGRect buttonRect1 = CGRectMake(0, 100, ScreenWidth, 40);
+    CGRect buttonRect1 = CGRectMake(0, 100, Screen_W, 40);
     UIButton *regButton = [[UIButton alloc] initWithFrame:buttonRect1];
     [regButton setBackgroundColor:[UIColor redColor]];
     [regButton setTitle:@"注册" forState:UIControlStateNormal];

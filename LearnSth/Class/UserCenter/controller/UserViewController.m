@@ -34,7 +34,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-    [self.view addSubview:self.topImageView];
+//    [self.view addSubview:self.topImageView];
     self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件"];
     [self.view addSubview:self.tableView];
     
@@ -180,10 +180,8 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
                                                   style:UITableViewStylePlain];
-        CGFloat topHeight = ScreenWidth * 0.5;
-        _tableView.frame= CGRectMake(0, ViewFrameOrigin_X + topHeight, ScreenWidth, ScreenHeight - 64 - topHeight);
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 60;
@@ -202,7 +200,7 @@ static NSString *identifier = @"cell";
 - (UIImageView *)topImageView {
     if (!_topImageView) {
         _topImageView = [[UIImageView alloc] init];
-        _topImageView.frame = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenWidth * 43 / 75);
+        _topImageView.frame = CGRectMake(0, ViewFrame_X, Screen_H, Screen_W * 43 / 75);
         _topImageView.image = [UIImage imageNamed:@"defaultBackground"];
     }
     

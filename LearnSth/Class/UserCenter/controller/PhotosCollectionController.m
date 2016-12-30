@@ -20,7 +20,7 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 const CGFloat interitemSpacing = 5.0;
-const NSInteger column = 4;
+const NSInteger photoColumn = 4;
 
 @implementation PhotosCollectionController
 - (void)viewDidLoad {
@@ -147,14 +147,14 @@ const NSInteger column = 4;
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat itemWidth = (ScreenWidth - (column + 1) * interitemSpacing) / column;
+        CGFloat itemWidth = (Screen_W - (photoColumn + 1) * interitemSpacing) / photoColumn;
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(5, interitemSpacing, 5, interitemSpacing);
         flowLayout.minimumInteritemSpacing = interitemSpacing;
         flowLayout.minimumLineSpacing = interitemSpacing;
         
-        CGRect collectionViewRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
+        CGRect collectionViewRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];

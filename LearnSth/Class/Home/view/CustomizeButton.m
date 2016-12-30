@@ -6,17 +6,19 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "CustomerButton.h"
+#import "CustomizeButton.h"
 
-const CGFloat spaceScale = 0.1;
-const CGFloat imageScale = 0.6;
-const CGFloat titleScale = 0.2;
+const CGFloat spaceScale = 0.1;//空白比例
+const CGFloat imageScale = 0.6;//图片比例
+const CGFloat titleScale = 0.2;//文字比例
 
-@interface CustomerButton ()
+@interface CustomizeButton ()
+
 @property (nonatomic, assign) ImagePoisition position;
+
 @end
 
-@implementation CustomerButton
+@implementation CustomizeButton
 
 - (void)setImagePoisition:(ImagePoisition)position {
     if (_position != position) {

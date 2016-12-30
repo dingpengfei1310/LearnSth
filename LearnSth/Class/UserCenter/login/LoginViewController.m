@@ -31,7 +31,7 @@ const CGFloat fieldHeight = 35;
     [super viewDidLoad];
     self.title = @"登录";
     
-    CGRect scrollRect = CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
+    CGRect scrollRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64);
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
     [self.view addSubview:scrollView];
     
@@ -49,7 +49,7 @@ const CGFloat fieldHeight = 35;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    CGFloat textFieldW = ScreenWidth - fieldMargin * 2;
+    CGFloat textFieldW = Screen_W - fieldMargin * 2;
     self.accountField.frame = CGRectMake(fieldMargin, 60, textFieldW, fieldHeight);
     
     CGFloat pwdFieldY = CGRectGetMaxY(self.accountField.frame) + fieldMargin / 2;
@@ -60,7 +60,6 @@ const CGFloat fieldHeight = 35;
 }
 
 #pragma mark
-
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

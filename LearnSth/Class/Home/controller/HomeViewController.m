@@ -12,11 +12,14 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
+#import "LineView.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -28,6 +31,10 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
+    
+    LineView *lineView = [[LineView alloc] initWithFrame:CGRectMake(0, 100, 320, 320)];
+    
+    [self.view addSubview:lineView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -66,7 +73,7 @@
 #pragma mark
 - (BannerScrollView *)bannerScrollView {
     if (!_bannerScrollView) {
-        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenWidth * 0.24)];
+        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_W * 0.24)];
         
         __weak typeof(self) weakSelf = self;
         _bannerScrollView.imageClickBlock = ^(NSInteger index) {

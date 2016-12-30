@@ -59,6 +59,7 @@
 }
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
+    [NSUserDefaults standardUserDefaults];
     NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
@@ -72,9 +73,8 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
                                                   style:UITableViewStylePlain];
-        _tableView.frame= CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64);
         _tableView.rowHeight = 50;
         _tableView.dataSource = self;
         _tableView.delegate = self;

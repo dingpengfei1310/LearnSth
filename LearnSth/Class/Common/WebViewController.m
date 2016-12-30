@@ -10,7 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "WebProgressView.h"
 
-@interface WebViewController ()<WKNavigationDelegate,UIGestureRecognizerDelegate>
+@interface WebViewController ()<WKNavigationDelegate,UIGestureRecognizerDelegate,WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *KWebView;
 @property (nonatomic, strong) WebProgressView *progressView;
@@ -20,6 +20,7 @@
 static NSString *EstimatedProgress = @"estimatedProgress";
 
 @implementation WebViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -95,8 +96,17 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
     [self setLeftItemsWithCanGoBack:[webView canGoBack]];
+    
+//    [webView evaluateJavaScript:@"document.title" completionHandler:^(id _Nullable title, NSError * _Nullable error) {
+//        self.navigationItem.title = title;
+//    }];
 }
 
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSLog(@"WKUserContentController:%@",message);
+}
+
+#pragma mark
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
@@ -113,9 +123,9 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)];
         _KWebView.navigationDelegate = self;
-        _KWebView.scrollView.showsVerticalScrollIndicator = NO;
+//        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _KWebView;
@@ -123,7 +133,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WebProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + ViewFrameOrigin_X, ScreenWidth, 3)];
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + ViewFrame_X, Screen_W, 3)];
     }
     return _progressView;
 }

@@ -18,9 +18,6 @@
         self.backgroundColor = [UIColor groupTableViewBackgroundColor];
         width = CGRectGetWidth(frame);
         height = CGRectGetHeight(frame);
-        
-       
-        
     }
     return self;
 }
@@ -29,17 +26,15 @@
     [super drawRect:rect];
     
 //    [self drawLine];
-    
-//    [self drawCurve];
+    [self drawCurve];
 }
 
 #pragma mark
-
 - (void)drawLine {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGFloat lineWidth = 10;
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 30; i++) {
         int pointX = i * lineWidth;
         int pointY = arc4random() % 100 + 10;
         
@@ -48,9 +43,9 @@
         
         [[UIColor greenColor] set];
         CGContextSetLineWidth(context, lineWidth * 0.8);
+        
         const CGPoint point[] = {start,end};
         CGContextStrokeLineSegments(context, point, 2);
-        
     }
 }
 
@@ -61,6 +56,9 @@
     CGContextAddLineToPoint(context, 15, 30);
     
     CGContextAddCurveToPoint(context, 40, 40, 100, 10, 200, 200);
+    
+//    CGFloat lengths[] = {5,2};
+//    CGContextSetLineDash(context, 0, lengths, 2);//
     
     [[UIColor greenColor] set];
     CGContextStrokePath(context);

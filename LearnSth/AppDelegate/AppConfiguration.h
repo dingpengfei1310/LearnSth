@@ -28,8 +28,8 @@
 
 #pragma mark
 
-#define ScreenWidth           [UIScreen mainScreen].bounds.size.width
-#define ScreenHeight          [UIScreen mainScreen].bounds.size.height
+#define Screen_W              [UIScreen mainScreen].bounds.size.width
+#define Screen_H              [UIScreen mainScreen].bounds.size.height
 
 #define kDocumentPath         [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
 #define kCachePath            [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]

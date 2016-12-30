@@ -74,12 +74,12 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.view addSubview:self.tableView];
         
     } else {
-        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight * 0.2, ScreenWidth, 30)];
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Screen_H * 0.2, Screen_W, 30)];
         tipLabel.textAlignment = NSTextAlignmentCenter;
         tipLabel.text = @"请打开权限";
         [self.view addSubview:tipLabel];
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight * 0.2 + 50, ScreenWidth, 40)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, Screen_H * 0.2 + 50, Screen_W, 40)];
         [button setTitle:@"去设置" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goIntoSetting:) forControlEvents:UIControlEventTouchUpInside];
@@ -129,12 +129,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Table view data source
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.smartAlbum) {
         return self.smartAlbum.count;
@@ -203,7 +198,8 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrameOrigin_X, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
+                                                  style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -211,6 +207,10 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     return _tableView;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 

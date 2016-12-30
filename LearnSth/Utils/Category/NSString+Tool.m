@@ -29,7 +29,6 @@
 //}
 
 #pragma mark
-
 - (NSString *)pinyin {
     NSMutableString *pinyin = [self mutableCopy];
     
