@@ -60,8 +60,8 @@ static NSString *reuseIdentifier = @"cell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
         
-        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 100;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
     }
     return _tableView;
 }

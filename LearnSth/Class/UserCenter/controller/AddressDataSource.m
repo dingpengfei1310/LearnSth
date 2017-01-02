@@ -10,7 +10,6 @@
 
 @interface AddressDataSource ()
 
-@property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, copy) NSString *cellIdentifier;
 @property (nonatomic, copy) CellInfoBlock cellInfoBlock;
 
@@ -26,33 +25,33 @@
 - (instancetype)initWithDatas:(NSArray *)datas identifier:(NSString *)identifier cellBlock:(CellInfoBlock)cellBlock {
     if (self = [super init]) {
         self.dataArray = [datas copy];
-        self.cellIdentifier = identifier;
+        self.cellIdentifier = [identifier copy];
         self.cellInfoBlock = [cellBlock copy];
     }
     return self;
 }
 
 #pragma mark
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"全部";
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString *identifier = self.cellIdentifier;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:self.cellIdentifier];
     }
     
     NSDictionary *info = self.dataArray[indexPath.row];
-    
     self.cellInfoBlock(cell,info);
+    
     return cell;
 }
 
+- (void)setDataArray:(NSArray *)dataArray {
+    _dataArray = dataArray;
+}
 
 @end
+

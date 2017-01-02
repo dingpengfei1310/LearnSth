@@ -41,6 +41,12 @@ static NSString *reuseIdentifier = @"cell";
     [self.view addSubview:button];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
     NSArray *array = @[@"Hello",@"Word"];
@@ -148,7 +154,7 @@ static NSString *reuseIdentifier = @"cell";
     if (indexPath.row == 1 && [UserModel userManager].username) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].username];
     } else if (indexPath.row == 2 && [UserModel userManager].city) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].city];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@-%@",[UserModel userManager].province,[UserModel userManager].city];
     }
     
     return cell;
@@ -164,7 +170,7 @@ static NSString *reuseIdentifier = @"cell";
         [self showAlertControllerOnChangeUsername];
         
     } else if (indexPath.row == 2) {
-        ProvinceViewController *contoller = [[ProvinceViewController alloc] init];
+        ProvinceViewController *contoller = [[ProvinceViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [self.navigationController pushViewController:contoller animated:YES];
     }
 }
@@ -182,8 +188,7 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
-                                                  style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64) style:UITableViewStylePlain];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;

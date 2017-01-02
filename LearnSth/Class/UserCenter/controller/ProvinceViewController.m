@@ -11,55 +11,35 @@
 #import "SearchResultController.h"
 
 #import "SQLManager.h"
+#import "AddressDataSource.h"
+#import "UIImage+Tool.h"
 
-@interface ProvinceViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating>
+@interface ProvinceViewController ()<UISearchResultsUpdating>
 
 @property (nonatomic, strong) UISearchController *searchController;
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray *provinces;
+@property (nonatomic, strong) AddressDataSource *dataSource;
+@property (nonatomic, strong) NSArray *provinces;
 
 @end
 
 @implementation ProvinceViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"地区";
     
-    [self.view addSubview:self.tableView];
+    CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
+        cell.textLabel.text = info[@"name"];
+    };
+    _dataSource = [[AddressDataSource alloc] initWithDatas:self.provinces
+                                                identifier:@"cell"
+                                                 cellBlock:block];
+    
+    self.tableView.dataSource = _dataSource;
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
-    
 }
 
 #pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.provinces.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"provinceCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    NSDictionary *province = self.provinces[indexPath.row];
-    cell.textLabel.text = province[@"name"];
-    
-    return cell;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"全部";
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *province = self.provinces[indexPath.row];
@@ -73,22 +53,12 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (searchController.searchBar.text.length > 0) {
         SearchResultController *controller = (SearchResultController *)self.searchController.searchResultsController;
-        controller.dataArray = [[SQLManager manager] searchResultWith:searchController.searchBar.text];
+        NSString *text = searchController.searchBar.text;
+        controller.dataArray = [[SQLManager manager] searchResultWith:text];
     }
 }
 
 #pragma mark
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
-                                                 style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-    }
-    
-    return _tableView;
-}
-
 - (NSArray *)provinces {
     if (!_provinces) {
         _provinces = [[SQLManager manager] getProvinces];
@@ -113,5 +83,5 @@
     [super didReceiveMemoryWarning];
 }
 
-
 @end
+

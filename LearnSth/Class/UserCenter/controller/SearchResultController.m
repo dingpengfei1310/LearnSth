@@ -7,10 +7,12 @@
 //
 
 #import "SearchResultController.h"
+#import "AddressDataSource.h"
 
-@interface SearchResultController ()<UITableViewDataSource,UITableViewDelegate>
+@interface SearchResultController ()
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) AddressDataSource *dataSource;
 
 @end
 
@@ -20,42 +22,20 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
-}
-
-- (void)setDataArray:(NSArray *)dataArray {
-    _dataArray = dataArray;
-    [self.tableView reloadData];
-}
-
-#pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"cityCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
     
-    NSDictionary *city = self.dataArray[indexPath.row];
-    cell.textLabel.text = city[@"name"];
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
+        cell.textLabel.text = info[@"name"];
+    };
+    _dataSource = [[AddressDataSource alloc] initWithDatas:self.dataArray
+                                                identifier:@"cell"
+                                                 cellBlock:block];
+    self.tableView.dataSource = self.dataSource;
 }
 
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
-                                                 style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.backgroundColor = KBackgroundColor;
     }
@@ -63,8 +43,15 @@
     return _tableView;
 }
 
+- (void)setDataArray:(NSArray *)dataArray {
+    _dataArray = dataArray;
+    _dataSource.dataArray = dataArray;
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 @end
+

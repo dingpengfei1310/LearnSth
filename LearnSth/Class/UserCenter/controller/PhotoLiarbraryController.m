@@ -14,13 +14,8 @@
 @interface PhotoLiarbraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, copy) NSArray *nameList;
-@property (nonatomic, copy) NSArray *typeList;
-
-@property (nonatomic, strong) NSMutableArray *albumList;
-
 @property (nonatomic, strong) PHFetchResult *smartAlbum;
+
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
@@ -35,7 +30,6 @@ static NSString * const reuseIdentifier = @"Cell";
     PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
     
     if (currentStatus == PHAuthorizationStatusNotDetermined) {
-        
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self checkAuthorizationStatusWith:(status == PHAuthorizationStatusAuthorized ? YES : NO)];
@@ -54,23 +48,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)checkAuthorizationStatusWith:(BOOL)status {
     if (status) {
-        self.nameList = @[@"相机胶卷",@"我的照片流",@"视频",@"最近添加",@"屏幕快照"];
-        
-        self.typeList = @[
-                          @(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
-                          @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
-                          @(PHAssetCollectionSubtypeSmartAlbumVideos),
-                          @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded),
-                          @(PHAssetCollectionSubtypeSmartAlbumScreenshots)
-                          ];
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
         
-        if (TARGET_OS_SIMULATOR) {
-            [self getSmartAlbum];
-        }
+//        if (TARGET_OS_SIMULATOR) {
+//        }
         
-        self.albumList = [NSMutableArray arrayWithCapacity:self.nameList.count];
+        [self getSmartAlbum];
         [self.view addSubview:self.tableView];
         
     } else {
@@ -101,9 +84,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (void)getSmartAlbum {
     // 列出所有智能相册
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                                                                          subtype:PHAssetCollectionSubtypeAlbumRegular
-                                                                          options:nil];
+    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     
 //    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
     
@@ -131,66 +112,28 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.smartAlbum) {
-        return self.smartAlbum.count;
-    }
-    return self.nameList.count;
+    return self.smartAlbum.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    if (self.smartAlbum) {
-        
-        PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
-        
-        PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"%@(%ld)",assetCollection.localizedTitle,fetchResult.count];
-        
-        return cell;
-    } else {
-        NSInteger subType = [self.typeList[indexPath.row] integerValue];
-        PHFetchResult *smartAlbums;
-        if (indexPath.row == 1) {
-            //照片流
-            smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
-                                                                   subtype:subType
-                                                                   options:nil];
-        } else {
-            smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                                                                   subtype:subType
-                                                                   options:nil];
-        }
-        
-        PHFetchResult *fetchResult;
-        
-        if (smartAlbums.count > 0) {
-            PHAssetCollection *assetCollection = smartAlbums[0];
-            // 从每一个智能相册中获取到的 PHFetchResult 中包含的才是真正的资源（PHAsset）
-            fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-            
-            self.albumList[indexPath.row] = fetchResult;
-        }
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"%@(%ld)",self.nameList[indexPath.row],fetchResult.count];
-        
-        return cell;
-    }
+    PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
+    
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@(%ld)",assetCollection.localizedTitle,fetchResult.count];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
-    if (self.smartAlbum) {
-        PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
-        controller.assetCollection = assetCollection;
-        controller.title = assetCollection.localizedTitle;
-    } else {
-        controller.fetchResult = self.albumList[indexPath.row];
-        controller.title = self.nameList[indexPath.row];
-    }
+    PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
+    controller.assetCollection = assetCollection;
+    controller.title = assetCollection.localizedTitle;
     
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -198,8 +141,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
-                                                  style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64) style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

@@ -12,6 +12,8 @@ typedef void (^CellInfoBlock)(UITableViewCell *cell,NSDictionary *data);
 
 @interface AddressDataSource : NSObject <UITableViewDataSource>
 
+@property (nonatomic, copy) NSArray *dataArray;
+
 - (instancetype)initWithDatas:(NSArray *)datas
                    identifier:(NSString *)identifier
                     cellBlock:(CellInfoBlock)cellBlock;

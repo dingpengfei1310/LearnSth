@@ -16,7 +16,7 @@
 
 @interface CityViewController ()
 
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) AddressDataSource *dataSource;
 
 @end
@@ -64,3 +64,4 @@
 }
 
 @end
+
