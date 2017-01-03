@@ -42,12 +42,12 @@
     return userModel;
 }
 
-- (instancetype)init {
-    if (!self) {
-        self = [super init];
-    }
-    return self;
-}
+//- (instancetype)init {
+//    if (!self) {
+//        self = [super init];
+//    }
+//    return self;
+//}
 
 - (NSDictionary *)dictionary {
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
@@ -58,10 +58,17 @@
         objc_property_t property = propertities[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
-        [mutDict setValue:[self valueForKey:propertyName] forKey:propertyName];
+        if ([propertyName isEqualToString:@"address"]) {
+            AddressModel *model = [self valueForKey:propertyName];
+            NSDictionary *addressDict = [model dictionary];
+            [mutDict setValue:addressDict forKey:propertyName];
+        } else {
+            [mutDict setValue:[self valueForKey:propertyName] forKey:propertyName];
+        }
+        
     }
     
-    return mutDict;
+    return [NSDictionary dictionaryWithDictionary:mutDict];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {

@@ -28,7 +28,7 @@
  */
 - (void)navigationBarColorRestore;
 
-#pragma mark
+#pragma mark - HUD提示框
 ///
 - (void)loading;
 

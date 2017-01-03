@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AddressModel.h"
 
 @interface UserModel : NSObject
 
@@ -15,8 +16,7 @@
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *mobile;
 
-@property (nonatomic, copy) NSString *province;
-@property (nonatomic, copy) NSString *city;
+@property (nonatomic, strong) AddressModel *address;
 
 + (instancetype)userManager;
 

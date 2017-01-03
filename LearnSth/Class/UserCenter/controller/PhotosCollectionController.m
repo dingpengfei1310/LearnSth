@@ -170,9 +170,5 @@ const NSInteger photoColumn = 4;
     [super didReceiveMemoryWarning];
 }
 
-
 @end
-
-
-
 

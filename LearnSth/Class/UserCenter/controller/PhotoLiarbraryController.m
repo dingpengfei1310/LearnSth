@@ -65,12 +65,12 @@ static NSString * const reuseIdentifier = @"Cell";
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, Screen_H * 0.2 + 50, Screen_W, 40)];
         [button setTitle:@"去设置" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(goIntoSetting:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(gotoSetting:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
     }
 }
 
-- (void)goIntoSetting:(id)sender {
+- (void)gotoSetting:(id)sender {
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
@@ -119,9 +119,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
-    
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-    
     cell.textLabel.text = [NSString stringWithFormat:@"%@(%ld)",assetCollection.localizedTitle,fetchResult.count];
     
     return cell;

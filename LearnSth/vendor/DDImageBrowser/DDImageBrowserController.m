@@ -16,13 +16,16 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UILabel *currentIndexLabel;
 
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
 
 @implementation DDImageBrowserController
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -33,8 +36,7 @@ static NSString * const reuseIdentifier = @"Cell";
     viewHeight = [UIScreen mainScreen].bounds.size.height;
     
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.currentIndexLabel];
-    
+//    [self.view addSubview:self.currentIndexLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,7 +109,8 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)showImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
+//    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
+    self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
     
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
         [self.browserDelegate controller:self didScrollToIndex:index];
@@ -124,7 +127,8 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!self.imageCount) return;
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollView.contentOffset];
-    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
+//    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
+    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
     
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
         [self.browserDelegate controller:self didScrollToIndex:indexPath.row];
@@ -139,28 +143,20 @@ static NSString * const reuseIdentifier = @"Cell";
                                                   style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        
         _tableView.pagingEnabled = YES;
-        _tableView.rowHeight = viewWidth;
         _tableView.showsVerticalScrollIndicator = NO;
+        
+        _tableView.rowHeight = viewWidth;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
         _tableView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
         [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:reuseIdentifier];
     }
     
     return _tableView;
-}
-
-- (UILabel *)currentIndexLabel {
-    if (!_currentIndexLabel) {
-        _currentIndexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight - 40, viewWidth, 20)];
-        _currentIndexLabel.backgroundColor = [UIColor clearColor];
-        _currentIndexLabel.textColor = [UIColor whiteColor];
-        _currentIndexLabel.font = [UIFont systemFontOfSize:15];
-        _currentIndexLabel.textAlignment = NSTextAlignmentCenter;
-    }
-    return _currentIndexLabel;
 }
 
 - (void)didReceiveMemoryWarning {

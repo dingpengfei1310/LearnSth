@@ -74,7 +74,7 @@ static NSString *identifier = @"cell";
 }
 
 - (void)showAlertOnClearDiskCache {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要清除缓存吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确定要清除缓存吗" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel

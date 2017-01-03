@@ -27,12 +27,14 @@
 - (void)navigationBarColorClear {
     UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
     
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:image
+                                                  forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];
 }
 
 - (void)navigationBarColorRestore {
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:nil
+                                                  forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 }
 
@@ -75,24 +77,20 @@
     hud.contentColor = [UIColor whiteColor];
     hud.margin = 10;
     
-    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", icon]]];
-    
     hud.mode = MBProgressHUDModeCustomView;
     hud.animationType = MBProgressHUDAnimationZoom;
     
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
-    [hud hideAnimated:YES afterDelay:1.5];
+    [hud hideAnimated:YES afterDelay:1.0];
 }
 
 - (void)showSuccess:(NSString *)success toView:(UIView *)view {
     [self show:success icon:@"" view:view];
-//    [self show:success icon:@"HUDsuccess.png" view:view];
 }
 
 - (void)showError:(NSString *)error toView:(UIView *)view{
     [self show:error icon:@"" view:view];
-//    [self show:error icon:@"HUDerror.png" view:view];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
@@ -126,6 +124,5 @@
     [super didReceiveMemoryWarning];
 }
 
-
-
 @end
+

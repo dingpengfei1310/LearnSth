@@ -98,3 +98,4 @@ static NSString *identifier = @"cell";
 }
 
 @end
+

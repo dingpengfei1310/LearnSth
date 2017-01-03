@@ -44,7 +44,9 @@
     }
     
     NSDictionary *info = self.dataArray[indexPath.row];
-    self.cellInfoBlock(cell,info);
+    if (self.cellInfoBlock) {
+        self.cellInfoBlock(cell,info);
+    }
     
     return cell;
 }

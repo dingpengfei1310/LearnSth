@@ -33,15 +33,18 @@
     _dataSource = [[AddressDataSource alloc] initWithDatas:self.dataArray
                                                 identifier:@"cell"
                                                  cellBlock:block];
-    
     self.tableView.dataSource = _dataSource;
 }
 
 #pragma mark
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *city = self.dataArray[indexPath.row];
-    [UserModel userManager].province = self.province[@"name"];
-    [UserModel userManager].city = city[@"name"];
+    
+    AddressModel *addModel = [[AddressModel alloc] init];
+    addModel.province = self.province[@"name"];
+    addModel.city = city[@"name"];
+    
+    [UserModel userManager].address = addModel;
     [Utils setUserModel:[UserModel userManager]];
     
     NSInteger index = self.navigationController.viewControllers.count - 3;

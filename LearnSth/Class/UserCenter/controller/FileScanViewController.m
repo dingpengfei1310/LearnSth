@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *previewItems;
 
-@property (nonatomic, assign) NSInteger selectIndex;
+@property (nonatomic, assign) NSInteger selectIndex;//显示的文件
 
 @end
 
@@ -112,3 +112,4 @@
 }
 
 @end
+

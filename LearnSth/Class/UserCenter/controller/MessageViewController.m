@@ -70,6 +70,5 @@ static NSString *reuseIdentifier = @"cell";
     [super didReceiveMemoryWarning];
 }
 
-
-
 @end
+

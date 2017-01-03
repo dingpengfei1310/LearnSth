@@ -124,15 +124,15 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              NSArray *textFields = alert.textFields;
-                                                              UITextField *field = textFields[0];
-                                                              [[UserModel userManager] setUsername:field.text];
-                                                              
-                                                              [self.tableView reloadData];
-                                                              [Utils setUserModel:[UserModel userManager]];
-                                                          }];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *field = textFields[0];
+        [[UserModel userManager] setUsername:field.text];
+        
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [Utils setUserModel:[UserModel userManager]];
+    }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
     
@@ -153,8 +153,8 @@ static NSString *reuseIdentifier = @"cell";
     cell.textLabel.text = self.dataArray[indexPath.row];
     if (indexPath.row == 1 && [UserModel userManager].username) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].username];
-    } else if (indexPath.row == 2 && [UserModel userManager].city) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@-%@",[UserModel userManager].province,[UserModel userManager].city];
+    } else if (indexPath.row == 2 && [UserModel userManager].address.city) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@-%@",[UserModel userManager].address.province,[UserModel userManager].address.city];
     }
     
     return cell;
@@ -202,3 +202,4 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 @end
+

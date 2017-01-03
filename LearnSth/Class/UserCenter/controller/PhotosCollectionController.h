@@ -12,7 +12,6 @@
 @interface PhotosCollectionController : BaseViewController
 
 @property (nonatomic, strong) PHAssetCollection *assetCollection;//一个相册或相册集合
-
 @property (nonatomic, strong) PHFetchResult<PHAsset *> *fetchResult;//结果集，这里是PHAsset集合
 
 @end
