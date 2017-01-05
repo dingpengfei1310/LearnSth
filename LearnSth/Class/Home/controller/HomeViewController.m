@@ -30,6 +30,7 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -53,7 +54,7 @@
             self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];;
             
             NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:self.bannerList.count];
-            [self.bannerList enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.bannerList enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * stop) {
                 [imageStringArray addObject:obj.imageUrl];
             }];
             
@@ -92,7 +93,5 @@
     [super didReceiveMemoryWarning];
 }
 
-
 @end
-
 

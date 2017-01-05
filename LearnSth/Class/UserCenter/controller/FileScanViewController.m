@@ -91,7 +91,7 @@
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSArray *files = [fileManager contentsOfDirectoryAtPath:docString error:NULL];
-        [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
             NSString *filePath = [docString stringByAppendingPathComponent:obj];
             
             BOOL flag;

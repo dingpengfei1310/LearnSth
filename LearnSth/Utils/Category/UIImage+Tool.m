@@ -140,7 +140,5 @@
     return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionId] options:nil].firstObject;
 }
 
-
 @end
-
 

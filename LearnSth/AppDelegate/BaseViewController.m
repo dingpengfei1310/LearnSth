@@ -8,11 +8,15 @@
 
 #import "BaseViewController.h"
 
+#import "MBProgressHUD.h"
+#import "UIImage+Tool.h"
+
 @interface BaseViewController ()
 
 @end
 
 @implementation BaseViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -43,12 +47,16 @@
     [self showMessage:nil toView:nil];
 }
 
+- (void)loadingWithText:(NSString *)text {
+    [self showMessage:text toView:nil];
+}
+
 - (void)showSuccess:(NSString *)success {
-    [self showSuccess:success toView:nil];
+    [self show:success toView:nil];
 }
 
 - (void)showError:(NSString *)error {
-    [self showError:error toView:nil];
+    [self show:error toView:nil];
 }
 
 - (void)showErrorWithError:(NSError *)error {
@@ -59,16 +67,12 @@
     [self showError:messege];
 }
 
-- (void)showMessage:(NSString *)message {
-    [self showMessage:message toView:nil];
-}
-
 - (void)hideHUD {
     [self hideHUDForView:nil];
 }
 
 #pragma mark
-- (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view {
+- (void)show:(NSString *)text toView:(UIView *)view {
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -83,14 +87,6 @@
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
     [hud hideAnimated:YES afterDelay:1.0];
-}
-
-- (void)showSuccess:(NSString *)success toView:(UIView *)view {
-    [self show:success icon:@"" view:view];
-}
-
-- (void)showError:(NSString *)error toView:(UIView *)view{
-    [self show:error icon:@"" view:view];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
@@ -118,7 +114,6 @@
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     [MBProgressHUD hideHUDForView:view animated:YES];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

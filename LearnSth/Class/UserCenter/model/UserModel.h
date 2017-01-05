@@ -22,5 +22,5 @@
 
 - (NSDictionary *)dictionary;
 
-
 @end
+

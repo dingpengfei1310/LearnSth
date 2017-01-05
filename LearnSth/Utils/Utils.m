@@ -10,7 +10,6 @@
 
 #import "UserModel.h"
 
-
 static NSString *KIsLoginCache = @"UserLoginCache";
 static NSString *KUserModelCache = @"UserModelCache";
 
@@ -35,7 +34,6 @@ static NSString *KUserModelCache = @"UserModelCache";
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
 }
 
-
 //#pragma mark
 //+ (void)setUserAccount:(NSString *)name {
 //    [[NSUserDefaults standardUserDefaults] setObject:name forKey:KUserAccount];
@@ -58,7 +56,6 @@ static NSString *KUserModelCache = @"UserModelCache";
     
     return model;
 }
-
 
 #pragma mark
 + (long long)folderSizeAtPath:(NSString *)path {

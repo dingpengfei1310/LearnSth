@@ -108,8 +108,6 @@
     return [numberPre evaluateWithObject:self];
 }
 
-
-
 - (BOOL)validateIDCardNumber {
     NSString *number=@"\\d{14}[[0-9],0-9xX]";
     NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
@@ -123,5 +121,4 @@
 //}
 
 @end
-
 

@@ -22,6 +22,8 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
+    
+    self.contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
 }
 
 - (void)layoutSubviews {
@@ -47,7 +49,7 @@
     
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:content
                                                                     attributes:attribute];
-    _contentLabel.attributedText = attString;
+    self.contentLabel.attributedText = attString;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -55,7 +57,4 @@
 }
 
 @end
-
-
-
 
