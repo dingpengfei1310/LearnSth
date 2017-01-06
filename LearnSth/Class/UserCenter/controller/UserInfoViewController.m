@@ -13,6 +13,7 @@
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -72,7 +73,31 @@ static NSString *reuseIdentifier = @"cell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark 上传头像
+- (void)showAlertControllerOnChangeUsername {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入昵称";
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *field = textFields[0];
+        [UserManager manager].username = field.text;
+        [UserManager updateUser];
+        
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    [alert addAction:cancelAction];
+    [alert addAction:certainAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark
 - (void)showAlertControllerOnUplodUserHeader {
     UIAlertController *actionSheet;
     actionSheet = [UIAlertController alertControllerWithTitle:@"上传头像"
@@ -139,32 +164,8 @@ static NSString *reuseIdentifier = @"cell";
     pickerController.delegate = self;
     pickerController.allowsEditing = YES;
     pickerController.sourceType = sourceType;
+    pickerController.mediaTypes = @[(NSString *)kUTTypeMovie];
     [self presentViewController:pickerController animated:YES completion:nil];
-}
-
-#pragma mark 修改昵称
-- (void)showAlertControllerOnChangeUsername {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入昵称";
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSArray *textFields = alert.textFields;
-        UITextField *field = textFields[0];
-        [UserManager manager].username = field.text;
-        [UserManager updateUser];
-        
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }];
-    [alert addAction:cancelAction];
-    [alert addAction:certainAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark
