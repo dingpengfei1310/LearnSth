@@ -8,27 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UIViewController+Tool.h"
 #import "AppConfiguration.h"
 #import "Utils.h"
 
 @interface BaseViewController : UIViewController {
     CGFloat ViewFrame_X;
 }
-
-///导航栏设为透明
-- (void)navigationBarColorClear;
-///导航栏恢复
-- (void)navigationBarColorRestore;
-
-#pragma mark - HUD提示框
-- (void)loading;
-- (void)loadingWithText:(NSString *)text;
-
-- (void)showSuccess:(NSString *)success;
-- (void)showError:(NSString *)error;
-- (void)showErrorWithError:(NSError *)error;
-
-- (void)hideHUD;
 
 @end
 

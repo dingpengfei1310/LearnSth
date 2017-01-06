@@ -9,8 +9,7 @@
 #import "CityViewController.h"
 
 #import "SQLManager.h"
-#import "UserModel.h"
-#import "Utils.h"
+#import "UserManager.h"
 
 #import "AddressDataSource.h"
 
@@ -40,12 +39,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *city = self.dataArray[indexPath.row];
     
-    AddressModel *addModel = [[AddressModel alloc] init];
-    addModel.province = self.province[@"name"];
-    addModel.city = city[@"name"];
+    AddressModel *address = [[AddressModel alloc] init];
+    address.province = self.province[@"name"];
+    address.city = city[@"name"];
     
-    [UserModel userManager].address = addModel;
-    [Utils setUserModel:[UserModel userManager]];
+    [UserManager manager].address = address;
+    [UserManager updateUser];
     
     NSInteger index = self.navigationController.viewControllers.count - 3;
     if (index >= 0) {

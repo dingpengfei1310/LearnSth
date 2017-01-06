@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "AddressModel.h"
 
-@interface UserModel : NSObject
+@interface UserManager : NSObject
 
 @property (nonatomic, copy) NSString *userId;
-//@property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *mobile;
 
 @property (nonatomic, strong) AddressModel *address;
 
-+ (instancetype)userManager;
++ (instancetype)manager;
 
-- (NSDictionary *)dictionary;
++ (void)updateUser;
++ (UserManager *)loadUser;
 
 @end
 

@@ -16,10 +16,9 @@
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
+#import <Photos/PHPhotoLibrary.h>
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
-
-@property (nonatomic, strong) UIImageView *topImageView;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataArray;
@@ -34,7 +33,6 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-//    [self.view addSubview:self.topImageView];
     self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件"];
     [self.view addSubview:self.tableView];
     
@@ -45,11 +43,6 @@ static NSString *identifier = @"cell";
 }
 
 #pragma mark
-- (void)refreshData:(UIRefreshControl *)refreshControl {
-    [refreshControl endRefreshing];
-    [self.tableView reloadData];
-}
-
 - (void)loginClick {
     if (![Utils isLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] init];
@@ -111,6 +104,29 @@ static NSString *identifier = @"cell";
     return cacheSize;
 }
 
+- (void)checkAuthorizationStatus {
+    PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
+    if (currentStatus == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (status == PHAuthorizationStatusAuthorized) {
+                    PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+                    controller.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
+            });
+        }];
+        
+    } else if (currentStatus == PHAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlert];
+        
+    } else if (currentStatus == PHAuthorizationStatusAuthorized) {
+        PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -127,11 +143,9 @@ static NSString *identifier = @"cell";
     if (indexPath.row == 3) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             CGFloat cacheSize = [self calculateDiskCacheSize];
-            
             dispatch_async(dispatch_get_main_queue(),^{
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",cacheSize];
             });
-            
         });
     }
     
@@ -142,32 +156,24 @@ static NSString *identifier = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        
         [self wifiUpload];
         
     } else if (indexPath.row == 1) {
-        
-        PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self checkAuthorizationStatus];
         
     } else if (indexPath.row == 2) {
-        
         MessageViewController *controller = [[MessageViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 3) {
-        
         [self showAlertOnClearDiskCache];
         
     } else if (indexPath.row == 4) {
-        
         FileScanViewController *controller = [[FileScanViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
-    
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -184,25 +190,9 @@ static NSString *identifier = @"cell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
-        
         _tableView.tableFooterView = [[UIView alloc] init];
-        
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
-        _tableView.refreshControl = refreshControl;
-        
     }
     return _tableView;
-}
-
-- (UIImageView *)topImageView {
-    if (!_topImageView) {
-        _topImageView = [[UIImageView alloc] init];
-        _topImageView.frame = CGRectMake(0, ViewFrame_X, Screen_H, Screen_W * 43 / 75);
-        _topImageView.image = [UIImage imageNamed:@"defaultBackground"];
-    }
-    
-    return _topImageView;
 }
 
 - (void)didReceiveMemoryWarning {

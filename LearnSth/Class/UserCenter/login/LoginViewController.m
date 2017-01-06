@@ -10,7 +10,7 @@
 #import "RegisterViewController.h"
 
 #import "TPKeyboardAvoidingScrollView.h"
-#import "UserModel.h"
+#import "UserManager.h"
 #import "NSString+Tool.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
@@ -66,10 +66,9 @@ const CGFloat fieldHeight = 35;
 
 - (void)loginClick {
     if ([self.accountField.text validatePhoneNumber]) {
-        [[UserModel userManager] setMobile:self.accountField.text];
+        [UserManager manager].mobile = self.accountField.text;
+        [UserManager updateUser];
         [Utils setIsLogin:YES];
-        
-        [Utils setUserModel:[UserModel userManager]];
         
         [self dismiss];
     } else {

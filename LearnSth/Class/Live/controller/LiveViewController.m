@@ -57,7 +57,7 @@ static NSString *identifier = @"cell";
 }
 
 #pragma mark
-- (void)refreshData {
+- (void)refreshLiveData {
     NSDictionary *params = @{@"page":[@(self.page) stringValue]};
     [[HttpManager shareManager] getHotLiveListWithParamers:params completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
@@ -117,7 +117,7 @@ static NSString *identifier = @"cell";
         CGRect collectionViewRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = KBackgroundColor;
+        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
@@ -126,11 +126,11 @@ static NSString *identifier = @"cell";
         
         _collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             self.page = 1;
-            [self refreshData];
+            [self refreshLiveData];
         }];
         _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             self.page++;
-            [self refreshData];
+            [self refreshLiveData];
         }];
         
         MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;

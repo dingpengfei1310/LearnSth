@@ -8,10 +8,7 @@
 
 #import "Utils.h"
 
-#import "UserModel.h"
-
 static NSString *KIsLoginCache = @"UserLoginCache";
-static NSString *KUserModelCache = @"UserModelCache";
 
 @implementation Utils
 
@@ -22,7 +19,6 @@ static NSString *KUserModelCache = @"UserModelCache";
 //    }
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KUserModelCache];
 }
 
 #pragma mark
@@ -32,29 +28,6 @@ static NSString *KUserModelCache = @"UserModelCache";
 
 + (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
-}
-
-//#pragma mark
-//+ (void)setUserAccount:(NSString *)name {
-//    [[NSUserDefaults standardUserDefaults] setObject:name forKey:KUserAccount];
-//}
-//
-//+ (NSString *)userAccount {
-//    return [[NSUserDefaults standardUserDefaults] stringForKey:KUserAccount];
-//}
-
-#pragma mark
-+ (void)setUserModel:(UserModel *)model {
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[model dictionary]];
-    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserModelCache];
-}
-
-+ (UserModel *)userModel {
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserModelCache];
-    UserModel *model = [UserModel userManager];
-    [model setValuesForKeysWithDictionary:dict];
-    
-    return model;
 }
 
 #pragma mark
@@ -106,5 +79,4 @@ static NSString *KUserModelCache = @"UserModelCache";
 }
 
 @end
-
 

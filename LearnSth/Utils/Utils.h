@@ -18,12 +18,8 @@
 + (void)setIsLogin:(BOOL)login;
 + (BOOL)isLogin;
 
-+ (void)setUserModel:(UserModel *)model;
-+ (UserModel *)userModel;
-
 + (long long)folderSizeAtPath:(NSString *)path;
 + (long long)fileSizeAtPath:(NSString *)path;
 + (void)clearCacheAtPath:(NSString *)path;
-
 
 @end

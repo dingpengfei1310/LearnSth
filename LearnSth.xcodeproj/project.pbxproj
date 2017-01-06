@@ -75,9 +75,10 @@
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
 		1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */; };
 		1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */; };
-		1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserModel.m */; };
+		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
+		1B3C7ADE1E1F72E000B70942 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3C7ADD1E1F72E000B70942 /* UIViewController+Tool.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B3D3DF41E1B915100E6FBE9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF31E1B915100E6FBE9 /* Utils.m */; };
 		1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */; };
@@ -270,12 +271,14 @@
 		1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1B2D07ED1DE7E8DB0034C22D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		1B2D07F01DE7E8DB0034C22D /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		1B2D07F11DE7E8DB0034C22D /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		1B2D07F01DE7E8DB0034C22D /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		1B2D07F11DE7E8DB0034C22D /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
+		1B3C7ADC1E1F72E000B70942 /* UIViewController+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tool.h"; sourceTree = "<group>"; };
+		1B3C7ADD1E1F72E000B70942 /* UIViewController+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tool.m"; sourceTree = "<group>"; };
 		1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B3D3DF21E1B915100E6FBE9 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 				1B099BDF1DE7E57400161396 /* UIImage+Tool.m */,
 				1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */,
 				1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */,
+				1B3C7ADC1E1F72E000B70942 /* UIViewController+Tool.h */,
+				1B3C7ADD1E1F72E000B70942 /* UIViewController+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -796,8 +801,8 @@
 		1B2D07EF1DE7E8DB0034C22D /* model */ = {
 			isa = PBXGroup;
 			children = (
-				1B2D07F01DE7E8DB0034C22D /* UserModel.h */,
-				1B2D07F11DE7E8DB0034C22D /* UserModel.m */,
+				1B2D07F01DE7E8DB0034C22D /* UserManager.h */,
+				1B2D07F11DE7E8DB0034C22D /* UserManager.m */,
 				1BF9B0DA1E0A2B6C005B0EDF /* BasePreviewItem.h */,
 				1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */,
 				1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */,
@@ -1178,7 +1183,7 @@
 				1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */,
 				1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */,
 				1B099C801DE7E57400161396 /* MJRefreshBackFooter.m in Sources */,
-				1B2D08091DE7E8DB0034C22D /* UserModel.m in Sources */,
+				1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */,
 				1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */,
 				1B099C821DE7E57400161396 /* MJRefreshFooter.m in Sources */,
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
@@ -1252,6 +1257,7 @@
 				1B099C911DE7E57400161396 /* UIScrollView+MJRefresh.m in Sources */,
 				1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */,
 				1B2D07FE1DE7E8DB0034C22D /* LiveViewController.m in Sources */,
+				1B3C7ADE1E1F72E000B70942 /* UIViewController+Tool.m in Sources */,
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,

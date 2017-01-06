@@ -11,13 +11,13 @@
 #import "AFNetworking.h"
 #import "SQLManager.h"
 
-const NSInteger errorCodeDefault = 123;
+const NSInteger errorCodeDefault = 999;
+const NSTimeInterval timeoutInterval = 20.0;
 
 @implementation HttpManager
 
 + (instancetype)shareManager {
     static HttpManager *manager = nil;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[HttpManager alloc] init];
@@ -35,7 +35,7 @@ const NSInteger errorCodeDefault = 123;
     NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
     [multSet addObject:@"text/html"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
-    manager.requestSerializer.timeoutInterval = 30;
+    manager.requestSerializer.timeoutInterval = timeoutInterval;
     
     [manager GET:urlString
       parameters:paramets
@@ -57,7 +57,7 @@ const NSInteger errorCodeDefault = 123;
     NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
     [multSet addObject:@"text/html"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
-    manager.requestSerializer.timeoutInterval = 30;
+    manager.requestSerializer.timeoutInterval = timeoutInterval;
     
     [manager POST:urlString
       parameters:paramets

@@ -8,10 +8,11 @@
 
 #import "UserInfoViewController.h"
 #import "ProvinceViewController.h"
-
 #import "PopoverViewController.h"
 
-#import "UserModel.h"
+#import "UserManager.h"
+#import <AVFoundation/AVFoundation.h>
+#import <Photos/PHPhotoLibrary.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -81,28 +82,56 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *albumAction;
-    albumAction = [UIAlertAction actionWithTitle:@"相册"
-                                           style:UIAlertActionStyleDefault
-                                         handler:^(UIAlertAction * _Nonnull action) {
-                                             [self openUserCameraWithType:UIImagePickerControllerSourceTypePhotoLibrary];
-                                         }];
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self checkAuthorizationStatusWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        UIAlertAction *cameraAction;
-        cameraAction = [UIAlertAction actionWithTitle:@"相机"
-                                                style:UIAlertActionStyleDefault
-                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                  [self openUserCameraWithType:UIImagePickerControllerSourceTypeCamera];
-                                              }];
+        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self checkAuthorizationStatusWithType:UIImagePickerControllerSourceTypeCamera];
+        }];
         [actionSheet addAction:cameraAction];
     }
-    
     
     [actionSheet addAction:cancelAction];
     [actionSheet addAction:albumAction];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)checkAuthorizationStatusWithType:(UIImagePickerControllerSourceType)sourceType {
+    if (sourceType == UIImagePickerControllerSourceTypeCamera) {//相机
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        if (status == AVAuthorizationStatusAuthorized) {
+            [self openUserCameraWithType:sourceType];
+            
+        } else if (status == AVAuthorizationStatusDenied) {
+            [self showAuthorizationStatusDeniedAlert];
+            
+        } else if (status == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                granted ? [self openUserCameraWithType:sourceType] : 0;
+            }];
+        }
+    } else {//相册
+        PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
+        
+        if (currentStatus == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    status == PHAuthorizationStatusAuthorized ? [self openUserCameraWithType:sourceType] : 0;
+                });
+            }];
+            
+        } else if (currentStatus == PHAuthorizationStatusDenied) {
+            [self showAuthorizationStatusDeniedAlert];
+            
+        } else if (currentStatus == PHAuthorizationStatusAuthorized) {
+            [self openUserCameraWithType:sourceType];
+        }
+    }
+    
 }
 
 - (void)openUserCameraWithType:(UIImagePickerControllerSourceType)sourceType {
@@ -127,11 +156,10 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSArray *textFields = alert.textFields;
         UITextField *field = textFields[0];
-        [[UserModel userManager] setUsername:field.text];
+        [UserManager manager].username = field.text;
+        [UserManager updateUser];
         
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        [Utils setUserModel:[UserModel userManager]];
     }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
@@ -151,10 +179,12 @@ static NSString *reuseIdentifier = @"cell";
     }
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    if (indexPath.row == 1 && [UserModel userManager].username) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[UserModel userManager].username];
-    } else if (indexPath.row == 2 && [UserModel userManager].address.city) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@-%@",[UserModel userManager].address.province,[UserModel userManager].address.city];
+    if (indexPath.row == 1 && [UserManager manager].username) {
+        cell.detailTextLabel.text = [UserManager manager].username;
+    } else if (indexPath.row == 2 && [UserManager manager].address.city) {
+        AddressModel *add = [UserManager manager].address;
+        NSString *address = [NSString stringWithFormat:@"%@-%@",add.province,add.city];
+        cell.detailTextLabel.text = address;
     }
     
     return cell;

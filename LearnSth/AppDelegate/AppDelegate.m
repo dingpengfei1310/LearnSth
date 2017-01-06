@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
-#import "Utils.h"
+#import "UserManager.h"
 #import "AppConfiguration.h"
 #import "AFNetworkReachabilityManager.h"
 
@@ -36,7 +36,7 @@
     [self setNavigationBar];
     [self networkMonitoring];
     
-    [Utils userModel];
+    [UserManager loadUser];
     
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;

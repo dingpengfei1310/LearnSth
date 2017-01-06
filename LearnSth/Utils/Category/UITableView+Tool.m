@@ -89,16 +89,19 @@ static char reloadBlockKey;
     placeholderView.backgroundColor = self.backgroundColor;
     [self setPlaceholderView:placeholderView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, ViewHeight * 0.5 - 30, viewWidth, 30)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"暂无数据，点击重新加载";
-    [placeholderView addSubview:label];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureClick)];
-    [placeholderView addGestureRecognizer:tapGesture];
+    CGFloat buttonW = 100;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake((viewWidth - buttonW) / 2, ViewHeight * 0.3, buttonW, buttonW);
+    [button setTitle:@"暂无内容\n点击重新加载" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
+    button.titleLabel.numberOfLines = 0;
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [button addTarget:self action:@selector(reloadClick) forControlEvents:UIControlEventTouchUpInside];
+    [placeholderView addSubview:button];
 }
 
-- (void)gestureClick {
+- (void)reloadClick {
     if ([self clickBlock]) {
         ReloadClickBlock clickBlock = [self clickBlock];
         clickBlock();

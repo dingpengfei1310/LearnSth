@@ -27,58 +27,13 @@ static NSString * const reuseIdentifier = @"Cell";
     self.title = @"我的相册";
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
     
-    if (currentStatus == PHAuthorizationStatusNotDetermined) {
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self checkAuthorizationStatusWith:(status == PHAuthorizationStatusAuthorized ? YES : NO)];
-            });
-        }];
-        
-    } else if (currentStatus == PHAuthorizationStatusDenied || currentStatus == PHAuthorizationStatusRestricted) {
-        
-        [self checkAuthorizationStatusWith:NO];
-        
-    } else if (currentStatus == PHAuthorizationStatusAuthorized) {
-        
-        [self checkAuthorizationStatusWith:YES];
-    }
-}
-
-- (void)checkAuthorizationStatusWith:(BOOL)status {
-    if (status) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
-        
-//        if (TARGET_OS_SIMULATOR) {
-//        }
-        
-        [self getSmartAlbum];
-        [self.view addSubview:self.tableView];
-        
-    } else {
-        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Screen_H * 0.2, Screen_W, 30)];
-        tipLabel.textAlignment = NSTextAlignmentCenter;
-        tipLabel.text = @"请打开权限";
-        [self.view addSubview:tipLabel];
-        
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, Screen_H * 0.2 + 50, Screen_W, 40)];
-        [button setTitle:@"去设置" forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(gotoSetting:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
-    }
-}
-
-- (void)gotoSetting:(id)sender {
-    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    if([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
-    }
-}
-
-- (void)photoLibraryDidChange:(PHChange *)changeInstance {
-    NSLog(@"photoLibraryDidChange");
+//    if (TARGET_OS_SIMULATOR) {
+//    }
+    
+    [self getSmartAlbum];
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark
@@ -110,7 +65,11 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-#pragma mark - Table view data source
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    NSLog(@"photoLibraryDidChange");
+}
+
+#pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.smartAlbum.count;
 }
@@ -152,7 +111,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end
 

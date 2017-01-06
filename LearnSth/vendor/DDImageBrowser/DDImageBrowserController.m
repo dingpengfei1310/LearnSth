@@ -65,7 +65,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.imageCount = thumbImages.count;
 }
 
-#pragma mark - UITableViewDataSource & UITableViewDelegate
+#pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.imageCount;
 }
