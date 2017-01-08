@@ -164,7 +164,6 @@ static NSString *reuseIdentifier = @"cell";
     pickerController.delegate = self;
     pickerController.allowsEditing = YES;
     pickerController.sourceType = sourceType;
-    pickerController.mediaTypes = @[(NSString *)kUTTypeMovie];
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 
