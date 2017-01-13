@@ -13,7 +13,7 @@
 #import "UserManager.h"
 #import "NSString+Tool.h"
 
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()
 
 @property (nonatomic, strong) UITextField *accountField;
 @property (nonatomic, strong) UITextField *passwordField;
@@ -33,6 +33,7 @@ const CGFloat fieldHeight = 35;
     
     CGRect scrollRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64);
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
+//    scrollView.delaysContentTouches = NO;
     [self.view addSubview:scrollView];
     
     [scrollView addSubview:self.accountField];
@@ -76,14 +77,18 @@ const CGFloat fieldHeight = 35;
     }
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (void)textFieldValueChange:(UITextField *)textField {
     if (textField == self.accountField) {
-        if (range.location > 10) {
-            return NO;
+        if (textField.text.length > 11) {
+            textField.text = [textField.text substringToIndex:11];
+        }
+    } else if (textField == self.passwordField) {
+        if (textField.text.length > 12) {
+            textField.text = [textField.text substringToIndex:12];
         }
     }
-    return YES;
+    
+    self.loginButton.enabled = (self.accountField.text.length == 11 && self.passwordField.text.length >= 6);
 }
 
 #pragma mark
@@ -91,10 +96,10 @@ const CGFloat fieldHeight = 35;
     if (!_accountField) {
         _accountField = [[UITextField alloc] init];
         _accountField.placeholder = @"请输入用户名";
-        _accountField.delegate = self;
         _accountField.borderStyle = UITextBorderStyleRoundedRect;
         _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _accountField.keyboardType = UIKeyboardTypeNumberPad;
+        [_accountField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _accountField;
 }
@@ -106,6 +111,8 @@ const CGFloat fieldHeight = 35;
         _passwordField.borderStyle = UITextBorderStyleRoundedRect;
         _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passwordField.keyboardType = UIKeyboardTypeNumberPad;
+        _passwordField.secureTextEntry = YES;
+        [_passwordField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _passwordField;
 }
@@ -113,20 +120,21 @@ const CGFloat fieldHeight = 35;
 - (UIButton *)loginButton {
     if (!_loginButton) {
         _loginButton = [[UIButton alloc] init];
-        [_loginButton setBackgroundColor:KBaseBlueColor];
+        _loginButton.enabled = NO;
+        UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
+        [_loginButton setBackgroundImage:image
+                                forState:UIControlStateNormal];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
-        [_loginButton addTarget:self
-                         action:@selector(loginClick)
-               forControlEvents:UIControlEventTouchUpInside];
+        [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _loginButton;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-
 @end
+

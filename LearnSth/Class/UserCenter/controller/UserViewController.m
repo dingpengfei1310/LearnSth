@@ -67,19 +67,9 @@ static NSString *identifier = @"cell";
 }
 
 - (void)showAlertOnClearDiskCache {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确定要清除缓存吗" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancelTitle:@"取消" operationTitle:@"确定" block:^{
         [self clearDiskCache];
     }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:certainAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)clearDiskCache {

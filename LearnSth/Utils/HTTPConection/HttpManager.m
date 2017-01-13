@@ -107,8 +107,8 @@ const NSTimeInterval timeoutInterval = 20.0;
     NSDictionary *params = @{@"jsonText": jsonString};
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager POST:urlString parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:urlString parameters:params progress:^(NSProgress * uploadProgress) {
+    } success:^(NSURLSessionDataTask * task, id  _Nullable responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *userArray = [responseObject objectForKey:@"data"];
@@ -121,7 +121,7 @@ const NSTimeInterval timeoutInterval = 20.0;
             completion(nil,error);
         }
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * error) {
         completion(nil,error);
     }];
 }

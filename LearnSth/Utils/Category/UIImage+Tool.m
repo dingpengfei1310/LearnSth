@@ -12,9 +12,13 @@
 @implementation UIImage (Tool)
 
 #pragma mark
-+ (UIImage *)imageWithColor:(UIColor *)color; {
-    UIGraphicsBeginImageContext(CGSizeMake(1.0, 1.0));
++ (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
+    UIGraphicsBeginImageContext(rect.size);
+    
     [color setFill];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

@@ -32,16 +32,15 @@
 //    [self.view addSubview:self.bannerScrollView];
 //    [self getHomeAdBanner];
     
-    int count = 8;
-    CGFloat width = Screen_W / count;
-    self.viewArray = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < count; i++) {
-        DropWaterView *waterView = [[DropWaterView alloc] initWithFrame:CGRectMake(width * i, 20, width, Screen_W)];
-        [self.view addSubview:waterView];
-        [self.viewArray addObject:waterView];
-    }
-    
+//    int count = 8;
+//    CGFloat width = Screen_W / count;
+//    self.viewArray = [[NSMutableArray alloc] init];
+//    
+//    for (int i = 0; i < count; i++) {
+//        DropWaterView *waterView = [[DropWaterView alloc] initWithFrame:CGRectMake(width * i, 20, width, Screen_W)];
+//        [self.view addSubview:waterView];
+//        [self.viewArray addObject:waterView];
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
