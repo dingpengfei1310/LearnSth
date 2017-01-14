@@ -9,7 +9,6 @@
 #import "BaseViewController.h"
 
 #import "MBProgressHUD.h"
-#import "UIImage+Tool.h"
 
 @interface BaseViewController ()
 

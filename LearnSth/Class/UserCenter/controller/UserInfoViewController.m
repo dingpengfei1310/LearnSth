@@ -13,7 +13,6 @@
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -76,16 +75,15 @@ static NSString *reuseIdentifier = @"cell";
 - (void)showAlertControllerOnChangeUsername {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
         textField.placeholder = @"请输入昵称";
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSArray *textFields = alert.textFields;
-        UITextField *field = textFields[0];
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UITextField *field = alert.textFields[0];
         [UserManager manager].username = field.text;
         [UserManager updateUser];
         
@@ -107,12 +105,12 @@ static NSString *reuseIdentifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self checkAuthorizationStatusWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self checkAuthorizationStatusWithType:UIImagePickerControllerSourceTypeCamera];
         }];
         [actionSheet addAction:cameraAction];

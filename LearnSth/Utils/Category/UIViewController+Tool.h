@@ -25,7 +25,9 @@
 
 - (void)hideHUD;
 
-- (void)openSystemSetting;
+//- (void)openSystemSetting;
 - (void)showAuthorizationStatusDeniedAlert;
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message block:(void (^)())operationBlock;
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle operationTitle:(NSString *)operationTitle block:(void (^)())operationBlock;
 
 @end

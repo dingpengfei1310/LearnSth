@@ -10,6 +10,7 @@
 
 #import "UIViewController+Tool.h"
 #import "AppConfiguration.h"
+#import "UIImage+Tool.h"
 #import "Utils.h"
 
 @interface BaseViewController : UIViewController {

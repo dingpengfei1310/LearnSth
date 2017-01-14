@@ -62,7 +62,7 @@
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
-    hud.label.font = [UIFont systemFontOfSize:12];
+    hud.label.font = [self hudTextFont];
     hud.contentColor = [UIColor whiteColor];
     hud.margin = 10;
     
@@ -75,12 +75,11 @@
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
-    
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = message;
-    hud.label.font = [UIFont systemFontOfSize:14];
+    hud.label.font = [self hudTextFont];
     hud.margin = 10;
     
     hud.bezelView.backgroundColor = [UIColor clearColor];
@@ -100,6 +99,20 @@
     [MBProgressHUD hideHUDForView:view animated:YES];
 }
 
+- (UIFont *)hudTextFont {
+    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+    UIFont *textFont;
+    if (screenW == 320.0) {
+        textFont = [UIFont systemFontOfSize:13];
+    } else if (screenW == 375.0) {
+        textFont = [UIFont systemFontOfSize:15];
+    } else {
+        textFont = [UIFont systemFontOfSize:17];
+    }
+    
+    return textFont;
+}
+
 #pragma mark
 - (void)openSystemSetting {
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
@@ -109,16 +122,30 @@
 }
 
 - (void)showAuthorizationStatusDeniedAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"没有访问权限！您可以到“隐私设置“中启用访问" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"知道了"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertAction *settingAction = [UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self showAlertWithTitle:@"提示" message:@"没有访问权限！\n您可以到“隐私设置“中启用访问" cancelTitle:@"知道了" operationTitle:@"去设置" block:^{
         [self openSystemSetting];
     }];
+}
+
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message block:(void (^)())operationBlock {
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" operationTitle:@"确定" block:^{
+        operationBlock();
+    }];
+}
+
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle operationTitle:(NSString *)operationTitle block:(void (^)())operationBlock {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:cancelAction];
-    [alert addAction:settingAction];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    UIAlertAction *setting = [UIAlertAction actionWithTitle:operationTitle
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * action) {
+                                                        operationBlock();
+                                                    }];
+    [alert addAction:cancel];
+    [alert addAction:setting];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

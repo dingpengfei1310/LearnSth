@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0921DF6564C005F3059 /* PPNumberButton.m */; };
 		1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0951DF6A626005F3059 /* BannerScrollView.m */; };
+		1B098E6F1E24AB9D00D5754A /* UserLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */; };
+		1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B098E711E24B50A00D5754A /* DropWaterView.m */; };
 		1B099C6D1DE7E57400161396 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BDD1DE7E57400161396 /* NSString+Tool.m */; };
 		1B099C6E1DE7E57400161396 /* UIImage+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BDF1DE7E57400161396 /* UIImage+Tool.m */; };
 		1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BE21DE7E57400161396 /* HttpManager.m */; };
@@ -138,6 +140,10 @@
 		1B08C0921DF6564C005F3059 /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		1B08C0941DF6A626005F3059 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		1B08C0951DF6A626005F3059 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
+		1B098E6D1E24AB9D00D5754A /* UserLocalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocalNotification.h; sourceTree = "<group>"; };
+		1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocalNotification.m; sourceTree = "<group>"; };
+		1B098E701E24B50A00D5754A /* DropWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropWaterView.h; sourceTree = "<group>"; };
+		1B098E711E24B50A00D5754A /* DropWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropWaterView.m; sourceTree = "<group>"; };
 		1B099BDC1DE7E57400161396 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B099BDD1DE7E57400161396 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
 		1B099BDE1DE7E57400161396 /* UIImage+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tool.h"; sourceTree = "<group>"; };
@@ -385,6 +391,8 @@
 				1B099BE31DE7E57400161396 /* SQLManager */,
 				1B3D3DF21E1B915100E6FBE9 /* Utils.h */,
 				1B3D3DF31E1B915100E6FBE9 /* Utils.m */,
+				1B098E6D1E24AB9D00D5754A /* UserLocalNotification.h */,
+				1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -717,12 +725,14 @@
 				1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */,
 				1B08C0941DF6A626005F3059 /* BannerScrollView.h */,
 				1B08C0951DF6A626005F3059 /* BannerScrollView.m */,
+				CF1A49541E0FA007007FD07D /* CustomizeButton.h */,
+				CF1A49551E0FA007007FD07D /* CustomizeButton.m */,
+				1B098E701E24B50A00D5754A /* DropWaterView.h */,
+				1B098E711E24B50A00D5754A /* DropWaterView.m */,
 				1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */,
 				1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */,
 				1B2D07D11DE7E8DB0034C22D /* LineView.h */,
 				1B2D07D21DE7E8DB0034C22D /* LineView.m */,
-				CF1A49541E0FA007007FD07D /* CustomizeButton.h */,
-				CF1A49551E0FA007007FD07D /* CustomizeButton.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1244,6 +1254,7 @@
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,
+				1B098E6F1E24AB9D00D5754A /* UserLocalNotification.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				1B099C8F1DE7E57400161396 /* NSBundle+MJRefresh.m in Sources */,
@@ -1257,6 +1268,7 @@
 				1B099C911DE7E57400161396 /* UIScrollView+MJRefresh.m in Sources */,
 				1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */,
 				1B2D07FE1DE7E8DB0034C22D /* LiveViewController.m in Sources */,
+				1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */,
 				1B3C7ADE1E1F72E000B70942 /* UIViewController+Tool.m in Sources */,
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
@@ -1360,7 +1372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1402,7 +1414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

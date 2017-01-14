@@ -41,6 +41,8 @@
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     self.window.rootViewController = controller;
     
+    application.applicationIconBadgeNumber = 0;
+    
     return YES;
 }
 
@@ -99,7 +101,48 @@
 }
 
 #pragma mark
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+//    [application registerForRemoteNotifications];//推送
+}
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%@",deviceToken);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"%@",userInfo);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"%@",userInfo);
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
+    //8.0
+    application.applicationIconBadgeNumber = 0;
+    if (application.applicationState != UIApplicationStateActive) {
+        NSLog(@"%@",notification.userInfo);//
+        [self showAlertWithTitle:@"didReceiveLocalNotification"];
+    } else {
+        [self showAlertWithTitle:@"收到本地通知"];
+    }
+    
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler {
+    NSLog(@"%@ -- %@",identifier,notification.userInfo);
+    [self showAlertWithTitle:@"handleActionWithIdentifier"];
+    completionHandler();
+}
+
+- (void)showAlertWithTitle:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"message" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:action];
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -119,6 +162,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    application.applicationIconBadgeNumber = 0;
 }
 
 
