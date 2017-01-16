@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.title = @"地区";
     
+    self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
     CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
         cell.textLabel.text = info[@"name"];
     };
@@ -36,7 +37,7 @@
     
     self.tableView.dataSource = _dataSource;
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 #pragma mark

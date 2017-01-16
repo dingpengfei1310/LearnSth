@@ -35,6 +35,8 @@
         width = frame.size.width;
         height = frame.size.height;
         
+        [self addSubview:self.scrollView];
+        
         [self addSubview:self.indicatorView];
         [self.indicatorView startAnimating];
     }
@@ -42,13 +44,12 @@
 }
 
 - (void)setImageArray:(NSArray *)imageArray {
+    [self.indicatorView removeFromSuperview];
     _imageArray = imageArray;
     
-    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
     }];
-    
-    [self addSubview:self.scrollView];
     
     for (int i = 0; i < 3; i++) {
         NSInteger index = (imageArray.count - 1 + i) % imageArray.count;

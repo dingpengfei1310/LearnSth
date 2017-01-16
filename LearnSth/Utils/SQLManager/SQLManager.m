@@ -93,7 +93,7 @@
             [mutArray addObject:province];
         }
     }];
-    
+//    select * from t_address t1 left join t_address t2 on t1.id = t2.parent_id ;
     return [NSArray arrayWithArray:mutArray];
 }
 

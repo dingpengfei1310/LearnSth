@@ -25,7 +25,6 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

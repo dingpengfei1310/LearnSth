@@ -12,7 +12,6 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
-#import "DropWaterView.h"
 
 @interface HomeViewController ()
 
@@ -29,18 +28,8 @@
     self.title = @"Home";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
-//    [self.view addSubview:self.bannerScrollView];
-//    [self getHomeAdBanner];
-    
-//    int count = 8;
-//    CGFloat width = Screen_W / count;
-//    self.viewArray = [[NSMutableArray alloc] init];
-//    
-//    for (int i = 0; i < count; i++) {
-//        DropWaterView *waterView = [[DropWaterView alloc] initWithFrame:CGRectMake(width * i, 20, width, Screen_W)];
-//        [self.view addSubview:waterView];
-//        [self.viewArray addObject:waterView];
-//    }
+    [self.view addSubview:self.bannerScrollView];
+    [self getHomeAdBanner];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,13 +63,6 @@
 }
 
 - (void)homeRightItemClick {
-    
-    for (int i = 0; i < [self.viewArray count]; i++) {
-        DropWaterView *view = [self.viewArray objectAtIndex:i];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [view raindropBeginFall];
-        });
-    }
 }
 
 #pragma mark
@@ -98,7 +80,6 @@
                 controller.title = model.title;
                 controller.urlString = model.link;
                 [weakSelf.navigationController pushViewController:controller animated:YES];
-                
             }
         };
     }

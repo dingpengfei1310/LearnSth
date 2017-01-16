@@ -9,6 +9,7 @@
 #import "UserInfoViewController.h"
 #import "ProvinceViewController.h"
 #import "PopoverViewController.h"
+#import "AddressPickerController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
@@ -40,12 +41,6 @@ static NSString *reuseIdentifier = @"cell";
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -93,6 +88,26 @@ static NSString *reuseIdentifier = @"cell";
     [alert addAction:certainAction];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)presentAddressPickerController {
+    AddressPickerController *controller = [[AddressPickerController alloc] init];
+    controller.SelectBlock = ^(NSDictionary *province,NSDictionary *city) {
+        AddressModel *address = [[AddressModel alloc] init];
+        address.province = province[@"name"];
+        address.city = city[@"name"];
+        
+        [UserManager manager].address = address;
+        [UserManager updateUser];
+        
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+    };
+    
+    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:controller animated:YES completion:^(void){
+        controller.view.superview.backgroundColor = [UIColor clearColor];
+    }];
 }
 
 #pragma mark
@@ -198,8 +213,10 @@ static NSString *reuseIdentifier = @"cell";
         [self showAlertControllerOnChangeUsername];
         
     } else if (indexPath.row == 2) {
-        ProvinceViewController *contoller = [[ProvinceViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self.navigationController pushViewController:contoller animated:YES];
+//        ProvinceViewController *contoller = [[ProvinceViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//        [self.navigationController pushViewController:contoller animated:YES];
+        
+        [self presentAddressPickerController];
     }
 }
 
