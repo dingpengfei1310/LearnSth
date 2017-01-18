@@ -101,8 +101,5 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
     return address;
 }
 
-
 @end
-
-
 

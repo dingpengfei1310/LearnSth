@@ -59,6 +59,7 @@
 		1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C521DE7E57400161396 /* WiFiUploadHTTPConnection.m */; };
 		1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C541DE7E57400161396 /* WiFiUploadManager.m */; };
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
+		1B1098B11E2DE84400993B23 /* DeviceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1098B01E2DE84400993B23 /* DeviceConfig.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B15352C1E0B702D00445EEE /* MessageTableCell.xib */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
@@ -89,6 +90,7 @@
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
+		1BDCA9C11E2F055800ED0315 /* BlueToothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCA9C01E2F055800ED0315 /* BlueToothController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
 		1BDCED711DE57D97002A27B5 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6F1DE57D97002A27B5 /* upload.html */; };
 		1BDCED751DE58812002A27B5 /* mdialog.css in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED721DE58812002A27B5 /* mdialog.css */; };
@@ -106,7 +108,6 @@
 		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */; };
-		1BFA80071E2CB2CC006B0CD6 /* AddressPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80061E2CB2CC006B0CD6 /* AddressPickView.m */; };
 		1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */; };
 		1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCF0301E09380E00DA222E /* FileScanViewController.m */; };
 		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
@@ -243,6 +244,8 @@
 		1B099C541DE7E57400161396 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B099C551DE7E57400161396 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B099C561DE7E57400161396 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1B1098AF1E2DE84400993B23 /* DeviceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceConfig.h; sourceTree = "<group>"; };
+		1B1098B01E2DE84400993B23 /* DeviceConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceConfig.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B15352C1E0B702D00445EEE /* MessageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableCell.xib; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 		1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tool.m"; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
+		1BDCA9BF1E2F055800ED0315 /* BlueToothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
+		1BDCA9C01E2F055800ED0315 /* BlueToothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
 		1BDCED6E1DE57D97002A27B5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1BDCED6F1DE57D97002A27B5 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1BDCED721DE58812002A27B5 /* mdialog.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mdialog.css; sourceTree = "<group>"; };
@@ -329,8 +334,6 @@
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1BF9B0DA1E0A2B6C005B0EDF /* BasePreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePreviewItem.h; sourceTree = "<group>"; };
 		1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePreviewItem.m; sourceTree = "<group>"; };
-		1BFA80051E2CB2CC006B0CD6 /* AddressPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickView.h; sourceTree = "<group>"; };
-		1BFA80061E2CB2CC006B0CD6 /* AddressPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickView.m; sourceTree = "<group>"; };
 		1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerController.h; sourceTree = "<group>"; };
 		1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerController.m; sourceTree = "<group>"; };
 		1BFCF02F1E09380E00DA222E /* FileScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileScanViewController.h; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 				1B3D3DF31E1B915100E6FBE9 /* Utils.m */,
 				1B098E6D1E24AB9D00D5754A /* UserLocalNotification.h */,
 				1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */,
+				1B1098AF1E2DE84400993B23 /* DeviceConfig.h */,
+				1B1098B01E2DE84400993B23 /* DeviceConfig.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -788,17 +793,16 @@
 			isa = PBXGroup;
 			children = (
 				CF7096121E0D7ECD00A821C8 /* address */,
-				CF7096111E0D792400A821C8 /* photos */,
+				1BDCA9C21E2F057300ED0315 /* file */,
 				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
 				1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */,
+				CF7096111E0D792400A821C8 /* photos */,
 				1B2D07E41DE7E8DB0034C22D /* PopoverViewController.h */,
 				1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */,
 				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
-				1BFCF02F1E09380E00DA222E /* FileScanViewController.h */,
-				1BFCF0301E09380E00DA222E /* FileScanViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -838,6 +842,17 @@
 				CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		1BDCA9C21E2F057300ED0315 /* file */ = {
+			isa = PBXGroup;
+			children = (
+				1BFCF02F1E09380E00DA222E /* FileScanViewController.h */,
+				1BFCF0301E09380E00DA222E /* FileScanViewController.m */,
+				1BDCA9BF1E2F055800ED0315 /* BlueToothController.h */,
+				1BDCA9C01E2F055800ED0315 /* BlueToothController.m */,
+			);
+			name = file;
 			sourceTree = "<group>";
 		};
 		1BDCED6D1DE57D97002A27B5 /* Web */ = {
@@ -974,8 +989,6 @@
 				1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */,
 				1B36204E1E164E75004C9FF9 /* AddressDataSource.h */,
 				1B36204F1E164E75004C9FF9 /* AddressDataSource.m */,
-				1BFA80051E2CB2CC006B0CD6 /* AddressPickView.h */,
-				1BFA80061E2CB2CC006B0CD6 /* AddressPickView.m */,
 				1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */,
 				1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */,
 			);
@@ -1209,6 +1222,7 @@
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B099C701DE7E57400161396 /* SQLManager.m in Sources */,
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
+				1BDCA9C11E2F055800ED0315 /* BlueToothController.m in Sources */,
 				1BE0EC081E10C4B300B9099A /* LiveCollectionCell.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
@@ -1256,11 +1270,11 @@
 				1B099C851DE7E57400161396 /* MJRefreshAutoNormalFooter.m in Sources */,
 				1B099C811DE7E57400161396 /* MJRefreshComponent.m in Sources */,
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,
-				1BFA80071E2CB2CC006B0CD6 /* AddressPickView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B2D08001DE7E8DB0034C22D /* LiveModel.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
+				1B1098B11E2DE84400993B23 /* DeviceConfig.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,

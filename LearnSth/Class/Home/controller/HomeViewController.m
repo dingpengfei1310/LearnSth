@@ -12,6 +12,7 @@
 #import "BannerScrollView.h"
 #import "HttpManager.h"
 #import "ADModel.h"
+#import "DeviceConfig.h"
 
 @interface HomeViewController ()
 
@@ -30,6 +31,7 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

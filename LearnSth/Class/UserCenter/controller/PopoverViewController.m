@@ -29,7 +29,6 @@ static NSString *identifier = @"cell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.preferredContentSize = CGSizeMake(80, self.dataArray.count * 50);
     
     viewWidth = CGRectGetWidth(self.view.bounds);
     ViewHeight = CGRectGetHeight(self.view.bounds);
@@ -45,15 +44,11 @@ static NSString *identifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, viewWidth, 0.5)];
+        lineView.backgroundColor = KBackgroundColor;
+        [cell.contentView addSubview:lineView];
     }
-    
-    [cell.contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, viewWidth, 0.5)];
-    lineView.backgroundColor = KBackgroundColor;
-    [cell.contentView addSubview:lineView];
     
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text = self.dataArray[indexPath.row];

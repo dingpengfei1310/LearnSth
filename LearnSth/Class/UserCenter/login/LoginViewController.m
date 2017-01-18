@@ -22,6 +22,7 @@
 
 @end
 
+const CGFloat topSpace = 60;
 const CGFloat fieldMargin = 40;
 const CGFloat fieldHeight = 35;
 
@@ -39,25 +40,32 @@ const CGFloat fieldHeight = 35;
     [scrollView addSubview:self.accountField];
     [scrollView addSubview:self.passwordField];
     [scrollView addSubview:self.loginButton];
+    [self addRegButtonWithView:scrollView];
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭"
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(dismiss)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {
+    CGFloat buttonW = 60;
+    UIFont *font = [UIFont systemFontOfSize:15];
     
-    CGFloat textFieldW = Screen_W - fieldMargin * 2;
-    self.accountField.frame = CGRectMake(fieldMargin, 60, textFieldW, fieldHeight);
+    CGFloat regButtonY = topSpace + fieldHeight * 3 + fieldMargin * 1.5;
+    CGRect rect = CGRectMake(fieldMargin, regButtonY, buttonW, 40);
+    UIButton *regButton = [[UIButton alloc] initWithFrame:rect];
+    [regButton.titleLabel setFont:font];
+    [regButton setTitle:@"快速注册" forState:UIControlStateNormal];
+    [regButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];
+    [regButton addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
     
-    CGFloat pwdFieldY = CGRectGetMaxY(self.accountField.frame) + fieldMargin / 2;
-    self.passwordField.frame = CGRectMake(fieldMargin, pwdFieldY, textFieldW, fieldHeight);
+    rect = CGRectMake(Screen_W - buttonW - fieldMargin, regButtonY, buttonW, 40);
+    UIButton *forgetButton = [[UIButton alloc] initWithFrame:rect];
+    [forgetButton.titleLabel setFont:font];
+    [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
+    [forgetButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];
+    [forgetButton addTarget:self action:@selector(forgetClick) forControlEvents:UIControlEventTouchUpInside];
     
-    CGFloat loginButtonY = CGRectGetMaxY(self.passwordField.frame) + fieldMargin;
-    self.loginButton.frame = CGRectMake(fieldMargin, loginButtonY, textFieldW, fieldHeight);
+    [scrollView addSubview:regButton];
+    [scrollView addSubview:forgetButton];
 }
 
 #pragma mark
@@ -77,6 +85,16 @@ const CGFloat fieldHeight = 35;
     }
 }
 
+- (void)registerClick {
+    RegisterViewController *controller = [[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)forgetClick {
+    
+}
+
+#pragma mark
 - (void)textFieldValueChange:(UITextField *)textField {
     if (textField == self.accountField) {
         if (textField.text.length > 11) {
@@ -94,7 +112,9 @@ const CGFloat fieldHeight = 35;
 #pragma mark
 - (UITextField *)accountField {
     if (!_accountField) {
-        _accountField = [[UITextField alloc] init];
+        CGRect rect = CGRectMake(fieldMargin, topSpace, Screen_W - fieldMargin * 2, fieldHeight);
+        
+        _accountField = [[UITextField alloc] initWithFrame:rect];
         _accountField.placeholder = @"请输入用户名";
         _accountField.borderStyle = UITextBorderStyleRoundedRect;
         _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -106,11 +126,14 @@ const CGFloat fieldHeight = 35;
 
 - (UITextField *)passwordField {
     if (!_passwordField) {
-        _passwordField = [[UITextField alloc] init];
+        CGFloat pwdFieldY = topSpace + fieldHeight + fieldMargin / 2;
+        CGRect rect = CGRectMake(fieldMargin, pwdFieldY, Screen_W - fieldMargin * 2, fieldHeight);
+        
+        _passwordField = [[UITextField alloc] initWithFrame:rect];
         _passwordField.placeholder = @"请输入密码";
         _passwordField.borderStyle = UITextBorderStyleRoundedRect;
         _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _passwordField.keyboardType = UIKeyboardTypeNumberPad;
+        _passwordField.keyboardType = UIKeyboardTypeASCIICapable;
         _passwordField.secureTextEntry = YES;
         [_passwordField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -119,7 +142,10 @@ const CGFloat fieldHeight = 35;
 
 - (UIButton *)loginButton {
     if (!_loginButton) {
-        _loginButton = [[UIButton alloc] init];
+        CGFloat loginButtonY = topSpace + fieldHeight * 2 + fieldMargin * 1.5;
+        CGRect rect = CGRectMake(fieldMargin, loginButtonY, Screen_W - fieldMargin * 2, fieldHeight);
+        
+        _loginButton = [[UIButton alloc] initWithFrame:rect];
         _loginButton.enabled = NO;
         UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
         [_loginButton setBackgroundImage:image

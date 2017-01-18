@@ -37,7 +37,7 @@ static NSString *reuseIdentifier = @"cell";
     
     CGRect buttonRect = CGRectMake(40, Screen_H - 144, Screen_W - 80, 40);
     UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
-    [button setBackgroundColor:KBaseBlueColor];
+    [button setBackgroundImage:[UIImage imageWithColor:KBaseBlueColor] forState:UIControlStateNormal];
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
@@ -49,6 +49,7 @@ static NSString *reuseIdentifier = @"cell";
     
     PopoverViewController *popoverController = [[PopoverViewController alloc] init];
     popoverController.modalPresentationStyle = UIModalPresentationPopover;
+    popoverController.preferredContentSize = CGSizeMake(80, array.count * 50);
     popoverController.dataArray = array;
     
     popoverController.popover.delegate = self;
@@ -63,8 +64,11 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 - (void)loginOut {
-    [Utils remoAllObjects];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancelTitle:@"取消" operationTitle:@"确定" block:^{
+        [Utils remoAllObjects];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)showAlertControllerOnChangeUsername {

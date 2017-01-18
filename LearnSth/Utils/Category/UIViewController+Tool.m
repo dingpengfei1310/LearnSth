@@ -139,13 +139,13 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil];
-    UIAlertAction *setting = [UIAlertAction actionWithTitle:operationTitle
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * action) {
-                                                        operationBlock();
-                                                    }];
+    UIAlertAction *operation = [UIAlertAction actionWithTitle:operationTitle
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          operationBlock();
+                                                      }];
     [alert addAction:cancel];
-    [alert addAction:setting];
+    [alert addAction:operation];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

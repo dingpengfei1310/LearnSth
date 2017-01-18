@@ -10,37 +10,41 @@
 
 @interface RegisterViewController ()
 
+@property (nonatomic, strong) UIButton *registerButton;
+
 @end
 
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"注册";
     
-    
-    CGRect buttonRect1 = CGRectMake(0, 100, Screen_W, 40);
-    UIButton *regButton = [[UIButton alloc] initWithFrame:buttonRect1];
-    [regButton setBackgroundColor:[UIColor redColor]];
-    [regButton setTitle:@"注册" forState:UIControlStateNormal];
-    [regButton addTarget:self action:@selector(regClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:regButton];
+    [self.view addSubview:self.registerButton];
 }
 
 - (void)regClick {
-    self.presentingViewController.view.alpha = 0;
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"register" object:nil];
-    
-//    [self performSelector:@selector(post:) withObject:nil afterDelay:1.0];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)post:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"register" object:nil];
+#pragma mark
+- (UIButton *)registerButton {
+    if (!_registerButton) {
+        _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 200, Screen_W - 80, 40)];
+//        _registerButton.enabled = NO;
+        UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
+        [_registerButton setBackgroundImage:image
+                                forState:UIControlStateNormal];
+        [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
+        [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_registerButton addTarget:self action:@selector(regClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _registerButton;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 @end
+
