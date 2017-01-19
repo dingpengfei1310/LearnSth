@@ -47,11 +47,6 @@
         [item setTitle:itemTitles[i]];
         [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
         [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
-        
-        if (i == 1) {
-            [item setImage:[UIImage imageNamed:@"redSpot"]];
-            [item setTitle:nil];
-        }
     }
 }
 

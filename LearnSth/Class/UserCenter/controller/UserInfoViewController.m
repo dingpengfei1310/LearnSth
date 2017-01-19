@@ -14,6 +14,7 @@
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -156,6 +157,7 @@ static NSString *reuseIdentifier = @"cell";
                 granted ? [self openUserCameraWithType:sourceType] : 0;
             }];
         }
+        
     } else {//相册
         PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
         

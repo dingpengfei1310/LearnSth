@@ -14,6 +14,7 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 #import "BlueToothController.h"
+#import "VideoCaptureController.h"
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
@@ -34,7 +35,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"蓝牙学习"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"蓝牙学习",@"录像学习"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -166,9 +167,16 @@ static NSString *identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 5) {
+        
         BlueToothController *controller = [[BlueToothController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 6) {
+        
+        VideoCaptureController *controller = [[VideoCaptureController alloc] init];
+        [self presentViewController:controller animated:YES completion:nil];
+//        controller.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 

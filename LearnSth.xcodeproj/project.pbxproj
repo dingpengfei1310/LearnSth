@@ -59,6 +59,8 @@
 		1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C521DE7E57400161396 /* WiFiUploadHTTPConnection.m */; };
 		1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C541DE7E57400161396 /* WiFiUploadManager.m */; };
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
+		1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */; };
+		1B0DBC741E30915D00A57C30 /* VideoCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */; };
 		1B1098B11E2DE84400993B23 /* DeviceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1098B01E2DE84400993B23 /* DeviceConfig.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B15352C1E0B702D00445EEE /* MessageTableCell.xib */; };
@@ -244,6 +246,9 @@
 		1B099C541DE7E57400161396 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B099C551DE7E57400161396 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B099C561DE7E57400161396 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1B0DBC721E30915D00A57C30 /* VideoCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCaptureController.h; sourceTree = "<group>"; };
+		1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCaptureController.m; sourceTree = "<group>"; };
 		1B1098AF1E2DE84400993B23 /* DeviceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceConfig.h; sourceTree = "<group>"; };
 		1B1098B01E2DE84400993B23 /* DeviceConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceConfig.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -361,6 +366,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
 			);
@@ -974,6 +980,8 @@
 				1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */,
 				1B2D07E21DE7E8DB0034C22D /* PhotosCollectionController.h */,
 				1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */,
+				1B0DBC721E30915D00A57C30 /* VideoCaptureController.h */,
+				1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */,
 			);
 			name = photos;
 			sourceTree = "<group>";
@@ -1007,6 +1015,7 @@
 		F88C22F665434B573DDEE7FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */,
 				1B1148E51D9A499A004817B1 /* libz.tbd */,
 				F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */,
 			);
@@ -1280,6 +1289,7 @@
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,
+				1B0DBC741E30915D00A57C30 /* VideoCaptureController.m in Sources */,
 				1B098E6F1E24AB9D00D5754A /* UserLocalNotification.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
