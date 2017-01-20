@@ -101,6 +101,7 @@
 		1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED781DE58D10002A27B5 /* testHUD.html */; };
 		1BE0EC081E10C4B300B9099A /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0EC061E10C4B300B9099A /* LiveCollectionCell.m */; };
 		1BE0EC091E10C4B300B9099A /* LiveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BE0EC071E10C4B300B9099A /* LiveCollectionCell.xib */; };
+		1BEBA2F31E319F7B00FF36C3 /* GPUVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEBA2F21E319F7B00FF36C3 /* GPUVideoController.m */; };
 		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
@@ -321,6 +322,8 @@
 		1BE0EC051E10C4B300B9099A /* LiveCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionCell.h; sourceTree = "<group>"; };
 		1BE0EC061E10C4B300B9099A /* LiveCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionCell.m; sourceTree = "<group>"; };
 		1BE0EC071E10C4B300B9099A /* LiveCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCollectionCell.xib; sourceTree = "<group>"; };
+		1BEBA2F11E319F7B00FF36C3 /* GPUVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUVideoController.h; sourceTree = "<group>"; };
+		1BEBA2F21E319F7B00FF36C3 /* GPUVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUVideoController.m; sourceTree = "<group>"; };
 		1BF3B3B91E03737E0061DD5A /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
 		1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -982,6 +985,8 @@
 				1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */,
 				1B0DBC721E30915D00A57C30 /* VideoCaptureController.h */,
 				1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */,
+				1BEBA2F11E319F7B00FF36C3 /* GPUVideoController.h */,
+				1BEBA2F21E319F7B00FF36C3 /* GPUVideoController.m */,
 			);
 			name = photos;
 			sourceTree = "<group>";
@@ -1283,6 +1288,7 @@
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B2D08001DE7E8DB0034C22D /* LiveModel.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
+				1BEBA2F31E319F7B00FF36C3 /* GPUVideoController.m in Sources */,
 				1B1098B11E2DE84400993B23 /* DeviceConfig.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,

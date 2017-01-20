@@ -15,6 +15,7 @@
 #import "FileScanViewController.h"
 #import "BlueToothController.h"
 #import "VideoCaptureController.h"
+#import "GPUVideoController.h"
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
@@ -119,6 +120,32 @@ static NSString *identifier = @"cell";
     }
 }
 
+- (void)showActionSheetOnVideoController {
+    UIAlertController *actionSheet;
+    actionSheet = [UIAlertController alertControllerWithTitle:@"视频拍摄"
+                                                      message:nil
+                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"普通拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        VideoCaptureController *controller = [[VideoCaptureController alloc] init];
+        [self presentViewController:controller animated:YES completion:nil];
+    }];
+    
+    UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        GPUVideoController *controller = [[GPUVideoController alloc] init];
+        [self presentViewController:controller animated:YES completion:nil];
+    }];
+    
+    [actionSheet addAction:cancelAction];
+    [actionSheet addAction:videoAction];
+    [actionSheet addAction:GPUVideoAction];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -173,10 +200,7 @@ static NSString *identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 6) {
         
-        VideoCaptureController *controller = [[VideoCaptureController alloc] init];
-        [self presentViewController:controller animated:YES completion:nil];
-//        controller.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:controller animated:YES];
+        [self showActionSheetOnVideoController];
     }
 }
 
