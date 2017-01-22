@@ -92,8 +92,7 @@ static NSString *identifier = @"cell";
     LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     LiveModel *model = self.liveList[indexPath.item];
-    [cell.liveImageView sd_setImageWithURL:[NSURL URLWithString:model.smallpic] placeholderImage:nil];
-    cell.signaturesLabel.text = model.signatures;
+    cell.liveModel = model;
     
     return cell;
 }

@@ -107,8 +107,6 @@
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
 		1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D41D92492200F8E5B1 /* LaunchScreen.storyboard */; };
-		1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */; };
-		1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */; };
 		1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */; };
@@ -121,6 +119,7 @@
 		CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */; };
 		CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */; };
 		CFEAB8CE1DE9849700CB9DDF /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */; };
+		CFF9AE7F1E333C1500397359 /* FilterMovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF9AE7E1E333C1500397359 /* FilterMovieController.m */; };
 		DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */; };
 /* End PBXBuildFile section */
 
@@ -333,11 +332,7 @@
 		1BF7F6D51D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BF7F6D71D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6DC1D92492200F8E5B1 /* LearnSthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnSthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearnSthTests.m; sourceTree = "<group>"; };
-		1BF7F6E21D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6E71D92492200F8E5B1 /* LearnSthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnSthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearnSthUITests.m; sourceTree = "<group>"; };
-		1BF7F6ED1D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1BF9B0DA1E0A2B6C005B0EDF /* BasePreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePreviewItem.h; sourceTree = "<group>"; };
@@ -360,6 +355,8 @@
 		CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceViewController.m; sourceTree = "<group>"; };
 		CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
+		CFF9AE7D1E333C1500397359 /* FilterMovieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterMovieController.h; sourceTree = "<group>"; };
+		CFF9AE7E1E333C1500397359 /* FilterMovieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterMovieController.m; sourceTree = "<group>"; };
 		E971E9F2094EB28D744E4041 /* Pods-LearnSth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.debug.xcconfig"; sourceTree = "<group>"; };
 		F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LearnSth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -891,8 +888,6 @@
 			isa = PBXGroup;
 			children = (
 				1BF7F6C51D92492200F8E5B1 /* LearnSth */,
-				1BF7F6DF1D92492200F8E5B1 /* LearnSthTests */,
-				1BF7F6EA1D92492200F8E5B1 /* LearnSthUITests */,
 				1BF7F6C41D92492200F8E5B1 /* Products */,
 				3FB33C495512F7CBF308965E /* Pods */,
 				F88C22F665434B573DDEE7FC /* Frameworks */,
@@ -934,24 +929,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		1BF7F6DF1D92492200F8E5B1 /* LearnSthTests */ = {
-			isa = PBXGroup;
-			children = (
-				1BF7F6E01D92492200F8E5B1 /* LearnSthTests.m */,
-				1BF7F6E21D92492200F8E5B1 /* Info.plist */,
-			);
-			path = LearnSthTests;
-			sourceTree = "<group>";
-		};
-		1BF7F6EA1D92492200F8E5B1 /* LearnSthUITests */ = {
-			isa = PBXGroup;
-			children = (
-				1BF7F6EB1D92492200F8E5B1 /* LearnSthUITests.m */,
-				1BF7F6ED1D92492200F8E5B1 /* Info.plist */,
-			);
-			path = LearnSthUITests;
-			sourceTree = "<group>";
-		};
 		1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -987,6 +964,8 @@
 				1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */,
 				1BEBA2F11E319F7B00FF36C3 /* GPUVideoController.h */,
 				1BEBA2F21E319F7B00FF36C3 /* GPUVideoController.m */,
+				CFF9AE7D1E333C1500397359 /* FilterMovieController.h */,
+				CFF9AE7E1E333C1500397359 /* FilterMovieController.m */,
 			);
 			name = photos;
 			sourceTree = "<group>";
@@ -1252,6 +1231,7 @@
 				1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */,
 				1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */,
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				CFF9AE7F1E333C1500397359 /* FilterMovieController.m in Sources */,
 				1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */,
 				1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */,
 				1B099C921DE7E57400161396 /* UIView+MJExtension.m in Sources */,
@@ -1326,7 +1306,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF7F6E11D92492200F8E5B1 /* LearnSthTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,7 +1313,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF7F6EC1D92492200F8E5B1 /* LearnSthUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

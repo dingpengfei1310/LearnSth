@@ -14,7 +14,7 @@
 @interface WiFiUploadViewController () <SSZipArchiveDelegate>
 
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UILabel *ipLabel;
 
 @property (nonatomic, copy) NSString *fileName;
 
@@ -24,38 +24,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"WiFi";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     
-    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
-    
-    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 114, self.view.frame.size.width - 40, 30)];
-    addressLabel.numberOfLines = 0;
-    addressLabel.textAlignment = NSTextAlignmentCenter;
-    addressLabel.layer.masksToBounds = YES;
-    addressLabel.layer.cornerRadius = 5;
-    addressLabel.backgroundColor = [UIColor grayColor];
-    addressLabel.textColor = [UIColor whiteColor];
-    addressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    addressLabel.text = [NSString stringWithFormat:@"http://%@:%@",manager.ip,@(manager.port)];
-    [self.view addSubview:addressLabel];
-    
-    _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(addressLabel.frame) + 20, self.view.frame.size.width - 40, 20)];
-    _progressView.progress = 0;
-    [self.view addSubview:_progressView];
-    
-    _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_progressView.frame) + 20, self.view.frame.size.width - 40, 30)];
-    _tipLabel.textAlignment = NSTextAlignmentCenter;
-    _tipLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _tipLabel.text = @"上传成功";
-    _tipLabel.hidden = YES;
-    [self.view addSubview:_tipLabel];
+    [self.view addSubview:self.ipLabel];
+    [self.view addSubview:self.progressView];
     
     [self addUploadNotification];
 }
 
+#pragma mark
 - (void)dismiss {
+    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
+    [manager stopHTTPServer];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -74,7 +57,8 @@
 
 - (void)fileUploadFinish:(NSNotification *)nof {
     NSLog(@"File Upload Finished.");
-    _tipLabel.hidden = NO;
+    
+    [self showSuccess:@"上传成功"];
     
 //    NSString *folder = [WiFiUploadManager shareManager].savePath;
 //    NSString *filePath = [folder stringByAppendingPathComponent:self.fileName];
@@ -83,12 +67,39 @@
 
 - (void)fileUploadProgress:(NSNotification *)nof {
     CGFloat progress = [nof.object[@"progress"] doubleValue];
-    _progressView.progress = progress;
+    self.progressView.progress = progress;
 }
 
 #pragma mark ZipNotification
 - (void)zipArchiveProgressEvent:(unsigned long long)loaded total:(unsigned long long)total {
-    _progressView.progress = loaded * 1.0 / total;
+    self.progressView.progress = loaded * 1.0 / total;
+}
+
+#pragma mark
+- (UILabel *)ipLabel {
+    if (!_ipLabel) {
+        WiFiUploadManager *manager = [WiFiUploadManager shareManager];
+        
+        _ipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, ViewFrame_X + 50, Screen_W - 40, 30)];
+        _ipLabel.numberOfLines = 0;
+        _ipLabel.textAlignment = NSTextAlignmentCenter;
+        _ipLabel.layer.masksToBounds = YES;
+        _ipLabel.layer.cornerRadius = 5;
+        _ipLabel.backgroundColor = [UIColor grayColor];
+        _ipLabel.textColor = [UIColor whiteColor];
+        _ipLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _ipLabel.text = [NSString stringWithFormat:@"http://%@:%@",manager.ip,@(manager.port)];
+    }
+    
+    return _ipLabel;
+}
+
+- (UIProgressView *)progressView {
+    if (!_progressView) {
+        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(20, ViewFrame_X + 100, Screen_W - 40, 20)];
+        _progressView.progress = 0;
+    }
+    return _progressView;
 }
 
 - (void)dealloc {

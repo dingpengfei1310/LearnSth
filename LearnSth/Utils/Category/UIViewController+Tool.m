@@ -71,7 +71,7 @@
     
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
-    [hud hideAnimated:YES afterDelay:1.0];
+    [hud hideAnimated:YES afterDelay:1.5];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {

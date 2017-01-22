@@ -46,12 +46,13 @@ const CGFloat fieldHeight = 35;
 }
 
 - (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {
-    CGFloat buttonW = 60;
+    CGFloat buttonW = 80;
     UIFont *font = [UIFont systemFontOfSize:15];
     
     CGFloat regButtonY = topSpace + fieldHeight * 3 + fieldMargin * 1.5;
     CGRect rect = CGRectMake(fieldMargin, regButtonY, buttonW, 40);
     UIButton *regButton = [[UIButton alloc] initWithFrame:rect];
+    regButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [regButton.titleLabel setFont:font];
     [regButton setTitle:@"快速注册" forState:UIControlStateNormal];
     [regButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];
@@ -59,6 +60,7 @@ const CGFloat fieldHeight = 35;
     
     rect = CGRectMake(Screen_W - buttonW - fieldMargin, regButtonY, buttonW, 40);
     UIButton *forgetButton = [[UIButton alloc] initWithFrame:rect];
+    forgetButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [forgetButton.titleLabel setFont:font];
     [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];

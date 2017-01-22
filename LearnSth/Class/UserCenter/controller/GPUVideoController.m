@@ -35,8 +35,9 @@
     [self.view.layer addSublayer:preLayer];
     
     [self.captureSession startRunning];
-    
+//
     [self setButton];
+    
 }
 
 #pragma mark

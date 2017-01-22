@@ -16,6 +16,7 @@
 #import "BlueToothController.h"
 #import "VideoCaptureController.h"
 #import "GPUVideoController.h"
+#import "FilterMovieController.h"
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
@@ -135,7 +136,8 @@ static NSString *identifier = @"cell";
     }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        GPUVideoController *controller = [[GPUVideoController alloc] init];
+//        GPUVideoController *controller = [[GPUVideoController alloc] init];
+        FilterMovieController *controller = [[FilterMovieController alloc] init];
         [self presentViewController:controller animated:YES completion:nil];
     }];
     
