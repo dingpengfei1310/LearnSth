@@ -15,12 +15,12 @@
 #import "FileScanViewController.h"
 #import "BlueToothController.h"
 #import "VideoCaptureController.h"
-#import "GPUVideoController.h"
 #import "FilterMovieController.h"
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -37,7 +37,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.title = @"User";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"蓝牙学习",@"录像学习"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"录像学习"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -98,7 +98,8 @@ static NSString *identifier = @"cell";
     return cacheSize;
 }
 
-- (void)checkAuthorizationStatus {
+//检查权限－相册
+- (void)checkAuthorizationStatusOnPhotos {
     PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
     if (currentStatus == PHAuthorizationStatusNotDetermined) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -136,7 +137,6 @@ static NSString *identifier = @"cell";
     }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        GPUVideoController *controller = [[GPUVideoController alloc] init];
         FilterMovieController *controller = [[FilterMovieController alloc] init];
         [self presentViewController:controller animated:YES completion:nil];
     }];
@@ -146,6 +146,26 @@ static NSString *identifier = @"cell";
     [actionSheet addAction:GPUVideoAction];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)checkAuthorizationStatusOnVideo {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    
+    if (status == AVAuthorizationStatusAuthorized) {
+//        [self openUserCameraWithType:sourceType];
+        
+    } else if (status == AVAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlert];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+//            granted ? [self openUserCameraWithType:sourceType] : 0;
+        }];
+    }
+}
+
+- (void)checkAuthorizationStatusOnAudio {
+    
 }
 
 #pragma mark
@@ -180,7 +200,7 @@ static NSString *identifier = @"cell";
         [self wifiUpload];
         
     } else if (indexPath.row == 1) {
-        [self checkAuthorizationStatus];
+        [self checkAuthorizationStatusOnPhotos];
         
     } else if (indexPath.row == 2) {
         MessageViewController *controller = [[MessageViewController alloc] init];
@@ -195,14 +215,18 @@ static NSString *identifier = @"cell";
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         
-    } else if (indexPath.row == 5) {
+    }
+//    else if (indexPath.row == 5) {
+//        
+//        BlueToothController *controller = [[BlueToothController alloc] init];
+//        controller.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:controller animated:YES];
+//    }
+    else if (indexPath.row == 5) {
         
-        BlueToothController *controller = [[BlueToothController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-    } else if (indexPath.row == 6) {
+//        [self showActionSheetOnVideoController];
         
-        [self showActionSheetOnVideoController];
+        [self checkAuthorizationStatusOnVideo];
     }
 }
 

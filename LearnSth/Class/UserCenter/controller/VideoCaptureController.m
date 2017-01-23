@@ -118,7 +118,7 @@
     }
     
     //设置录制视频保存的路径
-    NSString *path = [kDocumentPath stringByAppendingPathComponent:@"myVideo.mov"];
+    NSString *path = [kDocumentPath stringByAppendingPathComponent:@"MyVideo.mov"];
     NSURL *url = [NSURL fileURLWithPath:path];
     [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
     

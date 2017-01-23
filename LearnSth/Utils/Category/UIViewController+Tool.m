@@ -64,7 +64,7 @@
     hud.label.text = text;
     hud.label.font = [self hudTextFont];
     hud.contentColor = [UIColor whiteColor];
-    hud.margin = 10;
+    hud.margin = [self hudTextMargin];
     
     hud.mode = MBProgressHUDModeCustomView;
     hud.animationType = MBProgressHUDAnimationZoom;
@@ -80,7 +80,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = message;
     hud.label.font = [self hudTextFont];
-    hud.margin = 10;
+    hud.margin = [self hudTextMargin];
     
     hud.bezelView.backgroundColor = [UIColor clearColor];
     
@@ -111,6 +111,10 @@
     }
     
     return textFont;
+}
+
+- (CGFloat)hudTextMargin {
+    return 15;
 }
 
 #pragma mark

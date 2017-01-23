@@ -31,7 +31,7 @@
     
     [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
-    
+//    UIImageWriteToSavedPhotosAlbum(<#UIImage * _Nonnull image#>, <#id  _Nullable completionTarget#>, <#SEL  _Nullable completionSelector#>, <#void * _Nullable contextInfo#>)
 }
 
 - (void)viewDidAppear:(BOOL)animated {
