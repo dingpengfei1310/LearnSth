@@ -14,9 +14,9 @@
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *previewItems;
+@property (nonatomic, strong) NSMutableArray *previewItems;
 
-@property (nonatomic, assign) NSInteger selectIndex;//显示的文件
+@property (nonatomic, assign) NSInteger selectIndex;//显示的文件序号
 
 @end
 
@@ -53,6 +53,25 @@
     [self presentViewController:previewController animated:YES completion:nil];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
+    [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
+                      cancel:^{
+                          [tableView reloadData];
+                      }
+                   operation:^{
+                       NSFileManager *fileManager = [NSFileManager defaultManager];
+                       [fileManager removeItemAtPath:filePath error:NULL];
+                       
+                       [self.previewItems removeObjectAtIndex:indexPath.row];
+                       [tableView reloadData];
+                   }];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
 #pragma mark - QLPreviewControllerDataSource
 - (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
     return 1;
@@ -79,14 +98,13 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];
-        
     }
     return _tableView;
 }
 
-- (NSArray *)previewItems {
+- (NSMutableArray *)previewItems {
     if (!_previewItems) {
-        NSMutableArray *mutArray = [NSMutableArray array];
+        _previewItems = [NSMutableArray array];
         NSString *docString = kDocumentPath;
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -96,12 +114,9 @@
             
             BOOL flag;
             if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
-                [mutArray addObject:obj];
+                [_previewItems addObject:obj];
             }
         }];
-        
-        [mutArray removeObject:@".DS_Store"];
-        _previewItems = [NSArray arrayWithArray:mutArray];
     }
     
     return _previewItems;

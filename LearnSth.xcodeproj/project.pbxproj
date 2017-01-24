@@ -90,6 +90,7 @@
 		1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */; };
 		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
+		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
 		1BDCA9C11E2F055800ED0315 /* BlueToothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCA9C01E2F055800ED0315 /* BlueToothController.m */; };
@@ -307,6 +308,8 @@
 		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tool.h"; sourceTree = "<group>"; };
 		1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tool.m"; sourceTree = "<group>"; };
+		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
+		1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionView.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		1BDCA9BF1E2F055800ED0315 /* BlueToothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
@@ -843,6 +846,8 @@
 				CF1A49571E0FBD76007FD07D /* PhotosCollectionCell.h */,
 				CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */,
 				CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */,
+				1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */,
+				1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1228,6 +1233,7 @@
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				CFF9AE7F1E333C1500397359 /* FilterMovieController.m in Sources */,
 				1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */,
+				1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */,
 				1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */,
 				1B099C921DE7E57400161396 /* UIView+MJExtension.m in Sources */,
 				1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */,

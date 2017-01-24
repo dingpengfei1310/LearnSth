@@ -7,47 +7,133 @@
 //
 
 #import "FilterMovieController.h"
+#import "FilterCollectionView.h"
 #import "GPUImage.h"
 
 @interface FilterMovieController ()
 
+@property (nonatomic, strong) GPUImageView *videoView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
 @property (nonatomic, strong) GPUImageFilter *currentFilter;
 
 @property (nonatomic, strong) GPUImageMovieWriter *movieWriter;
 
-@property (nonatomic, strong) NSString *MoviePath;
+@property (nonatomic, strong) NSArray *imageFilters;
 
+@property (nonatomic, strong) NSString *moviePath;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UILabel *timeLabel;
+
+@property (nonatomic, assign) BOOL isRecording;
 
 @end
 
 @implementation FilterMovieController
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _isRecording = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self checkAuthorizationStatusOnVideo];
+}
+
+- (void)showVideoView {
     
-    self.MoviePath = [kDocumentPath stringByAppendingPathComponent:@"FilterVideo.mov"];
+    self.imageFilters = @[
+                          @{@"name":@"明亮",@"className":[GPUImageBrightnessFilter class]},
+                          @{@"name":@"素描",@"className":[GPUImageSketchFilter class]},
+                          @{@"name":@"褐色/怀旧",@"className":[GPUImageSepiaFilter class]},
+                          @{@"name":@"色彩丢失",@"className":[GPUImageColorPackingFilter class]},
+                          @{@"name":@"浮雕3D",@"className":[GPUImageEmbossFilter class]},
+                          @{@"name":@"像素",@"className":[GPUImagePixellateFilter class]},
+                          @{@"name":@"同心圆像素",@"className":[GPUImagePolarPixellateFilter class]},//GPUImagePolarPixellateFilter.GPUImagePixellateFilter
+                          @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]},//GPUImageSmoothToonFilter.GPUImageToonFilter
+                          @{@"name":@"反色",@"className":[GPUImageColorInvertFilter class]},
+                          @{@"name":@"灰度",@"className":[GPUImageGrayscaleFilter class]},
+                          
+                          @{@"name":@"凸起失真",@"className":[GPUImageBulgeDistortionFilter class]},
+                          @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
+                          @{@"name":@"伸展失真",@"className":[GPUImageStretchDistortionFilter class]},
+                          @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
+                          @{@"name":@"水晶球",@"className":[GPUImageGlassSphereFilter class]},
+                          
+                          @{@"name":@"像素平均值",@"className":[GPUImageAverageColor class]},
+                          
+                          @{@"name":@"纯色",@"className":[GPUImageSolidColorGenerator class]},
+                          @{@"name":@"亮度平均",@"className":[GPUImageLuminosity class]},
+                          @{@"name":@"抑制",@"className":[GPUImageNonMaximumSuppressionFilter class]},
+                          
+                          @{@"name":@"高斯模糊",@"className":[GPUImageGaussianBlurFilter class]},
+                          @{@"name":@"高斯模糊，部分清晰",@"className":[GPUImageGaussianSelectiveBlurFilter class]},
+                          @{@"name":@"盒状模糊",@"className":[GPUImageBoxBlurFilter class]},
+                          @{@"name":@"条纹模糊",@"className":[GPUImageTiltShiftFilter class]},
+                          @{@"name":@"中间值",@"className":[GPUImageMedianFilter class]},
+                          ];
     
-    GPUImageView *filteredVideoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
+    self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
+    
+    GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
+    [self.currentFilter addTarget:videoView];
     [self.videoCamera addTarget:self.currentFilter];
-    [self.currentFilter addTarget:filteredVideoView];
-    [self.view addSubview:filteredVideoView];
+    [self.view addSubview:videoView];
+    _videoView = videoView;
     
     [self.videoCamera startCameraCapture];
     
-    [self.view addSubview:self.timeLabel];
-    [self setButton];
+    [self setButtonAndTimeLabel];
+}
+
+- (void)checkAuthorizationStatusOnVideo {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self checkAuthorizationStatusOnAudio];
+    } else if (status == AVAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } operation:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
+}
+
+- (void)checkAuthorizationStatusOnAudio {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self showVideoView];
+    } else if (status == AVAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } operation:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+            granted ? [self showVideoView] : [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 #pragma mark
-- (void)setButton {
-    CGFloat bottomHeight = 70;
+- (void)setButtonAndTimeLabel {
+    CGFloat bottomHeight = 100;
     
     UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
     dismissButton.center = CGPointMake(Screen_W * 0.5 - Screen_W * 0.2, Screen_H - bottomHeight);
@@ -71,6 +157,15 @@
     [changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [changeButton addTarget:self action:@selector(changeDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:changeButton];
+    
+    [self.view addSubview:self.timeLabel];
+    
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, Screen_H - 50, Screen_W, 50)];
+    filterView.filters = self.imageFilters;
+    filterView.FilterSelect = ^(NSInteger index){
+        [self changeFilterWith:index];
+    };
+    [self.view addSubview:filterView];
 }
 
 - (void)dismiss:(UIButton *)sender {
@@ -82,23 +177,56 @@
     [self.videoCamera rotateCamera];
 }
 
+- (void)changeFilterWith:(NSInteger)index {
+    NSDictionary *filterInfo = self.imageFilters[index];
+    Class filterClass = filterInfo[@"className"];
+    if ([self.currentFilter isKindOfClass:filterClass]) {
+        return;
+    }
+    
+    self.currentFilter = [[filterClass alloc] init];
+    
+    if (self.isRecording) {
+        [self.videoCamera pauseCameraCapture];
+        
+        [self.currentFilter removeAllTargets];
+        [self.currentFilter addTarget:self.movieWriter];
+        [self.currentFilter addTarget:self.videoView];
+        
+        [self.videoCamera removeAllTargets];
+        [self.videoCamera addTarget:self.currentFilter];
+        self.videoCamera.audioEncodingTarget = self.movieWriter;
+        
+        [self.videoCamera resumeCameraCapture];
+        
+    } else {
+        [self.currentFilter removeAllTargets];
+        [self.currentFilter addTarget:self.videoView];
+        
+        [self.videoCamera removeAllTargets];
+        [self.videoCamera addTarget:self.currentFilter];
+    }
+}
+
 - (void)captureButtonClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
-        unlink([self.MoviePath UTF8String]); // 如果已经存在文件，AVAssetWriter会有异常，删除旧文件
+        unlink([self.moviePath UTF8String]); // 如果已经存在文件，AVAssetWriter会有异常，删除旧文件
         [self.currentFilter addTarget:self.movieWriter];
         self.videoCamera.audioEncodingTarget = self.movieWriter;
         [self.movieWriter startRecording];
+        _isRecording = YES;
         
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     } else {
         [self.currentFilter removeTarget:self.movieWriter];
         _videoCamera.audioEncodingTarget = nil;
         [self.movieWriter finishRecording];
+        _isRecording = NO;
         
-        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" block:^{
+        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:nil operation:^{
             [self loading];
-            UISaveVideoAtPathToSavedPhotosAlbum(self.MoviePath, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
+            UISaveVideoAtPathToSavedPhotosAlbum(self.moviePath, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
         }];
         
         [self.displayLink invalidate];
@@ -145,17 +273,16 @@
 
 - (GPUImageFilter *)currentFilter {
     if (!_currentFilter) {
-        _currentFilter = [[GPUImageSepiaFilter alloc] init];
+        _currentFilter = [[GPUImageBrightnessFilter alloc] init];
     }
     return _currentFilter;
 }
 
 - (GPUImageMovieWriter *)movieWriter {
     if (!_movieWriter) {
-        NSURL *url = [NSURL fileURLWithPath:self.MoviePath];
-        
-//        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeZero];
-        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeMake(480.0, 640.0)];
+        NSURL *url = [NSURL fileURLWithPath:self.moviePath];
+//        1920x1080 1280x720  960x540 640x480
+        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeMake(720.0, 1280.0)];
         _movieWriter.encodingLiveVideo = YES;
     }
     return _movieWriter;

@@ -138,7 +138,7 @@ const NSInteger photoColumn = 4;
 //}
 
 #pragma mark
-- (NSArray *)thumbImages {
+- (NSMutableArray *)thumbImages {
     if (!_thumbImages) {
         _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
     }

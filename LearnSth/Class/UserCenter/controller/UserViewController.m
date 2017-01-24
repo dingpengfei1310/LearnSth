@@ -71,7 +71,7 @@ static NSString *identifier = @"cell";
 }
 
 - (void)showAlertOnClearDiskCache {
-    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancelTitle:@"取消" operationTitle:@"确定" block:^{
+    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancelTitle:@"取消" cancel:nil operationTitle:@"确定" operation:^{
         [self clearDiskCache];
     }];
 }
@@ -113,7 +113,7 @@ static NSString *identifier = @"cell";
         }];
         
     } else if (currentStatus == PHAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlert];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:nil operation:nil];
         
     } else if (currentStatus == PHAuthorizationStatusAuthorized) {
         PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
@@ -146,26 +146,6 @@ static NSString *identifier = @"cell";
     [actionSheet addAction:GPUVideoAction];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
-}
-
-- (void)checkAuthorizationStatusOnVideo {
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    
-    if (status == AVAuthorizationStatusAuthorized) {
-//        [self openUserCameraWithType:sourceType];
-        
-    } else if (status == AVAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlert];
-        
-    } else if (status == AVAuthorizationStatusNotDetermined) {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-//            granted ? [self openUserCameraWithType:sourceType] : 0;
-        }];
-    }
-}
-
-- (void)checkAuthorizationStatusOnAudio {
-    
 }
 
 #pragma mark
@@ -224,9 +204,7 @@ static NSString *identifier = @"cell";
 //    }
     else if (indexPath.row == 5) {
         
-//        [self showActionSheetOnVideoController];
-        
-        [self checkAuthorizationStatusOnVideo];
+        [self showActionSheetOnVideoController];
     }
 }
 
