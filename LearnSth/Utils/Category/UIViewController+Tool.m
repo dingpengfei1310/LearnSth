@@ -27,7 +27,7 @@
     [self.navigationController.navigationBar setShadowImage:nil];
 }
 
-#pragma mark
+#pragma mark - HUD提示框
 - (void)loading {
     [self showMessage:nil toView:nil];
 }
@@ -117,7 +117,7 @@
     return 15;
 }
 
-#pragma mark
+#pragma mark - 确认弹出框
 - (void)openSystemSetting {
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if([[UIApplication sharedApplication] canOpenURL:url]) {
@@ -125,31 +125,35 @@
     }
 }
 
-- (void)showAuthorizationStatusDeniedAlert {
-    [self showAlertWithTitle:@"提示" message:@"没有访问权限！\n您可以到“隐私设置“中启用访问" cancelTitle:@"知道了" operationTitle:@"去设置" block:^{
+- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message Cancel:(void (^)())cancel operation:(void (^)())operation {
+    NSString *mess = [NSString stringWithFormat:@"%@\n%@",message,@"您可以到“隐私设置“中启用访问"];
+    void (^operationBlock)() = ^{
         [self openSystemSetting];
-    }];
+        operation ? operation() : 0;
+    };
+    
+    [self showAlertWithTitle:@"提示" message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message block:(void (^)())operationBlock {
-    [self showAlertWithTitle:title message:message cancelTitle:@"取消" operationTitle:@"确定" block:^{
-        operationBlock();
-    }];
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle operationTitle:(NSString *)operationTitle block:(void (^)())operationBlock {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:nil];
-    UIAlertAction *operation = [UIAlertAction actionWithTitle:operationTitle
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) {
-                                                          operationBlock();
-                                                      }];
-    [alert addAction:cancel];
-    [alert addAction:operation];
+    UIAlertAction *cancelA = [UIAlertAction actionWithTitle:cancelTitle
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction * action) {
+                                                        cancel ? cancel() : 0;
+                                                    }];
+    UIAlertAction *operationA  = [UIAlertAction actionWithTitle:operationTitle
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) {
+                                                            operation ? operation() : 0;
+                                                        }];
+    [alert addAction:cancelA];
+    [alert addAction:operationA];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

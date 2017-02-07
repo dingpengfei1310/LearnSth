@@ -65,11 +65,27 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 - (void)loginOut {
+//    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil operation:^{
+//        [Utils remoAllObjects];
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
     
-    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancelTitle:@"取消" operationTitle:@"确定" block:^{
-        [Utils remoAllObjects];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要退出登录吗" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction;
+    cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                          handler:nil];
+    UIAlertAction *operationAction;
+    operationAction = [UIAlertAction actionWithTitle:@"确定"
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction * action) {
+                                                 [Utils remoAllObjects];
+                                                 [self.navigationController popViewControllerAnimated:YES];
+                                             }];
+    [alert addAction:cancelAction];
+    [alert addAction:operationAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)showAlertControllerOnChangeUsername {
@@ -150,7 +166,7 @@ static NSString *reuseIdentifier = @"cell";
             [self openUserCameraWithType:sourceType];
             
         } else if (status == AVAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlert];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:nil operation:nil];
             
         } else if (status == AVAuthorizationStatusNotDetermined) {
             [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
@@ -169,7 +185,7 @@ static NSString *reuseIdentifier = @"cell";
             }];
             
         } else if (currentStatus == PHAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlert];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相册访问权限" Cancel:nil operation:nil];
             
         } else if (currentStatus == PHAuthorizationStatusAuthorized) {
             [self openUserCameraWithType:sourceType];

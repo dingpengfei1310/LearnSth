@@ -12,8 +12,10 @@
 @interface VideoCaptureController ()<AVCaptureFileOutputRecordingDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
-@property (nonatomic, strong) AVCaptureDeviceInput *videoInput;
+@property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
+
+@property (nonatomic, strong) NSString *moviePath;
 
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -22,12 +24,26 @@
 
 @implementation VideoCaptureController
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self checkAuthorizationStatusOnVideo];
+}
+
+- (void)showVideoPreviewLayer {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"%@-Video.mov",dateString];
+    self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
     
     //创建一个预览图层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
@@ -38,6 +54,44 @@
     
     [self.view addSubview:self.timeLabel];
     [self setButton];
+}
+
+- (void)checkAuthorizationStatusOnVideo {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self checkAuthorizationStatusOnAudio];
+    } else if (status == AVAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } operation:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
+}
+
+- (void)checkAuthorizationStatusOnAudio {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self showVideoPreviewLayer];
+    } else if (status == AVAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } operation:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+            granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 #pragma mark
@@ -78,7 +132,7 @@
 - (void)changeDevice:(UIButton *)sender {
     AVCaptureDevicePosition position;
     
-    AVCaptureDevice *currentDevice = self.videoInput.device;
+    AVCaptureDevice *currentDevice = self.videoDeviceInput.device;
     if (currentDevice.position == AVCaptureDevicePositionBack) {
         position = AVCaptureDevicePositionFront;
     } else {
@@ -96,11 +150,11 @@
     //改变会话的配置前一定要先开启配置，配置完成后提交配置改变
     [self.captureSession beginConfiguration];
     //移除原有输入对象
-    [self.captureSession removeInput:self.videoInput];
+    [self.captureSession removeInput:self.videoDeviceInput];
     //添加新的输入对象
     if ([self.captureSession canAddInput:changeInput]) {
         [self.captureSession addInput:changeInput];
-        self.videoInput = changeInput;
+        self.videoDeviceInput = changeInput;
     }
     //提交会话配置
     [self.captureSession commitConfiguration];
@@ -118,8 +172,7 @@
     }
     
     //设置录制视频保存的路径
-    NSString *path = [kDocumentPath stringByAppendingPathComponent:@"MyVideo.mov"];
-    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURL *url = [NSURL fileURLWithPath:self.moviePath];
     [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
     
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -157,13 +210,13 @@
 }
 
 #pragma mark
-- (AVCaptureDeviceInput *)videoInput {
-    if (!_videoInput) {
+- (AVCaptureDeviceInput *)videoDeviceInput {
+    if (!_videoDeviceInput) {
         //默认摄像头输入设备，后置摄像头
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        _videoInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+        _videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     }
-    return _videoInput;
+    return _videoDeviceInput;
 }
 
 - (AVCaptureMovieFileOutput *)movieFileOutput {
@@ -184,8 +237,8 @@
 //        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
         
         //将输入输出设备添加到会话中
-        if ([_captureSession canAddInput:self.videoInput]) {
-            [_captureSession addInput:self.videoInput];
+        if ([_captureSession canAddInput:self.videoDeviceInput]) {
+            [_captureSession addInput:self.videoDeviceInput];
         }
         if ([_captureSession canAddInput:inputAudio]) {
             [_captureSession addInput:inputAudio];
