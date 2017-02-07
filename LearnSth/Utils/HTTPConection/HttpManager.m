@@ -72,7 +72,7 @@ const NSTimeInterval timeoutInterval = 20.0;
 
 #pragma mark
 - (void)getAdBannerListCompletion:(SuccessArray)completion {
-    NSString * urlString = @"http://live.9158.com/Living/GetAD";
+    NSString * urlString = @"https://live.9158.com/Living/GetAD";
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"data"];
         completion(array,nil);
@@ -85,7 +85,7 @@ const NSTimeInterval timeoutInterval = 20.0;
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion {
 //    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
-    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
+    NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];

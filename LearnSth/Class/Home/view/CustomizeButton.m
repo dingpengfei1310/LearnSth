@@ -10,7 +10,7 @@
 
 const CGFloat spaceScale = 0.1;//空白比例
 const CGFloat imageScale = 0.6;//图片比例
-const CGFloat titleScale = 0.2;//文字比例
+const CGFloat titleScale = 0.15;//文字比例
 
 @interface CustomizeButton ()
 
@@ -42,7 +42,7 @@ const CGFloat titleScale = 0.2;//文字比例
         case ImagePoisitionTop: {
             
             imageRect = CGRectMake(0, height * spaceScale, width, height * imageScale);
-            titleRect = CGRectMake(0, height * (spaceScale + imageScale), width, height * titleScale);
+            titleRect = CGRectMake(0, height * (1 - spaceScale - titleScale), width, height * titleScale);
             break;
         }
         case ImagePoisitionLeft: {

@@ -38,7 +38,7 @@
 //                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
 //                                          NSForegroundColorAttributeName:KBaseBlueColor
 //                                          };
-//    NSArray *itemTitles = @[@"Home",@"",@"User"];
+//    NSArray *itemTitles = @[@"Home",@"User"];
 //    
 //    for (int i = 0; i < self.tabBar.items.count; i++) {
 //        UITabBarItem *item = self.tabBar.items[i];
@@ -70,12 +70,12 @@
         CGRect buttonRect = CGRectMake(buttonWidth * i, 0, buttonWidth, 49);
         CustomizeButton *button = [[CustomizeButton alloc] initWithFrame:buttonRect];
         if (i == 1) {
-            button.frame = CGRectMake(0, 0, 60, 60);
+            button.frame = CGRectMake(0, 0, 100, 100);
             button.center = CGPointMake(totalWidth * 0.5, 30);
         }
         button.tag = i;
         [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
         
         [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
         [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];

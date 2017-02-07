@@ -17,13 +17,12 @@
 #import "MJRefresh.h"
 #import "HttpManager.h"
 #import "LiveModel.h"
-#import "UIImageView+WebCache.h"
 
 #import "LiveCollectionCell.h"
 #import "UICollectionView+Tool.h"
 #import "Aspects.h"
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
@@ -45,7 +44,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.navigationItem.title = @"Home";
     self.page = 1;
     
-//    [self.view addSubview:self.bannerScrollView];
     [self getHomeAdBanner];
     
     [self.view addSubview:self.collectionView];
@@ -89,6 +87,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
             }];
             
             [self.bannerScrollView setImageArray:imageStringArray];
+            [self.collectionView reloadData];
         }
     }];
 }
@@ -120,7 +119,12 @@ static NSString *headerReuseIdentifier = @"headerCell";
 }
 
 #pragma mark
-- (CGSize)coll
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (self.bannerList.count > 0) {
+        return self.bannerScrollView.frame.size;
+    }
+    return CGSizeZero;
+}
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -156,7 +160,8 @@ static NSString *headerReuseIdentifier = @"headerCell";
     PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
     controller.live = self.liveList[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentViewController:nvc animated:YES completion:nil];
 }
 
 #pragma mark

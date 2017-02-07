@@ -8,6 +8,7 @@
 
 #import "UIImage+Tool.h"
 #import <Photos/Photos.h>
+#import <Accelerate/Accelerate.h>
 
 @implementation UIImage (Tool)
 
@@ -23,7 +24,6 @@
     UIGraphicsEndImageContext();
     return image;
 }
-
 
 #pragma mark
 - (UIImage *)resizeImageWithSize:(CGSize)size {
@@ -50,7 +50,6 @@
     return result;
 }
 
-
 - (UIImage *)getCenterImage {
     CGSize imageSize = self.size;
     CGFloat originX = 0;
@@ -74,7 +73,6 @@
     
     return result;
 }
-
 
 #pragma mark
 - (void)saveImageIntoAlbum {
@@ -104,7 +102,6 @@
         NSLog(@"%@",@"保存成功");
     }
 }
-
 
 - (PHFetchResult<PHAsset *> *)createAssets {
     UIImage *image = [UIImage imageNamed:@"lookup"];
@@ -142,6 +139,131 @@
     
     // 创建完毕后再取出相册
     return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionId] options:nil].firstObject;
+}
+
+- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage {
+    NSAssert(self.size.width > 0 && self.size.height > 0, @"Size must be positive: Both dimensions msut be >= 1.");
+    NSAssert(self.CGImage != nil, @"image must be backed by a CGImage.");
+    NSAssert(!maskImage || maskImage.CGImage, @"maskImage, if given, must be backed by a CGImage.");
+    
+    UIImage *image = self;
+    const CGRect rect = {CGPointZero, image.size};
+    const CGFloat scale = UIScreen.mainScreen.scale;
+    
+    const BOOL hasBlur = blurRadius > __FLT_EPSILON__;
+    const BOOL hasSaturationChange = fabs(saturationDeltaFactor - 1.) > __FLT_EPSILON__;
+    
+    if (hasBlur || hasSaturationChange) {
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
+        CGContextRef inputContext = UIGraphicsGetCurrentContext();
+        [image drawAtPoint:CGPointZero];
+        
+        vImage_Buffer inputBuffer = vImageBuffer_InitWithCGContext(inputContext);
+        
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
+        vImage_Buffer outputBuffer = vImageBuffer_InitWithCGContext(UIGraphicsGetCurrentContext());
+        
+        if (hasBlur) {
+            // A description of how to compute the box kernel width from the Gaussian
+            // radius (aka standard deviation) appears in the SVG spec:
+            // http://www.w3.org/TR/SVG/filters.html#feGaussianBlurElement
+            //
+            // For larger values of 's' (s >= 2.0), an approximation can be used: Three
+            // successive box-blurs build a piece-wise quadratic convolution kernel, which
+            // approximates the Gaussian kernel to within roughly 3%.
+            //
+            // let d = floor(s * 3*sqrt(2*pi)/4 + 0.5)
+            //
+            // ... if d is odd, use three box-blurs of size 'd', centered on the output pixel.
+            //
+            CGFloat inputRadius = blurRadius * 1;
+//            NSUInteger radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
+            uint32_t radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
+            if (radius % 2 != 1) {
+                radius += 1; // force radius to be odd so that the three box-blur methodology works.
+            }
+            
+            vImageBoxConvolve_ARGB8888(&inputBuffer,  &outputBuffer, NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
+            vImageBoxConvolve_ARGB8888(&outputBuffer, &inputBuffer,  NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
+            vImageBoxConvolve_ARGB8888(&inputBuffer,  &outputBuffer, NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
+            
+            // Swap input & output
+            vImage_Buffer tempBuffer = inputBuffer;
+            inputBuffer = outputBuffer;
+            outputBuffer = tempBuffer;
+        }
+        
+        if (hasSaturationChange) {
+            CGFloat s = saturationDeltaFactor;
+            CGFloat floatingPointSaturationMatrix[] = {
+                0.0722 + 0.9278 * s,  0.0722 - 0.0722 * s,  0.0722 - 0.0722 * s,  0,
+                0.7152 - 0.7152 * s,  0.7152 + 0.2848 * s,  0.7152 - 0.7152 * s,  0,
+                0.2126 - 0.2126 * s,  0.2126 - 0.2126 * s,  0.2126 + 0.7873 * s,  0,
+                0,                    0,                    0,  1,
+            };
+            
+            const int32_t divisor = 256;
+            
+            // Convert saturation matrix from float to int
+            NSUInteger matrixSize = sizeof(floatingPointSaturationMatrix)/sizeof(floatingPointSaturationMatrix[0]);
+            int16_t saturationMatrix[matrixSize];
+            for (NSUInteger i = 0; i < matrixSize; ++i) {
+                saturationMatrix[i] = (int16_t)roundf(floatingPointSaturationMatrix[i] * divisor);
+            }
+            
+            vImageMatrixMultiply_ARGB8888(&inputBuffer, &outputBuffer, saturationMatrix, divisor, NULL, NULL, kvImageNoFlags);
+        }
+        
+        if (!hasBlur) {
+            image = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        UIGraphicsEndImageContext();
+        
+        if (hasBlur) {
+            image = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        UIGraphicsEndImageContext();
+    }
+    
+    // Set up output context.
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
+    CGContextRef outputContext = UIGraphicsGetCurrentContext();
+    
+    // Draw base image.
+    [self drawAtPoint:rect.origin];
+    
+    // Draw effect image.
+    if (hasBlur) {
+        CGContextSaveGState(outputContext);
+        if (maskImage) {
+            CGContextClipToMask(outputContext, rect, maskImage.CGImage);
+        }
+        [image drawAtPoint:rect.origin];
+        CGContextRestoreGState(outputContext);
+    }
+    
+    // Add in color tint.
+    if (tintColor) {
+        CGContextSaveGState(outputContext);
+        CGContextSetFillColorWithColor(outputContext, tintColor.CGColor);
+        CGContextFillRect(outputContext, rect);
+        CGContextRestoreGState(outputContext);
+    }
+    
+    // Output image is ready.
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+vImage_Buffer vImageBuffer_InitWithCGContext(CGContextRef contextRef) {
+    return (vImage_Buffer){
+        .width = CGBitmapContextGetWidth(contextRef),
+        .height = CGBitmapContextGetHeight(contextRef),
+        .rowBytes = CGBitmapContextGetBytesPerRow(contextRef),
+        .data = CGBitmapContextGetData(contextRef),
+    };
 }
 
 @end

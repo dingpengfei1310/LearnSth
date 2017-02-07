@@ -13,6 +13,7 @@
 @interface PLPlayerViewController ()<PLPlayerDelegate>
 
 @property (nonatomic, strong) PLPlayer *player;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -21,12 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeAll;
+    
+    self.player.playerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.player.playerView];
+    
+    self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.imageView];
+    
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.live.bigpic]];
+    UIImage *image = [UIImage imageWithData:data];
+    UIImage *blurImage = [image applyBlurWithRadius:50.0 tintColor:[UIColor colorWithWhite:.5 alpha:.1] saturationDeltaFactor:0.9 maskImage:nil];
+    self.imageView.image = blurImage;
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backButtonImage"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.hidesBarsOnTap = YES;
     
     [self navigationBarColorClear];
     [self.player play];
@@ -34,14 +46,23 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.hidesBarsOnTap = NO;
     
     [self navigationBarColorRestore];
     [self.player stop];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (void)dismisss:(UIBarButtonItem *)sender {
+    [self.player stop];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark
+- (void)player:(PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
+    if (state == PLPlayerStatusPlaying) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.imageView removeFromSuperview];
+        });
+    }
 }
 
 #pragma mark
@@ -64,6 +85,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end
