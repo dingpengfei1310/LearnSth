@@ -68,7 +68,7 @@ const CGFloat titleScale = 0.2;//文字比例
         }
     }
     
-    self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.frame = imageRect;
     
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -76,4 +76,3 @@ const CGFloat titleScale = 0.2;//文字比例
 }
 
 @end
-

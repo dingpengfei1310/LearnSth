@@ -47,9 +47,7 @@
     [self.indicatorView removeFromSuperview];
     _imageArray = imageArray;
     
-    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     for (int i = 0; i < 3; i++) {
         NSInteger index = (imageArray.count - 1 + i) % imageArray.count;
@@ -193,7 +191,4 @@
     return _indicatorView;
 }
 
-
 @end
-
-

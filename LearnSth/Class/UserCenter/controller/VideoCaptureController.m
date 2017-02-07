@@ -24,8 +24,8 @@
 
 @implementation VideoCaptureController
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad {
@@ -34,6 +34,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self checkAuthorizationStatusOnVideo];
 }
 

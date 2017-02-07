@@ -29,8 +29,9 @@
 @end
 
 @implementation FilterMovieController
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad {
@@ -46,6 +47,7 @@
 - (void)showVideoView {
     
     self.imageFilters = @[
+//                          @{@"name":@"美颜",@"className":[GPUImageFilterGroup class]},
                           @{@"name":@"明亮",@"className":[GPUImageBrightnessFilter class]},
                           @{@"name":@"素描",@"className":[GPUImageSketchFilter class]},
                           @{@"name":@"褐色/怀旧",@"className":[GPUImageSepiaFilter class]},
@@ -56,19 +58,15 @@
                           @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]},//GPUImageSmoothToonFilter.GPUImageToonFilter
                           @{@"name":@"反色",@"className":[GPUImageColorInvertFilter class]},
                           @{@"name":@"灰度",@"className":[GPUImageGrayscaleFilter class]},
-                          
                           @{@"name":@"凸起失真",@"className":[GPUImageBulgeDistortionFilter class]},
                           @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
                           @{@"name":@"伸展失真",@"className":[GPUImageStretchDistortionFilter class]},
                           @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
                           @{@"name":@"水晶球",@"className":[GPUImageGlassSphereFilter class]},
-                          
                           @{@"name":@"像素平均值",@"className":[GPUImageAverageColor class]},
-                          
-                          @{@"name":@"纯色",@"className":[GPUImageSolidColorGenerator class]},
+//                          @{@"name":@"纯色",@"className":[GPUImageSolidColorGenerator class]},
                           @{@"name":@"亮度平均",@"className":[GPUImageLuminosity class]},
                           @{@"name":@"抑制",@"className":[GPUImageNonMaximumSuppressionFilter class]},
-                          
                           @{@"name":@"高斯模糊",@"className":[GPUImageGaussianBlurFilter class]},
                           @{@"name":@"高斯模糊，部分清晰",@"className":[GPUImageGaussianSelectiveBlurFilter class]},
                           @{@"name":@"盒状模糊",@"className":[GPUImageBoxBlurFilter class]},
@@ -82,9 +80,34 @@
     NSString *fileName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
     
+    
+    /////////////////////////////////
+    // 创建滤镜：磨皮，美白，组合滤镜
+    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc] init];
+    
+    // 磨皮滤镜
+    GPUImageBilateralFilter *bilateralFilter = [[GPUImageBilateralFilter alloc] init];
+    [groupFilter addTarget:bilateralFilter];
+    
+    // 美白滤镜
+    GPUImageBrightnessFilter *brightnessFilter = [[GPUImageBrightnessFilter alloc] init];
+    [groupFilter addTarget:brightnessFilter];
+    
+    // 设置滤镜组链
+    [bilateralFilter addTarget:brightnessFilter];
+    [groupFilter setInitialFilters:@[bilateralFilter]];
+    groupFilter.terminalFilter = brightnessFilter;
+    
+    
+    
     GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
-    [self.currentFilter addTarget:videoView];
-    [self.videoCamera addTarget:self.currentFilter];
+    [groupFilter addTarget:videoView];
+    [self.videoCamera addTarget:groupFilter];
+    
+    //默认，不带滤镜
+//    [self.videoCamera addTarget:videoView];
+    
+    
     [self.view addSubview:videoView];
     _videoView = videoView;
     
@@ -178,6 +201,7 @@
 }
 
 - (void)changeFilterWith:(NSInteger)index {
+    
     NSDictionary *filterInfo = self.imageFilters[index];
     Class filterClass = filterInfo[@"className"];
     if ([self.currentFilter isKindOfClass:filterClass]) {

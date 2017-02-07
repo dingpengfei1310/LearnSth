@@ -7,7 +7,7 @@
 //
 
 #import "FilterCollectionView.h"
-//#import "ImageFilterModel.h"
+#import "AppConfiguration.h"
 
 @interface FilterCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -16,6 +16,7 @@
 @end
 
 @implementation FilterCollectionView
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.collectionView];
@@ -37,7 +38,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = KBackgroundColor;
     
     UILabel *contentLabel = [cell.contentView viewWithTag:100];
     if (!contentLabel) {
@@ -73,6 +74,7 @@
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
+        _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;

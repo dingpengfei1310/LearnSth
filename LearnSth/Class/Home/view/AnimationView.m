@@ -400,8 +400,4 @@ CGFloat const totalDuration = 3.0;
     return _emitterLayer;
 }
 
-
 @end
-
-
-
