@@ -41,7 +41,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Home";
+    self.navigationItem.title = @"🍎🍎🍎";
     self.page = 1;
     
     [self getHomeAdBanner];
@@ -54,16 +54,16 @@ static NSString *headerReuseIdentifier = @"headerCell";
         [weakSelf.collectionView.mj_header beginRefreshing];
     }];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     [self.bannerScrollView setUpTimer];
     [self.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
         [self.collectionView checkEmpty];
     } error:NULL];
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -87,7 +87,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
             }];
             
             [self.bannerScrollView setImageArray:imageStringArray];
-            [self.collectionView reloadData];
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
         }
     }];
 }
@@ -128,7 +128,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader] && self.bannerList.count > 0) {
         UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerReuseIdentifier forIndexPath:indexPath];
         
         BannerScrollView *scrollView = [reusableView viewWithTag:1111];

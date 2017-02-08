@@ -27,6 +27,7 @@
 - (void)saveImageIntoAlbum;
 - (void)saveImageIntoAlbumWithTitle:(NSString *)title;
 
+//模糊图片
 - (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage;
 
 @end

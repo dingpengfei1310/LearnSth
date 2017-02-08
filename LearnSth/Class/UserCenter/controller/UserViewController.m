@@ -35,7 +35,7 @@ static NSString *identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"User";
+    self.navigationItem.title = @"🏓🏓🏓";
     
     self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"录像学习"];
     [self.view addSubview:self.tableView];

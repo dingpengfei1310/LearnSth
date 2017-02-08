@@ -17,6 +17,7 @@
 @property (nonatomic, strong) GPUImageFilter *currentFilter;
 
 @property (nonatomic, strong) GPUImageMovieWriter *movieWriter;
+@property (nonatomic, strong) GPUImageFilterGroup *groupFilter;
 
 @property (nonatomic, strong) NSArray *imageFilters;
 
@@ -97,7 +98,7 @@
     [bilateralFilter addTarget:brightnessFilter];
     [groupFilter setInitialFilters:@[bilateralFilter]];
     groupFilter.terminalFilter = brightnessFilter;
-    
+    self.groupFilter = groupFilter;
     
     
     GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
@@ -208,6 +209,7 @@
         return;
     }
     
+    self.groupFilter = nil;
     self.currentFilter = [[filterClass alloc] init];
     
     if (self.isRecording) {
@@ -236,14 +238,24 @@
     sender.selected = !sender.selected;
     if (sender.selected) {
         unlink([self.moviePath UTF8String]); // 如果已经存在文件，AVAssetWriter会有异常，删除旧文件
-        [self.currentFilter addTarget:self.movieWriter];
+        if (self.groupFilter) {
+            [self.groupFilter addTarget:self.movieWriter];
+        } else {
+            [self.currentFilter addTarget:self.movieWriter];
+        }
+        
         self.videoCamera.audioEncodingTarget = self.movieWriter;
         [self.movieWriter startRecording];
         _isRecording = YES;
         
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     } else {
-        [self.currentFilter removeTarget:self.movieWriter];
+        if (self.groupFilter) {
+            [self.groupFilter removeTarget:self.movieWriter];
+        } else {
+            [self.currentFilter removeTarget:self.movieWriter];
+        }
+        
         _videoCamera.audioEncodingTarget = nil;
         [self.movieWriter finishRecording];
         _isRecording = NO;
@@ -322,7 +334,7 @@
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 21)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 21)];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.backgroundColor = [UIColor clearColor];
         _timeLabel.textColor = [UIColor whiteColor];

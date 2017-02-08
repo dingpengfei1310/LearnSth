@@ -22,6 +22,8 @@
 
 @end
 
+const CGFloat PickViewHeight = 200;
+
 @implementation AddressPickerController
 
 - (void)viewDidLoad {
@@ -46,7 +48,7 @@
 }
 
 - (void)addToolBarAndItem {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, Screen_H - 260, Screen_W, 44)];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, Screen_H - PickViewHeight - 40, Screen_W, 40)];
     toolBar.backgroundColor = KBackgroundColor;
     [self.view addSubview:toolBar];
     
@@ -166,7 +168,7 @@
 
 - (UIPickerView *)pickerView {
     if (!_pickerView) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, Screen_H - 216, Screen_W, 216)];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, Screen_H - PickViewHeight, Screen_W, PickViewHeight)];
         _pickerView.backgroundColor = KBackgroundColor;
         _pickerView.dataSource = self;
         _pickerView.delegate  = self;
@@ -179,4 +181,3 @@
 }
 
 @end
-
