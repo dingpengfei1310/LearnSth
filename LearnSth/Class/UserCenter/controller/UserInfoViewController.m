@@ -8,15 +8,13 @@
 
 #import "UserInfoViewController.h"
 #import "ProvinceViewController.h"
-#import "PopoverViewController.h"
 #import "AddressPickerController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIPopoverPresentationControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *dataArray;
@@ -46,22 +44,7 @@ static NSString *reuseIdentifier = @"cell";
 
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
-    NSArray *array = @[@"Hello",@"Word"];
-    
-    PopoverViewController *popoverController = [[PopoverViewController alloc] init];
-    popoverController.modalPresentationStyle = UIModalPresentationPopover;
-    popoverController.preferredContentSize = CGSizeMake(80, array.count * 50);
-    popoverController.dataArray = array;
-    
-    popoverController.popover.delegate = self;
-    popoverController.popover.sourceView = self.navigationController.navigationBar;
-    popoverController.popover.sourceRect = CGRectMake(Screen_W - 32, 44, 0, 0);
-    
-    popoverController.SelectIndex = ^(NSInteger index) {
-        NSLog(@"%@",array[index]);
-    };
-    
-    [self presentViewController:popoverController animated:YES completion:nil];
+    [self showError:@" 开发中"];
 }
 
 - (void)loginOut {
@@ -70,6 +53,7 @@ static NSString *reuseIdentifier = @"cell";
 //        [self.navigationController popViewControllerAnimated:YES];
 //    }];
     
+    //UIAlertActionStyleDestructive
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要退出登录吗" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction;
@@ -113,6 +97,8 @@ static NSString *reuseIdentifier = @"cell";
 
 - (void)presentAddressPickerController {
     AddressPickerController *controller = [[AddressPickerController alloc] init];
+    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
     controller.SelectBlock = ^(NSDictionary *province,NSDictionary *city) {
         AddressModel *address = [[AddressModel alloc] init];
         address.province = province[@"name"];
@@ -124,11 +110,7 @@ static NSString *reuseIdentifier = @"cell";
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
                               withRowAnimation:UITableViewRowAnimationAutomatic];
     };
-    
-    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:controller animated:YES completion:^(void){
-        controller.view.superview.backgroundColor = [UIColor clearColor];
-    }];
+    [self presentViewController:controller animated:NO completion:nil];
 }
 
 #pragma mark
@@ -242,11 +224,6 @@ static NSString *reuseIdentifier = @"cell";
     }
 }
 
-#pragma mark - UIPopoverPresentationControllerDelegate
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
-    return UIModalPresentationNone;
-}
-
 #pragma mark 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -269,4 +246,3 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 @end
-

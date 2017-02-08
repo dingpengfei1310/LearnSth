@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSArray *cities;
 @property (nonatomic, strong) NSArray *areas;
 
+@property (nonatomic, strong) UIView *pickerBackgroundView;
 @property (nonatomic, strong) UIPickerView *pickerView;
 
 @property (nonatomic, strong) NSDictionary *currentProvince;
@@ -23,6 +24,8 @@
 @end
 
 const CGFloat PickViewHeight = 200;
+const CGFloat ToolbarHeight = 40;
+const CGFloat PickViewAppearDuration = 0.3;
 
 @implementation AddressPickerController
 
@@ -33,40 +36,32 @@ const CGFloat PickViewHeight = 200;
     self.currentProvince = self.provinces[0];
     self.currentCity = self.cities[0];
     
-    [self.view addSubview:self.pickerView];
-    [self addToolBarAndItem];
+    [self.view addSubview:self.pickerBackgroundView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.view.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.2];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.view.backgroundColor = [UIColor clearColor];
-}
-
-- (void)addToolBarAndItem {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, Screen_H - PickViewHeight - 40, Screen_W, 40)];
-    toolBar.backgroundColor = KBackgroundColor;
-    [self.view addSubview:toolBar];
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *submitItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(submit)];
-    
-    toolBar.items = @[cancelItem,spaceItem,submitItem];
+    self.pickerBackgroundView.transform = CGAffineTransformMakeTranslation(0, PickViewHeight + ToolbarHeight);
+    [UIView animateWithDuration:PickViewAppearDuration animations:^{
+        self.pickerBackgroundView.transform = CGAffineTransformIdentity;
+        self.view.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.2];
+    }];
 }
 
 #pragma mark
 - (void)cancel {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [UIView animateWithDuration:PickViewAppearDuration animations:^{
+        self.pickerBackgroundView.transform = CGAffineTransformMakeTranslation(0, PickViewHeight + ToolbarHeight);
+        self.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
 }
 
 - (void)submit {
     self.SelectBlock(self.currentProvince,self.currentCity);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -104,18 +99,24 @@ const CGFloat PickViewHeight = 200;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (component == 0) {
-        NSDictionary *info = self.provinces[row];
-        return info[@"name"];
-    } else if (component == 1) {
-        NSDictionary *info = self.cities[row];
-        return info[@"name"];
-    } else if (component == 2) {
-        NSDictionary *info = self.areas[row];
-        return info[@"name"];
+    NSDictionary *info;
+    
+    switch (component) {
+        case 0:
+            info = self.provinces[row];
+            break;
+        case 1:
+            info = self.cities[row];
+            break;
+        case 2:
+            info = self.areas[row];
+            break;
+        default:
+            return nil;
+            break;
     }
     
-    return nil;
+    return info[@"name"];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
@@ -168,12 +169,34 @@ const CGFloat PickViewHeight = 200;
 
 - (UIPickerView *)pickerView {
     if (!_pickerView) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, Screen_H - PickViewHeight, Screen_W, PickViewHeight)];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, ToolbarHeight, Screen_W, PickViewHeight)];
         _pickerView.backgroundColor = KBackgroundColor;
         _pickerView.dataSource = self;
         _pickerView.delegate  = self;
     }
     return _pickerView;
+}
+
+- (UIView *)pickerBackgroundView {
+    if (!_pickerBackgroundView) {
+        UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, Screen_W, ToolbarHeight)];
+        toolBar.backgroundColor = KBackgroundColor;
+        [self.view addSubview:toolBar];
+        
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *submitItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(submit)];
+        
+        toolBar.items = @[cancelItem,spaceItem,submitItem];
+        
+        CGFloat height = PickViewHeight + ToolbarHeight;
+        _pickerBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, Screen_H - height, Screen_W, height)];
+        [_pickerBackgroundView addSubview:toolBar];
+        
+        [_pickerBackgroundView addSubview:self.pickerView];
+        
+    }
+    return _pickerBackgroundView;
 }
 
 - (void)didReceiveMemoryWarning {

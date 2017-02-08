@@ -48,7 +48,8 @@
 - (void)showVideoView {
     
     self.imageFilters = @[
-//                          @{@"name":@"美颜",@"className":[GPUImageFilterGroup class]},
+                          @{@"name":@"普通",@"className":[UIImage class]},
+                          @{@"name":@"美颜",@"className":[GPUImageFilterGroup class]},
                           @{@"name":@"明亮",@"className":[GPUImageBrightnessFilter class]},
                           @{@"name":@"素描",@"className":[GPUImageSketchFilter class]},
                           @{@"name":@"褐色/怀旧",@"className":[GPUImageSepiaFilter class]},
@@ -81,39 +82,12 @@
     NSString *fileName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
     
-    
-    /////////////////////////////////
-    // 创建滤镜：磨皮，美白，组合滤镜
-    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc] init];
-    
-    // 磨皮滤镜
-    GPUImageBilateralFilter *bilateralFilter = [[GPUImageBilateralFilter alloc] init];
-    [groupFilter addTarget:bilateralFilter];
-    
-    // 美白滤镜
-    GPUImageBrightnessFilter *brightnessFilter = [[GPUImageBrightnessFilter alloc] init];
-    [groupFilter addTarget:brightnessFilter];
-    
-    // 设置滤镜组链
-    [bilateralFilter addTarget:brightnessFilter];
-    [groupFilter setInitialFilters:@[bilateralFilter]];
-    groupFilter.terminalFilter = brightnessFilter;
-    self.groupFilter = groupFilter;
-    
-    
     GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
-    [groupFilter addTarget:videoView];
-    [self.videoCamera addTarget:groupFilter];
-    
-    //默认，不带滤镜
-//    [self.videoCamera addTarget:videoView];
-    
-    
-    [self.view addSubview:videoView];
+    [self.videoCamera addTarget:videoView];//默认，不带滤镜
     _videoView = videoView;
+    [self.view addSubview:videoView];
     
     [self.videoCamera startCameraCapture];
-    
     [self setButtonAndTimeLabel];
 }
 
@@ -207,12 +181,31 @@
     Class filterClass = filterInfo[@"className"];
     if ([self.currentFilter isKindOfClass:filterClass]) {
         return;
+    } else if ([filterClass isKindOfClass:[GPUImageFilterGroup class]]) {
+        [self beautyCamera];
+        return;
+    } else if ([filterClass isKindOfClass:[UIImage class]]) {
+        [self normalCamera];
+        return;
     }
     
     self.groupFilter = nil;
     self.currentFilter = [[filterClass alloc] init];
     
     if (self.isRecording) {
+        if ([self.currentFilter isKindOfClass:[GPUImageFilter class]]) {//普通
+            [self.videoCamera pauseCameraCapture];
+            
+            [self.currentFilter removeAllTargets];
+            [self.videoCamera removeAllTargets];
+            
+            [self.videoCamera addTarget:self.videoView];
+            self.videoCamera.audioEncodingTarget = self.movieWriter;
+            
+            [self.videoCamera resumeCameraCapture];
+            return;
+        }
+        
         [self.videoCamera pauseCameraCapture];
         
         [self.currentFilter removeAllTargets];
@@ -226,11 +219,79 @@
         [self.videoCamera resumeCameraCapture];
         
     } else {
+        if ([self.currentFilter isKindOfClass:[GPUImageFilter class]]) {//普通
+            
+            [self.currentFilter removeAllTargets];
+            [self.videoCamera removeAllTargets];
+            
+            [self.videoCamera addTarget:self.videoView];
+            return;
+        }
+        
         [self.currentFilter removeAllTargets];
         [self.currentFilter addTarget:self.videoView];
         
         [self.videoCamera removeAllTargets];
         [self.videoCamera addTarget:self.currentFilter];
+    }
+}
+
+- (void)beautyCamera {
+    /////////////////////////////////
+    // 创建滤镜：磨皮，美白，组合滤镜
+    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc] init];
+    
+    // 磨皮滤镜
+    GPUImageBilateralFilter *bilateralFilter = [[GPUImageBilateralFilter alloc] init];
+    [groupFilter addTarget:bilateralFilter];
+    
+    // 美白滤镜
+    GPUImageBrightnessFilter *brightnessFilter = [[GPUImageBrightnessFilter alloc] init];
+    [groupFilter addTarget:brightnessFilter];
+    
+    // 设置滤镜组链
+    [bilateralFilter addTarget:brightnessFilter];
+    [groupFilter setInitialFilters:@[bilateralFilter]];
+    groupFilter.terminalFilter = brightnessFilter;
+    self.groupFilter = groupFilter;
+    
+    if (self.isRecording) {
+        [self.videoCamera pauseCameraCapture];
+        
+        [self.groupFilter addTarget:self.movieWriter];
+        [self.groupFilter addTarget:self.videoView];
+        
+        [self.videoCamera removeAllTargets];
+        [self.videoCamera addTarget:self.groupFilter];
+        self.videoCamera.audioEncodingTarget = self.movieWriter;
+        
+        [self.videoCamera resumeCameraCapture];
+        
+    } else {
+        [self.groupFilter addTarget:self.videoView];
+        
+        [self.videoCamera removeAllTargets];
+        [self.videoCamera addTarget:self.groupFilter];
+    }
+}
+
+- (void)normalCamera {
+    if (self.isRecording) {
+        [self.videoCamera pauseCameraCapture];
+        
+        [self.currentFilter removeAllTargets];
+        [self.videoCamera removeAllTargets];
+        
+        [self.videoCamera addTarget:self.videoView];
+        self.videoCamera.audioEncodingTarget = self.movieWriter;
+        
+        [self.videoCamera resumeCameraCapture];
+        
+    } else {
+        [self.currentFilter removeAllTargets];
+        [self.videoCamera removeAllTargets];
+        
+        [self.videoCamera addTarget:self.videoView];
     }
 }
 
@@ -309,7 +370,7 @@
 
 - (GPUImageFilter *)currentFilter {
     if (!_currentFilter) {
-        _currentFilter = [[GPUImageBrightnessFilter alloc] init];
+        _currentFilter = [[GPUImageFilter alloc] init];
     }
     return _currentFilter;
 }
@@ -348,4 +409,3 @@
 }
 
 @end
-

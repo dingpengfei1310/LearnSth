@@ -72,7 +72,6 @@
 		1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */; };
 		1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */; };
 		1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */; };
-		1B2D08041DE7E8DB0034C22D /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */; };
 		1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */; };
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
 		1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */; };
@@ -271,8 +270,6 @@
 		1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLiarbraryController.m; sourceTree = "<group>"; };
 		1B2D07E21DE7E8DB0034C22D /* PhotosCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosCollectionController.h; sourceTree = "<group>"; };
 		1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosCollectionController.m; sourceTree = "<group>"; };
-		1B2D07E41DE7E8DB0034C22D /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
-		1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
 		1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		1B2D07E81DE7E8DB0034C22D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -781,8 +778,6 @@
 				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
 				1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */,
 				CF7096111E0D792400A821C8 /* photos */,
-				1B2D07E41DE7E8DB0034C22D /* PopoverViewController.h */,
-				1B2D07E51DE7E8DB0034C22D /* PopoverViewController.m */,
 				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
@@ -1211,7 +1206,6 @@
 				1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */,
 				1B099C711DE7E57400161396 /* Aspects.m in Sources */,
 				1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */,
-				1B2D08041DE7E8DB0034C22D /* PopoverViewController.m in Sources */,
 				1B099C8E1DE7E57400161396 /* MJRefreshConst.m in Sources */,
 				1B099C891DE7E57400161396 /* MJRefreshBackStateFooter.m in Sources */,
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,

@@ -50,7 +50,11 @@ static NSString *identifier = @"cell";
     if (![Utils isLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] init];
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+        nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//        self.navigationController.definesPresentationContext = YES;
         [self presentViewController:nvc animated:YES completion:nil];
+        
+        
     } else {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
@@ -194,4 +198,3 @@ static NSString *identifier = @"cell";
 }
 
 @end
-

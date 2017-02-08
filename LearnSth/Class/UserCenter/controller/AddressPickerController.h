@@ -9,7 +9,6 @@
 #import "BaseViewController.h"
 
 
-
 @interface AddressPickerController : BaseViewController
 
 @property (nonatomic, copy) void (^SelectBlock)(NSDictionary *province,NSDictionary *city);
