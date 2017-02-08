@@ -40,10 +40,3 @@
 #define KBaseBlueColor        [UIColor colorWithRed:21 / 255.0 green:166 / 255.0 blue:246 / 255.0 alpha:1.0]
 #define KBaseTextColor        [UIColor grayColor]
 #define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
-
-
-
-
-
-
-

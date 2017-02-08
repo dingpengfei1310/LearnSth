@@ -13,9 +13,8 @@
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
-#import "BlueToothController.h"
-#import "VideoCaptureController.h"
-#import "FilterMovieController.h"
+
+
 
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
@@ -37,7 +36,7 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.navigationItem.title = @"🏓🏓🏓";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件",@"录像学习"];
+    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -122,32 +121,6 @@ static NSString *identifier = @"cell";
     }
 }
 
-- (void)showActionSheetOnVideoController {
-    UIAlertController *actionSheet;
-    actionSheet = [UIAlertController alertControllerWithTitle:@"视频拍摄"
-                                                      message:nil
-                                               preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"普通拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        VideoCaptureController *controller = [[VideoCaptureController alloc] init];
-        [self presentViewController:controller animated:YES completion:nil];
-    }];
-    
-    UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        FilterMovieController *controller = [[FilterMovieController alloc] init];
-        [self presentViewController:controller animated:YES completion:nil];
-    }];
-    
-    [actionSheet addAction:cancelAction];
-    [actionSheet addAction:videoAction];
-    [actionSheet addAction:GPUVideoAction];
-    
-    [self presentViewController:actionSheet animated:YES completion:nil];
-}
-
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -202,10 +175,6 @@ static NSString *identifier = @"cell";
 //        controller.hidesBottomBarWhenPushed = YES;
 //        [self.navigationController pushViewController:controller animated:YES];
 //    }
-    else if (indexPath.row == 5) {
-        
-        [self showActionSheetOnVideoController];
-    }
 }
 
 #pragma mark

@@ -48,13 +48,14 @@ static NSString *headerReuseIdentifier = @"headerCell";
     
     [self.view addSubview:self.collectionView];
     [self.collectionView.mj_header beginRefreshing];
+    self.collectionView.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
     [self.collectionView setClickBlock:^{
         [weakSelf.collectionView.mj_header beginRefreshing];
     }];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,7 +116,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 }
 
 - (void)homeRightItemClick {
-    
+    self.collectionView.hidden = !self.collectionView.hidden;
 }
 
 #pragma mark
@@ -149,6 +150,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.backgroundColor = KBackgroundColor;
     
     LiveModel *model = self.liveList[indexPath.item];
     cell.liveModel = model;
