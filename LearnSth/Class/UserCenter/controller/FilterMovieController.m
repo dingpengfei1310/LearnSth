@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) GPUImageMovieWriter *movieWriter;
 @property (nonatomic, strong) GPUImageFilterGroup *groupFilter;
+@property (nonatomic, assign) NSInteger filterIndex;
 
 @property (nonatomic, strong) NSArray *imageFilters;
 
@@ -48,32 +49,31 @@
 - (void)showVideoView {
     
     self.imageFilters = @[
-                          @{@"name":@"普通",@"className":[UIImage class]},
+                          @{@"name":@"普通",@"className":[GPUImageFilter class]},
                           @{@"name":@"美颜",@"className":[GPUImageFilterGroup class]},
-                          @{@"name":@"明亮",@"className":[GPUImageBrightnessFilter class]},
+//                          @{@"name":@"明亮",@"className":[GPUImageBrightnessFilter class]},
                           @{@"name":@"素描",@"className":[GPUImageSketchFilter class]},
-                          @{@"name":@"褐色/怀旧",@"className":[GPUImageSepiaFilter class]},
+                          @{@"name":@"怀旧",@"className":[GPUImageSepiaFilter class]},
                           @{@"name":@"色彩丢失",@"className":[GPUImageColorPackingFilter class]},
                           @{@"name":@"浮雕3D",@"className":[GPUImageEmbossFilter class]},
                           @{@"name":@"像素",@"className":[GPUImagePixellateFilter class]},
-                          @{@"name":@"同心圆像素",@"className":[GPUImagePolarPixellateFilter class]},//GPUImagePolarPixellateFilter.GPUImagePixellateFilter
+//                          @{@"name":@"同心圆像素",@"className":[GPUImagePolarPixellateFilter class]},//GPUImagePolarPixellateFilter.GPUImagePixellateFilter
                           @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]},//GPUImageSmoothToonFilter.GPUImageToonFilter
                           @{@"name":@"反色",@"className":[GPUImageColorInvertFilter class]},
                           @{@"name":@"灰度",@"className":[GPUImageGrayscaleFilter class]},
-                          @{@"name":@"凸起失真",@"className":[GPUImageBulgeDistortionFilter class]},
-                          @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
-                          @{@"name":@"伸展失真",@"className":[GPUImageStretchDistortionFilter class]},
-                          @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
-                          @{@"name":@"水晶球",@"className":[GPUImageGlassSphereFilter class]},
-                          @{@"name":@"像素平均值",@"className":[GPUImageAverageColor class]},
+//                          @{@"name":@"凸起失真",@"className":[GPUImageBulgeDistortionFilter class]},
+//                          @{@"name":@"收缩失真",@"className":[GPUImagePinchDistortionFilter class]},
+//                          @{@"name":@"伸展失真",@"className":[GPUImageStretchDistortionFilter class]},
+//                          @{@"name":@"水晶球",@"className":[GPUImageGlassSphereFilter class]},
+//                          @{@"name":@"像素平均值",@"className":[GPUImageAverageColor class]},
 //                          @{@"name":@"纯色",@"className":[GPUImageSolidColorGenerator class]},
-                          @{@"name":@"亮度平均",@"className":[GPUImageLuminosity class]},
+//                          @{@"name":@"亮度平均",@"className":[GPUImageLuminosity class]},
                           @{@"name":@"抑制",@"className":[GPUImageNonMaximumSuppressionFilter class]},
                           @{@"name":@"高斯模糊",@"className":[GPUImageGaussianBlurFilter class]},
-                          @{@"name":@"高斯模糊，部分清晰",@"className":[GPUImageGaussianSelectiveBlurFilter class]},
-                          @{@"name":@"盒状模糊",@"className":[GPUImageBoxBlurFilter class]},
-                          @{@"name":@"条纹模糊",@"className":[GPUImageTiltShiftFilter class]},
-                          @{@"name":@"中间值",@"className":[GPUImageMedianFilter class]},
+//                          @{@"name":@"高斯模糊，部分清晰",@"className":[GPUImageGaussianSelectiveBlurFilter class]},
+//                          @{@"name":@"盒状模糊",@"className":[GPUImageBoxBlurFilter class]},
+//                          @{@"name":@"条纹模糊",@"className":[GPUImageTiltShiftFilter class]},
+//                          @{@"name":@"中间值",@"className":[GPUImageMedianFilter class]},
                           ];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -176,36 +176,29 @@
 }
 
 - (void)changeFilterWith:(NSInteger)index {
+    if (self.filterIndex == index) {
+        return;
+    }
+    self.filterIndex = index;
+    
+    if (index == 0) {
+        [self normalCamera];
+        self.currentFilter = nil;
+        self.groupFilter = nil;
+        return;
+    } else if (index == 1) {
+        [self beautyCamera];
+        self.currentFilter = nil;
+        return;
+    }
     
     NSDictionary *filterInfo = self.imageFilters[index];
     Class filterClass = filterInfo[@"className"];
-    if ([self.currentFilter isKindOfClass:filterClass]) {
-        return;
-    } else if ([filterClass isKindOfClass:[GPUImageFilterGroup class]]) {
-        [self beautyCamera];
-        return;
-    } else if ([filterClass isKindOfClass:[UIImage class]]) {
-        [self normalCamera];
-        return;
-    }
     
     self.groupFilter = nil;
     self.currentFilter = [[filterClass alloc] init];
     
     if (self.isRecording) {
-        if ([self.currentFilter isKindOfClass:[GPUImageFilter class]]) {//普通
-            [self.videoCamera pauseCameraCapture];
-            
-            [self.currentFilter removeAllTargets];
-            [self.videoCamera removeAllTargets];
-            
-            [self.videoCamera addTarget:self.videoView];
-            self.videoCamera.audioEncodingTarget = self.movieWriter;
-            
-            [self.videoCamera resumeCameraCapture];
-            return;
-        }
-        
         [self.videoCamera pauseCameraCapture];
         
         [self.currentFilter removeAllTargets];
@@ -219,15 +212,6 @@
         [self.videoCamera resumeCameraCapture];
         
     } else {
-        if ([self.currentFilter isKindOfClass:[GPUImageFilter class]]) {//普通
-            
-            [self.currentFilter removeAllTargets];
-            [self.videoCamera removeAllTargets];
-            
-            [self.videoCamera addTarget:self.videoView];
-            return;
-        }
-        
         [self.currentFilter removeAllTargets];
         [self.currentFilter addTarget:self.videoView];
         
@@ -236,8 +220,29 @@
     }
 }
 
+//不加滤镜
+- (void)normalCamera {
+    if (self.isRecording) {
+        [self.videoCamera pauseCameraCapture];
+        
+        [self.currentFilter removeAllTargets];
+        [self.videoCamera removeAllTargets];
+        
+        [self.videoCamera addTarget:self.videoView];
+        self.videoCamera.audioEncodingTarget = self.movieWriter;
+        
+        [self.videoCamera resumeCameraCapture];
+        
+    } else {
+        [self.currentFilter removeAllTargets];
+        [self.videoCamera removeAllTargets];
+        
+        [self.videoCamera addTarget:self.videoView];
+    }
+}
+
+//美颜
 - (void)beautyCamera {
-    /////////////////////////////////
     // 创建滤镜：磨皮，美白，组合滤镜
     GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc] init];
     
@@ -272,26 +277,6 @@
         
         [self.videoCamera removeAllTargets];
         [self.videoCamera addTarget:self.groupFilter];
-    }
-}
-
-- (void)normalCamera {
-    if (self.isRecording) {
-        [self.videoCamera pauseCameraCapture];
-        
-        [self.currentFilter removeAllTargets];
-        [self.videoCamera removeAllTargets];
-        
-        [self.videoCamera addTarget:self.videoView];
-        self.videoCamera.audioEncodingTarget = self.movieWriter;
-        
-        [self.videoCamera resumeCameraCapture];
-        
-    } else {
-        [self.currentFilter removeAllTargets];
-        [self.videoCamera removeAllTargets];
-        
-        [self.videoCamera addTarget:self.videoView];
     }
 }
 
@@ -366,13 +351,6 @@
         _videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     }
     return _videoCamera;
-}
-
-- (GPUImageFilter *)currentFilter {
-    if (!_currentFilter) {
-        _currentFilter = [[GPUImageFilter alloc] init];
-    }
-    return _currentFilter;
 }
 
 - (GPUImageMovieWriter *)movieWriter {

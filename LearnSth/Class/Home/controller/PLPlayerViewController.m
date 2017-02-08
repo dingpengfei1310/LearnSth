@@ -23,7 +23,7 @@
 @end
 
 const NSInteger PlayerViewTag = 99999;
-const CGFloat PlayerViewScale = 0.5;//缩小后的view宽度占屏幕宽度的比例
+const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的比例
 
 @implementation PLPlayerViewController
 

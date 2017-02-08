@@ -12,8 +12,10 @@
 @interface FilterCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-
+@property (nonatomic, strong) NSIndexPath *selectIndexPath;
 @end
+
+static NSString *ReuseIdentifier = @"cell";
 
 @implementation FilterCollectionView
 
@@ -37,8 +39,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.backgroundColor = KBackgroundColor;
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ReuseIdentifier forIndexPath:indexPath];
     
     UILabel *contentLabel = [cell.contentView viewWithTag:100];
     if (!contentLabel) {
@@ -57,11 +58,20 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:self.selectIndexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    cell = [collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = KBackgroundColor;
+    
+    self.selectIndexPath = indexPath;
+    
     if (self.FilterSelect) {
         self.FilterSelect(indexPath.item);
     }
 }
 
+#pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         CGFloat itemWidth = self.frame.size.height;
@@ -84,4 +94,3 @@
 }
 
 @end
-
