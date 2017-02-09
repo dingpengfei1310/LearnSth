@@ -109,6 +109,7 @@
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
 		1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */; };
 		1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */; };
+		1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */; };
 		1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCF0301E09380E00DA222E /* FileScanViewController.m */; };
 		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
@@ -336,6 +337,8 @@
 		1BF9B0DB1E0A2B6C005B0EDF /* BasePreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePreviewItem.m; sourceTree = "<group>"; };
 		1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerController.h; sourceTree = "<group>"; };
 		1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerController.m; sourceTree = "<group>"; };
+		1BFCEAAD1E4C6DB5000C8E99 /* DDImageBrowserVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserVideo.h; sourceTree = "<group>"; };
+		1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserVideo.m; sourceTree = "<group>"; };
 		1BFCF02F1E09380E00DA222E /* FileScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileScanViewController.h; sourceTree = "<group>"; };
 		1BFCF0301E09380E00DA222E /* FileScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileScanViewController.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				1B099BF61DE7E57400161396 /* DDImageBrowserConfig.h */,
 				1B099BF71DE7E57400161396 /* DDImageBrowserController.h */,
 				1B099BF81DE7E57400161396 /* DDImageBrowserController.m */,
+				1BFCEAAD1E4C6DB5000C8E99 /* DDImageBrowserVideo.h */,
+				1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */,
 			);
 			path = DDImageBrowser;
 			sourceTree = "<group>";
@@ -921,14 +926,14 @@
 		CF7096111E0D792400A821C8 /* photos */ = {
 			isa = PBXGroup;
 			children = (
+				CFF9AE7D1E333C1500397359 /* FilterMovieController.h */,
+				CFF9AE7E1E333C1500397359 /* FilterMovieController.m */,
 				1B2D07E01DE7E8DB0034C22D /* PhotoLiarbraryController.h */,
 				1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */,
 				1B2D07E21DE7E8DB0034C22D /* PhotosCollectionController.h */,
 				1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */,
 				1B0DBC721E30915D00A57C30 /* VideoCaptureController.h */,
 				1B0DBC731E30915D00A57C30 /* VideoCaptureController.m */,
-				CFF9AE7D1E333C1500397359 /* FilterMovieController.h */,
-				CFF9AE7E1E333C1500397359 /* FilterMovieController.m */,
 			);
 			name = photos;
 			sourceTree = "<group>";
@@ -1220,6 +1225,7 @@
 				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
+				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,
 				1B099C991DE7E57400161396 /* UIView+SDExtension.m in Sources */,
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
 				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 @class DDImageBrowserController;
 
@@ -23,8 +24,8 @@
 //滑动的操作
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index;
 
-////点击的操作
-//- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index;
+//点击的操作
+- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index;
 
 @end
 
@@ -41,8 +42,10 @@
 //默认为0，第一张
 @property (nonatomic, assign) NSInteger currentIndex;
 
-//显示高清图使用，显示对应页的高清图
-- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image;
+////显示高清图使用，显示对应页的高清图
+//- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image videoFlag:(BOOL)flag;
 
+//显示高清图使用，显示对应页的高清图
+- (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset;
 
 @end

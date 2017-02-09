@@ -14,7 +14,7 @@
 @interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *thumbImages;
+@property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
 
 @end
 
@@ -55,18 +55,9 @@ const NSInteger photoColumn = 4;
         cell.videoLabel.text = @"Video";
     }
     
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
-    options.synchronous = YES;
+    UIImage *result = self.thumbImages[indexPath.row];
+    cell.photoImageView.image = [self resizeImage:result];
     
-    [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:CGSizeZero
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:options
-                                            resultHandler:^(UIImage * result, NSDictionary * info) {
-                                                cell.photoImageView.image = [self resizeImage:result];
-                                                self.thumbImages[indexPath.row] = result;
-                                            }];
     return cell;
 }
 
@@ -111,29 +102,32 @@ const NSInteger photoColumn = 4;
 
 - (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
     PHAsset *asset = self.fetchResult[index];
-    //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
-    [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:PHImageManagerMaximumSize
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:nil
-                                            resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                [controller showHighQualityImageOfIndex:index withImage:result];
-                                            }];
+    [controller showHighQualityImageOfIndex:index WithAsset:asset];
+//    BOOL flag = (asset.mediaType == PHAssetMediaTypeVideo) ? YES : NO;//是否是视频
+////    //targetSize为PHImageManagerMaximumSize时，加载图片本身尺寸、质量，这里用默认options，是异步加载
+////    //用这个方法内存会很高，而且不释放。下面：requestImageDataForAsset，方法更好
+////    [[PHImageManager defaultManager] requestImageForAsset:asset
+////                                               targetSize:PHImageManagerMaximumSize
+////                                              contentMode:PHImageContentModeAspectFit
+////                                                  options:nil
+////                                            resultHandler:^(UIImage *result, NSDictionary *info) {
+////                                                [controller showHighQualityImageOfIndex:index withImage:result];
+////                                            }];
+//    
+//    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+//        
+//        UIImage *result = [UIImage imageWithData:imageData];
+//        [controller showHighQualityImageOfIndex:index withImage:result videoFlag:flag];
+//    }];
 }
 
 //- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index {
 //    PHAsset *asset = self.fetchResult[index];
+//    
 //    if (asset.mediaType == PHAssetMediaTypeVideo) {
-//        NSLog(@"play");
-//        
-//        [[PHCachingImageManager defaultManager] requestImageForAsset:asset
-//                                                          targetSize:PHImageManagerMaximumSize
-//                                                         contentMode:PHImageContentModeAspectFit
-//                                                             options:nil
-//                                                       resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-//                                                           NSString *url = info[@"PHImageFileURLKey"];
-//                                                           
-//                                                       }];
+//        PhotoVideoViewController *videoController = [[PhotoVideoViewController alloc] init];
+//        videoController.asset = asset;
+//        [self.navigationController pushViewController:videoController animated:YES];
 //    }
 //}
 
@@ -141,6 +135,21 @@ const NSInteger photoColumn = 4;
 - (NSMutableArray *)thumbImages {
     if (!_thumbImages) {
         _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
+        
+        for (int i = 0; i < self.fetchResult.count; i++) {
+            PHAsset *asset = self.fetchResult[i];
+            PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+            options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+            options.synchronous = YES;
+            //这里不用requestImageDataForAsset
+            [[PHImageManager defaultManager] requestImageForAsset:asset
+                                                       targetSize:CGSizeZero
+                                                      contentMode:PHImageContentModeAspectFit
+                                                          options:options
+                                                    resultHandler:^(UIImage * result, NSDictionary * info) {
+                                                        self.thumbImages[i] = result;
+                                                    }];
+        }
     }
     return _thumbImages;
 }
@@ -171,4 +180,3 @@ const NSInteger photoColumn = 4;
 }
 
 @end
-

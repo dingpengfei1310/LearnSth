@@ -10,7 +10,7 @@
 
 #import "UIImageView+WebCache.h"
 
-@interface DDImageBrowserCell ()<UIScrollViewDelegate,UIGestureRecognizerDelegate> {
+@interface DDImageBrowserCell ()<UIScrollViewDelegate> {
     CGFloat viewWidth;
     CGFloat viewHeight;
 }
@@ -38,8 +38,6 @@
 }
 
 - (void)initImageZoomView {
-    self.backgroundColor = [UIColor clearColor];
-    
     viewWidth = [UIScreen mainScreen].bounds.size.width;
     viewHeight = [UIScreen mainScreen].bounds.size.height;
     
@@ -53,23 +51,20 @@
     _scrollView.minimumZoomScale = DDImageBrowserMinZoom;
     
     _photoImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _photoImageView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     _photoImageView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
+    _photoImageView.bounds = CGRectMake(0, 0, viewWidth, viewHeight);
     _photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_photoImageView];
     
+    [self.contentView addSubview:_scrollView];
+    
+    [self.contentView addGestureRecognizer:_scrollView.pinchGestureRecognizer];
+    [self.contentView addGestureRecognizer:_scrollView.panGestureRecognizer];
 }
 
 - (void)setImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)placeholder {
-    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];//移除子视图
-    
     self.scrollView.zoomScale = 1.0;
-    [self.contentView addSubview:self.scrollView];
-    
-    [self.contentView addGestureRecognizer:self.scrollView.pinchGestureRecognizer];
-    
-    //首先显示本地图片
-    [self updateImage:placeholder];
+    [self updateImage:placeholder];//首先显示本地图片
     
     //加载网络图片
     if (!url) return;
@@ -90,23 +85,24 @@
     if (!newImage) return;
     
     _photoImageView.image = newImage;
-    CGSize imaegSize = newImage.size;
-    CGFloat imageScale = imaegSize.width / imaegSize.height;
+    CGSize imageSize = newImage.size;
+    CGFloat imageScale = imageSize.width / imageSize.height;
     CGFloat imageHeight = viewWidth / imageScale;//宽度充满时，图片的高度
     
     _photoImageView.bounds = CGRectMake(0, 0, viewWidth, imageHeight);
+    _photoImageView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
+    
     if (imageHeight > viewHeight) {
         _photoImageView.center = CGPointMake(viewWidth * 0.5, imageHeight * 0.5);
         [self.scrollView setZoomScale:1.0 animated:YES];
     }
-    
 }
 
 #pragma mark
 - (UIActivityIndicatorView *)activityIndicatorView {
     if (!_activityIndicatorView) {
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityIndicatorView.frame = CGRectMake(0, 0, 50, 50);
+        _activityIndicatorView.frame = CGRectMake(0, 0, 20, 20);
         [_activityIndicatorView startAnimating];
         _activityIndicatorView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
     }
@@ -127,10 +123,10 @@
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    CGSize boundsSize = scrollView.bounds.size;
+    CGSize boundSize = scrollView.bounds.size;
     CGSize contentSize = _photoImageView.frame.size;
     
-    CGPoint centerPoint = CGPointMake(MAX(contentSize.width, boundsSize.width) * 0.5, MAX(contentSize.height, boundsSize.height) * 0.5);
+    CGPoint centerPoint = CGPointMake(MAX(contentSize.width, boundSize.width) * 0.5, MAX(contentSize.height, boundSize.height) * 0.5);
     _photoImageView.center = centerPoint;
 }
 

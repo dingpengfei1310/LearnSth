@@ -7,8 +7,11 @@
 //
 
 #import "DDImageBrowserController.h"
-
 #import "DDImageBrowserCell.h"
+
+#import "DDImageBrowserVideo.h"
+#import <AVFoundation/AVFoundation.h>
+
 
 @interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate> {
     CGFloat viewWidth;
@@ -16,19 +19,22 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) BOOL statusBarHidden;
+
+@property (nonatomic, strong) PHAsset *asset;
 
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
 
 @implementation DDImageBrowserController
+
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return self.statusBarHidden;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor blackColor];
     
@@ -36,23 +42,12 @@ static NSString * const reuseIdentifier = @"Cell";
     viewHeight = [UIScreen mainScreen].bounds.size.height;
     
     [self.view addSubview:self.tableView];
-//    [self.view addSubview:self.currentIndexLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationController.hidesBarsOnTap = YES;
-    if (self.imageCount > 0) {
-        [self showImageOfIndex:self.currentIndex];
-    } else {
-        [self backClick:nil];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationController.hidesBarsOnTap = NO;
+    [self showImageOfIndex:self.currentIndex];
 }
 
 #pragma mark
@@ -65,6 +60,18 @@ static NSString * const reuseIdentifier = @"Cell";
     self.imageCount = thumbImages.count;
 }
 
+- (void)videoPaly {
+    DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
+    controller.asset = self.asset;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)hideNavigationBar {
+    self.statusBarHidden = !self.statusBarHidden;
+    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
+    [self prefersStatusBarHidden];
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.imageCount;
@@ -72,6 +79,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (!cell) {
+        cell = [[DDImageBrowserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
     
     if (self.thumbImages) {
         [cell setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
@@ -88,6 +98,7 @@ static NSString * const reuseIdentifier = @"Cell";
 //    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
 //        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
 //    }
+    [self hideNavigationBar];
 }
 
 #pragma mark
@@ -109,7 +120,6 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)showImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
     self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
     
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
@@ -117,9 +127,34 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
-- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image {
-    DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    [cell setImageWithUrl:nil placeholderImage:image];
+//- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image videoFlag:(BOOL)flag{
+//    DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+//    [cell setImageWithUrl:nil placeholderImage:image];
+//    
+//    if (flag) {
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(videoPaly)];
+//    } else {
+//        self.navigationItem.rightBarButtonItem = nil;
+//    }
+//    
+//}
+
+- (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset {
+    self.asset = asset;
+    
+    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        
+        UIImage *result = [UIImage imageWithData:imageData];
+        DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+        [cell setImageWithUrl:nil placeholderImage:result];
+        
+        BOOL flag = (asset.mediaType == PHAssetMediaTypeVideo) ? YES : NO;//是否是视频
+        if (flag) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(videoPaly)];
+        } else {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    }];
 }
 
 #pragma mark
@@ -127,13 +162,15 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!self.imageCount) return;
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollView.contentOffset];
-//    self.currentIndexLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
-    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
+    if (self.currentIndex == indexPath.row) {
+        return;
+    }
     
+    self.currentIndex = indexPath.row;
+    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
         [self.browserDelegate controller:self didScrollToIndex:indexPath.row];
     }
-    
 }
 
 #pragma mark

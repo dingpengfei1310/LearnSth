@@ -89,9 +89,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
     PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
-    controller.assetCollection = assetCollection;
-    controller.title = assetCollection.localizedTitle;
     
+//    controller.assetCollection = assetCollection;
+    
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+    controller.fetchResult = fetchResult;
+    
+    controller.title = assetCollection.localizedTitle;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
