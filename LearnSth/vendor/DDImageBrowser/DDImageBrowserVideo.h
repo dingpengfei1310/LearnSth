@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <AVFoundation/AVFoundation.h>
-#import <Photos/Photos.h>
+@class PHAsset;
 
 @interface DDImageBrowserVideo : UIViewController
 

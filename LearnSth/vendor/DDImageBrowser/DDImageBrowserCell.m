@@ -8,8 +8,6 @@
 
 #import "DDImageBrowserCell.h"
 
-#import "UIImageView+WebCache.h"
-
 @interface DDImageBrowserCell ()<UIScrollViewDelegate> {
     CGFloat viewWidth;
     CGFloat viewHeight;
@@ -18,9 +16,10 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *photoImageView;
 
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
-
 @end
+
+const CGFloat DDImageBrowserMaxZoom = 2;
+const CGFloat DDImageBrowserMinZoom = 1;
 
 @implementation DDImageBrowserCell
 
@@ -62,24 +61,6 @@
     [self.contentView addGestureRecognizer:_scrollView.panGestureRecognizer];
 }
 
-- (void)setImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)placeholder {
-    self.scrollView.zoomScale = 1.0;
-    [self updateImage:placeholder];//首先显示本地图片
-    
-    //加载网络图片
-    if (!url) return;
-    [self startActivityIndicatorView];
-    [_photoImageView sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self stopActivityIndicatorView];
-        
-        if (error) {
-        } else {
-            [self updateImage:image];
-        }
-    }];
-}
-
 //设置图片
 - (void)updateImage:(UIImage *)newImage {
     if (!newImage) return;
@@ -91,30 +72,20 @@
     
     _photoImageView.bounds = CGRectMake(0, 0, viewWidth, imageHeight);
     _photoImageView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
-    
     if (imageHeight > viewHeight) {
         _photoImageView.center = CGPointMake(viewWidth * 0.5, imageHeight * 0.5);
-        [self.scrollView setZoomScale:1.0 animated:YES];
+        
     }
+    
+    [self.scrollView setZoomScale:1.0 animated:YES];
 }
 
 #pragma mark
-- (UIActivityIndicatorView *)activityIndicatorView {
-    if (!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityIndicatorView.frame = CGRectMake(0, 0, 20, 20);
-        [_activityIndicatorView startAnimating];
-        _activityIndicatorView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
+- (void)setImage:(UIImage *)image {
+    if (_image != image) {
+        _image = image;
+        [self updateImage:image];
     }
-    return _activityIndicatorView;
-}
-
-- (void)startActivityIndicatorView {
-    [self.scrollView addSubview:self.activityIndicatorView];
-}
-
-- (void)stopActivityIndicatorView {
-    [self.activityIndicatorView removeFromSuperview];
 }
 
 #pragma mark - UIScrollViewDelegate

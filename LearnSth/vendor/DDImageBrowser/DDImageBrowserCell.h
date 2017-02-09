@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DDImageBrowserConfig.h"
 
 @interface DDImageBrowserCell : UITableViewCell
 
-///可以显示网络图片和本地图片（包括占位图和高清图）
-- (void)setImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)placeholder;
+@property (nonatomic, strong) UIImage *image;
 
 @end
