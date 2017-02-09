@@ -115,7 +115,6 @@
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
 		CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */; };
 		CF3959251E4CB94A0018C7D8 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */; };
-		CF3959271E4CD2B80018C7D8 /* promo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CF3959261E4CD2B80018C7D8 /* promo.mp4 */; };
 		CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */; };
 		CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C21DE97E7700CB9DDF /* province.db */; };
 		CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */; };
@@ -350,7 +349,6 @@
 		CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionCell.xib; sourceTree = "<group>"; };
 		CF3959231E4CB94A0018C7D8 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
 		CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
-		CF3959261E4CD2B80018C7D8 /* promo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = promo.mp4; sourceTree = "<group>"; };
 		CF6DEAAA1DFBE17B0039B0D4 /* WebProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebProgressView.h; sourceTree = "<group>"; };
 		CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebProgressView.m; sourceTree = "<group>"; };
 		CFEAB8C21DE97E7700CB9DDF /* province.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = province.db; sourceTree = "<group>"; };
@@ -963,7 +961,6 @@
 		CFEAB8C11DE97E7700CB9DDF /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CF3959261E4CD2B80018C7D8 /* promo.mp4 */,
 				CFEAB8C21DE97E7700CB9DDF /* province.db */,
 				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
 			);
@@ -1102,7 +1099,6 @@
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */,
-				CF3959271E4CD2B80018C7D8 /* promo.mp4 in Resources */,
 				1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
