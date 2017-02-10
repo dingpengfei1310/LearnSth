@@ -1,5 +1,5 @@
 //
-//  DDImageBrowserVideo.h
+//  AnimatedTransitioning.h
 //  LearnSth
 //
 //  Created by 丁鹏飞 on 17/2/9.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class PHAsset;
-
-@interface DDImageBrowserVideo : UIViewController
-
-@property (nonatomic, strong) PHAsset *asset;
+@interface AnimatedTransitioning : NSObject<UIViewControllerAnimatedTransitioning>
 
 @end

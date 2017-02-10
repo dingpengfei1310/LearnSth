@@ -8,13 +8,13 @@
 
 #import "DDImageBrowserVideo.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <Photos/Photos.h>
+
 @interface DDImageBrowserVideo ()
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) AVPlayer *avPlayer;
-
-@property (nonatomic, strong) UIView *bottomView;
-
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
 @end
 
@@ -27,70 +27,88 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:_imageView];
+//    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    [self.view addSubview:_imageView];
+//    
+//    [[PHImageManager defaultManager] requestImageDataForAsset:self.asset options:nil resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+//        
+//        UIImage *result = [UIImage imageWithData:imageData];
+//        _imageView.image = result;
+//    }];
     
-    [[PHImageManager defaultManager] requestImageDataForAsset:self.asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+    PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    
+    [[PHImageManager defaultManager] requestPlayerItemForVideo:self.asset options:options resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
         
-        UIImage *result = [UIImage imageWithData:imageData];
-        _imageView.image = result;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            _player = [AVPlayer playerWithPlayerItem:playerItem];
+            
+            [self.view.layer addSublayer:self.playerLayer];
+            [self addButton];
+        });
     }];
-    [self addButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)addButton {
+    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat buttonWidth = 50;
     
-    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 50, CGRectGetWidth(self.view.frame), 50)];
-    _bottomView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    [self.view addSubview:_bottomView];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, viewHeight - 50, viewWidth, 50)];
+    bottomView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    [self.view addSubview:bottomView];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 100, 40)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
+    backButton.center = CGPointMake(viewWidth / 4, 25);
     [backButton setTitle:@"取消" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [_bottomView addSubview:backButton];
+    [bottomView addSubview:backButton];
     
-    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(200, 0, 100, 40)];
+    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
+    playButton.center = CGPointMake(viewWidth / 4 * 3, 25);
     [playButton setTitle:@"播放" forState:UIControlStateNormal];
     [playButton setTitle:@"暂停" forState:UIControlStateSelected];
     [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
-    [_bottomView addSubview:playButton];
+    [bottomView addSubview:playButton];
 }
 
 #pragma mark
 - (void)back {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.player pause];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)videoPaly:(UIButton *)buton {
-    [self.view bringSubviewToFront:self.bottomView];
-    
     if (buton.selected) {
-        [self.avPlayer pause];
+        [self.player pause];
     } else {
-        [self.avPlayer play];
+        [self.player play];
     }
     
     buton.selected = !buton.selected;
 }
 
 #pragma mark
-- (AVPlayer *)avPlayer {
-    if (!_avPlayer) {
-        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-        
-        [[PHImageManager defaultManager] requestPlayerItemForVideo:self.asset options:options resultHandler:^(AVPlayerItem * playerItem, NSDictionary * info) {
-            
-            _avPlayer = [[AVPlayer alloc] initWithPlayerItem:playerItem];
-            
-            AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_avPlayer];
-            playerLayer.frame = self.view.bounds;
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-            
-            [self.view.layer addSublayer:playerLayer];
-        }];
+- (AVPlayerLayer *)playerLayer {
+    if (!_playerLayer) {
+        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+        _playerLayer.frame = self.view.bounds;
+        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     }
-    return _avPlayer;
+    return _playerLayer;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -114,6 +114,7 @@
 		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
 		CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */; };
+		CF3959251E4CB94A0018C7D8 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */; };
 		CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */; };
 		CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C21DE97E7700CB9DDF /* province.db */; };
 		CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */; };
@@ -169,7 +170,6 @@
 		1B099BF21DE7E57400161396 /* BHBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHBScrollView.m; sourceTree = "<group>"; };
 		1B099BF41DE7E57400161396 /* DDImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserCell.h; sourceTree = "<group>"; };
 		1B099BF51DE7E57400161396 /* DDImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserCell.m; sourceTree = "<group>"; };
-		1B099BF61DE7E57400161396 /* DDImageBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserConfig.h; sourceTree = "<group>"; };
 		1B099BF71DE7E57400161396 /* DDImageBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserController.h; sourceTree = "<group>"; };
 		1B099BF81DE7E57400161396 /* DDImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserController.m; sourceTree = "<group>"; };
 		1B099BFC1DE7E57400161396 /* FPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSLabel.h; sourceTree = "<group>"; };
@@ -347,6 +347,8 @@
 		CF1A49571E0FBD76007FD07D /* PhotosCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosCollectionCell.h; sourceTree = "<group>"; };
 		CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosCollectionCell.m; sourceTree = "<group>"; };
 		CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionCell.xib; sourceTree = "<group>"; };
+		CF3959231E4CB94A0018C7D8 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
+		CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
 		CF6DEAAA1DFBE17B0039B0D4 /* WebProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebProgressView.h; sourceTree = "<group>"; };
 		CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebProgressView.m; sourceTree = "<group>"; };
 		CFEAB8C21DE97E7700CB9DDF /* province.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = province.db; sourceTree = "<group>"; };
@@ -498,7 +500,6 @@
 			children = (
 				1B099BF41DE7E57400161396 /* DDImageBrowserCell.h */,
 				1B099BF51DE7E57400161396 /* DDImageBrowserCell.m */,
-				1B099BF61DE7E57400161396 /* DDImageBrowserConfig.h */,
 				1B099BF71DE7E57400161396 /* DDImageBrowserController.h */,
 				1B099BF81DE7E57400161396 /* DDImageBrowserController.m */,
 				1BFCEAAD1E4C6DB5000C8E99 /* DDImageBrowserVideo.h */,
@@ -704,6 +705,8 @@
 				CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */,
 				1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */,
 				1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */,
+				CF3959231E4CB94A0018C7D8 /* AnimatedTransitioning.h */,
+				CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1204,6 +1207,7 @@
 				1B099C6F1DE7E57400161396 /* HttpManager.m in Sources */,
 				1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */,
 				1BF9B0DC1E0A2B6C005B0EDF /* BasePreviewItem.m in Sources */,
+				CF3959251E4CB94A0018C7D8 /* AnimatedTransitioning.m in Sources */,
 				1B099C921DE7E57400161396 /* UIView+MJExtension.m in Sources */,
 				1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */,
 				1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */,

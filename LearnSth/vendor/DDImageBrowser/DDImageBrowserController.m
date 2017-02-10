@@ -8,10 +8,10 @@
 
 #import "DDImageBrowserController.h"
 #import "DDImageBrowserCell.h"
-
 #import "DDImageBrowserVideo.h"
-#import <AVFoundation/AVFoundation.h>
 
+#import <Photos/Photos.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate> {
     CGFloat viewWidth;
@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) BOOL statusBarHidden;
-
-@property (nonatomic, strong) PHAsset *asset;
 
 @end
 
@@ -46,24 +44,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self showImageOfIndex:self.currentIndex];
 }
 
 #pragma mark
 - (void)backClick:(UIButton *)button {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)setThumbImages:(NSArray *)thumbImages {
-    _thumbImages = thumbImages;
-    self.imageCount = thumbImages.count;
-}
-
-- (void)videoPaly {
-    DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
-    controller.asset = self.asset;
-    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)hideNavigationBar {
@@ -74,23 +60,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.imageCount;
+    return self.thumbImages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        cell = [[DDImageBrowserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    
-    if (self.thumbImages) {
-        [cell setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
-             placeholderImage:self.thumbImages[indexPath.row]];
-    } else {
-        [cell setImageWithUrl:[self imageUrlOfIndex:indexPath.row]
-             placeholderImage:[self placeholderImageOfIndex:indexPath.row]];
-    }
-    
+    cell.image = self.thumbImages[indexPath.row];
     return cell;
 }
 
@@ -102,64 +77,29 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark
-- (UIImage *)placeholderImageOfIndex:(NSInteger)index {
-    if ([self.browserDelegate respondsToSelector:@selector(controller:placeholderImageOfIndex:)]) {
-        return [self.browserDelegate controller:self placeholderImageOfIndex:index];
-    }
-    return nil;
-}
-
-- (NSURL *)imageUrlOfIndex:(NSInteger)index {
-    if ([self.browserDelegate respondsToSelector:@selector(controller:imageUrlOfIndex:)]) {
-        return [self.browserDelegate controller:self imageUrlOfIndex:index];
-    }
-    return nil;
-}
-
-#pragma mark
 - (void)showImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.imageCount];
+    self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.thumbImages.count];
     
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
         [self.browserDelegate controller:self didScrollToIndex:index];
     }
 }
 
-//- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image videoFlag:(BOOL)flag{
-//    DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-//    [cell setImageWithUrl:nil placeholderImage:image];
-//    
-//    if (flag) {
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(videoPaly)];
-//    } else {
-//        self.navigationItem.rightBarButtonItem = nil;
-//    }
-//    
-//}
-
 - (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset {
-    self.asset = asset;
     
-    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
         
         UIImage *result = [UIImage imageWithData:imageData];
         DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-        [cell setImageWithUrl:nil placeholderImage:result];
-        
-        BOOL flag = (asset.mediaType == PHAssetMediaTypeVideo) ? YES : NO;//是否是视频
-        if (flag) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(videoPaly)];
-        } else {
-            self.navigationItem.rightBarButtonItem = nil;
-        }
+        cell.image = result;
     }];
 }
 
 #pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (!self.imageCount) return;
+    if (!self.thumbImages) return;
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollView.contentOffset];
     if (self.currentIndex == indexPath.row) {
@@ -167,7 +107,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     self.currentIndex = indexPath.row;
-    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.imageCount];
+    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
     if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
         [self.browserDelegate controller:self didScrollToIndex:indexPath.row];
     }
