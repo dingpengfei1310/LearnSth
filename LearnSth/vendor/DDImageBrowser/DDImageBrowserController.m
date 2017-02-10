@@ -58,6 +58,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [self prefersStatusBarHidden];
 }
 
+- (void)setThumbImages:(NSArray *)thumbImages {
+    if (_thumbImages.count == 0) {
+        _thumbImages = [NSMutableArray arrayWithArray:thumbImages];
+    }
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.thumbImages.count;
@@ -81,9 +87,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.thumbImages.count];
-    
-    if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
-        [self.browserDelegate controller:self didScrollToIndex:index];
+    if (self.ScrollToIndexBlock) {
+        self.ScrollToIndexBlock(self,index);
     }
 }
 
@@ -94,6 +99,7 @@ static NSString * const reuseIdentifier = @"Cell";
         UIImage *result = [UIImage imageWithData:imageData];
         DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         cell.image = result;
+        self.thumbImages[index] = result;
     }];
 }
 
@@ -108,8 +114,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     self.currentIndex = indexPath.row;
     self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
-    if ([self.browserDelegate respondsToSelector:@selector(controller:didScrollToIndex:)]) {
-        [self.browserDelegate controller:self didScrollToIndex:indexPath.row];
+    if (self.ScrollToIndexBlock) {
+        self.ScrollToIndexBlock(self,self.currentIndex);
     }
 }
 

@@ -49,11 +49,11 @@ static NSString *identifier = @"cell";
 - (void)loginClick {
     if (![Utils isLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] init];
+        controller.DismissBlock = ^ {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-        nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//        self.navigationController.definesPresentationContext = YES;
         [self presentViewController:nvc animated:YES completion:nil];
-        
         
     } else {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];

@@ -11,8 +11,9 @@
 #import "DDImageBrowserVideo.h"
 
 #import "PhotosCollectionCell.h"
+#import "AnimatedTransitioning.h"
 
-@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,DDImageBrowserDelegate>
+@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
@@ -27,7 +28,13 @@ const NSInteger photoColumn = 4;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.view addSubview:self.collectionView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.delegate = nil;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -58,25 +65,42 @@ const NSInteger photoColumn = 4;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PHAsset *asset = self.fetchResult[indexPath.row];
     if (asset.mediaType == PHAssetMediaTypeVideo) {
+        
+        self.navigationController.delegate = self;
         DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
         controller.asset = asset;
         [self.navigationController pushViewController:controller animated:YES];
+        
     } else {
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
-        controller.browserDelegate = self;
         controller.thumbImages = self.thumbImages;
-        
-        int count = 0;
-        for (int i = 0; i < indexPath.row; i++) {
-            PHAsset *tempAsset = self.fetchResult[i];
-            if (tempAsset.mediaType != PHAssetMediaTypeVideo) {
-                count++;
-            }
-        }
-        
-        controller.currentIndex = count;
+        controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
+        controller.ScrollToIndexBlock = ^(DDImageBrowserController *controller, NSInteger index){
+            __block int count = 0;
+            [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
+                if (obj.mediaType == PHAssetMediaTypeImage) {
+                    if (count == index) {
+                        [controller showHighQualityImageOfIndex:index WithAsset:obj];
+                        *stop = YES;
+                    }
+                    count++;
+                }
+            }];
+        };
         [self.navigationController pushViewController:controller animated:YES];
     }
+}
+
+//当前点击的照片index(已过滤视频)
+- (NSInteger)calculateCurrentIndex:(NSInteger)row {
+    int index = 0;
+    for (int i = 0; i < row; i++) {
+        PHAsset *tempAsset = self.fetchResult[i];
+        if (tempAsset.mediaType == PHAssetMediaTypeImage) {
+            index++;
+        }
+    }
+    return index;
 }
 
 #pragma mark
@@ -100,39 +124,36 @@ const NSInteger photoColumn = 4;
     return resultImage;
 }
 
-#pragma mark - DDImageBrowserDelegate
-- (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index {
-    
-    int count = 0;
-    for (int i = 0; i < self.fetchResult.count; i++) {
-        PHAsset *tempAsset = self.fetchResult[i];
-        if (tempAsset.mediaType != PHAssetMediaTypeVideo) {
-            if (count == index) {
-                [controller showHighQualityImageOfIndex:index WithAsset:tempAsset];
-                return;
-            }
-            count++;
-        }
+#pragma mark UINavigationControllerDelegate - UIViewControllerTransitioningDelegate
+//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+//    return [[AnimatedTransitioning alloc] init];
+//}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    if (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[DDImageBrowserVideo class]]) {
+        AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+        transition.operation = operation;
+        return transition;
     }
+    return nil;
 }
 
 #pragma mark
 - (NSMutableArray *)thumbImages {
     if (!_thumbImages) {
-        _thumbImages = [NSMutableArray arrayWithCapacity:self.fetchResult.count];
+        _thumbImages = [NSMutableArray array];
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
         options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
         options.synchronous = YES;
         
-        for (int i = 0; i < self.fetchResult.count; i++) {
-            PHAsset *asset = self.fetchResult[i];
-            if (asset.mediaType != PHAssetMediaTypeVideo) {
+        [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
+            if (obj.mediaType != PHAssetMediaTypeVideo) {
                 
-                [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * result, NSDictionary *info) {
+                [[PHImageManager defaultManager] requestImageForAsset:obj targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * result, NSDictionary *info) {
                     [self.thumbImages addObject:result];
                 }];
             }
-        }
+        }];
     }
     return _thumbImages;
 }

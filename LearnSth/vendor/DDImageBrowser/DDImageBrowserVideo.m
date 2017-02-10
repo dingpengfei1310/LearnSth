@@ -16,6 +16,8 @@
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
+@property (nonatomic, strong) UIButton *playButton;
+
 @end
 
 @implementation DDImageBrowserVideo
@@ -27,14 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//    [self.view addSubview:_imageView];
-//    
-//    [[PHImageManager defaultManager] requestImageDataForAsset:self.asset options:nil resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-//        
-//        UIImage *result = [UIImage imageWithData:imageData];
-//        _imageView.image = result;
-//    }];
+    [self setBackgropundImage];
     
     PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
@@ -46,20 +41,33 @@
             
             [self.view.layer addSublayer:self.playerLayer];
             [self addButton];
+            [self addPlayerObserver];
         });
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.navigationController.navigationBarHidden = NO;
+}
+
+#pragma mark
+- (void)setBackgropundImage {
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:imageView];
+    
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    options.synchronous = YES;
+    
+    [[PHImageManager defaultManager] requestImageForAsset:self.asset targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+        imageView.image = result;
+    }];
 }
 
 - (void)addButton {
@@ -83,22 +91,31 @@
     [playButton setTitle:@"暂停" forState:UIControlStateSelected];
     [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:playButton];
+    _playButton = playButton;
 }
 
-#pragma mark
+- (void)addPlayerObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerDidPlayToEnd) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+}
+
+- (void)playerDidPlayToEnd {
+    [self.player seekToTime:CMTimeMake(0, 1)];
+    self.playButton.selected = NO;
+}
+
 - (void)back {
     [self.player pause];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)videoPaly:(UIButton *)buton {
-    if (buton.selected) {
+    buton.selected = !buton.selected;
+    
+    if (self.player.rate) {
         [self.player pause];
     } else {
         [self.player play];
     }
-    
-    buton.selected = !buton.selected;
 }
 
 #pragma mark

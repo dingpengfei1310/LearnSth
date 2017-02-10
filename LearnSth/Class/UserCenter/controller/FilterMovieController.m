@@ -168,7 +168,9 @@
 
 - (void)dismiss:(UIButton *)sender {
     [self.videoCamera stopCameraCapture];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.FilterMovieDismissBlock) {
+        self.FilterMovieDismissBlock();
+    }
 }
 
 - (void)changeDevice:(UIButton *)sender {

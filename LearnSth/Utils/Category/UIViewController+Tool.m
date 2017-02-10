@@ -71,7 +71,7 @@
     
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
-    [hud hideAnimated:YES afterDelay:1.5];
+    [hud hideAnimated:YES afterDelay:1.0];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
@@ -114,7 +114,7 @@
 }
 
 - (CGFloat)hudTextMargin {
-    return 15;
+    return 10;
 }
 
 #pragma mark - 确认弹出框
@@ -159,4 +159,3 @@
 }
 
 @end
-

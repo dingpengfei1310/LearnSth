@@ -10,4 +10,6 @@
 
 @interface AnimatedTransitioning : NSObject<UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, assign) UINavigationControllerOperation operation;
+
 @end

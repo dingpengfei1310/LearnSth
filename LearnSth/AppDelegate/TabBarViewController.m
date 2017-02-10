@@ -128,6 +128,9 @@
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         FilterMovieController *controller = [[FilterMovieController alloc] init];
+        controller.FilterMovieDismissBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
         [self presentViewController:controller animated:YES completion:nil];
     }];
     

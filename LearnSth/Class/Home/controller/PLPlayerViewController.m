@@ -58,14 +58,15 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [self navigationBarColorRestore];
 }
 
 #pragma mark
 - (void)dismisss:(UIBarButtonItem *)sender {
     [self.player stop];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.PlayerDismissBlock) {
+        self.PlayerDismissBlock();
+    }
 }
 
 - (void)shop:(UIBarButtonItem *)sender {

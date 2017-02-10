@@ -50,7 +50,7 @@
     
     QLPreviewController *previewController = [[QLPreviewController alloc] init];
     previewController.dataSource = self;
-    [self presentViewController:previewController animated:YES completion:nil];
+    [self.navigationController pushViewController:previewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

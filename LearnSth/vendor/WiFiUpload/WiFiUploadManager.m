@@ -69,7 +69,11 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
 
 - (void)showWiFiPageViewController:(UIViewController *)viewController {
     WiFiUploadViewController *controller = [[WiFiUploadViewController alloc] init];
-    [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
+    controller.WiFiDismissBlock = ^{
+        [viewController dismissViewControllerAnimated:YES completion:nil];
+    };
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+    [viewController presentViewController:nvc animated:YES completion:nil];
 }
 
 #pragma mark
@@ -102,4 +106,3 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
 }
 
 @end
-

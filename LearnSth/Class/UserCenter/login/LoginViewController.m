@@ -72,7 +72,9 @@ const CGFloat fieldHeight = 35;
 
 #pragma mark
 - (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.DismissBlock) {
+        self.DismissBlock();
+    }
 }
 
 - (void)loginClick {
