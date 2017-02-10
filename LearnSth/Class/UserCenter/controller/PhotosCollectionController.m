@@ -18,6 +18,8 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
 
+@property (nonatomic, assign) NSInteger selectIndex;//选中的index，包括视频，为了拿到frame
+
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
@@ -72,6 +74,10 @@ const NSInteger photoColumn = 4;
         [self.navigationController pushViewController:controller animated:YES];
         
     } else {
+        
+        self.selectIndex = indexPath.row;
+        
+        self.navigationController.delegate = self;
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
@@ -133,6 +139,17 @@ const NSInteger photoColumn = 4;
     if (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[DDImageBrowserVideo class]]) {
         AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
         transition.operation = operation;
+        return transition;
+    } else if (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[DDImageBrowserController class]]){
+        AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+        transition.operation = operation;
+        transition.transitioningType = AnimatedTransitioningTypeScale;
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        CGRect rect = [self.collectionView convertRect:cell.frame toView:self.navigationController.view];
+        transition.originalFrame = rect;
+        
         return transition;
     }
     return nil;
