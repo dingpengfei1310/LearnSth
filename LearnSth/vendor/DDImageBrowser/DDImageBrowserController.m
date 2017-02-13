@@ -13,13 +13,12 @@
 #import <Photos/Photos.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate> {
-    CGFloat viewWidth;
-    CGFloat viewHeight;
-}
+@interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) BOOL statusBarHidden;
+
+@property (nonatomic, strong) UIView *barView;
 
 @end
 
@@ -31,20 +30,27 @@ static NSString * const reuseIdentifier = @"Cell";
     return self.statusBarHidden;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.view.backgroundColor = [UIColor blackColor];
-    
-    viewWidth = [UIScreen mainScreen].bounds.size.width;
-    viewHeight = [UIScreen mainScreen].bounds.size.height;
-    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.barView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showImageOfIndex:self.currentIndex];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 #pragma mark
@@ -53,9 +59,10 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)hideNavigationBar {
+    self.barView.hidden = !self.barView.hidden;
     self.statusBarHidden = !self.statusBarHidden;
-    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
     [self prefersStatusBarHidden];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)setThumbImages:(NSArray *)thumbImages {
@@ -71,15 +78,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    cell.SingleTapBlock = ^{
+        [self hideNavigationBar];
+    };
     cell.image = self.thumbImages[indexPath.row];
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([self.browserDelegate respondsToSelector:@selector(controller:didSelectAtIndex:)]) {
-//        [self.browserDelegate controller:self didSelectAtIndex:indexPath.row];
-//    }
-    [self hideNavigationBar];
 }
 
 #pragma mark
@@ -103,7 +106,6 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
-#pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (!self.thumbImages) return;
     
@@ -122,24 +124,36 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, viewHeight, viewWidth)
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, Screen_W)
                                                   style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        
         _tableView.pagingEnabled = YES;
         _tableView.showsVerticalScrollIndicator = NO;
-        
-        _tableView.rowHeight = viewWidth;
+        _tableView.rowHeight = Screen_W;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
-        _tableView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
+        _tableView.center = CGPointMake(Screen_W * 0.5, Screen_H * 0.5);
         [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:reuseIdentifier];
     }
     
     return _tableView;
+}
+
+- (UIView *)barView {
+    if (!_barView) {
+        _barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 64)];
+        _barView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+        
+        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 42, 42)];
+        UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
+        [backButton setImage:originalImage forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_barView addSubview:backButton];
+    }
+    return _barView;
 }
 
 - (void)didReceiveMemoryWarning {

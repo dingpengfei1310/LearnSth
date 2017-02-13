@@ -71,8 +71,8 @@
 }
 
 - (void)addButton {
-    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
-    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat viewWidth = Screen_W;
+    CGFloat viewHeight = Screen_H;
     CGFloat buttonWidth = 50;
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, viewHeight - 50, viewWidth, 50)];

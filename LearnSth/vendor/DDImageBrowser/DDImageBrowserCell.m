@@ -59,11 +59,30 @@ const CGFloat DDImageBrowserMinZoom = 1;
     
     [self.contentView addGestureRecognizer:_scrollView.pinchGestureRecognizer];
     [self.contentView addGestureRecognizer:_scrollView.panGestureRecognizer];
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.contentView addGestureRecognizer:doubleTap];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    [self.contentView addGestureRecognizer:singleTap];
+    
+    [singleTap requireGestureRecognizerToFail:doubleTap];
+}
+
+#pragma mark
+- (void)setImage:(UIImage *)image {
+    if (_image != image) {
+        _image = image;
+        [self updateImage:image];
+    }
 }
 
 //设置图片
 - (void)updateImage:(UIImage *)newImage {
     if (!newImage) return;
+    
+    [self.scrollView setZoomScale:1.0 animated:NO];
     
     _photoImageView.image = newImage;
     CGSize imageSize = newImage.size;
@@ -76,15 +95,16 @@ const CGFloat DDImageBrowserMinZoom = 1;
         _photoImageView.center = CGPointMake(viewWidth * 0.5, imageHeight * 0.5);
         
     }
-    
-    [self.scrollView setZoomScale:1.0 animated:YES];
 }
 
-#pragma mark
-- (void)setImage:(UIImage *)image {
-    if (_image != image) {
-        _image = image;
-        [self updateImage:image];
+- (void)doubleTap:(UITapGestureRecognizer *)gesture {
+    CGFloat scale = (self.scrollView.zoomScale > 1.0) ? 2.0 : 1.0;
+    [self.scrollView setZoomScale:scale animated:YES];
+}
+
+- (void)singleTap:(UITapGestureRecognizer *)gesture {
+    if (self.SingleTapBlock) {
+        self.SingleTapBlock();
     }
 }
 

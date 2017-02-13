@@ -14,8 +14,6 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 
-
-
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>

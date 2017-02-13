@@ -95,6 +95,11 @@
 }
 
 - (void)buttonClick:(UIButton *)button {
+    if (button.tag == self.viewControllers.count / 2) {
+        [self showActionSheetOnVideoController];
+        return;
+    }
+    
     if (button.selected) {
         return;
     }
@@ -102,12 +107,7 @@
     [self.barView.subviews enumerateObjectsUsingBlock:^(__kindof UIButton * obj, NSUInteger idx, BOOL * stop) {
         obj.selected = NO;
     }];
-    if (button.tag == self.viewControllers.count / 2) {
-        [self showActionSheetOnVideoController];
-    } else {
-        self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
-    }
-    
+    self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
     button.selected = YES;
 }
 
@@ -120,7 +120,9 @@
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
-                                                         handler:nil];
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                                         }];
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"普通拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         VideoCaptureController *controller = [[VideoCaptureController alloc] init];
         [self presentViewController:controller animated:YES completion:nil];

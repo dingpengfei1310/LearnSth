@@ -61,7 +61,7 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self checkAuthorizationStatusOnAudio];
-    } else if (status == AVAuthorizationStatusDenied) {
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
         [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
@@ -80,7 +80,7 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoPreviewLayer];
-    } else if (status == AVAuthorizationStatusDenied) {
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
         [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
