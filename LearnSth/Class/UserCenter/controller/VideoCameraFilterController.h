@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
-@interface FilterMovieController : BaseViewController
+@interface VideoCameraFilterController : BaseViewController
+
+@property (nonatomic, copy) void (^FilterMovieDismissBlock)();
 
 @end

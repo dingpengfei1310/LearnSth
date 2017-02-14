@@ -12,5 +12,6 @@
 @interface PLPlayerViewController : BaseViewController
 
 @property (nonatomic, strong) LiveModel *live;
+@property (nonatomic, copy) void (^PlayerDismissBlock)();
 
 @end

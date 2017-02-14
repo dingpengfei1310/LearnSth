@@ -6,11 +6,11 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "FilterMovieController.h"
+#import "VideoCameraFilterController.h"
 #import "FilterCollectionView.h"
 #import "GPUImage.h"
 
-@interface FilterMovieController ()
+@interface VideoCameraFilterController ()
 
 @property (nonatomic, strong) GPUImageView *videoView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation FilterMovieController
+@implementation VideoCameraFilterController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -96,8 +96,8 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self checkAuthorizationStatusOnAudio];
-    } else if (status == AVAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有摄像头访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -115,8 +115,8 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoView];
-    } else if (status == AVAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -168,7 +168,9 @@
 
 - (void)dismiss:(UIButton *)sender {
     [self.videoCamera stopCameraCapture];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.FilterMovieDismissBlock) {
+        self.FilterMovieDismissBlock();
+    }
 }
 
 - (void)changeDevice:(UIButton *)sender {

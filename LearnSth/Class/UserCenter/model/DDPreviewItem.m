@@ -6,8 +6,8 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "BasePreviewItem.h"
+#import "DDPreviewItem.h"
 
-@implementation BasePreviewItem
+@implementation DDPreviewItem
 
 @end

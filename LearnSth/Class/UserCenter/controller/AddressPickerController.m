@@ -55,7 +55,9 @@ const CGFloat PickViewAppearDuration = 0.3;
         self.pickerBackgroundView.transform = CGAffineTransformMakeTranslation(0, PickViewHeight + ToolbarHeight);
         self.view.backgroundColor = [UIColor clearColor];
     } completion:^(BOOL finished) {
-        [self dismissViewControllerAnimated:NO completion:nil];
+        if (self.AddressDismissBlock) {
+            self.AddressDismissBlock();
+        }
     }];
 }
 

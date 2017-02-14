@@ -1,28 +1,36 @@
 //
-//  VideoCaptureController.m
+//  VideoCustomiseController.m
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 17/1/19.
+//  Created by 丁鹏飞 on 17/2/14.
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "VideoCaptureController.h"
+#import "VideoCustomiseController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GPUImage.h"
 
-@interface VideoCaptureController ()<AVCaptureFileOutputRecordingDelegate>
+@interface VideoCustomiseController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
-@property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;
-@property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
+@property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;//
+@property (nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
 
 @property (nonatomic, strong) NSString *moviePath;
 
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UILabel *timeLabel;
 
+@property (nonatomic, assign) BOOL isRecoding;
+
+@property (nonatomic, strong) GPUImageView *movieView;
+@property (nonatomic, strong) GPUImageMovie *movieFile;
+
 @end
 
-@implementation VideoCaptureController
+static dispatch_semaphore_t semaphore;
+
+@implementation VideoCustomiseController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -39,16 +47,25 @@
 }
 
 - (void)showVideoPreviewLayer {
+    semaphore = dispatch_semaphore_create(1);
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     NSString *fileName = [NSString stringWithFormat:@"%@-Video.mov",dateString];
     self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
     
-    //创建一个预览图层
-    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
-    preLayer.frame = self.view.bounds;
-    [self.view.layer addSublayer:preLayer];
+//    //创建一个预览图层
+//    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
+//    preLayer.frame = self.view.bounds;
+//    [self.view.layer addSublayer:preLayer];
+    
+    self.movieView = [[GPUImageView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.movieView];
+    
+    self.movieFile = [[GPUImageMovie alloc] init];
+    self.movieFile.playAtActualSpeed = YES;
+    [self.movieFile addTarget:self.movieView];
     
     [self.captureSession startRunning];
     
@@ -61,7 +78,7 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self checkAuthorizationStatusOnAudio];
-    } else if (status == AVAuthorizationStatusDenied) {
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
         [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
@@ -80,7 +97,7 @@
     
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoPreviewLayer];
-    } else if (status == AVAuthorizationStatusDenied) {
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
         [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
@@ -123,9 +140,7 @@
 }
 
 - (void)dismiss:(UIButton *)sender {
-    [self.movieFileOutput stopRecording];
     [self.captureSession stopRunning];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -161,52 +176,127 @@
 }
 
 - (void)captureButtonClick:(UIButton *)sender {
-    if (self.movieFileOutput.recording) {
-        [self.movieFileOutput stopRecording];
-        
-        [self.displayLink invalidate];
-        self.displayLink = nil;
-        self.timeLabel.text = nil;
-        
-        return;
-    }
     
-    //设置录制视频保存的路径
-    NSURL *url = [NSURL fileURLWithPath:self.moviePath];
-    [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
+//    if (self.movieFileOutput.recording) {
+//        [self.movieFileOutput stopRecording];
+//        
+//        [self.displayLink invalidate];
+//        self.displayLink = nil;
+//        self.timeLabel.text = nil;
+//        
+//        return;
+//    }
+//    
+//    //设置录制视频保存的路径
+//    NSURL *url = [NSURL fileURLWithPath:self.moviePath];
+//    [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
     
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
 
-- (void)refreshTime {
-    CMTime time = self.movieFileOutput.recordedDuration;
-    NSInteger totalSecond = time.value / time.timescale;
+- (void)refreshTime:(CADisplayLink *)link {
+//    CMTime time = self.movieFileOutput.recordedDuration;
+//    NSInteger totalSecond = time.value / time.timescale;
+//    
+//    NSInteger hour = 0;
+//    NSInteger minute = 0;
+//    NSInteger second = 0;
+//    
+//    if (totalSecond >= 3600) {
+//        hour = totalSecond / 3600;
+//        minute = (totalSecond % 3600) / 600;
+//        second = totalSecond % 60;
+//    } else if (totalSecond >= 60) {
+//        minute = totalSecond / 60;
+//        second = totalSecond % 60;
+//    } else {
+//        second = totalSecond % 60;
+//    }
+//    
+//    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
     
-    NSInteger hour = 0;
-    NSInteger minute = 0;
-    NSInteger second = 0;
     
-    if (totalSecond >= 3600) {
-        hour = totalSecond / 3600;
-        minute = (totalSecond % 3600) / 600;
-        second = totalSecond % 60;
-    } else if (totalSecond >= 60) {
-        minute = totalSecond / 60;
-        second = totalSecond % 60;
-    } else {
-        second = totalSecond % 60;
-    }
+    NSLog(@"%f -- %f",link.timestamp,link.duration)
     
-    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+}
+
+//- (uint64_t)currentTimestamp{
+//    
+//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//    
+//    uint64_t currentts = 0;
+//    
+//    if(_isFirstFrame == true) {
+//        
+//        _timestamp = NOW;
+//        
+//        _isFirstFrame = false;
+//        
+//        currentts = 0;
+//        
+//    }
+//    
+//    else {
+//        
+//        currentts = NOW - _timestamp;
+//        
+//    }
+//    
+//    dispatch_semaphore_signal(semaphore);
+//    
+//    return currentts;
+//    
+//}
+
+- (UIImage *)dddIMage:(CMSampleBufferRef)sampleBuffer {
+    CVImageBufferRef buffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CVPixelBufferLockBaseAddress(buffer, 0);
+    
+    //从 CVImageBufferRef 取得影像的细部信息
+    uint8_t *base;
+    size_t width, height, bytesPerRow;
+    base = CVPixelBufferGetBaseAddress(buffer);
+    width = CVPixelBufferGetWidth(buffer);
+    height = CVPixelBufferGetHeight(buffer);
+    bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+    
+    
+    
+    void *src_buff = CVPixelBufferGetBaseAddress(buffer);
+    NSData *data = [NSData dataWithBytes:src_buff length:bytesPerRow * height];
+    UIImage *image = [UIImage imageWithData:data];
+    
+    
+//    //利用取得影像细部信息格式化 CGContextRef
+//    CGColorSpaceRef colorSpace;
+//    CGContextRef cgContext;
+//    colorSpace = CGColorSpaceCreateDeviceRGB();
+////    cgContext = CGBitmapContextCreate(base, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+//    cgContext = CGBitmapContextCreate(base, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little);
+//    
+//    CGColorSpaceRelease(colorSpace);
+//    
+//    //透过 CGImageRef 将 CGContextRef 转换成 UIImage
+//    CGImageRef cgImage = CGBitmapContextCreateImage(cgContext);
+//    UIImage *image = [UIImage imageWithCGImage:cgImage];
+//    CGImageRelease(cgImage);
+//    CGContextRelease(cgContext);
+    
+//    CVPixelBufferUnlockBaseAddress(buffer, 0);
+    
+    return image;
 }
 
 #pragma mark
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
-    NSLog(@"didStartRecording");
-}
-
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
-    NSLog(@"didFinishRecording");
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    
+//    [self.videoEncoder encodeWithSampleBuffer:sampleBuffer timeStamp:self.currentTimestamp completionBlock:^(NSData *data, NSInteger length) {
+//        
+//        fwrite(data.bytes, 1, length, _h264File);
+//        
+//    }];
+    
+    [self.movieFile processMovieFrame:sampleBuffer];
 }
 
 #pragma mark
@@ -219,32 +309,37 @@
     return _videoDeviceInput;
 }
 
-- (AVCaptureMovieFileOutput *)movieFileOutput {
-    if (!_movieFileOutput) {
-        _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];;
+- (AVCaptureVideoDataOutput *)videoDataOutput {
+    if (!_videoDataOutput) {
+        _videoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
+        [_videoDataOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+        
+        //kCVPixelFormatType_32BGRA
+        NSDictionary *setting = @{(id)kCVPixelBufferPixelFormatTypeKey:@(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)};
+         [_videoDataOutput setVideoSettings:setting];
     }
-    return _movieFileOutput;
+    return _videoDataOutput;
 }
 
 - (AVCaptureSession *)captureSession {
     if (!_captureSession) {
         
-        //创建麦克风设备，输入设备
-        AVCaptureDevice *deviceAudio = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-        AVCaptureDeviceInput *inputAudio = [AVCaptureDeviceInput deviceInputWithDevice:deviceAudio error:nil];
+//        //创建麦克风设备，输入设备
+//        AVCaptureDevice *deviceAudio = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+//        AVCaptureDeviceInput *inputAudio = [AVCaptureDeviceInput deviceInputWithDevice:deviceAudio error:nil];
         
         _captureSession = [[AVCaptureSession alloc] init];
-//        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+        //        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
         
         //将输入输出设备添加到会话中
         if ([_captureSession canAddInput:self.videoDeviceInput]) {
             [_captureSession addInput:self.videoDeviceInput];
         }
-        if ([_captureSession canAddInput:inputAudio]) {
-            [_captureSession addInput:inputAudio];
-        }
-        if ([_captureSession canAddOutput:self.movieFileOutput]) {
-            [_captureSession addOutput:self.movieFileOutput];
+//        if ([_captureSession canAddInput:inputAudio]) {
+//            [_captureSession addInput:inputAudio];
+//        }
+        if ([_captureSession canAddOutput:self.videoDataOutput]) {
+            [_captureSession addOutput:self.videoDataOutput];
         }
     }
     return _captureSession;
@@ -252,7 +347,7 @@
 
 - (CADisplayLink *)displayLink {
     if (!_displayLink) {
-        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refreshTime)];
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refreshTime:)];
         _displayLink.frameInterval = 60;
     }
     return _displayLink;
@@ -274,4 +369,3 @@
 }
 
 @end
-

@@ -98,7 +98,9 @@ static NSString *reuseIdentifier = @"cell";
 - (void)presentAddressPickerController {
     AddressPickerController *controller = [[AddressPickerController alloc] init];
     controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    
+    controller.AddressDismissBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
     controller.SelectBlock = ^(NSDictionary *province,NSDictionary *city) {
         AddressModel *address = [[AddressModel alloc] init];
         address.province = province[@"name"];
@@ -226,7 +228,7 @@ static NSString *reuseIdentifier = @"cell";
 
 #pragma mark 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark

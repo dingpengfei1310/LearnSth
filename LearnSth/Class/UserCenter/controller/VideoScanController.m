@@ -1,26 +1,22 @@
 //
-//  DDImageBrowserVideo.m
+//  VideoScanController.m
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 17/2/9.
+//  Created by 丁鹏飞 on 17/2/14.
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "DDImageBrowserVideo.h"
-
-#import <AVFoundation/AVFoundation.h>
+#import "VideoScanController.h"
+#import "GPUImage.h"
 #import <Photos/Photos.h>
 
-@interface DDImageBrowserVideo ()
+@interface VideoScanController ()<GPUImageMovieDelegate>
 
-@property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic, strong) AVPlayerLayer *playerLayer;
-
-@property (nonatomic, strong) UIButton *playButton;
+//@property (nonatomic, strong) GPUImageMovie *movie;
 
 @end
 
-@implementation DDImageBrowserVideo
+@implementation VideoScanController
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
@@ -29,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setBackgropundImage];
+//    [self setBackgropundImage];
     
     PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
@@ -37,11 +33,17 @@
     [[PHImageManager defaultManager] requestPlayerItemForVideo:self.asset options:options resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            _player = [AVPlayer playerWithPlayerItem:playerItem];
             
-            [self.view.layer addSublayer:self.playerLayer];
+            GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
+            [self.view addSubview:videoView];
+            
+            GPUImageMovie *movieFile = [[GPUImageMovie alloc] initWithPlayerItem:playerItem];
+            movieFile.delegate = self;
+            movieFile.playAtActualSpeed = YES;
+            [movieFile addTarget:videoView];
+            [movieFile startProcessing];
+            
             [self addButton];
-            [self addPlayerObserver];
         });
     }];
 }
@@ -56,6 +58,10 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+- (void)didCompletePlayingMovie {
+    NSLog(@"didCompletePlayingMovie");
+}
+
 #pragma mark
 - (void)setBackgropundImage {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -65,9 +71,13 @@
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = YES;
     
-    [[PHImageManager defaultManager] requestImageForAsset:self.asset targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-        imageView.image = result;
-    }];
+    [[PHImageManager defaultManager] requestImageForAsset:self.asset
+                                               targetSize:CGSizeZero
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:options
+                                            resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                imageView.image = result;
+                                            }];
 }
 
 - (void)addButton {
@@ -85,47 +95,17 @@
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backButton];
     
-    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
-    playButton.center = CGPointMake(viewWidth / 4 * 3, 25);
-    [playButton setTitle:@"播放" forState:UIControlStateNormal];
-    [playButton setTitle:@"暂停" forState:UIControlStateSelected];
-    [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:playButton];
-    _playButton = playButton;
-}
-
-- (void)addPlayerObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerDidPlayToEnd) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-}
-
-- (void)playerDidPlayToEnd {
-    [self.player seekToTime:CMTimeMake(0, 1)];
-    self.playButton.selected = NO;
+//    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
+//    playButton.center = CGPointMake(viewWidth / 4 * 3, 25);
+//    [playButton setTitle:@"播放" forState:UIControlStateNormal];
+//    [playButton setTitle:@"暂停" forState:UIControlStateSelected];
+//    [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
+//    [bottomView addSubview:playButton];
+//    _playButton = playButton;
 }
 
 - (void)back {
-    [self.player pause];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)videoPaly:(UIButton *)buton {
-    buton.selected = !buton.selected;
-    
-    if (self.player.rate) {
-        [self.player pause];
-    } else {
-        [self.player play];
-    }
-}
-
-#pragma mark
-- (AVPlayerLayer *)playerLayer {
-    if (!_playerLayer) {
-        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-        _playerLayer.frame = self.view.bounds;
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    }
-    return _playerLayer;
 }
 
 - (void)didReceiveMemoryWarning {

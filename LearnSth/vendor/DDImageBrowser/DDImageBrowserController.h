@@ -6,30 +6,20 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@class DDImageBrowserController,PHAsset;
+@class PHAsset;
 
-@protocol DDImageBrowserDelegate <NSObject>
-
-@optional
-
-//滑动的操作
-- (void)controller:(DDImageBrowserController *)controller didScrollToIndex:(NSInteger)index;
-//点击的操作
-//- (void)controller:(DDImageBrowserController *)controller didSelectAtIndex:(NSInteger)index;
-
-@end
-
-@interface DDImageBrowserController : UIViewController
+@interface DDImageBrowserController : BaseViewController
 
 //默认为0，第一张
 @property (nonatomic, assign) NSInteger currentIndex;
-@property (nonatomic, strong) NSArray *thumbImages;
+@property (nonatomic, strong) NSMutableArray *thumbImages;
 
-@property (nonatomic, weak) id<DDImageBrowserDelegate> browserDelegate;
+//滑动的操作
+@property (nonatomic, copy) void (^ScrollToIndexBlock)(DDImageBrowserController *controller, NSInteger index);
 
-//显示高清图使用，显示对应页的高清图
+//显示对应页的高清图
 - (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset;
 
 @end

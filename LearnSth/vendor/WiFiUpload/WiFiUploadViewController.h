@@ -10,4 +10,6 @@
 
 @interface WiFiUploadViewController : BaseViewController
 
+@property (nonatomic, copy) void (^WiFiDismissBlock)();
+
 @end

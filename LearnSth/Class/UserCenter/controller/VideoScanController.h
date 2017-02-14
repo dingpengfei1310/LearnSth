@@ -1,8 +1,8 @@
 //
-//  DDImageBrowserVideo.h
+//  VideoScanController.h
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 17/2/9.
+//  Created by 丁鹏飞 on 17/2/14.
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @class PHAsset;
 
-@interface DDImageBrowserVideo : UIViewController
+@interface VideoScanController : BaseViewController
 
 @property (nonatomic, strong) PHAsset *asset;
 

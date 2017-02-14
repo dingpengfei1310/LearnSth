@@ -160,10 +160,13 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
+    controller.PlayerDismissBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
     controller.live = self.liveList[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self.navigationController presentViewController:nvc animated:YES completion:nil];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 #pragma mark

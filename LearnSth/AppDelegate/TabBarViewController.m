@@ -10,10 +10,14 @@
 #import "HomeViewController.h"
 #import "UserViewController.h"
 
-#import "VideoCaptureController.h"
-#import "FilterMovieController.h"
+#import "PhotosCollectionController.h"
+#import "VideoCameraController.h"
+#import "VideoCameraFilterController.h"
+#import "VideoCustomiseController.h"
 
 #import "CustomizeButton.h"
+
+#import <Photos/Photos.h>
 
 @interface TabBarViewController ()
 
@@ -54,6 +58,7 @@
     [self customizeBarButton];
 }
 
+#pragma mark
 - (void)customizeBarButton {
     //背景透明、消除黑线
     UIImage *clearImage = [UIImage imageWithColor:[UIColor clearColor]];
@@ -95,6 +100,11 @@
 }
 
 - (void)buttonClick:(UIButton *)button {
+    if (button.tag == self.viewControllers.count / 2) {
+        [self showActionSheetOnVideoController];
+        return;
+    }
+    
     if (button.selected) {
         return;
     }
@@ -102,32 +112,36 @@
     [self.barView.subviews enumerateObjectsUsingBlock:^(__kindof UIButton * obj, NSUInteger idx, BOOL * stop) {
         obj.selected = NO;
     }];
-    if (button.tag == self.viewControllers.count / 2) {
-        [self showActionSheetOnVideoController];
-    } else {
-        self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
-    }
-    
+    self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
     button.selected = YES;
 }
 
 #pragma mark
 - (void)showActionSheetOnVideoController {
     UIAlertController *actionSheet;
-    actionSheet = [UIAlertController alertControllerWithTitle:@"视频拍摄"
+    actionSheet = [UIAlertController alertControllerWithTitle:@"视频"
                                                       message:nil
                                                preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"普通拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        VideoCaptureController *controller = [[VideoCaptureController alloc] init];
-        [self presentViewController:controller animated:YES completion:nil];
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                                         }];
+    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"本地视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self localVideo];
     }];
     
-    UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"滤镜效果" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        FilterMovieController *controller = [[FilterMovieController alloc] init];
+    UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
+//        controller.FilterMovieDismissBlock = ^{
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        };
+        
+//        VideoCameraController *controller = [[VideoCameraController alloc] init];
+        
+        VideoCustomiseController *controller = [[VideoCustomiseController alloc] init];
+        
         [self presentViewController:controller animated:YES completion:nil];
     }];
     
@@ -136,6 +150,24 @@
     [actionSheet addAction:GPUVideoAction];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)localVideo {
+    PHFetchResult *collection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumVideos options:nil];
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection[0] options:nil];
+    
+    PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
+    controller.fetchResult = fetchResult;
+    controller.scanType = VideoScanTypeFilter;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    UIImage *image = [UIImage imageNamed:@"dismiss"];
+    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

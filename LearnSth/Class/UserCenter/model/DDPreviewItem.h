@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <QuickLook/QLPreviewItem.h>
 
-@interface BasePreviewItem : NSObject<QLPreviewItem>
+@interface DDPreviewItem : NSObject<QLPreviewItem>
 
 @property (nonatomic, strong) NSURL *previewItemURL;
 @property (nonatomic, strong) NSString *previewItemTitle;

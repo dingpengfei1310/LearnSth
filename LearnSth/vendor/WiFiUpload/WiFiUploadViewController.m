@@ -39,7 +39,7 @@
 - (void)dismiss {
     WiFiUploadManager *manager = [WiFiUploadManager shareManager];
     [manager stopHTTPServer];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.WiFiDismissBlock();
 }
 
 - (void)addUploadNotification {

@@ -9,7 +9,7 @@
 #import "FileScanViewController.h"
 
 #import <QuickLook/QLPreviewController.h>
-#import "BasePreviewItem.h"
+#import "DDPreviewItem.h"
 
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
@@ -50,7 +50,7 @@
     
     QLPreviewController *previewController = [[QLPreviewController alloc] init];
     previewController.dataSource = self;
-    [self presentViewController:previewController animated:YES completion:nil];
+    [self.navigationController pushViewController:previewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,7 +82,7 @@
     NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
-    BasePreviewItem *previewItem = [[BasePreviewItem alloc] init];
+    DDPreviewItem *previewItem = [[DDPreviewItem alloc] init];
     previewItem.previewItemURL = fileURL;
     previewItem.previewItemTitle = @"文件";
     
