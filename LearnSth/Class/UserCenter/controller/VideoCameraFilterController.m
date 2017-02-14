@@ -6,11 +6,11 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "FilterMovieController.h"
+#import "VideoCameraFilterController.h"
 #import "FilterCollectionView.h"
 #import "GPUImage.h"
 
-@interface FilterMovieController ()
+@interface VideoCameraFilterController ()
 
 @property (nonatomic, strong) GPUImageView *videoView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation FilterMovieController
+@implementation VideoCameraFilterController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;

@@ -9,6 +9,7 @@
 #import "PhotosCollectionController.h"
 #import "DDImageBrowserController.h"
 #import "DDImageBrowserVideo.h"
+#import "VideoScanController.h"
 
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
@@ -67,17 +68,21 @@ const NSInteger photoColumn = 4;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PHAsset *asset = self.fetchResult[indexPath.row];
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        
         self.navigationController.delegate = self;
-        DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
-        controller.asset = asset;
-        [self.navigationController pushViewController:controller animated:YES];
+        
+        if (self.scanType == VideoScanTypeNormal) {
+            DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
+            controller.asset = asset;
+            [self.navigationController pushViewController:controller animated:YES];
+        } else {
+            VideoScanController *controller = [[VideoScanController alloc] init];
+            controller.asset = asset;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
         
     } else {
         
         self.selectIndex = indexPath.row;
-        
-        self.navigationController.delegate = self;
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];

@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface VideoCaptureController : BaseViewController
+@interface VideoCameraController : BaseViewController
 
 @end
