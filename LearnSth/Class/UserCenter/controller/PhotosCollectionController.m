@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
 
-@property (nonatomic, assign) NSInteger selectIndex;//选中的index，包括视频，为了拿到frame
+@property (nonatomic, assign) NSInteger selectIndex;//选中的index，包括视频，为了拿到frame做动画
 
 @end
 
@@ -67,14 +67,16 @@ const NSInteger photoColumn = 4;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PHAsset *asset = self.fetchResult[indexPath.row];
+    self.selectIndex = indexPath.row;
+    self.navigationController.delegate = self;
+    
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        self.navigationController.delegate = self;
         
         if (self.scanType == VideoScanTypeNormal) {
             DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
             controller.asset = asset;
             [self.navigationController pushViewController:controller animated:YES];
-        } else {
+        } else if (self.scanType == VideoScanTypeFilter) {
             VideoScanController *controller = [[VideoScanController alloc] init];
             controller.asset = asset;
             [self.navigationController pushViewController:controller animated:YES];
@@ -82,7 +84,6 @@ const NSInteger photoColumn = 4;
         
     } else {
         
-        self.selectIndex = indexPath.row;
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
@@ -141,11 +142,7 @@ const NSInteger photoColumn = 4;
 //}
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    if (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[DDImageBrowserVideo class]]) {
-        AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
-        transition.operation = operation;
-        return transition;
-    } else if (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[DDImageBrowserController class]]){
+    if (operation == UINavigationControllerOperationPush){
         AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
         transition.operation = operation;
         transition.transitioningType = AnimatedTransitioningTypeScale;

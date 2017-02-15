@@ -42,6 +42,7 @@
             [self.view.layer addSublayer:self.playerLayer];
             [self addButton];
             [self addPlayerObserver];
+            
         });
     }];
 }

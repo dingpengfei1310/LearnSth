@@ -10,7 +10,7 @@
 #import <Photos/Photos.h>
 
 typedef NS_ENUM(NSInteger){
-    VideoScanTypeNormal = 0,
+    VideoScanTypeNormal = 0,//普通效果
     VideoScanTypeFilter//滤镜效果
 }VideoScanType;
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B04FA241E52F28A00CDFC80 /* VideoScanController.m */; };
-		1B04FA281E530BC600CDFC80 /* VideoCustomiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B04FA261E530BC600CDFC80 /* VideoCustomiseController.m */; };
 		1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0921DF6564C005F3059 /* PPNumberButton.m */; };
 		1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0951DF6A626005F3059 /* BannerScrollView.m */; };
 		1B098E6F1E24AB9D00D5754A /* UserLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */; };
@@ -147,8 +146,6 @@
 /* Begin PBXFileReference section */
 		1B04FA231E52F28A00CDFC80 /* VideoScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoScanController.h; sourceTree = "<group>"; };
 		1B04FA241E52F28A00CDFC80 /* VideoScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoScanController.m; sourceTree = "<group>"; };
-		1B04FA261E530BC600CDFC80 /* VideoCustomiseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCustomiseController.m; sourceTree = "<group>"; };
-		1B04FA271E530BC600CDFC80 /* VideoCustomiseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCustomiseController.h; sourceTree = "<group>"; };
 		1B08C0911DF6564C005F3059 /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
 		1B08C0921DF6564C005F3059 /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		1B08C0941DF6A626005F3059 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
@@ -407,8 +404,6 @@
 				1B0DBC731E30915D00A57C30 /* VideoCameraController.m */,
 				CFF9AE7D1E333C1500397359 /* VideoCameraFilterController.h */,
 				CFF9AE7E1E333C1500397359 /* VideoCameraFilterController.m */,
-				1B04FA271E530BC600CDFC80 /* VideoCustomiseController.h */,
-				1B04FA261E530BC600CDFC80 /* VideoCustomiseController.m */,
 				1B04FA231E52F28A00CDFC80 /* VideoScanController.h */,
 				1B04FA241E52F28A00CDFC80 /* VideoScanController.m */,
 			);
@@ -1241,7 +1236,6 @@
 				1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */,
 				1B099C8E1DE7E57400161396 /* MJRefreshConst.m in Sources */,
 				1B099C891DE7E57400161396 /* MJRefreshBackStateFooter.m in Sources */,
-				1B04FA281E530BC600CDFC80 /* VideoCustomiseController.m in Sources */,
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,
 				1B099C861DE7E57400161396 /* MJRefreshAutoStateFooter.m in Sources */,
 				CFEAB8CE1DE9849700CB9DDF /* CityViewController.m in Sources */,

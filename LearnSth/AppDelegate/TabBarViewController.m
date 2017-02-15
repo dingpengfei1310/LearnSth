@@ -13,7 +13,6 @@
 #import "PhotosCollectionController.h"
 #import "VideoCameraController.h"
 #import "VideoCameraFilterController.h"
-#import "VideoCustomiseController.h"
 
 #import "CustomizeButton.h"
 
@@ -133,14 +132,12 @@
     }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
-//        controller.FilterMovieDismissBlock = ^{
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        };
+        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
+        controller.FilterMovieDismissBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
         
 //        VideoCameraController *controller = [[VideoCameraController alloc] init];
-        
-        VideoCustomiseController *controller = [[VideoCustomiseController alloc] init];
         
         [self presentViewController:controller animated:YES completion:nil];
     }];
@@ -157,6 +154,7 @@
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection[0] options:nil];
     
     PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
+    controller.title = @"本地视频";
     controller.fetchResult = fetchResult;
     controller.scanType = VideoScanTypeFilter;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];

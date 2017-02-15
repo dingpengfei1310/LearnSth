@@ -12,7 +12,10 @@
 
 @interface VideoScanController ()<GPUImageMovieDelegate>
 
-//@property (nonatomic, strong) GPUImageMovie *movie;
+@property (nonatomic, strong) GPUImageMovie *movie;
+@property (nonatomic, strong) GPUImageView *videoView;
+
+@property (nonatomic, strong) UIButton *playButton;
 
 @end
 
@@ -25,27 +28,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self setBackgropundImage];
+    [self setBackgropundImage];
     
     PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
     
-    [[PHImageManager defaultManager] requestPlayerItemForVideo:self.asset options:options resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
-        
+    [[PHImageManager defaultManager] requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset * asset, AVAudioMix * audioMix, NSDictionary * _Nullable info) {
         dispatch_sync(dispatch_get_main_queue(), ^{
+            _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)];
+            [self.view addSubview:_videoView];
             
-            GPUImageView *videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
-            [self.view addSubview:videoView];
+            _movie = [[GPUImageMovie alloc] initWithAsset:asset];
+            _movie.delegate = self;
+            _movie.playAtActualSpeed = YES;
             
-            GPUImageMovie *movieFile = [[GPUImageMovie alloc] initWithPlayerItem:playerItem];
-            movieFile.delegate = self;
-            movieFile.playAtActualSpeed = YES;
-            [movieFile addTarget:videoView];
-            [movieFile startProcessing];
+            [_movie addTarget:_videoView];
+            
+//            GPUImageFilter *filter = [[GPUImageDissolveBlendFilter alloc] init];
+//            [_movie addTarget:filter];
+//            [filter addTarget:_videoView];
+            
+//            UIImage *image = [UIImage imageNamed:@"star"];
+//            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+//            imageView.center = CGPointMake(Screen_W / 2, Screen_H / 2);
+//            GPUImageUIElement *uielement = [[GPUImageUIElement alloc] initWithView:imageView];
+//            [uielement addTarget:filter];
+//            
+//            
+//            [filter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+//                [uielement updateWithTimestamp:time];
+//            }];
+            
+            
             
             [self addButton];
         });
     }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,6 +79,7 @@
 
 - (void)didCompletePlayingMovie {
     NSLog(@"didCompletePlayingMovie");
+    _playButton.selected = NO;
 }
 
 #pragma mark
@@ -95,17 +115,28 @@
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backButton];
     
-//    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
-//    playButton.center = CGPointMake(viewWidth / 4 * 3, 25);
-//    [playButton setTitle:@"播放" forState:UIControlStateNormal];
-//    [playButton setTitle:@"暂停" forState:UIControlStateSelected];
-//    [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
-//    [bottomView addSubview:playButton];
-//    _playButton = playButton;
+    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
+    playButton.center = CGPointMake(viewWidth / 4 * 3, 25);
+    [playButton setTitle:@"播放" forState:UIControlStateNormal];
+    [playButton setTitle:@"暂停" forState:UIControlStateSelected];
+    [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:playButton];
+    _playButton = playButton;
 }
 
+#pragma mark
 - (void)back {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)videoPaly:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    
+    if (sender.selected) {
+        [self.movie startProcessing];
+    } else {
+        [self.movie cancelProcessing];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
