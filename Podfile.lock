@@ -43,10 +43,13 @@ PODS:
     - PLPlayerKit/precompiled (= 2.2.0)
   - PLPlayerKit/precompiled (2.2.0):
     - pili-librtmp
+  - PNChart (0.8.9):
+    - UICountingLabel (~> 1.2.0)
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SSZipArchive (1.2)
+  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -55,6 +58,7 @@ DEPENDENCIES:
   - GPUImage
   - Masonry
   - PLPlayerKit
+  - PNChart
   - SDWebImage
   - SSZipArchive
 
@@ -68,9 +72,11 @@ SPEC CHECKSUMS:
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   pili-librtmp: 97dc6774ac4ebb9935f04d5f35f3f6d8c4a4f37c
   PLPlayerKit: 1cef24f72d517519c74e797581fccc2db8db1a2e
+  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SSZipArchive: 251093c65f98d6ea282c50bc404bfa631d9fd721
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: ddb8c67d1cb29cc3982c9ff0a6481273a435e17e
+PODFILE CHECKSUM: c057b760f614822321d30caaa971694485232514
 
 COCOAPODS: 1.0.1

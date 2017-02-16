@@ -22,6 +22,8 @@
 #import "UICollectionView+Tool.h"
 #import "Aspects.h"
 
+#import "PNChart.h"
+
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;

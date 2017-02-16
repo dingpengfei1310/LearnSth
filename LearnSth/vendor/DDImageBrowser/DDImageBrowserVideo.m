@@ -57,6 +57,10 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark
 - (void)setBackgropundImage {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];

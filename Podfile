@@ -10,4 +10,5 @@ target 'LearnSth' do
     pod 'PLPlayerKit'
     pod 'SDWebImage'
     pod 'Masonry'
+    pod 'PNChart'
 end

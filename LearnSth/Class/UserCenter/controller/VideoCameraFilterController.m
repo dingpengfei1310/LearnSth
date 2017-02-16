@@ -292,7 +292,7 @@
             [self.currentFilter addTarget:self.movieWriter];
         }
         
-        self.videoCamera.audioEncodingTarget = self.movieWriter;
+        self.videoCamera.audioEncodingTarget = self.movieWriter;//声音
         [self.movieWriter startRecording];
         _isRecording = YES;
         
