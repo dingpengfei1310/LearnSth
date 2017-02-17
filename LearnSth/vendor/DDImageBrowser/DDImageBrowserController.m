@@ -19,6 +19,7 @@
 @property (nonatomic, assign) BOOL statusBarHidden;
 
 @property (nonatomic, strong) UIView *barView;
+@property (nonatomic, strong) UILabel *countLabel;
 
 @end
 
@@ -89,7 +90,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)showImageOfIndex:(NSInteger)index {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    self.title = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.thumbImages.count];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.thumbImages.count];
     if (self.ScrollToIndexBlock) {
         self.ScrollToIndexBlock(self,index);
     }
@@ -115,7 +116,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     self.currentIndex = indexPath.row;
-    self.title = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
     if (self.ScrollToIndexBlock) {
         self.ScrollToIndexBlock(self,self.currentIndex);
     }
@@ -146,6 +147,12 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!_barView) {
         _barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 64)];
         _barView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+        
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 44)];
+        _countLabel.textColor = [UIColor whiteColor];
+        _countLabel.textAlignment = NSTextAlignmentCenter;
+        _countLabel.font = [UIFont boldSystemFontOfSize:18];
+        [_barView addSubview:_countLabel];
         
         UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 42, 42)];
         UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];

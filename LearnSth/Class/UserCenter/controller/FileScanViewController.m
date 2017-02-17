@@ -26,6 +26,16 @@
     [super viewDidLoad];
     self.title = @"文件";
     [self.view addSubview:self.tableView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
+}
+
+- (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
+    BOOL flag = [buttonItem.title isEqualToString:@"编辑"];
+    [self.tableView setEditing:flag animated:YES];
+    
+    NSString *title = flag ? @"完成" : @"编辑";
+    self.navigationItem.rightBarButtonItem.title = title;
 }
 
 #pragma mark
@@ -57,14 +67,14 @@
     NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
     [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
                       cancel:^{
-                          [tableView reloadData];
+                          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                       }
                    operation:^{
                        NSFileManager *fileManager = [NSFileManager defaultManager];
                        [fileManager removeItemAtPath:filePath error:NULL];
                        
                        [self.previewItems removeObjectAtIndex:indexPath.row];
-                       [tableView reloadData];
+                       [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                    }];
 }
 

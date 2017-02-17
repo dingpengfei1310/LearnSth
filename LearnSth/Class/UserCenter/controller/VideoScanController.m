@@ -28,7 +28,7 @@
 @property (nonatomic, assign) NSInteger filterIndex;
 @property (nonatomic, strong) GPUImageFilter *currentFilter;
 
-//@property (nonatomic, strong) AVURLAsset *urlAsset;
+@property (nonatomic, strong) AVURLAsset *urlAsset;
 
 @end
 
@@ -50,6 +50,7 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
+            self.urlAsset = urlAsset;
             
             [self addVideoViewWith:urlAsset.URL];
             [self addButton];
@@ -123,9 +124,9 @@
     _player = [AVPlayer playerWithPlayerItem:playerItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerDidPlayToEnd) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     
+//    _movie = [[GPUImageMovie alloc] initWithURL:url];
     _movie = [[GPUImageMovie alloc] initWithPlayerItem:playerItem];
     _movie.playAtActualSpeed = YES;
-    [_movie startProcessing];
     
 }
 
@@ -156,6 +157,7 @@
 //    UIButton *filterButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 30)];
 //    filterButton.center = CGPointMake(viewWidth / 6 * 5, 25);
 //    [filterButton setTitle:@"转换" forState:UIControlStateNormal];
+//    [filterButton setTitle:@"暂停" forState:UIControlStateSelected];
 //    [filterButton addTarget:self action:@selector(videoFilter:) forControlEvents:UIControlEventTouchUpInside];
 //    [bottomView addSubview:filterButton];
     
@@ -169,6 +171,8 @@
 
 #pragma mark
 - (void)back {
+    [self.player pause];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -177,12 +181,14 @@
     [self.player seekToTime:CMTimeMake(0, 1)];
 }
 
+//播放
 - (void)videoPaly:(UIButton *)button {
     button.selected = !button.selected;
     
     if (self.player.rate) {
         [self.player pause];
     } else {
+        [self.movie startProcessing];
         [self.movie removeAllTargets];
         
         if (self.currentFilter) {
@@ -190,9 +196,6 @@
             [self.currentFilter addTarget:self.videoView];
         } else {
             [self.movie addTarget:self.videoView];
-            
-//            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-//            GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:imageView];
         }
         
         [self.player play];
@@ -228,80 +231,117 @@
 - (void)normalCamera {
     [self.movie removeAllTargets];
     
-//    [self.movie addTarget:self.videoView];
+    [self.movie addTarget:self.videoView];
     
+    //以下代码：加水印
+//    UIView *contentView = [[UIView alloc] initWithFrame:self.videoView.bounds];
+//    
+//    UIImage *image = [UIImage imageNamed:@"star"];
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+//    imageView.image = image;
+//    imageView.tag = 500;
+//    
+//    [contentView addSubview:imageView];
+//    
+//    GPUImageFilter *filter = [[GPUImageBrightnessFilter alloc] init];
+//    
+//    GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:contentView];
+//    GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+//    
+//    [blendFilter addTarget:self.videoView];
+//    [filter addTarget:blendFilter];
+//    [element addTarget:blendFilter];
+//    
+//    [self.movie addTarget:filter];
+//    
+//    [filter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+//        [element updateWithTimestamp:time];
+//    }];
+}
+
+//转换
+- (void)videoFilter:(UIButton *)button {
+    [self.player pause];
+    
+    [self loading];
+    
+    //这里必须用initWithURL，不然就不对。。不知道原因。。同时做播放和转换会出错，最好分开
+    GPUImageMovie *filterMovie = [[GPUImageMovie alloc] initWithURL:self.urlAsset.URL];
     
     UIView *contentView = [[UIView alloc] initWithFrame:self.videoView.bounds];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 100)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont boldSystemFontOfSize:30];
+    label.text = @"小飞飞";
+//    UIImage *image = [UIImage imageNamed:@"star"];
+//
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+//    imageView.image = image;
+//    imageView.tag = 500;
+
+    [contentView addSubview:label];
     
-    UIImage *image = [UIImage imageNamed:@"star"];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-    imageView.image = image;
-    imageView.tag = 500;
-    
-    [contentView addSubview:imageView];
-    
-    GPUImageFilter *filter = [[GPUImageBrightnessFilter alloc] init];
-    
+    GPUImageFilter *filter = self.currentFilter;
+    if (!filter) {
+        filter = [[GPUImageBrightnessFilter alloc] init];
+    }
+
     GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:contentView];
     GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-    
-    [blendFilter addTarget:self.videoView];
+
+    [blendFilter addTarget:self.movieWriter];
     [filter addTarget:blendFilter];
     [element addTarget:blendFilter];
-    
-    [self.movie addTarget:filter];
-    
+
+    [filterMovie addTarget:filter];
+
     [filter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
         [element updateWithTimestamp:time];
     }];
+    
+    [filterMovie startProcessing];
+    //如果使用这个方法，画面会旋转90度。
+//    [self.movieWriter startRecording];
+    //这个方法，手动旋转90度。
+    [self.movieWriter startRecordingInOrientation:CGAffineTransformMakeRotation(M_PI_2)];
 }
 
-//- (void)videoFilter:(UIButton *)button {
-//    [self loading];
-//    [self.movie removeAllTargets];
-//    
-//    GPUImageFilter *filter = [[GPUImageSepiaFilter alloc] init];
-//    [self.movie addTarget:filter];
-//    [filter addTarget:self.movieWriter];
-//    
-//    [self.movie startProcessing];
-//    //如果使用这个方法，画面会旋转90度。
-////    [self.movieWriter startRecording];
-//    //这个方法，手动旋转90度。
-//    [self.movieWriter startRecordingInOrientation:CGAffineTransformMakeRotation(M_PI_2)];
-//}
-//
-//#pragma mark
-//
-//- (GPUImageMovieWriter *)movieWriter {
-//    if (!_movieWriter) {
-//        NSString *moviePath = [kDocumentPath stringByAppendingPathComponent:@"test.mp4"];
-//        unlink([moviePath UTF8String]);
-//        
-//        CGSize size;
-//        NSArray *array = [self.urlAsset tracksWithMediaType:AVMediaTypeVideo];
-//        if (array.count > 0) {
-//            AVAssetTrack *track = array[0];
-//            size = track.naturalSize;
-//        }
-//        
-//        NSURL *url = [NSURL fileURLWithPath:moviePath];
-//        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:size];
-//        
-//        __weak typeof(self) wSelf = self;
-//        [_movieWriter setCompletionBlock:^{
-//            
-//            dispatch_sync(dispatch_get_main_queue(), ^{
-//                [wSelf hideHUD];
-//                [wSelf showSuccess:@"转换完成"];
-//            });
-//            
-//        }];
-//    }
-//    
-//    return _movieWriter;
-//}
+#pragma mark
+
+- (GPUImageMovieWriter *)movieWriter {
+    if (!_movieWriter) {
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        [formatter setDateFormat:@"HH:mm:ss"];
+//        NSString *dateString = [formatter stringFromDate:[NSDate date]];
+//        NSString *fileName = [NSString stringWithFormat:@"%@-转换.mov",dateString];
+        NSString *fileName = @"转换.mov";
+        NSString *moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
+        unlink([moviePath UTF8String]);
+        
+        CGSize size;
+        NSArray *array = [self.urlAsset tracksWithMediaType:AVMediaTypeVideo];
+        if (array.count > 0) {
+            AVAssetTrack *track = array[0];
+            size = track.naturalSize;
+        }
+        
+        NSURL *url = [NSURL fileURLWithPath:moviePath];
+        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:size];
+        
+        __weak typeof(self) wSelf = self;
+        [_movieWriter setCompletionBlock:^{
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [wSelf hideHUD];
+                [wSelf showSuccess:@"转换完成"];
+            });
+            
+        }];
+    }
+    
+    return _movieWriter;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

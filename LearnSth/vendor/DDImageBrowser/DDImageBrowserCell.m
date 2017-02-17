@@ -82,7 +82,7 @@ const CGFloat DDImageBrowserMinZoom = 1;
 - (void)updateImage:(UIImage *)newImage {
     if (!newImage) return;
     
-    [self.scrollView setZoomScale:1.0 animated:NO];
+    [self.scrollView setZoomScale:1.0 animated:YES];
     
     _photoImageView.image = newImage;
     CGSize imageSize = newImage.size;
@@ -98,7 +98,7 @@ const CGFloat DDImageBrowserMinZoom = 1;
 }
 
 - (void)doubleTap:(UITapGestureRecognizer *)gesture {
-    CGFloat scale = (self.scrollView.zoomScale > 1.0) ? 2.0 : 1.0;
+    CGFloat scale = (self.scrollView.zoomScale == 2.0) ? 1.0 : 2.0;
     [self.scrollView setZoomScale:scale animated:YES];
 }
 
