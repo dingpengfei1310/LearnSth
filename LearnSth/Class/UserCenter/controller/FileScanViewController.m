@@ -67,15 +67,14 @@
     NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
     [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
                       cancel:^{
-                          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                      }
-                   operation:^{
-                       NSFileManager *fileManager = [NSFileManager defaultManager];
-                       [fileManager removeItemAtPath:filePath error:NULL];
-                       
-                       [self.previewItems removeObjectAtIndex:indexPath.row];
-                       [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                   }];
+                          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                      } destructive:^{
+                          NSFileManager *fileManager = [NSFileManager defaultManager];
+                          [fileManager removeItemAtPath:filePath error:NULL];
+                          
+                          [self.previewItems removeObjectAtIndex:indexPath.row];
+                          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                      }];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,7 +103,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)
                                                   style:UITableViewStylePlain];
-        _tableView.rowHeight = 50;
+        _tableView.rowHeight = 55;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];

@@ -9,6 +9,7 @@
 #import "UserInfoViewController.h"
 #import "ProvinceViewController.h"
 #import "AddressPickerController.h"
+#import "ScanImageController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
@@ -44,32 +45,16 @@ static NSString *reuseIdentifier = @"cell";
 
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
-    [self showError:@" 开发中"];
+//    [self showError:@" 开发中"];
+    ScanImageController *controller = [[ScanImageController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loginOut {
-//    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil operation:^{
-//        [Utils remoAllObjects];
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-    
-    //UIAlertActionStyleDestructive
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要退出登录吗" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelAction;
-    cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
-                                          handler:nil];
-    UIAlertAction *operationAction;
-    operationAction = [UIAlertAction actionWithTitle:@"确定"
-                                               style:UIAlertActionStyleDestructive
-                                             handler:^(UIAlertAction * action) {
-                                                 [Utils remoAllObjects];
-                                                 [self.navigationController popViewControllerAnimated:YES];
-                                             }];
-    [alert addAction:cancelAction];
-    [alert addAction:operationAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
+    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
+        [Utils remoAllObjects];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)showAlertControllerOnChangeUsername {
@@ -150,7 +135,7 @@ static NSString *reuseIdentifier = @"cell";
             [self openUserCameraWithType:sourceType];
             
         } else if (status == AVAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:nil operation:nil];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
             
         } else if (status == AVAuthorizationStatusNotDetermined) {
             [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
@@ -169,7 +154,7 @@ static NSString *reuseIdentifier = @"cell";
             }];
             
         } else if (currentStatus == PHAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlertMessage:@"没有相册访问权限" Cancel:nil operation:nil];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相册访问权限" cancel:nil operation:nil];
             
         } else if (currentStatus == PHAuthorizationStatusAuthorized) {
             [self openUserCameraWithType:sourceType];

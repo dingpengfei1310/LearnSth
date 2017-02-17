@@ -125,21 +125,25 @@
     }
 }
 
-- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message Cancel:(void (^)())cancel operation:(void (^)())operation {
+- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
     NSString *mess = [NSString stringWithFormat:@"%@\n%@",message,@"您可以到“隐私设置“中启用访问"];
     void (^operationBlock)() = ^{
         [self openSystemSetting];
         operation ? operation() : 0;
     };
     
-    [self showAlertWithTitle:@"提示" message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock];
+    [self showAlertWithTitle:@"提示" message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
-    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation];
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel destructive:(void (^)())operation {
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDestructive];
+}
+
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelA = [UIAlertAction actionWithTitle:cancelTitle
@@ -148,7 +152,7 @@
                                                         cancel ? cancel() : 0;
                                                     }];
     UIAlertAction *operationA  = [UIAlertAction actionWithTitle:operationTitle
-                                                          style:UIAlertActionStyleDefault
+                                                          style:style
                                                         handler:^(UIAlertAction * action) {
                                                             operation ? operation() : 0;
                                                         }];

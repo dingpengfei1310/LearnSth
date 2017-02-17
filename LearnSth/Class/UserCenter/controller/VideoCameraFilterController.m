@@ -52,7 +52,7 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self checkAuthorizationStatusOnAudio];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:^{
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -71,7 +71,7 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoView];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" Cancel:^{
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" cancel:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         } operation:^{
             [self dismissViewControllerAnimated:YES completion:nil];

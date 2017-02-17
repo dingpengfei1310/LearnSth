@@ -31,11 +31,14 @@
 
 #pragma mark - 确认弹出框
 ///没有访问权限时的弹出框
-- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message Cancel:(void (^)())cancel operation:(void (^)())operation;
+- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation;
 ///通用弹出框(取消－确定)
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation;
+///通用弹出框(取消－确定。“确定”为红色字体，危险操作，退出、删除等)
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel destructive:(void (^)())operation;
+
 ///弹出框(自定义标题，内容，按钮)
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation;
+//- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style;
 
 @end
 

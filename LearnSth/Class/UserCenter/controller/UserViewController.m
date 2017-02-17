@@ -72,7 +72,7 @@ static NSString *identifier = @"cell";
 }
 
 - (void)showAlertOnClearDiskCache {
-    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancelTitle:@"取消" cancel:nil operationTitle:@"确定" operation:^{
+    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancel:nil destructive:^{
         [self clearDiskCache];
     }];
 }
@@ -114,7 +114,7 @@ static NSString *identifier = @"cell";
         }];
         
     } else if (currentStatus == PHAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" Cancel:nil operation:nil];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
         
     } else if (currentStatus == PHAuthorizationStatusAuthorized) {
         PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];

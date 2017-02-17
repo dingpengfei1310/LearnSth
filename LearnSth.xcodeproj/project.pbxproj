@@ -104,6 +104,7 @@
 		1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED741DE58812002A27B5 /* zepto.min.js */; };
 		1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED781DE58D10002A27B5 /* testHUD.html */; };
 		1BEED0FE1E56D2920072BFB9 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */; };
+		1BEED1011E56F5460072BFB9 /* ScanImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEED1001E56F5460072BFB9 /* ScanImageController.m */; };
 		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
 		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
@@ -330,6 +331,8 @@
 		1BDCED781DE58D10002A27B5 /* testHUD.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = testHUD.html; sourceTree = "<group>"; };
 		1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
 		1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
+		1BEED0FF1E56F5460072BFB9 /* ScanImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanImageController.h; sourceTree = "<group>"; };
+		1BEED1001E56F5460072BFB9 /* ScanImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanImageController.m; sourceTree = "<group>"; };
 		1BF3B3B91E03737E0061DD5A /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
 		1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -411,6 +414,8 @@
 				1B04FA241E52F28A00CDFC80 /* VideoScanController.m */,
 				1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */,
 				1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */,
+				1BEED0FF1E56F5460072BFB9 /* ScanImageController.h */,
+				1BEED1001E56F5460072BFB9 /* ScanImageController.m */,
 			);
 			name = video;
 			sourceTree = "<group>";
@@ -1266,6 +1271,7 @@
 				1B099C811DE7E57400161396 /* MJRefreshComponent.m in Sources */,
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
+				1BEED1011E56F5460072BFB9 /* ScanImageController.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B1098B11E2DE84400993B23 /* DeviceConfig.m in Sources */,
