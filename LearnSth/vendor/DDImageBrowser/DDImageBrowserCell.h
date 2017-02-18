@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, copy) void (^SingleTapBlock)();
+@property (nonatomic, copy) void (^LongPressBlock)();
 
 @end

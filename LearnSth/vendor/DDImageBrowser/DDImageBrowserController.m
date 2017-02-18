@@ -72,6 +72,24 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
+//识别图中二维码
+- (void)showImageInfoWithIndex:(NSInteger)index {
+    UIImage *image = self.thumbImages[index];
+    //1. 初始化扫描仪，设置设别类型和识别质量
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+    //2. 扫描获取的特征组
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+    
+    NSString *message = @"未识别到二维码信息";
+    //3. 获取扫描结果
+    if (features.count > 0) {
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        message = feature.messageString;
+    }
+    
+    [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.thumbImages.count;
@@ -81,6 +99,9 @@ static NSString * const reuseIdentifier = @"Cell";
     DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     cell.SingleTapBlock = ^{
         [self hideNavigationBar];
+    };
+    cell.LongPressBlock = ^{
+        [self showImageInfoWithIndex:indexPath.row];
     };
     cell.image = self.thumbImages[indexPath.row];
     return cell;
@@ -146,7 +167,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UIView *)barView {
     if (!_barView) {
         _barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 64)];
-        _barView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+        _barView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
         
         _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 44)];
         _countLabel.textColor = [UIColor whiteColor];

@@ -9,9 +9,14 @@
 #import "ScanImageController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface ScanImageController ()<AVCaptureMetadataOutputObjectsDelegate>
+@interface ScanImageController ()<AVCaptureMetadataOutputObjectsDelegate> {
+    CGFloat scanWidth;
+}
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
+
+@property (nonatomic, assign) BOOL isFinish;
 
 @end
 
@@ -19,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"二维码";
+    scanWidth = Screen_W * 0.6;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,22 +59,40 @@
     [self.view.layer addSublayer:preLayer];
     
     [self.captureSession startRunning];
+    
+    CGRect scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2, scanWidth, scanWidth);
+    CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:scanRect];
+    _metadataOutput.rectOfInterest = rectOfInterest;
+    
+    [self addMaskViewWithRect:scanRect];
+}
+
+- (void)addMaskViewWithRect:(CGRect)scanRect {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
+    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:1] bezierPathByReversingPath]];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.path = maskPath.CGPath;
+    
+    UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.6];
+    maskView.layer.mask = maskLayer;
+    [self.view addSubview:maskView];
 }
 
 #pragma mark
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    [self.captureSession stopRunning];
+    if (_isFinish) {
+        return;
+    }
     
-    NSString *val = nil;
     if (metadataObjects.count > 0) {
+        _isFinish = YES;
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-        val = obj.stringValue;
+        NSString *message = obj.stringValue;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self showSuccess:val];
-            NSLog(@"%@",val);
-        });
+        [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:^{
+            _isFinish = NO;
+        }];
     }
 }
 
@@ -79,6 +104,7 @@
         AVCaptureMetadataOutput *metadataOutput = [[AVCaptureMetadataOutput alloc]init];
         dispatch_queue_t dispatchQueue = dispatch_queue_create("myQueue", NULL);
         [metadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
+        _metadataOutput = metadataOutput;
         
         _captureSession = [[AVCaptureSession alloc] init];
         _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
@@ -92,7 +118,10 @@
         }
         
         //这句话必须在后面调用，否则availableMetadataObjectTypes为空
-        metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+        if ([metadataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
+            metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+        }
+        
     }
     return _captureSession;
 }

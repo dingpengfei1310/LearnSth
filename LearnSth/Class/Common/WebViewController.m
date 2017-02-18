@@ -123,7 +123,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H)];
         _KWebView.navigationDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];

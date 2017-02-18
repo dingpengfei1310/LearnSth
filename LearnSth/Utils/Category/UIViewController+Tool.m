@@ -135,6 +135,17 @@
     [self showAlertWithTitle:@"提示" message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
 }
 
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:operationTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        operation ? operation() : 0;
+    }];
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
     [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
 }

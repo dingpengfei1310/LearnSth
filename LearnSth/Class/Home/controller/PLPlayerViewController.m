@@ -29,11 +29,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeAll;
     
     [self.view addSubview:self.player.playerView];
     [self.view addSubview:self.backgroundImageView];
     
+    self.title = self.live.myname;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss:)];
 }
 

@@ -48,7 +48,7 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect frame = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H - 64);
+        CGRect frame = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H);
         _tableView = [[UITableView alloc] initWithFrame:frame
                                                   style:UITableViewStylePlain];
         UINib *nib = [UINib nibWithNibName:@"MessageTableCell" bundle:[NSBundle mainBundle]];

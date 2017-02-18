@@ -67,7 +67,11 @@ const CGFloat DDImageBrowserMinZoom = 1;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     [self.contentView addGestureRecognizer:singleTap];
     
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [self.contentView addGestureRecognizer:longPress];
+    
     [singleTap requireGestureRecognizerToFail:doubleTap];
+    [singleTap requireGestureRecognizerToFail:longPress];
 }
 
 #pragma mark
@@ -105,6 +109,12 @@ const CGFloat DDImageBrowserMinZoom = 1;
 - (void)singleTap:(UITapGestureRecognizer *)gesture {
     if (self.SingleTapBlock) {
         self.SingleTapBlock();
+    }
+}
+
+- (void)longPress:(UILongPressGestureRecognizer *)gesture {
+    if (self.LongPressBlock) {
+        self.LongPressBlock();
     }
 }
 
