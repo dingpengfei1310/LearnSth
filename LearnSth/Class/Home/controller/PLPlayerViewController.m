@@ -42,17 +42,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     
     [self navigationBarColorClear];
     [self.player play];
-    
-    UIView *tempView = [self.view viewWithTag:PlayerViewTag];
-    if (!tempView) {
-        [self.player.playerView removeFromSuperview];
-        [self.view addSubview:self.player.playerView];
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            self.player.playerView.frame = self.view.bounds;
-        }];
-    }
-    
     self.player.playerView.gestureRecognizers = nil;
 }
 
@@ -71,7 +60,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)shop:(UIBarButtonItem *)sender {
     ShoppingViewController *controller = [[ShoppingViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    controller.BackItemBlock = ^{
+        [self backToRootController];
+    };
+    [self.navigationController pushViewController:controller animated:NO];
     
     [self.player.playerView removeFromSuperview];
     [self.window addSubview:self.player.playerView];
@@ -120,7 +112,25 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 - (void)clickPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self backToRootController];
+}
+
+//返回到这个页面的处理
+- (void)backToRootController {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.player.playerView.frame = self.view.bounds;
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIView *tempView = [self.view viewWithTag:PlayerViewTag];
+        
+        if (!tempView) {
+            [self.player.playerView removeFromSuperview];
+            [self.view addSubview:self.player.playerView];
+        }
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    });
 }
 
 #pragma mark

@@ -27,7 +27,9 @@
 
 #pragma mark
 - (void)back:(UIBarButtonItem *)sender {
-    [self.navigationController popViewControllerAnimated:NO];
+    if (self.BackItemBlock) {
+        self.BackItemBlock();
+    }
 }
 
 - (void)addClick:(UIBarButtonItem *)sender {

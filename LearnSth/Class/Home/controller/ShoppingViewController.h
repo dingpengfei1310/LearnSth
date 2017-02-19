@@ -10,4 +10,6 @@
 
 @interface ShoppingViewController : BaseViewController
 
+@property (nonatomic, copy) void (^BackItemBlock)();
+
 @end
