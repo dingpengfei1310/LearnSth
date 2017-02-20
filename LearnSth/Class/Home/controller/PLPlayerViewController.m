@@ -112,9 +112,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 - (void)clickPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        [self backToRootController];
-    }
+    [self backToRootController];
 }
 
 //返回到这个页面的处理

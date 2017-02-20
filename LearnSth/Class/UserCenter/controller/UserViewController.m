@@ -136,7 +136,7 @@ static NSString *identifier = @"cell";
     
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     TabBarViewController *controller = [[TabBarViewController alloc] init];
-    [controller setSelectedIndex:1];
+    controller.selectedIndex = 1;
     app.window.rootViewController = controller;
     
 }
