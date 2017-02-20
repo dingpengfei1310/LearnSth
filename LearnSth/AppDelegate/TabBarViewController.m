@@ -70,7 +70,10 @@
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSArray *titles = @[@"Home",@"",@"User"];
+    NSString *home = DDNSLocalizedGetString(@"UITabBarItemHome");
+    NSString *user = DDNSLocalizedGetString(@"UITabBarItemUser");
+    
+    NSArray *titles = @[home,@"",user];
     NSArray *images = @[@"star",@"",@"defaultHeader"];
     CGFloat buttonWidth = totalWidth / titles.count;
     

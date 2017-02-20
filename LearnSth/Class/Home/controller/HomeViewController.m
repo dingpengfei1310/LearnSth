@@ -46,10 +46,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.navigationItem.title = @"🍎🍎🍎";
     self.page = 1;
     
-    [self getHomeAdBanner];
-    
     [self.view addSubview:self.collectionView];
-    [self.collectionView.mj_header beginRefreshing];
     self.collectionView.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
@@ -58,6 +55,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
     }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
+    
+    [self getHomeAdBanner];
+    [self refreshLiveData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -77,7 +77,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
 #pragma mark
 - (void)getHomeAdBanner {
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
-        
         if (error) {
             [self showErrorWithError:error];
         } else {

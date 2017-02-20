@@ -42,7 +42,7 @@
     [formatter setDateFormat:@"HH:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     NSString *fileName = [NSString stringWithFormat:@"%@-Video.mov",dateString];
-    self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
+    self.moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
     
     //创建一个预览图层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];

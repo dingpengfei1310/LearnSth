@@ -22,7 +22,7 @@
 
 @end
 
-const NSInteger PlayerViewTag = 99999;
+//const NSInteger PlayerViewTag = 99999;
 const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的比例
 
 @implementation PLPlayerViewController
@@ -59,24 +59,24 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 - (void)shop:(UIBarButtonItem *)sender {
-    ShoppingViewController *controller = [[ShoppingViewController alloc] init];
-    controller.BackItemBlock = ^{
-        [self backToRootController];
-    };
-    [self.navigationController pushViewController:controller animated:NO];
-    
     [self.player.playerView removeFromSuperview];
     [self.window addSubview:self.player.playerView];
     
     [UIView animateWithDuration:0.5 animations:^{
         self.player.playerView.frame = CGRectMake((1 - PlayerViewScale) * Screen_W, 64, Screen_W * PlayerViewScale, Screen_H * PlayerViewScale);
+    } completion:^(BOOL finished) {
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
+        [self.player.playerView addGestureRecognizer:panGesture];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPlayerView:)];
+        [self.player.playerView addGestureRecognizer:tapGesture];
     }];
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
-    [self.player.playerView addGestureRecognizer:panGesture];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPlayerView:)];
-    [self.player.playerView addGestureRecognizer:tapGesture];
+    ShoppingViewController *controller = [[ShoppingViewController alloc] init];
+    controller.BackItemBlock = ^{
+        [self backToRootController];
+    };
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (void)movePlayerView:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -112,34 +112,28 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 - (void)clickPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
-    [self backToRootController];
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self backToRootController];
+    }
 }
 
 //返回到这个页面的处理
 - (void)backToRootController {
     [UIView animateWithDuration:0.5 animations:^{
         self.player.playerView.frame = self.view.bounds;
-    }];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIView *tempView = [self.view viewWithTag:PlayerViewTag];
-        
-        if (!tempView) {
-            [self.player.playerView removeFromSuperview];
-            [self.view addSubview:self.player.playerView];
-        }
+    } completion:^(BOOL finished) {
+        [self.player.playerView removeFromSuperview];
+        [self.view addSubview:self.player.playerView];
         
         [self.navigationController popToRootViewControllerAnimated:NO];
-    });
+    }];
 }
 
 #pragma mark
 - (void)player:(PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
     if (state == PLPlayerStatusPlaying) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.backgroundImageView removeFromSuperview];
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(shop:)];
-        });
+        [self.backgroundImageView removeFromSuperview];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(shop:)];
     }
 }
 
@@ -152,7 +146,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         NSURL *url = [NSURL URLWithString:self.live.flv];
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
-        _player.playerView.tag = PlayerViewTag;
         
         _player.backgroundPlayEnable = YES;
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];

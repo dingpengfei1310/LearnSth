@@ -1,0 +1,18 @@
+/* 
+  International.strings
+  LearnSth
+
+  Created by 丁鹏飞 on 17/2/20.
+  Copyright © 2017年 丁鹏飞. All rights reserved.
+*/
+
+"UITabBarItemHome" = "Home";
+"UITabBarItemUser" = "User";
+
+"Cancel" = "Cancel";
+"Confirm" = "Confirm";
+
+"Language" = "Language";
+"English" = "English";
+"Chinese" = "Chinese";
+"ChangeLanguage" = "ChangeLanguage";

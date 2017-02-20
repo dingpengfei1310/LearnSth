@@ -64,7 +64,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
     [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
                       cancel:^{
                           [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -88,7 +88,7 @@
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
     [NSUserDefaults standardUserDefaults];
-    NSString *filePath = [kDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
     DDPreviewItem *previewItem = [[DDPreviewItem alloc] init];
@@ -113,7 +113,7 @@
 - (NSMutableArray *)previewItems {
     if (!_previewItems) {
         _previewItems = [NSMutableArray array];
-        NSString *docString = kDocumentPath;
+        NSString *docString = KDocumentPath;
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSArray *files = [fileManager contentsOfDirectoryAtPath:docString error:NULL];

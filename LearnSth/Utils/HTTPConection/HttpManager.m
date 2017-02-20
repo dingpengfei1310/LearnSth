@@ -30,6 +30,7 @@ const NSTimeInterval timeoutInterval = 20.0;
                  paramets:(NSDictionary *)paramets
                   success:(Success)success
                   failure:(Failure)failure {
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];

@@ -90,7 +90,7 @@
     [formatter setDateFormat:@"HH:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     NSString *fileName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
-    self.moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
+    self.moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
     
     _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
     [self.videoCamera addTarget:_videoView];//默认，不带滤镜

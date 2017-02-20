@@ -15,6 +15,8 @@
 
 #import "UIImageView+WebCache.h"
 
+#import "LanguageTool.h"
+
 @interface BaseViewController : UIViewController {
     CGFloat ViewFrame_X;
 }

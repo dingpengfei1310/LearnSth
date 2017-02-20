@@ -83,6 +83,9 @@
 		1B3C7ADE1E1F72E000B70942 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3C7ADD1E1F72E000B70942 /* UIViewController+Tool.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B3D3DF41E1B915100E6FBE9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF31E1B915100E6FBE9 /* Utils.m */; };
+		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
+		1B4043681E5AD83C00C14EE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B40436A1E5AD83C00C14EE6 /* InfoPlist.strings */; };
+		1B4043761E5AE89000C14EE6 /* LanguageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4043751E5AE89000C14EE6 /* LanguageTool.m */; };
 		1B54C64A1DF4FB79001DF134 /* UITableView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */; };
 		1B54C64D1DF5370F001DF134 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54C64C1DF5370F001DF134 /* UICollectionView+Tool.m */; };
 		1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */; };
@@ -297,6 +300,16 @@
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B3D3DF21E1B915100E6FBE9 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		1B3D3DF31E1B915100E6FBE9 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1B4043651E5AD6AF00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1B4043691E5AD83C00C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B40436B1E5AD83E00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1B40436E1E5ADD7A00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		1B40436F1E5ADD7A00C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1B4043721E5ADD9900C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		1B4043731E5ADD9A00C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1B4043741E5AE89000C14EE6 /* LanguageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTool.h; sourceTree = "<group>"; };
+		1B4043751E5AE89000C14EE6 /* LanguageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTool.m; sourceTree = "<group>"; };
 		1B54C6481DF4FB79001DF134 /* UITableView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Tool.h"; sourceTree = "<group>"; };
 		1B54C6491DF4FB79001DF134 /* UITableView+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Tool.m"; sourceTree = "<group>"; };
 		1B54C64B1DF5370F001DF134 /* UICollectionView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Tool.h"; sourceTree = "<group>"; };
@@ -337,9 +350,7 @@
 		1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1BF7F6C31D92492200F8E5B1 /* LearnSth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6C71D92492200F8E5B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1BF7F6D01D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BF7F6D51D92492200F8E5B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BF7F6D71D92492200F8E5B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF7F6DC1D92492200F8E5B1 /* LearnSthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnSthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7F6E71D92492200F8E5B1 /* LearnSthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnSthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,6 +452,8 @@
 				1B098E6E1E24AB9D00D5754A /* UserLocalNotification.m */,
 				1B1098AF1E2DE84400993B23 /* DeviceConfig.h */,
 				1B1098B01E2DE84400993B23 /* DeviceConfig.m */,
+				1B4043741E5AE89000C14EE6 /* LanguageTool.h */,
+				1B4043751E5AE89000C14EE6 /* LanguageTool.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -945,6 +958,7 @@
 				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
 				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
 				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
+				1B40436A1E5AD83C00C14EE6 /* InfoPlist.strings */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -991,6 +1005,7 @@
 			children = (
 				CFEAB8C21DE97E7700CB9DDF /* province.db */,
 				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
+				1B4043611E5AD5D500C14EE6 /* Localizable.strings */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1097,6 +1112,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 1BF7F6BA1D92492200F8E5B1;
 			productRefGroup = 1BF7F6C41D92492200F8E5B1 /* Products */;
@@ -1120,6 +1136,8 @@
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
+				1B4043681E5AD83C00C14EE6 /* InfoPlist.strings in Resources */,
+				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
@@ -1259,6 +1277,7 @@
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
 				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,
+				1B4043761E5AE89000C14EE6 /* LanguageTool.m in Sources */,
 				1B099C991DE7E57400161396 /* UIView+SDExtension.m in Sources */,
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
 				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,
@@ -1336,10 +1355,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1B4043611E5AD5D500C14EE6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B4043621E5AD5D900C14EE6 /* en */,
+				1B4043651E5AD6AF00C14EE6 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		1B40436A1E5AD83C00C14EE6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B4043691E5AD83C00C14EE6 /* en */,
+				1B40436B1E5AD83E00C14EE6 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1BF7F6D01D92492200F8E5B1 /* Base */,
+				1B40436E1E5ADD7A00C14EE6 /* zh-Hans */,
+				1B40436F1E5ADD7A00C14EE6 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1347,7 +1385,8 @@
 		1BF7F6D41D92492200F8E5B1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1BF7F6D51D92492200F8E5B1 /* Base */,
+				1B4043721E5ADD9900C14EE6 /* zh-Hans */,
+				1B4043731E5ADD9A00C14EE6 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1359,6 +1398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1407,6 +1447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

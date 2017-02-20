@@ -53,5 +53,4 @@
     return _gradientLayer;
 }
 
-
 @end

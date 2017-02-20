@@ -14,6 +14,9 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 
+#import "AppDelegate.h"
+#import "TabBarViewController.h"
+
 #import "HttpManager.h"
 #import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>
@@ -34,7 +37,12 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.navigationItem.title = @"🏓🏓🏓";
     
-    self.dataArray = @[@"上传文件",@"查看相册",@"消息",@"清除缓存",@"查看本机文件"];
+    self.dataArray = @[@"上传文件",
+                       @"查看相册",
+                       @"消息",
+                       @"清除缓存",
+                       @"查看本机文件",
+                       DDNSLocalizedGetString(@"Language")];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -81,7 +89,7 @@ static NSString *identifier = @"cell";
     [self loading];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [Utils clearCacheAtPath:kCachePath];
+        [Utils clearCacheAtPath:KCachePath];
         
         dispatch_async(dispatch_get_main_queue(),^{
             [self hideHUD];
@@ -92,7 +100,7 @@ static NSString *identifier = @"cell";
 }
 
 - (CGFloat)calculateDiskCacheSize {
-    long long longSize = [Utils folderSizeAtPath:kCachePath];
+    long long longSize = [Utils folderSizeAtPath:KCachePath];
     CGFloat cacheSize = longSize / 1024.0 / 1024.0;
 //    NSLog(@"%@",kCachePath);
     
@@ -121,6 +129,16 @@ static NSString *identifier = @"cell";
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
+}
+
+- (void)changeLanguage:(NSString *)language {
+    [[LanguageTool shareInstance] changeLanguage:language];
+    
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    TabBarViewController *controller = [[TabBarViewController alloc] init];
+    [controller setSelectedIndex:1];
+    app.window.rootViewController = controller;
+    
 }
 
 #pragma mark
@@ -170,13 +188,29 @@ static NSString *identifier = @"cell";
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         
+    } else if (indexPath.row == 5) {
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDNSLocalizedGetString(@"ChangeLanguage") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *en = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"English")
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [self changeLanguage:@"en"];
+                                                   }];
+        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"Chinese")
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [self changeLanguage:@"zh-Hans"];
+                                                   }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"Cancel")
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:nil];
+        
+        [actionSheet addAction:en];
+        [actionSheet addAction:zh];
+        [actionSheet addAction:cancel];
+        
+        [self presentViewController:actionSheet animated:YES completion:nil];
     }
-//    else if (indexPath.row == 5) {
-//        
-//        BlueToothController *controller = [[BlueToothController alloc] init];
-//        controller.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:controller animated:YES];
-//    }
 }
 
 #pragma mark

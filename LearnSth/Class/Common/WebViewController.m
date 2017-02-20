@@ -21,7 +21,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 @implementation WebViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -112,15 +111,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 #pragma mark
-- (void)dealloc {
-    [self.KWebView removeObserver:self forKeyPath:EstimatedProgress];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-#pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
         _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H)];
@@ -138,8 +128,13 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     return _progressView;
 }
 
+#pragma mark
+- (void)dealloc {
+    [self.KWebView removeObserver:self forKeyPath:EstimatedProgress];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 @end
-
-
-
-

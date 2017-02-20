@@ -316,7 +316,7 @@
 //        NSString *dateString = [formatter stringFromDate:[NSDate date]];
 //        NSString *fileName = [NSString stringWithFormat:@"%@-转换.mov",dateString];
         NSString *fileName = @"转换.mov";
-        NSString *moviePath = [kDocumentPath stringByAppendingPathComponent:fileName];
+        NSString *moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
         unlink([moviePath UTF8String]);
         
         CGSize size;
