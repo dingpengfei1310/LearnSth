@@ -132,13 +132,16 @@ static NSString *identifier = @"cell";
 }
 
 - (void)changeLanguage:(NSString *)language {
+    if ([[[LanguageTool shareInstance] currentLanguage] isEqualToString:language]) {
+        return;
+    }
+    
     [[LanguageTool shareInstance] changeLanguage:language];
     
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     TabBarViewController *controller = [[TabBarViewController alloc] init];
     controller.selectedIndex = 1;
     app.window.rootViewController = controller;
-    
 }
 
 #pragma mark

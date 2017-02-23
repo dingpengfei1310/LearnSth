@@ -31,6 +31,10 @@
     return tool;
 }
 
+- (NSString *)currentLanguage {
+    return self.language;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         NSString *tmp = [[NSUserDefaults standardUserDefaults]objectForKey:LANGUAGE_SET];

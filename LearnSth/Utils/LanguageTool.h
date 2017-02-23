@@ -15,6 +15,8 @@
 
 + (instancetype)shareInstance;
 
+- (NSString *)currentLanguage;
+
 - (NSString *)getStringForKey:(NSString *)key withTable:(NSString *)table;
 - (void)changeLanguage:(NSString *)language;
 

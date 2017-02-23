@@ -115,7 +115,16 @@
         obj.selected = NO;
     }];
     self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
-    button.selected = YES;
+//    button.selected = YES;
+}
+
+- (void)setSelectedIndex:(NSUInteger)selectedIndex {
+    [self.barView.subviews enumerateObjectsUsingBlock:^(__kindof UIButton * obj, NSUInteger idx, BOOL * stop) {
+        if (idx == selectedIndex) {
+            obj.selected = YES;
+            *stop = YES;
+        }
+    }];
 }
 
 #pragma mark
