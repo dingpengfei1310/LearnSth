@@ -8,8 +8,6 @@
 
 #import "BaseViewController.h"
 
-#import "MBProgressHUD.h"
-
 @interface BaseViewController ()
 
 @end

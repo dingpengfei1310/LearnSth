@@ -113,8 +113,10 @@ const CGFloat DDImageBrowserMinZoom = 1;
 }
 
 - (void)longPress:(UILongPressGestureRecognizer *)gesture {
-    if (self.LongPressBlock) {
-        self.LongPressBlock();
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (self.LongPressBlock) {
+            self.LongPressBlock();
+        }
     }
 }
 

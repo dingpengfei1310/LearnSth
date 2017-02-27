@@ -11,9 +11,16 @@
 
 "Cancel" = "取消";
 "Confirm" = "确定";
+
 "Edit" = "编辑";
-"Done" = "确定";
+"Done" = "完成";
+
+"Close" = "关闭";
 "Logout" = "退出登录";
+
+"Pause" = "暂停";
+"Stop" = "停止";
+"Play" = "播放";
 
 "Language" = "语言";
 "English" = "英语";

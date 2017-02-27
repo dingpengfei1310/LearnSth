@@ -75,20 +75,28 @@ static NSString * const reuseIdentifier = @"Cell";
 
 //识别图中二维码
 - (void)showImageInfoWithIndex:(NSInteger)index {
-    UIImage *image = self.thumbImages[index];
-    //1. 初始化扫描仪，设置设别类型和识别质量
-    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-    //2. 扫描获取的特征组
-    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+    [self loading];
     
-    NSString *message = @"未识别到二维码信息";
-    //3. 获取扫描结果
-    if (features.count > 0) {
-        CIQRCodeFeature *feature = [features objectAtIndex:0];
-        message = feature.messageString;
-    }
-    
-    [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *image = self.thumbImages[index];
+        //1. 初始化扫描仪，设置设别类型和识别质量
+        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+        //2. 扫描获取的特征组
+        NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+        
+        NSString *message = @"未识别到二维码信息";
+        //3. 获取扫描结果
+        if (features.count > 0) {
+            CIQRCodeFeature *feature = [features objectAtIndex:0];
+            message = feature.messageString;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            
+            [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
+        });
+    });
 }
 
 #pragma mark
@@ -118,8 +126,8 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
+//显示原图
 - (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset {
-    
     [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
         
         UIImage *result = [UIImage imageWithData:imageData];

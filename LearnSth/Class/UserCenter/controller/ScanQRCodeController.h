@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface ScanImageController : BaseViewController
+@interface ScanQRCodeController : BaseViewController
 
 @end

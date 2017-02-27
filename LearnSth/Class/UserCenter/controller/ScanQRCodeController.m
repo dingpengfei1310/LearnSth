@@ -6,10 +6,10 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "ScanImageController.h"
+#import "ScanQRCodeController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface ScanImageController ()<AVCaptureMetadataOutputObjectsDelegate> {
+@interface ScanQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat scanWidth;
 }
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation ScanImageController
+@implementation ScanQRCodeController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

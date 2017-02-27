@@ -9,7 +9,7 @@
 #import "UserInfoViewController.h"
 #import "ProvinceViewController.h"
 #import "AddressPickerController.h"
-#import "ScanImageController.h"
+#import "ScanQRCodeController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
@@ -45,8 +45,12 @@ static NSString *reuseIdentifier = @"cell";
 
 #pragma mark
 - (void)addClick:(UIBarButtonItem *)item {
-//    [self showError:@" 开发中"];
-    ScanImageController *controller = [[ScanImageController alloc] init];
+    if (TARGET_OS_SIMULATOR) {
+        [self showError:@"真机使用"];
+        return;
+    }
+    
+    ScanQRCodeController *controller = [[ScanQRCodeController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

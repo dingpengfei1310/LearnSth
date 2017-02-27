@@ -11,9 +11,16 @@
 
 "Cancel" = "Cancel";
 "Confirm" = "Confirm";
+
 "Edit" = "Edit";
 "Done" = "Done";
+
+"Close" = "Close";
 "Logout" = "Logout";
+
+"Pause" = "Pause";
+"Stop" = "Stop";
+"Play" = "Play";
 
 "Language" = "Language";
 "English" = "English";

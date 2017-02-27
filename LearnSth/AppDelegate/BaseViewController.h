@@ -8,18 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UIImageView+WebCache.h"
 #import "UIViewController+Tool.h"
 #import "AppConfiguration.h"
+#import "LanguageTool.h"
 #import "UIImage+Tool.h"
 #import "Utils.h"
-
-#import "UIImageView+WebCache.h"
-
-#import "LanguageTool.h"
 
 @interface BaseViewController : UIViewController {
     CGFloat ViewFrame_X;
 }
 
 @end
-

@@ -29,13 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    HomeViewController *homeController = [[HomeViewController alloc] init];
-    UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
-    
-    UserViewController *userController = [[UserViewController alloc] init];
-    UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
-    
-    self.viewControllers = @[homeNVC,userNVC];
+    [self loadViewControllersWithSelectIndex:0];
     
 //    NSDictionary *textAttributeNormal = @{
 //                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
@@ -53,12 +47,10 @@
 //        [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
 //        [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
 //    }
-    
-    [self customizeBarButton];
 }
 
 #pragma mark
-- (void)customizeBarButton {
+- (void)customizeBarButtonWithIndex:(NSInteger)index {
     //背景透明、消除黑线
     UIImage *clearImage = [UIImage imageWithColor:[UIColor clearColor]];
     [self.tabBar setBackgroundImage:clearImage];
@@ -78,21 +70,23 @@
     CGFloat buttonWidth = totalWidth / titles.count;
     
     for (int i = 0; i < titles.count; i++) {
-        
         CGRect buttonRect = CGRectMake(buttonWidth * i, 0, buttonWidth, 49);
         CustomizeButton *button = [[CustomizeButton alloc] initWithFrame:buttonRect];
-        if (i == 1) {
-            button.frame = CGRectMake(0, 0, 100, 100);
-            button.center = CGPointMake(totalWidth * 0.5, 30);
-        } else if (i == 0) {
-            button.selected = YES;
-        }
+        
         button.tag = i;
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
         [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
         [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        
+        if (i == index) {
+            [self buttonClick:button];
+        }
+        if (i == 1) {
+            button.frame = CGRectMake(0, 0, 100, 100);
+            button.center = CGPointMake(totalWidth * 0.5, 30);
+        }
         
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -115,16 +109,19 @@
         obj.selected = NO;
     }];
     self.selectedIndex = (button.tag < self.viewControllers.count / 2) ? button.tag : button.tag - 1;
-//    button.selected = YES;
+    button.selected = YES;
 }
 
-- (void)setSelectedIndex:(NSUInteger)selectedIndex {
-    [self.barView.subviews enumerateObjectsUsingBlock:^(__kindof UIButton * obj, NSUInteger idx, BOOL * stop) {
-        if (idx == selectedIndex) {
-            obj.selected = YES;
-            *stop = YES;
-        }
-    }];
+- (void)loadViewControllersWithSelectIndex:(NSInteger)index {
+    HomeViewController *homeController = [[HomeViewController alloc] init];
+    UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
+    
+    UserViewController *userController = [[UserViewController alloc] init];
+    UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
+    
+    self.viewControllers = @[homeNVC,userNVC];
+    
+    [self customizeBarButtonWithIndex:index];
 }
 
 #pragma mark
@@ -144,6 +141,11 @@
     }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        if (TARGET_OS_SIMULATOR) {
+            [self showError:@"真机使用"];
+            return;
+        }
+        
         VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
         controller.FilterMovieDismissBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
