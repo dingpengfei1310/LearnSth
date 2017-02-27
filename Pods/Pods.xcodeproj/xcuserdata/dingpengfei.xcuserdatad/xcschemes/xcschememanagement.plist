@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AsyncDisplayKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CocoaAsyncSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -35,6 +40,16 @@
 			<false/>
 		</dict>
 		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINRemoteImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,7 +87,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0049E07D46C7BAEBF9EB509FDC622BE1</key>
+		<key>104442287768A0A4FBB2633BB84D8C95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4957884B085DE143FDFB176337C1C373</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8683CF30E9AC1931D0B1E34E46231317</key>
+		<key>924AED5C1E131EFC40E84106111F4C2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,6 +127,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A5300DA347A3B70310CC948B3F1ACA3A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C92FE3681884E565A5AB3C622863B4C8</key>
 		<dict>
 			<key>primary</key>
@@ -117,7 +142,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA89107AF410BF2F1E0CFCA21A54D451</key>
+		<key>D08681248FEFCF211554AA6B1A80195A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC4FDAF580EA262C04F53908ACDBE7C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -11,4 +11,5 @@ target 'LearnSth' do
     pod 'SDWebImage'
     pod 'Masonry'
     pod 'PNChart'
+    pod 'AsyncDisplayKit'
 end
