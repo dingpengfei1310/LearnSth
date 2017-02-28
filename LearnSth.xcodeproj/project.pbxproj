@@ -92,14 +92,12 @@
 		1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */; };
 		1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */; };
 		1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */; };
-		1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E7DAF1DAB8941006F058B /* BaseViewController.m */; };
 		1B72BEED1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */; };
 		1B7D8F231DF16EB900F4A4EB /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* TabBarViewController.m */; };
-		1BDCA9C11E2F055800ED0315 /* BlueToothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCA9C01E2F055800ED0315 /* BlueToothController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
 		1BDCED711DE57D97002A27B5 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6F1DE57D97002A27B5 /* upload.html */; };
 		1BDCED751DE58812002A27B5 /* mdialog.css in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED721DE58812002A27B5 /* mdialog.css */; };
@@ -322,20 +320,17 @@
 		1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionCell.m; sourceTree = "<group>"; };
 		1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCollectionCell.xib; sourceTree = "<group>"; };
 		1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfiguration.h; sourceTree = "<group>"; };
-		1B6E7DAE1DAB8941006F058B /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		1B6E7DAF1DAB8941006F058B /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		1B72BEEB1E4D9805007DFF74 /* PanDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		1B7D8F211DF16EB900F4A4EB /* UIColor+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tool.h"; sourceTree = "<group>"; };
 		1B7D8F221DF16EB900F4A4EB /* UIColor+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tool.m"; sourceTree = "<group>"; };
+		1B8403AE1E656845000EFF4E /* BaseControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseControllerProtocol.h; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
 		1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionView.m; sourceTree = "<group>"; };
 		1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
 		1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
-		1BDCA9BF1E2F055800ED0315 /* BlueToothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
-		1BDCA9C01E2F055800ED0315 /* BlueToothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
 		1BDCED6E1DE57D97002A27B5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1BDCED6F1DE57D97002A27B5 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		1BDCED721DE58812002A27B5 /* mdialog.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mdialog.css; sourceTree = "<group>"; };
@@ -883,8 +878,6 @@
 			children = (
 				1BFCF02F1E09380E00DA222E /* FileScanViewController.h */,
 				1BFCF0301E09380E00DA222E /* FileScanViewController.m */,
-				1BDCA9BF1E2F055800ED0315 /* BlueToothController.h */,
-				1BDCA9C01E2F055800ED0315 /* BlueToothController.m */,
 			);
 			name = file;
 			sourceTree = "<group>";
@@ -953,12 +946,11 @@
 				1B6E7DAD1DAB889F006F058B /* AppConfiguration.h */,
 				1BF7F6FB1D924BE500F8E5B1 /* AppDelegate.h */,
 				1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */,
-				1B6E7DAE1DAB8941006F058B /* BaseViewController.h */,
-				1B6E7DAF1DAB8941006F058B /* BaseViewController.m */,
+				1B8403AE1E656845000EFF4E /* BaseControllerProtocol.h */,
+				1B40436A1E5AD83C00C14EE6 /* InfoPlist.strings */,
 				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
 				1BD176191D9A73D300C28051 /* TabBarViewController.h */,
 				1BD1761A1D9A73D300C28051 /* TabBarViewController.m */,
-				1B40436A1E5AD83C00C14EE6 /* InfoPlist.strings */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -1233,7 +1225,6 @@
 				1B099C701DE7E57400161396 /* SQLManager.m in Sources */,
 				1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */,
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
-				1BDCA9C11E2F055800ED0315 /* BlueToothController.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* TabBarViewController.m in Sources */,
@@ -1273,7 +1264,6 @@
 				1B099C6D1DE7E57400161396 /* NSString+Tool.m in Sources */,
 				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
 				1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */,
-				1B6E7DB01DAB8941006F058B /* BaseViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
 				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,

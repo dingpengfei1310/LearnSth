@@ -6,10 +6,9 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
 @class PHAsset;
-
 @interface DDImageBrowserVideo : UIViewController
 
 @property (nonatomic, strong) PHAsset *asset;

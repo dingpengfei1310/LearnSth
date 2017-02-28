@@ -6,8 +6,8 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface UserInfoViewController : BaseViewController
+@interface UserInfoViewController : UIViewController
 
 @end

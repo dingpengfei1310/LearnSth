@@ -11,20 +11,17 @@
 #import "PLPlayerViewController.h"
 
 #import "BannerScrollView.h"
-#import "HttpManager.h"
-#import "ADModel.h"
-
-#import "MJRefresh.h"
-#import "HttpManager.h"
-#import "LiveModel.h"
-
 #import "LiveCollectionCell.h"
 #import "UICollectionView+Tool.h"
+#import "ADModel.h"
+#import "LiveModel.h"
+
 #import "Aspects.h"
+#import "MJRefresh.h"
 
-#import "PNChart.h"
+#import "BaseControllerProtocol.h"
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BaseControllerProtocol>
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
@@ -179,7 +176,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H);
+        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];
@@ -217,7 +214,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (BannerScrollView *)bannerScrollView {
     if (!_bannerScrollView) {
-        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_W * 0.24)];
+        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_W * 0.24)];
         
         __weak typeof(self) weakSelf = self;
         _bannerScrollView.imageClickBlock = ^(NSInteger index) {

@@ -6,9 +6,9 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface AddressPickerController : BaseViewController
+@interface AddressPickerController : UIViewController
 
 @property (nonatomic, copy) void (^SelectBlock)(NSDictionary *province,NSDictionary *city);
 @property (nonatomic, copy) void (^AddressDismissBlock)();

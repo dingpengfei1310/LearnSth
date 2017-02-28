@@ -9,6 +9,9 @@
 #import "ScanQRCodeController.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import "AppConfiguration.h"
+#import "UIViewController+Tool.h"
+
 @interface ScanQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat scanWidth;
 }

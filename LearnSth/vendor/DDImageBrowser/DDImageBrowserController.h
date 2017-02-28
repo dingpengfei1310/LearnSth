@@ -6,11 +6,11 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
 @class PHAsset;
 
-@interface DDImageBrowserController : BaseViewController
+@interface DDImageBrowserController : UIViewController
 
 //默认为0，第一张
 @property (nonatomic, assign) NSInteger currentIndex;

@@ -12,6 +12,10 @@
 #import "UIImageView+WebCache.h"
 
 @interface LiveCollectionCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *liveImageView;
+@property (weak, nonatomic) IBOutlet UILabel *signaturesLabel;
+
 @end
 
 @implementation LiveCollectionCell

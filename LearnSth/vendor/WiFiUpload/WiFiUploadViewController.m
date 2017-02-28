@@ -9,9 +9,9 @@
 #import "WiFiUploadViewController.h"
 #import "WiFiUploadManager.h"
 
-#import <SSZipArchive/ZipArchive.h>
+//#import <SSZipArchive/ZipArchive.h>
 
-@interface WiFiUploadViewController () <SSZipArchiveDelegate>
+@interface WiFiUploadViewController ()
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UILabel *ipLabel;
@@ -58,7 +58,7 @@
 - (void)fileUploadFinish:(NSNotification *)nof {
     NSLog(@"File Upload Finished.");
     
-    [self showSuccess:@"上传成功"];
+//    [self showSuccess:@"上传成功"];
     
 //    NSString *folder = [WiFiUploadManager shareManager].savePath;
 //    NSString *filePath = [folder stringByAppendingPathComponent:self.fileName];
@@ -80,7 +80,9 @@
     if (!_ipLabel) {
         WiFiUploadManager *manager = [WiFiUploadManager shareManager];
         
-        _ipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, ViewFrame_X + 50, Screen_W - 40, 30)];
+        CGRect rect = CGRectMake(20, 100, CGRectGetWidth(self.view.frame) - 40, 40);
+        _ipLabel = [[UILabel alloc] initWithFrame:rect];
+        _ipLabel.font = [UIFont systemFontOfSize:16];
         _ipLabel.numberOfLines = 0;
         _ipLabel.textAlignment = NSTextAlignmentCenter;
         _ipLabel.layer.masksToBounds = YES;
@@ -96,7 +98,8 @@
 
 - (UIProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(20, ViewFrame_X + 100, Screen_W - 40, 20)];
+        CGRect rect = CGRectMake(20, 180, CGRectGetWidth(self.view.frame) - 40, 20);
+        _progressView = [[UIProgressView alloc] initWithFrame:rect];
         _progressView.progress = 0;
     }
     return _progressView;
@@ -111,4 +114,3 @@
 }
 
 @end
-

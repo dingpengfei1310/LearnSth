@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "BaseControllerProtocol.h"
 
 @interface RegisterViewController ()
 

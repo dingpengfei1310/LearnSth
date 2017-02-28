@@ -8,7 +8,7 @@
 
 #import "PhotoLiarbraryController.h"
 #import "PhotosCollectionController.h"
-
+#import "AppConfiguration.h"
 #import <Photos/Photos.h>
 
 @interface PhotoLiarbraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
@@ -102,7 +102,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

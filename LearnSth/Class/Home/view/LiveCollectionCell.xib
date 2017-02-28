@@ -40,8 +40,8 @@
                 <constraint firstItem="X6D-jJ-KKY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ptO-jN-Mxq"/>
             </constraints>
             <connections>
-                <outlet property="liveImageView" destination="X6D-jJ-KKY" id="Rqe-EC-Bfg"/>
-                <outlet property="signaturesLabel" destination="Du3-Tb-Uii" id="eZa-Ld-SjI"/>
+                <outlet property="liveImageView" destination="X6D-jJ-KKY" id="2bx-YQ-9s2"/>
+                <outlet property="signaturesLabel" destination="Du3-Tb-Uii" id="szf-PS-cLo"/>
             </connections>
             <point key="canvasLocation" x="-56" y="20"/>
         </collectionViewCell>

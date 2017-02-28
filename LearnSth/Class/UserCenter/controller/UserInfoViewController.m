@@ -14,6 +14,7 @@
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
+#import "BaseControllerProtocol.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -223,7 +224,7 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;

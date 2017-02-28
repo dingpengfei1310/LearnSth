@@ -6,8 +6,8 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface VideoCameraController : BaseViewController
+@interface VideoCameraController : UIViewController
 
 @end

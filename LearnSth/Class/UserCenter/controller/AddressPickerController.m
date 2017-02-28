@@ -8,6 +8,7 @@
 
 #import "AddressPickerController.h"
 #import "SQLManager.h"
+#import "AppConfiguration.h"
 
 @interface AddressPickerController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 

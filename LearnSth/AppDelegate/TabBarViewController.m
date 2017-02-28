@@ -15,7 +15,8 @@
 #import "VideoCameraFilterController.h"
 
 #import "CustomizeButton.h"
-
+#import "UIImage+Tool.h"
+#import "BaseControllerProtocol.h"
 #import <Photos/Photos.h>
 
 @interface TabBarViewController ()

@@ -35,8 +35,8 @@ NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification
 - (instancetype) init {
     if (self = [super init]) {
         self.webPath = [[NSBundle mainBundle] resourcePath];
-//        self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        self.savePath = KDocumentPath;
+        self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//        self.savePath = KDocumentPath;
     }
     return self;
 }

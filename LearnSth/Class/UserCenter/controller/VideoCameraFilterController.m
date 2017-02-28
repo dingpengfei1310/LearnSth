@@ -10,6 +10,7 @@
 #import "FilterCollectionView.h"
 #import "GPUImage.h"
 #import "GPUImageBeautifyFilter.h"
+#import "BaseControllerProtocol.h"
 
 @interface VideoCameraFilterController ()
 

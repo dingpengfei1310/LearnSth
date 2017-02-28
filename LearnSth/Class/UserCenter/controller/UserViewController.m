@@ -7,7 +7,7 @@
 //
 
 #import "UserViewController.h"
-
+#import "BaseControllerProtocol.h"
 #import "PhotoLiarbraryController.h"
 #import "MessageViewController.h"
 #import "LoginViewController.h"
@@ -17,12 +17,11 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 
-#import "HttpManager.h"
 #import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,BaseControllerProtocol>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -32,7 +31,6 @@
 static NSString *identifier = @"cell";
 
 @implementation UserViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"🏓🏓🏓";
@@ -49,6 +47,15 @@ static NSString *identifier = @"cell";
     [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    [self resetBackItemTitle:nil];
+}
+
+#pragma mark BaseControllerProtocol
+- (void)resetBackItemTitle:(NSString *)title {
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = title;
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark
@@ -75,7 +82,7 @@ static NSString *identifier = @"cell";
     if (success) {
         NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
         NSLog(@"PATH = %@",manager.savePath);
-        [[WiFiUploadManager shareManager] showWiFiPageViewController:self.navigationController];
+        [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
     }
 }
 
@@ -218,7 +225,7 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;

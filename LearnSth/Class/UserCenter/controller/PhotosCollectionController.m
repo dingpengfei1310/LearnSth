@@ -13,6 +13,7 @@
 
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
+#import "AppConfiguration.h"
 
 @interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
 
@@ -186,7 +187,7 @@ const NSInteger photoColumn = 4;
         flowLayout.minimumInteritemSpacing = interitemSpacing;
         flowLayout.minimumLineSpacing = interitemSpacing;
         
-        CGRect collectionViewRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H);
+        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];

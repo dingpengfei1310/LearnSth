@@ -8,6 +8,7 @@
 
 #import "SearchResultController.h"
 #import "AddressDataSource.h"
+#import "AppConfiguration.h"
 
 @interface SearchResultController ()
 
@@ -35,7 +36,7 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.backgroundColor = KBackgroundColor;
     }

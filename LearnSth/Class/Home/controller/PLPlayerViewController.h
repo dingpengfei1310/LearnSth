@@ -6,10 +6,10 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "LiveModel.h"
+#import <UIKit/UIKit.h>
 
-@interface PLPlayerViewController : BaseViewController
+@class LiveModel;
+@interface PLPlayerViewController : UIViewController
 
 @property (nonatomic, strong) LiveModel *live;
 @property (nonatomic, copy) void (^PlayerDismissBlock)();

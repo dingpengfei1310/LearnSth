@@ -7,6 +7,7 @@
 //
 
 #import "WebViewController.h"
+#import "BaseControllerProtocol.h"
 #import <WebKit/WebKit.h>
 #import "WebProgressView.h"
 
@@ -112,7 +113,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, ViewFrame_X, Screen_W, Screen_H)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)];
         _KWebView.navigationDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -122,7 +123,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WebProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + ViewFrame_X, Screen_W, 3)];
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + 0, Screen_W, 3)];
     }
     return _progressView;
 }

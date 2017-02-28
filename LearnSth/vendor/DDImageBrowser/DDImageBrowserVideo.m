@@ -7,7 +7,6 @@
 //
 
 #import "DDImageBrowserVideo.h"
-
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
 
@@ -76,8 +75,8 @@
 }
 
 - (void)addButton {
-    CGFloat viewWidth = Screen_W;
-    CGFloat viewHeight = Screen_H;
+    CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat buttonWidth = 50;
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, viewHeight - 50, viewWidth, 50)];

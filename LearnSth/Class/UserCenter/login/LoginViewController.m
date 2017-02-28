@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
-
+#import "BaseControllerProtocol.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserManager.h"
 #import "NSString+Tool.h"
@@ -32,7 +32,7 @@ const CGFloat fieldHeight = 35;
     [super viewDidLoad];
     self.title = @"登录";
     
-    CGRect scrollRect = CGRectMake(0, ViewFrame_X, Screen_W, Screen_H);
+    CGRect scrollRect = CGRectMake(0, 0, Screen_W, Screen_H);
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
 //    scrollView.delaysContentTouches = NO;
     [self.view addSubview:scrollView];

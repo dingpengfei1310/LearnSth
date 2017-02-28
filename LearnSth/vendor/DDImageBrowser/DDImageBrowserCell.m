@@ -97,7 +97,6 @@ const CGFloat DDImageBrowserMinZoom = 1;
     _photoImageView.center = CGPointMake(viewWidth * 0.5, viewHeight * 0.5);
     if (imageHeight > viewHeight) {
         _photoImageView.center = CGPointMake(viewWidth * 0.5, imageHeight * 0.5);
-        
     }
 }
 

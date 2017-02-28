@@ -12,9 +12,6 @@
 
 @interface LiveCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *liveImageView;
-@property (weak, nonatomic) IBOutlet UILabel *signaturesLabel;
-
 @property (nonatomic, strong) LiveModel *liveModel;
 
 @end
