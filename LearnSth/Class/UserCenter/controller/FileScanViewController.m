@@ -10,7 +10,6 @@
 
 #import <QuickLook/QLPreviewController.h>
 #import "DDPreviewItem.h"
-#import "BaseControllerProtocol.h"
 
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
@@ -28,14 +27,14 @@
     self.title = @"文件";
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDNSLocalizedGetString(@"Edit") style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"Edit") style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
 }
 
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
-    BOOL flag = [buttonItem.title isEqualToString:DDNSLocalizedGetString(@"Edit")];
+    BOOL flag = [buttonItem.title isEqualToString:DDLocalizedString(@"Edit")];
     [self.tableView setEditing:flag animated:YES];
     
-    NSString *title = flag ? DDNSLocalizedGetString(@"Done") : DDNSLocalizedGetString(@"Edit");
+    NSString *title = flag ? DDLocalizedString(@"Done") : DDLocalizedString(@"Edit");
     self.navigationItem.rightBarButtonItem.title = title;
 }
 
@@ -94,7 +93,7 @@
     
     DDPreviewItem *previewItem = [[DDPreviewItem alloc] init];
     previewItem.previewItemURL = fileURL;
-    previewItem.previewItemTitle = @"文件";
+//    previewItem.previewItemTitle = @"文件";
     
     return previewItem;
 }

@@ -1,0 +1,136 @@
+//
+//  CustomiseTool.m
+//  LearnSth
+//
+//  Created by 丁鹏飞 on 17/3/1.
+//  Copyright © 2017年 丁鹏飞. All rights reserved.
+//
+
+#import "CustomiseTool.h"
+
+static NSString *KIsLoginCache = @"UserLoginCache";
+static NSString *KLanguageTypeCache = @"LanguageTypeCache";
+
+static NSString *ZHLANGUAGE = @"zh-Hans";
+static NSString *ENLANGUAGE = @"en";
+
+@implementation CustomiseTool
++ (void)remoAllCaches {
+    //    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    //    for(NSString * key in [dict allKeys]) {
+    //        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    //    }
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
+}
+
+#pragma mark
++ (void)setIsLogin:(BOOL)login {
+    [[NSUserDefaults standardUserDefaults] setBool:login forKey:KIsLoginCache];
+}
+
++ (BOOL)isLogin {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
+}
+
+#pragma mark
++ (NSBundle *)languageBundle {
+    LanguageType type = [CustomiseTool languageType];
+    NSString *language = ZHLANGUAGE;
+    if (type == LanguageTypeEn) {
+        language = ENLANGUAGE;
+    } else if (type == LanguageTypeZH) {
+        language = ZHLANGUAGE;
+    }
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];
+    return [NSBundle bundleWithPath:path];
+}
+
++ (void)changeLanguage:(LanguageType)type oncompletion:(void(^)())comletion {
+    if (type != [CustomiseTool languageType]) {
+        [CustomiseTool setLanguage:type];
+        comletion();
+    }
+}
+
++ (void)setLanguage:(LanguageType)language {
+    if (language == LanguageTypeZH) {
+        [[NSUserDefaults standardUserDefaults] setInteger:LanguageTypeZH forKey:KLanguageTypeCache];
+        
+    } else if (language == LanguageTypeEn) {
+        
+        [[NSUserDefaults standardUserDefaults] setInteger:LanguageTypeEn forKey:KLanguageTypeCache];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (LanguageType)languageType {
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache]) {
+        return [[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache];
+    }
+    return LanguageTypeZH;
+}
+
+#pragma mark
++ (long long)folderSizeAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    long long folderSize = 0;
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
+        
+        for (NSString *fileName in childerFiles) {
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            
+            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
+                long long size = [fileManager attributesOfItemAtPath:fileAbsolutePath error:nil].fileSize;
+                folderSize += size;
+            }
+        }
+    }
+    
+    return folderSize;
+}
+
++ (long long)fileSizeAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        long long size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size;
+    }
+    
+    return 0;
+}
+
++ (void)clearCacheAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
+        
+        for (NSString *fileName in childerFiles) {
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            
+            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
+                [fileManager removeItemAtPath:fileAbsolutePath error:NULL];
+            }
+        }
+    }
+}
+
++ (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
+    UIGraphicsBeginImageContext(rect.size);
+    
+    [color setFill];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+@end
+

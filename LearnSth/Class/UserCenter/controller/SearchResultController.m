@@ -8,7 +8,6 @@
 
 #import "SearchResultController.h"
 #import "AddressDataSource.h"
-#import "AppConfiguration.h"
 
 @interface SearchResultController ()
 

@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
-#import "BaseControllerProtocol.h"
+
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserManager.h"
 #import "NSString+Tool.h"
@@ -42,7 +42,7 @@ const CGFloat fieldHeight = 35;
     [scrollView addSubview:self.loginButton];
     [self addRegButtonWithView:scrollView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDNSLocalizedGetString(@"Close") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"Close") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
 - (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {
@@ -81,7 +81,7 @@ const CGFloat fieldHeight = 35;
     if ([self.accountField.text validatePhoneNumber]) {
         [UserManager manager].mobile = self.accountField.text;
         [UserManager updateUser];
-        [Utils setIsLogin:YES];
+        [CustomiseTool setIsLogin:YES];
         
         [self dismiss];
     } else {
@@ -151,7 +151,7 @@ const CGFloat fieldHeight = 35;
         
         _loginButton = [[UIButton alloc] initWithFrame:rect];
         _loginButton.enabled = NO;
-        UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
+        UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
         [_loginButton setBackgroundImage:image
                                 forState:UIControlStateNormal];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];

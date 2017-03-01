@@ -19,9 +19,7 @@
 #import "Aspects.h"
 #import "MJRefresh.h"
 
-#import "BaseControllerProtocol.h"
-
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BaseControllerProtocol>
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
@@ -44,7 +42,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.page = 1;
     
     [self.view addSubview:self.collectionView];
-    self.collectionView.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
     [self.collectionView setClickBlock:^{
@@ -54,7 +51,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self getHomeAdBanner];
-    [self refreshLiveData];
+//    [self refreshLiveData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

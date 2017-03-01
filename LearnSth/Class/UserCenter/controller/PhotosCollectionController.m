@@ -13,7 +13,6 @@
 
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
-#import "AppConfiguration.h"
 
 @interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
 

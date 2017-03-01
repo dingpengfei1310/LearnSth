@@ -8,7 +8,6 @@
 
 #import "VideoCameraController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "BaseControllerProtocol.h"
 
 @interface VideoCameraController ()<AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
 

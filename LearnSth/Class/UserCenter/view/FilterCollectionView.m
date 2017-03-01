@@ -7,7 +7,6 @@
 //
 
 #import "FilterCollectionView.h"
-#import "AppConfiguration.h"
 
 @interface FilterCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 

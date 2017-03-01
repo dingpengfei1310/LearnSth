@@ -7,7 +7,6 @@
 //
 
 #import "MessageViewController.h"
-#import "AppConfiguration.h"
 #import "MessageTableCell.h"
 
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>

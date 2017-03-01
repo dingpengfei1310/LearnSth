@@ -9,8 +9,6 @@
 #ifndef AppConfiguration_h
 #define AppConfiguration_h
 
-#endif /* AppConfiguration_h */
-
 #pragma mark
 //#ifdef DEBUG
 //# define NSLog(...) NSLog(__VA_ARGS__)
@@ -36,6 +34,8 @@
 
 #pragma mark
 
-#define KBaseBlueColor        [UIColor colorWithRed:21 / 255.0 green:166 / 255.0 blue:246 / 255.0 alpha:1.0]
+#define KBaseBlueColor        [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
 #define KBaseTextColor        [UIColor grayColor]
 #define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
+
+#endif /* AppConfiguration_h */

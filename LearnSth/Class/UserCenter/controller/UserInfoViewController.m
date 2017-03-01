@@ -14,7 +14,6 @@
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
-#import "BaseControllerProtocol.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -38,7 +37,7 @@ static NSString *reuseIdentifier = @"cell";
     
     CGRect buttonRect = CGRectMake(40, Screen_H - 144, Screen_W - 80, 40);
     UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
-    [button setBackgroundImage:[UIImage imageWithColor:KBaseBlueColor] forState:UIControlStateNormal];
+    [button setBackgroundImage:[CustomiseTool imageWithColor:KBaseBlueColor] forState:UIControlStateNormal];
     [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
@@ -57,7 +56,7 @@ static NSString *reuseIdentifier = @"cell";
 
 - (void)loginOut {
     [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
-        [Utils remoAllObjects];
+        [CustomiseTool remoAllCaches];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

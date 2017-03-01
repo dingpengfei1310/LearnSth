@@ -12,8 +12,6 @@
 
 #import <Photos/Photos.h>
 #import <AVFoundation/AVFoundation.h>
-
-#import "AppConfiguration.h"
 #import "UIViewController+Tool.h"
 
 @interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>

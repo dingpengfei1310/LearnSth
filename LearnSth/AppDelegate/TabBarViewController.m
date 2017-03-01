@@ -16,7 +16,6 @@
 
 #import "CustomizeButton.h"
 #import "UIImage+Tool.h"
-#import "BaseControllerProtocol.h"
 #import <Photos/Photos.h>
 
 @interface TabBarViewController ()
@@ -63,8 +62,8 @@
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSString *home = DDNSLocalizedGetString(@"UITabBarItemHome");
-    NSString *user = DDNSLocalizedGetString(@"UITabBarItemUser");
+    NSString *home = DDLocalizedString(@"UITabBarItemHome");
+    NSString *user = DDLocalizedString(@"UITabBarItemUser");
     
     NSArray *titles = @[home,@"",user];
     NSArray *images = @[@"star",@"",@"defaultHeader"];

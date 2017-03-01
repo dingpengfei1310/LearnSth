@@ -9,17 +9,14 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^SuccessArray)(NSArray *list,NSError *error);
-
 typedef void (^Success)(id responseData);
 typedef void (^Failure)(NSError *error);
-
 
 @interface HttpManager : NSObject
 
 + (instancetype)shareManager;
 
 #pragma mark
-
 /// 广告
 - (void)getAdBannerListCompletion:(SuccessArray)completion;
 
@@ -30,7 +27,5 @@ typedef void (^Failure)(NSError *error);
 ///
 - (void)getUserListWithParamers:(NSDictionary *)paramers
                      completion:(SuccessArray)completion;
-
-
 
 @end

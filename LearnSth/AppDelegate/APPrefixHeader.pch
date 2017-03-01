@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  LearnSth
+//
+//  Created by 丁鹏飞 on 17/3/1.
+//  Copyright © 2017年 丁鹏飞. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "AppConfiguration.h"
+
+#import "UIViewController+Tool.h"
+#import "UIImageView+WebCache.h"
+
+#import "HttpManager.h"
+#import "CustomiseTool.h"
+
+#define DDLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
+
+#endif /* PrefixHeader_pch */

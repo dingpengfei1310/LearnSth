@@ -8,7 +8,6 @@
 
 #import "PLPlayerViewController.h"
 #import "ShoppingViewController.h"
-#import "BaseControllerProtocol.h"
 
 #import "AppDelegate.h"
 #import "LiveModel.h"

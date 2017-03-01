@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-#import "BaseControllerProtocol.h"
 #import <WebKit/WebKit.h>
 #import "WebProgressView.h"
 
@@ -56,7 +55,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         UIBarButtonItem *spaceItem1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         spaceItem1.width = -8;
         
-        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:DDNSLocalizedGetString(@"Close") style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
+        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"Close") style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
         
         self.navigationItem.leftBarButtonItems = @[spaceItem,backItem,spaceItem1,closeItem];
     } else {

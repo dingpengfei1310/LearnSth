@@ -8,7 +8,6 @@
 
 #import "PhotoLiarbraryController.h"
 #import "PhotosCollectionController.h"
-#import "AppConfiguration.h"
 #import <Photos/Photos.h>
 
 @interface PhotoLiarbraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>

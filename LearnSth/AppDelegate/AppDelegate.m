@@ -7,11 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "TabBarViewController.h"
 
-#import "UserManager.h"
-#import "AppConfiguration.h"
 #import "AFNetworkReachabilityManager.h"
+#import "TabBarViewController.h"
+#import "UserManager.h"
 
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"

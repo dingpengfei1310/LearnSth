@@ -7,7 +7,6 @@
 //
 
 #import "VideoScanController.h"
-#import "BaseControllerProtocol.h"
 #import "FilterCollectionView.h"
 #import "GPUImage.h"
 

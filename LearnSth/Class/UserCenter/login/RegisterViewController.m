@@ -7,7 +7,6 @@
 //
 
 #import "RegisterViewController.h"
-#import "BaseControllerProtocol.h"
 
 @interface RegisterViewController ()
 
@@ -33,7 +32,7 @@
     if (!_registerButton) {
         _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 200, Screen_W - 80, 40)];
 //        _registerButton.enabled = NO;
-        UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
+        UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
         [_registerButton setBackgroundImage:image
                                 forState:UIControlStateNormal];
         [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
@@ -48,4 +47,3 @@
 }
 
 @end
-

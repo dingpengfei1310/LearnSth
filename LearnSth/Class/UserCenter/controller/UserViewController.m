@@ -7,7 +7,6 @@
 //
 
 #import "UserViewController.h"
-#import "BaseControllerProtocol.h"
 #import "PhotoLiarbraryController.h"
 #import "MessageViewController.h"
 #import "LoginViewController.h"
@@ -21,7 +20,7 @@
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,BaseControllerProtocol>
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -40,7 +39,7 @@ static NSString *identifier = @"cell";
                        @"消息",
                        @"清除缓存",
                        @"查看本机文件",
-                       DDNSLocalizedGetString(@"Language")];
+                       DDLocalizedString(@"Language")];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -48,19 +47,14 @@ static NSString *identifier = @"cell";
     [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-    [self resetBackItemTitle:nil];
-}
-
-#pragma mark BaseControllerProtocol
-- (void)resetBackItemTitle:(NSString *)title {
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    backItem.title = title;
+    backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark
 - (void)loginClick {
-    if (![Utils isLogin]) {
+    if (![CustomiseTool isLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.DismissBlock = ^ {
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -96,7 +90,7 @@ static NSString *identifier = @"cell";
     [self loading];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [Utils clearCacheAtPath:KCachePath];
+        [CustomiseTool clearCacheAtPath:KCachePath];
         
         dispatch_async(dispatch_get_main_queue(),^{
             [self hideHUD];
@@ -107,7 +101,7 @@ static NSString *identifier = @"cell";
 }
 
 - (CGFloat)calculateDiskCacheSize {
-    long long longSize = [Utils folderSizeAtPath:KCachePath];
+    long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
     CGFloat cacheSize = longSize / 1024.0 / 1024.0;
 //    NSLog(@"%@",kCachePath);
     
@@ -138,16 +132,12 @@ static NSString *identifier = @"cell";
     }
 }
 
-- (void)changeLanguage:(NSString *)language {
-    if ([[[LanguageTool shareInstance] currentLanguage] isEqualToString:language]) {
-        return;
-    }
-    
-    [[LanguageTool shareInstance] changeLanguage:language];
-    
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    TabBarViewController *controller = (TabBarViewController *)app.window.rootViewController;
-    [controller loadViewControllersWithSelectIndex:2];
+- (void)changeLanguage:(LanguageType)type {
+    [CustomiseTool changeLanguage:type oncompletion:^{
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        TabBarViewController *controller = (TabBarViewController *)app.window.rootViewController;
+        [controller loadViewControllersWithSelectIndex:2];
+    }];
 }
 
 #pragma mark
@@ -198,19 +188,19 @@ static NSString *identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 5) {
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDNSLocalizedGetString(@"ChangeLanguage") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDLocalizedString(@"ChangeLanguage") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        UIAlertAction *en = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"English")
+        UIAlertAction *en = [UIAlertAction actionWithTitle:DDLocalizedString(@"English")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:@"en"];
+                                                       [self changeLanguage:LanguageTypeEn];
                                                    }];
-        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"Chinese")
+        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDLocalizedString(@"Chinese")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:@"zh-Hans"];
+                                                       [self changeLanguage:LanguageTypeZH];
                                                    }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDNSLocalizedGetString(@"Cancel")
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDLocalizedString(@"Cancel")
                                                          style:UIAlertActionStyleCancel
                                                        handler:nil];
         
