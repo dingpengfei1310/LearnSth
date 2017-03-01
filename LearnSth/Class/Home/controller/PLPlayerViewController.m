@@ -8,8 +8,6 @@
 
 #import "PLPlayerViewController.h"
 #import "ShoppingViewController.h"
-
-#import "AppDelegate.h"
 #import "LiveModel.h"
 
 #import <PLPlayerKit/PLPlayerKit.h>
@@ -155,8 +153,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (UIWindow *)window {
     if (!_window) {
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        _window = app.window;
+        _window = [UIApplication sharedApplication].keyWindow;
     }
     return _window;
 }

@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TabBarViewController : UITabBarController
+@interface RootViewController : UITabBarController
 
-
+//切换语言后，重新加载
 - (void)loadViewControllersWithSelectIndex:(NSInteger)index;
 
 @end

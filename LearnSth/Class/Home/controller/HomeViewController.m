@@ -35,7 +35,6 @@ static NSString *reuseIdentifier = @"cell";
 static NSString *headerReuseIdentifier = @"headerCell";
 
 @implementation HomeViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"🍎🍎🍎";

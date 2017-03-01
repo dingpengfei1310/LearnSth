@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM (NSInteger){
-    LanguageTypeZH = 1,
+    LanguageTypeZH = 0,
     LanguageTypeEn
-} LanguageType;
+}LanguageType;
 
 @interface CustomiseTool : NSObject
 
@@ -22,6 +22,7 @@ typedef NS_ENUM (NSInteger){
 + (BOOL)isLogin;
 
 + (NSBundle *)languageBundle;
++ (LanguageType)languageType;
 + (void)changeLanguage:(LanguageType)type oncompletion:(void(^)())comletion;
 
 + (long long)folderSizeAtPath:(NSString *)path;

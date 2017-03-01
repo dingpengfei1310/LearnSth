@@ -6,7 +6,7 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "TabBarViewController.h"
+#import "RootViewController.h"
 #import "HomeViewController.h"
 #import "UserViewController.h"
 
@@ -15,16 +15,15 @@
 #import "VideoCameraFilterController.h"
 
 #import "CustomizeButton.h"
-#import "UIImage+Tool.h"
 #import <Photos/Photos.h>
 
-@interface TabBarViewController ()
+@interface RootViewController ()
 
 @property (nonatomic, strong) UIView *barView;
 
 @end
 
-@implementation TabBarViewController
+@implementation RootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +51,7 @@
 #pragma mark
 - (void)customizeBarButtonWithIndex:(NSInteger)index {
     //背景透明、消除黑线
-    UIImage *clearImage = [UIImage imageWithColor:[UIColor clearColor]];
+    UIImage *clearImage = [CustomiseTool imageWithColor:[UIColor clearColor]];
     [self.tabBar setBackgroundImage:clearImage];
     [self.tabBar setShadowImage:clearImage];
     
@@ -79,16 +78,15 @@
         [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
         [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         if (i == index) {
             [self buttonClick:button];
         }
-        if (i == 1) {
-            button.frame = CGRectMake(0, 0, 100, 100);
-            button.center = CGPointMake(totalWidth * 0.5, 30);
-        }
-        
-        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//        if (i == 1) {
+//            button.frame = CGRectMake(0, 0, 100, 100);
+//            button.center = CGPointMake(totalWidth * 0.5, 30);
+//        }
         
         [button setImagePoisition:ImagePoisitionTop];
         [barView addSubview:button];
@@ -131,14 +129,14 @@
                                                       message:nil
                                                preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             [self dismissViewControllerAnimated:YES completion:nil];
-                                                         }];
-    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"本地视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self localVideo];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"本地视频"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) {
+                                                            [self localVideo];
+                                                        }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         if (TARGET_OS_SIMULATOR) {

@@ -13,8 +13,7 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 
-#import "AppDelegate.h"
-#import "TabBarViewController.h"
+#import "RootViewController.h"
 
 #import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>
@@ -133,11 +132,16 @@ static NSString *identifier = @"cell";
 }
 
 - (void)changeLanguage:(LanguageType)type {
-    [CustomiseTool changeLanguage:type oncompletion:^{
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        TabBarViewController *controller = (TabBarViewController *)app.window.rootViewController;
-        [controller loadViewControllersWithSelectIndex:2];
-    }];
+    if ([CustomiseTool languageType] != type) {
+        [self loading];
+        
+        [CustomiseTool changeLanguage:type oncompletion:^{
+            [self hideHUD];
+            
+            RootViewController *controller = (RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [controller loadViewControllersWithSelectIndex:2];
+        }];
+    }
 }
 
 #pragma mark

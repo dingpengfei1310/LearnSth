@@ -12,7 +12,6 @@
 
 #import "SQLManager.h"
 #import "AddressDataSource.h"
-#import "UIImage+Tool.h"
 
 @interface ProvinceViewController ()<UISearchResultsUpdating>
 
@@ -27,7 +26,7 @@
     [super viewDidLoad];
     self.title = @"地区";
     
-    self.searchController.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+    self.searchController.searchBar.backgroundImage = [CustomiseTool imageWithColor:[UIColor clearColor]];
     CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
         cell.textLabel.text = info[@"name"];
     };

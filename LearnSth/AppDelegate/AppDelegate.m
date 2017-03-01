@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "AFNetworkReachabilityManager.h"
-#import "TabBarViewController.h"
+#import "RootViewController.h"
 #import "UserManager.h"
 
 #ifdef DEBUG
@@ -37,10 +37,11 @@
     
     [UserManager loadUser];
     
-    TabBarViewController *controller = [[TabBarViewController alloc] init];
+    RootViewController *controller = [[RootViewController alloc] init];
     self.window.rootViewController = controller;
     
 //    application.applicationIconBadgeNumber = 0;
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
     
     return YES;
 }
@@ -98,6 +99,10 @@
     }];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
+
+//- (void)takeScreenshot:(NSNotification *)notification {
+//    [self.window.rootViewController showSuccess:@"截图成功"];
+//}
 
 #pragma mark
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {

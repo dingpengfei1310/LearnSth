@@ -1,13 +1,19 @@
 //
-//  AppConfiguration.h
+//  PrefixHeader.pch
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 16/10/10.
-//  Copyright © 2016年 丁鹏飞. All rights reserved.
+//  Created by 丁鹏飞 on 17/3/1.
+//  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#ifndef AppConfiguration_h
-#define AppConfiguration_h
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIViewController+Tool.h"
+#import "UIImageView+WebCache.h"
+
+#import "HttpManager.h"
+#import "CustomiseTool.h"
 
 #pragma mark
 //#ifdef DEBUG
@@ -17,7 +23,7 @@
 //#endif
 
 #ifdef DEBUG
-#define DDNSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#define NSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #else
 #define NSLog(FORMAT, ...) nil
 #endif
@@ -25,7 +31,6 @@
 //[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String]
 
 #pragma mark
-
 #define Screen_W              [UIScreen mainScreen].bounds.size.width
 #define Screen_H              [UIScreen mainScreen].bounds.size.height
 
@@ -33,9 +38,11 @@
 #define KCachePath            [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
 
 #pragma mark
-
 #define KBaseBlueColor        [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
 #define KBaseTextColor        [UIColor grayColor]
 #define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
 
-#endif /* AppConfiguration_h */
+#pragma mark
+#define DDLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
+
+#endif /* PrefixHeader_pch */

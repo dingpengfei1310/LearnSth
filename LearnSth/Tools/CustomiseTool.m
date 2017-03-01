@@ -47,6 +47,10 @@ static NSString *ENLANGUAGE = @"en";
     return [NSBundle bundleWithPath:path];
 }
 
++ (LanguageType)languageType {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache];
+}
+
 + (void)changeLanguage:(LanguageType)type oncompletion:(void(^)())comletion {
     if (type != [CustomiseTool languageType]) {
         [CustomiseTool setLanguage:type];
@@ -54,22 +58,10 @@ static NSString *ENLANGUAGE = @"en";
     }
 }
 
-+ (void)setLanguage:(LanguageType)language {
-    if (language == LanguageTypeZH) {
-        [[NSUserDefaults standardUserDefaults] setInteger:LanguageTypeZH forKey:KLanguageTypeCache];
-        
-    } else if (language == LanguageTypeEn) {
-        
-        [[NSUserDefaults standardUserDefaults] setInteger:LanguageTypeEn forKey:KLanguageTypeCache];
-    }
++ (void)setLanguage:(LanguageType)type {
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:type forKey:KLanguageTypeCache];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (LanguageType)languageType {
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache]) {
-        return [[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache];
-    }
-    return LanguageTypeZH;
 }
 
 #pragma mark
@@ -133,4 +125,3 @@ static NSString *ENLANGUAGE = @"en";
 }
 
 @end
-
