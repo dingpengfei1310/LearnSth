@@ -137,11 +137,11 @@ const NSTimeInterval timeoutInterval = 20.0;
                                                    encoding:NSUTF8StringEncoding];
         return jsonStr;
     }
-    return nil;
+    return @"";
 }
 
 - (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
-    NSDictionary *dict;
+    NSDictionary *dict = [NSDictionary dictionary];
     if (jsonString) {
         NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:NULL];
