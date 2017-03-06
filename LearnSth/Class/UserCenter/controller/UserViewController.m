@@ -38,7 +38,7 @@ static NSString *identifier = @"cell";
                        @"消息",
                        @"清除缓存",
                        @"查看本机文件",
-                       DDLocalizedString(@"Language")];
+                       DDLocalizedString(@"语言")];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -196,19 +196,19 @@ static NSString *identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 5) {
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDLocalizedString(@"ChangeLanguage") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        UIAlertAction *en = [UIAlertAction actionWithTitle:DDLocalizedString(@"English")
+        UIAlertAction *en = [UIAlertAction actionWithTitle:DDLocalizedString(@"英语")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
                                                        [self changeLanguage:LanguageTypeEn];
                                                    }];
-        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDLocalizedString(@"Chinese")
+        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDLocalizedString(@"简体中文")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
                                                        [self changeLanguage:LanguageTypeZH];
                                                    }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDLocalizedString(@"Cancel")
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDLocalizedString(@"取消")
                                                          style:UIAlertActionStyleCancel
                                                        handler:nil];
         

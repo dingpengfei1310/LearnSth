@@ -61,8 +61,8 @@
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSString *home = DDLocalizedString(@"UITabBarItemHome");
-    NSString *user = DDLocalizedString(@"UITabBarItemUser");
+    NSString *home = DDLocalizedString(@"首页");
+    NSString *user = DDLocalizedString(@"用户");
     
     NSArray *titles = @[home,@"",user];
     NSArray *images = @[@"star",@"",@"defaultHeader"];
