@@ -74,6 +74,7 @@
 		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
+		1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3B90091E716254002C03EC /* DownloadModel.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
 		1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C01E669703000260D2 /* NSString+Tool.m */; };
@@ -279,6 +280,8 @@
 		1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
+		1B3B90081E716254002C03EC /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
+		1B3B90091E716254002C03EC /* DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
 		1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -856,6 +859,8 @@
 				1B4630CF1E669703000260D2 /* HttpManager.m */,
 				1BDF02B71E6FF21C008C8063 /* DownloadManager.h */,
 				1BDF02B81E6FF21C008C8063 /* DownloadManager.m */,
+				1B3B90081E716254002C03EC /* DownloadModel.h */,
+				1B3B90091E716254002C03EC /* DownloadModel.m */,
 			);
 			path = HTTPConection;
 			sourceTree = "<group>";
@@ -1300,6 +1305,7 @@
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */,
+				1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */,
 				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,
 				1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */,
 				1B099C831DE7E57400161396 /* MJRefreshHeader.m in Sources */,
