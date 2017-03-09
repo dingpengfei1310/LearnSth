@@ -102,6 +102,7 @@
 		1BDCED761DE58812002A27B5 /* mdialog.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED731DE58812002A27B5 /* mdialog.js */; };
 		1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED741DE58812002A27B5 /* zepto.min.js */; };
 		1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED781DE58D10002A27B5 /* testHUD.html */; };
+		1BDF02B91E6FF21C008C8063 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF02B81E6FF21C008C8063 /* DownloadManager.m */; };
 		1BEED0FE1E56D2920072BFB9 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */; };
 		1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEED1001E56F5460072BFB9 /* ScanQRCodeController.m */; };
 		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
@@ -330,6 +331,8 @@
 		1BDCED731DE58812002A27B5 /* mdialog.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mdialog.js; sourceTree = "<group>"; };
 		1BDCED741DE58812002A27B5 /* zepto.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zepto.min.js; sourceTree = "<group>"; };
 		1BDCED781DE58D10002A27B5 /* testHUD.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = testHUD.html; sourceTree = "<group>"; };
+		1BDF02B71E6FF21C008C8063 /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		1BDF02B81E6FF21C008C8063 /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 		1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
 		1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 		1BEED0FF1E56F5460072BFB9 /* ScanQRCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRCodeController.h; sourceTree = "<group>"; };
@@ -851,6 +854,8 @@
 			children = (
 				1B4630CE1E669703000260D2 /* HttpManager.h */,
 				1B4630CF1E669703000260D2 /* HttpManager.m */,
+				1BDF02B71E6FF21C008C8063 /* DownloadManager.h */,
+				1BDF02B81E6FF21C008C8063 /* DownloadManager.m */,
 			);
 			path = HTTPConection;
 			sourceTree = "<group>";
@@ -1203,6 +1208,7 @@
 				1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */,
 				1B099C871DE7E57400161396 /* MJRefreshBackGifFooter.m in Sources */,
 				CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */,
+				1BDF02B91E6FF21C008C8063 /* DownloadManager.m in Sources */,
 				1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */,
 				1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */,
 				1B099C801DE7E57400161396 /* MJRefreshBackFooter.m in Sources */,

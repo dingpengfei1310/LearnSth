@@ -114,7 +114,7 @@ static NSString *ENLANGUAGE = @"en";
 
 + (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     
     [color setFill];
     CGContextFillRect(UIGraphicsGetCurrentContext(), rect);

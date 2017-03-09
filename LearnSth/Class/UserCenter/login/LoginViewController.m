@@ -42,7 +42,7 @@ const CGFloat fieldHeight = 35;
     [scrollView addSubview:self.loginButton];
     [self addRegButtonWithView:scrollView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"关闭") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
 - (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {

@@ -146,11 +146,11 @@
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
-    [self showAlertWithTitle:nil message:message cancelTitle:DDLocalizedString(@"取消") cancel:cancel operationTitle:DDLocalizedString(@"确定") operation:operation style:UIAlertActionStyleDefault];
+    [self showAlertWithTitle:nil message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel destructive:(void (^)())operation {
-    [self showAlertWithTitle:nil message:message cancelTitle:DDLocalizedString(@"取消") cancel:cancel operationTitle:DDLocalizedString(@"确定") operation:operation style:UIAlertActionStyleDestructive];
+    [self showAlertWithTitle:nil message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDestructive];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style {

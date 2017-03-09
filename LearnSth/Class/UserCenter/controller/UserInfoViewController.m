@@ -39,7 +39,7 @@ static NSString *reuseIdentifier = @"cell";
     UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
     [button setBackgroundImage:[CustomiseTool imageWithColor:KBaseBlueColor] forState:UIControlStateNormal];
     
-    [button setTitle:DDLocalizedString(@"退出登录") forState:UIControlStateNormal];
+    [button setTitle:@"退出登录" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }

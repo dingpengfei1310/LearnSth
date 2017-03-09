@@ -27,14 +27,14 @@
     self.title = @"文件";
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"编辑") style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
 }
 
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
-    BOOL flag = [buttonItem.title isEqualToString:DDLocalizedString(@"编辑")];
+    BOOL flag = [buttonItem.title isEqualToString:@"编辑"];
     [self.tableView setEditing:flag animated:YES];
     
-    NSString *title = flag ? DDLocalizedString(@"完成") : DDLocalizedString(@"编辑");
+    NSString *title = flag ? @"完成" : @"编辑";
     self.navigationItem.rightBarButtonItem.title = title;
 }
 

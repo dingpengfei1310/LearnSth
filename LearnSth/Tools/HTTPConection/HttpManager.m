@@ -99,16 +99,24 @@ const NSTimeInterval timeoutInterval = 20.0;
 
 - (void)getUserListWithParamers:(NSDictionary *)paramers
                      completion:(SuccessArray)completion {
-    
     NSString *BASEURl = @"http://192.168.1.212:8080/sctd/";
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
+//    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/servicetime/getServiceTime"];
     
-    NSDictionary *dict = @{@"pageno":@"1",@"size":@"20",@"groupName":@""};
-    NSString *jsonString = [self jsonModel:dict];
-    NSDictionary *params = @{@"jsonText": jsonString};
+//    NSDictionary *dict = @{@"pageno":@"1",@"size":@"20",@"groupName":@""};
+//    NSString *jsonString = [self jsonModel:dict];
+//    NSDictionary *params = @{@"jsonText": jsonString};
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager POST:urlString parameters:params progress:^(NSProgress * uploadProgress) {
+    
+    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [multSet addObject:@"text/html"];
+    [multSet addObject:@"text/plain"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
+    manager.requestSerializer.timeoutInterval = timeoutInterval;
+    
+    
+    [manager POST:urlString parameters:nil progress:^(NSProgress * uploadProgress) {
     } success:^(NSURLSessionDataTask * task, id  _Nullable responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
@@ -126,7 +134,6 @@ const NSTimeInterval timeoutInterval = 20.0;
         completion(nil,error);
     }];
 }
-
 
 #pragma mark
 - (NSString *)jsonModel:(NSDictionary *)dictModel {
@@ -151,7 +158,3 @@ const NSTimeInterval timeoutInterval = 20.0;
 }
 
 @end
-
-
-
-

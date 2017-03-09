@@ -29,26 +29,10 @@
     [super viewDidLoad];
     
     [self loadViewControllersWithSelectIndex:0];
-    
-//    NSDictionary *textAttributeNormal = @{
-//                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
-//                                          NSForegroundColorAttributeName:KBaseTextColor
-//                                          };
-//    NSDictionary *textAttributeSelect = @{
-//                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
-//                                          NSForegroundColorAttributeName:KBaseBlueColor
-//                                          };
-//    NSArray *itemTitles = @[@"Home",@"User"];
-//    
-//    for (int i = 0; i < self.tabBar.items.count; i++) {
-//        UITabBarItem *item = self.tabBar.items[i];
-//        [item setTitle:itemTitles[i]];
-//        [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
-//        [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
-//    }
 }
 
 #pragma mark
+///自定义tabBar
 - (void)customizeBarButtonWithIndex:(NSInteger)index {
     //背景透明、消除黑线
     UIImage *clearImage = [CustomiseTool imageWithColor:[UIColor clearColor]];
@@ -61,8 +45,8 @@
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSString *home = DDLocalizedString(@"首页");
-    NSString *user = DDLocalizedString(@"用户");
+    NSString *home = @"00";
+    NSString *user = @"22";
     
     NSArray *titles = @[home,@"",user];
     NSArray *images = @[@"star",@"",@"defaultHeader"];
@@ -93,6 +77,30 @@
     }
 }
 
+///系统样式的tabBar
+- (void)initTabBar {
+    NSDictionary *textAttributeNormal = @{
+                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
+                                          NSForegroundColorAttributeName:KBaseTextColor
+                                          };
+    NSDictionary *textAttributeSelect = @{
+                                          NSFontAttributeName:[UIFont systemFontOfSize:12],
+                                          NSForegroundColorAttributeName:KBaseBlueColor
+                                          };
+    
+    NSString *home = @"00";
+    NSString *user = @"22";
+    
+    NSArray *itemTitles = @[home,user];
+    
+    for (int i = 0; i < self.tabBar.items.count; i++) {
+        UITabBarItem *item = self.tabBar.items[i];
+        [item setTitle:itemTitles[i]];
+        [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
+        [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
+    }
+}
+
 - (void)buttonClick:(UIButton *)button {
     if (button.tag == self.viewControllers.count / 2) {
         [self showActionSheetOnVideoController];
@@ -120,6 +128,7 @@
     self.viewControllers = @[homeNVC,userNVC];
     
     [self customizeBarButtonWithIndex:index];
+//    [self initTabBar];
 }
 
 #pragma mark

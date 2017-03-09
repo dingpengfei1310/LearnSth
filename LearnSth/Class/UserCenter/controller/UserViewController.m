@@ -38,7 +38,7 @@ static NSString *identifier = @"cell";
                        @"消息",
                        @"清除缓存",
                        @"查看本机文件",
-                       DDLocalizedString(@"语言")];
+                       @"语言"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];

@@ -15,7 +15,7 @@
 #pragma mark
 + (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     
     [color setFill];
     CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
@@ -28,7 +28,7 @@
 #pragma mark
 - (UIImage *)resizeImageWithSize:(CGSize)size {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContext(size);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [self drawInRect:rect];
     UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -39,7 +39,7 @@
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius; {
     radius = (radius < size.width / 2) ? radius : size.width / 2;
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     
     [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius] addClip];
     [[self getCenterImage] drawInRect:rect];
