@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^ReloadClickBlock)(void);
-
 @interface UICollectionView (Tool)
 
 @property (nonatomic, copy) ReloadClickBlock clickBlock;
-
 - (void)checkEmpty;
 
 @end

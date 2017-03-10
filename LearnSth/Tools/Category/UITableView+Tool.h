@@ -9,13 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^ReloadClickBlock)(void);
-
 @interface UITableView (Tool)
 
 @property (nonatomic, copy) ReloadClickBlock clickBlock;
-
 - (void)checkEmpty;
 
 @end
-
-

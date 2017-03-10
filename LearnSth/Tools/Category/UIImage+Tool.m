@@ -268,4 +268,3 @@ vImage_Buffer vImageBuffer_InitWithCGContext(CGContextRef contextRef) {
 }
 
 @end
-

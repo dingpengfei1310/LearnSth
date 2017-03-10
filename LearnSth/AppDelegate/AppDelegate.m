@@ -17,11 +17,9 @@
 #endif
 
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //#ifdef DEBUG
@@ -30,15 +28,14 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
+    RootViewController *controller = [[RootViewController alloc] init];
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
     [self networkMonitoring];
     
     [UserManager loadUser];
-    
-    RootViewController *controller = [[RootViewController alloc] init];
-    self.window.rootViewController = controller;
     
 //    application.applicationIconBadgeNumber = 0;
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
@@ -48,7 +45,6 @@
 
 #pragma mark
 - (void)setNavigationBar {
-    
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -130,7 +126,6 @@
     } else {
         [self showAlertWithTitle:@"收到本地通知"];
     }
-    
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler {
@@ -174,4 +169,3 @@
 }
 
 @end
-

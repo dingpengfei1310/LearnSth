@@ -50,7 +50,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self getHomeAdBanner];
-//    [self refreshLiveData];
+    [self refreshLiveData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -70,9 +70,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 #pragma mark
 - (void)getHomeAdBanner {
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
-        if (error) {
-            [self showErrorWithError:error];
-        } else {
+        if (!error) {
             NSArray *adArray = [ADModel adWithArray:list];
             self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];;
             
@@ -157,7 +155,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
     controller.PlayerDismissBlock = ^{
         [self dismissViewControllerAnimated:YES completion:nil];
     };
-    controller.live = self.liveList[indexPath.item];
+    controller.index = indexPath.item;
+    controller.liveArray = self.liveList;
+//    controller.live = self.liveList[indexPath.item];
     controller.hidesBottomBarWhenPushed = YES;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:nvc animated:YES completion:nil];

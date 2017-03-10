@@ -13,7 +13,6 @@ static char placeHolderKey;
 static char reloadBlockKey;
 
 @implementation UICollectionView (Tool) 
-
 //+ (void)load {
 //    Method reloadData = class_getInstanceMethod([UICollectionView class], @selector(reloadData));
 //    Method dd_reloadData = class_getInstanceMethod([UICollectionView class], @selector(dd_reloadData));
@@ -41,6 +40,7 @@ static char reloadBlockKey;
     for (NSInteger i = 0; i < sections; i++) {
         if ([dataSource collectionView:self numberOfItemsInSection:i]) {
             isEmpty = NO;
+            return;
         }
     }
     
@@ -89,7 +89,7 @@ static char reloadBlockKey;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.frame = CGRectMake((viewWidth - buttonW) / 2, ViewHeight * 0.3, buttonW, buttonW);
     [button setTitle:@"暂无内容\n点击重新加载" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     button.titleLabel.numberOfLines = 0;
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -105,4 +105,3 @@ static char reloadBlockKey;
 }
 
 @end
-

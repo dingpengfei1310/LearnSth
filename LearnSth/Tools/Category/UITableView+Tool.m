@@ -13,7 +13,6 @@ static char placeHolderKey;
 static char reloadBlockKey;
 
 @implementation UITableView (Tool)
-
 //+ (void)load {
 //    Method reloadData = class_getInstanceMethod([UITableView class], @selector(reloadData));
 //    Method dd_reloadData = class_getInstanceMethod([UITableView class], @selector(dd_reloadData));
@@ -41,14 +40,11 @@ static char reloadBlockKey;
     for (NSInteger i = 0; i < sections; i++) {
         if ([dataSource tableView:self numberOfRowsInSection:i]) {
             isEmpty = NO;
+            return;
         }
     }
     
-    if (isEmpty) {
-        [self showEmptyView];
-    } else {
-        [self hideEmptyView];
-    }
+    isEmpty ? [self showEmptyView] : [self hideEmptyView];
 }
 
 - (void)showEmptyView {
@@ -93,7 +89,7 @@ static char reloadBlockKey;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.frame = CGRectMake((viewWidth - buttonW) / 2, ViewHeight * 0.3, buttonW, buttonW);
     [button setTitle:@"暂无内容\n点击重新加载" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     button.titleLabel.numberOfLines = 0;
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -109,4 +105,3 @@ static char reloadBlockKey;
 }
 
 @end
-

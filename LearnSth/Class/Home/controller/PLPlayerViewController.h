@@ -11,7 +11,8 @@
 @class LiveModel;
 @interface PLPlayerViewController : UIViewController
 
-@property (nonatomic, strong) LiveModel *live;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) NSArray *liveArray;
 @property (nonatomic, copy) void (^PlayerDismissBlock)();
 
 @end

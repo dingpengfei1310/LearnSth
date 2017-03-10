@@ -14,6 +14,8 @@
 
 @interface PLPlayerViewController ()<PLPlayerDelegate>
 
+@property (nonatomic, strong) LiveModel *live;
+
 @property (nonatomic, strong) PLPlayer *player;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
@@ -30,11 +32,24 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.live = self.liveArray[self.index];
+    self.title = self.live.myname;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss)];
+    
     [self.view addSubview:self.player.playerView];
     [self.view addSubview:self.backgroundImageView];
     
-    self.title = self.live.myname;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss:)];
+    [self addGesture];
+}
+
+- (void)addGesture {
+    UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismisss)];
+    dismissGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:dismissGesture];
+    
+    UISwipeGestureRecognizer *nextGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextLive)];
+    nextGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:nextGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -51,14 +66,14 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 #pragma mark
-- (void)dismisss:(UIBarButtonItem *)sender {
+- (void)dismisss {
     [self.player stop];
     if (self.PlayerDismissBlock) {
         self.PlayerDismissBlock();
     }
 }
 
-- (void)shop:(UIBarButtonItem *)sender {
+- (void)smallView:(UIBarButtonItem *)sender {
     [self.player.playerView removeFromSuperview];
     [self.window addSubview:self.player.playerView];
     
@@ -127,11 +142,30 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }];
 }
 
+- (void)nextLive {
+    if (self.index < self.liveArray.count - 1) {
+        self.index ++;
+        self.live = self.liveArray[self.index];
+        
+        self.title = self.live.myname;
+        self.navigationItem.rightBarButtonItem = nil;
+        [self.view addSubview:self.backgroundImageView];
+        
+        NSURL *url = [NSURL URLWithString:self.live.flv];
+        [self.player playWithURL:url];
+        
+    } else {
+        [self showError:@"没有更多数据"];
+    }
+}
+
 #pragma mark
 - (void)player:(PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
     if (state == PLPlayerStatusPlaying) {
         [self.backgroundImageView removeFromSuperview];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(shop:)];
+        self.backgroundImageView = nil;
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallView:)];
     }
 }
 

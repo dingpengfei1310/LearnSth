@@ -7,15 +7,12 @@
 //
 
 #import "HttpManager.h"
-
 #import "AFNetworking.h"
-#import "SQLManager.h"
 
 const NSInteger errorCodeDefault = 999;
-const NSTimeInterval timeoutInterval = 20.0;
+const NSTimeInterval timeoutInterval = 15.0;
 
 @implementation HttpManager
-
 + (instancetype)shareManager {
     static HttpManager *manager = nil;
     static dispatch_once_t onceToken;
@@ -77,7 +74,6 @@ const NSTimeInterval timeoutInterval = 20.0;
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"data"];
         completion(array,nil);
-        
     } failure:^(NSError *error) {
         completion(nil,error);
     }];
@@ -86,13 +82,11 @@ const NSTimeInterval timeoutInterval = 20.0;
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion {
 //    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
-    NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
+    NSString * urlString = @"https://live.9158.com/Fans/GetHotLive0";
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
-        
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         completion(array,nil);
     } failure:^(NSError *error) {
-        
         completion(nil,error);
     }];
 }
@@ -127,7 +121,6 @@ const NSTimeInterval timeoutInterval = 20.0;
     }];
 }
 
-
 #pragma mark
 - (NSString *)jsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
@@ -151,7 +144,3 @@ const NSTimeInterval timeoutInterval = 20.0;
 }
 
 @end
-
-
-
-

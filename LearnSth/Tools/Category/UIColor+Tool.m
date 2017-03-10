@@ -9,7 +9,6 @@
 #import "UIColor+Tool.h"
 
 @implementation UIColor (Tool)
-
 + (UIColor *)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b {
     return [UIColor colorWithRed:r / 255.0
                            green:g / 255.0
@@ -24,7 +23,6 @@
                            alpha:alpha];
 }
 
-
 #pragma mark
 + (UIColor *)colorWithHex:(NSInteger)hex {
     return [UIColor colorWithHex:hex alpha:1.0];
@@ -36,7 +34,6 @@
                             blue:((hex & 0xFF)) / 255.0f
                            alpha:alpha];
 }
-
 
 #pragma mark
 + (UIColor *)colorWithHexString:(NSString *)hex {
@@ -92,7 +89,6 @@
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
-
 CGFloat colorComponentFrom(NSString *string, NSUInteger start, NSUInteger length) {
     NSString *substring = [string substringWithRange:NSMakeRange(start, length)];
     NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat: @"%@%@", substring, substring];
@@ -103,4 +99,3 @@ CGFloat colorComponentFrom(NSString *string, NSUInteger start, NSUInteger length
 }
 
 @end
-

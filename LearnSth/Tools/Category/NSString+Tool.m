@@ -12,7 +12,6 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Tool)
-
 //+ (void)load {
 //    Method lowercaseString = class_getInstanceMethod([self class], @selector(lowercaseString));
 //    Method dd_lowercaseString = class_getInstanceMethod([self class], @selector(dd_lowercaseString));
@@ -121,4 +120,3 @@
 //}
 
 @end
-
