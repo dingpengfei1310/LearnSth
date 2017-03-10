@@ -10,6 +10,7 @@
 
 static NSString *KIsLoginCache = @"UserLoginCache";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
+static NSString *KDownloadFileCache = @"DownloadFileCache";
 
 static NSString *ZHLANGUAGE = @"zh-Hans";
 static NSString *ENLANGUAGE = @"en";
@@ -31,6 +32,14 @@ static NSString *ENLANGUAGE = @"en";
 
 + (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
+}
+
++ (void)setDownloadFile:(NSDictionary *)file {
+    [[NSUserDefaults standardUserDefaults] setObject:file forKey:KDownloadFileCache];
+}
+
++ (NSDictionary *)downloadFile {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KDownloadFileCache];
 }
 
 #pragma mark

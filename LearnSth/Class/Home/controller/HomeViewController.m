@@ -19,6 +19,8 @@
 #import "Aspects.h"
 #import "MJRefresh.h"
 
+#import "DownloadViewController.h"
+
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
@@ -110,7 +112,12 @@ static NSString *headerReuseIdentifier = @"headerCell";
 }
 
 - (void)homeRightItemClick {
-    self.collectionView.hidden = !self.collectionView.hidden;
+//    self.collectionView.hidden = !self.collectionView.hidden;
+    
+    DownloadViewController *controller = [[DownloadViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 #pragma mark

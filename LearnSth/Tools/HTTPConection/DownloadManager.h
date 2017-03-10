@@ -12,4 +12,12 @@
 
 + (instancetype)shareManager;
 
+//- (void)downloadWith:(NSURL *)url;
+
+- (void)downloadWith:(NSURL *)url
+            progress:(void (^)(int64_t bytesWritten,int64_t bytesExpected))progress
+          completion:(void (^)(BOOL isSuccess, NSError *error))completion;
+
+- (void)pause;
+
 @end

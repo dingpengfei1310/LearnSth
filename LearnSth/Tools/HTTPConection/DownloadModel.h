@@ -10,4 +10,11 @@
 
 @interface DownloadModel : NSObject
 
+@property (nonatomic, copy) NSString *fileName;
+@property (nonatomic, copy) NSString *fileUrl;
+
+@property (nonatomic, assign) int64_t bytesReceived;
+@property (nonatomic, assign) int64_t bytesTotal;
+
+
 @end

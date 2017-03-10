@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334621E726C86009567F9 /* DownloadViewController.m */; };
+		1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334651E726DA1009567F9 /* DownloadViewCell.m */; };
+		1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0334661E726DA1009567F9 /* DownloadViewCell.xib */; };
 		1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B04FA241E52F28A00CDFC80 /* VideoScanController.m */; };
 		1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0921DF6564C005F3059 /* PPNumberButton.m */; };
 		1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0951DF6A626005F3059 /* BannerScrollView.m */; };
@@ -147,6 +150,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B0334611E726C86009567F9 /* DownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewController.h; sourceTree = "<group>"; };
+		1B0334621E726C86009567F9 /* DownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewController.m; sourceTree = "<group>"; };
+		1B0334641E726DA1009567F9 /* DownloadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewCell.h; sourceTree = "<group>"; };
+		1B0334651E726DA1009567F9 /* DownloadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewCell.m; sourceTree = "<group>"; };
+		1B0334661E726DA1009567F9 /* DownloadViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadViewCell.xib; sourceTree = "<group>"; };
 		1B04FA231E52F28A00CDFC80 /* VideoScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoScanController.h; sourceTree = "<group>"; };
 		1B04FA241E52F28A00CDFC80 /* VideoScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoScanController.m; sourceTree = "<group>"; };
 		1B08C0911DF6564C005F3059 /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
@@ -713,6 +721,8 @@
 				1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */,
 				1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */,
 				1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */,
+				1B0334611E726C86009567F9 /* DownloadViewController.h */,
+				1B0334621E726C86009567F9 /* DownloadViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -746,6 +756,9 @@
 				1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */,
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
 				1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */,
+				1B0334641E726DA1009567F9 /* DownloadViewCell.h */,
+				1B0334651E726DA1009567F9 /* DownloadViewCell.m */,
+				1B0334661E726DA1009567F9 /* DownloadViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1128,6 +1141,7 @@
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
 				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
+				1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */,
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
@@ -1225,6 +1239,7 @@
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */,
 				1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */,
+				1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */,
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
@@ -1266,6 +1281,7 @@
 				1B099C901DE7E57400161396 /* UIScrollView+MJExtension.m in Sources */,
 				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
 				1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */,
+				1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
 				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,
