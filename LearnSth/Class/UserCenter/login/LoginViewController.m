@@ -30,6 +30,7 @@ const CGFloat fieldHeight = 35;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"登录";
     
     CGRect scrollRect = CGRectMake(0, 0, Screen_W, Screen_H);
@@ -42,7 +43,7 @@ const CGFloat fieldHeight = 35;
     [scrollView addSubview:self.loginButton];
     [self addRegButtonWithView:scrollView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"Close") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
 - (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {
@@ -167,4 +168,3 @@ const CGFloat fieldHeight = 35;
 }
 
 @end
-

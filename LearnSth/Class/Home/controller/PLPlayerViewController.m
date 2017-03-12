@@ -173,7 +173,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (PLPlayer *)player {
     if (!_player) {
         PLPlayerOption *option = [PLPlayerOption defaultOption];
-        [option setOptionValue:@1 forKey:PLPlayerOptionKeyVideoToolbox];
+//        [option setOptionValue:@1 forKey:PLPlayerOptionKeyVideoToolbox];
         
         NSURL *url = [NSURL URLWithString:self.live.flv];
         _player = [PLPlayer playerWithURL:url option:option];

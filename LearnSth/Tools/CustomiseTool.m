@@ -10,6 +10,7 @@
 
 static NSString *KIsLoginCache = @"UserLoginCache";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
+static NSString *KDownloadFileCache = @"DownloadFileCache";
 
 static NSString *ZHLANGUAGE = @"zh-Hans";
 static NSString *ENLANGUAGE = @"en";
@@ -22,15 +23,27 @@ static NSString *ENLANGUAGE = @"en";
     //    }
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KLanguageTypeCache];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KDownloadFileCache];
 }
 
 #pragma mark
 + (void)setIsLogin:(BOOL)login {
     [[NSUserDefaults standardUserDefaults] setBool:login forKey:KIsLoginCache];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
+}
+
++ (void)setDownloadFile:(NSDictionary *)file {
+    [[NSUserDefaults standardUserDefaults] setObject:file forKey:KDownloadFileCache];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSDictionary *)downloadFile {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KDownloadFileCache];
 }
 
 #pragma mark
@@ -114,7 +127,7 @@ static NSString *ENLANGUAGE = @"en";
 
 + (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     
     [color setFill];
     CGContextFillRect(UIGraphicsGetCurrentContext(), rect);

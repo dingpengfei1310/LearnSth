@@ -82,7 +82,7 @@ const NSTimeInterval timeoutInterval = 15.0;
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion {
 //    NSString * urlString = @"http://live.9158.com/Fans/GetHotLive";
-    NSString * urlString = @"https://live.9158.com/Fans/GetHotLive0";
+    NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         completion(array,nil);
@@ -93,16 +93,24 @@ const NSTimeInterval timeoutInterval = 15.0;
 
 - (void)getUserListWithParamers:(NSDictionary *)paramers
                      completion:(SuccessArray)completion {
-    
     NSString *BASEURl = @"http://192.168.1.212:8080/sctd/";
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
+//    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/scgroup/getrank"];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",BASEURl,@"operate/servicetime/getServiceTime"];
     
-    NSDictionary *dict = @{@"pageno":@"1",@"size":@"20",@"groupName":@""};
-    NSString *jsonString = [self jsonModel:dict];
-    NSDictionary *params = @{@"jsonText": jsonString};
+//    NSDictionary *dict = @{@"pageno":@"1",@"size":@"20",@"groupName":@""};
+//    NSString *jsonString = [self jsonModel:dict];
+//    NSDictionary *params = @{@"jsonText": jsonString};
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager POST:urlString parameters:params progress:^(NSProgress * uploadProgress) {
+    
+    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    [multSet addObject:@"text/html"];
+    [multSet addObject:@"text/plain"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
+    manager.requestSerializer.timeoutInterval = timeoutInterval;
+    
+    
+    [manager POST:urlString parameters:nil progress:^(NSProgress * uploadProgress) {
     } success:^(NSURLSessionDataTask * task, id  _Nullable responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
@@ -130,11 +138,11 @@ const NSTimeInterval timeoutInterval = 15.0;
                                                    encoding:NSUTF8StringEncoding];
         return jsonStr;
     }
-    return nil;
+    return @"";
 }
 
 - (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
-    NSDictionary *dict;
+    NSDictionary *dict = [NSDictionary dictionary];
     if (jsonString) {
         NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:NULL];

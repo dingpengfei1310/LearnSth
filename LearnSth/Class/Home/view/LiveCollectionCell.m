@@ -35,7 +35,6 @@
             self.signaturesLabel.text = liveModel.signatures;
         }];
     }
-    
 }
 
 @end

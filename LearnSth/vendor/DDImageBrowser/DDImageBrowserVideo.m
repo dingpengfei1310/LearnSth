@@ -28,6 +28,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (self.filePath) {
+        NSURL *url = [NSURL fileURLWithPath:self.filePath];
+        _player = [AVPlayer playerWithURL:url];
+        [self.view.layer addSublayer:self.playerLayer];
+        [self addButton];
+        
+        return;
+    }
+    
     [self setBackgropundImage];
     
     PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];

@@ -6,23 +6,23 @@
   Copyright © 2017年 丁鹏飞. All rights reserved.
 */
 
-"UITabBarItemHome" = "Home";
-"UITabBarItemUser" = "User";
+"首页" = "Home";
+"用户" = "User";
 
-"Cancel" = "Cancel";
-"Confirm" = "Confirm";
+"取消" = "Cancel";
+"确定" = "Confirm";
 
-"Edit" = "Edit";
-"Done" = "Done";
+"编辑" = "Edit";
+"完成" = "Done";
 
-"Close" = "Close";
-"Logout" = "Logout";
+"关闭" = "Close";
+"退出登录" = "Logout";
 
-"Pause" = "Pause";
-"Stop" = "Stop";
-"Play" = "Play";
+"暂停" = "Pause";
+"停止" = "Stop";
+"播放" = "Play";
 
-"Language" = "Language";
-"English" = "English";
-"Chinese" = "Chinese";
-"ChangeLanguage" = "ChangeLanguage";
+"语言" = "Language";
+"英语" = "English";
+"简体中文" = "Chinese";
+"切换语言" = "ChangeLanguage";

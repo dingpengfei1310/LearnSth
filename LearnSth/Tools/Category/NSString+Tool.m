@@ -40,8 +40,9 @@
 }
 
 - (NSString *)MD5String {
-    const char * input = [self UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    const char *input = [self UTF8String];
+    //unsigned char result[CC_MD5_DIGEST_LENGTH]; = uint8_t result[CC_MD5_DIGEST_LENGTH];
+    uint8_t result[CC_MD5_DIGEST_LENGTH];
     
     CC_MD5(input, (CC_LONG)strlen(input), result);
     
@@ -50,7 +51,7 @@
         [digest appendFormat:@"%02X", result[i]];
     }
     
-    return digest;
+    return [digest copy];
 }
 
 - (BOOL)validatePhoneNumber {

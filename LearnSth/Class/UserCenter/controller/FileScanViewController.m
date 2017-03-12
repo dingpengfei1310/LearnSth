@@ -11,6 +11,8 @@
 #import <QuickLook/QLPreviewController.h>
 #import "DDPreviewItem.h"
 
+#import "DDImageBrowserVideo.h"
+
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -27,14 +29,14 @@
     self.title = @"文件";
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:DDLocalizedString(@"Edit") style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
 }
 
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
-    BOOL flag = [buttonItem.title isEqualToString:DDLocalizedString(@"Edit")];
+    BOOL flag = [buttonItem.title isEqualToString:@"编辑"];
     [self.tableView setEditing:flag animated:YES];
     
-    NSString *title = flag ? DDLocalizedString(@"Done") : DDLocalizedString(@"Edit");
+    NSString *title = flag ? @"完成" : @"编辑";
     self.navigationItem.rightBarButtonItem.title = title;
 }
 
@@ -57,6 +59,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectIndex = indexPath.row;
+    
+//    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
+//    if ([filePath hasSuffix:@".mp4"]) {
+//        DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
+//        controller.filePath = filePath;
+//        [self.navigationController pushViewController:controller animated:YES];
+//        return;
+//    }
     
     QLPreviewController *previewController = [[QLPreviewController alloc] init];
     previewController.dataSource = self;
@@ -87,7 +97,6 @@
 }
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
-    [NSUserDefaults standardUserDefaults];
     NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
