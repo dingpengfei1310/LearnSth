@@ -21,5 +21,4 @@
 
 - (void)pause;
 - (BOOL)isRunning;
-
 @end

@@ -146,7 +146,6 @@ static NSString *ResumeName = @"resumeFile-";
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 //    NSLog(@"didWriteData:%lld - totalBytesWritten:%lld - totalBytesExpectedToWrite:%lld",bytesWritten,totalBytesWritten,totalBytesExpectedToWrite);
-    
     if (self.DownloadProgress) {
         self.DownloadProgress(totalBytesWritten,totalBytesExpectedToWrite);
     }
@@ -158,11 +157,9 @@ static NSString *ResumeName = @"resumeFile-";
 
 #pragma mark NSURLSessionTaskDelegate
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    if (error) {
-        NSData *data = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
-        NSLog(@"%@",data);
-    }
-    
+//    if (error) {
+//        NSData *data = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+//    }
     NSLog(@"didCompleteWithError");
 }
 
