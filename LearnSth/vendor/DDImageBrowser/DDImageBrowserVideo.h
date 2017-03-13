@@ -12,6 +12,5 @@
 @interface DDImageBrowserVideo : UIViewController
 
 @property (nonatomic, strong) PHAsset *asset;//播放相册视频
-@property (nonatomic, strong) NSString *filePath;//播放文件视频
 
 @end

@@ -20,6 +20,7 @@
 #import "MJRefresh.h"
 
 #import "DownloadViewController.h"
+#import "VideoPlayerController.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -52,7 +53,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     
     [self getHomeAdBanner];
-    [self refreshLiveData];
+//    [self refreshLiveData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,7 +116,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     DownloadViewController *controller = [[DownloadViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma mark

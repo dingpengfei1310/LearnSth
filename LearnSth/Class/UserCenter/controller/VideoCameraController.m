@@ -189,14 +189,12 @@
         hour = totalSecond / 3600;
         minute = (totalSecond % 3600) / 600;
         second = totalSecond % 60;
-    } else if (totalSecond >= 60) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+    } else {
         minute = totalSecond / 60;
         second = totalSecond % 60;
-    } else {
-        second = totalSecond % 60;
+        self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
     }
-    
-    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
 }
 
 #pragma mark
