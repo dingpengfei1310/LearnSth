@@ -14,14 +14,23 @@
 
 @end
 
+static SQLManager *manager = nil;
+
 @implementation SQLManager
 
 + (instancetype)manager {
-    static SQLManager *manager = nil;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[SQLManager alloc] init];
+    });
+    
+    return manager;
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [super allocWithZone:zone];
     });
     
     return manager;
@@ -97,7 +106,4 @@
     return [NSArray arrayWithArray:mutArray];
 }
 
-
 @end
-
-

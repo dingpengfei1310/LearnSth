@@ -21,4 +21,9 @@
 - (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId;
 - (NSArray *)searchResultWith:(NSString *)text;
 
+#pragma mark
+
+
+
+
 @end

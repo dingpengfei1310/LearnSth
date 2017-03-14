@@ -16,9 +16,6 @@
 @class DownloadModel;
 @interface DownloadViewCell : UITableViewCell
 
-- (IBAction)buttonClick:(UIButton *)sender;
-- (void)changeButtonState;
-
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) DownloadModel *fileModel;
 

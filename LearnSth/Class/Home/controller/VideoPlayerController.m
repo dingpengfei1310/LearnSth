@@ -60,7 +60,7 @@
     [super viewDidLoad];
     
     if (self.urlString) {
-        self.urlString = @"http://baobab.wdjcdn.com/14564977406580.mp4";
+//        self.urlString = @"http://baobab.wdjcdn.com/14564977406580.mp4";
         
         [self.view.layer addSublayer:self.playerLayer];
         
@@ -297,16 +297,12 @@
 }
 
 - (void)swipOnPlayer:(UISwipeGestureRecognizer *)swipe {
-    CMTime totalTime = self.playerItem.duration;
     CMTime currentTime = self.playerItem.currentTime;
-    
-    int64_t totalSeconds = totalTime.value / totalTime.timescale;
     int64_t currentSeconds = currentTime.value / currentTime.timescale;
     
-    int32_t timescale = totalTime.timescale;
+    int32_t timescale = self.playerItem.duration.timescale;
     [self.playerItem seekToTime:CMTimeMake((currentSeconds + 5) * timescale, timescale)];
     
-//    self.progressView.progress = (currentSeconds + 5) / 1.0 / totalSeconds;
     self.slider.value = currentSeconds + 5;
 }
 

@@ -20,7 +20,7 @@
 #import "MJRefresh.h"
 
 #import "DownloadViewController.h"
-#import "VideoPlayerController.h"
+#import "DownloadManager.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -54,6 +54,10 @@ static NSString *headerReuseIdentifier = @"headerCell";
     
     [self getHomeAdBanner];
 //    [self refreshLiveData];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

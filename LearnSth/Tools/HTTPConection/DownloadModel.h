@@ -8,13 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(NSInteger,DownloadState) {
+    DownloadStateWaiting = 0,
+    DownloadStateRunning,
+    DownloadStatePause
+};
+
 @interface DownloadModel : NSObject
 
 @property (nonatomic, copy) NSString *fileUrl;
 @property (nonatomic, copy) NSString *fileName;
-@property (nonatomic, copy) NSString *state;
 
+@property (nonatomic, copy, readonly) NSString *resumePath;//用处：断点下载
+
+@property (nonatomic, assign) DownloadState state;
 @property (nonatomic, assign) int64_t bytesReceived;
 @property (nonatomic, assign) int64_t bytesTotal;
+
++ (NSDictionary *)loadAllDownload;
+
++ (void)add:(DownloadModel *)model;
++ (void)update:(DownloadModel *)model;
++ (void)remove:(DownloadModel *)model;
 
 @end

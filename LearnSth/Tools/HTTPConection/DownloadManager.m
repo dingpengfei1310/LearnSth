@@ -7,6 +7,7 @@
 //
 
 #import "DownloadManager.h"
+#import "DownloadModel.h"
 
 @interface DownloadManager ()<NSURLSessionDelegate,NSURLSessionDataDelegate,NSURLSessionDownloadDelegate>
 
@@ -14,18 +15,21 @@
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 @property (nonatomic, strong) NSURL *downloadUrl;
 
+@property (nonatomic, strong) DownloadModel *currentModel;
+
 @property (nonatomic, copy) void (^DownloadState)(NSURLSessionTaskState state);
 @property (nonatomic, copy) void (^DownloadProgress)(int64_t bytesWritten,int64_t bytesExpected);
 @property (nonatomic, copy) void (^DownloadCompletion)(BOOL isSuccess, NSError *error);
 
+@property (nonatomic, strong) NSTimer *timer;
+
 @end
 
-static NSString *ResumeName = @"resumeFile-";
+static DownloadManager *manager = nil;
 
 @implementation DownloadManager
 
 + (instancetype)shareManager {
-    static DownloadManager *manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[DownloadManager alloc] init];
@@ -34,54 +38,42 @@ static NSString *ResumeName = @"resumeFile-";
     return manager;
 }
 
-- (void)downloadWith:(NSURL *)url {
-    _downloadUrl = url;
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [super allocWithZone:zone];
+    });
     
-    if (_downloadTask.state != NSURLSessionTaskStateCompleted) {
-//        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:url.lastPathComponent];
-//        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-//        uint64_t length =  [fileAttributes[NSFileSize] integerValue];
-//        NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:_downloadUrl];
-//        [requestM setValue:[NSString stringWithFormat:@"bytes=%lld-", (long long)length] forHTTPHeaderField:@"Range"];
-//        _downloadTask = [session downloadTaskWithRequest:requestM];
-    }
-    
-    
-    
-    
-//    if (_dataTask.state != NSURLSessionTaskStateCompleted) {
-//        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:url.lastPathComponent];
-//        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-//        uint64_t length =  [fileAttributes[NSFileSize] integerValue];
-//        
-//        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration
-//                                                              delegate:self
-//                                                         delegateQueue:[[NSOperationQueue alloc] init]];
-//        
-//        NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:_downloadUrl];
-//        [requestM setValue:[NSString stringWithFormat:@"bytes=%lld-", (long long)length] forHTTPHeaderField:@"Range"];
-//        _dataTask = [session dataTaskWithRequest:requestM];
-//        [_dataTask resume];
-//    }
+    return manager;
 }
 
-- (void)downloadWith:(NSURL *)url
-               state:(void (^)(NSURLSessionTaskState state))state
-            progress:(void (^)(int64_t, int64_t))progress
-          completion:(void (^)(BOOL, NSError *))completion {
-    
+- (instancetype)init {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (void)downloadWithUrl:(NSURL *)url
+                  state:(void (^)(NSURLSessionTaskState state))state
+               progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
+             completion:(void (^)(BOOL isSuccess, NSError *error))completion {
     if (_downloadUrl != url) {
         [self pause];
         _downloadUrl = url;
+        
+        NSDictionary *allDownLoad = [DownloadModel loadAllDownload];
+        _currentModel = allDownLoad[_downloadUrl.absoluteString];
     }
     
     self.DownloadState = state;
     self.DownloadProgress = progress;
     self.DownloadCompletion = completion;
     
-    NSString *str = [NSString stringWithFormat:@"%@%@",ResumeName,_downloadUrl.lastPathComponent];
-    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:str];
+    if (_downloadTask && _downloadTask.state == NSURLSessionTaskStateRunning) {
+        return;
+    }
+    
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
     NSData *resumeData = [NSData dataWithContentsOfFile:filePath];
     
     if (!resumeData) {
@@ -89,22 +81,38 @@ static NSString *ResumeName = @"resumeFile-";
     } else {
         _downloadTask = [self.session downloadTaskWithResumeData:resumeData];
     }
-    
     [_downloadTask resume];
+    
+    [self.timer fire];
 }
+
+//- (void)downloadWithModel:(NSURL *)url
+//                    state:(void (^)(NSURLSessionTaskState state))state
+//                 progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
+//               completion:(void (^)(BOOL isSuccess, NSError *error))completion {
+//    
+//}
 
 - (void)pause {
     if (!_downloadUrl) {
         return;
     }
+    
     [_downloadTask cancelByProducingResumeData:^(NSData * resumeData) {
-        NSString *str = [NSString stringWithFormat:@"%@%@",ResumeName,_downloadUrl.lastPathComponent];
-        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:str];
+        
+        [self.timer invalidate];
+        self.timer = nil;
+        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
         [resumeData writeToFile:filePath atomically:YES];
         
-        if (self.DownloadState) {
-            self.DownloadState(NSURLSessionTaskStateCanceling);
-        }
+        _currentModel.state = DownloadStatePause;
+        [DownloadModel update:_currentModel];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.DownloadState) {
+                self.DownloadState(NSURLSessionTaskStateCanceling);
+            }
+        });
     }];
 }
 
@@ -126,41 +134,49 @@ static NSString *ResumeName = @"resumeFile-";
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     NSLog(@"didFinishDownloadingToURL:%@",location.absoluteString);
     
-    NSString *str = [NSString stringWithFormat:@"%@%@",ResumeName,_downloadUrl.lastPathComponent];
-    unlink([str UTF8String]);
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    NSString *resumePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
+    unlink([resumePath UTF8String]);
     
     NSError *error;
-    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_downloadUrl.lastPathComponent];
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.fileName];
     unlink([filePath UTF8String]);
     NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
     [[NSFileManager defaultManager] moveItemAtURL:location toURL:fileUrl error:&error];
     
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithDictionary:[CustomiseTool downloadFile]];
-    [dictM removeObjectForKey:_downloadUrl.absoluteString];
-    [CustomiseTool setDownloadFile:dictM];
+    [DownloadModel remove:_currentModel];
     
-    if (self.DownloadCompletion) {
-        self.DownloadCompletion(!error,error);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.DownloadCompletion) {
+            self.DownloadCompletion(!error,error);
+        }
+    });
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-//    NSLog(@"didWriteData:%lld - totalBytesWritten:%lld - totalBytesExpectedToWrite:%lld",bytesWritten,totalBytesWritten,totalBytesExpectedToWrite);
-    if (self.DownloadProgress) {
-        self.DownloadProgress(totalBytesWritten,totalBytesExpectedToWrite);
-    }
+    _currentModel.bytesReceived = totalBytesWritten;
+    _currentModel.bytesTotal = totalBytesExpectedToWrite;
+    _currentModel.state = DownloadStateRunning;
+    [DownloadModel update:_currentModel];
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (self.DownloadProgress) {
+//            self.DownloadProgress(totalBytesWritten,totalBytesExpectedToWrite);
+//        }
+//    });
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
-//    NSLog(@"didResumeAtOffset:%lld - expectedTotalBytes:%lld",fileOffset,expectedTotalBytes);
 }
 
 #pragma mark NSURLSessionTaskDelegate
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
 //    if (error) {
-//        NSData *data = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
+////        NSURLSessionDownloadTaskResumeData
+//        NSLog(@"didCompleteWithError:__%@",error);
 //    }
-    NSLog(@"didCompleteWithError");
 }
 
 #pragma mark
@@ -170,6 +186,18 @@ static NSString *ResumeName = @"resumeFile-";
         _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     }
     return _session;
+}
+
+- (NSTimer *)timer {
+    if (!_timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            if (self.DownloadProgress) {
+                self.DownloadProgress(_currentModel.bytesReceived,_currentModel.bytesTotal);
+            }
+        }];
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    }
+    return _timer;
 }
 
 @end
