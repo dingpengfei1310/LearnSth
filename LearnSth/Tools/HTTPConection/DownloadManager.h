@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DownloadModel.h"
 
-@class DownloadModel;
 @interface DownloadManager : NSObject
 
 + (instancetype)shareManager;
 
 - (void)downloadWithUrl:(NSURL *)url
-                  state:(void (^)(NSURLSessionTaskState state))state
+                  state:(void (^)(DownloadState state))state
                progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
              completion:(void (^)(BOOL isSuccess, NSError *error))completion;
 
@@ -23,7 +23,14 @@
 //                 progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
 //               completion:(void (^)(BOOL isSuccess, NSError *error))completion;
 
-- (void)pause;
-- (BOOL)isRunning;
+- (void)downloadWithUrl:(NSURL *)url
+                  state:(void (^)(DownloadState state))state
+               progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
+             completion:(void (^)(BOOL isSuccess, NSError *error))completion;
+
+
+- (BOOL)isDownloading;
+
+- (void)pauseWithUrl:(NSURL *)url;
 
 @end

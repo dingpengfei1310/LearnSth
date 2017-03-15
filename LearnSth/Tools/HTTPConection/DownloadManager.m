@@ -9,19 +9,29 @@
 #import "DownloadManager.h"
 #import "DownloadModel.h"
 
+typedef NS_ENUM(NSInteger,SessionTaskType) {
+    SessionTaskTypeDownload = 0,
+    SessionTaskTypeData
+};
+
 @interface DownloadManager ()<NSURLSessionDelegate,NSURLSessionDataDelegate,NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSURL *taskUrl;
+
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
-@property (nonatomic, strong) NSURL *downloadUrl;
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 
 @property (nonatomic, strong) DownloadModel *currentModel;
+//@property (nonatomic, strong) NSURL *currentModel;
 
-@property (nonatomic, copy) void (^DownloadState)(NSURLSessionTaskState state);
+@property (nonatomic, copy) void (^DownloadState)(DownloadState state);
 @property (nonatomic, copy) void (^DownloadProgress)(int64_t bytesWritten,int64_t bytesExpected);
 @property (nonatomic, copy) void (^DownloadCompletion)(BOOL isSuccess, NSError *error);
 
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic, assign) SessionTaskType taskType;
 
 @end
 
@@ -53,89 +63,193 @@ static DownloadManager *manager = nil;
     return self;
 }
 
+#pragma mark
 - (void)downloadWithUrl:(NSURL *)url
-                  state:(void (^)(NSURLSessionTaskState state))state
+                  state:(void (^)(DownloadState state))state
                progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
              completion:(void (^)(BOOL isSuccess, NSError *error))completion {
-    if (_downloadUrl != url) {
-        [self pause];
-        _downloadUrl = url;
+    
+//    [self downloadTaskWithUrl:url state:state progress:progress completion:completion];
+    
+    [self dataTaskWithUrl:url state:state progress:progress completion:completion];
+}
+
+- (void)dataTaskWithUrl:(NSURL *)url
+                  state:(void (^)(DownloadState state))state
+               progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
+             completion:(void (^)(BOOL isSuccess, NSError *error))completion {
+    
+    self.taskType = SessionTaskTypeData;
+    
+    if (!url) {
+        state(DownloadStateFailure);
+        return;
+    }
+    
+    //正在下载
+    if (self.isDownloading) {
+        
+        //当前的URL正在下载
+        if ([self.taskUrl isEqual:url]) {
+            
+            self.DownloadState = state;
+            self.DownloadProgress = progress;
+            self.DownloadCompletion = completion;
+        }
+        
+        return;
+    }
+    
+    if (![self.taskUrl isEqual:url]) {
+        self.taskUrl = url;
         
         NSDictionary *allDownLoad = [DownloadModel loadAllDownload];
-        _currentModel = allDownLoad[_downloadUrl.absoluteString];
+        self.currentModel = allDownLoad[self.taskUrl.absoluteString];
     }
     
     self.DownloadState = state;
     self.DownloadProgress = progress;
     self.DownloadCompletion = completion;
     
-    if (_downloadTask && _downloadTask.state == NSURLSessionTaskStateRunning) {
+    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:self.taskUrl];
+    [requestM setValue:[NSString stringWithFormat:@"bytes=%ld-",[self hasDownloadLength]] forHTTPHeaderField:@"Range"];
+    self.dataTask = [self.session dataTaskWithRequest:requestM];
+    
+    [self.dataTask resume];
+    [self.timer fire];
+}
+
+- (void)downloadTaskWithUrl:(NSURL *)url
+                      state:(void (^)(DownloadState state))state
+                   progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
+                 completion:(void (^)(BOOL isSuccess, NSError *error))completion {
+    
+    self.taskType = SessionTaskTypeDownload;
+    
+    if (!url) {
+        state(DownloadStateFailure);
         return;
     }
+    
+    //正在下载
+    if (self.isDownloading) {
+        
+        //当前的URL正在下载
+        if ([self.taskUrl isEqual:url]) {
+            
+            self.DownloadState = state;
+            self.DownloadProgress = progress;
+            self.DownloadCompletion = completion;
+        }
+        
+        return;
+    }
+    
+    if (![self.taskUrl isEqual:url]) {
+        self.taskUrl = url;
+        
+        NSDictionary *allDownLoad = [DownloadModel loadAllDownload];
+        self.currentModel = allDownLoad[self.taskUrl.absoluteString];
+    }
+    
+    self.DownloadState = state;
+    self.DownloadProgress = progress;
+    self.DownloadCompletion = completion;
     
     NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
     NSData *resumeData = [NSData dataWithContentsOfFile:filePath];
     
     if (!resumeData) {
-        _downloadTask = [self.session downloadTaskWithURL:_downloadUrl];
+        self.downloadTask = [self.session downloadTaskWithURL:self.taskUrl];
     } else {
-        _downloadTask = [self.session downloadTaskWithResumeData:resumeData];
+        self.downloadTask = [self.session downloadTaskWithResumeData:resumeData];
     }
-    [_downloadTask resume];
+    [self.downloadTask resume];
     
     [self.timer fire];
 }
 
-//- (void)downloadWithModel:(NSURL *)url
-//                    state:(void (^)(NSURLSessionTaskState state))state
-//                 progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
-//               completion:(void (^)(BOOL isSuccess, NSError *error))completion {
-//    
-//}
+- (BOOL)isDownloading {
+    if (self.taskType == SessionTaskTypeData) {
+        return (self.dataTask && self.dataTask.state == NSURLSessionTaskStateRunning);
+    }
+    return (self.downloadTask && self.downloadTask.state == NSURLSessionTaskStateRunning);
+}
 
-- (void)pause {
-    if (!_downloadUrl) {
+- (void)pauseWithUrl:(NSURL *)url {
+    if (!self.isDownloading || ![url isEqual:self.taskUrl]) {
         return;
     }
     
-    [_downloadTask cancelByProducingResumeData:^(NSData * resumeData) {
+    if (self.taskType == SessionTaskTypeData) {
+        
+        [self.dataTask cancel];
         
         [self.timer invalidate];
         self.timer = nil;
-        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
-        [resumeData writeToFile:filePath atomically:YES];
-        
-        _currentModel.state = DownloadStatePause;
-        [DownloadModel update:_currentModel];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.DownloadState) {
-                self.DownloadState(NSURLSessionTaskStateCanceling);
+                self.DownloadState(DownloadStatePause);
+            }
+        });
+        
+        return;
+    }
+    
+    //正在下载，并且URL＝_downloadUrl,才会取消下载
+    [self.downloadTask cancelByProducingResumeData:^(NSData * resumeData) {
+        
+        [self.timer invalidate];
+        self.timer = nil;
+        
+        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
+        [resumeData writeToFile:filePath atomically:YES];
+        
+        self.currentModel.state = DownloadStatePause;
+        [DownloadModel update:self.currentModel];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.DownloadState) {
+                self.DownloadState(DownloadStatePause);
             }
         });
     }];
+    
 }
 
-- (BOOL)isRunning {
-    return (_downloadTask && _downloadTask.state == NSURLSessionTaskStateRunning);
-}
-
-#pragma mark NSURLSessionDataDelegate
+#pragma mark  - NSURLSessionDataDelegate
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
-    NSLog(@"didReceiveData:%@",@"data");
+//    NSLog(@"didReceiveData:%@",@"data");
+    
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.fileName];
+    NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+    NSError *error;
+    [data writeToURL:fileUrl options:NSDataWritingAtomic error:&error];
+    _currentModel.bytesReceived = _currentModel.bytesReceived + data.length;
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(nonnull NSURLSessionDataTask *)dataTask didReceiveResponse:(nonnull NSURLResponse *)response completionHandler:(nonnull void (^)(NSURLSessionResponseDisposition))completionHandler {
-    NSLog(@"completionHandler:%@",@"response");
+    
+    NSInteger thisTotalLength = response.expectedContentLength; // [response.allHeaderFields[@"Content-Length"] integerValue]
+    NSInteger hasDownloadLength = [self hasDownloadLength];
+    NSInteger totalLength = thisTotalLength + hasDownloadLength;
+    
+    _currentModel.bytesReceived = hasDownloadLength;
+    _currentModel.bytesTotal = totalLength;
+    
     completionHandler(NSURLSessionResponseAllow);
 }
 
-#pragma mark NSURLSessionDownloadDelegate
+- (NSInteger)hasDownloadLength {
+    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.fileName];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+    return [fileAttributes[NSFileSize] integerValue];
+}
+
+#pragma mark  - NSURLSessionDownloadDelegate
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     NSLog(@"didFinishDownloadingToURL:%@",location.absoluteString);
-    
-    [self.timer invalidate];
-    self.timer = nil;
     
     NSString *resumePath = [KDocumentPath stringByAppendingPathComponent:_currentModel.resumePath];
     unlink([resumePath UTF8String]);
@@ -145,14 +259,6 @@ static DownloadManager *manager = nil;
     unlink([filePath UTF8String]);
     NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
     [[NSFileManager defaultManager] moveItemAtURL:location toURL:fileUrl error:&error];
-    
-    [DownloadModel remove:_currentModel];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.DownloadCompletion) {
-            self.DownloadCompletion(!error,error);
-        }
-    });
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
@@ -173,10 +279,29 @@ static DownloadManager *manager = nil;
 
 #pragma mark NSURLSessionTaskDelegate
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-//    if (error) {
-////        NSURLSessionDownloadTaskResumeData
-//        NSLog(@"didCompleteWithError:__%@",error);
-//    }
+    NSLog(@"didCompleteWithError");
+    
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    if (error) {
+        if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"cancelled"]) {
+            return;
+        }
+        if (self.DownloadState) {
+            self.DownloadState(DownloadStateFailure);
+        }
+    } else {
+        [DownloadModel remove:self.currentModel];
+        self.currentModel = nil;
+        self.taskUrl = nil;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.DownloadCompletion) {
+                self.DownloadCompletion(!error,error);
+            }
+        });
+    }
 }
 
 #pragma mark
@@ -190,10 +315,12 @@ static DownloadManager *manager = nil;
 
 - (NSTimer *)timer {
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * timer) {
+            
             if (self.DownloadProgress) {
                 self.DownloadProgress(_currentModel.bytesReceived,_currentModel.bytesTotal);
             }
+            
         }];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }

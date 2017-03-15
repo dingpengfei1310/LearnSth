@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef NS_ENUM(NSInteger,DownloadState) {
     DownloadStateWaiting = 0,
     DownloadStateRunning,
-    DownloadStatePause
+    DownloadStatePause,
+    DownloadStateFailure
 };
 
 @interface DownloadModel : NSObject

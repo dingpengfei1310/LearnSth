@@ -11,13 +11,13 @@
 #import "DownloadViewCell.h"
 #import "DownloadModel.h"
 
-#import "HttpManager.h"
-
 @interface DownloadViewController ()<UITableViewDataSource,UITableViewDelegate,DownloadCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSDictionary *downloadFile;
 @property (nonatomic, strong) DownloadModel *currentModel;
+@property (nonatomic, assign) NSInteger downloadingIndex;
+
 @end
 
 @implementation DownloadViewController
@@ -29,21 +29,24 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(addFile)];
     
-    _downloadFile = [DownloadModel loadAllDownload];
+    self.downloadingIndex = -1;
+    self.downloadFile = [DownloadModel loadAllDownload];
     [self.view addSubview:self.tableView];
 }
 
 - (void)addFile {
-    NSString * downloadURLString1 = @"http://baobab.wdjcdn.com/14564977406580.mp4";
-    NSString * downloadURLString2 = @"http://baobab.wdjcdn.com/1442142801331138639111.mp4";
+    NSString * downloadURLString1 = @"http://baobab.wdjcdn.com/1442142801331138639111.mp4";
+    NSString * downloadURLString2 = @"http://baobab.wdjcdn.com/14564977406580.mp4";
     
     DownloadModel *model1 = [[DownloadModel alloc] init];
     model1.fileName = @"下载1.mp4";
     model1.fileUrl = downloadURLString1;
+    model1.state = DownloadStatePause;
     
     DownloadModel *model2 = [[DownloadModel alloc] init];
     model2.fileName = @"下载2.mp4";
     model2.fileUrl = downloadURLString2;
+    model2.state = DownloadStatePause;
     
     [DownloadModel add:model2];
     [DownloadModel add:model1];
@@ -52,7 +55,6 @@
     [self.tableView reloadData];
 }
 
-
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.downloadFile.allKeys.count;
@@ -60,18 +62,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DownloadViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.index = indexPath.row;
     cell.delegate = self;
     
     DownloadModel *model = self.downloadFile.allValues[indexPath.row];
     cell.fileModel = model;
-//    if (model.state == DownloadStateRunning) {
-//        [cell.delegate downloadButtonClickIndex:indexPath.row running:NO];
-//    }
+    if (model.state == DownloadStateRunning || model.state == DownloadStateWaiting) {
+        [self downloadCell:cell index:indexPath.row];
+    } else if (model.state == DownloadStateWaiting && ![DownloadManager shareManager].isDownloading) {
+        [self downloadCell:cell index:indexPath.row];
+    }
     
     return cell;
 }
-
+ 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [cell setSeparatorInset:UIEdgeInsetsZero];
 }
@@ -85,48 +90,77 @@
     NSURL *url = [NSURL URLWithString:str];
     
     if (running) {
-        [[DownloadManager shareManager] pause];
-    } else {
-        if ([[DownloadManager shareManager] isRunning]) {
-            DownloadModel *waitingModel = [[DownloadModel alloc] init];
+        if ([DownloadManager shareManager].isDownloading && self.downloadingIndex != index) {
+            NSString *str = self.downloadFile.allKeys[index];
+            DownloadModel *waitingModel = self.downloadFile[str];
             waitingModel.state = DownloadStateWaiting;
             cell.fileModel = waitingModel;
             
-            return;
+            [DownloadModel update:waitingModel];
+        } else {
+            [self downloadCell:cell index:index];
+        }
+    } else {
+        if ([DownloadManager shareManager].isDownloading && self.downloadingIndex == index) {
+            [[DownloadManager shareManager] pauseWithUrl:url];
+            
+        } else {
+            NSString *str = self.downloadFile.allKeys[index];
+            DownloadModel *pauseModel = self.downloadFile[str];
+            pauseModel.state = DownloadStatePause;
+            cell.fileModel = pauseModel;
+            
+            [DownloadModel update:pauseModel];
+        }
+    }
+}
+
+- (void)downloadCell:(DownloadViewCell *)cell index:(NSInteger)index {
+    self.downloadingIndex = index;
+    NSString *key = self.downloadFile.allKeys[index];
+    NSURL *url = [NSURL URLWithString:key];
+    
+    _currentModel = self.downloadFile[key];
+    __weak typeof(self) wSelf = self;
+    __weak typeof(cell) wCell = cell;
+    
+    [[DownloadManager shareManager] downloadWithUrl:url state:^(DownloadState state) {
+        switch (state) {
+            case DownloadStatePause:
+            {
+                wSelf.currentModel.state = DownloadStatePause;
+                wCell.fileModel = wSelf.currentModel;
+                [DownloadModel update:wSelf.currentModel];
+                
+                wSelf.downloadFile = [DownloadModel loadAllDownload];
+                [wSelf.tableView reloadData];
+                break;
+            }
+            case DownloadStateFailure:
+            {
+                wSelf.currentModel.state = DownloadStateFailure;
+                wCell.fileModel = wSelf.currentModel;
+                [DownloadModel update:wSelf.currentModel];
+                
+                wSelf.downloadFile = [DownloadModel loadAllDownload];
+                [wSelf.tableView reloadData];
+                break;
+            }
+            default:
+                break;
         }
         
-        __weak typeof(self) wSelf = self;
-//        __weak typeof(cell) wCell = cell;
-        _currentModel = self.downloadFile[str];
+    } progress:^(int64_t bytesWritten, int64_t bytesTotal) {
         
-        [[DownloadManager shareManager] downloadWithUrl:url state:^(NSURLSessionTaskState state) {
-//            self.currentModel.state = DownloadStatePause;
-//            cell.fileModel = self.currentModel;
-            
-        } progress:^(int64_t bytesWritten, int64_t bytesTotal) {
-//            __strong typeof(wSelf) strSelf = wSelf;
-//            __strong typeof(wCell) strCell = wCell;
-//            
-//            strSelf.currentModel.bytesReceived = bytesWritten;
-//            strSelf.currentModel.bytesTotal = bytesTotal;
-//            strSelf.currentModel.state = DownloadStateRunning;
-//            strCell.fileModel = strSelf.currentModel;
-//            
-//            NSLog(@"controller: - %lld - %lld",strSelf.currentModel.bytesReceived,bytesWritten);
-            
-            wSelf.currentModel.bytesReceived = bytesWritten;
-            wSelf.currentModel.bytesTotal = bytesTotal;
-            wSelf.currentModel.state = DownloadStateRunning;
-            cell.fileModel = wSelf.currentModel;
-//
-            NSLog(@"controller: - %lld - %lld",wSelf.currentModel.bytesReceived,bytesWritten);
-            
-        } completion:^(BOOL isSuccess, NSError *error) {
-//            self.downloadFile = [DownloadModel loadAllDownload];
-//            [self.tableView reloadData];
-        }];
-        
-    }
+        wSelf.currentModel.bytesReceived = bytesWritten;
+        wSelf.currentModel.bytesTotal = bytesTotal;
+        wSelf.currentModel.state = DownloadStateRunning;
+        wCell.fileModel = wSelf.currentModel;
+        NSLog(@"%ld",bytesWritten);
+    } completion:^(BOOL isSuccess, NSError *error) {
+        wSelf.downloadFile = [DownloadModel loadAllDownload];
+        [wSelf.tableView reloadData];
+    }];
 }
 
 #pragma mark
@@ -144,10 +178,6 @@
         _tableView.rowHeight = 75;
     }
     return _tableView;
-}
-
-- (void)dealloc {
-    NSLog(@"DownloadViewController: -- dealloc");
 }
 
 - (void)didReceiveMemoryWarning {

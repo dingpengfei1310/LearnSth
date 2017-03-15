@@ -42,18 +42,21 @@
         _startButon.selected = NO;
         stateString = @"暂停";
     } else if (fileModel.state == DownloadStateWaiting) {
-        _startButon.selected = NO;
+        _startButon.selected = YES;
         stateString = @"等待中";
     } else if (fileModel.state == DownloadStateRunning) {
         _startButon.selected = YES;
         stateString = @"下载中";
+    } else if (fileModel.state == DownloadStateFailure) {
+        _startButon.selected = NO;
+        stateString = @"下载失败";
     }
     self.stateLabel.text = stateString;
     
     if (fileModel.bytesTotal > 0) {
         self.sizeLabel.text = [NSString stringWithFormat:@"%.1fM/%.1fM",fileModel.bytesReceived / 1024.0 / 1024,fileModel.bytesTotal / 1024.0 / 1024];
         self.progressView.progress = fileModel.bytesReceived / 1.0 / fileModel.bytesTotal;
-        NSLog(@"cell: - %lld",fileModel.bytesReceived);
+        
     } else {
         self.sizeLabel.text = @"--/--";
         self.progressView.progress = 0;
@@ -61,16 +64,12 @@
 }
 
 - (IBAction)buttonClick:(UIButton *)sender {
-    [self.delegate downloadButtonClickIndex:self.index running:_startButon.selected];
     _startButon.selected = !_startButon.selected;
+    [self.delegate downloadButtonClickIndex:self.index running:_startButon.selected];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-}
-
-- (void)dealloc {
-    NSLog(@"DownloadViewCell: -- dealloc");
 }
 
 @end
