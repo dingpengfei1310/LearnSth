@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DownloadModel.h"
 
 @protocol DownloadCellDelegate <NSObject>
 @required
-- (void)downloadButtonClickIndex:(NSInteger)index running:(BOOL)running;
+- (void)downloadButtonClickIndex:(NSInteger)index state:(DownloadState)state;
 @end
 
-@class DownloadModel;
 @interface DownloadViewCell : UITableViewCell
 
 @property (nonatomic, assign) NSInteger index;

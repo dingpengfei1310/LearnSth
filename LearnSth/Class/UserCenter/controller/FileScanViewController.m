@@ -59,17 +59,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectIndex = indexPath.row;
     
-    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
-    if ([filePath hasSuffix:@".mp4"]) {
-        VideoPlayerController *controller = [[VideoPlayerController alloc] init];
-        controller.urlString = filePath;
-        controller.BackBlock = ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
-        [self presentViewController:controller animated:YES completion:nil];
-        
-        return;
-    }
+//    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
+//    if ([filePath hasSuffix:@".mp4"]) {
+//        VideoPlayerController *controller = [[VideoPlayerController alloc] init];
+//        controller.urlString = filePath;
+//        controller.BackBlock = ^{
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        };
+//        [self presentViewController:controller animated:YES completion:nil];
+//        
+//        return;
+//    }
     
     QLPreviewController *previewController = [[QLPreviewController alloc] init];
     previewController.dataSource = self;

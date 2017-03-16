@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger,DownloadState) {
     DownloadStateWaiting = 0,
     DownloadStateRunning,
     DownloadStatePause,
+    DownloadStateCompletion,
     DownloadStateFailure
 };
 
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSInteger,DownloadState) {
 @property (nonatomic, copy) NSString *fileName;
 
 @property (nonatomic, copy, readonly) NSString *resumePath;//用处：断点下载
+@property (nonatomic, copy, readonly) NSString *savePath;//文件保存位置
 
 @property (nonatomic, assign) DownloadState state;
 @property (nonatomic, assign) int64_t bytesReceived;

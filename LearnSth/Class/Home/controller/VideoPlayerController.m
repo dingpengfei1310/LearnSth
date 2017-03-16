@@ -11,6 +11,9 @@
 
 @interface VideoPlayerController () {
     id playerTimeObserver;
+    
+    CGFloat viewHeight;
+    CGFloat viewWidth;
 }
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -18,17 +21,22 @@
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
 @property (nonatomic, assign) BOOL statusBarHidden;
+@property (nonatomic, assign) BOOL isLandscape;//是否横屏
+
 //@property (nonatomic, strong) NSTimer *timer;
 
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIView *bottomView;
 
 @property (nonatomic, strong) UIButton *playButton;
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) UISlider *slider;
-@property (nonatomic, strong) UILabel *totalSecondsLabel;
+@property (nonatomic, strong) UIProgressView *loadingProgress;//加载进度
+@property (nonatomic, strong) UISlider *playProgress;//播放进度
+@property (nonatomic, assign) BOOL isSliding;
 
-@property (nonatomic, assign) double totalSeconds;
+@property (nonatomic, strong) UILabel *currentTimeLabel;
+@property (nonatomic, strong) UILabel *totalTimeLabel;
+
+@property (nonatomic, assign) double totalTime;
 
 //@property (nonatomic, assign) CGPoint lastPoint;
 
@@ -40,15 +48,21 @@
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscapeLeft;
+    return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationLandscapeLeft;
+    if (self.isLandscape) {
+        return UIInterfaceOrientationLandscapeLeft;
+    }
+    return UIInterfaceOrientationPortrait;
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return self.statusBarHidden;
+    if (self.isLandscape) {
+        return self.statusBarHidden;
+    }
+    return NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -58,12 +72,20 @@
 #pragma mark
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    self.isLandscape = NO;
+    viewWidth = Screen_W;
+    viewHeight = Screen_H;
+    
+    if (self.isLandscape) {
+        viewHeight = Screen_W;
+        viewWidth = Screen_H;
+    }
     
     if (self.urlString) {
-//        self.urlString = @"http://baobab.wdjcdn.com/14564977406580.mp4";
-        
         [self.view.layer addSublayer:self.playerLayer];
-        
         [self addPlayerObserver];
         [self initSubView];
         [self addGesture];
@@ -83,8 +105,11 @@
 }
 
 - (void)initSubView {
-    CGFloat viewHeight = Screen_W;
-    CGFloat viewWidth = Screen_H;
+    if (!self.isLandscape) {
+        UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 20)];
+        blackView.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:blackView];
+    }
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, viewWidth, 44)];
     topView.backgroundColor = [UIColor clearColor];
@@ -101,9 +126,9 @@
     [self.view addSubview:bottomView];
     _bottomView = bottomView;
     
-    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [playButton setTitle:@"播放" forState:UIControlStateNormal];
-    [playButton setTitle:@"暂停" forState:UIControlStateSelected];
+    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
+    [playButton setImage:[UIImage imageNamed:@"playerPause"] forState:UIControlStateSelected];
+    [playButton setImage:[UIImage imageNamed:@"playerStart"] forState:UIControlStateNormal];
     playButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [playButton addTarget:self action:@selector(videoPaly) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:playButton];
@@ -115,20 +140,30 @@
     progressView.trackTintColor = [UIColor whiteColor];
     progressView.progressTintColor = KBaseBlueColor;
     [bottomView addSubview:progressView];
-    _progressView = progressView;
+    _loadingProgress = progressView;
     
     UISlider *slider = [[UISlider alloc] initWithFrame:progressView.frame];
     slider.maximumTrackTintColor = [UIColor clearColor];
     slider.minimumTrackTintColor = [UIColor clearColor];
     [slider setThumbImage:[UIImage imageNamed:@"whiteDot"] forState:UIControlStateNormal];
+    [slider addTarget:self action:@selector(playerSeekTo:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(sliderTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:slider];
-    _slider = slider;
+    _playProgress = slider;
+    
+    UILabel *currentSecondsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(progressView.frame) - 70, 0, 60, 44)];
+    currentSecondsLabel.font = [UIFont systemFontOfSize:12];
+    currentSecondsLabel.textColor = [UIColor whiteColor];
+    currentSecondsLabel.textAlignment = NSTextAlignmentRight;
+    [bottomView addSubview:currentSecondsLabel];
+    _currentTimeLabel = currentSecondsLabel;
     
     UILabel *totalSecondsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(progressView.frame) + 10, 0, 60, 44)];
     totalSecondsLabel.font = [UIFont systemFontOfSize:12];
     totalSecondsLabel.textColor = [UIColor whiteColor];
     [bottomView addSubview:totalSecondsLabel];
-    _totalSecondsLabel = totalSecondsLabel;
+    _totalTimeLabel = totalSecondsLabel;
 }
 
 - (void)addGesture {
@@ -156,12 +191,12 @@
     [_playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
     
     __weak typeof(self) wSelf = self;
-    playerTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 2) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+    playerTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         
-//        double currentSeconds = CMTimeGetSeconds(time);
-//        double totalSeconds = CMTimeGetSeconds(wSelf.playerItem.duration);
-//        wSelf.progressView.progress = currentSeconds / totalSeconds;
-        wSelf.slider.value = CMTimeGetSeconds(time);
+        if (!wSelf.isSliding) {
+            wSelf.playProgress.value = CMTimeGetSeconds(time);
+            wSelf.currentTimeLabel.text = [wSelf timeStringWith:CMTimeGetSeconds(time)];
+        }
     }];
 }
 
@@ -176,34 +211,41 @@
             CMTime duration = item.duration;
             [self setMaxDuration:CMTimeGetSeconds(duration)];
             [self videoPaly];
+            
+            [self hideStatusBar];
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSTimeInterval timeInterval = [self availableDurationRanges]; // 缓冲时间
-//        CGFloat totalDuration = CMTimeGetSeconds(_playerItem.duration); // 总时间
-        self.progressView.progress = timeInterval / _totalSeconds;
-//        [self.loadedProgress setProgress:timeInterval / totalDuration animated:YES]; // 更新缓冲条
+        self.loadingProgress.progress = timeInterval / _totalTime;// 更新缓冲条
     }
 }
 
-- (void)setMaxDuration:(NSInteger)totalSecond {
-    _totalSeconds = totalSecond;
-    _slider.maximumValue = totalSecond;
-    
+- (NSString *)timeStringWith:(NSInteger)seconds {
     NSInteger hour = 0;
     NSInteger minute = 0;
     NSInteger second = 0;
     
-    if (totalSecond >= 3600) {
-        hour = totalSecond / 3600;
-        minute = (totalSecond % 3600) / 600;
-        second = totalSecond % 60;
-        self.totalSecondsLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+    NSString *time;
+    if (seconds >= 3600) {
+        hour = seconds / 3600;
+        minute = (seconds % 3600) / 600;
+        second = seconds % 60;
+        time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
     } else {
-        minute = totalSecond / 60;
-        second = totalSecond % 60;
-        self.totalSecondsLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
+        minute = seconds / 60;
+        second = seconds % 60;
+        time = [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
     }
+    
+    return time;
+}
+
+- (void)setMaxDuration:(NSInteger)totalSecond {
+    _totalTime = totalSecond;
+    _playProgress.maximumValue = totalSecond;
+    
+    self.totalTimeLabel.text = [self timeStringWith:totalSecond];
 }
 
 // 已缓冲进度
@@ -232,7 +274,7 @@
 
 - (void)playerDidPlayToEnd {
     [self.player seekToTime:CMTimeMake(0, 1)];
-//    self.playButton.selected = NO;
+    self.playButton.selected = NO;
 }
 
 - (void)back {
@@ -243,7 +285,6 @@
 }
 
 - (void)videoPaly {
-    
     if (self.player.rate) {
         [self.player pause];
         _playButton.selected = !_playButton.selected;
@@ -256,8 +297,25 @@
 }
 
 #pragma mark
+- (void)playerSeekTo:(UISlider *)slider {
+    [self.playerItem seekToTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
+    self.currentTimeLabel.text = [self timeStringWith:slider.value];
+}
+
+- (void)sliderTouchDown:(UISlider *)slider {
+    self.isSliding = YES;
+}
+
+- (void)sliderTouchUpInside:(UISlider *)slider {
+    self.isSliding = NO;
+}
+
+#pragma mark
 - (void)tapOnPLayer:(UITapGestureRecognizer *)tap {
     [self hideStatusBar];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideStatusBarIfNeed) object:nil];
+    [self performSelector:@selector(hideStatusBarIfNeed) withObject:nil afterDelay:5.0];
 }
 
 - (void)doubleTapOnPLayer:(UITapGestureRecognizer *)tap {
@@ -303,7 +361,13 @@
     int32_t timescale = self.playerItem.duration.timescale;
     [self.playerItem seekToTime:CMTimeMake((currentSeconds + 5) * timescale, timescale)];
     
-    self.slider.value = currentSeconds + 5;
+    self.playProgress.value = currentSeconds + 5;
+}
+
+- (void)hideStatusBarIfNeed {
+    if (!self.statusBarHidden) {
+        [self hideStatusBar];
+    }
 }
 
 #pragma mark
@@ -321,8 +385,12 @@
         _player = [AVPlayer playerWithPlayerItem:_playerItem];
         
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = CGRectMake(0, 0, Screen_H, Screen_W);
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        if (self.isLandscape) {
+            _playerLayer.frame = CGRectMake(0, 0, Screen_H, Screen_W);
+        } else {
+            _playerLayer.frame = CGRectMake(0, 20, Screen_W, Screen_W * 0.5);
+        }
+        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     }
     return _playerLayer;
 }

@@ -7,6 +7,8 @@
 //
 
 #import "DownloadViewController.h"
+#import "VideoPlayerController.h"
+
 #import "DownloadManager.h"
 #import "DownloadViewCell.h"
 #import "DownloadModel.h"
@@ -67,8 +69,9 @@
     cell.delegate = self;
     
     DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+    
     cell.fileModel = model;
-    if (model.state == DownloadStateRunning || model.state == DownloadStateWaiting) {
+    if (model.state == DownloadStateRunning) {
         [self downloadCell:cell index:indexPath.row];
     } else if (model.state == DownloadStateWaiting && ![DownloadManager shareManager].isDownloading) {
         [self downloadCell:cell index:indexPath.row];
@@ -81,18 +84,55 @@
     [cell setSeparatorInset:UIEdgeInsetsZero];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+    if (model.state == DownloadStateCompletion) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+    [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
+                      cancel:^{
+                          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                      } destructive:^{
+                          NSFileManager *fileManager = [NSFileManager defaultManager];
+                          [fileManager removeItemAtPath:model.savePath error:NULL];
+                          
+                          [DownloadModel remove:model];
+                          self.downloadFile = [DownloadModel loadAllDownload];
+                          
+                          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                      }];
+}
+
 #pragma mark DownloadCellDelegate
-- (void)downloadButtonClickIndex:(NSInteger)index running:(BOOL)running {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    DownloadViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    NSString *str = self.downloadFile.allKeys[index];
-    NSURL *url = [NSURL URLWithString:str];
-    
-    if (running) {
+- (void)downloadButtonClickIndex:(NSInteger)index state:(DownloadState)state {
+    if (state == DownloadStateRunning) {
+        DownloadModel *model = self.downloadFile.allValues[index];
+        NSURL *url = [NSURL URLWithString:model.fileUrl];
+        [[DownloadManager shareManager] pauseWithUrl:url];
+        
+    } else if (state == DownloadStateWaiting) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        DownloadViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        DownloadModel *model = self.downloadFile.allValues[index];
+        model.state = DownloadStatePause;
+        cell.fileModel = model;
+        
+        [DownloadModel update:model];
+        
+    } else if (state == DownloadStatePause || state == DownloadStateFailure) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        DownloadViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
         if ([DownloadManager shareManager].isDownloading && self.downloadingIndex != index) {
-            NSString *str = self.downloadFile.allKeys[index];
-            DownloadModel *waitingModel = self.downloadFile[str];
+            
+            DownloadModel *waitingModel = self.downloadFile.allValues[index];
             waitingModel.state = DownloadStateWaiting;
             cell.fileModel = waitingModel;
             
@@ -100,19 +140,18 @@
         } else {
             [self downloadCell:cell index:index];
         }
-    } else {
-        if ([DownloadManager shareManager].isDownloading && self.downloadingIndex == index) {
-            [[DownloadManager shareManager] pauseWithUrl:url];
-            
-        } else {
-            NSString *str = self.downloadFile.allKeys[index];
-            DownloadModel *pauseModel = self.downloadFile[str];
-            pauseModel.state = DownloadStatePause;
-            cell.fileModel = pauseModel;
-            
-            [DownloadModel update:pauseModel];
-        }
+        
+    } else if (state == DownloadStateCompletion) {
+        DownloadModel *model = self.downloadFile.allValues[index];
+        
+        VideoPlayerController *controller = [[VideoPlayerController alloc] init];
+        controller.urlString = model.savePath;
+        controller.BackBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:controller animated:YES completion:nil];
     }
+    
 }
 
 - (void)downloadCell:(DownloadViewCell *)cell index:(NSInteger)index {
@@ -156,7 +195,8 @@
         wSelf.currentModel.bytesTotal = bytesTotal;
         wSelf.currentModel.state = DownloadStateRunning;
         wCell.fileModel = wSelf.currentModel;
-        NSLog(@"%ld",bytesWritten);
+        NSLog(@"%lld",bytesWritten);
+        
     } completion:^(BOOL isSuccess, NSError *error) {
         wSelf.downloadFile = [DownloadModel loadAllDownload];
         [wSelf.tableView reloadData];

@@ -130,11 +130,6 @@ const NSTimeInterval timeoutInterval = 15.0;
 }
 
 #pragma mark
-
-- (void)downloadFile {
-}
-
-#pragma mark
 - (NSString *)jsonModel:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel

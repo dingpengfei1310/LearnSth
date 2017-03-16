@@ -10,21 +10,23 @@
 #import "NSString+Tool.h"
 #import <objc/runtime.h>
 
-static NSString *KDownloadCache = @"DownloadCache";
+static NSString *KDownloadCachePlist = @"DownloadCache.plist";
+static NSString *KDownloadDirectory = @"download";
 
 @implementation DownloadModel
 
 - (NSString *)resumePath {
-    if (self.fileUrl) {
-        return [self.fileUrl MD5String];
-    }
-    return @"";
+    return [[DownloadModel directoryPath] stringByAppendingPathComponent:[self.fileUrl MD5String]];
+}
+
+- (NSString *)savePath {
+    return [[DownloadModel directoryPath] stringByAppendingPathComponent:self.fileName];
 }
 
 #pragma mark
 + (NSDictionary *)loadAllDownload {
-    NSDictionary *downloadDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KDownloadCache];
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithDictionary:downloadDict];
+    NSDictionary *downloadDict = [NSDictionary dictionaryWithContentsOfFile:[DownloadModel plistPath]];
+    NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     
     for (NSString *key in downloadDict.allKeys) {
         NSDictionary *dict = downloadDict[key];
@@ -37,8 +39,7 @@ static NSString *KDownloadCache = @"DownloadCache";
 }
 
 + (void)add:(DownloadModel *)model {
-    NSDictionary *downloadDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KDownloadCache];
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithDictionary:downloadDict];
+    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithContentsOfFile:[DownloadModel plistPath]] ?:[NSMutableDictionary dictionary];
     
     if (![dictM.allKeys containsObject:model.fileUrl]) {
         [dictM setObject:[model dictionary] forKey:model.fileUrl];
@@ -47,8 +48,7 @@ static NSString *KDownloadCache = @"DownloadCache";
 }
 
 + (void)update:(DownloadModel *)model {
-    NSDictionary *downloadDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KDownloadCache];
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithDictionary:downloadDict];
+    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithContentsOfFile:[DownloadModel plistPath]];
     
     if ([dictM.allKeys containsObject:model.fileUrl]) {
         [dictM setObject:[model dictionary] forKey:model.fileUrl];
@@ -57,8 +57,7 @@ static NSString *KDownloadCache = @"DownloadCache";
 }
 
 + (void)remove:(DownloadModel *)model {
-    NSDictionary *downloadDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KDownloadCache];
-    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithDictionary:downloadDict];
+    NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithContentsOfFile:[DownloadModel plistPath]];
     
     if ([dictM.allKeys containsObject:model.fileUrl]) {
         [dictM removeObjectForKey:model.fileUrl];
@@ -66,15 +65,27 @@ static NSString *KDownloadCache = @"DownloadCache";
     }
 }
 
-#pragma mark
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-}
-
 + (void)setDownload:(NSDictionary *)dict {
-    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KDownloadCache];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [dict writeToFile:[DownloadModel plistPath] atomically:YES];
 }
 
++ (NSString *)directoryPath {
+    NSString *directoryPath = [KDocumentPath stringByAppendingPathComponent:KDownloadDirectory];
+    BOOL flag;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (!([fileManager fileExistsAtPath:directoryPath isDirectory:&flag] && flag)) {
+        [fileManager createDirectoryAtPath:directoryPath withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    
+    return directoryPath;
+}
+
++ (NSString *)plistPath {
+    return [[DownloadModel directoryPath] stringByAppendingPathComponent:KDownloadCachePlist];;
+}
+
+#pragma mark
 - (NSDictionary *)dictionary {
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     
@@ -88,6 +99,9 @@ static NSString *KDownloadCache = @"DownloadCache";
     }
     
     return [NSDictionary dictionaryWithDictionary:mutDict];
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
 }
 
 @end

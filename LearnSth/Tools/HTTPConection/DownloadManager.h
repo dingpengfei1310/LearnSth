@@ -23,11 +23,6 @@
 //                 progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
 //               completion:(void (^)(BOOL isSuccess, NSError *error))completion;
 
-- (void)downloadWithUrl:(NSURL *)url
-                  state:(void (^)(DownloadState state))state
-               progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
-             completion:(void (^)(BOOL isSuccess, NSError *error))completion;
-
 
 - (BOOL)isDownloading;
 

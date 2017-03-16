@@ -7,7 +7,6 @@
 //
 
 #import "DownloadViewCell.h"
-#import "DownloadModel.h"
 
 @interface DownloadViewCell ()
 
@@ -25,8 +24,6 @@
     [super awakeFromNib];
     
     [self.startButon setBackgroundColor:KBackgroundColor];
-    [self.startButon setTitle:@"开始" forState:UIControlStateNormal];
-    [self.startButon setTitle:@"暂停" forState:UIControlStateSelected];
     
     self.sizeLabel.text = @"--/--";
     self.progressView.progress = 0;
@@ -36,23 +33,6 @@
     _fileModel = fileModel;
     
     self.titleLabel.text = fileModel.fileName;
-    
-    NSString *stateString = @"";
-    if (fileModel.state == DownloadStatePause) {
-        _startButon.selected = NO;
-        stateString = @"暂停";
-    } else if (fileModel.state == DownloadStateWaiting) {
-        _startButon.selected = YES;
-        stateString = @"等待中";
-    } else if (fileModel.state == DownloadStateRunning) {
-        _startButon.selected = YES;
-        stateString = @"下载中";
-    } else if (fileModel.state == DownloadStateFailure) {
-        _startButon.selected = NO;
-        stateString = @"下载失败";
-    }
-    self.stateLabel.text = stateString;
-    
     if (fileModel.bytesTotal > 0) {
         self.sizeLabel.text = [NSString stringWithFormat:@"%.1fM/%.1fM",fileModel.bytesReceived / 1024.0 / 1024,fileModel.bytesTotal / 1024.0 / 1024];
         self.progressView.progress = fileModel.bytesReceived / 1.0 / fileModel.bytesTotal;
@@ -61,11 +41,39 @@
         self.sizeLabel.text = @"--/--";
         self.progressView.progress = 0;
     }
+    
+    NSString *stateString = @"";
+    NSString *buttonTitle = @"";
+    
+    if (fileModel.state == DownloadStatePause) {
+        stateString = @"暂停";
+        buttonTitle = @"开始";
+    } else if (fileModel.state == DownloadStateWaiting) {
+        stateString = @"等待中";
+        buttonTitle = @"暂停";
+    } else if (fileModel.state == DownloadStateRunning) {
+        stateString = @"下载中";
+        buttonTitle = @"暂停";
+    } else if (fileModel.state == DownloadStateCompletion) {
+        stateString = @"下载完成";
+        buttonTitle = @"播放";
+        
+        self.sizeLabel.text = [NSString stringWithFormat:@"%.1fM",fileModel.bytesTotal / 1024.0 / 1024];
+        self.progressView.hidden = YES;
+        
+    } else if (fileModel.state == DownloadStateFailure) {
+        stateString = @"下载失败";
+        buttonTitle = @"重新下载";
+    }
+    
+    self.stateLabel.text = stateString;
+    [self.startButon setTitle:buttonTitle forState:UIControlStateNormal];
 }
 
 - (IBAction)buttonClick:(UIButton *)sender {
-    _startButon.selected = !_startButon.selected;
-    [self.delegate downloadButtonClickIndex:self.index running:_startButon.selected];
+    if ([self.delegate respondsToSelector:@selector(downloadButtonClickIndex:state:)]) {
+        [self.delegate downloadButtonClickIndex:self.index state:self.fileModel.state];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
