@@ -47,6 +47,7 @@
 - (void)setNavigationBar {
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     NSDictionary *attributes = @{
@@ -94,6 +95,14 @@
         }
     }];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (self.isAutorotate) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+//        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    }
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 //- (void)takeScreenshot:(NSNotification *)notification {

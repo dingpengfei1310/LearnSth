@@ -146,6 +146,7 @@
         
         VideoPlayerController *controller = [[VideoPlayerController alloc] init];
         controller.urlString = model.savePath;
+        
         controller.BackBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         };
