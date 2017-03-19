@@ -98,10 +98,21 @@
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    
     if (self.isAutorotate) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
-//        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
     }
+    
+    if (application.statusBarOrientation <= UIInterfaceOrientationPortrait) {
+        return UIInterfaceOrientationMaskPortrait;
+        
+    } else if (application.statusBarOrientation == UIInterfaceOrientationLandscapeLeft) {
+        return UIInterfaceOrientationMaskLandscapeLeft;
+        
+    } else if (application.statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
+    
     return UIInterfaceOrientationMaskPortrait;
 }
 

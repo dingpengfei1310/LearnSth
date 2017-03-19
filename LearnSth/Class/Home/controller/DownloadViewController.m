@@ -152,7 +152,6 @@
         };
         [self presentViewController:controller animated:YES completion:nil];
     }
-    
 }
 
 - (void)downloadCell:(DownloadViewCell *)cell index:(NSInteger)index {

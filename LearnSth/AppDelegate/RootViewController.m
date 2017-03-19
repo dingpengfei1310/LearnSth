@@ -49,7 +49,6 @@
     NSString *user = @"22";
     
     NSArray *titles = @[home,@"",user];
-    NSArray *images = @[@"star",@"",@"defaultHeader"];
     CGFloat buttonWidth = totalWidth / titles.count;
     
     for (int i = 0; i < titles.count; i++) {
@@ -60,8 +59,7 @@
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
         [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
-        [button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:11]];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         if (i == index) {
