@@ -10,15 +10,15 @@
 #import "AppDelegate.h"
 #import "VideoPlayerView.h"
 
-@interface VideoPlayerController () {
+@interface VideoPlayerController () <UITableViewDataSource,UITableViewDelegate>{
     id playerTimeObserver;
 }
 
 @property (nonatomic, assign) BOOL statusBarHidden;
 @property (nonatomic, assign) BOOL isLandscape;//是否横屏
 
-//@property (nonatomic, strong) UITableView *tableView;
-//@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @property (nonatomic, strong) VideoPlayerView *playerView;
 
@@ -41,11 +41,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, 20)];
-    statusBarView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:statusBarView];
+    self.dataArray = @[@"",@"",@"",@"",@"",@"",@"",@""];
     
     [self.view addSubview:self.playerView];
+    [self.view addSubview:self.tableView];
+    
+    [self.view bringSubviewToFront:self.playerView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,9 +70,7 @@
         
     } else {
         [self.playerView pausePlayer];
-        if (self.BackBlock) {
-            self.BackBlock();
-        }
+        self.BackBlock ? self.BackBlock() : 0;
     }
 }
 
@@ -79,7 +78,7 @@
     self.isLandscape = !self.isLandscape;
     UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
     if (self.isLandscape) {//要转成横屏
-        orientation = UIInterfaceOrientationLandscapeLeft;
+        orientation = UIInterfaceOrientationLandscapeRight;
     }
     
     NSNumber *orientationTarget = [NSNumber numberWithInt:orientation];
@@ -94,34 +93,37 @@
     self.isLandscape = (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
 }
 
-//#pragma mark
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.dataArray.count;
-//}
-//
+#pragma mark
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    [cell setSeparatorInset:UIEdgeInsetsZero];
 //}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    }
-//    cell.textLabel.text = @"rerwerwe";
-//    
-//    return cell;
-//}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.textLabel.text = @"rerwerwe";
+    
+    return cell;
+}
 
 #pragma mark - 
 - (VideoPlayerView *)playerView {
     if (!_playerView) {
         
+        UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, 20)];
+        statusBarView.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:statusBarView];
+        
         __weak typeof(self) wSelf = self;
         _playerView = [[VideoPlayerView alloc] init];
-        _playerView.name = @"";
-        _playerView.urlString = self.urlString;
+        _playerView.model = self.downloadModel;
         
         _playerView.BackBlock = ^{
             [wSelf backToParentController];
@@ -142,16 +144,16 @@
     return _playerView;
 }
 
-//- (UITableView *)tableView {
-//    if (!_tableView) {
-//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Screen_W * PlayerHeightScale + 20, Screen_W, Screen_H - Screen_W * PlayerHeightScale - 20) style:UITableViewStylePlain];
-//        _tableView.dataSource = self;
-//        _tableView.delegate = self;
-//        _tableView.rowHeight = 50;
-//        _tableView.tableFooterView = [[UIView alloc] init];
-//    }
-//    return _tableView;
-//}
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_playerView.frame), Screen_W, Screen_H - CGRectGetMaxY(_playerView.frame)) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.rowHeight = 50;
+        _tableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _tableView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

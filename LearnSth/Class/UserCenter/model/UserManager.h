@@ -17,7 +17,8 @@
 
 @property (nonatomic, strong) AddressModel *address;
 
-+ (instancetype)manager;
++ (instancetype)shareManager;
++ (void)deallocManager;
 
 + (void)updateUser;
 + (UserManager *)loadUser;

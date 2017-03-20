@@ -14,28 +14,35 @@
 @end
 
 static NSString *KUserManagerCache = @"KUserManagerCache";
-static UserManager *userModel;
+static UserManager *userModel = nil;
+
+static dispatch_once_t managerOnceToken;
+static dispatch_once_t allocOnceToken;
 
 @implementation UserManager
 
-+ (instancetype)manager {
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
++ (instancetype)shareManager {
+    dispatch_once(&managerOnceToken, ^{
         userModel = [[UserManager alloc] init];
     });
     
     return userModel;
 }
 
++ (void)deallocManager {
+    managerOnceToken = 0;
+    allocOnceToken = 0;
+    userModel = nil;
+}
+
 + (void)updateUser {
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager manager] dictionary]];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager shareManager] dictionary]];
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserManagerCache];
 }
 
 + (UserManager *)loadUser {
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
-    UserManager *user = [UserManager manager];
+    UserManager *user = [UserManager shareManager];
     [user setValuesForKeysWithDictionary:dict];
     
     return user;
@@ -43,9 +50,7 @@ static UserManager *userModel;
 
 #pragma mark
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&allocOnceToken, ^{
         userModel = [super allocWithZone:zone];
     });
     
@@ -93,11 +98,11 @@ static UserManager *userModel;
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
         if ([propertyName isEqualToString:@"address"]) {
-            AddressModel *model = [self valueForKey:propertyName];
+            AddressModel *model = [userModel valueForKey:propertyName];
             NSDictionary *addressDict = [model dictionary];
             [mutDict setValue:addressDict forKey:propertyName];
         } else {
-            [mutDict setValue:[self valueForKey:propertyName] forKey:propertyName];
+            [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
         }
     }
     

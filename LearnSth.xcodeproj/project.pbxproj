@@ -682,6 +682,19 @@
 			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
+		1B1D95DC1E7FC86500000EE4 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				1B0334611E726C86009567F9 /* DownloadViewController.h */,
+				1B0334621E726C86009567F9 /* DownloadViewController.m */,
+				1BF8E6ED1E763078009CA742 /* VideoPlayerController.h */,
+				1BF8E6EE1E763078009CA742 /* VideoPlayerController.m */,
+				CF349F741E7D24790087A55E /* VideoPlayerView.h */,
+				CF349F751E7D24790087A55E /* VideoPlayerView.m */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
 		1B2D07BC1DE7E8DB0034C22D /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -721,18 +734,13 @@
 		1B2D07C11DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				1B1D95DC1E7FC86500000EE4 /* download */,
 				1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */,
 				1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */,
 				1B5E7BF71E49C9B200153A58 /* PLPlayerViewController.h */,
 				1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */,
 				1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */,
 				1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */,
-				1B0334611E726C86009567F9 /* DownloadViewController.h */,
-				1B0334621E726C86009567F9 /* DownloadViewController.m */,
-				1BF8E6ED1E763078009CA742 /* VideoPlayerController.h */,
-				1BF8E6EE1E763078009CA742 /* VideoPlayerController.m */,
-				CF349F741E7D24790087A55E /* VideoPlayerView.h */,
-				CF349F751E7D24790087A55E /* VideoPlayerView.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";

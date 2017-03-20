@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class DownloadModel;
 @interface VideoPlayerController : UIViewController
 
-@property (nonatomic, copy) NSString *urlString;
+@property (nonatomic, strong) DownloadModel *downloadModel;
+
 @property (nonatomic, copy) void (^BackBlock)();
 
 @end

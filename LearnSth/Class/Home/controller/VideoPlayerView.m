@@ -7,8 +7,12 @@
 //
 
 #import "VideoPlayerView.h"
-#import <AVFoundation/AVFoundation.h>
+
+#import "DownloadModel.h"
 #import "AppDelegate.h"
+
+#import <AVFoundation/AVFoundation.h>
+#import "AFNetworkReachabilityManager.h"
 
 @interface VideoPlayerView (){
     id playerTimeObserver;
@@ -33,11 +37,12 @@
 @property (nonatomic, strong) UIButton *lockButton;
 
 @property (nonatomic, assign) BOOL isScreenLocked;//是否锁屏
-@property (nonatomic, assign) BOOL isSliding;//是否正在划动进度条
 @property (nonatomic, assign) BOOL isTopViewHidden;//是否显示顶部、底部
-//@property (nonatomic, assign) BOOL isLandscape;//是否横屏
+@property (nonatomic, assign) BOOL isSliding;//是否正在划动进度条
 
 @property (nonatomic, assign) double totalTime;
+
+@property (nonatomic, assign) UIInterfaceOrientation lastOrientation;//上次的方向，旋转用
 
 @end
 
@@ -61,20 +66,20 @@ const CGFloat BottomH = 40;
 }
 
 - (void)initialize {
+    self.backgroundColor = [UIColor blackColor];
     self.frame = CGRectMake(0, 20, Screen_W, Screen_W * HeightScale);
     self.clipsToBounds = YES;
-    
-    self.isTopViewHidden = NO;
 }
 
--(void)setUrlString:(NSString *)urlString {
-    if (urlString && !_urlString) {
-        _urlString = urlString;
-        [self.layer addSublayer:self.playerLayer];
+-(void)setModel:(DownloadModel *)model {
+    if (model && !_model) {
+        _model = model;
         
+        [self.layer addSublayer:self.playerLayer];
+
         [self initTopView];
         [self initBottonView];
-        
+
         [self addPlayerObserver];
         [self addGesture];
     }
@@ -96,16 +101,18 @@ const CGFloat BottomH = 40;
     nameLabel.font = [UIFont systemFontOfSize:16];
     nameLabel.textColor = [UIColor whiteColor];
     [topView addSubview:nameLabel];
-    nameLabel.text = self.name;
+    nameLabel.text = self.model.fileName;
 }
 
 - (void)initBottonView {
     UIButton *lockButton = [[UIButton alloc] init];
-    lockButton.frame = CGRectMake(BottomH, (Screen_W - BottomH) * 0.5, BottomH, BottomH);
-    //    [lockButton setImage:[UIImage imageNamed:@"playerLockScreen"] forState:UIControlStateNormal];
-    lockButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    lockButton.frame = CGRectMake(-BottomH * 0.5, (Screen_W - BottomH * 1.2) * 0.5, BottomH * 1.2, BottomH * 1.2);
+    lockButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [lockButton setTitle:@"锁屏" forState:UIControlStateNormal];
     [lockButton setTitle:@"解锁" forState:UIControlStateSelected];
+    lockButton.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+    lockButton.layer.cornerRadius = BottomH * 0.6;
+    lockButton.layer.masksToBounds = YES;
     [lockButton addTarget:self action:@selector(lockScreen:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:lockButton];
     _lockButton = lockButton;
@@ -141,9 +148,9 @@ const CGFloat BottomH = 40;
     slider.maximumTrackTintColor = [UIColor clearColor];
     slider.minimumTrackTintColor = [UIColor clearColor];
     [slider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
-    //    [slider addTarget:self action:@selector(playerSeekTo:) forControlEvents:UIControlEventValueChanged];
-    //    [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
-    //    [slider addTarget:self action:@selector(sliderTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [slider addTarget:self action:@selector(playerSeekTo:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(sliderTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:slider];
     _playProgress = slider;
     
@@ -196,7 +203,7 @@ const CGFloat BottomH = 40;
         
         if (!wSelf.isSliding) {
             wSelf.playProgress.value = CMTimeGetSeconds(time);
-            wSelf.currentTimeLabel.text = [wSelf timeStringWith:CMTimeGetSeconds(time)];
+            wSelf.currentTimeLabel.text = [wSelf stringWithTime:CMTimeGetSeconds(time)];
         }
     }];
 }
@@ -218,21 +225,38 @@ const CGFloat BottomH = 40;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            CMTime duration = item.duration;
-            [self setMaxDuration:CMTimeGetSeconds(duration)];
+            [self setMaxDuration:CMTimeGetSeconds(item.duration)];
             [self videoPaly];
             
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTopViewIfNeed) object:nil];
-            [self performSelector:@selector(hideTopViewIfNeed) withObject:nil afterDelay:5.0];
+            [self delayExecute];
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSTimeInterval timeInterval = [self availableDurationRanges]; // 缓冲时间
-        self.loadingProgress.progress = timeInterval / _totalTime;// 更新缓冲条
+        double timeInterval = [self availableDurationRanges]; // 缓冲时间
+        self.loadingProgress.progress = timeInterval / self.totalTime;// 更新缓冲条
     }
 }
 
-- (NSString *)timeStringWith:(NSInteger)seconds {
+- (void)setMaxDuration:(double)totalSecond {
+    _totalTime = totalSecond;
+    _playProgress.maximumValue = totalSecond;
+    
+    self.totalTimeLabel.text = [self stringWithTime:totalSecond];
+}
+
+// 已缓冲进度
+- (double)availableDurationRanges {
+    NSArray *loadedTimeRanges = [_playerItem loadedTimeRanges]; // 获取item的缓冲数组
+    
+    // CMTimeRange 结构体 start duration 表示起始位置 和 持续时间
+    CMTimeRange timeRange = [loadedTimeRanges.firstObject CMTimeRangeValue]; // 获取缓冲区域
+    double startSeconds = CMTimeGetSeconds(timeRange.start);
+    double durationSeconds = CMTimeGetSeconds(timeRange.duration);
+    double result = startSeconds + durationSeconds; // 计算总缓冲时间 = start + duration
+    return result;
+}
+
+- (NSString *)stringWithTime:(NSInteger)seconds {
     NSInteger hour = 0;
     NSInteger minute = 0;
     NSInteger second = 0;
@@ -252,30 +276,9 @@ const CGFloat BottomH = 40;
     return time;
 }
 
-- (void)setMaxDuration:(NSInteger)totalSecond {
-    _totalTime = totalSecond;
-    _playProgress.maximumValue = totalSecond;
-    
-    self.totalTimeLabel.text = [self timeStringWith:totalSecond];
-}
-
-// 已缓冲进度
-- (NSTimeInterval)availableDurationRanges {
-    NSArray *loadedTimeRanges = [_playerItem loadedTimeRanges]; // 获取item的缓冲数组
-    
-    // CMTimeRange 结构体 start duration 表示起始位置 和 持续时间
-    CMTimeRange timeRange = [loadedTimeRanges.firstObject CMTimeRangeValue]; // 获取缓冲区域
-    float startSeconds = CMTimeGetSeconds(timeRange.start);
-    float durationSeconds = CMTimeGetSeconds(timeRange.duration);
-    NSTimeInterval result = startSeconds + durationSeconds; // 计算总缓冲时间 = start + duration
-    return result;
-}
-
 #pragma mark - 按钮方法
 - (void)backButtonClick {
-    if (self.BackBlock) {
-        self.BackBlock();
-    }
+    self.BackBlock ? self.BackBlock() : 0;
 }
 
 - (void)videoPaly {
@@ -291,9 +294,7 @@ const CGFloat BottomH = 40;
 }
 
 - (void)fullScreen {
-    if (self.FullScreenBlock) {
-        self.FullScreenBlock();
-    }
+    self.FullScreenBlock ? self.FullScreenBlock() : 0;
 }
 
 - (void)lockScreen:(UIButton *)button {
@@ -304,28 +305,19 @@ const CGFloat BottomH = 40;
     app.isAutorotate = !button.selected;
     
     [self showTopView];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTopViewIfNeed) object:nil];
-    [self performSelector:@selector(hideTopViewIfNeed) withObject:nil afterDelay:5.0];
+    [self delayExecute];
 }
 
 #pragma mark - 手势
 - (void)tapOnPlayer:(UITapGestureRecognizer *)tap {
-    if (self.isScreenLocked) {
-        [self showLockButton];
-        if (self.TapGestureBlock) {
-            self.TapGestureBlock();
-        }
-        
-    } else {
+    if (!self.isScreenLocked) {
         [self showTopView];
-        [self showLockButton];
-        if (self.TapGestureBlock) {
-            self.TapGestureBlock();
-        }
     }
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTopViewIfNeed) object:nil];
-    [self performSelector:@selector(hideTopViewIfNeed) withObject:nil afterDelay:5.0];
+    [self showLockButton];
+    [self delayExecute];
+    
+    self.TapGestureBlock ? self.TapGestureBlock() : 0;
 }
 
 - (void)doubleTapOnPlayer:(UITapGestureRecognizer *)tap {
@@ -337,6 +329,22 @@ const CGFloat BottomH = 40;
     
     [self.playerItem seekToTime:CMTimeMake(currentTime + 10, 1)];
     self.playProgress.value = currentTime + 10;
+}
+
+#pragma mark - UISlider事件
+- (void)playerSeekTo:(UISlider *)slider {
+    [self.playerItem seekToTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
+    self.currentTimeLabel.text = [self stringWithTime:slider.value];
+}
+
+- (void)sliderTouchDown:(UISlider *)slider {
+    self.isSliding = YES;
+}
+
+- (void)sliderTouchUpInside:(UISlider *)slider {
+    self.isSliding = NO;
+    
+    [self delayExecute];
 }
 
 #pragma mark -
@@ -363,14 +371,9 @@ const CGFloat BottomH = 40;
 }
 
 - (void)showLockButton {
-    if (self.lockButton.hidden == YES) {
+    if (self.lockButton.hidden != YES) {
         CGRect lockButtonRect = self.lockButton.frame;
-        lockButtonRect.origin.x =  -BottomH;
-        self.lockButton.frame = lockButtonRect;
-        
-    } else {
-        CGRect lockButtonRect = self.lockButton.frame;
-        lockButtonRect.origin.x = (lockButtonRect.origin.x > 0) ? -BottomH : BottomH;
+        lockButtonRect.origin.x = (lockButtonRect.origin.x > 0) ? -BottomH * 1.2 : BottomH * 0.5;
         [UIView animateWithDuration:0.3 animations:^{
             self.lockButton.frame = lockButtonRect;
         }];
@@ -379,28 +382,45 @@ const CGFloat BottomH = 40;
 
 - (void)hideTopViewIfNeed {
     if (!self.isTopViewHidden) {
-        
         [self showTopView];
         [self showLockButton];
         
-        if (self.TapGestureBlock) {
-            self.TapGestureBlock();
-        }
-    } else if (self.isScreenLocked == YES) {
+        self.TapGestureBlock ? self.TapGestureBlock() : 0;
+        
+    } else if (self.lockButton.frame.origin.x > 0) {
         [self showLockButton];
         
-        if (self.TapGestureBlock) {
-            self.TapGestureBlock();
-        }
+        self.TapGestureBlock ? self.TapGestureBlock() : 0;
     }
+}
+
+//5秒后自动隐藏topView
+- (void)delayExecute {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTopViewIfNeed) object:nil];
+    [self performSelector:@selector(hideTopViewIfNeed) withObject:nil afterDelay:5.0];
 }
 
 #pragma mark - (屏幕旋转)
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    NSTimeInterval duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+    
     if (previousTraitCollection.verticalSizeClass != UIUserInterfaceSizeClassRegular) {
         //竖屏
         self.frame = CGRectMake(0, 20, Screen_W, Screen_W * HeightScale);
         self.playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_W * HeightScale);
+        
+        if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft) {
+            self.transform = CGAffineTransformMakeRotation(-M_PI_4);
+        } else if (self.lastOrientation == UIInterfaceOrientationLandscapeRight) {
+            self.transform = CGAffineTransformMakeRotation(M_PI_4);
+        }
+        
+        [UIView animateWithDuration:duration animations:^{
+            self.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+        }];
+        self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+        
         
         if (!self.isTopViewHidden) {
             self.topView.frame = CGRectMake(0, 0, Screen_W, BottomH);
@@ -412,25 +432,48 @@ const CGFloat BottomH = 40;
         
         self.lockButton.hidden = YES;
         CGRect lockButtonRect = self.lockButton.frame;
-        lockButtonRect.origin.x = -BottomH;
+        lockButtonRect.origin.x = -BottomH * 1.2;
         self.lockButton.frame = lockButtonRect;
+        
     } else {
         //横屏
         self.frame = CGRectMake(0, 0, Screen_W, Screen_H);
         self.playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_H);
+        self.transform = CGAffineTransformMakeRotation(-M_PI_4);
+        
+        if (self.lastOrientation == UIInterfaceOrientationPortrait) {
+            
+            if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft) {
+                self.transform = CGAffineTransformMakeRotation(M_PI_4);
+            } else if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+                self.transform = CGAffineTransformMakeRotation(-M_PI_4);
+            }
+            
+        } if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft || self.lastOrientation == UIInterfaceOrientationLandscapeRight) {
+            
+            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+        }
+        [UIView animateWithDuration:duration animations:^{
+            self.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+        }];
+        self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+        
         
         self.lockButton.hidden = NO;
         if (!self.isTopViewHidden) {
             CGRect lockButtonRect = self.lockButton.frame;
-            lockButtonRect.origin.x = BottomH;
-            [UIView animateWithDuration:0.3 animations:^{
+            lockButtonRect.origin.x = BottomH * 0.5;
+            
+            [UIView animateWithDuration:duration * 2 animations:^{
                 self.lockButton.frame = lockButtonRect;
-                
-                self.topView.frame = CGRectMake(0, 20, Screen_W, BottomH);
-                self.bottomView.frame = CGRectMake(0, Screen_H - BottomH, Screen_W, BottomH);
             }];
+            
+            self.topView.frame = CGRectMake(0, 20, Screen_W, BottomH);
+            self.bottomView.frame = CGRectMake(0, Screen_H - BottomH, Screen_W, BottomH);
+            
         } else {
-            self.topView.frame = CGRectMake(0, - BottomH, Screen_W, BottomH);
+            self.topView.frame = CGRectMake(0, -BottomH, Screen_W, BottomH);
             self.bottomView.frame = CGRectMake(0, Screen_H, Screen_W, BottomH);
         }
     }
@@ -446,8 +489,7 @@ const CGFloat BottomH = 40;
     
     self.rotationButton.frame = CGRectMake(Screen_W - BottomH, 0, BottomH, BottomH);
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTopViewIfNeed) object:nil];
-    [self performSelector:@selector(hideTopViewIfNeed) withObject:nil afterDelay:5.0];
+    [self delayExecute];
 }
 
 #pragma mark
@@ -455,10 +497,10 @@ const CGFloat BottomH = 40;
     if (!_playerLayer) {
         
         NSURL *url;
-        if ([self.urlString hasPrefix:@"http"]) {
-            url = [NSURL URLWithString:self.urlString];
+        if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
+            url = [NSURL URLWithString:self.model.fileUrl];
         } else {
-            url = [NSURL fileURLWithPath:self.urlString];
+            url = [NSURL fileURLWithPath:self.model.savePath];
         }
         
         _playerItem = [AVPlayerItem playerItemWithURL:url];

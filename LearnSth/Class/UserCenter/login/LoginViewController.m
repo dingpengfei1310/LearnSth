@@ -80,7 +80,7 @@ const CGFloat fieldHeight = 35;
 
 - (void)loginClick {
     if ([self.accountField.text validatePhoneNumber]) {
-        [UserManager manager].mobile = self.accountField.text;
+        [UserManager shareManager].mobile = self.accountField.text;
         [UserManager updateUser];
         [CustomiseTool setIsLogin:YES];
         

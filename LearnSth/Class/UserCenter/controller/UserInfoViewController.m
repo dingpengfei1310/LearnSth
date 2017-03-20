@@ -58,6 +58,8 @@ static NSString *reuseIdentifier = @"cell";
 - (void)loginOut {
     [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
         [CustomiseTool remoAllCaches];
+        [UserManager deallocManager];
+        
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
@@ -74,7 +76,7 @@ static NSString *reuseIdentifier = @"cell";
                                                          handler:nil];
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         UITextField *field = alert.textFields[0];
-        [UserManager manager].username = field.text;
+        [UserManager shareManager].username = field.text;
         [UserManager updateUser];
         
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -96,7 +98,7 @@ static NSString *reuseIdentifier = @"cell";
         address.province = province[@"name"];
         address.city = city[@"name"];
         
-        [UserManager manager].address = address;
+        [UserManager shareManager].address = address;
         [UserManager updateUser];
         
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
@@ -188,10 +190,10 @@ static NSString *reuseIdentifier = @"cell";
     }
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    if (indexPath.row == 1 && [UserManager manager].username) {
-        cell.detailTextLabel.text = [UserManager manager].username;
-    } else if (indexPath.row == 2 && [UserManager manager].address.city) {
-        AddressModel *add = [UserManager manager].address;
+    if (indexPath.row == 1 && [UserManager shareManager].username) {
+        cell.detailTextLabel.text = [UserManager shareManager].username;
+    } else if (indexPath.row == 2 && [UserManager shareManager].address.city) {
+        AddressModel *add = [UserManager shareManager].address;
         NSString *address = [NSString stringWithFormat:@"%@-%@",add.province,add.city];
         cell.detailTextLabel.text = address;
     }

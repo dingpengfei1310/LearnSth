@@ -41,17 +41,17 @@
     NSString * downloadURLString2 = @"http://baobab.wdjcdn.com/14564977406580.mp4";
     
     DownloadModel *model1 = [[DownloadModel alloc] init];
-    model1.fileName = @"下载1.mp4";
+    model1.fileName = @"这可能是一个动画片";
     model1.fileUrl = downloadURLString1;
     model1.state = DownloadStatePause;
     
     DownloadModel *model2 = [[DownloadModel alloc] init];
-    model2.fileName = @"下载2.mp4";
+    model2.fileName = @"不知道什么鬼";
     model2.fileUrl = downloadURLString2;
     model2.state = DownloadStatePause;
     
-    [DownloadModel add:model2];
     [DownloadModel add:model1];
+    [DownloadModel add:model2];
     
     _downloadFile = [DownloadModel loadAllDownload];
     [self.tableView reloadData];
@@ -145,7 +145,7 @@
         DownloadModel *model = self.downloadFile.allValues[index];
         
         VideoPlayerController *controller = [[VideoPlayerController alloc] init];
-        controller.urlString = model.savePath;
+        controller.downloadModel = model;
         
         controller.BackBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -195,7 +195,6 @@
         wSelf.currentModel.bytesTotal = bytesTotal;
         wSelf.currentModel.state = DownloadStateRunning;
         wCell.fileModel = wSelf.currentModel;
-        NSLog(@"%lld",bytesWritten);
         
     } completion:^(BOOL isSuccess, NSError *error) {
         wSelf.downloadFile = [DownloadModel loadAllDownload];

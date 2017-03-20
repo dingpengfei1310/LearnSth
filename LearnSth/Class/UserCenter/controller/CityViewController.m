@@ -43,7 +43,7 @@
     address.province = self.province[@"name"];
     address.city = city[@"name"];
     
-    [UserManager manager].address = address;
+    [UserManager shareManager].address = address;
     [UserManager updateUser];
     
     NSInteger index = self.navigationController.viewControllers.count - 3;
