@@ -232,8 +232,9 @@ const CGFloat BottomH = 40;
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        double timeInterval = [self availableDurationRanges]; // 缓冲时间
-        self.loadingProgress.progress = timeInterval / self.totalTime;// 更新缓冲条
+        double timeInterval = [self availableDurationRanges];// 缓冲时间
+        // 更新缓冲条
+        self.loadingProgress.progress = (self.totalTime == 0.0) ? 0.0 : timeInterval / self.totalTime;
     }
 }
 
@@ -253,6 +254,7 @@ const CGFloat BottomH = 40;
     double startSeconds = CMTimeGetSeconds(timeRange.start);
     double durationSeconds = CMTimeGetSeconds(timeRange.duration);
     double result = startSeconds + durationSeconds; // 计算总缓冲时间 = start + duration
+    
     return result;
 }
 

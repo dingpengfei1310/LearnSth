@@ -50,7 +50,7 @@ const CGFloat fieldHeight = 35;
     CGFloat buttonW = 80;
     UIFont *font = [UIFont systemFontOfSize:15];
     
-    CGFloat regButtonY = topSpace + fieldHeight * 3 + fieldMargin * 1.5;
+    CGFloat regButtonY = CGRectGetMaxY(self.loginButton.frame);
     CGRect rect = CGRectMake(fieldMargin, regButtonY, buttonW, 40);
     UIButton *regButton = [[UIButton alloc] initWithFrame:rect];
     regButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -148,13 +148,12 @@ const CGFloat fieldHeight = 35;
 - (UIButton *)loginButton {
     if (!_loginButton) {
         CGFloat loginButtonY = topSpace + fieldHeight * 2 + fieldMargin * 1.5;
-        CGRect rect = CGRectMake(fieldMargin, loginButtonY, Screen_W - fieldMargin * 2, fieldHeight);
+        CGRect rect = CGRectMake(fieldMargin, loginButtonY, Screen_W - fieldMargin * 2, fieldHeight * 1.2);
         
         _loginButton = [[UIButton alloc] initWithFrame:rect];
         _loginButton.enabled = NO;
         UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
-        [_loginButton setBackgroundImage:image
-                                forState:UIControlStateNormal];
+        [_loginButton setBackgroundImage:image forState:UIControlStateNormal];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
         [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];

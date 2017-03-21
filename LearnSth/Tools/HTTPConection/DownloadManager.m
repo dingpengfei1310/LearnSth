@@ -188,7 +188,8 @@ static DownloadManager *manager = nil;
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
 //    NSLog(@"didReceiveData:%@",@"data");
     
-    self.currentModel.bytesReceived = self.currentModel.bytesReceived + data.length;
+    _currentModel.bytesReceived = _currentModel.bytesReceived + data.length;
+    _currentModel.state = DownloadStateRunning;
     
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:self.currentModel.savePath];
     [fileHandle seekToEndOfFile];  //将节点跳到文件的末尾

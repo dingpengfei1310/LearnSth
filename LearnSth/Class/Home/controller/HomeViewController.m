@@ -58,7 +58,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -154,7 +153,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = KBackgroundColor;
     
     LiveModel *model = self.liveList[indexPath.item];
     cell.liveModel = model;

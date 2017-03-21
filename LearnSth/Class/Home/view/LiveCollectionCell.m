@@ -27,12 +27,18 @@
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
-    if (_liveModel != liveModel) {
+    if (![_liveModel isEqual:liveModel]) {
         
         _liveModel = liveModel;
         NSURL *url = [NSURL URLWithString:liveModel.smallpic];
         [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             self.signaturesLabel.text = liveModel.signatures;
+            
+//            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.liveImageView.bounds cornerRadius:20];
+//            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//            maskLayer.frame = self.liveImageView.bounds;
+//            maskLayer.path = maskPath.CGPath;
+//            self.liveImageView.layer.mask = maskLayer;
         }];
     }
 }
