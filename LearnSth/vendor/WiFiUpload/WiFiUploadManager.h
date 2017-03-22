@@ -23,7 +23,6 @@ extern NSString * const FileUploadDidEndNotification;
 + (instancetype)shareManager;
 
 - (BOOL)startHTTPServerAtPort:(UInt16)port;
-
 - (BOOL)isServerRunning;
 - (void)stopHTTPServer;
 

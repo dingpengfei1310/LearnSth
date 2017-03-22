@@ -82,7 +82,7 @@ static NSString *KDownloadDirectory = @"download";
 }
 
 + (NSString *)plistPath {
-    return [[DownloadModel directoryPath] stringByAppendingPathComponent:KDownloadCachePlist];;
+    return [[DownloadModel directoryPath] stringByAppendingPathComponent:KDownloadCachePlist];
 }
 
 #pragma mark

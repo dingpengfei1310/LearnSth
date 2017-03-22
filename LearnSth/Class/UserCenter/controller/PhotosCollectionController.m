@@ -142,9 +142,9 @@ const NSInteger photoColumn = 4;
 //}
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    if (operation == UINavigationControllerOperationPush){
+    if (operation == UINavigationControllerOperationPush) {
         AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
-        transition.operation = operation;
+        transition.operation = AnimatedTransitioningOperationPush;
         transition.transitioningType = AnimatedTransitioningTypeScale;
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];

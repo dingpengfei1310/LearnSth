@@ -115,7 +115,7 @@ CGFloat const totalDuration = 3.0;
     CABasicAnimation *position = [CABasicAnimation animationWithKeyPath:@"position"];
     position.repeatCount = NSIntegerMax;
     position.duration = 1.0;
-    position.fromValue = [NSValue valueWithCGPoint:CGPointMake(width * 0.1, shapeLayer.position.y)];;
+    position.fromValue = [NSValue valueWithCGPoint:CGPointMake(width * 0.1, shapeLayer.position.y)];
     position.toValue = [NSValue valueWithCGPoint:CGPointMake(width * 0.8, shapeLayer.position.y)];
     [shapeLayer addAnimation:position forKey:@""];
 }

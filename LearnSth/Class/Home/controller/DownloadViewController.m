@@ -8,12 +8,12 @@
 
 #import "DownloadViewController.h"
 #import "VideoPlayerController.h"
-
+#import "AnimatedTransitioning.h"
 #import "DownloadManager.h"
 #import "DownloadViewCell.h"
 #import "DownloadModel.h"
 
-@interface DownloadViewController ()<UITableViewDataSource,UITableViewDelegate,DownloadCellDelegate>
+@interface DownloadViewController ()<UITableViewDataSource,UITableViewDelegate,DownloadCellDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSDictionary *downloadFile;
@@ -146,7 +146,7 @@
         
         VideoPlayerController *controller = [[VideoPlayerController alloc] init];
         controller.downloadModel = model;
-        
+        controller.transitioningDelegate = self;
         controller.BackBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         };
@@ -201,6 +201,24 @@
         [wSelf.tableView reloadData];
     }];
 }
+
+#pragma mark 
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    transition.operation = AnimatedTransitioningOperationPresent;
+    transition.transitioningType = AnimatedTransitioningTypeMove;
+    
+    return transition;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    transition.operation = AnimatedTransitioningOperationDismiss;
+    transition.transitioningType = AnimatedTransitioningTypeMove;
+    
+    return transition;
+}
+
 
 #pragma mark
 - (UITableView *)tableView {

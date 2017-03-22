@@ -18,7 +18,7 @@
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 

@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
+#import "DownloadViewController.h"
 
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
@@ -18,9 +19,6 @@
 
 #import "Aspects.h"
 #import "MJRefresh.h"
-
-#import "DownloadViewController.h"
-#import "DownloadManager.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -45,19 +43,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
     
     [self.view addSubview:self.collectionView];
     
-    __weak typeof(self) weakSelf = self;
-    [self.collectionView setClickBlock:^{
-        [weakSelf.collectionView.mj_header beginRefreshing];
-    }];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
-    
+    [self navigationBackItem];
     [self getHomeAdBanner];
 //    [self refreshLiveData];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    backItem.title = @"";
-    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -72,6 +60,18 @@ static NSString *headerReuseIdentifier = @"headerCell";
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.bannerScrollView invalidateTimer];
+}
+
+- (void)navigationBackItem {
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@" "
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(homeRightItemClick)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark
@@ -202,6 +202,11 @@ static NSString *headerReuseIdentifier = @"headerCell";
         _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             self.page++;
             [self refreshLiveData];
+        }];
+        
+        __weak typeof(self) weakSelf = self;
+        [_collectionView setClickBlock:^{
+            [weakSelf refreshLiveData];
         }];
         
         MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;

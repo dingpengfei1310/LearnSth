@@ -414,15 +414,15 @@ const CGFloat BottomH = 40;
         if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft) {
             self.transform = CGAffineTransformMakeRotation(-M_PI_4);
         } else if (self.lastOrientation == UIInterfaceOrientationLandscapeRight) {
-            self.transform = CGAffineTransformMakeRotation(M_PI_4);
+            self.transform = CGAffineTransformMakeRotation(M_PI_4 * 0.5);
         }
         
         [UIView animateWithDuration:duration animations:^{
             self.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
+            
         }];
         self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
-        
         
         if (!self.isTopViewHidden) {
             self.topView.frame = CGRectMake(0, 0, Screen_W, BottomH);
@@ -441,19 +441,19 @@ const CGFloat BottomH = 40;
         //横屏
         self.frame = CGRectMake(0, 0, Screen_W, Screen_H);
         self.playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_H);
-        self.transform = CGAffineTransformMakeRotation(-M_PI_4);
+        self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
         
         if (self.lastOrientation == UIInterfaceOrientationPortrait) {
             
             if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft) {
-                self.transform = CGAffineTransformMakeRotation(M_PI_4);
+                self.transform = CGAffineTransformMakeRotation(M_PI_4 * 0.5);
             } else if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
-                self.transform = CGAffineTransformMakeRotation(-M_PI_4);
+                self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
             }
             
         } if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft || self.lastOrientation == UIInterfaceOrientationLandscapeRight) {
             
-            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+            self.transform = CGAffineTransformMakeRotation(M_PI_4);
         }
         [UIView animateWithDuration:duration animations:^{
             self.transform = CGAffineTransformIdentity;

@@ -24,6 +24,6 @@
 + (NSString *)getAppName;
 + (NSString *)getAppDisplayName;
 
-+ (NSString *)getIPAddresses;
++ (NSString *)getIPAddress:(BOOL)preferIPv4;
 
 @end
