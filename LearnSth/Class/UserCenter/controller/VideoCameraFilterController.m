@@ -21,7 +21,7 @@
 @property (nonatomic, assign) NSInteger filterIndex;
 @property (nonatomic, strong) NSArray *imageFilters;
 
-@property (nonatomic, strong) NSString *moviePath;
+@property (nonatomic, strong) NSString *movieName;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UILabel *timeLabel;
 
@@ -61,6 +61,7 @@
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
+            
         }];
     }
 }
@@ -79,7 +80,10 @@
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-            granted ? [self showVideoView] : [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                granted ? [self showVideoView] : [self dismissViewControllerAnimated:YES completion:nil];
+            });
+            
         }];
     }
 }
@@ -89,8 +93,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    NSString *fileName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
-    self.moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
+    self.movieName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     
     _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
     [self.videoCamera addTarget:_videoView];//默认，不带滤镜
@@ -210,8 +213,10 @@
 
 - (void)captureButtonClick:(UIButton *)sender {
     sender.selected = !sender.selected;
+    
+    NSString *moviePath = [KDocumentPath stringByAppendingPathComponent:self.movieName];
     if (sender.selected) {
-        unlink([self.moviePath UTF8String]);//如果已经存在文件，AVAssetWriter会有异常，删除旧文件
+        unlink([moviePath UTF8String]);//如果已经存在文件，AVAssetWriter会有异常，删除旧文件
         
         [self.videoCamera removeAllTargets];
         
@@ -241,7 +246,8 @@
         
         [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:nil operation:^{
             [self loading];
-            UISaveVideoAtPathToSavedPhotosAlbum(self.moviePath, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
+            UISaveVideoAtPathToSavedPhotosAlbum(moviePath, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
+//            [self compressVideo];//压缩视频
         }];
         
         [self.displayLink invalidate];
@@ -253,6 +259,8 @@
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     [self hideHUD];
     [self showSuccess:@"保存成功"];
+    
+    [self dismiss:nil];
 }
 
 - (void)refreshTime {
@@ -275,6 +283,27 @@
     }
 }
 
+- (void)compressVideo {
+    NSString *path = [KDocumentPath stringByAppendingPathComponent:self.movieName];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
+    
+    NSString *compressName = [NSString stringWithFormat:@"Compress%@",self.movieName];
+    NSString *compressPath = [KDocumentPath stringByAppendingPathComponent:compressName];
+    
+    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
+    exportSession.outputURL = [NSURL fileURLWithPath:compressPath];
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        AVAssetExportSessionStatus status = exportSession.status;
+        NSString *message = (status == AVAssetExportSessionStatusCompleted) ? @"压缩成功" : @"压缩失败";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            [self showSuccess:message];
+        });
+    }];
+}
+
 #pragma mark
 - (GPUImageVideoCamera *)videoCamera {
     if (!_videoCamera) {
@@ -286,7 +315,8 @@
 
 - (GPUImageMovieWriter *)movieWriter {
     if (!_movieWriter) {
-        NSURL *url = [NSURL fileURLWithPath:self.moviePath];
+        NSString *moviePath = [KDocumentPath stringByAppendingPathComponent:self.movieName];
+        NSURL *url = [NSURL fileURLWithPath:moviePath];
 //        1920x1080 1280x720  960x540 640x480
         _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeMake(720.0, 1280.0)];
         _movieWriter.encodingLiveVideo = YES;

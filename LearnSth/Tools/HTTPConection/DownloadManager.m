@@ -272,7 +272,7 @@ static DownloadManager *manager = nil;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.DownloadCompletion) {
-                self.DownloadCompletion(!error,error);
+                self.DownloadCompletion(YES,error);
             }
         });
     }

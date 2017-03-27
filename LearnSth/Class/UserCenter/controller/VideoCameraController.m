@@ -15,7 +15,7 @@
 @property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
 
-@property (nonatomic, strong) NSString *moviePath;
+@property (nonatomic, strong) NSString *movieName;
 
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -37,12 +37,12 @@
     [self checkAuthorizationStatusOnVideo];
 }
 
+#pragma mark
 - (void)showVideoPreviewLayer {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    NSString *fileName = [NSString stringWithFormat:@"%@-Video.mov",dateString];
-    self.moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
+    self.movieName = [NSString stringWithFormat:@"%@-Video.mov",dateString];
     
     //创建一个预览图层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
@@ -87,9 +87,11 @@
         }];
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-            granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        });
     }
 }
 
@@ -160,6 +162,8 @@
 }
 
 - (void)captureButtonClick:(UIButton *)sender {
+    NSString *path = [KDocumentPath stringByAppendingPathComponent:self.movieName];
+    
     if (self.movieFileOutput.recording) {
         [self.movieFileOutput stopRecording];
         
@@ -167,14 +171,28 @@
         self.displayLink = nil;
         self.timeLabel.text = nil;
         
+        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:nil operation:^{
+            [self loading];
+            UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
+//            [self compressVideo];//压缩视频
+        }];
+        
         return;
     }
     
     //设置录制视频保存的路径
-    NSURL *url = [NSURL fileURLWithPath:self.moviePath];
+    
+    NSURL *url = [NSURL fileURLWithPath:path];
     [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
     
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    [self hideHUD];
+    [self showSuccess:@"保存成功"];
+    
+    [self dismiss:nil];
 }
 
 - (void)refreshTime {
@@ -197,17 +215,36 @@
     }
 }
 
+- (void)compressVideo {
+    NSString *path = [KDocumentPath stringByAppendingPathComponent:self.movieName];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
+    
+    NSString *compressName = [NSString stringWithFormat:@"Compress%@",self.movieName];
+    NSString *compressPath = [KDocumentPath stringByAppendingPathComponent:compressName];
+    
+    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
+    exportSession.outputURL = [NSURL fileURLWithPath:compressPath];
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        AVAssetExportSessionStatus status = exportSession.status;
+        NSString *message = (status == AVAssetExportSessionStatusCompleted) ? @"压缩成功" : @"压缩失败";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            [self showSuccess:message];
+        });
+    }];
+}
+
 #pragma mark
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
-    NSLog(@"didStartRecording");
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
-    NSLog(@"didFinishRecording");
 }
 
 #pragma mark

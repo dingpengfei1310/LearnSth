@@ -37,8 +37,8 @@
 }
 
 - (void)addFile {
-    NSString * downloadURLString1 = @"http://baobab.wdjcdn.com/1442142801331138639111.mp4";
-    NSString * downloadURLString2 = @"http://baobab.wdjcdn.com/14564977406580.mp4";
+    NSString *downloadURLString1 = @"http://baobab.wdjcdn.com/1442142801331138639111.mp4";
+    NSString *downloadURLString2 = @"http://baobab.wdjcdn.com/14564977406580.mp4";
     
     DownloadModel *model1 = [[DownloadModel alloc] init];
     model1.fileName = @"这可能是一个动画片";
@@ -46,12 +46,28 @@
     model1.state = DownloadStatePause;
     
     DownloadModel *model2 = [[DownloadModel alloc] init];
-    model2.fileName = @"不知道什么鬼";
+    model2.fileName = @"好看的电影";
     model2.fileUrl = downloadURLString2;
     model2.state = DownloadStatePause;
     
     [DownloadModel add:model1];
     [DownloadModel add:model2];
+    
+    NSString *downloadURLString3 = @"http://zyvideo1.oss-cn-qingdao.aliyuncs.com/zyvd/7c/de/04ec95f4fd42d9d01f63b9683ad0";
+    NSString *downloadURLString4 = @"http://v4ttyey-10001453.video.myqcloud.com/Microblog/288-4-1452304375video1466172731.mp4";
+    
+    DownloadModel *model3 = [[DownloadModel alloc] init];
+    model3.fileName = @"不知道什么鬼之电影";
+    model3.fileUrl = downloadURLString3;
+    model3.state = DownloadStatePause;
+    
+    DownloadModel *model4 = [[DownloadModel alloc] init];
+    model4.fileName = @"这个真不知道是啥么鬼";
+    model4.fileUrl = downloadURLString4;
+    model4.state = DownloadStatePause;
+    
+    [DownloadModel add:model3];
+    [DownloadModel add:model4];
     
     _downloadFile = [DownloadModel loadAllDownload];
     [self.tableView reloadData];
@@ -79,34 +95,51 @@
     
     return cell;
 }
- 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+    
+    VideoPlayerController *controller = [[VideoPlayerController alloc] init];
+    controller.downloadModel = model;
+    controller.transitioningDelegate = self;
+    controller.BackBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [cell setSeparatorInset:UIEdgeInsetsZero];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     DownloadModel *model = self.downloadFile.allValues[indexPath.row];
     if (model.state == DownloadStateCompletion) {
-        return UITableViewCellEditingStyleDelete;
+        return YES;
     }
-    return UITableViewCellEditingStyleNone;
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
-    [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
-                      cancel:^{
-                          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                      } destructive:^{
-                          NSFileManager *fileManager = [NSFileManager defaultManager];
-                          [fileManager removeItemAtPath:model.savePath error:NULL];
-                          
-                          [DownloadModel remove:model];
-                          self.downloadFile = [DownloadModel loadAllDownload];
-                          
-                          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                      }];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+        [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
+                          cancel:^{
+                              [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                          } destructive:^{
+                              NSFileManager *fileManager = [NSFileManager defaultManager];
+                              [fileManager removeItemAtPath:model.savePath error:NULL];
+                              
+                              [DownloadModel remove:model];
+                              self.downloadFile = [DownloadModel loadAllDownload];
+                              
+                              [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                          }];
+    }
 }
 
 #pragma mark DownloadCellDelegate

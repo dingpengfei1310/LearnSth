@@ -11,6 +11,7 @@
 #import "DownloadModel.h"
 #import "AppDelegate.h"
 
+#import "MBProgressHUD.h"
 #import <AVFoundation/AVFoundation.h>
 #import "AFNetworkReachabilityManager.h"
 
@@ -82,7 +83,21 @@ const CGFloat BottomH = 40;
 
         [self addPlayerObserver];
         [self addGesture];
+        
+        [self showHud];
     }
+}
+
+#pragma mark
+- (void)showHud {
+    [self hideHud];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.bezelView.color = [UIColor clearColor];
+}
+
+- (void)hideHud {
+    [MBProgressHUD hideHUDForView:self animated:YES];
 }
 
 #pragma mark
@@ -197,6 +212,7 @@ const CGFloat BottomH = 40;
     
     [_playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     [_playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+    [_playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
     
     __weak typeof(self) wSelf = self;
     playerTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
@@ -218,6 +234,14 @@ const CGFloat BottomH = 40;
     self.playButton.selected = NO;
 }
 
+- (void)seekToPlayerTime:(CMTime)time {
+    [self.player seekToTime:time completionHandler:^(BOOL finished) {
+        if (!self.playerItem.isPlaybackLikelyToKeepUp) {
+            [self showHud];
+        }
+    }];
+}
+
 #pragma mark - kvo:播放状态，加载进度
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     AVPlayerItem *item = (AVPlayerItem *)object;
@@ -235,6 +259,15 @@ const CGFloat BottomH = 40;
         double timeInterval = [self availableDurationRanges];// 缓冲时间
         // 更新缓冲条
         self.loadingProgress.progress = (self.totalTime == 0.0) ? 0.0 : timeInterval / self.totalTime;
+        
+        if (timeInterval > CMTimeGetSeconds(self.playerItem.currentTime)) {
+            [self hideHud];
+        }
+        
+    } else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) { //监听播放器在缓冲数据的状态
+        if (_playerItem.isPlaybackBufferEmpty) {
+            [self showHud];
+        }
     }
 }
 
@@ -329,13 +362,13 @@ const CGFloat BottomH = 40;
 - (void)swipOnPlayer:(UISwipeGestureRecognizer *)swipe {
     double currentTime = CMTimeGetSeconds(self.playerItem.currentTime);
     
-    [self.playerItem seekToTime:CMTimeMake(currentTime + 10, 1)];
+    [self seekToPlayerTime:CMTimeMake(currentTime + 10, 1)];
     self.playProgress.value = currentTime + 10;
 }
 
 #pragma mark - UISlider事件
 - (void)playerSeekTo:(UISlider *)slider {
-    [self.playerItem seekToTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
+    [self seekToPlayerTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
     self.currentTimeLabel.text = [self stringWithTime:slider.value];
 }
 
@@ -499,10 +532,16 @@ const CGFloat BottomH = 40;
     if (!_playerLayer) {
         
         NSURL *url;
-        if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
-            url = [NSURL URLWithString:self.model.fileUrl];
-        } else {
+//        if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
+//            url = [NSURL URLWithString:self.model.fileUrl];
+//        } else {
+//            url = [NSURL fileURLWithPath:self.model.savePath];
+//        }
+        
+        if (self.model.state == DownloadStateCompletion) {
             url = [NSURL fileURLWithPath:self.model.savePath];
+        } else {
+            url = [NSURL URLWithString:self.model.fileUrl];
         }
         
         _playerItem = [AVPlayerItem playerItemWithURL:url];
@@ -520,6 +559,7 @@ const CGFloat BottomH = 40;
     [_player removeTimeObserver:playerTimeObserver];
     [_playerItem removeObserver:self forKeyPath:@"status"];
     [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+    [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
 }
 
 @end

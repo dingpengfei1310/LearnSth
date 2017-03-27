@@ -111,7 +111,6 @@
 		1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEED1001E56F5460072BFB9 /* ScanQRCodeController.m */; };
 		1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */; };
 		1BF7F6C81D92492200F8E5B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6C71D92492200F8E5B1 /* main.m */; };
-		1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */; };
 		1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */; };
 		1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7F6D41D92492200F8E5B1 /* LaunchScreen.storyboard */; };
 		1BF7F6FD1D924BE500F8E5B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7F6FC1D924BE500F8E5B1 /* AppDelegate.m */; };
@@ -253,6 +252,7 @@
 		1B099C541DE7E57400161396 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B099C551DE7E57400161396 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B099C561DE7E57400161396 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
+		1B09E1691E84AD150019F332 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1B0DBC721E30915D00A57C30 /* VideoCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCameraController.h; sourceTree = "<group>"; };
 		1B0DBC731E30915D00A57C30 /* VideoCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCameraController.m; sourceTree = "<group>"; };
@@ -296,10 +296,6 @@
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B4043651E5AD6AF00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		1B40436E1E5ADD7A00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		1B40436F1E5ADD7A00C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1B4043721E5ADD9900C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
-		1B4043731E5ADD9A00C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B4630971E665D55000260D2 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		1B4630BF1E669703000260D2 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B4630C01E669703000260D2 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
@@ -962,7 +958,6 @@
 		1BF7F6C61D92492200F8E5B1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */,
 				1BF7F6D21D92492200F8E5B1 /* Assets.xcassets */,
 				1BF7F6D41D92492200F8E5B1 /* LaunchScreen.storyboard */,
 				1BF7F6D71D92492200F8E5B1 /* Info.plist */,
@@ -1166,7 +1161,6 @@
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
-				1BF7F6D11D92492200F8E5B1 /* Main.storyboard in Resources */,
 				1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
@@ -1389,20 +1383,10 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		1BF7F6CF1D92492200F8E5B1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B40436E1E5ADD7A00C14EE6 /* zh-Hans */,
-				1B40436F1E5ADD7A00C14EE6 /* en */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1BF7F6D41D92492200F8E5B1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1B4043721E5ADD9900C14EE6 /* zh-Hans */,
-				1B4043731E5ADD9A00C14EE6 /* en */,
+				1B09E1691E84AD150019F332 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

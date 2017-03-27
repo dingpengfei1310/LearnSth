@@ -178,7 +178,7 @@
     controller.scanType = VideoScanTypeFilter;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
     
-    UIImage *image = [UIImage imageNamed:@"dismiss"];
+    UIImage *image = [UIImage imageNamed:@"deleteButtonImage"];
     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     [self presentViewController:nvc animated:YES completion:nil];
 }

@@ -40,7 +40,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [super viewDidLoad];
     self.navigationItem.title = @"🍎🍎🍎";
     self.page = 1;
-    
     [self.view addSubview:self.collectionView];
     
     [self navigationBackItem];

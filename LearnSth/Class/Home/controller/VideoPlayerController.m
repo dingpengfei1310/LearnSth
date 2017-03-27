@@ -41,7 +41,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.dataArray = @[@"",@"",@"",@"",@"",@"",@"",@""];
+    self.dataArray = @[@"",@"",@"",@"",@""];
     
     [self.view addSubview:self.playerView];
     [self.view addSubview:self.tableView];

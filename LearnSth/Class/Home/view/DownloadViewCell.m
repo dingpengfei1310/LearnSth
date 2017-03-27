@@ -27,6 +27,9 @@
     
     self.sizeLabel.text = @"--/--";
     self.progressView.progress = 0;
+    
+    self.startButon.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.titleLabel.font = [UIFont systemFontOfSize:15];
 }
 
 - (void)setFileModel:(DownloadModel *)fileModel {

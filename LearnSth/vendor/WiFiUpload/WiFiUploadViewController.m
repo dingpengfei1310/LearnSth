@@ -15,8 +15,10 @@
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UILabel *ipLabel;
+@property (nonatomic, strong) UILabel *progressLabel;
+@property (nonatomic, strong) UILabel *fileNameLabel;
 
-@property (nonatomic, copy) NSString *fileName;
+@property (nonatomic, strong) NSString *fileName;
 
 @end
 
@@ -31,6 +33,8 @@
     
     [self.view addSubview:self.ipLabel];
     [self.view addSubview:self.progressView];
+    [self.view addSubview:self.progressLabel];
+    [self.view addSubview:self.fileNameLabel];
     
     [self addUploadNotification];
 }
@@ -52,13 +56,13 @@
 - (void)fileUploadStart:(NSNotification *)nof {
     NSString *fileName = nof.object[@"fileName"];
     self.fileName = fileName;
-    NSLog(@"Start Upload <%@>",fileName);
+    _fileNameLabel.text = fileName;
 }
 
 - (void)fileUploadFinish:(NSNotification *)nof {
-    NSLog(@"File Upload Finished.");
-    
-//    [self showSuccess:@"上传成功"];
+    self.progressView.progress = 1.0;
+    _progressLabel.text = @"100.0%";
+    [self showSuccess:@"上传成功"];
     
 //    NSString *folder = [WiFiUploadManager shareManager].savePath;
 //    NSString *filePath = [folder stringByAppendingPathComponent:self.fileName];
@@ -68,6 +72,7 @@
 - (void)fileUploadProgress:(NSNotification *)nof {
     CGFloat progress = [nof.object[@"progress"] doubleValue];
     self.progressView.progress = progress;
+    _progressLabel.text = [NSString stringWithFormat:@"%.1f%%",progress * 100];
 }
 
 #pragma mark ZipNotification
@@ -83,11 +88,10 @@
         CGRect rect = CGRectMake(20, 100, CGRectGetWidth(self.view.frame) - 40, 40);
         _ipLabel = [[UILabel alloc] initWithFrame:rect];
         _ipLabel.font = [UIFont systemFontOfSize:16];
-        _ipLabel.numberOfLines = 0;
         _ipLabel.textAlignment = NSTextAlignmentCenter;
         _ipLabel.layer.masksToBounds = YES;
-        _ipLabel.layer.cornerRadius = 5;
-        _ipLabel.backgroundColor = [UIColor grayColor];
+        _ipLabel.layer.cornerRadius = 3;
+        _ipLabel.backgroundColor = [UIColor lightGrayColor];
         _ipLabel.textColor = [UIColor whiteColor];
         _ipLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _ipLabel.text = [NSString stringWithFormat:@"http://%@:%@",manager.ip,@(manager.port)];
@@ -98,11 +102,36 @@
 
 - (UIProgressView *)progressView {
     if (!_progressView) {
-        CGRect rect = CGRectMake(20, 180, CGRectGetWidth(self.view.frame) - 40, 20);
+        CGRect rect = CGRectMake(20, CGRectGetMaxY(_ipLabel.frame) + 30 + 14, CGRectGetWidth(self.view.frame) - 100, 2);
         _progressView = [[UIProgressView alloc] initWithFrame:rect];
         _progressView.progress = 0;
     }
     return _progressView;
+}
+
+- (UILabel *)progressLabel {
+    if (!_progressLabel) {
+        CGRect rect = CGRectMake(CGRectGetMaxX(_progressView.frame), CGRectGetMaxY(_ipLabel.frame) + 30, 60, 30);
+        _progressLabel = [[UILabel alloc] initWithFrame:rect];
+        _progressLabel.textAlignment = NSTextAlignmentRight;
+        _progressLabel.font = [UIFont systemFontOfSize:16];
+        _progressLabel.textColor = [UIColor blackColor];
+        _progressLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _progressLabel.text = @"0.0%";
+    }
+    return _progressLabel;
+}
+
+- (UILabel *)fileNameLabel {
+    if (!_fileNameLabel) {
+        CGRect rect = CGRectMake(20, CGRectGetMaxY(_progressView.frame) + 30, CGRectGetWidth(self.view.frame) - 40, 30);
+        _fileNameLabel.backgroundColor = [UIColor lightGrayColor];
+        _fileNameLabel = [[UILabel alloc] initWithFrame:rect];
+        _fileNameLabel.font = [UIFont systemFontOfSize:15];
+        _fileNameLabel.textColor = [UIColor blackColor];
+        _fileNameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    }
+    return _fileNameLabel;
 }
 
 - (void)dealloc {

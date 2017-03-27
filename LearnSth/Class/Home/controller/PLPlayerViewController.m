@@ -34,7 +34,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     
     self.live = self.liveArray[self.index];
     self.title = self.live.myname;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"deleteButtonImage"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss)];
     
     [self.view addSubview:self.player.playerView];
     [self.view addSubview:self.backgroundImageView];

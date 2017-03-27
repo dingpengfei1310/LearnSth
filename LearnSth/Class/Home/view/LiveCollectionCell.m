@@ -43,4 +43,13 @@
     }
 }
 
+//- (void)cellAnimationOnCollectionView:(UICollectionView *)collectionView didScrollOnView:(UIView *)view {
+//    CGRect rectInView = [collectionView convertRect:self.frame toView:view];
+//    CGFloat move = (view.frame.size.height / 2 - rectInView.origin.y) / view.frame.size.height * 60;
+//    
+//    CGRect imageRect = self.liveImageView.frame;
+//    imageRect.origin.y = -30 + move;
+//    self.liveImageView.frame = imageRect;
+//}
+
 @end

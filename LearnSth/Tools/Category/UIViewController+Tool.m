@@ -81,7 +81,7 @@
     hud.label.font = [self hudTextFont];
     hud.margin = [self hudTextMargin];
     
-    hud.bezelView.backgroundColor = [UIColor clearColor];
+    hud.bezelView.color = [UIColor clearColor];
     
     if (message) {
         hud.mode = MBProgressHUDModeText;
