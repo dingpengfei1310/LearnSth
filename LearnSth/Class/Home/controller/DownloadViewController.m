@@ -228,7 +228,7 @@
         wSelf.currentModel.bytesTotal = bytesTotal;
         wSelf.currentModel.state = DownloadStateRunning;
         wCell.fileModel = wSelf.currentModel;
-        
+        NSLog(@"%lld",bytesWritten);
     } completion:^(BOOL isSuccess, NSError *error) {
         wSelf.downloadFile = [DownloadModel loadAllDownload];
         [wSelf.tableView reloadData];
