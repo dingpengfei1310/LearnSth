@@ -13,19 +13,12 @@
 
 + (instancetype)shareManager;
 
+- (BOOL)isDownloading;
+- (void)pauseWithUrl:(NSURL *)url;
+
 - (void)downloadWithUrl:(NSURL *)url
                   state:(void (^)(DownloadState state))state
                progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
              completion:(void (^)(BOOL isSuccess, NSError *error))completion;
-
-//- (void)downloadWithModel:(NSURL *)url
-//                    state:(void (^)(NSURLSessionTaskState state))state
-//                 progress:(void (^)(int64_t bytesWritten,int64_t bytesTotal))progress
-//               completion:(void (^)(BOOL isSuccess, NSError *error))completion;
-
-
-- (BOOL)isDownloading;
-
-- (void)pauseWithUrl:(NSURL *)url;
 
 @end

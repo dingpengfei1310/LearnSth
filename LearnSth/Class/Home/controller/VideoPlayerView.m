@@ -94,6 +94,9 @@ const CGFloat BottomH = 40;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     hud.bezelView.color = [UIColor clearColor];
+    
+    [self bringSubviewToFront:_topView];
+    [self bringSubviewToFront:_bottomView];
 }
 
 - (void)hideHud {
@@ -163,7 +166,7 @@ const CGFloat BottomH = 40;
     slider.maximumTrackTintColor = [UIColor clearColor];
     slider.minimumTrackTintColor = [UIColor clearColor];
     [slider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
-    [slider addTarget:self action:@selector(playerSeekTo:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
     [slider addTarget:self action:@selector(sliderTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:slider];
@@ -247,14 +250,16 @@ const CGFloat BottomH = 40;
     AVPlayerItem *item = (AVPlayerItem *)object;
     
     if ([keyPath isEqualToString:@"status"]) {
-        AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
-        if (status == AVPlayerStatusReadyToPlay) {
+        AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
+        if (status == AVPlayerItemStatusReadyToPlay) {
             [self setMaxDuration:CMTimeGetSeconds(item.duration)];
             [self videoPaly];
             
             [self delayExecute];
+        } else if (status == AVPlayerItemStatusFailed) {
+            [self hideHud];
+            [self backButtonClick];
         }
-        
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         double timeInterval = [self availableDurationRanges];// 缓冲时间
         // 更新缓冲条
@@ -281,7 +286,6 @@ const CGFloat BottomH = 40;
 // 已缓冲进度
 - (double)availableDurationRanges {
     NSArray *loadedTimeRanges = [_playerItem loadedTimeRanges]; // 获取item的缓冲数组
-    
     // CMTimeRange 结构体 start duration 表示起始位置 和 持续时间
     CMTimeRange timeRange = [loadedTimeRanges.firstObject CMTimeRangeValue]; // 获取缓冲区域
     double startSeconds = CMTimeGetSeconds(timeRange.start);
@@ -367,7 +371,7 @@ const CGFloat BottomH = 40;
 }
 
 #pragma mark - UISlider事件
-- (void)playerSeekTo:(UISlider *)slider {
+- (void)sliderValueChanged:(UISlider *)slider {
     [self seekToPlayerTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
     self.currentTimeLabel.text = [self stringWithTime:slider.value];
 }
@@ -378,7 +382,6 @@ const CGFloat BottomH = 40;
 
 - (void)sliderTouchUpInside:(UISlider *)slider {
     self.isSliding = NO;
-    
     [self delayExecute];
 }
 

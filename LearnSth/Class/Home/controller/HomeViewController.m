@@ -43,7 +43,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self.view addSubview:self.collectionView];
     
     [self navigationBackItem];
-    [self getHomeAdBanner];
+//    [self getHomeAdBanner];
 //    [self refreshLiveData];
 }
 

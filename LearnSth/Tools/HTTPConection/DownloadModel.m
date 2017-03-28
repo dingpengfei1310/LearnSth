@@ -20,7 +20,8 @@ static NSString *KDownloadDirectory = @"download";
 }
 
 - (NSString *)savePath {
-    return [[DownloadModel directoryPath] stringByAppendingPathComponent:self.fileName];
+    NSString *path = [NSString stringWithFormat:@"%@.mp4",self.fileName];
+    return [[DownloadModel directoryPath] stringByAppendingPathComponent:path];
 }
 
 #pragma mark

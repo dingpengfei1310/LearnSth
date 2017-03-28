@@ -112,13 +112,13 @@
     [cell setSeparatorInset:UIEdgeInsetsZero];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
-    if (model.state == DownloadStateCompletion) {
-        return YES;
-    }
-    return NO;
-}
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    DownloadModel *model = self.downloadFile.allValues[indexPath.row];
+//    if (model.state == DownloadStateCompletion) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
@@ -127,10 +127,13 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         DownloadModel *model = self.downloadFile.allValues[indexPath.row];
-        [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
+        [self showAlertWithTitle:@"提示" message:@"确定删除吗?"
                           cancel:^{
                               [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                           } destructive:^{
+                              NSURL *url = [NSURL URLWithString:model.fileUrl];
+                              [[DownloadManager shareManager] pauseWithUrl:url];
+                              
                               NSFileManager *fileManager = [NSFileManager defaultManager];
                               [fileManager removeItemAtPath:model.savePath error:NULL];
                               
@@ -223,12 +226,11 @@
         }
         
     } progress:^(int64_t bytesWritten, int64_t bytesTotal) {
-        
         wSelf.currentModel.bytesReceived = bytesWritten;
         wSelf.currentModel.bytesTotal = bytesTotal;
         wSelf.currentModel.state = DownloadStateRunning;
         wCell.fileModel = wSelf.currentModel;
-        NSLog(@"%lld",bytesWritten);
+        
     } completion:^(BOOL isSuccess, NSError *error) {
         wSelf.downloadFile = [DownloadModel loadAllDownload];
         [wSelf.tableView reloadData];

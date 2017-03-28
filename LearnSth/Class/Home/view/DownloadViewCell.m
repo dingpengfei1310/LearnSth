@@ -35,6 +35,7 @@
 - (void)setFileModel:(DownloadModel *)fileModel {
     _fileModel = fileModel;
     
+    self.progressView.hidden = NO;
     self.titleLabel.text = fileModel.fileName;
     if (fileModel.bytesTotal > 0) {
         self.sizeLabel.text = [NSString stringWithFormat:@"%.1fM/%.1fM",fileModel.bytesReceived / 1024.0 / 1024,fileModel.bytesTotal / 1024.0 / 1024];
