@@ -68,7 +68,7 @@ static dispatch_once_t allocOnceToken;
 //
 //        [userModel setValue:[self valueForKey:propertyName] forKey:propertyName];
 //    }
-//
+//    free(propertities);
 //    return userModel;
     
     return userModel;
@@ -105,9 +105,8 @@ static dispatch_once_t allocOnceToken;
             [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
         }
     }
-    
+    free(propertities);
     return [NSDictionary dictionaryWithDictionary:mutDict];
 }
 
 @end
-

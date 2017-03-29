@@ -18,5 +18,6 @@
 @property (nonatomic, strong) DownloadModel *model;
 
 - (void)pausePlayer;
+//- (void)screenCapture;
 
 @end

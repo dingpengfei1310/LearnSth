@@ -26,7 +26,7 @@
         
         [adModle setValue:[self valueForKey:propertyName] forKey:propertyName];
     }
-    
+    free(propertities);
     return adModle;
 }
 

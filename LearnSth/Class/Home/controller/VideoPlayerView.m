@@ -120,6 +120,12 @@ const CGFloat BottomH = 40;
     nameLabel.textColor = [UIColor whiteColor];
     [topView addSubview:nameLabel];
     nameLabel.text = self.model.fileName;
+    
+    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_H - BottomH, 0, BottomH, BottomH)];
+    [screenCaptureButton setTitle:@"截屏" forState:UIControlStateNormal];
+    screenCaptureButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    [screenCaptureButton addTarget:self action:@selector(screenCapture) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:screenCaptureButton];
 }
 
 - (void)initBottonView {
@@ -238,11 +244,22 @@ const CGFloat BottomH = 40;
 }
 
 - (void)seekToPlayerTime:(CMTime)time {
-    [self.player seekToTime:time completionHandler:^(BOOL finished) {
+    [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
         if (!self.playerItem.isPlaybackLikelyToKeepUp) {
             [self showHud];
         }
     }];
+}
+
+- (void)screenCapture {
+    AVAssetImageGenerator *genator = [[AVAssetImageGenerator alloc] initWithAsset:self.playerItem.asset];
+    CGImageRef imageRef = [genator copyCGImageAtTime:self.playerItem.currentTime actualTime:NULL error:NULL];
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
 }
 
 #pragma mark - kvo:播放状态，加载进度

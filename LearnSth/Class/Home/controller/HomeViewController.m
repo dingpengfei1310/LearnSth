@@ -62,10 +62,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 }
 
 - (void)navigationBackItem {
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@" "
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(homeRightItemClick)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
@@ -139,7 +136,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
             self.bannerScrollView.tag = 1111;
             [reusableView addSubview:self.bannerScrollView];
         }
-        
         return reusableView;
     }
     

@@ -98,7 +98,7 @@ static NSString *KDownloadDirectory = @"download";
         
         [mutDict setValue:[self valueForKey:propertyName] forKey:propertyName];
     }
-    
+    free(propertities);
     return [NSDictionary dictionaryWithDictionary:mutDict];
 }
 
