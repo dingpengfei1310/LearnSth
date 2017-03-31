@@ -74,7 +74,6 @@ static NSString *identifier = @"cell";
     
     if (success) {
         NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
-        NSLog(@"PATH = %@",manager.savePath);
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
     }
 }
@@ -95,15 +94,12 @@ static NSString *identifier = @"cell";
             [self hideHUD];
             [self.tableView reloadData];
         });
-        
     });
 }
 
 - (CGFloat)calculateDiskCacheSize {
     long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
     CGFloat cacheSize = longSize / 1024.0 / 1024.0;
-//    NSLog(@"%@",kCachePath);
-    
     return cacheSize;
 }
 

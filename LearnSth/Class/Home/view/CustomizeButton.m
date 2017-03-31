@@ -32,8 +32,8 @@ const CGFloat titleScale = 0.2;//文字比例
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
-    CGRect imageRect;
-    CGRect titleRect;
+    CGRect imageRect = CGRectZero;
+    CGRect titleRect = CGRectZero;
     
     switch (self.position) {
         case ImagePoisitionDefault: {

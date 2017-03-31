@@ -38,7 +38,7 @@ static char reloadBlockKey;
         sections = [dataSource numberOfSectionsInCollectionView:self];
     }
     for (NSInteger i = 0; i < sections; i++) {
-        if ([dataSource collectionView:self numberOfItemsInSection:i]) {
+        if ([dataSource collectionView:self numberOfItemsInSection:i] > 0) {
             isEmpty = NO;
             return;
         }

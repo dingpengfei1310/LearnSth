@@ -75,18 +75,18 @@
 }
 
 #pragma mark
-- (void)saveImageIntoAlbum {
-    [self saveImageIntoAlbumWithTitle:nil];
+- (void)saveImageToAlbum {
+    [self saveImageToAlbumWithTitle:nil];
 }
 
-- (void)saveImageIntoAlbumWithTitle:(NSString *)title {
+- (void)saveImageToAlbumWithTitle:(NSString *)title {
     // 获得相片
     PHFetchResult<PHAsset *> *createdAssets = [self createAssets];
     // 获得相册
     PHAssetCollection *createdCollection = [self createAssetCollectionWithTitle:title];
     
     if (createdAssets == nil || createdCollection == nil) {
-        NSLog(@"%@",@"保存失败");
+        //保存失败
         return;
     }
     // 将相片添加到相册
@@ -97,9 +97,7 @@
     } error:&error];
     // 保存结果
     if (error) {
-        NSLog(@"%@",@"保存失败");
     } else {
-        NSLog(@"%@",@"保存成功");
     }
 }
 

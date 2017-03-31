@@ -38,7 +38,7 @@ static char reloadBlockKey;
         sections = [dataSource numberOfSectionsInTableView:self];
     }
     for (NSInteger i = 0; i < sections; i++) {
-        if ([dataSource tableView:self numberOfRowsInSection:i]) {
+        if ([dataSource tableView:self numberOfRowsInSection:i] > 0) {
             isEmpty = NO;
             return;
         }

@@ -10,12 +10,10 @@
 
 #import "DownloadModel.h"
 #import "AppDelegate.h"
-
-#import "MBProgressHUD.h"
+#import "UIView+Tool.h"
 #import <AVFoundation/AVFoundation.h>
-#import "AFNetworkReachabilityManager.h"
 
-@interface VideoPlayerView (){
+@interface VideoPlayerView () <UIGestureRecognizerDelegate>{
     id playerTimeObserver;
 }
 
@@ -30,7 +28,7 @@
 @property (nonatomic, strong) UIButton *rotationButton;
 
 @property (nonatomic, strong) UIProgressView *loadingProgress;//加载进度
-@property (nonatomic, strong) UISlider *playProgress;//播放进度
+@property (nonatomic, strong) UISlider *playSlider;//播放进度
 
 @property (nonatomic, strong) UILabel *currentTimeLabel;
 @property (nonatomic, strong) UILabel *totalTimeLabel;
@@ -39,16 +37,18 @@
 
 @property (nonatomic, assign) BOOL isScreenLocked;//是否锁屏
 @property (nonatomic, assign) BOOL isTopViewHidden;//是否显示顶部、底部
-@property (nonatomic, assign) BOOL isSliding;//是否正在划动进度条
+@property (nonatomic, assign) BOOL isSliding;//是否正在拖动进度条（或者滑动快进）
 
 @property (nonatomic, assign) double totalTime;
+@property (nonatomic, assign) NSInteger timeScale;
 
 @property (nonatomic, assign) UIInterfaceOrientation lastOrientation;//上次的方向，旋转用
+@property (nonatomic, assign) CGPoint lastPoint;
 
 @end
 
 const CGFloat HeightScale = 0.5625;//竖屏时，player高度
-const CGFloat BottomH = 40;
+const CGFloat BottomH = 30;
 
 @implementation VideoPlayerView
 - (instancetype)init {
@@ -90,17 +90,11 @@ const CGFloat BottomH = 40;
 
 #pragma mark
 - (void)showHud {
-    [self hideHud];
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    hud.bezelView.color = [UIColor clearColor];
+    [self hideHUD];
+    [self loading];
     
     [self bringSubviewToFront:_topView];
     [self bringSubviewToFront:_bottomView];
-}
-
-- (void)hideHud {
-    [MBProgressHUD hideHUDForView:self animated:YES];
 }
 
 #pragma mark
@@ -121,11 +115,11 @@ const CGFloat BottomH = 40;
     [topView addSubview:nameLabel];
     nameLabel.text = self.model.fileName;
     
-    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_H - BottomH, 0, BottomH, BottomH)];
-    [screenCaptureButton setTitle:@"截屏" forState:UIControlStateNormal];
-    screenCaptureButton.titleLabel.font = [UIFont systemFontOfSize:13];
-    [screenCaptureButton addTarget:self action:@selector(screenCapture) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:screenCaptureButton];
+//    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_H - BottomH, 0, BottomH, BottomH)];
+//    [screenCaptureButton setTitle:@"截屏" forState:UIControlStateNormal];
+//    screenCaptureButton.titleLabel.font = [UIFont systemFontOfSize:13];
+//    [screenCaptureButton addTarget:self action:@selector(screenCapture) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:screenCaptureButton];
 }
 
 - (void)initBottonView {
@@ -169,27 +163,31 @@ const CGFloat BottomH = 40;
     _loadingProgress = progressView;
     
     UISlider *slider = [[UISlider alloc] initWithFrame:progressView.frame];
+    slider.continuous = NO;
     slider.maximumTrackTintColor = [UIColor clearColor];
     slider.minimumTrackTintColor = [UIColor clearColor];
     [slider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
-    [slider addTarget:self action:@selector(sliderTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [slider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragInside];
+    [slider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragOutside];
+    
     [bottomView addSubview:slider];
-    _playProgress = slider;
+    _playSlider = slider;
     
-    UILabel *currentSecondsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(progressView.frame) - 70, 0, 60, height)];
-    currentSecondsLabel.font = [UIFont systemFontOfSize:12];
-    currentSecondsLabel.textColor = [UIColor whiteColor];
-    currentSecondsLabel.textAlignment = NSTextAlignmentRight;
-    [bottomView addSubview:currentSecondsLabel];
-    _currentTimeLabel = currentSecondsLabel;
+    UILabel *currentTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(progressView.frame) - 70, 0, 60, height)];
+    currentTime.font = [UIFont systemFontOfSize:12];
+    currentTime.textColor = [UIColor whiteColor];
+    currentTime.textAlignment = NSTextAlignmentRight;
+    [bottomView addSubview:currentTime];
+    _currentTimeLabel = currentTime;
     
-    UILabel *totalSecondsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(progressView.frame) + 10, 0, 60, height)];
-    totalSecondsLabel.font = [UIFont systemFontOfSize:12];
-    totalSecondsLabel.textColor = [UIColor whiteColor];
-    [bottomView addSubview:totalSecondsLabel];
-    _totalTimeLabel = totalSecondsLabel;
+    UILabel *totalTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(progressView.frame) + 10, 0, 60, height)];
+    totalTime.font = [UIFont systemFontOfSize:12];
+    totalTime.textColor = [UIColor whiteColor];
+    [bottomView addSubview:totalTime];
+    _totalTimeLabel = totalTime;
     
     UIButton *rotationButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_W - height, 0, height, height)];
     [rotationButton setImage:[UIImage imageNamed:@"playerFullScreen"] forState:UIControlStateNormal];
@@ -199,21 +197,30 @@ const CGFloat BottomH = 40;
 }
 
 - (void)addGesture {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPlayer:)];
-    [self addGestureRecognizer:tap];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTap.delegate = self;
+    [self addGestureRecognizer:singleTap];
     
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnPlayer:)];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    doubleTap.delegate = self;
     doubleTap.numberOfTapsRequired = 2;
     [self addGestureRecognizer:doubleTap];
     
-    [tap requireGestureRecognizerToFail:doubleTap];
+    [singleTap requireGestureRecognizerToFail:doubleTap];
     
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
-    swipe.direction = UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight;
-    [self addGestureRecognizer:swipe];
+//    UISwipeGestureRecognizer *forward = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+//    forward.delegate = self;
+//    forward.direction = UISwipeGestureRecognizerDirectionRight;
+//    [self addGestureRecognizer:forward];
+//    
+//    UISwipeGestureRecognizer *backWord = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+//    backWord.delegate = self;
+//    backWord.direction = UISwipeGestureRecognizerDirectionLeft;
+//    [self addGestureRecognizer:backWord];
     
-    //    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnPlayer:)];
-    //    [self.view addGestureRecognizer:pan];
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnPlayer:)];
+    panGesture.delegate = self;
+    [self addGestureRecognizer:panGesture];
 }
 
 - (void)addPlayerObserver {
@@ -227,7 +234,7 @@ const CGFloat BottomH = 40;
     playerTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         
         if (!wSelf.isSliding) {
-            wSelf.playProgress.value = CMTimeGetSeconds(time);
+            wSelf.playSlider.value = CMTimeGetSeconds(time);
             wSelf.currentTimeLabel.text = [wSelf stringWithTime:CMTimeGetSeconds(time)];
         }
     }];
@@ -239,12 +246,14 @@ const CGFloat BottomH = 40;
 }
 
 - (void)playerDidPlayToEnd {
-    [self.player seekToTime:CMTimeMake(0, 1)];
+    [self.playerItem seekToTime:CMTimeMake(0, 1)];
     self.playButton.selected = NO;
 }
 
 - (void)seekToPlayerTime:(CMTime)time {
-    [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
+    [self.playerItem seekToTime:time completionHandler:^(BOOL finished) {
+        self.isSliding = NO;
+        
         if (!self.playerItem.isPlaybackLikelyToKeepUp) {
             [self showHud];
         }
@@ -256,10 +265,10 @@ const CGFloat BottomH = 40;
     CGImageRef imageRef = [genator copyCGImageAtTime:self.playerItem.currentTime actualTime:NULL error:NULL];
     UIImage *image = [UIImage imageWithCGImage:imageRef];
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    CGImageRelease(imageRef);
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
 }
 
 #pragma mark - kvo:播放状态，加载进度
@@ -269,12 +278,12 @@ const CGFloat BottomH = 40;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
-            [self setMaxDuration:CMTimeGetSeconds(item.duration)];
+            [self setMaxDuration:item.duration];
             [self videoPaly];
             
             [self delayExecute];
         } else if (status == AVPlayerItemStatusFailed) {
-            [self hideHud];
+            [self hideHUD];
             [self backButtonClick];
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
@@ -283,7 +292,7 @@ const CGFloat BottomH = 40;
         self.loadingProgress.progress = (self.totalTime == 0.0) ? 0.0 : timeInterval / self.totalTime;
         
         if (timeInterval > CMTimeGetSeconds(self.playerItem.currentTime)) {
-            [self hideHud];
+            [self hideHUD];
         }
         
     } else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) { //监听播放器在缓冲数据的状态
@@ -293,11 +302,12 @@ const CGFloat BottomH = 40;
     }
 }
 
-- (void)setMaxDuration:(double)totalSecond {
-    _totalTime = totalSecond;
-    _playProgress.maximumValue = totalSecond;
+- (void)setMaxDuration:(CMTime)duration {
+    _timeScale = duration.timescale;
+    _totalTime = CMTimeGetSeconds(duration);
     
-    self.totalTimeLabel.text = [self stringWithTime:totalSecond];
+    self.playSlider.maximumValue = _totalTime;
+    self.totalTimeLabel.text = [self stringWithTime:_totalTime];
 }
 
 // 已缓冲进度
@@ -365,40 +375,110 @@ const CGFloat BottomH = 40;
 }
 
 #pragma mark - 手势
-- (void)tapOnPlayer:(UITapGestureRecognizer *)tap {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UISlider class]]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (self.isSliding) {
+        return NO;
+    }
+    
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        return YES;
+    }
+    
+    if (self.lockButton.selected) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)singleTap:(UITapGestureRecognizer *)singleTap {
     if (!self.isScreenLocked) {
         [self showTopView];
     }
     
     [self showLockButton];
     [self delayExecute];
-    
     self.TapGestureBlock ? self.TapGestureBlock() : 0;
 }
 
-- (void)doubleTapOnPlayer:(UITapGestureRecognizer *)tap {
+- (void)doubleTap:(UITapGestureRecognizer *)doubleTap {
     [self videoPaly];
 }
 
+- (void)panOnPlayer:(UIPanGestureRecognizer *)panGesture {
+    UIGestureRecognizerState state = panGesture.state;
+    CGPoint point = [panGesture locationInView:self];
+    
+    switch (state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            self.isSliding = YES;
+            self.lastPoint = point;
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+        {
+            CGFloat distance = point.x - self.lastPoint.x;
+            CGFloat value = distance / self.frame.size.width * _totalTime;
+            
+            self.playSlider.value = MIN(self.playSlider.value + value, _totalTime);
+            self.lastPoint = point;
+            
+            NSString *text = [NSString stringWithFormat:@"%@ / %@",[self stringWithTime:self.playSlider.value],[self stringWithTime:_totalTime]];
+            [self showMessage:text];
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self hideHUD];
+            [self sliderValueChanged:self.playSlider];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+            
+    }
+}
+
 - (void)swipOnPlayer:(UISwipeGestureRecognizer *)swipe {
+    //快进、快退15秒
+    NSInteger seconds = 15;
     double currentTime = CMTimeGetSeconds(self.playerItem.currentTime);
     
-    [self seekToPlayerTime:CMTimeMake(currentTime + 10, 1)];
-    self.playProgress.value = currentTime + 10;
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self seekToPlayerTime:CMTimeMake((currentTime + seconds) * _timeScale, _timeScale * 1.0)];
+        self.playSlider.value = currentTime + seconds;
+        
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self seekToPlayerTime:CMTimeMake((currentTime - seconds) * _timeScale, _timeScale * 1.0)];
+        self.playSlider.value = currentTime - seconds;
+    }
 }
 
 #pragma mark - UISlider事件
-- (void)sliderValueChanged:(UISlider *)slider {
-    [self seekToPlayerTime:CMTimeMakeWithSeconds(slider.value, 1.0)];
-    self.currentTimeLabel.text = [self stringWithTime:slider.value];
-}
-
 - (void)sliderTouchDown:(UISlider *)slider {
     self.isSliding = YES;
 }
 
-- (void)sliderTouchUpInside:(UISlider *)slider {
-    self.isSliding = NO;
+- (void)sliderTouchDrag:(UISlider *)slider {
+    NSString *text = [NSString stringWithFormat:@"%@ / %@",[self stringWithTime:self.playSlider.value],[self stringWithTime:_totalTime]];
+    [self showMessage:text];
+}
+
+- (void)sliderValueChanged:(UISlider *)slider {
+    [self hideHUD];
+    
+    self.currentTimeLabel.text = [self stringWithTime:slider.value];
+    [self seekToPlayerTime:CMTimeMakeWithSeconds(slider.value, _timeScale * 1.0)];
+    
     [self delayExecute];
 }
 
@@ -436,6 +516,10 @@ const CGFloat BottomH = 40;
 }
 
 - (void)hideTopViewIfNeed {
+    if (self.isSliding) {
+        return;
+    }
+    
     if (!self.isTopViewHidden) {
         [self showTopView];
         [self showLockButton];
@@ -536,8 +620,8 @@ const CGFloat BottomH = 40;
     self.loadingProgress.bounds = CGRectMake(0, 0, Screen_W * 0.5, 20);
     self.loadingProgress.center = CGPointMake(Screen_W * 0.5, BottomH * 0.5);
     
-    self.playProgress.bounds = CGRectMake(0, 0, Screen_W * 0.5, 20);
-    self.playProgress.center = CGPointMake(Screen_W * 0.5, BottomH * 0.5);
+    self.playSlider.bounds = CGRectMake(0, 0, Screen_W * 0.5, 20);
+    self.playSlider.center = CGPointMake(Screen_W * 0.5, BottomH * 0.5);
     
     self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingProgress.frame) + 10, 0, 60, BottomH);
     self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingProgress.frame) - 70, 0, 60, BottomH);
@@ -552,12 +636,6 @@ const CGFloat BottomH = 40;
     if (!_playerLayer) {
         
         NSURL *url;
-//        if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
-//            url = [NSURL URLWithString:self.model.fileUrl];
-//        } else {
-//            url = [NSURL fileURLWithPath:self.model.savePath];
-//        }
-        
         if (self.model.state == DownloadStateCompletion) {
             url = [NSURL fileURLWithPath:self.model.savePath];
         } else {

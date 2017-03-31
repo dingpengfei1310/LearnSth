@@ -46,7 +46,6 @@ static SQLManager *manager = nil;
 
 - (void)initialize {
 //    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-//    NSLog(@"%@",document);
 //    NSString *path = [document stringByAppendingPathComponent:@"temp.db"];
     
     NSString *resouncePath = [[NSBundle mainBundle] pathForResource:@"province.db" ofType:nil];

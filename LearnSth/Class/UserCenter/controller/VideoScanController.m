@@ -318,7 +318,7 @@
         NSString *moviePath = [KDocumentPath stringByAppendingPathComponent:fileName];
         unlink([moviePath UTF8String]);
         
-        CGSize size;
+        CGSize size = CGSizeZero;
         NSArray *array = [self.urlAsset tracksWithMediaType:AVMediaTypeVideo];
         if (array.count > 0) {
             AVAssetTrack *track = array[0];

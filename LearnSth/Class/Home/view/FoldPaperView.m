@@ -67,7 +67,7 @@
         
         CATransform3D translationTransform = CATransform3DMakeTranslation(0, - sin(scale * 0.5) * height * 0.5, 0);
         
-        NSLog(@"%@",[NSValue valueWithCGRect:self.centerImageView.frame]);
+//        NSLog(@"%@",[NSValue valueWithCGRect:self.centerImageView.frame]);
         
         
         if (i % 2 == 0) {
@@ -191,5 +191,3 @@
 }
 
 @end
-
-

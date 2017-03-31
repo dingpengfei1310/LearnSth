@@ -53,22 +53,6 @@
     [DownloadModel add:model1];
     [DownloadModel add:model2];
     
-//    NSString *downloadURLString3 = @"http://zyvideo1.oss-cn-qingdao.aliyuncs.com/zyvd/7c/de/04ec95f4fd42d9d01f63b9683ad0";
-//    NSString *downloadURLString4 = @"http://v4ttyey-10001453.video.myqcloud.com/Microblog/288-4-1452304375video1466172731.mp4";
-//    
-//    DownloadModel *model3 = [[DownloadModel alloc] init];
-//    model3.fileName = @"不知道什么鬼之电影";
-//    model3.fileUrl = downloadURLString3;
-//    model3.state = DownloadStatePause;
-//    
-//    DownloadModel *model4 = [[DownloadModel alloc] init];
-//    model4.fileName = @"这个真不知道是啥么鬼";
-//    model4.fileUrl = downloadURLString4;
-//    model4.state = DownloadStatePause;
-//    
-//    [DownloadModel add:model3];
-//    [DownloadModel add:model4];
-    
     _downloadFile = [DownloadModel loadAllDownload];
     [self.tableView reloadData];
 }

@@ -24,10 +24,7 @@
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius;
 
 ///默认名字为app名字
-- (void)saveImageIntoAlbum;
-- (void)saveImageIntoAlbumWithTitle:(NSString *)title;
-
-//模糊图片
-- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage;
+- (void)saveImageToAlbum;
+- (void)saveImageToAlbumWithTitle:(NSString *)title;
 
 @end

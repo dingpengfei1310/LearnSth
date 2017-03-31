@@ -33,7 +33,8 @@ const CGFloat raindropRadius = 5;
 @implementation DropWaterView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if (self == [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         width = frame.size.width;
         height = frame.size.height;
         backgroundColor = [UIColor orangeColor];

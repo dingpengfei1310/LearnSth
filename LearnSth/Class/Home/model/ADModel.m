@@ -47,11 +47,4 @@
     
 }
 
-//- (void)setValue:(id)value forKey:(NSString *)key {
-//    NSLog(@"%@ - %@",key,[value class]);
-//    [super setValue:value forKey:key];
-//}
-
-
 @end
-
