@@ -97,6 +97,8 @@
 		1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */; };
 		1B72BEED1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
+		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
+		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
 		1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* RootViewController.m */; };
@@ -331,6 +333,9 @@
 		1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
 		1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionView.m; sourceTree = "<group>"; };
+		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
+		1BB786A31E8E2D5B00185869 /* RotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationViewController.m; sourceTree = "<group>"; };
+		1BB786A41E8E2D5B00185869 /* RotationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationViewController.xib; sourceTree = "<group>"; };
 		1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
 		1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -740,6 +745,9 @@
 				1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */,
 				1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */,
 				1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */,
+				1BB786A21E8E2D5B00185869 /* RotationViewController.h */,
+				1BB786A31E8E2D5B00185869 /* RotationViewController.m */,
+				1BB786A41E8E2D5B00185869 /* RotationViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1157,6 +1165,7 @@
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
+				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
 				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
 				1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */,
@@ -1260,6 +1269,7 @@
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
+				1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */,
 				CF349F761E7D24790087A55E /* VideoPlayerView.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,

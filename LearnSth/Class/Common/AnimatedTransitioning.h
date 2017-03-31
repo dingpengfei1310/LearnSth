@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger){
     AnimatedTransitioningOperationDismiss
 }AnimatedTransitioningOperation;
 
-
 @interface AnimatedTransitioning : NSObject<UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, assign) AnimatedTransitioningOperation operation;

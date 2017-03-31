@@ -557,7 +557,6 @@ const CGFloat BottomH = 30;
         [UIView animateWithDuration:duration animations:^{
             self.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-            
         }];
         self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
         

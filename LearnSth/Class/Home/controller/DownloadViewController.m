@@ -29,8 +29,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"文件下载";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(addFile)];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFile)];
     self.downloadingIndex = -1;
     self.downloadFile = [DownloadModel loadAllDownload];
     [self.view addSubview:self.tableView];
@@ -124,7 +123,7 @@
                               [DownloadModel remove:model];
                               self.downloadFile = [DownloadModel loadAllDownload];
                               
-                              [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                              [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                           }];
     }
 }
@@ -237,7 +236,6 @@
     
     return transition;
 }
-
 
 #pragma mark
 - (UITableView *)tableView {
