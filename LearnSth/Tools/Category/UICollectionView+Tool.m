@@ -30,21 +30,21 @@ static char reloadBlockKey;
 
 #pragma mark
 - (void)checkEmpty {
-    BOOL isEmpty = YES;
     id <UICollectionViewDataSource> dataSource = self.dataSource;
     
     NSInteger sections = 1;
     if ([dataSource respondsToSelector:@selector(numberOfSectionsInCollectionView:)]) {
         sections = [dataSource numberOfSectionsInCollectionView:self];
     }
+    
     for (NSInteger i = 0; i < sections; i++) {
         if ([dataSource collectionView:self numberOfItemsInSection:i] > 0) {
-            isEmpty = NO;
+            [self hideEmptyView];
             return;
         }
     }
     
-    isEmpty ? [self showEmptyView] : [self hideEmptyView];
+    [self showEmptyView];
 }
 
 - (void)showEmptyView {

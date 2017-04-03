@@ -31,6 +31,7 @@
 }
 
 - (void)initialize {
+//    self.scrollEnabled = NO;
     [self addSubview:self.label];
 }
 
@@ -44,7 +45,7 @@
 
 - (void)calculateFrame:(NSString *)text {
     CGSize size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 21)
-                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics
                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}
                                      context:nil].size;
     self.label.frame = CGRectMake(0, 0, size.width, 21);

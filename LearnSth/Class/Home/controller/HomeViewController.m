@@ -22,6 +22,8 @@
 #import "Aspects.h"
 #import "MJRefresh.h"
 
+#import "RollTextLabel.h"
+
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
@@ -45,7 +47,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self.view addSubview:self.collectionView];
     
     [self navigationBackItem];
-    [self getHomeAdBanner];
+//    [self getHomeAdBanner];
 //    [self refreshLiveData];
 }
 

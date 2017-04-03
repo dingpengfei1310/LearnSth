@@ -62,7 +62,6 @@
                 self.signaturesLabel.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 21, CGRectGetWidth(self.frame), 21);
                 self.signaturesLabel.text = liveModel.signatures;
             }
-            
         }];
     }
 }

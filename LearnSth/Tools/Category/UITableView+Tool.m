@@ -40,7 +40,6 @@ static char reloadBlockKey;
     for (NSInteger i = 0; i < sections; i++) {
         if ([dataSource tableView:self numberOfRowsInSection:i] > 0) {
             isEmpty = NO;
-            return;
         }
     }
     
