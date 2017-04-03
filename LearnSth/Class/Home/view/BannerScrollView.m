@@ -7,7 +7,6 @@
 //
 
 #import "BannerScrollView.h"
-#import "UIImageView+WebCache.h"
 
 @interface BannerScrollView ()<UIScrollViewDelegate>
 

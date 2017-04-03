@@ -45,7 +45,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self.view addSubview:self.collectionView];
     
     [self navigationBackItem];
-//    [self getHomeAdBanner];
+    [self getHomeAdBanner];
 //    [self refreshLiveData];
 }
 
@@ -77,6 +77,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
         if (!error) {
             NSArray *adArray = [ADModel adWithArray:list];
+            
+//            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"orderid > 2"];
+//            self.bannerList = [adArray filteredArrayUsingPredicate:predicate];
             self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];;
             
             NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:self.bannerList.count];
@@ -190,8 +193,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
-        UINib *nib = [UINib nibWithNibName:@"LiveCollectionCell" bundle:[NSBundle mainBundle]];
-        [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];
+        [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
         [_collectionView registerClass:[UICollectionReusableView class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:headerReuseIdentifier];

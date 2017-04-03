@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */; };
+		1B008EE71E922223003AE2DB /* RollTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B008EE61E922223003AE2DB /* RollTextLabel.m */; };
 		1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334621E726C86009567F9 /* DownloadViewController.m */; };
 		1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334651E726DA1009567F9 /* DownloadViewCell.m */; };
 		1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0334661E726DA1009567F9 /* DownloadViewCell.xib */; };
@@ -94,7 +96,6 @@
 		1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */; };
 		1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */; };
 		1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */; };
-		1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */; };
 		1B72BEED1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
@@ -154,6 +155,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B008EE21E91F51C003AE2DB /* UIViewController+PopAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PopAction.h"; sourceTree = "<group>"; };
+		1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PopAction.m"; sourceTree = "<group>"; };
+		1B008EE51E922223003AE2DB /* RollTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RollTextLabel.h; sourceTree = "<group>"; };
+		1B008EE61E922223003AE2DB /* RollTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RollTextLabel.m; sourceTree = "<group>"; };
 		1B0334611E726C86009567F9 /* DownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewController.h; sourceTree = "<group>"; };
 		1B0334621E726C86009567F9 /* DownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewController.m; sourceTree = "<group>"; };
 		1B0334641E726DA1009567F9 /* DownloadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewCell.h; sourceTree = "<group>"; };
@@ -328,7 +333,6 @@
 		1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveModel.m; sourceTree = "<group>"; };
 		1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionCell.h; sourceTree = "<group>"; };
 		1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionCell.m; sourceTree = "<group>"; };
-		1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCollectionCell.xib; sourceTree = "<group>"; };
 		1B72BEEB1E4D9805007DFF74 /* PanDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
@@ -780,7 +784,6 @@
 				1B2D07D21DE7E8DB0034C22D /* LineView.m */,
 				1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */,
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
-				1B5E7BFF1E49C9C400153A58 /* LiveCollectionCell.xib */,
 				1B0334641E726DA1009567F9 /* DownloadViewCell.h */,
 				1B0334651E726DA1009567F9 /* DownloadViewCell.m */,
 				1B0334661E726DA1009567F9 /* DownloadViewCell.xib */,
@@ -859,14 +862,16 @@
 			isa = PBXGroup;
 			children = (
 				1B4630BE1E669703000260D2 /* Category */,
+				1B4630E21E669796000260D2 /* CustomiseTool.h */,
+				1B4630E31E669796000260D2 /* CustomiseTool.m */,
 				1B4630CB1E669703000260D2 /* DeviceConfig.h */,
 				1B4630CC1E669703000260D2 /* DeviceConfig.m */,
 				1B4630CD1E669703000260D2 /* HTTPConection */,
 				1B4630D01E669703000260D2 /* SQLManager */,
 				1B4630D31E669703000260D2 /* UserLocalNotification.h */,
 				1B4630D41E669703000260D2 /* UserLocalNotification.m */,
-				1B4630E21E669796000260D2 /* CustomiseTool.h */,
-				1B4630E31E669796000260D2 /* CustomiseTool.m */,
+				1B008EE51E922223003AE2DB /* RollTextLabel.h */,
+				1B008EE61E922223003AE2DB /* RollTextLabel.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -888,6 +893,8 @@
 				1BD7691A1E8D0F5E00860D92 /* UIView+Tool.m */,
 				1B4630C91E669703000260D2 /* UIViewController+Tool.h */,
 				1B4630CA1E669703000260D2 /* UIViewController+Tool.m */,
+				1B008EE21E91F51C003AE2DB /* UIViewController+PopAction.h */,
+				1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1175,7 +1182,6 @@
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
-				1B5E7C011E49C9C400153A58 /* LiveCollectionCell.xib in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
@@ -1338,6 +1344,7 @@
 				1BF8E6EF1E763078009CA742 /* VideoPlayerController.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
+				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,
 				1B099C8F1DE7E57400161396 /* NSBundle+MJRefresh.m in Sources */,
 				1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,
@@ -1350,6 +1357,7 @@
 				1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */,
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
+				1B008EE71E922223003AE2DB /* RollTextLabel.m in Sources */,
 				1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */,
 				1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */,
 				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,

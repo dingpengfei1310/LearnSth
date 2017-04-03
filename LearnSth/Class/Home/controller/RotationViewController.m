@@ -8,6 +8,7 @@
 
 #import "RotationViewController.h"
 #import "AppDelegate.h"
+#import "UIViewController+PopAction.h"
 
 @interface RotationViewController ()
 
@@ -17,9 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,13 +35,27 @@
     app.isAutorotate = NO;
 }
 
-- (void)backClick {
+#pragma mark
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+        //横
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    } else {
+        //竖
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
+
+#pragma mark
+- (BOOL)navigationShouldPopItem {
     if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
         NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
         [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+    
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,21 +9,40 @@
 #import "LiveCollectionCell.h"
 
 #import "LiveModel.h"
-#import "UIImageView+WebCache.h"
+#import "RollTextLabel.h"
 
 @interface LiveCollectionCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *liveImageView;
-@property (weak, nonatomic) IBOutlet UILabel *signaturesLabel;
+@property (strong, nonatomic) UIImageView *liveImageView;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) RollTextLabel *signaturesLabel;
 
 @end
 
 @implementation LiveCollectionCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (void)initialize {
+    _liveImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.liveImageView];
     
-    self.signaturesLabel.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    UIColor *backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    
+    _nameLabel = [[UILabel alloc] init];
+    _nameLabel.backgroundColor = backgroundColor;
+    _nameLabel.textColor = [UIColor whiteColor];
+    _nameLabel.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:self.nameLabel];
+    
+    _signaturesLabel = [[RollTextLabel alloc] init];
+    _signaturesLabel.backgroundColor = backgroundColor;
+    [self.contentView addSubview:self.signaturesLabel];
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
@@ -32,24 +51,20 @@
         _liveModel = liveModel;
         NSURL *url = [NSURL URLWithString:liveModel.smallpic];
         [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            self.signaturesLabel.text = liveModel.signatures;
+            self.liveImageView.frame = self.contentView.bounds;
             
-//            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.liveImageView.bounds cornerRadius:20];
-//            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//            maskLayer.frame = self.liveImageView.bounds;
-//            maskLayer.path = maskPath.CGPath;
-//            self.liveImageView.layer.mask = maskLayer;
+            if (liveModel.myname.length > 0) {
+                self.nameLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), 21);
+                self.nameLabel.text = liveModel.myname;
+            }
+            
+            if (liveModel.signatures.length > 0) {
+                self.signaturesLabel.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 21, CGRectGetWidth(self.frame), 21);
+                self.signaturesLabel.text = liveModel.signatures;
+            }
+            
         }];
     }
 }
-
-//- (void)cellAnimationOnCollectionView:(UICollectionView *)collectionView didScrollOnView:(UIView *)view {
-//    CGRect rectInView = [collectionView convertRect:self.frame toView:view];
-//    CGFloat move = (view.frame.size.height / 2 - rectInView.origin.y) / view.frame.size.height * 60;
-//    
-//    CGRect imageRect = self.liveImageView.frame;
-//    imageRect.origin.y = -30 + move;
-//    self.liveImageView.frame = imageRect;
-//}
 
 @end

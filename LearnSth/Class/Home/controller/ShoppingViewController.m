@@ -8,6 +8,7 @@
 
 #import "ShoppingViewController.h"
 #import "MessageViewController.h"
+#import "UIViewController+PopAction.h"
 
 @interface ShoppingViewController ()
 
@@ -17,23 +18,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"shop";
-    //如果没有自定义返回按钮，则要设置
-//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backButtonImage"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
     
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
 }
 
 #pragma mark
-- (void)back:(UIBarButtonItem *)sender {
-    if (self.BackItemBlock) {
-        self.BackItemBlock();
-    }
-}
-
 - (void)addClick:(UIBarButtonItem *)sender {
     MessageViewController *controller = [[MessageViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark
+- (BOOL)navigationShouldPopItem {
+    if (self.BackItemBlock) {
+        self.BackItemBlock();
+    }
+    
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {
