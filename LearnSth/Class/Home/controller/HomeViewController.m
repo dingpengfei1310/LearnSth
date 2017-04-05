@@ -22,8 +22,6 @@
 #import "Aspects.h"
 #import "MJRefresh.h"
 
-#import "RollTextLabel.h"
-
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;

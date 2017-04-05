@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^ReloadClickBlock)(void);
+typedef void (^ReloadClickBlock)();
 
 @interface UICollectionView (Tool)
 

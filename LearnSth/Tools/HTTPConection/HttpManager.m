@@ -12,12 +12,19 @@
 const NSInteger errorCodeDefault = 999;
 const NSTimeInterval timeoutInterval = 15.0;
 
+@interface HttpManager ()
+
+@property (strong, nonatomic) NSMutableArray *currentTasks;
+
+@end
+
 @implementation HttpManager
 + (instancetype)shareManager {
     static HttpManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[HttpManager alloc] init];
+        
     });
     
     return manager;
@@ -35,15 +42,18 @@ const NSTimeInterval timeoutInterval = 15.0;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
     manager.requestSerializer.timeoutInterval = timeoutInterval;
     
-    [manager GET:urlString
-      parameters:paramets
-        progress:^(NSProgress * _Nonnull uploadProgress) {}
-         success:^(NSURLSessionDataTask *task, id responseObject) {
-             success(responseObject);
-         }
-         failure:^(NSURLSessionDataTask *task, NSError *error) {
-             failure(error);
-         }];
+    NSURLSessionDataTask *task = [manager GET:urlString
+                                   parameters:paramets
+                                     progress:^(NSProgress * _Nonnull uploadProgress) {}
+                                      success:^(NSURLSessionDataTask *task, id responseObject) {
+                                          [self.currentTasks removeObject:task];
+                                          success(responseObject);
+                                      }
+                                      failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                          failure(error);
+                                      }];
+    
+    [self.currentTasks addObject:task];
 }
 
 - (void)postDataWithString:(NSString *)urlString
@@ -69,13 +79,25 @@ const NSTimeInterval timeoutInterval = 15.0;
 }
 
 #pragma mark
+- (void)cancelAllRequest {
+    [self.currentTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * obj, NSUInteger idx, BOOL * stop) {
+        if (obj.state != NSURLSessionTaskStateCompleted) {
+            [obj cancel];
+        }
+    }];
+    [self.currentTasks removeAllObjects];
+}
+
+#pragma mark
 - (void)getAdBannerListCompletion:(SuccessArray)completion {
     NSString * urlString = @"https://live.9158.com/Living/GetAD";
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"data"];
         completion(array,nil);
     } failure:^(NSError *error) {
-        completion(nil,error);
+        if (![error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
+            completion(nil,error);
+        }
     }];
 }
 
@@ -149,6 +171,14 @@ const NSTimeInterval timeoutInterval = 15.0;
     }
     
     return dict;
+}
+
+#pragma mark
+- (NSMutableArray *)currentTasks {
+    if (!_currentTasks) {
+        _currentTasks = [NSMutableArray array];
+    }
+    return _currentTasks;
 }
 
 @end

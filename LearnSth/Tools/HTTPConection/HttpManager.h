@@ -16,6 +16,8 @@ typedef void (^Failure)(NSError *error);
 
 + (instancetype)shareManager;
 
+- (void)cancelAllRequest;
+
 #pragma mark
 /// 广告
 - (void)getAdBannerListCompletion:(SuccessArray)completion;
@@ -27,5 +29,7 @@ typedef void (^Failure)(NSError *error);
 ///
 - (void)getUserListWithParamers:(NSDictionary *)paramers
                      completion:(SuccessArray)completion;
+
+
 
 @end

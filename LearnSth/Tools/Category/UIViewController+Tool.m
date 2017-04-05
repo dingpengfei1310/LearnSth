@@ -83,7 +83,7 @@
     
     hud.bezelView.color = [UIColor clearColor];
     
-    if (message) {
+    if (message.length > 0) {
         hud.mode = MBProgressHUDModeText;
         hud.contentColor = [UIColor whiteColor];
         
