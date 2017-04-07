@@ -70,4 +70,3 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 @end
-

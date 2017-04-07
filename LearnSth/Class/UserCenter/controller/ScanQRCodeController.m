@@ -8,6 +8,7 @@
 
 #import "ScanQRCodeController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "WebViewController.h"
 
 @interface ScanQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat scanWidth;
@@ -15,8 +16,7 @@
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
-
-@property (nonatomic, assign) BOOL isFinish;
+@property (nonatomic, strong) dispatch_queue_t queue;
 
 @end
 
@@ -26,11 +26,16 @@
     [super viewDidLoad];
     self.title = @"二维码";
     scanWidth = Screen_W * 0.6;
+    
+    [self checkAuthorizationStatusOnVideo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self checkAuthorizationStatusOnVideo];
+    
+    if (!self.metadataOutput.metadataObjectsDelegate) {
+        [self.metadataOutput setMetadataObjectsDelegate:self queue:self.queue];
+    }
 }
 
 - (void)checkAuthorizationStatusOnVideo {
@@ -47,7 +52,9 @@
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
+            });
         }];
     }
 }
@@ -62,7 +69,7 @@
     
     CGRect scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2, scanWidth, scanWidth);
     CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:scanRect];
-    _metadataOutput.rectOfInterest = rectOfInterest;
+    self.metadataOutput.rectOfInterest = rectOfInterest;
     
     [self addMaskViewWithRect:scanRect];
 }
@@ -81,30 +88,49 @@
 
 #pragma mark
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    if (_isFinish) {
-        return;
-    }
-    
     if (metadataObjects.count > 0) {
-        _isFinish = YES;
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         NSString *message = obj.stringValue;
         
-        [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:^{
-            _isFinish = NO;
+        [self.metadataOutput setMetadataObjectsDelegate:nil queue:self.queue];
+        [self handleScanResult:message];
+    }
+}
+
+- (void)handleScanResult:(NSString *)result {
+    if ([result hasPrefix:@"http"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            WebViewController *controller = [[WebViewController alloc] init];
+            controller.urlString = result;
+            [self.navigationController pushViewController:controller animated:YES];
+        });
+    } else {
+        [self showAlertWithTitle:@"扫描结果" message:result operationTitle:@"确定" operation:^{
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     }
+}
+
+#pragma mark
+- (dispatch_queue_t)queue {
+    if (!_queue) {
+        _queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    }
+    return _queue;
+}
+
+- (AVCaptureMetadataOutput *)metadataOutput {
+    if (!_metadataOutput) {
+        _metadataOutput = [[AVCaptureMetadataOutput alloc] init];
+        [_metadataOutput setMetadataObjectsDelegate:self queue:self.queue];
+    }
+    return _metadataOutput;
 }
 
 - (AVCaptureSession *)captureSession {
     if (!_captureSession) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-        
-        AVCaptureMetadataOutput *metadataOutput = [[AVCaptureMetadataOutput alloc]init];
-        dispatch_queue_t dispatchQueue = dispatch_queue_create("myQueue", NULL);
-        [metadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
-        _metadataOutput = metadataOutput;
         
         _captureSession = [[AVCaptureSession alloc] init];
         _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
@@ -113,13 +139,13 @@
         if ([_captureSession canAddInput:videoDeviceInput]) {
             [_captureSession addInput:videoDeviceInput];
         }
-        if ([_captureSession canAddOutput:metadataOutput]) {
-            [_captureSession addOutput:metadataOutput];
+        if ([_captureSession canAddOutput:self.metadataOutput]) {
+            [_captureSession addOutput:self.metadataOutput];
         }
         
         //这句话必须在后面调用，否则availableMetadataObjectTypes为空
-        if ([metadataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
-            metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+        if ([self.metadataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
+            self.metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
         }
         
     }

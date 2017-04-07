@@ -93,7 +93,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
     controller.fetchResult = fetchResult;
-    
     controller.title = assetCollection.localizedTitle;
     [self.navigationController pushViewController:controller animated:YES];
 }

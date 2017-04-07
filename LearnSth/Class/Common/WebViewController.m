@@ -25,6 +25,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     
     [self setLeftItemsWithCanGoBack:NO];
     if (self.urlString) {
+        self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         
@@ -95,9 +96,11 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [self.progressView removeFromSuperview];
     [self setLeftItemsWithCanGoBack:[webView canGoBack]];
     
-//    [webView evaluateJavaScript:@"document.title" completionHandler:^(id _Nullable title, NSError * _Nullable error) {
-//        self.navigationItem.title = title;
-//    }];
+    [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
+        if (!self.title) {
+            self.navigationItem.title = title;
+        }
+    }];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {

@@ -15,7 +15,7 @@
 
 NSString * const FileUploadDidStartNotification = @"SGFileUploadDidStartNotification";
 NSString * const FileUploadProgressNotification = @"SGFileUploadProgressNotification";
-NSString * const FileUploadDidEndNotification = @"SGFileUploadDidEndNotification";
+NSString * const FileUploadDidEndNotification = @"FileUploadDidEndNotification";
 
 @implementation WiFiUploadManager
 

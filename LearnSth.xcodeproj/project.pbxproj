@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */; };
 		1B008EE71E922223003AE2DB /* RollTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B008EE61E922223003AE2DB /* RollTextLabel.m */; };
+		1B02B2FE1E973F38002610FD /* ScanIDCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B02B2FD1E973F38002610FD /* ScanIDCardController.m */; };
+		1B02B3021E976387002610FD /* IDCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B02B3011E976387002610FD /* IDCardInfo.m */; };
+		1B02B3091E976451002610FD /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B02B3061E976451002610FD /* zocr0.lib */; };
+		1B02B30A1E976451002610FD /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B02B3081E976451002610FD /* libexidcardios.a */; };
 		1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334621E726C86009567F9 /* DownloadViewController.m */; };
 		1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334651E726DA1009567F9 /* DownloadViewCell.m */; };
 		1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0334661E726DA1009567F9 /* DownloadViewCell.xib */; };
@@ -159,6 +163,14 @@
 		1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PopAction.m"; sourceTree = "<group>"; };
 		1B008EE51E922223003AE2DB /* RollTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RollTextLabel.h; sourceTree = "<group>"; };
 		1B008EE61E922223003AE2DB /* RollTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RollTextLabel.m; sourceTree = "<group>"; };
+		1B02B2FC1E973F38002610FD /* ScanIDCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanIDCardController.h; sourceTree = "<group>"; };
+		1B02B2FD1E973F38002610FD /* ScanIDCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanIDCardController.m; sourceTree = "<group>"; };
+		1B02B3001E976387002610FD /* IDCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCardInfo.h; sourceTree = "<group>"; };
+		1B02B3011E976387002610FD /* IDCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardInfo.m; sourceTree = "<group>"; };
+		1B02B3041E976451002610FD /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
+		1B02B3061E976451002610FD /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
+		1B02B3071E976451002610FD /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
+		1B02B3081E976451002610FD /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
 		1B0334611E726C86009567F9 /* DownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewController.h; sourceTree = "<group>"; };
 		1B0334621E726C86009567F9 /* DownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewController.m; sourceTree = "<group>"; };
 		1B0334641E726DA1009567F9 /* DownloadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewCell.h; sourceTree = "<group>"; };
@@ -408,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */,
+				1B02B30A1E976451002610FD /* libexidcardios.a in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
 			);
@@ -430,6 +443,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B02B2FF1E973F51002610FD /* camera */ = {
+			isa = PBXGroup;
+			children = (
+				1B02B2FC1E973F38002610FD /* ScanIDCardController.h */,
+				1B02B2FD1E973F38002610FD /* ScanIDCardController.m */,
+				1BEED0FF1E56F5460072BFB9 /* ScanQRCodeController.h */,
+				1BEED1001E56F5460072BFB9 /* ScanQRCodeController.m */,
+			);
+			name = camera;
+			sourceTree = "<group>";
+		};
+		1B02B3031E976451002610FD /* libexidcard */ = {
+			isa = PBXGroup;
+			children = (
+				1B02B3041E976451002610FD /* commondef.h */,
+				1B02B3051E976451002610FD /* dicts */,
+				1B02B3071E976451002610FD /* excards.h */,
+				1B02B3081E976451002610FD /* libexidcardios.a */,
+			);
+			path = libexidcard;
+			sourceTree = "<group>";
+		};
+		1B02B3051E976451002610FD /* dicts */ = {
+			isa = PBXGroup;
+			children = (
+				1B02B3061E976451002610FD /* zocr0.lib */,
+			);
+			path = dicts;
+			sourceTree = "<group>";
+		};
 		1B04FA221E52F20A00CDFC80 /* video */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,8 +484,6 @@
 				1B04FA241E52F28A00CDFC80 /* VideoScanController.m */,
 				1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */,
 				1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */,
-				1BEED0FF1E56F5460072BFB9 /* ScanQRCodeController.h */,
-				1BEED1001E56F5460072BFB9 /* ScanQRCodeController.m */,
 			);
 			name = video;
 			sourceTree = "<group>";
@@ -805,6 +846,7 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				1B02B2FF1E973F51002610FD /* camera */,
 				1B04FA221E52F20A00CDFC80 /* video */,
 				CF7096121E0D7ECD00A821C8 /* address */,
 				1BDCA9C21E2F057300ED0315 /* file */,
@@ -833,12 +875,15 @@
 		1B2D07EF1DE7E8DB0034C22D /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1B02B3031E976451002610FD /* libexidcard */,
 				1B2D07F01DE7E8DB0034C22D /* UserManager.h */,
 				1B2D07F11DE7E8DB0034C22D /* UserManager.m */,
 				1BF9B0DA1E0A2B6C005B0EDF /* DDPreviewItem.h */,
 				1BF9B0DB1E0A2B6C005B0EDF /* DDPreviewItem.m */,
 				1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */,
 				1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */,
+				1B02B3001E976387002610FD /* IDCardInfo.h */,
+				1B02B3011E976387002610FD /* IDCardInfo.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1168,6 +1213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B02B3091E976451002610FD /* zocr0.lib in Resources */,
 				1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */,
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
@@ -1267,6 +1313,7 @@
 				1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */,
 				1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */,
 				1B4630DE1E669703000260D2 /* HttpManager.m in Sources */,
+				1B02B3021E976387002610FD /* IDCardInfo.m in Sources */,
 				1B099C821DE7E57400161396 /* MJRefreshFooter.m in Sources */,
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */,
@@ -1293,6 +1340,7 @@
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				CFF9AE7F1E333C1500397359 /* VideoCameraFilterController.m in Sources */,
 				1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */,
+				1B02B2FE1E973F38002610FD /* ScanIDCardController.m in Sources */,
 				1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */,
 				1BF9B0DC1E0A2B6C005B0EDF /* DDPreviewItem.m in Sources */,
 				CF3959251E4CB94A0018C7D8 /* AnimatedTransitioning.m in Sources */,
@@ -1527,6 +1575,10 @@
 				INFOPLIST_FILE = LearnSth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearnSth/Class/UserCenter/model/libexidcard",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1549,6 +1601,10 @@
 				INFOPLIST_FILE = LearnSth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearnSth/Class/UserCenter/model/libexidcard",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
-
 @property (nonatomic, assign) NSInteger selectIndex;//选中的index，包括视频，为了拿到frame做动画
 
 @end

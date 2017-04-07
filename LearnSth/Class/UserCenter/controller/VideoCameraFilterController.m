@@ -61,7 +61,6 @@
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
-            
         }];
     }
 }
@@ -83,7 +82,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 granted ? [self showVideoView] : [self dismissViewControllerAnimated:YES completion:nil];
             });
-            
         }];
     }
 }

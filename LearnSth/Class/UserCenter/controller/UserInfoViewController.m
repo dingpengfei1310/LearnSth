@@ -10,6 +10,8 @@
 #import "ProvinceViewController.h"
 #import "AddressPickerController.h"
 #import "ScanQRCodeController.h"
+#import "ScanIDCardController.h"
+#import "WebViewController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
@@ -30,7 +32,7 @@ static NSString *reuseIdentifier = @"cell";
     [super viewDidLoad];
     self.title = @"个人信息";
     
-    self.dataArray = @[@"头像",@"昵称",@"城市"];
+    self.dataArray = @[@"头像",@"昵称",@"城市",@"微博",@"身份证"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
@@ -215,6 +217,19 @@ static NSString *reuseIdentifier = @"cell";
 //        [self.navigationController pushViewController:contoller animated:YES];
         
         [self presentAddressPickerController];
+    } else if (indexPath.row == 3) {
+        WebViewController *controller = [[WebViewController alloc] init];
+        controller.title = @"微博";
+        controller.urlString = @"http://m.weibo.cn/n/ever丶飞飞";
+//        controller.urlString = @"http://m.weibo.cn/u/5277766604";
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 4) {
+        if (TARGET_OS_SIMULATOR) {
+            [self showError:@"真机使用"];
+            return;
+        }
+        ScanIDCardController *controller = [[ScanIDCardController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
