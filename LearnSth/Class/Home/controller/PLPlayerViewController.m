@@ -42,16 +42,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     [self addGesture];
 }
 
-- (void)addGesture {
-    UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismisss)];
-    dismissGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:dismissGesture];
-    
-    UISwipeGestureRecognizer *nextGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextLive)];
-    nextGesture.direction = UISwipeGestureRecognizerDirectionUp;
-    [self.view addGestureRecognizer:nextGesture];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -66,6 +56,16 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 #pragma mark
+- (void)addGesture {
+    UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismisss)];
+    dismissGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:dismissGesture];
+    
+    UISwipeGestureRecognizer *nextGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextLive)];
+    nextGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:nextGesture];
+}
+
 - (void)dismisss {
     [self.player stop];
     if (self.PlayerDismissBlock) {

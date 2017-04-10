@@ -10,7 +10,7 @@
 #import "ProvinceViewController.h"
 #import "AddressPickerController.h"
 #import "ScanQRCodeController.h"
-#import "ScanIDCardController.h"
+#import "IDCardViewController.h"
 #import "WebViewController.h"
 
 #import "UserManager.h"
@@ -223,12 +223,9 @@ static NSString *reuseIdentifier = @"cell";
         controller.urlString = @"http://m.weibo.cn/n/ever丶飞飞";
 //        controller.urlString = @"http://m.weibo.cn/u/5277766604";
         [self.navigationController pushViewController:controller animated:YES];
+        
     } else if (indexPath.row == 4) {
-        if (TARGET_OS_SIMULATOR) {
-            [self showError:@"真机使用"];
-            return;
-        }
-        ScanIDCardController *controller = [[ScanIDCardController alloc] init];
+        IDCardViewControlle *controller = [[IDCardViewControlle alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

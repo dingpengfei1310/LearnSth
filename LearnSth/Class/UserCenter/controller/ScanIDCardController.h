@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class IDCardInfo;
 @interface ScanIDCardController : UIViewController
+
+@property (nonatomic, copy) void (^ScanResult)(IDCardInfo *cardInfo,UIImage *image);
+@property (nonatomic, copy) void (^DismissBlock)();
 
 @end

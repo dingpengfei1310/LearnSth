@@ -18,6 +18,10 @@
 @property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
 @property (nonatomic, strong) dispatch_queue_t queue;
 
+@property (nonatomic, assign) CGRect scanRect;
+@property (nonatomic, strong) CADisplayLink *displayLink;
+@property (nonatomic, strong) UIView *lineView;
+
 @end
 
 @implementation ScanQRCodeController
@@ -25,19 +29,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码";
-    scanWidth = Screen_W * 0.6;
+    scanWidth = Screen_W * 0.7;
     
+    _scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2, scanWidth, scanWidth);
     [self checkAuthorizationStatusOnVideo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.captureSession startRunning];
+    [self startDisplayLink];
+    
     if (!self.metadataOutput.metadataObjectsDelegate) {
         [self.metadataOutput setMetadataObjectsDelegate:self queue:self.queue];
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.captureSession stopRunning];
+    [_displayLink invalidate];
+}
+
+#pragma mark
 - (void)checkAuthorizationStatusOnVideo {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     
@@ -67,23 +83,45 @@
     
     [self.captureSession startRunning];
     
-    CGRect scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2, scanWidth, scanWidth);
-    CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:scanRect];
+    CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:_scanRect];
     self.metadataOutput.rectOfInterest = rectOfInterest;
     
-    [self addMaskViewWithRect:scanRect];
+    [self addMaskViewWithRect:_scanRect];
 }
 
 - (void)addMaskViewWithRect:(CGRect)scanRect {
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
-    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:1] bezierPathByReversingPath]];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:scanWidth * 0.05] bezierPathByReversingPath]];
     maskLayer.path = maskPath.CGPath;
     
     UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
-    maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.6];
+    maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.8];
     maskView.layer.mask = maskLayer;
     [self.view addSubview:maskView];
+    
+    _lineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(scanRect) + 5, CGRectGetMinY(scanRect), CGRectGetWidth(scanRect) - 10, 1.0)];
+    _lineView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:_lineView];
+}
+
+- (void)loopLineView {
+    if (_lineView.frame.origin.y < CGRectGetMaxY(_scanRect)) {
+        CGRect rect = _lineView.frame;
+        rect.origin.y += 2.0;
+        _lineView.frame = rect;
+    } else {
+        CGRect rect = _lineView.frame;
+        rect.origin.y = CGRectGetMinY(_scanRect);
+        _lineView.frame = rect;
+    }
+}
+
+- (void)startDisplayLink {
+    if (!_displayLink) {
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(loopLineView)];
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    }
 }
 
 #pragma mark
