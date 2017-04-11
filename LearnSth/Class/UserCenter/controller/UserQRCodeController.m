@@ -34,10 +34,12 @@
     }
     
     self.qrImageView.image = [self normalQRCode:qrString size:CGRectGetWidth(self.qrImageView.frame)];
+    
 //    self.qrImageView.image = [self watermarkQRCode:qrString size:CGRectGetWidth(self.qrImageView.frame) watermark:[UIImage imageNamed:@"reflesh1"]];
 //    self.qrImageView.image = [self colorQRCode:qrString
 //                                          size:CGRectGetWidth(self.qrImageView.frame)
-//                                     frontColor:KBaseBlueColor];
+//                                    frontColor:KBaseBlueColor
+//                               backgroundColor:KBackgroundColor];
 }
 
 #pragma mark
@@ -53,7 +55,6 @@
 
 - (UIImage *)normalQRCode:(NSString *)qrString size:(CGFloat)imageWidth {
     imageWidth = MAX(27, imageWidth);
-    
     CIImage *ciImage = [self QRCodeOriginal:qrString];
     
     CGRect extent = CGRectIntegral(ciImage.extent);
@@ -79,8 +80,7 @@
 }
 
 - (UIImage *)watermarkQRCode:(NSString *)qrString size:(CGFloat)imageWidth watermark:(UIImage *)watermark{
-//    UIImage *normalImage = [self normalQRCode:qrString size:imageWidth];
-    UIImage *normalImage = [self colorQRCode:qrString size:imageWidth frontColor:KBaseBlueColor];
+    UIImage *normalImage = [self normalQRCode:qrString size:imageWidth];
     if (!watermark) {
         return normalImage;
     }
@@ -96,20 +96,31 @@
     return newPic;
 }
 
-void ProviderReleaseData (void *info, const void *data, size_t size){
-    free((void*)data);
-}
-
-- (UIImage *)colorQRCode:(NSString *)qrString size:(CGFloat)width frontColor:(UIColor *)frontColor {
+- (UIImage *)colorQRCode:(NSString *)qrString size:(CGFloat)width frontColor:(UIColor *)frontColor backgroundColor:(UIColor *)bColor {
     UIImage *image = [self normalQRCode:qrString size:width];
-    if (!frontColor) {
+    if (!frontColor && !bColor) {
         return image;
     }
     
-    const CGFloat *components = CGColorGetComponents(frontColor.CGColor);
-    CGFloat red = components[0] * 255;
-    CGFloat green = components[1] * 255;
-    CGFloat blue = components[2] * 255;
+    CGFloat fRed = 0;
+    CGFloat fGreen = 0;
+    CGFloat fBlue = 0;
+    if (frontColor) {
+        const CGFloat *fComponents = CGColorGetComponents(frontColor.CGColor);
+        fRed = fComponents[0] * 255;
+        fGreen = fComponents[1] * 255;
+        fBlue = fComponents[2] * 255;
+    }
+    
+    CGFloat bRed = 255;
+    CGFloat bGreen = 255;
+    CGFloat bBlue = 255;
+    if (bColor) {
+        const CGFloat *bComponents = CGColorGetComponents(bColor.CGColor);
+        bRed = bComponents[0] * 255;
+        bGreen = bComponents[1] * 255;
+        bBlue = bComponents[2] * 255;
+    }
     
     const int imageWidth = image.size.width;
     const int imageHeight = image.size.height;
@@ -125,21 +136,22 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     uint32_t* pCurPtr = rgbImageBuf;
     for (int i = 0; i < pixelNum; i++, pCurPtr++){
         if ((*pCurPtr & 0xFFFFFF00) < 0x99999900) {
-            // 改成下面的代码，会将图片转成想要的颜色
+            // 改成下面的代码，会将图片转成想要的颜色。这里理解为：二维码颜色
             uint8_t* ptr = (uint8_t*)pCurPtr;
-            ptr[3] = red; //0~255
-            ptr[2] = green;
-            ptr[1] = blue;
-        }
-        else {
-            // 将白色变成透明
+            ptr[3] = fRed; //0~255
+            ptr[2] = fGreen;
+            ptr[1] = fBlue;
+        } else {
+            // 将白色变成透明。这里理解为：背景色
             uint8_t* ptr = (uint8_t*)pCurPtr;
-            ptr[0] = 0;
+//            ptr[0] = 0;
+            ptr[3] = bRed; //0~255
+            ptr[2] = bGreen;
+            ptr[1] = bBlue;
         }
     }
     // 输出图片
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, rgbImageBuf, bytesPerRow * imageHeight, ProviderReleaseData);
-    
     CGImageRef imageRef = CGImageCreate(imageWidth, imageHeight, 8, 32, bytesPerRow, colorSpace,
                                         kCGImageAlphaLast | kCGBitmapByteOrder32Little, dataProvider,
                                         NULL, true, kCGRenderingIntentDefault);
@@ -153,6 +165,11 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     return resultUIImage;
 }
 
+void ProviderReleaseData (void *info, const void *data, size_t size){
+    free((void*)data);
+}
+
+#pragma mark
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }
