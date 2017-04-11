@@ -12,6 +12,7 @@
 #import "ScanQRCodeController.h"
 #import "IDCardViewController.h"
 #import "WebViewController.h"
+#import "UserQRCodeController.h"
 
 #import "UserManager.h"
 #import <AVFoundation/AVFoundation.h>
@@ -32,7 +33,7 @@ static NSString *reuseIdentifier = @"cell";
     [super viewDidLoad];
     self.title = @"个人信息";
     
-    self.dataArray = @[@"头像",@"昵称",@"城市",@"微博",@"身份证"];
+    self.dataArray = @[@"头像",@"昵称",@"城市",@"微博",@"身份证",@"二维码"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
@@ -52,7 +53,6 @@ static NSString *reuseIdentifier = @"cell";
         [self showError:@"真机使用"];
         return;
     }
-    
     ScanQRCodeController *controller = [[ScanQRCodeController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -225,7 +225,10 @@ static NSString *reuseIdentifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 4) {
-        IDCardViewControlle *controller = [[IDCardViewControlle alloc] init];
+        IDCardViewController *controller = [[IDCardViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 5) {
+        UserQRCodeController *controller = [[UserQRCodeController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

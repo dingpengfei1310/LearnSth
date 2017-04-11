@@ -9,6 +9,7 @@
 #import "ScanQRCodeController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WebViewController.h"
+#import "UserQRCodeController.h"
 
 @interface ScanQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat scanWidth;
@@ -20,7 +21,7 @@
 
 @property (nonatomic, assign) CGRect scanRect;
 @property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIImageView *lineImageView;
 
 @end
 
@@ -28,10 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"二维码";
+    self.title = @"二维码扫描";
     scanWidth = Screen_W * 0.7;
     
-    _scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2, scanWidth, scanWidth);
     [self checkAuthorizationStatusOnVideo];
 }
 
@@ -51,6 +51,7 @@
     
     [self.captureSession stopRunning];
     [_displayLink invalidate];
+    _displayLink = nil;
 }
 
 #pragma mark
@@ -76,6 +77,8 @@
 }
 
 - (void)showVideoPreviewLayer {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(QRCode)];
+    
     //创建一个预览图层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
     preLayer.frame = self.view.bounds;
@@ -83,6 +86,7 @@
     
     [self.captureSession startRunning];
     
+    _scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2 - Screen_W * 0.1, scanWidth, scanWidth);
     CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:_scanRect];
     self.metadataOutput.rectOfInterest = rectOfInterest;
     
@@ -92,7 +96,7 @@
 - (void)addMaskViewWithRect:(CGRect)scanRect {
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
-    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:scanWidth * 0.05] bezierPathByReversingPath]];
+    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:scanWidth * 0.02] bezierPathByReversingPath]];
     maskLayer.path = maskPath.CGPath;
     
     UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -100,20 +104,28 @@
     maskView.layer.mask = maskLayer;
     [self.view addSubview:maskView];
     
-    _lineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(scanRect) + 5, CGRectGetMinY(scanRect), CGRectGetWidth(scanRect) - 10, 1.0)];
-    _lineView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:_lineView];
+    _lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(scanRect), CGRectGetMinY(scanRect), CGRectGetWidth(scanRect), CGRectGetWidth(scanRect) * 3.0 / 80)];
+    _lineImageView.image = [UIImage imageNamed:@"QRCodeScanningLine"];
+    [self.view addSubview:_lineImageView];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(scanRect), CGRectGetMaxY(scanRect), CGRectGetWidth(scanRect), 30)];
+    tipLabel.backgroundColor = [UIColor clearColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.textColor = KBaseTextColor;
+    tipLabel.font = [UIFont systemFontOfSize:13];
+    tipLabel.text = @"放入框中，即可自动扫描";
+    [self.view addSubview:tipLabel];
 }
 
 - (void)loopLineView {
-    if (_lineView.frame.origin.y < CGRectGetMaxY(_scanRect)) {
-        CGRect rect = _lineView.frame;
+    if (CGRectGetMaxY(_lineImageView.frame) < CGRectGetMaxY(_scanRect)) {
+        CGRect rect = _lineImageView.frame;
         rect.origin.y += 2.0;
-        _lineView.frame = rect;
+        _lineImageView.frame = rect;
     } else {
-        CGRect rect = _lineView.frame;
+        CGRect rect = _lineImageView.frame;
         rect.origin.y = CGRectGetMinY(_scanRect);
-        _lineView.frame = rect;
+        _lineImageView.frame = rect;
     }
 }
 
@@ -122,6 +134,11 @@
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(loopLineView)];
         [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     }
+}
+
+- (void)QRCode {
+    UserQRCodeController *controller = [[UserQRCodeController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -183,7 +200,9 @@
         
         //这句话必须在后面调用，否则availableMetadataObjectTypes为空
         if ([self.metadataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
-            self.metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+            self.metadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
+            //二维码：AVMetadataObjectTypeQRCode
+            //条形码：AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code
         }
         
     }

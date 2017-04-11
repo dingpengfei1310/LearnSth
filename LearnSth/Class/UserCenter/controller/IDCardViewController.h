@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IDCardViewControlle : UIViewController
+@interface IDCardViewController : UIViewController
 
 @end

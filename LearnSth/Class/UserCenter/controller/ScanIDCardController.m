@@ -14,12 +14,14 @@
 
 @interface ScanIDCardController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate>
 
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureMetadataOutput *metadataOutput;
 @property (nonatomic, strong) AVCaptureVideoDataOutput *videoOutput;
 @property (nonatomic, strong) dispatch_queue_t queue;
 @property (nonatomic, strong) NSNumber *outputSetting;
 
+@property (nonatomic, assign) CGRect scanCardFrame;
 @property (nonatomic, assign) CGRect scanFaceFrame;
 
 @end
@@ -83,43 +85,43 @@
 
 - (void)showVideoPreviewLayer {
     //创建一个预览图层
-    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
-    preLayer.frame = self.view.bounds;
-    [self.view.layer addSublayer:preLayer];
+    _previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
+    _previewLayer.frame = self.view.bounds;
+    [self.view.layer addSublayer:_previewLayer];
     
     CGFloat scanWidth = Screen_W * 0.8;
-    CGRect scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth * 1.585) / 2, scanWidth, scanWidth * 1.585);
+    _scanCardFrame = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth * 1.585) / 2, scanWidth, scanWidth * 1.585);
     
     CGFloat faceH = 32.0 / 54 * scanWidth;
     CGFloat faceW = 26.0 / 54 * scanWidth;
-    _scanFaceFrame = CGRectMake((Screen_W - faceH) / 2, CGRectGetMaxY(scanRect) - Screen_W / 15 - faceW, faceH, faceW);
+    _scanFaceFrame = CGRectMake((Screen_W - faceH) / 2, CGRectGetMaxY(_scanCardFrame) - Screen_W / 15 - faceW, faceH, faceW);
     
-    [self addMaskViewWithRect:scanRect];
+    [self addMaskViewWithCardRect:_scanCardFrame faceRect:_scanFaceFrame];
     [self.captureSession startRunning];
     
-    CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:_scanFaceFrame];
+    CGRect rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:_scanFaceFrame];
     _metadataOutput.rectOfInterest = rectOfInterest;
 }
 
-- (void)addMaskViewWithRect:(CGRect)scanRect {
+- (void)addMaskViewWithCardRect:(CGRect)cardRect faceRect:(CGRect)faceRect {
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
-    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:15] bezierPathByReversingPath]];
+    [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:cardRect cornerRadius:15] bezierPathByReversingPath]];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = maskPath.CGPath;
     
-    UIBezierPath *facePath = [UIBezierPath bezierPathWithRect:_scanFaceFrame];
-    CAShapeLayer *faceLayer = [CAShapeLayer layer];
-    faceLayer.path = facePath.CGPath;
-    faceLayer.fillColor = [UIColor clearColor].CGColor;
-    faceLayer.strokeColor = [UIColor blackColor].CGColor;
-    [maskLayer addSublayer:faceLayer];
+//    UIBezierPath *facePath = [UIBezierPath bezierPathWithRect:faceRect];
+//    CAShapeLayer *faceLayer = [CAShapeLayer layer];
+//    faceLayer.path = facePath.CGPath;
+//    faceLayer.fillColor = [UIColor clearColor].CGColor;
+//    faceLayer.strokeColor = [UIColor blackColor].CGColor;
+//    [maskLayer addSublayer:faceLayer];
     
     UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
     maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.8];
     maskView.layer.mask = maskLayer;
     [self.view addSubview:maskView];
     
-    UIImageView *headIV = [[UIImageView alloc] initWithFrame:_scanFaceFrame];
+    UIImageView *headIV = [[UIImageView alloc] initWithFrame:faceRect];
     headIV.image = [UIImage imageNamed:@"IDCardHead"];
     headIV.transform = CGAffineTransformMakeRotation(M_PI * 0.5);
     headIV.contentMode = UIViewContentModeScaleAspectFill;
@@ -130,8 +132,12 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     if (metadataObjects.count) {
         AVMetadataMachineReadableCodeObject *metadataObject = metadataObjects.firstObject;
+        AVMetadataObject *transformedMetadataObject = [self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
+        CGRect faceRegion = transformedMetadataObject.bounds;
         
-        if (metadataObject.type == AVMetadataObjectTypeFace) {
+        if (metadataObject.type == AVMetadataObjectTypeFace && CGRectContainsRect(_scanFaceFrame, faceRegion)) {
+            //只有当人脸区域在小框内，才去捕获此时的这一帧图像
+            // 为videoDataOutput设置代理，程序就会自动调用下面的代理方法，捕获每一帧图像
             if (!self.videoOutput.sampleBufferDelegate) {
                 [self.videoOutput setSampleBufferDelegate:self queue:self.queue];
             }
@@ -228,8 +234,7 @@
                 }
             }
             
-            UIImage *image = [self getImageWith:imageBuffer];
-            
+            UIImage *image = [self getImageWithImageBuffer:imageBuffer cardRect:_scanCardFrame];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (self.ScanResult) {
                     self.ScanResult(iDInfo,image);
@@ -238,25 +243,6 @@
                     self.DismissBlock();
                 }
             });
-            
-            
-//            if (iDInfo.num.length) {// 读取到身份证信息，实例化出IDInfo对象后，截取身份证的有效区域，获取到图像
-//                CGRect effectRect = [RectManager getEffectImageRect:CGSizeMake(width, height)];
-//                CGRect rect = [RectManager getGuideFrame:effectRect];
-//                
-//                UIImage *image = [UIImage getImageStream:imageBuffer];
-//                UIImage *subImage = [UIImage getSubImage:rect inImage:image];
-//                
-//                // 推出IDInfoVC（展示身份证信息的控制器）
-//                IDInfoViewController *IDInfoVC = [[IDInfoViewController alloc] init];
-//                
-//                IDInfoVC.IDInfo = iDInfo;// 身份证信息
-//                IDInfoVC.IDImage = subImage;// 身份证图像
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.navigationController pushViewController:IDInfoVC animated:YES];
-//                });
-//            }
         }
         
         CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
@@ -265,15 +251,35 @@
     CVBufferRelease(imageBuffer);
 }
 
-- (UIImage *)getImageWith:(CVImageBufferRef)imageBuffer {
+- (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer {
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
     CIContext *temporaryContext = [CIContext contextWithOptions:nil];
-    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
+    CGImageRef imageRef = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
     
-    UIImage *image = [[UIImage alloc] initWithCGImage:videoImage];
-    CGImageRelease(videoImage);
+    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
+    CGImageRelease(imageRef);
     
     return image;
+}
+
+- (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer cardRect:(CGRect)cardRect {
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
+    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
+    CGImageRef imageRef = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
+    
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, cardRect);
+    CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));
+
+    UIGraphicsBeginImageContext(smallBounds.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(context, smallBounds, subImageRef);
+    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+    UIGraphicsEndImageContext();
+    
+    CFRelease(imageRef);
+    CFRelease(subImageRef);
+    
+    return smallImage;
 }
 
 #pragma mark
@@ -302,24 +308,6 @@
 - (AVCaptureSession *)captureSession {
     if (!_captureSession) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        
-//        NSError *error = nil;
-//        if ([device lockForConfiguration:&error]) {
-//            if ([device isSmoothAutoFocusSupported]) {// 平滑对焦
-//                device.smoothAutoFocusEnabled = YES;
-//            }
-//            if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {// 自动持续对焦
-//                device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
-//            }
-//            if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure ]) {// 自动持续曝光
-//                device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
-//            }
-//            if ([device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance]) {// 自动持续白平衡
-//                device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
-//            }
-//        }
-//        [device unlockForConfiguration];
-        
         AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         
         _captureSession = [[AVCaptureSession alloc] init];

@@ -16,8 +16,8 @@
 		1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334621E726C86009567F9 /* DownloadViewController.m */; };
 		1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334651E726DA1009567F9 /* DownloadViewCell.m */; };
 		1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0334661E726DA1009567F9 /* DownloadViewCell.xib */; };
-		1B041A861E9B5790002E3F54 /* IDCardViewControlle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B041A841E9B5790002E3F54 /* IDCardViewControlle.m */; };
-		1B041A871E9B5790002E3F54 /* IDCardViewControlle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B041A851E9B5790002E3F54 /* IDCardViewControlle.xib */; };
+		1B041A861E9B5790002E3F54 /* IDCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B041A841E9B5790002E3F54 /* IDCardViewController.m */; };
+		1B041A871E9B5790002E3F54 /* IDCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B041A851E9B5790002E3F54 /* IDCardViewController.xib */; };
 		1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B04FA241E52F28A00CDFC80 /* VideoScanController.m */; };
 		1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0921DF6564C005F3059 /* PPNumberButton.m */; };
 		1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C0951DF6A626005F3059 /* BannerScrollView.m */; };
@@ -84,6 +84,8 @@
 		1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
+		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
+		1B30D9271E9CAAD2000E0D48 /* UserQRCodeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
 		1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3B90091E716254002C03EC /* DownloadModel.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
@@ -179,8 +181,8 @@
 		1B0334651E726DA1009567F9 /* DownloadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewCell.m; sourceTree = "<group>"; };
 		1B0334661E726DA1009567F9 /* DownloadViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadViewCell.xib; sourceTree = "<group>"; };
 		1B041A831E9B5790002E3F54 /* IDCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCardViewController.h; sourceTree = "<group>"; };
-		1B041A841E9B5790002E3F54 /* IDCardViewControlle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardViewControlle.m; sourceTree = "<group>"; };
-		1B041A851E9B5790002E3F54 /* IDCardViewControlle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDCardViewControlle.xib; sourceTree = "<group>"; };
+		1B041A841E9B5790002E3F54 /* IDCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardViewController.m; sourceTree = "<group>"; };
+		1B041A851E9B5790002E3F54 /* IDCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDCardViewController.xib; sourceTree = "<group>"; };
 		1B04FA231E52F28A00CDFC80 /* VideoScanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoScanController.h; sourceTree = "<group>"; };
 		1B04FA241E52F28A00CDFC80 /* VideoScanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoScanController.m; sourceTree = "<group>"; };
 		1B08C0911DF6564C005F3059 /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
@@ -313,6 +315,9 @@
 		1B2D07F11DE7E8DB0034C22D /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
+		1B30D9231E9CA926000E0D48 /* UserQRCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeController.h; sourceTree = "<group>"; };
+		1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeController.m; sourceTree = "<group>"; };
+		1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserQRCodeController.xib; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
 		1B3B90081E716254002C03EC /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
@@ -451,13 +456,16 @@
 		1B02B2FF1E973F51002610FD /* camera */ = {
 			isa = PBXGroup;
 			children = (
+				1B041A831E9B5790002E3F54 /* IDCardViewController.h */,
+				1B041A841E9B5790002E3F54 /* IDCardViewController.m */,
+				1B041A851E9B5790002E3F54 /* IDCardViewController.xib */,
 				1B02B2FC1E973F38002610FD /* ScanIDCardController.h */,
 				1B02B2FD1E973F38002610FD /* ScanIDCardController.m */,
 				1BEED0FF1E56F5460072BFB9 /* ScanQRCodeController.h */,
 				1BEED1001E56F5460072BFB9 /* ScanQRCodeController.m */,
-				1B041A831E9B5790002E3F54 /* IDCardViewController.h */,
-				1B041A841E9B5790002E3F54 /* IDCardViewControlle.m */,
-				1B041A851E9B5790002E3F54 /* IDCardViewControlle.xib */,
+				1B30D9231E9CA926000E0D48 /* UserQRCodeController.h */,
+				1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */,
+				1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */,
 			);
 			name = camera;
 			sourceTree = "<group>";
@@ -1225,6 +1233,7 @@
 				1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */,
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
+				1B30D9271E9CAAD2000E0D48 /* UserQRCodeController.xib in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
@@ -1232,7 +1241,7 @@
 				1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */,
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
-				1B041A871E9B5790002E3F54 /* IDCardViewControlle.xib in Resources */,
+				1B041A871E9B5790002E3F54 /* IDCardViewController.xib in Resources */,
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
@@ -1349,6 +1358,7 @@
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				CFF9AE7F1E333C1500397359 /* VideoCameraFilterController.m in Sources */,
 				1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */,
+				1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */,
 				1B02B2FE1E973F38002610FD /* ScanIDCardController.m in Sources */,
 				1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */,
 				1BF9B0DC1E0A2B6C005B0EDF /* DDPreviewItem.m in Sources */,
@@ -1382,7 +1392,7 @@
 				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,
 				1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */,
 				1B4630DF1E669703000260D2 /* SQLManager.m in Sources */,
-				1B041A861E9B5790002E3F54 /* IDCardViewControlle.m in Sources */,
+				1B041A861E9B5790002E3F54 /* IDCardViewController.m in Sources */,
 				1BEED0FE1E56D2920072BFB9 /* GPUImageBeautifyFilter.m in Sources */,
 				1B099C851DE7E57400161396 /* MJRefreshAutoNormalFooter.m in Sources */,
 				1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */,

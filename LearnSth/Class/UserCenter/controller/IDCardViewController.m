@@ -10,7 +10,7 @@
 #import "ScanIDCardController.h"
 #import "IDCardInfo.h"
 
-@interface IDCardViewControlle ()
+@interface IDCardViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *cardImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation IDCardViewControlle
+@implementation IDCardViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
