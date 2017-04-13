@@ -89,14 +89,15 @@
     _previewLayer.frame = self.view.bounds;
     [self.view.layer addSublayer:_previewLayer];
     
-    CGFloat scanWidth = Screen_W * 0.8;
+    CGFloat scanWidth = Screen_W * 0.75;
     _scanCardFrame = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth * 1.585) / 2, scanWidth, scanWidth * 1.585);
     
     CGFloat faceH = 32.0 / 54 * scanWidth;
-    CGFloat faceW = 26.0 / 54 * scanWidth;
-    _scanFaceFrame = CGRectMake((Screen_W - faceH) / 2, CGRectGetMaxY(_scanCardFrame) - Screen_W / 15 - faceW, faceH, faceW);
+    CGFloat faceW = (26.0 / 54) * scanWidth;
+    CGRect headerFrame = CGRectMake((Screen_W - faceH) / 2 + Screen_W * 0.04, CGRectGetMaxY(_scanCardFrame) - Screen_W * 0.08 - faceW, faceH, faceW);
+    [self addMaskViewWithCardRect:_scanCardFrame faceRect:headerFrame];
     
-    [self addMaskViewWithCardRect:_scanCardFrame faceRect:_scanFaceFrame];
+    _scanFaceFrame = CGRectMake((Screen_W - faceH) / 2 + Screen_W * 0.04 + faceH * 0.2, CGRectGetMaxY(_scanCardFrame) - Screen_W * 0.08 - faceW + faceW * 0.2, faceH * 0.6, faceW * 0.6);
     [self.captureSession startRunning];
     
     CGRect rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:_scanFaceFrame];
@@ -113,7 +114,7 @@
 //    CAShapeLayer *faceLayer = [CAShapeLayer layer];
 //    faceLayer.path = facePath.CGPath;
 //    faceLayer.fillColor = [UIColor clearColor].CGColor;
-//    faceLayer.strokeColor = [UIColor blackColor].CGColor;
+//    faceLayer.strokeColor = [UIColor whiteColor].CGColor;
 //    [maskLayer addSublayer:faceLayer];
     
     UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -126,6 +127,18 @@
     headIV.transform = CGAffineTransformMakeRotation(M_PI * 0.5);
     headIV.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:headIV];
+    
+    CGPoint center = self.view.center;
+    center.x = CGRectGetMaxX(cardRect) + 20;
+    UILabel *tipLabel = [[UILabel alloc] init];
+    tipLabel.text = @"将身份证人像面置于此区域内，头像对准，扫描";
+    tipLabel.textColor = [UIColor whiteColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.transform = CGAffineTransformMakeRotation(M_PI * 0.5);
+    [tipLabel sizeToFit];
+    
+    tipLabel.center = center;
+    [self.view addSubview:tipLabel];
 }
 
 #pragma mark
@@ -162,8 +175,6 @@
 
 - (void)IDCardRecognit:(CVImageBufferRef)imageBuffer {
     CVBufferRetain(imageBuffer);
-    
-    // Lock the image buffer
     if (CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess) {
         size_t width= CVPixelBufferGetWidth(imageBuffer);// 1920
         size_t height = CVPixelBufferGetHeight(imageBuffer);// 1080
@@ -183,14 +194,9 @@
         
         unsigned char pResult[1024];
         int ret = EXCARDS_RecoIDCardData(buffer, (int)width, (int)height, (int)rowBytes, (int)8, (char*)pResult, sizeof(pResult));
-        if (ret <= 0) {
+        if (ret > 0) {
             NSLog(@"ret=[%d]", ret);
-        } else {
-            NSLog(@"ret=[%d]", ret);
-            
-            // 播放一下“拍照”的声音，模拟拍照
-            AudioServicesPlaySystemSound(1108);
-            
+            AudioServicesPlaySystemSound(1108);// 播放一下“拍照”的声音，模拟拍照
             if ([self.captureSession isRunning]) {
                 [self.captureSession stopRunning];
             }
@@ -201,10 +207,9 @@
             int i = 0;
             
             IDCardInfo *iDInfo = [[IDCardInfo alloc] init];
-            
             ctype = pResult[i++];
             
-            //            iDInfo.type = ctype;
+            //iDInfo.type = ctype;
             while(i < ret){
                 ctype = pResult[i++];
                 for(xlen = 0; i < ret; ++i){
@@ -235,6 +240,7 @@
             }
             
             UIImage *image = [self getImageWithImageBuffer:imageBuffer cardRect:_scanCardFrame];
+//            UIImage *image = [self getImageWithImageBuffer:imageBuffer];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (self.ScanResult) {
                     self.ScanResult(iDInfo,image);
@@ -253,8 +259,8 @@
 
 - (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer {
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
-    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
-    CGImageRef imageRef = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef imageRef = [context createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
     
     UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
     CGImageRelease(imageRef);
@@ -264,10 +270,12 @@
 
 - (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer cardRect:(CGRect)cardRect {
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
-    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
-    CGImageRef imageRef = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
+    CGImageRef imageRef = [[CIContext contextWithOptions:nil] createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
     
-    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, cardRect);
+    CGFloat scale = CGRectGetWidth(cardRect) / Screen_W;
+    CGRect imageRect = CGRectMake(CVPixelBufferGetWidth(imageBuffer) * (1 - scale) * 0.5, CVPixelBufferGetHeight(imageBuffer) * (1 - scale) * 0.5, CVPixelBufferGetWidth(imageBuffer) * scale, CVPixelBufferGetHeight(imageBuffer) * scale);
+    
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, imageRect);
     CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));
 
     UIGraphicsBeginImageContext(smallBounds.size);
@@ -308,6 +316,23 @@
 - (AVCaptureSession *)captureSession {
     if (!_captureSession) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        NSError *error = nil;
+        if ([device lockForConfiguration:&error]) {
+            if ([device isSmoothAutoFocusSupported]) {// 平滑对焦
+                device.smoothAutoFocusEnabled = YES;
+            }
+            if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {// 自动持续对焦
+                device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+            }
+            if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure ]) {// 自动持续曝光
+                device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            }
+            if ([device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance]) {// 自动持续白平衡
+                device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+            }
+            [device unlockForConfiguration];
+        }
+        
         AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         
         _captureSession = [[AVCaptureSession alloc] init];
