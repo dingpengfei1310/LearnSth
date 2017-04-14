@@ -11,7 +11,6 @@
 #import "PLPlayerViewController.h"
 
 #import "DownloadViewController.h"
-#import "RotationViewController.h"
 
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
@@ -118,13 +117,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
 - (void)homeRightItemClick {
 //    self.collectionView.hidden = !self.collectionView.hidden;
     
-    RotationViewController *controller = [[RotationViewController alloc] init];
+    DownloadViewController *controller = [[DownloadViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
-//    DownloadViewController *controller = [[DownloadViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark

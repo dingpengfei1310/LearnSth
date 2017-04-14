@@ -11,8 +11,6 @@
 		1B008EE71E922223003AE2DB /* RollTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B008EE61E922223003AE2DB /* RollTextLabel.m */; };
 		1B02B2FE1E973F38002610FD /* ScanIDCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B02B2FD1E973F38002610FD /* ScanIDCardController.m */; };
 		1B02B3021E976387002610FD /* IDCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B02B3011E976387002610FD /* IDCardInfo.m */; };
-		1B02B3091E976451002610FD /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B02B3061E976451002610FD /* zocr0.lib */; };
-		1B02B30A1E976451002610FD /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B02B3081E976451002610FD /* libexidcardios.a */; };
 		1B0334631E726C87009567F9 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334621E726C86009567F9 /* DownloadViewController.m */; };
 		1B0334671E726DA1009567F9 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0334651E726DA1009567F9 /* DownloadViewCell.m */; };
 		1B0334681E726DA1009567F9 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0334661E726DA1009567F9 /* DownloadViewCell.xib */; };
@@ -86,6 +84,8 @@
 		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
 		1B30D9271E9CAAD2000E0D48 /* UserQRCodeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
+		1B389A541EA0954B00A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A511EA0954B00A927E4 /* zocr0.lib */; };
+		1B389A561EA0965700A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A531EA0954B00A927E4 /* libexidcardios.a */; };
 		1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3B90091E716254002C03EC /* DownloadModel.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
@@ -170,10 +170,6 @@
 		1B02B2FD1E973F38002610FD /* ScanIDCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanIDCardController.m; sourceTree = "<group>"; };
 		1B02B3001E976387002610FD /* IDCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCardInfo.h; sourceTree = "<group>"; };
 		1B02B3011E976387002610FD /* IDCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardInfo.m; sourceTree = "<group>"; };
-		1B02B3041E976451002610FD /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
-		1B02B3061E976451002610FD /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
-		1B02B3071E976451002610FD /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
-		1B02B3081E976451002610FD /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
 		1B0334611E726C86009567F9 /* DownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewController.h; sourceTree = "<group>"; };
 		1B0334621E726C86009567F9 /* DownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewController.m; sourceTree = "<group>"; };
 		1B0334641E726DA1009567F9 /* DownloadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewCell.h; sourceTree = "<group>"; };
@@ -318,6 +314,10 @@
 		1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserQRCodeController.xib; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
+		1B389A4F1EA0954B00A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
+		1B389A511EA0954B00A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
+		1B389A521EA0954B00A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
+		1B389A531EA0954B00A927E4 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
 		1B3B90081E716254002C03EC /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
 		1B3B90091E716254002C03EC /* DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
 		1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -427,8 +427,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B389A561EA0965700A927E4 /* libexidcardios.a in Frameworks */,
 				1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */,
-				1B02B30A1E976451002610FD /* libexidcardios.a in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
 			);
@@ -465,25 +465,6 @@
 				1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */,
 			);
 			name = camera;
-			sourceTree = "<group>";
-		};
-		1B02B3031E976451002610FD /* libexidcard */ = {
-			isa = PBXGroup;
-			children = (
-				1B02B3041E976451002610FD /* commondef.h */,
-				1B02B3051E976451002610FD /* dicts */,
-				1B02B3071E976451002610FD /* excards.h */,
-				1B02B3081E976451002610FD /* libexidcardios.a */,
-			);
-			path = libexidcard;
-			sourceTree = "<group>";
-		};
-		1B02B3051E976451002610FD /* dicts */ = {
-			isa = PBXGroup;
-			children = (
-				1B02B3061E976451002610FD /* zocr0.lib */,
-			);
-			path = dicts;
 			sourceTree = "<group>";
 		};
 		1B04FA221E52F20A00CDFC80 /* video */ = {
@@ -888,7 +869,6 @@
 		1B2D07EF1DE7E8DB0034C22D /* model */ = {
 			isa = PBXGroup;
 			children = (
-				1B02B3031E976451002610FD /* libexidcard */,
 				1B2D07F01DE7E8DB0034C22D /* UserManager.h */,
 				1B2D07F11DE7E8DB0034C22D /* UserManager.m */,
 				1BF9B0DA1E0A2B6C005B0EDF /* DDPreviewItem.h */,
@@ -914,6 +894,25 @@
 				1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		1B389A4E1EA0954B00A927E4 /* libexidcard */ = {
+			isa = PBXGroup;
+			children = (
+				1B389A4F1EA0954B00A927E4 /* commondef.h */,
+				1B389A501EA0954B00A927E4 /* dicts */,
+				1B389A521EA0954B00A927E4 /* excards.h */,
+				1B389A531EA0954B00A927E4 /* libexidcardios.a */,
+			);
+			path = libexidcard;
+			sourceTree = "<group>";
+		};
+		1B389A501EA0954B00A927E4 /* dicts */ = {
+			isa = PBXGroup;
+			children = (
+				1B389A511EA0954B00A927E4 /* zocr0.lib */,
+			);
+			path = dicts;
 			sourceTree = "<group>";
 		};
 		1B4630BD1E669703000260D2 /* Tools */ = {
@@ -1024,6 +1023,7 @@
 		1BF7F6C51D92492200F8E5B1 /* LearnSth */ = {
 			isa = PBXGroup;
 			children = (
+				1B389A4E1EA0954B00A927E4 /* libexidcard */,
 				1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */,
 				1B2D07BC1DE7E8DB0034C22D /* Class */,
 				1B4630BD1E669703000260D2 /* Tools */,
@@ -1226,7 +1226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B02B3091E976451002610FD /* zocr0.lib in Resources */,
 				1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */,
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
@@ -1243,6 +1242,7 @@
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
+				1B389A541EA0954B00A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1588,12 +1588,33 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/AppDelegate/PrefixHeader.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AsyncDisplayKit\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaHTTPServer\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/GPUImage\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/PINCache\"",
+					"\"${PODS_ROOT}/Headers/Public/PINRemoteImage\"",
+					"\"${PODS_ROOT}/Headers/Public/PLPlayerKit\"",
+					"\"${PODS_ROOT}/Headers/Public/PNChart\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/Public/UICountingLabel\"",
+				);
 				INFOPLIST_FILE = LearnSth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/Class/UserCenter/model/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/libexidcard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1614,12 +1635,33 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/AppDelegate/PrefixHeader.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/include/libxml2\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AsyncDisplayKit\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaHTTPServer\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/GPUImage\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/PINCache\"",
+					"\"${PODS_ROOT}/Headers/Public/PINRemoteImage\"",
+					"\"${PODS_ROOT}/Headers/Public/PLPlayerKit\"",
+					"\"${PODS_ROOT}/Headers/Public/PNChart\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/Public/UICountingLabel\"",
+				);
 				INFOPLIST_FILE = LearnSth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/Class/UserCenter/model/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/libexidcard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
