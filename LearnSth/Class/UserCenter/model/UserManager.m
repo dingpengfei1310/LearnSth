@@ -83,6 +83,9 @@ static dispatch_once_t allocOnceToken;
         AddressModel *model = [[AddressModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
         [super setValue:model forKey:key];
+    } else if ([key isEqualToString:@"headerImage"]) {
+        UIImage *image = [[UIImage alloc] initWithData:value];
+        [super setValue:image forKey:key];
     } else {
         [super setValue:value forKey:key];
     }
@@ -101,6 +104,10 @@ static dispatch_once_t allocOnceToken;
             AddressModel *model = [userModel valueForKey:propertyName];
             NSDictionary *addressDict = [model dictionary];
             [mutDict setValue:addressDict forKey:propertyName];
+        } else if ([propertyName isEqualToString:@"headerImage"]) {
+            UIImage *image = userModel.headerImage;
+            NSData *data = UIImagePNGRepresentation(image);
+            [mutDict setValue:data forKey:propertyName];
         } else {
             [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
         }

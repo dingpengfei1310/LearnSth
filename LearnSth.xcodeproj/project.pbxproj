@@ -66,7 +66,6 @@
 		1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */; };
 		1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCameraController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
-		1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B15352C1E0B702D00445EEE /* MessageTableCell.xib */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -84,8 +83,10 @@
 		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
 		1B30D9271E9CAAD2000E0D48 /* UserQRCodeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
-		1B389A541EA0954B00A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A511EA0954B00A927E4 /* zocr0.lib */; };
-		1B389A561EA0965700A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A531EA0954B00A927E4 /* libexidcardios.a */; };
+		1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A8D1EA09D9300A927E4 /* zocr0.lib */; };
+		1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A8F1EA09D9300A927E4 /* libexidcardios.a */; };
+		1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */; };
+		1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A981EA0C82500A927E4 /* SettingViewController.m */; };
 		1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3B90091E716254002C03EC /* DownloadModel.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
@@ -278,7 +279,6 @@
 		1B0DBC721E30915D00A57C30 /* VideoCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCameraController.h; sourceTree = "<group>"; };
 		1B0DBC731E30915D00A57C30 /* VideoCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCameraController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		1B15352C1E0B702D00445EEE /* MessageTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableCell.xib; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -314,10 +314,14 @@
 		1B30D9261E9CAAD2000E0D48 /* UserQRCodeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserQRCodeController.xib; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
-		1B389A4F1EA0954B00A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
-		1B389A511EA0954B00A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
-		1B389A521EA0954B00A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
-		1B389A531EA0954B00A927E4 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
+		1B389A8B1EA09D9300A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
+		1B389A8D1EA09D9300A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
+		1B389A8E1EA09D9300A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
+		1B389A8F1EA09D9300A927E4 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
+		1B389A921EA0A87D00A927E4 /* HeaderImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageViewCell.h; sourceTree = "<group>"; };
+		1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageViewCell.m; sourceTree = "<group>"; };
+		1B389A971EA0C82500A927E4 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		1B389A981EA0C82500A927E4 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		1B3B90081E716254002C03EC /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
 		1B3B90091E716254002C03EC /* DownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
 		1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -427,8 +431,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B389A561EA0965700A927E4 /* libexidcardios.a in Frameworks */,
 				1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */,
+				1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
 			);
@@ -494,6 +498,7 @@
 		1B099BE61DE7E57400161396 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1B389A8A1EA09D9300A927E4 /* libexidcard */,
 				1B099BE71DE7E57400161396 /* Aspects */,
 				1B099BEA1DE7E57400161396 /* BHBDrawBoarder */,
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
@@ -851,6 +856,8 @@
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
+				1B389A971EA0C82500A927E4 /* SettingViewController.h */,
+				1B389A981EA0C82500A927E4 /* SettingViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -886,31 +893,32 @@
 			children = (
 				1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */,
 				1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */,
-				1B15352C1E0B702D00445EEE /* MessageTableCell.xib */,
 				CF1A49571E0FBD76007FD07D /* PhotosCollectionCell.h */,
 				CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */,
 				CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */,
 				1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */,
 				1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */,
+				1B389A921EA0A87D00A927E4 /* HeaderImageViewCell.h */,
+				1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
 		};
-		1B389A4E1EA0954B00A927E4 /* libexidcard */ = {
+		1B389A8A1EA09D9300A927E4 /* libexidcard */ = {
 			isa = PBXGroup;
 			children = (
-				1B389A4F1EA0954B00A927E4 /* commondef.h */,
-				1B389A501EA0954B00A927E4 /* dicts */,
-				1B389A521EA0954B00A927E4 /* excards.h */,
-				1B389A531EA0954B00A927E4 /* libexidcardios.a */,
+				1B389A8B1EA09D9300A927E4 /* commondef.h */,
+				1B389A8C1EA09D9300A927E4 /* dicts */,
+				1B389A8E1EA09D9300A927E4 /* excards.h */,
+				1B389A8F1EA09D9300A927E4 /* libexidcardios.a */,
 			);
 			path = libexidcard;
 			sourceTree = "<group>";
 		};
-		1B389A501EA0954B00A927E4 /* dicts */ = {
+		1B389A8C1EA09D9300A927E4 /* dicts */ = {
 			isa = PBXGroup;
 			children = (
-				1B389A511EA0954B00A927E4 /* zocr0.lib */,
+				1B389A8D1EA09D9300A927E4 /* zocr0.lib */,
 			);
 			path = dicts;
 			sourceTree = "<group>";
@@ -1023,7 +1031,6 @@
 		1BF7F6C51D92492200F8E5B1 /* LearnSth */ = {
 			isa = PBXGroup;
 			children = (
-				1B389A4E1EA0954B00A927E4 /* libexidcard */,
 				1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */,
 				1B2D07BC1DE7E8DB0034C22D /* Class */,
 				1B4630BD1E669703000260D2 /* Tools */,
@@ -1226,7 +1233,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B15352D1E0B702D00445EEE /* MessageTableCell.xib in Resources */,
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				1B30D9271E9CAAD2000E0D48 /* UserQRCodeController.xib in Resources */,
@@ -1242,7 +1248,7 @@
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
-				1B389A541EA0954B00A927E4 /* zocr0.lib in Resources */,
+				1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1395,6 +1401,7 @@
 				1B099C811DE7E57400161396 /* MJRefreshComponent.m in Sources */,
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
+				1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */,
 				1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
@@ -1421,6 +1428,7 @@
 				1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */,
 				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
+				1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */,
 				1B008EE71E922223003AE2DB /* RollTextLabel.m in Sources */,
 				1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */,
 				1B3B900A1E716254002C03EC /* DownloadModel.m in Sources */,
@@ -1614,7 +1622,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/Vendor/libexidcard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1661,7 +1669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/Vendor/libexidcard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -44,14 +44,25 @@ static NSString *reuseIdentifier = @"cell";
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *content = self.dataArray[indexPath.row];
+    UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
+    [style setLineSpacing:2.0];
+    NSDictionary *attribute = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:style};
+    
+    CGSize size = [content boundingRectWithSize:CGSizeMake(Screen_W - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
+    
+    return size.height + 40;
+}
+
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
         CGRect frame = CGRectMake(0, 0, Screen_W, Screen_H);
         _tableView = [[UITableView alloc] initWithFrame:frame
                                                   style:UITableViewStylePlain];
-        UINib *nib = [UINib nibWithNibName:@"MessageTableCell" bundle:[NSBundle mainBundle]];
-        [_tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+        [_tableView registerClass:[MessageTableCell class] forCellReuseIdentifier:reuseIdentifier];
         
         _tableView.backgroundColor = KBackgroundColor;
         _tableView.tableFooterView = [[UIView alloc] init];

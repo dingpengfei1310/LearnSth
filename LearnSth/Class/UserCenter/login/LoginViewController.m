@@ -80,11 +80,14 @@ const CGFloat fieldHeight = 35;
 
 - (void)loginClick {
     if ([self.accountField.text validatePhoneNumber]) {
-        [UserManager shareManager].mobile = self.accountField.text;
-        [UserManager updateUser];
-        [CustomiseTool setIsLogin:YES];
+        if (![[UserManager loadUser].mobile isEqualToString:self.accountField.text]) {
+            [UserManager shareManager].mobile = self.accountField.text;
+            [UserManager updateUser];
+        }
         
+        [CustomiseTool setIsLogin:YES];
         [self dismiss];
+        
     } else {
         [self showError:@"手机号不正确"];
     }

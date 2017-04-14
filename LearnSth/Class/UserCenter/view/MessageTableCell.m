@@ -10,20 +10,32 @@
 
 @interface MessageTableCell()
 
-@property (weak, nonatomic) IBOutlet UIView *contentBackgroundView;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (strong, nonatomic) UIView *contentBackgroundView;
+@property (strong, nonatomic) UILabel *contentLabel;
 
 @end
 
 @implementation MessageTableCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor clearColor];
+        
+        [self initSubViews];
+    }
+    return self;
+}
+
+- (void)initSubViews {
+    _contentBackgroundView = [[UIView alloc] init];
+    _contentBackgroundView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:_contentBackgroundView];
     
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor clearColor];
-    
-    self.contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    _contentLabel = [[UILabel alloc] init];
+    _contentLabel.numberOfLines = 0;
+    _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    [self.contentView addSubview:_contentLabel];
 }
 
 - (void)layoutSubviews {
@@ -32,11 +44,14 @@
     CGFloat cellWidth = CGRectGetWidth(self.frame);
     CGFloat cellHeight = CGRectGetHeight(self.frame);
     
-    CGRect rect = CGRectMake(0, 0, cellWidth - 19, cellHeight - 19);
+    CGRect rect = CGRectMake(0, 0, cellWidth - 20, cellHeight - 20);
+    self.contentBackgroundView.frame = CGRectMake(10, 10, cellWidth - 20, cellHeight - 20);
     self.contentBackgroundView.layer.shadowPath = [UIBezierPath bezierPathWithRect:rect].CGPath;
     self.contentBackgroundView.layer.shadowOpacity = 0.1;
     self.contentBackgroundView.layer.shadowColor = [UIColor grayColor].CGColor;
     self.contentBackgroundView.layer.cornerRadius = 3;
+    
+    self.contentLabel.frame = CGRectMake(20, 20, cellWidth - 40, cellHeight - 40);
 }
 
 - (void)setContent:(NSString *)content {

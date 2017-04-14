@@ -31,20 +31,12 @@ static NSString *reuseIdentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"个人信息";
+    self.title = @"我";
     
-    self.dataArray = @[@"头像",@"昵称",@"城市",@"微博",@"身份证",@"二维码"];
+    self.dataArray = @[@"头像",@"名字",@"城市",@"微博",@"身份证",@"二维码"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
-    
-    CGRect buttonRect = CGRectMake(40, Screen_H - 144, Screen_W - 80, 40);
-    UIButton *button = [[UIButton alloc] initWithFrame:buttonRect];
-    [button setBackgroundImage:[CustomiseTool imageWithColor:KBaseBlueColor] forState:UIControlStateNormal];
-    
-    [button setTitle:@"退出登录" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
 }
 
 #pragma mark
@@ -55,15 +47,6 @@ static NSString *reuseIdentifier = @"cell";
     }
     ScanQRCodeController *controller = [[ScanQRCodeController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)loginOut {
-    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
-        [CustomiseTool remoAllCaches];
-        [UserManager deallocManager];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
 }
 
 - (void)showAlertControllerOnChangeUsername {
@@ -189,10 +172,17 @@ static NSString *reuseIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+    cell.detailTextLabel.text = nil;
     cell.textLabel.text = self.dataArray[indexPath.row];
-    if (indexPath.row == 1 && [UserManager shareManager].username) {
+    
+    if (indexPath.row == 0) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(Screen_W - 80, 10, 50, 50)];
+        imageView.image = [UserManager shareManager].headerImage;
+        [cell.contentView addSubview:imageView];
+        
+    } else if (indexPath.row == 1 && [UserManager shareManager].username) {
         cell.detailTextLabel.text = [UserManager shareManager].username;
     } else if (indexPath.row == 2 && [UserManager shareManager].address.city) {
         AddressModel *add = [UserManager shareManager].address;
@@ -225,6 +215,11 @@ static NSString *reuseIdentifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 4) {
+        if (TARGET_OS_SIMULATOR) {
+            [self showError:@"真机使用"];
+            return;
+        }
+        
         IDCardViewController *controller = [[IDCardViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 5) {
@@ -233,9 +228,21 @@ static NSString *reuseIdentifier = @"cell";
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 70;
+    } else {
+        return 50;
+    }
+}
+
 #pragma mark 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [UserManager shareManager].headerImage = info[UIImagePickerControllerEditedImage];
+    [UserManager updateUser];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
 }
 
 #pragma mark
@@ -246,6 +253,8 @@ static NSString *reuseIdentifier = @"cell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
+        
+        
     }
     return _tableView;
 }

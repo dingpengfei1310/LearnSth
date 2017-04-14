@@ -8,14 +8,14 @@
 
 #import "UserViewController.h"
 #import "PhotoLiarbraryController.h"
-#import "MessageViewController.h"
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
+#import "SettingViewController.h"
 
-#import "RootViewController.h"
+#import "HeaderImageViewCell.h"
+#import "UserManager.h"
 
-#import "WiFiUploadManager.h"
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -33,22 +33,21 @@ static NSString *identifier = @"cell";
     [super viewDidLoad];
     self.navigationItem.title = @"🏓🏓🏓";
     
-    self.dataArray = @[@"上传文件",
-                       @"查看相册",
-                       @"消息",
-                       @"清除缓存",
-                       @"查看本机文件",
-                       @"语言"];
+    self.dataArray = @[@[@""],
+                       @[@"相册",@"文件"],
+                       @[@"设置"]
+                       ];
     [self.view addSubview:self.tableView];
-    
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [button addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-    [button setImage:[UIImage imageNamed:@"defaultHeader"] forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -66,41 +65,6 @@ static NSString *identifier = @"cell";
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
-}
-
-- (void)wifiUpload {
-    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
-    BOOL success = [manager startHTTPServerAtPort:10000];
-    
-    if (success) {
-        NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
-        [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
-    }
-}
-
-- (void)showAlertOnClearDiskCache {
-    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancel:nil destructive:^{
-        [self clearDiskCache];
-    }];
-}
-
-- (void)clearDiskCache {
-    [self loading];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [CustomiseTool clearCacheAtPath:KCachePath];
-        
-        dispatch_async(dispatch_get_main_queue(),^{
-            [self hideHUD];
-            [self.tableView reloadData];
-        });
-    });
-}
-
-- (CGFloat)calculateDiskCacheSize {
-    long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
-    CGFloat cacheSize = longSize / 1024.0 / 1024.0;
-    return cacheSize;
 }
 
 //检查权限－相册
@@ -127,22 +91,14 @@ static NSString *identifier = @"cell";
     }
 }
 
-- (void)changeLanguage:(LanguageType)type {
-    if ([CustomiseTool languageType] != type) {
-        [self loading];
-        
-        [CustomiseTool changeLanguage:type oncompletion:^{
-            [self hideHUD];
-            
-            RootViewController *controller = (RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-            [controller loadViewControllersWithSelectIndex:2];
-        }];
-    }
+#pragma mark
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataArray.count;
 }
 
-#pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    NSArray *array = self.dataArray[section];
+    return array.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,76 +106,74 @@ static NSString *identifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.section == 0) {
+        static NSString *reusableIdentifier = @"headerCell";
+        HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableIdentifier];
+        if (!cell) {
+            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reusableIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        cell.userModel = [UserManager shareManager];
+        cell.detailTextLabel.text = nil;
+        if (![CustomiseTool isLogin]) {
+            cell.detailTextLabel.text = @"请先登录";
+        }
+        
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        NSArray *array = self.dataArray[indexPath.section];
+        cell.textLabel.text = array[indexPath.row];
+        
+        return cell;
     }
-    cell.textLabel.text = self.dataArray[indexPath.row];
-    
-    if (indexPath.row == 3) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            CGFloat cacheSize = [self calculateDiskCacheSize];
-            dispatch_async(dispatch_get_main_queue(),^{
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",cacheSize];
-            });
-        });
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 70;
+    } else {
+        return 50;
     }
-    
-    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.row == 0) {
-        [self wifiUpload];
+    if (indexPath.section == 0) {
+        [self loginClick];
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self checkAuthorizationStatusOnPhotos];
+        } else if (indexPath.row == 1) {
+            FileScanViewController *controller = [[FileScanViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
         
-    } else if (indexPath.row == 1) {
-        [self checkAuthorizationStatusOnPhotos];
-        
-    } else if (indexPath.row == 2) {
-        MessageViewController *controller = [[MessageViewController alloc] init];
+    } else if (indexPath.section == 2) {
+        SettingViewController *controller = [[SettingViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
-        
-    } else if (indexPath.row == 3) {
-        [self showAlertOnClearDiskCache];
-        
-    } else if (indexPath.row == 4) {
-        FileScanViewController *controller = [[FileScanViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-        
-    } else if (indexPath.row == 5) {
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        UIAlertAction *en = [UIAlertAction actionWithTitle:DDLocalizedString(@"英语")
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:LanguageTypeEn];
-                                                   }];
-        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDLocalizedString(@"简体中文")
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:LanguageTypeZH];
-                                                   }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDLocalizedString(@"取消")
-                                                         style:UIAlertActionStyleCancel
-                                                       handler:nil];
-        
-        [actionSheet addAction:en];
-        [actionSheet addAction:zh];
-        [actionSheet addAction:cancel];
-        
-        [self presentViewController:actionSheet animated:YES completion:nil];
     }
 }
 
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;

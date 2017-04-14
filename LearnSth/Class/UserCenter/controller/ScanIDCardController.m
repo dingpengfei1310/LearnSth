@@ -32,14 +32,17 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"deleteButtonImage"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss)];
     
+#if TARGET_OS_SIMULATOR
+    [self dismisss];
+#else
     // 初始化rect
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
     int ret = EXCARDS_Init(thePath);
     if (ret != 0) {
         NSLog(@"初始化失败：ret=%d", ret);
     }
-    
     [self checkAuthorizationStatusOnVideo];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,6 +177,8 @@
 }
 
 - (void)IDCardRecognit:(CVImageBufferRef)imageBuffer {
+#if TARGET_OS_SIMULATOR
+#else
     CVBufferRetain(imageBuffer);
     if (CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess) {
         size_t width= CVPixelBufferGetWidth(imageBuffer);// 1920
@@ -240,7 +245,7 @@
             }
             
             UIImage *image = [self getImageWithImageBuffer:imageBuffer cardRect:_scanCardFrame];
-//            UIImage *image = [self getImageWithImageBuffer:imageBuffer];
+            //            UIImage *image = [self getImageWithImageBuffer:imageBuffer];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (self.ScanResult) {
                     self.ScanResult(iDInfo,image);
@@ -253,8 +258,8 @@
         
         CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
     }
-    
     CVBufferRelease(imageBuffer);
+#endif
 }
 
 - (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer {
