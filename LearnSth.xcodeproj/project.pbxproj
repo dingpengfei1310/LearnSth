@@ -65,6 +65,7 @@
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
 		1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */; };
 		1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCameraController.m */; };
+		1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1132791EA4659E00323189 /* HeaderImageController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
@@ -278,6 +279,8 @@
 		1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1B0DBC721E30915D00A57C30 /* VideoCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCameraController.h; sourceTree = "<group>"; };
 		1B0DBC731E30915D00A57C30 /* VideoCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCameraController.m; sourceTree = "<group>"; };
+		1B1132781EA4659E00323189 /* HeaderImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageController.h; sourceTree = "<group>"; };
+		1B1132791EA4659E00323189 /* HeaderImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -730,6 +733,28 @@
 			path = WiFiUpload;
 			sourceTree = "<group>";
 		};
+		1B1132771EA464FB00323189 /* userInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
+				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
+				1B1132781EA4659E00323189 /* HeaderImageController.h */,
+				1B1132791EA4659E00323189 /* HeaderImageController.m */,
+			);
+			name = userInfo;
+			sourceTree = "<group>";
+		};
+		1B11327B1EA46C2C00323189 /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
+				1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */,
+				1B389A971EA0C82500A927E4 /* SettingViewController.h */,
+				1B389A981EA0C82500A927E4 /* SettingViewController.m */,
+			);
+			name = setting;
+			sourceTree = "<group>";
+		};
 		1B1D95DC1E7FC86500000EE4 /* download */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,19 +870,15 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				1B02B2FF1E973F51002610FD /* camera */,
-				1B04FA221E52F20A00CDFC80 /* video */,
 				CF7096121E0D7ECD00A821C8 /* address */,
+				1B02B2FF1E973F51002610FD /* camera */,
 				1BDCA9C21E2F057300ED0315 /* file */,
-				1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */,
-				1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */,
 				CF7096111E0D792400A821C8 /* photos */,
-				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
-				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
+				1B11327B1EA46C2C00323189 /* setting */,
+				1B1132771EA464FB00323189 /* userInfo */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
-				1B389A971EA0C82500A927E4 /* SettingViewController.h */,
-				1B389A981EA0C82500A927E4 /* SettingViewController.m */,
+				1B04FA221E52F20A00CDFC80 /* video */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1412,6 +1433,7 @@
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,
 				1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */,
+				1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */,
 				1BF8E6EF1E763078009CA742 /* VideoPlayerController.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,

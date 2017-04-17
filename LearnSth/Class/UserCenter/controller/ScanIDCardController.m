@@ -71,11 +71,7 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoPreviewLayer];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } operation:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {

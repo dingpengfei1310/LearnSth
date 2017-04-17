@@ -82,6 +82,7 @@ const CGFloat fieldHeight = 35;
     if ([self.accountField.text validatePhoneNumber]) {
         if (![[UserManager loadUser].mobile isEqualToString:self.accountField.text]) {
             [UserManager shareManager].mobile = self.accountField.text;
+            [UserManager shareManager].headerImage = [UIImage imageNamed:@"defaultHeader"];
             [UserManager updateUser];
         }
         

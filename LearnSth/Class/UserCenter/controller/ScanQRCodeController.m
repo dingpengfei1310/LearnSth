@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码扫描";
+    self.view.backgroundColor = [UIColor whiteColor];
     scanWidth = Screen_W * 0.7;
     
     [self checkAuthorizationStatusOnVideo];
@@ -77,7 +78,7 @@
 }
 
 - (void)showVideoPreviewLayer {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(QRCode)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(QRCode)];
     
     //创建一个预览图层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
@@ -190,7 +191,6 @@
         _captureSession = [[AVCaptureSession alloc] init];
         _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
         
-        //将输入输出设备添加到会话中
         if ([_captureSession canAddInput:videoDeviceInput]) {
             [_captureSession addInput:videoDeviceInput];
         }
@@ -204,7 +204,6 @@
             //二维码：AVMetadataObjectTypeQRCode
             //条形码：AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code
         }
-        
     }
     return _captureSession;
 }

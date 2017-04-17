@@ -16,9 +16,6 @@
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
 
-#import <Photos/PHPhotoLibrary.h>
-#import <AVFoundation/AVFoundation.h>
-
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,14 +23,16 @@
 
 @end
 
-static NSString *identifier = @"cell";
+static NSString *HeaderIdentifier = @"headerCell";
+static NSString *Identifier = @"cell";
 
 @implementation UserViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"🏓🏓🏓";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationItem.title = @"🏓";
     
-    self.dataArray = @[@[@""],
+    self.dataArray = @[@[@"头像"],
                        @[@"相册",@"文件"],
                        @[@"设置"]
                        ];
@@ -44,10 +43,10 @@ static NSString *identifier = @"cell";
     self.navigationItem.backBarButtonItem = backItem;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -62,30 +61,6 @@ static NSString *identifier = @"cell";
         
     } else {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-}
-
-//检查权限－相册
-- (void)checkAuthorizationStatusOnPhotos {
-    PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
-    if (currentStatus == PHAuthorizationStatusNotDetermined) {
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (status == PHAuthorizationStatusAuthorized) {
-                    PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
-                    controller.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
-            });
-        }];
-        
-    } else if (currentStatus == PHAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
-        
-    } else if (currentStatus == PHAuthorizationStatusAuthorized) {
-        PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -107,10 +82,9 @@ static NSString *identifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        static NSString *reusableIdentifier = @"headerCell";
-        HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableIdentifier];
+        HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
         if (!cell) {
-            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reusableIdentifier];
+            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:HeaderIdentifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.userModel = [UserManager shareManager];
@@ -121,9 +95,9 @@ static NSString *identifier = @"cell";
         
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Identifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         NSArray *array = self.dataArray[indexPath.section];
@@ -135,11 +109,7 @@ static NSString *identifier = @"cell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 70;
-    } else {
-        return 50;
-    }
+    return indexPath.section == 0 ? 70 : 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -156,7 +126,10 @@ static NSString *identifier = @"cell";
         [self loginClick];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [self checkAuthorizationStatusOnPhotos];
+            PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
         } else if (indexPath.row == 1) {
             FileScanViewController *controller = [[FileScanViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
@@ -173,11 +146,10 @@ static NSString *identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
+        _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 50;
-        _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
 }

@@ -45,4 +45,7 @@
 #pragma mark
 #define DDLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
 
+#pragma mark
+#define DDLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
+
 #endif /* PrefixHeader_pch */

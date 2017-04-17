@@ -17,19 +17,43 @@
 
 @end
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString *Identifier = @"Cell";
 
 @implementation PhotoLiarbraryController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的相册";
+    self.title = @"相册";
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    [self checkAuthorizationStatusOnPhotos];
+}
+
+- (void)checkAuthorizationStatusOnPhotos {
+    PHAuthorizationStatus currentStatus = [PHPhotoLibrary authorizationStatus];
+    if (currentStatus == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (status == PHAuthorizationStatusAuthorized) {
+                    [self initSubView];
+                } else {
+                    [self showError:@"没有访问权限"];
+                }
+            });
+        }];
+        
+    } else if (currentStatus == PHAuthorizationStatusDenied) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
+        
+    } else if (currentStatus == PHAuthorizationStatusAuthorized) {
+        [self initSubView];
+    }
+}
+
+- (void)initSubView {
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(getAllPhotosOrderByTime)];
-    
-//    if (TARGET_OS_SIMULATOR) {
-//    }
     
     [self getSmartAlbum];
     [self.view addSubview:self.tableView];
@@ -74,7 +98,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier forIndexPath:indexPath];
     
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
@@ -100,8 +124,8 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStylePlain];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStylePlain];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];

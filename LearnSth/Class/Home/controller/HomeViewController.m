@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
-
 #import "DownloadViewController.h"
 
 #import "BannerScrollView.h"
@@ -39,7 +38,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 @implementation HomeViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"🍎🍎🍎";
+    self.navigationItem.title = @"🍎";
     self.page = 1;
     [self.view addSubview:self.collectionView];
     
