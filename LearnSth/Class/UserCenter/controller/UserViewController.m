@@ -30,6 +30,7 @@ static NSString *Identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"🏓";
     
     self.dataArray = @[@[@"头像"],
@@ -41,12 +42,6 @@ static NSString *Identifier = @"cell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -62,6 +57,9 @@ static NSString *Identifier = @"cell";
     } else {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
+        controller.ChangeHeaderImageBlock = ^{
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        };
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
@@ -112,11 +110,11 @@ static NSString *Identifier = @"cell";
     return indexPath.section == 0 ? 70 : 50;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10;
 }
 
@@ -147,9 +145,10 @@ static NSString *Identifier = @"cell";
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        
     }
     return _tableView;
 }

@@ -39,6 +39,9 @@
 
 #pragma mark
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
+    if (self.previewItems.count == 0) {
+        return;
+    }
     BOOL flag = [buttonItem.title isEqualToString:@"编辑"];
     NSString *title = flag ? @"完成" : @"编辑";
     buttonItem.title = title;

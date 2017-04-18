@@ -142,6 +142,9 @@ static NSString *Identifier = @"cell";
         HeaderImageController *controller = [[HeaderImageController alloc] init];
         controller.ChangeHeaderImageBlock = ^{
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (self.ChangeHeaderImageBlock) {
+                self.ChangeHeaderImageBlock();
+            }
         };
         [self.navigationController pushViewController:controller animated:YES];
         
@@ -172,14 +175,14 @@ static NSString *Identifier = @"cell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 1;
+    return 10;
 }
 
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
     }

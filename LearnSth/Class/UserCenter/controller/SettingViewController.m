@@ -27,9 +27,9 @@
     self.title = @"设置";
     
     self.dataArray = @[@"上传文件",
-                      @"消息",
-                      @"清除缓存",
-                      @"语言"];
+                       @"消息",
+                       @"清除缓存",
+                       @"语言"];
     [self.view addSubview:self.tableView];
 }
 
@@ -121,8 +121,8 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,19 +140,19 @@
         [self showAlertOnClearDiskCache];
         
     } else if (indexPath.row == 3) {
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DDLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        UIAlertAction *en = [UIAlertAction actionWithTitle:DDLocalizedString(@"英语")
+        UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
                                                        [self changeLanguage:LanguageTypeEn];
                                                    }];
-        UIAlertAction *zh = [UIAlertAction actionWithTitle:DDLocalizedString(@"简体中文")
+        UIAlertAction *zh = [UIAlertAction actionWithTitle:DLocalizedString(@"简体中文")
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
                                                        [self changeLanguage:LanguageTypeZH];
                                                    }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DDLocalizedString(@"取消")
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DLocalizedString(@"取消")
                                                          style:UIAlertActionStyleCancel
                                                        handler:nil];
         
@@ -168,6 +168,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStyleGrouped];
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;

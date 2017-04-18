@@ -70,7 +70,6 @@
 
 - (void)networkMonitoring {
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
         if (status == AFNetworkReachabilityStatusNotReachable) {
             CGFloat width = [UIScreen mainScreen].bounds.size.width;
             UIView *networkView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
