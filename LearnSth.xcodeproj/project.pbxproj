@@ -132,6 +132,8 @@
 		1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */; };
 		1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */; };
 		1BFCF0311E09380E00DA222E /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCF0301E09380E00DA222E /* FileScanViewController.m */; };
+		1BFEA60F1EA738EA0033CD15 /* DanMuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFEA60E1EA738EA0033CD15 /* DanMuView.m */; };
+		1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFEA6111EA747D60033CD15 /* DanMuModel.m */; };
 		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
 		CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */; };
@@ -405,6 +407,10 @@
 		1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserVideo.m; sourceTree = "<group>"; };
 		1BFCF02F1E09380E00DA222E /* FileScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileScanViewController.h; sourceTree = "<group>"; };
 		1BFCF0301E09380E00DA222E /* FileScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileScanViewController.m; sourceTree = "<group>"; };
+		1BFEA60D1EA738EA0033CD15 /* DanMuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanMuView.h; sourceTree = "<group>"; };
+		1BFEA60E1EA738EA0033CD15 /* DanMuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanMuView.m; sourceTree = "<group>"; };
+		1BFEA6101EA747D60033CD15 /* DanMuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanMuModel.h; sourceTree = "<group>"; };
+		1BFEA6111EA747D60033CD15 /* DanMuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanMuModel.m; sourceTree = "<group>"; };
 		413E9A348DDB24CA8FE6A54E /* Pods-LearnSth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSth.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth.release.xcconfig"; sourceTree = "<group>"; };
 		CF1A49541E0FA007007FD07D /* CustomizeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizeButton.h; sourceTree = "<group>"; };
 		CF1A49551E0FA007007FD07D /* CustomizeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizeButton.m; sourceTree = "<group>"; };
@@ -828,6 +834,8 @@
 				1B2D07C61DE7E8DB0034C22D /* ADModel.m */,
 				1B5E7BFA1E49C9BB00153A58 /* LiveModel.h */,
 				1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */,
+				1BFEA6101EA747D60033CD15 /* DanMuModel.h */,
+				1BFEA6111EA747D60033CD15 /* DanMuModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -852,6 +860,8 @@
 				1B0334641E726DA1009567F9 /* DownloadViewCell.h */,
 				1B0334651E726DA1009567F9 /* DownloadViewCell.m */,
 				1B0334661E726DA1009567F9 /* DownloadViewCell.xib */,
+				1BFEA60D1EA738EA0033CD15 /* DanMuView.h */,
+				1BFEA60E1EA738EA0033CD15 /* DanMuView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1363,6 +1373,7 @@
 				1B099C7F1DE7E57400161396 /* MJRefreshAutoFooter.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
+				1BFEA60F1EA738EA0033CD15 /* DanMuView.m in Sources */,
 				1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */,
 				CF349F761E7D24790087A55E /* VideoPlayerView.m in Sources */,
@@ -1429,6 +1440,7 @@
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
+				1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */,
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,
 				1B099C971DE7E57400161396 /* SDCollectionViewCell.m in Sources */,

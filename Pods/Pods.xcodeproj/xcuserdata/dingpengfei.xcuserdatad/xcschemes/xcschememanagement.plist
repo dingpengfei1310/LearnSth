@@ -79,6 +79,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SocketRocket.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>UICountingLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,12 +92,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>143B10E8B45AC679224D9CA02A98B108</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>22396DCE4C5D0A262DF1DBC6426E44A7</key>
+		<key>1CE94CAA596D6472B48F6EB862F7865A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,6 +108,11 @@
 			<true/>
 		</dict>
 		<key>53B2B897D64E4516E75AC86348B86622</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5754036DDA41C39E990232F9DC8EE495</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0B7A911822813C4D959DF527ED8CDEA</key>
+		<key>E70848602E66ECE5D60FB8076BBA1072</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -163,6 +168,11 @@
 			<true/>
 		</dict>
 		<key>EB31A05090143EAF02A3DE187E2CBA22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED382F68A47A05CA557E8456B34CB5DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

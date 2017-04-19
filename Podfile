@@ -12,4 +12,5 @@ target 'LearnSth' do
     pod 'Masonry'
     pod 'PNChart'
     pod 'AsyncDisplayKit'
+    pod 'SocketRocket'
 end
