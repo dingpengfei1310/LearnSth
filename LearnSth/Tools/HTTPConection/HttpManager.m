@@ -69,11 +69,13 @@ const NSTimeInterval timeoutInterval = 15.0;
                 }
                 failure:^(NSURLSessionDataTask *task, NSError *error) {
                     [self.currentTasks removeObject:task];
-                    if (![error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
+                    if ([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
                         NSDictionary *info = @{@"message":@"您已取消"};
                         NSError *error = [NSError errorWithDomain:@"用户取消"
                                                              code:errorCodeDefault
                                                          userInfo:info];
+                        failure(error);
+                    } else {
                         failure(error);
                     }
                 }];

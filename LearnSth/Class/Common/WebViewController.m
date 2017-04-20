@@ -22,6 +22,8 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 @implementation WebViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self setLeftItemsWithCanGoBack:NO];
     if (self.urlString) {
@@ -48,15 +50,23 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 - (void)rightItemClick {
-    UIGraphicsBeginImageContext(self.KWebView.scrollView.contentSize);
-    [self.KWebView.scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [self loading];
     
+    CGPoint offset = self.KWebView.scrollView.contentOffset;
+    self.KWebView.frame = CGRectMake(0, 0, Screen_W, self.KWebView.scrollView.contentSize.height);
+    
+    UIGraphicsBeginImageContextWithOptions(self.KWebView.scrollView.contentSize, NO, 0);
+    [self.KWebView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     UIGraphicsEndImageContext();
+    
+    self.KWebView.frame = CGRectMake(0, 0, Screen_W, Screen_H - 64);
+    self.KWebView.scrollView.contentOffset = offset;
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    [self hideHUD];
 }
 
 #pragma mark
@@ -130,7 +140,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64)];
         _KWebView.navigationDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];

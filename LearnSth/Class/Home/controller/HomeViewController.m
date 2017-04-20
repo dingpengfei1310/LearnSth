@@ -245,7 +245,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H);
+        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H - 64);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];

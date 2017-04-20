@@ -8,86 +8,128 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>AsyncDisplayKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>CocoaAsyncSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>CocoaHTTPServer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>GPUImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>HappyDNS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>PINCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>PINRemoteImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>PNChart.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 		<key>Pods-LearnSth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>SSZipArchive.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>SocketRocket.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
 		</dict>
 		<key>UICountingLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>16</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>143B10E8B45AC679224D9CA02A98B108</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CE94CAA596D6472B48F6EB862F7865A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,6 +150,11 @@
 			<true/>
 		</dict>
 		<key>53B2B897D64E4516E75AC86348B86622</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5754036DDA41C39E990232F9DC8EE495</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,12 +204,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E70848602E66ECE5D60FB8076BBA1072</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E8FBAB4723C6E41DC74C7005DD429DBE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EB31A05090143EAF02A3DE187E2CBA22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED382F68A47A05CA557E8456B34CB5DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
