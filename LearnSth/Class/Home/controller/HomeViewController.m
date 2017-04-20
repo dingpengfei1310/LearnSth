@@ -54,10 +54,12 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self getHomeAdBanner];
 //    [self refreshLiveData];
     
-    _danMuView = [[DanMuView alloc] init];
-    [self.view addSubview:_danMuView];
+//    _danMuView = [[DanMuView alloc] init];
+//    [self.view addSubview:_danMuView];
+    
 //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
 //    [window addSubview:_danMuView];
+//    [self.webSocket open];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,28 +135,32 @@ static NSString *headerReuseIdentifier = @"headerCell";
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    NSArray *array = @[@"我是个弹幕",
-                       @"我也是个弹幕",
-                       @"你是什么鬼",
-                       @"我是个长弹幕我是个长弹幕",
-                       @"我好方",
-                       @"我是个弹幕",
-                       @"我也是个弹幕",
-                       @"你是什么鬼",
-                       @"我是个长弹幕我是个长弹幕我是个长弹幕",
-                       @"我好方"];
+//    NSArray *array = @[@"我是个弹幕",
+//                       @"我也是个弹幕",
+//                       @"你是什么鬼",
+//                       @"我是个长弹幕我是个长弹幕",
+//                       @"我好方",
+//                       @"我是个弹幕",
+//                       @"我也是个弹幕",
+//                       @"你是什么鬼",
+//                       @"我是个长弹幕我是个长弹幕我是个长弹幕",
+//                       @"我好方"];
+//    
+//    NSArray *colorArray = @[[UIColor redColor],
+//                            [UIColor greenColor],
+//                            [UIColor blackColor],
+//                            [UIColor blueColor]];
+//    
+//    for (int i = 0; i < array.count; i++) {
+//        DanMuModel *model = [[DanMuModel alloc] init];
+//        model.text = array[i];
+//        model.position = i % 3;
+//        model.textColor = colorArray[i % 4];
+//        _danMuView.model = model;
+//    }
     
-    NSArray *colorArray = @[[UIColor redColor],
-                            [UIColor greenColor],
-                            [UIColor blackColor],
-                            [UIColor blueColor]];
-    
-    for (int i = 0; i < array.count; i++) {
-        DanMuModel *model = [[DanMuModel alloc] init];
-        model.text = array[i];
-        model.position = i % 3;
-        model.textColor = colorArray[i % 4];
-        _danMuView.model = model;
+    if (self.webSocket.readyState == SR_OPEN) {
+        [self.webSocket send:@"我是Socket😄"];
     }
 }
 
@@ -218,7 +224,12 @@ static NSString *headerReuseIdentifier = @"headerCell";
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
-    NSLog(@"didReceiveMessage:%@",message);
+    if (message) {
+        DanMuModel *model = [[DanMuModel alloc] init];
+        model.text = message;
+        model.position = 2;
+        _danMuView.model = model;
+    }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
@@ -297,7 +308,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
 
 - (SRWebSocket *)webSocket {
     if (!_webSocket) {
-        NSString *urlString = @"ws://192.168.1.119:8080/jeesns/test/1/1";
+        NSString *urlString = @"ws://192.168.1.119:8080/jeesns/test/3/2";
         NSURL *url = [NSURL URLWithString:urlString];
         NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
         requestM.timeoutInterval = 15;

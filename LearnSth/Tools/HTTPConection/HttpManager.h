@@ -17,6 +17,7 @@ typedef void (^Failure)(NSError *error);
 + (instancetype)shareManager;
 
 - (void)cancelAllRequest;
+- (void)cancelRequestWithUrl:(NSURL *)url;
 
 #pragma mark
 /// 广告
@@ -25,11 +26,5 @@ typedef void (^Failure)(NSError *error);
 ///热门直播
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion;
-
-///
-- (void)getUserListWithParamers:(NSDictionary *)paramers
-                     completion:(SuccessArray)completion;
-
-
 
 @end

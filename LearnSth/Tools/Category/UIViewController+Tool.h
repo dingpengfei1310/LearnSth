@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class MBProgressHUD;
 @interface UIViewController (Tool)
 
 #pragma mark - 导航栏
@@ -20,6 +21,8 @@
 ///加载
 - (void)loading;
 - (void)loadingWithText:(NSString *)text;
+
+- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)())cancel;
 
 ///自动消失的文字提示框
 - (void)showSuccess:(NSString *)success;

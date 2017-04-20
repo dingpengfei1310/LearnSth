@@ -8,6 +8,11 @@
 
 #import "UIViewController+Tool.h"
 #import "MBProgressHUD.h"
+#import <objc/runtime.h>
+
+static char CancelKey;
+
+typedef void (^CancelBlock)();
 
 @implementation UIViewController (Tool)
 
@@ -35,6 +40,32 @@
     [self showMessage:text toView:nil];
 }
 
+- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)())cancel {
+    UIView *view = [[UIApplication sharedApplication].windows lastObject];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.label.text = text;
+    hud.label.font = [self hudTextFont];
+    hud.margin = [self hudTextMargin];
+    
+    hud.bezelView.color = [UIColor clearColor];
+    hud.animationType = MBProgressHUDAnimationZoom;
+    
+    if (text.length > 0) {
+        hud.mode = MBProgressHUDModeText;
+        hud.contentColor = [UIColor whiteColor];
+        hud.bezelView.color = [UIColor blackColor];
+    }
+    
+    UIButton *button = hud.button;
+    button.titleLabel.font = [self hudTextFont];
+    button.layer.borderWidth = 0.0;
+    [button setTitle:@"取消" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);
+}
+
 - (void)showSuccess:(NSString *)success {
     [self show:success toView:nil];
 }
@@ -45,9 +76,7 @@
 
 - (void)showErrorWithError:(NSError *)error {
     NSString *messege = [error.userInfo objectForKey:@"message"];
-    if(!messege) {
-        messege = @"网络异常";
-    }
+    messege = messege ?: @"网络异常";
     [self showError:messege];
 }
 
@@ -82,6 +111,7 @@
     hud.margin = [self hudTextMargin];
     
     hud.bezelView.color = [UIColor clearColor];
+    hud.animationType = MBProgressHUDAnimationZoom;
     
     if (message.length > 0) {
         hud.mode = MBProgressHUDModeText;
@@ -102,18 +132,36 @@
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     UIFont *textFont;
     if (screenW == 320.0) {
-        textFont = [UIFont systemFontOfSize:13];
+        textFont = [UIFont boldSystemFontOfSize:15];
     } else if (screenW == 375.0) {
-        textFont = [UIFont systemFontOfSize:15];
+        textFont = [UIFont boldSystemFontOfSize:16];
     } else {
-        textFont = [UIFont systemFontOfSize:17];
+        textFont = [UIFont boldSystemFontOfSize:17];
     }
     
     return textFont;
 }
 
 - (CGFloat)hudTextMargin {
-    return 10;
+    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+    CGFloat margin;
+    if (screenW == 320.0) {
+        margin = 13;
+    } else if (screenW == 375.0) {
+        margin = 15;
+    } else {
+        margin = 17;
+    }
+    return margin;
+}
+
+- (void)buttonClick:(UIButton *)button {
+    [self hideHUD];
+    
+    CancelBlock cancelBlock = objc_getAssociatedObject(button, &CancelKey);
+    if (cancelBlock) {
+        cancelBlock();
+    }
 }
 
 #pragma mark - 确认弹出框
