@@ -8,8 +8,8 @@
 
 #import "VideoScanController.h"
 #import "FilterCollectionView.h"
-#import "GPUImage.h"
 
+#import <GPUImage.h>
 #import <Photos/Photos.h>
 #import <AVFoundation/AVFoundation.h>
 

@@ -33,9 +33,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         
         [self.view addSubview:self.KWebView];
     }
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
-    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,26 +44,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     
     [self.progressView removeFromSuperview];
     self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-}
-
-- (void)rightItemClick {
-    [self loading];
-    
-    CGPoint offset = self.KWebView.scrollView.contentOffset;
-    self.KWebView.frame = CGRectMake(0, 0, Screen_W, self.KWebView.scrollView.contentSize.height);
-    
-    UIGraphicsBeginImageContextWithOptions(self.KWebView.scrollView.contentSize, NO, 0);
-    [self.KWebView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    UIGraphicsEndImageContext();
-    
-    self.KWebView.frame = CGRectMake(0, 0, Screen_W, Screen_H - 64);
-    self.KWebView.scrollView.contentOffset = offset;
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    [self hideHUD];
 }
 
 #pragma mark

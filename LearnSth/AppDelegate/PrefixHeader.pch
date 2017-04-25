@@ -10,7 +10,7 @@
 #define PrefixHeader_pch
 
 #import "UIViewController+Tool.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+WebCache.h>
 
 #import "HttpManager.h"
 #import "CustomiseTool.h"

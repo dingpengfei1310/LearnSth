@@ -19,12 +19,9 @@
 
 #import "Aspects.h"
 #import "MJRefresh.h"
+#import <SRWebSocket.h>
 
-#import "SRWebSocket.h"
-#import "DanMuView.h"
-#import "DanMuModel.h"
-
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SRWebSocketDelegate>
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
@@ -33,14 +30,11 @@
 @property (nonatomic, strong) NSMutableArray *liveList;
 @property (nonatomic, assign) NSInteger page;
 
-@property (nonatomic, strong) SRWebSocket *webSocket;
-@property (nonatomic, strong) DanMuView *danMuView;
-
 @end
 
-const NSInteger liveColumn = 2;
 static NSString *reuseIdentifier = @"cell";
 static NSString *headerReuseIdentifier = @"headerCell";
+const NSInteger liveColumn = 2;
 
 @implementation HomeViewController
 - (void)viewDidLoad {
@@ -54,20 +48,15 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self getHomeAdBanner];
 //    [self refreshLiveData];
     
-//    _danMuView = [[DanMuView alloc] init];
-//    [self.view addSubview:_danMuView];
-    
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    [window addSubview:_danMuView];
-//    [self.webSocket open];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self.bannerScrollView setUpTimer];
+    __weak typeof(self) weakSelf = self;
     [self.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
-        [self.collectionView checkEmpty];
+        [weakSelf.collectionView checkEmpty];
     } error:NULL];
 }
 
@@ -102,6 +91,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
             
             [self.bannerScrollView setImageArray:imageStringArray];
             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+//            [self.collectionView reloadData];
         }
     }];
 }
@@ -134,34 +124,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
 //    DownloadViewController *controller = [[DownloadViewController alloc] init];
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
-    
-//    NSArray *array = @[@"我是个弹幕",
-//                       @"我也是个弹幕",
-//                       @"你是什么鬼",
-//                       @"我是个长弹幕我是个长弹幕",
-//                       @"我好方",
-//                       @"我是个弹幕",
-//                       @"我也是个弹幕",
-//                       @"你是什么鬼",
-//                       @"我是个长弹幕我是个长弹幕我是个长弹幕",
-//                       @"我好方"];
-//    
-//    NSArray *colorArray = @[[UIColor redColor],
-//                            [UIColor greenColor],
-//                            [UIColor blackColor],
-//                            [UIColor blueColor]];
-//    
-//    for (int i = 0; i < array.count; i++) {
-//        DanMuModel *model = [[DanMuModel alloc] init];
-//        model.text = array[i];
-//        model.position = i % 3;
-//        model.textColor = colorArray[i % 4];
-//        _danMuView.model = model;
-//    }
-    
-    if (self.webSocket.readyState == SR_OPEN) {
-        [self.webSocket send:@"我是Socket😄"];
-    }
 }
 
 #pragma mark
@@ -214,28 +176,6 @@ static NSString *headerReuseIdentifier = @"headerCell";
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
-#pragma mark - SRWebSocketDelegate
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
-    NSLog(@"webSocketDidOpen");
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
-    NSLog(@"didFailWithError:%@",error);
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
-    if (message) {
-        DanMuModel *model = [[DanMuModel alloc] init];
-        model.text = message;
-        model.position = 2;
-        _danMuView.model = model;
-    }
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-    NSLog(@"didCloseWithCode");
-}
-
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
@@ -245,7 +185,7 @@ static NSString *headerReuseIdentifier = @"headerCell";
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H - 64);
+        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];
@@ -257,16 +197,20 @@ static NSString *headerReuseIdentifier = @"headerCell";
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:headerReuseIdentifier];
         
+        __weak typeof(self) weakSelf = self;
+        
         _collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-            self.page = 1;
-            [self refreshLiveData];
+            weakSelf.page = 1;
+            [weakSelf refreshLiveData];
         }];
         _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            self.page++;
-            [self refreshLiveData];
+            weakSelf.page++;
+            if (weakSelf.liveList.count == 0) {
+                weakSelf.page = 1;
+            }
+            [weakSelf refreshLiveData];
         }];
         
-        __weak typeof(self) weakSelf = self;
         [_collectionView setClickBlock:^{
             [weakSelf refreshLiveData];
         }];
@@ -306,21 +250,12 @@ static NSString *headerReuseIdentifier = @"headerCell";
     return _bannerScrollView;
 }
 
-- (SRWebSocket *)webSocket {
-    if (!_webSocket) {
-        NSString *urlString = @"ws://192.168.1.119:8080/jeesns/test/3/2";
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
-        requestM.timeoutInterval = 15;
-        
-        _webSocket = [[SRWebSocket alloc] initWithURLRequest:requestM];
-        _webSocket.delegate = self;
-    }
-    return _webSocket;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    NSLog(@"HomeViewController....dealloc");
 }
 
 @end

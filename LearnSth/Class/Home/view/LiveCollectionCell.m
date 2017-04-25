@@ -40,9 +40,9 @@
     _nameLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.nameLabel];
     
-    _signaturesLabel = [[RollTextLabel alloc] init];
-    _signaturesLabel.backgroundColor = backgroundColor;
-    [self.contentView addSubview:self.signaturesLabel];
+//    _signaturesLabel = [[RollTextLabel alloc] init];
+//    _signaturesLabel.backgroundColor = backgroundColor;
+//    [self.contentView addSubview:self.signaturesLabel];
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
@@ -58,10 +58,10 @@
                 self.nameLabel.text = liveModel.myname;
             }
             
-            if (liveModel.signatures.length > 0) {
-                self.signaturesLabel.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 21, CGRectGetWidth(self.frame), 21);
-                self.signaturesLabel.text = liveModel.signatures;
-            }
+//            if (liveModel.signatures.length > 0) {
+//                self.signaturesLabel.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 21, CGRectGetWidth(self.frame), 21);
+//                self.signaturesLabel.text = liveModel.signatures;
+//            }
         }];
     }
 }

@@ -46,9 +46,7 @@
 
 - (void)showErrorWithError:(NSError *)error {
     NSString *messege = [error.userInfo objectForKey:@"message"];
-    if(!messege) {
-        messege = @"网络异常";
-    }
+    messege = messege ?: @"网络异常";
     [self showError:messege];
 }
 
@@ -103,18 +101,27 @@
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     UIFont *textFont;
     if (screenW == 320.0) {
-        textFont = [UIFont systemFontOfSize:13];
+        textFont = [UIFont boldSystemFontOfSize:15];
     } else if (screenW == 375.0) {
-        textFont = [UIFont systemFontOfSize:15];
+        textFont = [UIFont boldSystemFontOfSize:16];
     } else {
-        textFont = [UIFont systemFontOfSize:17];
+        textFont = [UIFont boldSystemFontOfSize:17];
     }
     
     return textFont;
 }
 
 - (CGFloat)hudTextMargin {
-    return 10;
+    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+    CGFloat margin;
+    if (screenW == 320.0) {
+        margin = 13;
+    } else if (screenW == 375.0) {
+        margin = 15;
+    } else {
+        margin = 17;
+    }
+    return margin;
 }
 
 @end

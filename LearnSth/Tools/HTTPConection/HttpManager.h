@@ -17,7 +17,6 @@ typedef void (^Failure)(NSError *error);
 + (instancetype)shareManager;
 
 - (void)cancelAllRequest;
-- (void)cancelRequestWithUrl:(NSURL *)url;
 
 #pragma mark
 /// 广告

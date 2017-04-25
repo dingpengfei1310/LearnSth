@@ -8,8 +8,9 @@
 
 #import "VideoCameraFilterController.h"
 #import "FilterCollectionView.h"
-#import "GPUImage.h"
 #import "GPUImageBeautifyFilter.h"
+
+#import <GPUImage.h>
 
 @interface VideoCameraFilterController ()
 

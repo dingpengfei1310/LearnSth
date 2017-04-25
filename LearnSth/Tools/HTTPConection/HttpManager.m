@@ -7,14 +7,14 @@
 //
 
 #import "HttpManager.h"
-#import "AFNetworking.h"
+#import <AFNetworking.h>
 
 const NSInteger errorCodeDefault = 99999;
 const NSTimeInterval timeoutInterval = 15.0;
 
 @interface HttpManager ()
 
-@property (strong, nonatomic) NSMutableArray *currentTasks;
+@property (strong, nonatomic) AFHTTPSessionManager *sessionManager;
 
 @end
 
@@ -24,26 +24,27 @@ const NSTimeInterval timeoutInterval = 15.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[HttpManager alloc] init];
+        
     });
     return manager;
 }
 
-- (void)cancelAllRequest {
-    [self.currentTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * obj, NSUInteger idx, BOOL * stop) {
-        if (obj.state != NSURLSessionTaskStateCompleted) {
-            [obj cancel];
-        }
-    }];
-    [self.currentTasks removeAllObjects];
+- (instancetype)init {
+    if (self = [super init]) {
+        _sessionManager = [AFHTTPSessionManager manager];
+        
+        NSMutableSet *multSet = [NSMutableSet setWithSet:_sessionManager.responseSerializer.acceptableContentTypes];
+        [multSet addObject:@"text/html"];
+        _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
+        _sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
+    }
+    return self;
 }
 
-- (void)cancelRequestWithUrl:(NSURL *)url {
-    [self.currentTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * obj, NSUInteger idx, BOOL * stop) {
-        BOOL isCurrentUrl = [obj.currentRequest.URL.absoluteString isEqualToString:url.absoluteString];
-        if (isCurrentUrl && obj.state != NSURLSessionTaskStateCompleted) {
+- (void)cancelAllRequest {
+    [self.sessionManager.dataTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * obj, NSUInteger idx, BOOL * stop) {
+        if (obj.state != NSURLSessionTaskStateCompleted) {
             [obj cancel];
-            [self.currentTasks removeObjectAtIndex:idx];
-            *stop = YES;
         }
     }];
 }
@@ -52,57 +53,38 @@ const NSTimeInterval timeoutInterval = 15.0;
                  paramets:(NSDictionary *)paramets
                   success:(Success)success
                   failure:(Failure)failure {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
-    [multSet addObject:@"text/html"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
-    manager.requestSerializer.timeoutInterval = timeoutInterval;
-    
-    NSURLSessionDataTask *task;
-    task = [manager GET:urlString
-             parameters:paramets
-               progress:^(NSProgress * uploadProgress) {}
-                success:^(NSURLSessionDataTask *task, id responseObject) {
-                    [self.currentTasks removeObject:task];
-                    success(responseObject);
-                }
-                failure:^(NSURLSessionDataTask *task, NSError *error) {
-                    [self.currentTasks removeObject:task];
-                    if ([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
-                        NSDictionary *info = @{@"message":@"您已取消"};
-                        NSError *error = [NSError errorWithDomain:@"用户取消"
-                                                             code:errorCodeDefault
-                                                         userInfo:info];
-                        failure(error);
-                    } else {
-                        failure(error);
-                    }
-                }];
-    
-    [self.currentTasks addObject:task];
+    [self.sessionManager GET:urlString
+                  parameters:paramets
+                    progress:^(NSProgress * uploadProgress) {}
+                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                         success(responseObject);
+                     }
+                     failure:^(NSURLSessionDataTask *task, NSError *error) {
+                         if ([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
+                             NSDictionary *info = @{@"message":@"您已取消"};
+                             NSError *error = [NSError errorWithDomain:@"用户取消" code:errorCodeDefault userInfo:info];
+                             failure(error);
+                         } else {
+                             failure(error);
+                         }
+                     }];
 }
 
 - (void)postDataWithString:(NSString *)urlString
                  paramets:(NSDictionary *)paramets
                   success:(Success)success
                   failure:(Failure)failure {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    NSMutableSet *multSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
-    [multSet addObject:@"text/html"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
-    manager.requestSerializer.timeoutInterval = timeoutInterval;
-    
-    [manager POST:urlString
-      parameters:paramets
-        progress:^(NSProgress * _Nonnull uploadProgress) {}
-         success:^(NSURLSessionDataTask *task, id responseObject) {
-             success(responseObject);
-         }
-         failure:^(NSURLSessionDataTask *task, NSError *error) {
-             failure(error);
-         }];
+    [self.sessionManager POST:urlString
+                   parameters:paramets
+                     progress:^(NSProgress * _Nonnull uploadProgress) {}
+                      success:^(NSURLSessionDataTask *task, id responseObject) {
+                          success(responseObject);
+                      }
+                      failure:^(NSURLSessionDataTask *task, NSError *error) {
+                          failure(error);
+                      }];
 }
 
 #pragma mark
@@ -146,8 +128,8 @@ const NSTimeInterval timeoutInterval = 15.0;
     message = message ?: @"网络错误";
     code = code ?: errorCodeDefault;
     NSDictionary *info = @{@"message":message};
-    NSError *error = [NSError errorWithDomain:message code:code userInfo:info];
-    return error;
+    
+    return [NSError errorWithDomain:message code:code userInfo:info];
 }
 
 #pragma mark
@@ -167,14 +149,6 @@ const NSTimeInterval timeoutInterval = 15.0;
         dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:NULL];
     }
     return dict;
-}
-
-#pragma mark
-- (NSMutableArray *)currentTasks {
-    if (!_currentTasks) {
-        _currentTasks = [NSMutableArray array];
-    }
-    return _currentTasks;
 }
 
 @end

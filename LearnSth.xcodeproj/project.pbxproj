@@ -67,6 +67,9 @@
 		1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCameraController.m */; };
 		1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1132791EA4659E00323189 /* HeaderImageController.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
+		1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */; };
+		1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */; };
+		1B1C732E1EAF210B0090D04A /* QRCodePixel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C732D1EAF210B0090D04A /* QRCodePixel.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -284,6 +287,12 @@
 		1B1132781EA4659E00323189 /* HeaderImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageController.h; sourceTree = "<group>"; };
 		1B1132791EA4659E00323189 /* HeaderImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageController.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1B139C0C1EAEE528003F678E /* UIImage+QRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCode.h"; sourceTree = "<group>"; };
+		1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
+		1B139C101EAEE8BC003F678E /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
+		1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
+		1B1C732C1EAF210B0090D04A /* QRCodePixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodePixel.h; sourceTree = "<group>"; };
+		1B1C732D1EAF210B0090D04A /* QRCodePixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodePixel.m; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -507,14 +516,15 @@
 		1B099BE61DE7E57400161396 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1B389A8A1EA09D9300A927E4 /* libexidcard */,
 				1B099BE71DE7E57400161396 /* Aspects */,
 				1B099BEA1DE7E57400161396 /* BHBDrawBoarder */,
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
 				1B099BFB1DE7E57400161396 /* FPSLabel */,
+				1B389A8A1EA09D9300A927E4 /* libexidcard */,
 				1B099BFE1DE7E57400161396 /* MBProgressHUD */,
 				1B099C051DE7E57400161396 /* MJRefresh */,
 				1B08C0901DF6564C005F3059 /* PPNumberButton */,
+				1B139C0F1EAEE830003F678E /* QRCode */,
 				1B099C341DE7E57400161396 /* SDCycleScrollView */,
 				1B099C441DE7E57400161396 /* TPKeyboardAvoiding */,
 				1B099C4D1DE7E57400161396 /* UIViewController+Swizzled */,
@@ -761,6 +771,17 @@
 			name = setting;
 			sourceTree = "<group>";
 		};
+		1B139C0F1EAEE830003F678E /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				1B139C101EAEE8BC003F678E /* QRCodeGenerator.h */,
+				1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */,
+				1B1C732C1EAF210B0090D04A /* QRCodePixel.h */,
+				1B1C732D1EAF210B0090D04A /* QRCodePixel.m */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 		1B1D95DC1E7FC86500000EE4 /* download */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1012,8 @@
 				1B4630CA1E669703000260D2 /* UIViewController+Tool.m */,
 				1B008EE21E91F51C003AE2DB /* UIViewController+PopAction.h */,
 				1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */,
+				1B139C0C1EAEE528003F678E /* UIImage+QRCode.h */,
+				1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1383,6 +1406,7 @@
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
 				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
 				CFEAB8CB1DE983CC00CB9DDF /* ProvinceViewController.m in Sources */,
+				1B1C732E1EAF210B0090D04A /* QRCodePixel.m in Sources */,
 				1B4630D91E669703000260D2 /* UIColor+Tool.m in Sources */,
 				1B099C8A1DE7E57400161396 /* MJRefreshGifHeader.m in Sources */,
 				1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */,
@@ -1438,6 +1462,7 @@
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
+				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
 				1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */,
@@ -1469,6 +1494,7 @@
 				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,
 				1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */,
 				1B099C831DE7E57400161396 /* MJRefreshHeader.m in Sources */,
+				1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */,
 				1B099C881DE7E57400161396 /* MJRefreshBackNormalFooter.m in Sources */,
 				1B099C8C1DE7E57400161396 /* MJRefreshStateHeader.m in Sources */,
 			);

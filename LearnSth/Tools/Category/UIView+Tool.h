@@ -15,7 +15,7 @@
 - (void)loading;
 - (void)loadingWithText:(NSString *)text;
 
-///提示文字：（会查找是否存在HUD，找不到才会创建新的HUD）
+///提示文字:(会查找是否存在HUD，找不到才会创建新的HUD)
 - (void)showMessage:(NSString *)message;
 
 ///自动消失的文字提示框

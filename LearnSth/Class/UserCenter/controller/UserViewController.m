@@ -12,9 +12,11 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 #import "SettingViewController.h"
+#import "UserQRCodeController.h"
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
+#import "HomeViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -42,6 +44,15 @@ static NSString *Identifier = @"cell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(adddd)];
+    
+}
+
+- (void)adddd {
+    UserQRCodeController *controller = [[UserQRCodeController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -122,6 +133,7 @@ static NSString *Identifier = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         [self loginClick];
+        
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];

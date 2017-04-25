@@ -8,6 +8,9 @@
 
 #import "SQLManager.h"
 
+#import <FMDatabase.h>
+#import <FMDatabaseQueue.h>
+
 @interface SQLManager ()
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;

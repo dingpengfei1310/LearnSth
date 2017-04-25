@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FMDatabase.h"
-#import "FMDatabaseQueue.h"
-
+@class FMDatabaseQueue;
 @interface SQLManager : NSObject
 
 + (instancetype)manager;
@@ -20,10 +18,5 @@
 - (NSArray *)getProvinces;
 - (NSArray *)getCitiesWithProvinceId:(NSString *)provinceId;
 - (NSArray *)searchResultWith:(NSString *)text;
-
-#pragma mark
-
-
-
 
 @end
