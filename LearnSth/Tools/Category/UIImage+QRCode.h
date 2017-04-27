@@ -10,11 +10,11 @@
 
 @interface UIImage (QRCode)
 
-+ (UIImage *)imageWithQRText:(NSString *)text;
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size;
++ (UIImage *)imageWithText:(NSString *)text;
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size;
 
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size watermark:(UIImage *)watermark;
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor;
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor watermark:(UIImage *)watermark;
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size watermark:(UIImage *)watermark;
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor;
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor watermark:(UIImage *)watermark;
 
 @end

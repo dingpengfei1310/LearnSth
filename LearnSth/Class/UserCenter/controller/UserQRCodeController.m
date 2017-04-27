@@ -8,6 +8,7 @@
 
 #import "UserQRCodeController.h"
 #import "UIImage+QRCode.h"
+#import "QRCodeGenerator.h"
 
 @interface UserQRCodeController ()
 
@@ -34,12 +35,17 @@
         return;
     }
     
-    UIImage *codeImage = [UIImage imageWithQRText:qrString
-                                            size:CGRectGetWidth(self.qrImageView.frame)
-                                      frontColor:[CIColor colorWithRed:0.8 green:0.3 blue:0.1]
-                                       backColor:[CIColor colorWithRed:1.0 green:1.0 blue:1.0]
-                                       watermark:[UIImage imageNamed:@"panda"]];
-    self.qrImageView.image = codeImage;
+//    UIImage *codeImage = [UIImage imageWithText:qrString
+//                                           size:CGRectGetWidth(self.qrImageView.frame)
+//                                      watermark:[UIImage imageNamed:@"panda"]];
+//    self.qrImageView.image = codeImage;
+    
+    QRCodeGenerator *generator = [[QRCodeGenerator alloc] init];
+    generator.content = qrString;
+    generator.codeWidth = CGRectGetWidth(self.qrImageView.frame);
+//    generator.codeWidth = CGRectGetWidth(self.qrImageView.frame);
+    generator.icon = [UIImage imageNamed:@"panda"];
+    self.qrImageView.image = [generator QRCodeImage];
 }
 
 #pragma mark

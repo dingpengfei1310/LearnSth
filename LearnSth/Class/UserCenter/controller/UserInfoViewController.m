@@ -11,7 +11,8 @@
 #import "AddressPickerController.h"
 #import "ScanQRCodeController.h"
 #import "IDCardViewController.h"
-#import "WebViewController.h"
+#import "UserQRCodeController.h"
+
 #import "UserManager.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -31,7 +32,7 @@ static NSString *Identifier = @"cell";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"个人信息";
     
-    self.dataArray = @[@"头像",@"名字",@"城市",@"身份证"];
+    self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
     [self.view addSubview:self.tableView];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -165,10 +166,7 @@ static NSString *Identifier = @"cell";
         IDCardViewController *controller = [[IDCardViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 4) {
-        WebViewController *controller = [[WebViewController alloc] init];
-        controller.title = @"微博";
-        controller.urlString = @"http://m.weibo.cn/n/ever丶飞飞";
-        //controller.urlString = @"http://m.weibo.cn/u/5277766604";
+        UserQRCodeController *controller = [[UserQRCodeController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

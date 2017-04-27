@@ -79,6 +79,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *image = self.thumbImages[index];
+        
         //1. 初始化扫描仪，设置设别类型和识别质量
         CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
         //2. 扫描获取的特征组
@@ -93,7 +94,6 @@ static NSString * const reuseIdentifier = @"Cell";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideHUD];
-            
             [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
         });
     });

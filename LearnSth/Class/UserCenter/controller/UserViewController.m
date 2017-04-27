@@ -12,11 +12,9 @@
 #import "UserInfoViewController.h"
 #import "FileScanViewController.h"
 #import "SettingViewController.h"
-#import "UserQRCodeController.h"
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
-#import "HomeViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -44,15 +42,6 @@ static NSString *Identifier = @"cell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(adddd)];
-    
-}
-
-- (void)adddd {
-    UserQRCodeController *controller = [[UserQRCodeController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark

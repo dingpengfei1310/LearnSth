@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger,WatermarkMode) {
 
 @interface QRCodeGenerator : NSObject
 
-@property (nonatomic, copy) NSString *content;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) CGFloat codeWidth;
 
 @property (nonatomic, strong) UIColor *foregroundColor;
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger,WatermarkMode) {
 @property (nonatomic, assign) WatermarkMode watermarkMode;
 @property (nonatomic, assign) BOOL isWatermarkColorful;
 
-@property (nonatomic, assign) BOOL allowTransparent;//是否透明（水印）
+@property (nonatomic, assign) BOOL allowTransparent;//是否透明,有水印才会有用
 
 - (UIImage *)QRCodeImage;
 

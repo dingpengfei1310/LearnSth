@@ -10,11 +10,11 @@
 
 @implementation UIImage (QRCode)
 
-+ (UIImage *)imageWithQRText:(NSString *)text {
-    return [UIImage imageWithQRText:text size:256];
++ (UIImage *)imageWithText:(NSString *)text {
+    return [UIImage imageWithText:text size:256];
 }
 
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size {
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size {
     CGFloat imageWidth = MAX(27, size);
     CIImage *ciImage = [UIImage QRCodeOriginalCIImage:text];
     
@@ -27,7 +27,7 @@
     CGContextRef context = CGBitmapContextCreate(nil, width, height, 8, 0, CGColorSpaceCreateDeviceGray(), (CGBitmapInfo)kCGImageAlphaNone);
     CGImageRef imageRef = [[CIContext contextWithOptions:nil] createCGImage:ciImage fromRect:extent];
     
-    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
     CGContextScaleCTM(context, scale, scale);
     CGContextDrawImage(context, extent, imageRef);
     
@@ -42,8 +42,8 @@
     return codeImage;
 }
 
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size watermark:(UIImage *)watermark {
-    UIImage *normalImage = [UIImage imageWithQRText:text size:size];
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size watermark:(UIImage *)watermark {
+    UIImage *normalImage = [UIImage imageWithText:text size:size];
     if (!watermark) {
 //        NSDictionary *infoPlist = [[NSBundle mainBundle] infoDictionary];
 //        NSString *icon = [[infoPlist valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
@@ -55,7 +55,7 @@
     //加水印
     UIGraphicsBeginImageContextWithOptions(normalImage.size, NO, 0);
     [normalImage drawInRect:CGRectMake(0, 0, imageWidth, imageWidth)];
-    CGFloat waterImagesize = imageWidth * 0.5;
+    CGFloat waterImagesize = imageWidth * 0.4;
     [watermark drawInRect:CGRectMake((imageWidth - waterImagesize)/2.0, (imageWidth - waterImagesize)/2.0, waterImagesize, waterImagesize)];
     UIImage *watermarkImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -63,12 +63,13 @@
     return watermarkImage;
 }
 
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor {
-    UIImage *normalImage = [UIImage imageWithQRText:text size:size];
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor {
+    UIImage *normalImage = [UIImage imageWithText:text size:size];
     if ((!fColor && !bColor)) {
         return normalImage;
     }
     
+    //二维码默认黑色
     CGFloat fRed = 0;
     CGFloat fGreen = 0;
     CGFloat fBlue = 0;
@@ -79,6 +80,7 @@
         fBlue = fComponents[2] * 255;
     }
     
+    //背景默认白色
     CGFloat bRed = 255;
     CGFloat bGreen = 255;
     CGFloat bBlue = 255;
@@ -118,14 +120,15 @@
     // 输出图片
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
     UIImage *colorImage = [UIImage imageWithCGImage:imageRef];
+    
     CGImageRelease(imageRef);
     CGContextRelease(context);
     
     return colorImage;
 }
 
-+ (UIImage *)imageWithQRText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor watermark:(UIImage *)watermark {
-    UIImage *colorImage = [UIImage imageWithQRText:text size:size frontColor:fColor backColor:bColor];
++ (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor watermark:(UIImage *)watermark {
+    UIImage *colorImage = [UIImage imageWithText:text size:size frontColor:fColor backColor:bColor];
     
     if (!watermark) {
         return colorImage;
@@ -134,7 +137,7 @@
         //加水印
         UIGraphicsBeginImageContextWithOptions(colorImage.size, NO, 0);
         [colorImage drawInRect:CGRectMake(0, 0, imageWidth, imageWidth)];
-        CGFloat waterImagesize = imageWidth * 0.5;
+        CGFloat waterImagesize = imageWidth * 0.3;
         [watermark drawInRect:CGRectMake((imageWidth - waterImagesize)/2.0, (imageWidth - waterImagesize)/2.0, waterImagesize, waterImagesize)];
         UIImage *watermarkImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -145,10 +148,10 @@
 
 #pragma mark
 + (CIImage *)QRCodeOriginalCIImage:(NSString *)text {
-    NSData *stringData = [text dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
     
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    [qrFilter setValue:stringData forKey:@"inputMessage"];
+    [qrFilter setValue:data forKey:@"inputMessage"];
     [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
     
     return qrFilter.outputImage;
