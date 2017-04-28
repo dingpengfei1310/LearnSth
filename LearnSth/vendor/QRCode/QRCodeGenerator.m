@@ -20,6 +20,16 @@
 @implementation QRCodePixel
 @end
 
+#pragma mark
+@interface QRCodeGenerator ()
+
+@property (nonatomic, strong) NSArray *generatorCodes;
+
+@property (nonatomic, assign) CGSize finalSize;
+@property (nonatomic, assign) CGSize minSuitableSize;
+
+@end
+
 @implementation QRCodeGenerator
 
 - (instancetype)init {
@@ -30,7 +40,7 @@
         
         _isIconColorful = YES;
         _isWatermarkColorful = YES;
-        _allowTransparent = NO;
+        _allowTransparent = YES;
     }
     return self;
 }
@@ -40,49 +50,47 @@
         return nil;
     }
     
-    NSArray *codes = [self getCodes];
-    _codeWidth = MAX(codes.count, _codeWidth);
-    CGSize size = CGSizeMake(_codeWidth, _codeWidth);
-    CGContextRef context = [self createContext:size];
+    _generatorCodes = [self getGenetatorCodes];
+    _codeWidth = MAX(_generatorCodes.count, _codeWidth);
+    _finalSize = CGSizeMake(_codeWidth, _codeWidth);//整个图片的大小
+    _minSuitableSize = [self getMinSuitableSize];
+    
+    CGContextRef context = [self createContext:_finalSize];
+    CGImageRef frontImage;
     
     if (self.watermark) {
-        //水印(包括背景色)
-        [self drawWatermark:context codes:codes size:size ];
+        [self drawWatermarkOnContext:context size:_finalSize];//水印(包括背景色)
+        frontImage = [self createFrontImageTransparentWithSize:_minSuitableSize];//（透明）二维码图片
         
-        //（透明）二维码
-        CGImageRef frontImage = [self createFrontImageTransparent:codes size:size];
-        
-        //画二维码
-        CGContextDrawImage(context, CGRectMake(0, 0, size.width, size.height), frontImage);
-        CGImageRelease(frontImage);
     } else {
         //背景色
         CGContextSetFillColorWithColor(context, _backgroundColor.CGColor);
-        CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
+        CGContextFillRect(context, CGRectMake(0, 0, _finalSize.width, _finalSize.height));
         
-        //二维码
-        CGImageRef frontImage = [self createFrontImage:codes size:size];
-        
-        //画二维码
-        CGContextDrawImage(context, CGRectMake(0, 0, size.width, size.height), frontImage);
-        CGImageRelease(frontImage);
+        frontImage = [self createFrontImageWithSize:_minSuitableSize];//二维码图片
     }
     
+    //画二维码
+    CGContextDrawImage(context, CGRectMake(0, 0, _codeWidth, _codeWidth), frontImage);
+    
     if (self.icon) {
-        //默认居中
-        CGFloat iconW = size.width * 0.3;
-        CGFloat iconX = (size.width - iconW) * 0.5;
-        CGRect iconRect = CGRectMake(iconX, iconX, iconW, iconW);
+        //icon图片frame,默认居中
+        CGFloat scale = 0.3;//icon占总宽的比例
+        CGFloat iconW = _codeWidth * scale;
+        CGFloat iconH = iconW * _icon.size.height / _icon.size.width;
+        CGRect  iconRect = CGRectMake((_codeWidth - iconW) * 0.5, (_codeWidth - iconH) * 0.5, iconW, iconH);
         
         if (self.isIconColorful) {
-            CGContextDrawImage(context, iconRect, self.icon.CGImage);
+            CGContextDrawImage(context, iconRect, _icon.CGImage);
         } else {
-            CGContextDrawImage(context, iconRect, [self grayImage:self.icon.CGImage]);
+            CGContextDrawImage(context, iconRect, [self grayImage:_icon.CGImage]);
         }
     }
     
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
     UIImage *image = [UIImage imageWithCGImage:imageRef];
+    
+    CGImageRelease(frontImage);
     CGImageRelease(imageRef);
     CGContextRelease(context);
     
@@ -90,8 +98,8 @@
 }
 
 #pragma mark
-- (CGImageRef)createFrontImage:(NSArray *)codes size:(CGSize)size {
-    NSInteger codeSize = codes.count;
+- (CGImageRef)createFrontImageWithSize:(CGSize)size {
+    NSInteger codeSize = _generatorCodes.count;
     CGFloat scaleX = size.width / codeSize;
     CGFloat scaleY = size.height / codeSize;
     
@@ -99,7 +107,7 @@
     CGContextSetFillColorWithColor(context, _foregroundColor.CGColor);
     
     for (int indexY = 0; indexY < codeSize; indexY++) {
-        NSArray *array = codes[indexY];
+        NSArray *array = _generatorCodes[indexY];
         
         for (int indexX = 0; indexX < codeSize; indexX++) {
             BOOL flag = [array[indexX] boolValue];
@@ -114,11 +122,11 @@
     return CGBitmapContextCreateImage(context);
 }
 
-- (CGImageRef)createFrontImageTransparent:(NSArray *)codes size:(CGSize)size {
-    CGFloat scaleX = size.width / codes.count;
-    CGFloat scaleY = size.height / codes.count;
+- (CGImageRef)createFrontImageTransparentWithSize:(CGSize)size {
+    CGFloat scaleX = size.width / _generatorCodes.count;
+    CGFloat scaleY = size.height / _generatorCodes.count;
     
-    NSInteger codeSize = codes.count;
+    NSInteger codeSize = _generatorCodes.count;
     CGFloat pointMinOffsetX = scaleX / 3;
     CGFloat pointMinOffsetY = scaleY / 3;
     CGFloat pointWidthOriX = scaleX;
@@ -142,13 +150,12 @@
         }
     }
     
-    
     CGContextRef context = [self createContext:size];
+    
     //_backgroundColor
     CGContextSetFillColorWithColor(context, _backgroundColor.CGColor);
-    
     for (int indexY = 0; indexY < codeSize; indexY++) {
-        NSArray *array = codes[indexY];
+        NSArray *array = _generatorCodes[indexY];
         
         for (int indexX = 0; indexX < codeSize; indexX++) {
             BOOL flag = [array[indexX] boolValue];
@@ -168,9 +175,8 @@
     
     //_foregroundColor
     CGContextSetFillColorWithColor(context, _foregroundColor.CGColor);
-    
     for (int indexY = 0; indexY < codeSize; indexY++) {
-        NSArray *array = codes[indexY];
+        NSArray *array = _generatorCodes[indexY];
         
         for (int indexX = 0; indexX < codeSize; indexX++) {
             BOOL flag = [array[indexX] boolValue];
@@ -191,13 +197,13 @@
     return CGBitmapContextCreateImage(context);
 }
 
-- (void)drawWatermark:(CGContextRef)context codes:(NSArray *)codes size:(CGSize)size {
+- (void)drawWatermarkOnContext:(CGContextRef)context size:(CGSize)size{
     //背景色
     CGContextSetFillColorWithColor(context, _backgroundColor.CGColor);
     CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height));
     
     if (self.allowTransparent) {//透明(先画了一次二维码)
-        CGImageRef frontImage = [self createFrontImage:codes size:size];
+        CGImageRef frontImage = [self createFrontImageWithSize:_minSuitableSize];
         CGContextDrawImage(context, CGRectMake(0, 0, size.width, size.height), frontImage);
         CGImageRelease(frontImage);
     }
@@ -229,7 +235,7 @@
 }
 
 #pragma mark
-- (NSMutableArray *)getCodes {
+- (NSMutableArray *)getGenetatorCodes {
     NSData *data = [_content dataUsingEncoding:NSUTF8StringEncoding];
     
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
@@ -281,6 +287,19 @@
 
 - (CGContextRef)createContext:(CGSize)size {
     return CGBitmapContextCreate(nil, size.width, size.height, 8, 0, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+}
+
+- (CGSize)getMinSuitableSize {
+    NSInteger count = _generatorCodes.count;
+    NSInteger originalWidth = _codeWidth;
+    
+    for (int i = 0; i < count; i++) {
+        if ((originalWidth + i) % count == 0) {
+            return CGSizeMake(originalWidth + i, originalWidth + i);
+        }
+    }
+    
+    return CGSizeMake(originalWidth, originalWidth);
 }
 
 #pragma mark

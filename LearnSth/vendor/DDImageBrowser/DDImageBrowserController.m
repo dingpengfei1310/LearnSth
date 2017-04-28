@@ -83,7 +83,7 @@ static NSString * const reuseIdentifier = @"Cell";
         //1. 初始化扫描仪，设置设别类型和识别质量
         CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
         //2. 扫描获取的特征组
-        NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+        NSArray *features = [detector featuresInImage:[[CIImage alloc] initWithImage:image]];
         
         NSString *message = @"未识别到二维码信息";
         //3. 获取扫描结果
