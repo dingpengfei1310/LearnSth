@@ -9,8 +9,7 @@
 #import "HttpManager.h"
 #import <AFNetworking.h>
 
-const NSInteger errorCodeDefault = 99999;
-const NSTimeInterval timeoutInterval = 15.0;
+const NSTimeInterval timeoutInterval = 10.0;
 
 @interface HttpManager ()
 
@@ -41,6 +40,7 @@ const NSTimeInterval timeoutInterval = 15.0;
     return self;
 }
 
+#pragma mark
 - (void)cancelAllRequest {
     [self.sessionManager.dataTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * obj, NSUInteger idx, BOOL * stop) {
         if (obj.state != NSURLSessionTaskStateCompleted) {
@@ -63,7 +63,7 @@ const NSTimeInterval timeoutInterval = 15.0;
                      failure:^(NSURLSessionDataTask *task, NSError *error) {
                          if ([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
                              NSDictionary *info = @{@"message":@"您已取消"};
-                             NSError *error = [NSError errorWithDomain:@"用户取消" code:errorCodeDefault userInfo:info];
+                             NSError *error = [NSError errorWithDomain:@"用户取消" code:HttpErrorCodeCancel userInfo:info];
                              failure(error);
                          } else {
                              failure(error);
@@ -123,17 +123,21 @@ const NSTimeInterval timeoutInterval = 15.0;
 }
 
 - (NSError *)errorWithResponse:(NSDictionary *)dict {
-    NSString *message = [dict objectForKey:@"msg"];
-    NSInteger code = [[dict objectForKey:@"code"] integerValue];
-    message = message ?: @"网络错误";
-    code = code ?: errorCodeDefault;
+//    NSString *message = [dict objectForKey:@"msg"];
+//    NSInteger code = [[dict objectForKey:@"code"] integerValue];
+//    message = message ?: @"网络错误";
+//    code = code ?: HttpErrorCodeDefault;
+//    NSDictionary *info = @{@"message":message};
+    
+    NSString *message = @"暂无数据";
+    NSInteger code = HttpErrorCodeNodata;
     NSDictionary *info = @{@"message":message};
     
     return [NSError errorWithDomain:message code:code userInfo:info];
 }
 
 #pragma mark
-- (NSString *)jsonModel:(NSDictionary *)dictModel {
+- (NSString *)jsonStringWithDictionary:(NSDictionary *)dictModel {
     if ([NSJSONSerialization isValidJSONObject:dictModel]) {
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dictModel options:NSJSONWritingPrettyPrinted error:nil];
         NSString * jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

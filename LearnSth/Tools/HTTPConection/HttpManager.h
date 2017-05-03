@@ -12,10 +12,16 @@ typedef void (^SuccessArray)(NSArray *list,NSError *error);
 typedef void (^Success)(id responseData);
 typedef void (^Failure)(NSError *error);
 
+typedef NS_ENUM(NSInteger,HttpErrorCode) {
+    HttpErrorCodeDefault,
+    HttpErrorCodeCancel,
+    HttpErrorCodeNodata,
+    HttpErrorCodeUnknown
+};
+
 @interface HttpManager : NSObject
 
 + (instancetype)shareManager;
-
 - (void)cancelAllRequest;
 
 #pragma mark
