@@ -8,11 +8,12 @@
 
 #import "WebProgressView.h"
 
-@interface WebProgressView () {
-    CGFloat width,height;
-}
+@interface WebProgressView ()
 
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
+
+@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) CGFloat height;
 
 @end
 
@@ -20,8 +21,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
-        width = CGRectGetWidth(self.frame);
-        height = CGRectGetHeight(self.frame);
+        _width = CGRectGetWidth(self.frame);
+        _height = CGRectGetHeight(self.frame);
         [self.layer addSublayer:self.gradientLayer];
     }
     return self;
@@ -29,7 +30,7 @@
 
 - (void)setProgress:(CGFloat)progress {
     _progress = progress;
-    _gradientLayer.frame = CGRectMake(0, 0, width * _progress, height);
+    _gradientLayer.frame = CGRectMake(0, 0, _width * _progress, _height);
 }
 
 #pragma mark
@@ -37,7 +38,7 @@
     if (!_gradientLayer) {
         _gradientLayer = [CAGradientLayer layer];
         _gradientLayer.frame = CGRectZero;
-        _gradientLayer.cornerRadius = height * 0.5;
+        _gradientLayer.cornerRadius = _height * 0.5;
         
         _gradientLayer.startPoint = CGPointMake(0, 0.5);
         _gradientLayer.endPoint = CGPointMake(1.0, 0.5);
