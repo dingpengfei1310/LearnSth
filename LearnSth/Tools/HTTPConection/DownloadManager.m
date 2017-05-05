@@ -92,7 +92,8 @@ static DownloadManager *manager = nil;
     self.DownloadProgress = progress;
     self.DownloadCompletion = completion;
     
-    [self downloadTaskWithUrl:url state:state progress:progress completion:completion];
+//    [self downloadTaskWithUrl:url state:state progress:progress completion:completion];
+    [self dataTaskWithUrl:url state:state progress:progress completion:completion];
 }
 
 - (void)dataTaskWithUrl:(NSURL *)url
@@ -227,6 +228,8 @@ static DownloadManager *manager = nil;
     self.timer = nil;
     
     if (error) {
+        NSLog(@"didCompleteWithError");
+        
         if (![error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"cancelled"]) {
             //不是用户取消。。下载失败
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -253,7 +256,16 @@ static DownloadManager *manager = nil;
 #pragma mark
 - (NSURLSession *)session {
     if (!_session) {
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"DownloadManager"];
+        //当Identifier相同的时候，如果任务没有完成时关闭程序，
+        //下次启动一旦生成Session对象并设置Delegate，就会收到上次的task回调（一般都是失败）
+        //所以如果希望收到上次的代理回调就设置同一个Identifier。否则就设置唯一的
+        //Identifier相同，也会收到别的程序的代理回调（未验证）
+//        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"DownloadManager"];
+        NSString *appName = [[NSBundle mainBundle].infoDictionary objectForKey:(NSString *)kCFBundleNameKey];
+        NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+        NSString *identifier = [NSString stringWithFormat:@"%@%f",appName,timeInterval];
+        
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:identifier];
         _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     }
     return _session;

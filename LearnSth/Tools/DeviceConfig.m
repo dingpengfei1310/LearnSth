@@ -145,7 +145,7 @@
 }
 
 + (NSString *)getAppName{
-    NSString *appName = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+    NSString *appName = [[NSBundle mainBundle] infoDictionary][(NSString *)kCFBundleNameKey];
     NSLog(@"app名称-->%@", appName);
     return appName;
 }

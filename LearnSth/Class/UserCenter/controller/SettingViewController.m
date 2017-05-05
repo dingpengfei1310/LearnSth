@@ -7,10 +7,11 @@
 //
 
 #import "SettingViewController.h"
+#import "RootViewController.h"
+#import "MessageViewController.h"
+#import "DownloadViewController.h"
 
 #import "WiFiUploadManager.h"
-#import "MessageViewController.h"
-#import "RootViewController.h"
 #import "UserManager.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -26,8 +27,9 @@
     [super viewDidLoad];
     self.title = @"设置";
     
-    self.dataArray = @[@"上传文件",
-                       @"消息",
+    self.dataArray = @[@"消息",
+                       @"我的下载",
+                       @"上传文件",
                        @"清除缓存",
                        @"语言"];
     [self.view addSubview:self.tableView];
@@ -109,7 +111,7 @@
     cell.textLabel.text = self.dataArray[indexPath.row];
     cell.detailTextLabel.text = nil;
     
-    if (indexPath.row == 2) {
+    if (indexPath.row == 3) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             CGFloat cacheSize = [self calculateDiskCacheSize];
             dispatch_async(dispatch_get_main_queue(),^{
@@ -129,17 +131,22 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        [self wifiUpload];
-        
-    } else if (indexPath.row == 1) {
         MessageViewController *controller = [[MessageViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         
+    } else if (indexPath.row == 1) {
+        DownloadViewController *controller = [[DownloadViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+        
     } else if (indexPath.row == 2) {
-        [self showAlertOnClearDiskCache];
+        [self wifiUpload];
         
     } else if (indexPath.row == 3) {
+        [self showAlertOnClearDiskCache];
+        
+    } else if (indexPath.row == 4) {
         UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")

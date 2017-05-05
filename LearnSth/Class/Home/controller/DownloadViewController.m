@@ -119,6 +119,7 @@
                               
                               NSFileManager *fileManager = [NSFileManager defaultManager];
                               [fileManager removeItemAtPath:model.savePath error:NULL];
+                              [fileManager removeItemAtPath:model.resumePath error:NULL];
                               
                               [DownloadModel remove:model];
                               self.downloadFile = [DownloadModel loadAllDownload];
