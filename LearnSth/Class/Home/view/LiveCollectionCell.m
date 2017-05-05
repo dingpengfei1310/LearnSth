@@ -7,15 +7,12 @@
 //
 
 #import "LiveCollectionCell.h"
-
 #import "LiveModel.h"
-#import "RollTextLabel.h"
 
 @interface LiveCollectionCell ()
 
 @property (strong, nonatomic) UIImageView *liveImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) RollTextLabel *signaturesLabel;
 
 @end
 
@@ -38,11 +35,8 @@
     _nameLabel.backgroundColor = backgroundColor;
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.font = [UIFont systemFontOfSize:12];
+    _nameLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:self.nameLabel];
-    
-//    _signaturesLabel = [[RollTextLabel alloc] init];
-//    _signaturesLabel.backgroundColor = backgroundColor;
-//    [self.contentView addSubview:self.signaturesLabel];
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
@@ -58,10 +52,6 @@
                 self.nameLabel.text = liveModel.myname;
             }
             
-//            if (liveModel.signatures.length > 0) {
-//                self.signaturesLabel.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 21, CGRectGetWidth(self.frame), 21);
-//                self.signaturesLabel.text = liveModel.signatures;
-//            }
         }];
     }
 }

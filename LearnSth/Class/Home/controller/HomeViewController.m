@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
-#import "DownloadViewController.h"
 
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
@@ -126,10 +125,6 @@ const NSInteger liveColumn = 2;
 
 - (void)homeRightItemClick {
 //    self.collectionView.hidden = !self.collectionView.hidden;
-    
-//    DownloadViewController *controller = [[DownloadViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -258,10 +253,6 @@ const NSInteger liveColumn = 2;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    NSLog(@"HomeViewController....dealloc");
 }
 
 @end

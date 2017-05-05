@@ -10,7 +10,6 @@
 #import "PhotoLiarbraryController.h"
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
-#import "FileScanViewController.h"
 #import "SettingViewController.h"
 
 #import "HeaderImageViewCell.h"
@@ -34,7 +33,7 @@ static NSString *Identifier = @"cell";
     self.navigationItem.title = @"🏓";
     
     self.dataArray = @[@[@"头像"],
-                       @[@"相册",@"文件"],
+                       @[@"相册"],
                        @[@"设置"]
                        ];
     [self.view addSubview:self.tableView];
@@ -49,6 +48,9 @@ static NSString *Identifier = @"cell";
     if (![CustomiseTool isLogin]) {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.DismissBlock = ^ {
+            if ([CustomiseTool isLogin]) {
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -58,7 +60,7 @@ static NSString *Identifier = @"cell";
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         controller.ChangeHeaderImageBlock = ^{
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         };
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -129,14 +131,13 @@ static NSString *Identifier = @"cell";
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
             
-        } else if (indexPath.row == 1) {
-            FileScanViewController *controller = [[FileScanViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
         }
         
     } else if (indexPath.section == 2) {
         SettingViewController *controller = [[SettingViewController alloc] init];
+        controller.LogoutBlock = ^{
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        };
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }

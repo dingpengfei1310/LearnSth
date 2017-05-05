@@ -7,7 +7,6 @@
 //
 
 #import "DownloadManager.h"
-#import "DownloadModel.h"
 
 typedef NS_ENUM(NSInteger,SessionTaskType) {
     SessionTaskTypeDownload = 0,

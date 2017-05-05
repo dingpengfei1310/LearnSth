@@ -10,4 +10,6 @@
 
 @interface SettingViewController : UIViewController
 
+@property (nonatomic, copy) void (^LogoutBlock)();
+
 @end

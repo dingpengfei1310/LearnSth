@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "MessageViewController.h"
 #import "DownloadViewController.h"
+#import "FileScanViewController.h"
 
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
@@ -29,10 +30,12 @@
     
     self.dataArray = @[@"消息",
                        @"我的下载",
-                       @"上传文件",
+                       @"本机文件",
                        @"清除缓存",
                        @"语言"];
     [self.view addSubview:self.tableView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
 }
 
 #pragma mark
@@ -84,10 +87,14 @@
     }
 }
 
-- (void)loginOut {
+- (void)logOut {
     [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
         [CustomiseTool remoAllCaches];
         [UserManager deallocManager];
+        
+        if (self.LogoutBlock) {
+            self.LogoutBlock();
+        }
         
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -141,7 +148,9 @@
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 2) {
-        [self wifiUpload];
+        FileScanViewController *controller = [[FileScanViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 3) {
         [self showAlertOnClearDiskCache];
@@ -185,7 +194,7 @@
         logoutButon.backgroundColor = [UIColor whiteColor];
         [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];
-        [logoutButon addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
+        [logoutButon addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
         _tableView.tableFooterView = logoutButon;
     }
     return _tableView;
