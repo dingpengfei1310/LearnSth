@@ -62,6 +62,7 @@
 		1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */; };
 		1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCameraController.m */; };
 		1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1132791EA4659E00323189 /* HeaderImageController.m */; };
+		1B113ADF1EC1B7CF00B3482D /* VideoProcessWithFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B113ADE1EC1B7CF00B3482D /* VideoProcessWithFilter.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */; };
 		1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */; };
@@ -277,6 +278,8 @@
 		1B0DBC731E30915D00A57C30 /* VideoCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCameraController.m; sourceTree = "<group>"; };
 		1B1132781EA4659E00323189 /* HeaderImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageController.h; sourceTree = "<group>"; };
 		1B1132791EA4659E00323189 /* HeaderImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageController.m; sourceTree = "<group>"; };
+		1B113ADD1EC1B7CF00B3482D /* VideoProcessWithFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProcessWithFilter.h; sourceTree = "<group>"; };
+		1B113ADE1EC1B7CF00B3482D /* VideoProcessWithFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProcessWithFilter.m; sourceTree = "<group>"; };
 		1B1148E51D9A499A004817B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1B139C0C1EAEE528003F678E /* UIImage+QRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCode.h"; sourceTree = "<group>"; };
 		1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
@@ -486,14 +489,16 @@
 		1B04FA221E52F20A00CDFC80 /* cameraVideo */ = {
 			isa = PBXGroup;
 			children = (
+				1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */,
+				1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */,
 				1B0DBC721E30915D00A57C30 /* VideoCameraController.h */,
 				1B0DBC731E30915D00A57C30 /* VideoCameraController.m */,
 				CFF9AE7D1E333C1500397359 /* VideoCameraFilterController.h */,
 				CFF9AE7E1E333C1500397359 /* VideoCameraFilterController.m */,
+				1B113ADD1EC1B7CF00B3482D /* VideoProcessWithFilter.h */,
+				1B113ADE1EC1B7CF00B3482D /* VideoProcessWithFilter.m */,
 				1B04FA231E52F28A00CDFC80 /* VideoScanController.h */,
 				1B04FA241E52F28A00CDFC80 /* VideoScanController.m */,
-				1BEED0FC1E56D2920072BFB9 /* GPUImageBeautifyFilter.h */,
-				1BEED0FD1E56D2920072BFB9 /* GPUImageBeautifyFilter.m */,
 			);
 			name = cameraVideo;
 			sourceTree = "<group>";
@@ -1443,6 +1448,7 @@
 				1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */,
 				1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
+				1B113ADF1EC1B7CF00B3482D /* VideoProcessWithFilter.m in Sources */,
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,

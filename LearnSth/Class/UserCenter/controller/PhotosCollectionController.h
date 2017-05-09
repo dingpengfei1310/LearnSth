@@ -11,7 +11,8 @@
 
 typedef NS_ENUM(NSInteger){
     VideoScanTypeNormal = 0,//普通效果
-    VideoScanTypeFilter//滤镜效果
+    VideoScanTypeFilter,//滤镜效果
+    VideoScanTypeTransform//（转码，不是播放）加滤镜效果
 }VideoScanType;
 
 @interface PhotosCollectionController : UIViewController

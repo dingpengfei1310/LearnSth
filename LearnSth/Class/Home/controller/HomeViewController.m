@@ -19,8 +19,6 @@
 #import "Aspects.h"
 #import "MJRefresh.h"
 
-#import <FBMemoryProfiler/FBMemoryProfiler.h>
-
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *bannerList;
@@ -29,8 +27,6 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *liveList;
 @property (nonatomic, assign) NSInteger page;
-
-@property (nonatomic, strong) FBMemoryProfiler *memoryProfiler;
 
 @end
 
@@ -49,10 +45,10 @@ const NSInteger liveColumn = 2;
     [self navigationBackItem];
     [self getHomeAdBanner];
 //    [self refreshLiveData];
-    
-//    FBMemoryProfiler *memoryProfiler = [FBMemoryProfiler new];
-//    [memoryProfiler enable];
-//    _memoryProfiler = memoryProfiler;
+}
+
+- (void)closeField:(UIButton *)button {
+    button.selected = !button.selected;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

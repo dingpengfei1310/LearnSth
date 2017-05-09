@@ -10,6 +10,7 @@
 #import "DDImageBrowserController.h"
 #import "DDImageBrowserVideo.h"
 #import "VideoScanController.h"
+#import "VideoProcessWithFilter.h"
 
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
@@ -77,6 +78,10 @@ const NSInteger photoColumn = 4;
             [self.navigationController pushViewController:controller animated:YES];
         } else if (self.scanType == VideoScanTypeFilter) {
             VideoScanController *controller = [[VideoScanController alloc] init];
+            controller.asset = asset;
+            [self.navigationController pushViewController:controller animated:YES];
+        } else if (self.scanType == VideoScanTypeTransform) {
+            VideoProcessWithFilter *controller = [[VideoProcessWithFilter alloc] init];
             controller.asset = asset;
             [self.navigationController pushViewController:controller animated:YES];
         }

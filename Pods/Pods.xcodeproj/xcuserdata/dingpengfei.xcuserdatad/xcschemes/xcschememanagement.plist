@@ -29,21 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FBAllocationTracker.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FBMemoryProfiler.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FBRetainCycleDetector.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,27 +92,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04E0E7A2B33BC0D24C83A16EE9C83F59</key>
+		<key>1CE94CAA596D6472B48F6EB862F7865A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>23D7DA26C40DEA0CBB49A7825C7CD4F1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>26810A0E6F917DF228A16E072F9249AF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>39FF4552F574CA30CFC8B6288C9BF88C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4D6A2E7D1AFAF7AE1FE776ECAE653B8F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,12 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>688B33B13AECBA1AEE4CB22FCE83C378</key>
+		<key>5754036DDA41C39E990232F9DC8EE495</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>776F2AF3A81B70872EF0A7CEC3791E5A</key>
+		<key>688B33B13AECBA1AEE4CB22FCE83C378</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,12 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D1AA95A8DA436B45CD0E63B9C81A39FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D50D06E559AB873D126C49046208B286</key>
+		<key>E70848602E66ECE5D60FB8076BBA1072</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -203,6 +168,11 @@
 			<true/>
 		</dict>
 		<key>EB31A05090143EAF02A3DE187E2CBA22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED382F68A47A05CA557E8456B34CB5DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

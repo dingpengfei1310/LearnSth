@@ -11,9 +11,12 @@
 #import "MessageViewController.h"
 #import "DownloadViewController.h"
 #import "FileScanViewController.h"
+#import "PhotosCollectionController.h"
 
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
+
+#import <Photos/Photos.h>
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -32,7 +35,8 @@
                        @"我的下载",
                        @"本机文件",
                        @"清除缓存",
-                       @"语言"];
+                       @"语言",
+                       @"视频滤镜"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
@@ -177,6 +181,16 @@
         [actionSheet addAction:cancel];
         
         [self presentViewController:actionSheet animated:YES completion:nil];
+    } else if (indexPath.row == 5) {
+        PHFetchResult *collection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumVideos options:nil];
+        PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection[0] options:nil];
+        
+        PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
+        controller.title = @"本地视频";
+        controller.fetchResult = fetchResult;
+        controller.scanType = VideoScanTypeTransform;
+        
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
