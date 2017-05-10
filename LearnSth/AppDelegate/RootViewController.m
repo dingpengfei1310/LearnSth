@@ -139,7 +139,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
-    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"本地视频"
+    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"相册视频"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * action) {
                                                             [self localVideo];
@@ -173,9 +173,10 @@
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection[0] options:nil];
     
     PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
-    controller.title = @"本地视频";
+    controller.title = @"相册视频";
     controller.fetchResult = fetchResult;
-    controller.scanType = VideoScanTypeFilter;
+    controller.scanType = VideoScanTypeFilter;//滤镜播放
+//    controller.scanType = VideoScanTypeTransform;//添加滤镜
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
     
     UIImage *image = [UIImage imageNamed:@"deleteButtonImage"];

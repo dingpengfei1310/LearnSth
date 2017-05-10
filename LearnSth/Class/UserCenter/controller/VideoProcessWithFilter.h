@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class PHAsset;
+
 @interface VideoProcessWithFilter : UIViewController
 
 @property (nonatomic, strong) PHAsset *asset;
+
+@property (nonatomic, strong) NSString *filePath;
 
 @end

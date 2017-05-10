@@ -10,7 +10,8 @@
 
 #import <QuickLook/QLPreviewController.h>
 #import "DDPreviewItem.h"
-#import "VideoPlayerController.h"
+
+#import "VideoProcessWithFilter.h"
 
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
@@ -130,9 +131,7 @@
         
     } else {
         cell.imageView.image = nil;
-        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
     }
     
     return cell;
@@ -146,6 +145,12 @@
         QLPreviewController *previewController = [[QLPreviewController alloc] init];
         previewController.dataSource = self;
         [self.navigationController pushViewController:previewController animated:YES];
+        
+//        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
+//        VideoProcessWithFilter *controller = [[VideoProcessWithFilter alloc] init];
+//        controller.filePath = filePath;
+//        [self.navigationController pushViewController:controller animated:YES];
+        
     } else {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.imageView.image = [UIImage imageNamed:@"switchOn"];

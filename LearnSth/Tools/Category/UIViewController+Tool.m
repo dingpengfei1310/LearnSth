@@ -93,13 +93,15 @@ typedef void (^CancelBlock)();
     hud.label.font = [self hudTextFont];
     hud.contentColor = [UIColor whiteColor];
     hud.margin = [self hudTextMargin];
+    hud.mode = MBProgressHUDModeText;
     
-    hud.mode = MBProgressHUDModeCustomView;
+//    hud.mode = MBProgressHUDModeCustomView;
+//    hud.customView =
+    
     hud.animationType = MBProgressHUDAnimationZoom;
-    
     hud.bezelView.backgroundColor = [UIColor blackColor];
     
-    [hud hideAnimated:YES afterDelay:1.0];
+    [hud hideAnimated:YES afterDelay:1.5];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
@@ -114,9 +116,7 @@ typedef void (^CancelBlock)();
     hud.animationType = MBProgressHUDAnimationZoom;
     
     if (message.length > 0) {
-        hud.mode = MBProgressHUDModeText;
         hud.contentColor = [UIColor whiteColor];
-        
         hud.bezelView.backgroundColor = [UIColor blackColor];
     }
     
