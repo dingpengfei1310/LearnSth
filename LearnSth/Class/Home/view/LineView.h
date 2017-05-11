@@ -10,4 +10,6 @@
 
 @interface LineView : UIView
 
+@property (nonatomic, strong) NSArray *dataArray;
+
 @end

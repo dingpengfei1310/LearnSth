@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
+#import "StepCountViewController.h"
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
@@ -33,7 +34,7 @@ static NSString *Identifier = @"cell";
     self.navigationItem.title = @"🏓";
     
     self.dataArray = @[@[@"头像"],
-                       @[@"相册"],
+                       @[@"相册",@"步数"],
                        @[@"设置"]
                        ];
     [self.view addSubview:self.tableView];
@@ -131,6 +132,10 @@ static NSString *Identifier = @"cell";
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
             
+        } else if (indexPath.row == 1) {
+            StepCountViewController *controller = [[StepCountViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
         
     } else if (indexPath.section == 2) {

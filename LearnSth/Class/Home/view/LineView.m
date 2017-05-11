@@ -8,61 +8,120 @@
 
 #import "LineView.h"
 
-@implementation LineView {
+@interface LineView () {
     CGFloat width,height;
 }
+
+@property (nonatomic, strong) CAShapeLayer *lineLayer;
+
+@property (nonatomic, assign) CGFloat topMargin;
+@property (nonatomic, assign) CGFloat leftMargin;
+@property (nonatomic, assign) CGFloat bottomMargin;
+@property (nonatomic, assign) CGFloat rightMargin;
+
+@property (nonatomic, assign) CGFloat minY;
+@property (nonatomic, assign) CGFloat maxY;
+
+@property (nonatomic, assign) CGFloat lineSpace;
+@property (nonatomic, assign) CGFloat scaleY;
+
+
+@property (nonatomic, assign) CGFloat lineWidth;
+
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, strong) UIColor *fillColor;
+@property (nonatomic, assign) BOOL isFillColor;
+
+@property (nonatomic, strong) NSMutableArray *lineArray;
+
+@end
+
+@implementation LineView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        self.backgroundColor = [UIColor whiteColor];
         width = CGRectGetWidth(frame);
         height = CGRectGetHeight(frame);
+        
+        _topMargin = 10;
+        _leftMargin = 10;
+        _bottomMargin = 10;
+        _rightMargin = 10;
+        
+        _lineWidth = 1.0;
+        _lineColor = KBaseBlueColor;
+        _fillColor = KBaseTextColor;
+//        _isFillColor = YES;
+        
     }
     return self;
 }
 
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+- (void)setDataArray:(NSArray *)dataArray {
+    if (dataArray.count == 0) {
+        return;
+    }
+    _dataArray = dataArray;
     
-//    [self drawLine];
-    [self drawCurve];
+    self.lineSpace = (width - self.leftMargin - self.rightMargin) / (_dataArray.count - 1);
+    NSNumber *min  = [_dataArray valueForKeyPath:@"@min.floatValue"];
+    NSNumber *max = [_dataArray valueForKeyPath:@"@max.floatValue"];
+    self.maxY = [max floatValue];
+    self.minY  = [min floatValue];
+    self.scaleY = (height - self.topMargin - self.bottomMargin) / (self.maxY - self.minY);
+    
+    self.lineArray = [NSMutableArray array];
+    [_dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+        CGFloat value = [_dataArray[idx] floatValue];
+        //        CGFloat xPostion = self.lineSpace * idx + self.leftMargin;
+        CGFloat yPostion = (self.maxY - value) * self.scaleY + self.topMargin;
+        
+        [self.lineArray addObject:@(yPostion)];
+    }];
+    
+    [self drawLineLayer];
 }
 
 #pragma mark
-- (void)drawLine {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGFloat lineWidth = 10;
+- (void)drawLineLayer {
+    UIBezierPath *path = [UIBezierPath bezierPath];
     
-    for (int i = 0; i < 30; i++) {
-        int pointX = i * lineWidth;
-        int pointY = arc4random() % 100 + 10;
-        
-        CGPoint start = CGPointMake(pointX, 0);
-        CGPoint end = CGPointMake(pointX, pointY);
-        
-        [[UIColor greenColor] set];
-        CGContextSetLineWidth(context, lineWidth * 0.8);
-        
-        const CGPoint point[] = {start,end};
-        CGContextStrokeLineSegments(context, point, 2);
+    [self.lineArray enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
+        if (idx == 0) {
+            [path moveToPoint:CGPointMake(self.lineSpace * idx + _leftMargin,obj.floatValue)];
+        } else {
+            [path addLineToPoint:CGPointMake(self.lineSpace * idx + _leftMargin,obj.floatValue)];
+        }
+    }];
+    
+    self.lineLayer = [CAShapeLayer layer];
+    self.lineLayer.strokeColor = self.lineColor.CGColor;
+    self.lineLayer.fillColor = [[UIColor clearColor] CGColor];
+    if (_isFillColor) {
+        self.lineLayer.fillColor = self.fillColor.CGColor;
+        [path addLineToPoint:CGPointMake(width - _leftMargin ,height - _bottomMargin)];
+        [path addLineToPoint:CGPointMake(_leftMargin ,height - _bottomMargin)];
     }
+    self.lineLayer.path = path.CGPath;
+    
+    self.lineLayer.lineWidth = self.lineWidth;
+    self.lineLayer.lineCap = kCALineCapRound;
+    self.lineLayer.lineJoin = kCALineJoinRound;
+    self.lineLayer.contentsScale = [UIScreen mainScreen].scale;
+    [self.layer addSublayer:self.lineLayer];
+    
+    [self startAnimation];
 }
 
-- (void)drawCurve {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextMoveToPoint(context, 10, 10);
-    CGContextAddLineToPoint(context, 15, 30);
-    
-    CGContextAddCurveToPoint(context, 40, 40, 100, 10, 200, 200);
-    
-//    CGFloat lengths[] = {5,2};
-//    CGContextSetLineDash(context, 0, lengths, 2);//
-    
-    [[UIColor greenColor] set];
-    CGContextStrokePath(context);
-    
+- (void)startAnimation {
+    CABasicAnimation*pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    pathAnimation.duration = 2.0f;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.fromValue = @0.0f;
+    pathAnimation.toValue = @(1);
+    [self.lineLayer addAnimation:pathAnimation forKey:nil];
 }
 
 @end

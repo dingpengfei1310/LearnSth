@@ -91,6 +91,9 @@
 		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
 		1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
+		1B36FD451EC4349000FBA5CD /* HealthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FD441EC4349000FBA5CD /* HealthManager.m */; };
+		1B36FD481EC4370C00FBA5CD /* StepCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */; };
+		1B36FD4B1EC43B5F00FBA5CD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */; };
 		1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A8D1EA09D9300A927E4 /* zocr0.lib */; };
 		1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A8F1EA09D9300A927E4 /* libexidcardios.a */; };
 		1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */; };
@@ -336,6 +339,12 @@
 		1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeRecognizer.m; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
+		1B36FD431EC4349000FBA5CD /* HealthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthManager.h; sourceTree = "<group>"; };
+		1B36FD441EC4349000FBA5CD /* HealthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthManager.m; sourceTree = "<group>"; };
+		1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepCountViewController.h; sourceTree = "<group>"; };
+		1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepCountViewController.m; sourceTree = "<group>"; };
+		1B36FD491EC43B5E00FBA5CD /* LearnSth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
+		1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1B389A8B1EA09D9300A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
 		1B389A8D1EA09D9300A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
 		1B389A8E1EA09D9300A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
@@ -451,6 +460,7 @@
 				1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
+				1B36FD4B1EC43B5F00FBA5CD /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,6 +765,8 @@
 				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B1132781EA4659E00323189 /* HeaderImageController.h */,
 				1B1132791EA4659E00323189 /* HeaderImageController.m */,
+				1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */,
+				1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */,
 			);
 			name = userInfo;
 			sourceTree = "<group>";
@@ -959,6 +971,15 @@
 			path = DownloadManager;
 			sourceTree = "<group>";
 		};
+		1B36FD421EC4345700FBA5CD /* HealthManager */ = {
+			isa = PBXGroup;
+			children = (
+				1B36FD431EC4349000FBA5CD /* HealthManager.h */,
+				1B36FD441EC4349000FBA5CD /* HealthManager.m */,
+			);
+			path = HealthManager;
+			sourceTree = "<group>";
+		};
 		1B389A8A1EA09D9300A927E4 /* libexidcard */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,6 +1002,7 @@
 		1B4630BD1E669703000260D2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1B36FD421EC4345700FBA5CD /* HealthManager */,
 				1B4630BE1E669703000260D2 /* Category */,
 				1B4630E21E669796000260D2 /* CustomiseTool.h */,
 				1B4630E31E669796000260D2 /* CustomiseTool.m */,
@@ -1074,6 +1096,7 @@
 		1BF7F6C51D92492200F8E5B1 /* LearnSth */ = {
 			isa = PBXGroup;
 			children = (
+				1B36FD491EC43B5E00FBA5CD /* LearnSth.entitlements */,
 				1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */,
 				1B2D07BC1DE7E8DB0034C22D /* Class */,
 				1B4630BD1E669703000260D2 /* Tools */,
@@ -1158,6 +1181,7 @@
 		F88C22F665434B573DDEE7FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */,
 				1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */,
 				1B1148E51D9A499A004817B1 /* libz.tbd */,
 				F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */,
@@ -1237,6 +1261,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 667L3Y3D6H;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					1BF7F6DB1D92492200F8E5B1 = {
 						CreatedOnToolsVersion = 8.0;
@@ -1365,6 +1394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */,
+				1B36FD481EC4370C00FBA5CD /* StepCountViewController.m in Sources */,
 				1B099C871DE7E57400161396 /* MJRefreshBackGifFooter.m in Sources */,
 				CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */,
 				1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */,
@@ -1417,6 +1447,7 @@
 				1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */,
 				1B099C711DE7E57400161396 /* Aspects.m in Sources */,
 				1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */,
+				1B36FD451EC4349000FBA5CD /* HealthManager.m in Sources */,
 				1B099C8E1DE7E57400161396 /* MJRefreshConst.m in Sources */,
 				1B099C891DE7E57400161396 /* MJRefreshBackStateFooter.m in Sources */,
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,
@@ -1636,6 +1667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
+				CODE_SIGN_ENTITLEMENTS = LearnSth/LearnSth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
@@ -1683,6 +1715,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
+				CODE_SIGN_ENTITLEMENTS = LearnSth/LearnSth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
