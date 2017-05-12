@@ -132,7 +132,7 @@
         if (fabs(diffScale) > 0.1) {
             self.scaleX = self.scaleX * (1 + diffScale * 0.1);
             self.scaleX = MAX(_minScaleX, MIN(_maxScaleX, self.scaleX));
-            
+            DDNSLog(@"%f",self.scaleX);
             [self handleData];
             [self drawLineLayer];
         }
