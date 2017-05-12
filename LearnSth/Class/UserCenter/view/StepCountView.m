@@ -59,8 +59,8 @@
     self.fillColor = KBaseTextColor;
     //self.isFillColor = YES;
     
-    self.minScaleX = 2.0;
-    self.maxScaleX = 1.0;
+    _minScaleX = 2.0;
+    _maxScaleX = 10.0;
 }
 
 - (void)initSubView {
