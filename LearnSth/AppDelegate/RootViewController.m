@@ -17,6 +17,8 @@
 #import "CustomizeButton.h"
 #import <Photos/Photos.h>
 
+#import "AFNetworkReachabilityManager.h"
+
 @interface RootViewController ()
 
 @property (nonatomic, strong) UIView *barView;
@@ -28,7 +30,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [self loadViewControllersWithSelectIndex:0];
+    [self networkMonitoring];
+}
+
+- (void)networkMonitoring {
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            
+            [self showError:@"网络已断开连接"];
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 #pragma mark

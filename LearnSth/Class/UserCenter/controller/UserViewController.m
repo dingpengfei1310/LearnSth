@@ -63,6 +63,9 @@ static NSString *Identifier = @"cell";
         controller.ChangeHeaderImageBlock = ^{
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         };
+        controller.ChangeUsernameBlock = ^{
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        };
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

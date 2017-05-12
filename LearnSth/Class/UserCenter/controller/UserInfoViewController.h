@@ -11,5 +11,6 @@
 @interface UserInfoViewController : UIViewController
 
 @property (nonatomic, copy) void (^ChangeHeaderImageBlock)();
+@property (nonatomic, copy) void (^ChangeUsernameBlock)();
 
 @end

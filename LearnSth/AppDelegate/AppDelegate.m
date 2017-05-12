@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "AFNetworkReachabilityManager.h"
 #import "RootViewController.h"
 #import "UserManager.h"
+#import "FPSLabel.h"
 
 #ifdef DEBUG
 #import "UIViewController+Swizzled.h"
@@ -33,7 +33,6 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
-    [self networkMonitoring];
     
     if ([CustomiseTool isLogin]) {
         [UserManager loadUser];
@@ -66,35 +65,9 @@
     UIImage *image = [UIImage imageNamed:@"backButtonImage"];
     [[UINavigationBar appearance] setBackIndicatorImage:image];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
-}
-
-- (void)networkMonitoring {
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status == AFNetworkReachabilityStatusNotReachable) {
-            CGFloat width = [UIScreen mainScreen].bounds.size.width;
-            UIView *networkView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
-            networkView.backgroundColor = KBaseBlueColor;
-            [self.window addSubview:networkView];
-            
-            UILabel *networkLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, width, 44)];
-            networkLabel.text = @"网络已断开连接";
-            networkLabel.textColor = [UIColor whiteColor];
-            networkLabel.backgroundColor = [UIColor clearColor];
-            networkLabel.textAlignment = NSTextAlignmentCenter;
-            [networkView addSubview:networkLabel];
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                networkView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64);
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:1.5 animations:^{
-                    networkView.alpha = 0.9;
-                } completion:^(BOOL finished) {
-                    [networkView removeFromSuperview];
-                }];
-            }];
-        }
-    }];
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    FPSLabel *fpsLabel = [[FPSLabel alloc] initWithFrame:CGRectMake(Screen_W * 0.5 - 50, 0, 20, 20)];
+    [self.window addSubview:fpsLabel];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {

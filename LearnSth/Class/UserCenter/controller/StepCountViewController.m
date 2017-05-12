@@ -7,17 +7,25 @@
 //
 
 #import "StepCountViewController.h"
+#import "StepCountView.h"
 
-#import "LineView.h"
 #import <HealthKit/HealthKit.h>
+
+typedef NS_ENUM(NSInteger,StepCountDateType) {
+    StepCountDateTypeWeek = 0,
+    StepCountDateTypeMonth,
+    StepCountDateTypeYear,
+};
 
 @interface StepCountViewController ()
 
 @property (nonatomic, strong) HKHealthStore *healthStore;
-@property (nonatomic, strong) LineView *lineView;
 
 @property (nonatomic, strong) UILabel *stepLabel;
+@property (nonatomic, strong) StepCountView *stepCountView;
+
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, assign) StepCountDateType dateType;
 
 @end
 
@@ -25,8 +33,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"步数";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    [self.view addSubview:self.stepLabel];
+    [self.view addSubview:self.stepCountView];
+    
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"最近10天",@"本月",@"本年"]];
+    segmentedControl.selectedSegmentIndex = 0;
+    [segmentedControl addTarget:self action:@selector(segmentedClick:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedControl;
     
     self.healthStore = [[HKHealthStore alloc] init];
     [self checkAuthorize];
@@ -65,6 +81,21 @@
 }
 
 #pragma mark
+- (void)segmentedClick:(UISegmentedControl *)segmentedControl {
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        _dateType = StepCountDateTypeWeek;
+        
+    } else if (segmentedControl.selectedSegmentIndex == 1) {
+        _dateType = StepCountDateTypeMonth;
+        
+    } else if (segmentedControl.selectedSegmentIndex == 2) {
+        _dateType = StepCountDateTypeYear;
+    }
+    
+    [self getStepCount];
+}
+
+#pragma mark
 - (NSSet *)dataTypesRead {
     HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     return [NSSet setWithObjects:stepCountType,nil];
@@ -73,8 +104,9 @@
 - (void)getStepCount {
     HKQuantityType *stepType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:NO];
+    NSPredicate *predicate = [self predicateForSamplesWithType:_dateType];
     
-    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:stepType predicate:[self predicateForSamplesToday] limit:HKObjectQueryNoLimit sortDescriptors:@[timeSortDescriptor] resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:stepType predicate:predicate limit:HKObjectQueryNoLimit sortDescriptors:@[timeSortDescriptor] resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!error) {
             NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
             
@@ -112,43 +144,65 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.stepLabel.text = [NSString stringWithFormat:@" 今天共走了：%@步",arrayM.lastObject];
-        [self.view addSubview:self.stepLabel];
-        
-        self.lineView.dataArray = arrayM;
-        [self.view addSubview:self.lineView];
+        if (arrayM.count > 0) {
+            self.stepLabel.text = [NSString stringWithFormat:@" 今天共走了：%@步",arrayM.lastObject];
+            self.stepCountView.dataArray = arrayM;
+        }
     });
 }
 
-- (NSPredicate *)predicateForSamplesToday {
+- (NSPredicate *)predicateForSamplesWithType:(StepCountDateType)type {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday fromDate:now];
     [components setHour:0];
     [components setMinute:0];
     [components setSecond: 0];
     
     NSDate *startDate = [calendar dateFromComponents:components];
-    
     NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
-    startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-9 toDate:startDate options:0];
+    
+    if (type == StepCountDateTypeWeek) {
+//        NSInteger weekday = components.weekday;
+        startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-9 toDate:startDate options:0];
+        
+    } else if (type == StepCountDateTypeMonth) {
+        NSInteger dayOfMonth = components.day;
+        if (dayOfMonth < 10) {
+            startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-9 toDate:startDate options:0];
+        } else {
+            startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-(dayOfMonth - 1) toDate:startDate options:0];
+        }
+        
+    } else if (type == StepCountDateTypeYear) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"DD"];
+        NSInteger dayOfYear = [[dateFormatter stringFromDate:now] integerValue];
+        
+        if (dayOfYear < 10) {
+            startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-9 toDate:startDate options:0];
+        } else {
+            startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-(dayOfYear - 1) toDate:startDate options:0];
+        }
+    }
     
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionNone];
+    
     return predicate;
 }
 
 #pragma makr
-- (LineView *)lineView {
-    if (!_lineView) {
-        _lineView = [[LineView alloc] initWithFrame:CGRectMake(0, 94, Screen_W, Screen_W * 0.6)];
-        _lineView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+- (StepCountView *)stepCountView {
+    if (!_stepCountView) {
+        _stepCountView = [[StepCountView alloc] initWithFrame:CGRectMake(0, 30, Screen_W, Screen_W * 0.6)];
+        _stepCountView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
-    return _lineView;
+    return _stepCountView;
 }
 
 - (UILabel *)stepLabel {
     if (!_stepLabel) {
-        _stepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, Screen_W, 30)];
+        _stepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 30)];
         _stepLabel.font = [UIFont boldSystemFontOfSize:16];
         _stepLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
@@ -158,7 +212,7 @@
 - (NSDateFormatter *)dateFormatter {
     if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDateFormat:@"YYYYMMdd"];
+        [_dateFormatter setDateFormat:@"MMdd"];
     }
     return _dateFormatter;
 }

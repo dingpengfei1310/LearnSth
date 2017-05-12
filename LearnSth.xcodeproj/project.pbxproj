@@ -70,7 +70,6 @@
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
 		1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */; };
-		1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07D21DE7E8DB0034C22D /* LineView.m */; };
 		1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */; };
 		1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */; };
 		1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */; };
@@ -90,8 +89,9 @@
 		1B2E58891EBC796800770953 /* FileScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58881EBC796800770953 /* FileScanViewController.m */; };
 		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
 		1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */; };
+		1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491EF1EC5817A002483CC /* BaseChartView.m */; };
+		1B3491F31EC582A6002483CC /* StepCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491F21EC582A6002483CC /* StepCountView.m */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
-		1B36FD451EC4349000FBA5CD /* HealthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FD441EC4349000FBA5CD /* HealthManager.m */; };
 		1B36FD481EC4370C00FBA5CD /* StepCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */; };
 		1B36FD4B1EC43B5F00FBA5CD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */; };
 		1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A8D1EA09D9300A927E4 /* zocr0.lib */; };
@@ -298,8 +298,6 @@
 		1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldPaperView.h; sourceTree = "<group>"; };
 		1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldPaperView.m; sourceTree = "<group>"; };
-		1B2D07D11DE7E8DB0034C22D /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
-		1B2D07D21DE7E8DB0034C22D /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		1B2D07E01DE7E8DB0034C22D /* PhotoLiarbraryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLiarbraryController.h; sourceTree = "<group>"; };
@@ -337,10 +335,12 @@
 		1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeController.m; sourceTree = "<group>"; };
 		1B30E24C1EB02CBE0040BD87 /* QRCodeRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeRecognizer.h; sourceTree = "<group>"; };
 		1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeRecognizer.m; sourceTree = "<group>"; };
+		1B3491EE1EC5817A002483CC /* BaseChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseChartView.h; sourceTree = "<group>"; };
+		1B3491EF1EC5817A002483CC /* BaseChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseChartView.m; sourceTree = "<group>"; };
+		1B3491F11EC582A6002483CC /* StepCountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepCountView.h; sourceTree = "<group>"; };
+		1B3491F21EC582A6002483CC /* StepCountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepCountView.m; sourceTree = "<group>"; };
 		1B36204E1E164E75004C9FF9 /* AddressDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataSource.h; sourceTree = "<group>"; };
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
-		1B36FD431EC4349000FBA5CD /* HealthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthManager.h; sourceTree = "<group>"; };
-		1B36FD441EC4349000FBA5CD /* HealthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthManager.m; sourceTree = "<group>"; };
 		1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepCountViewController.h; sourceTree = "<group>"; };
 		1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepCountViewController.m; sourceTree = "<group>"; };
 		1B36FD491EC43B5E00FBA5CD /* LearnSth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
@@ -873,8 +873,6 @@
 				1B098E711E24B50A00D5754A /* DropWaterView.m */,
 				1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */,
 				1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */,
-				1B2D07D11DE7E8DB0034C22D /* LineView.h */,
-				1B2D07D21DE7E8DB0034C22D /* LineView.m */,
 				1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */,
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
 				1BFEA60D1EA738EA0033CD15 /* DanMuView.h */,
@@ -947,6 +945,10 @@
 				1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */,
 				1B389A921EA0A87D00A927E4 /* HeaderImageViewCell.h */,
 				1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */,
+				1B3491EE1EC5817A002483CC /* BaseChartView.h */,
+				1B3491EF1EC5817A002483CC /* BaseChartView.m */,
+				1B3491F11EC582A6002483CC /* StepCountView.h */,
+				1B3491F21EC582A6002483CC /* StepCountView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -971,15 +973,6 @@
 			path = DownloadManager;
 			sourceTree = "<group>";
 		};
-		1B36FD421EC4345700FBA5CD /* HealthManager */ = {
-			isa = PBXGroup;
-			children = (
-				1B36FD431EC4349000FBA5CD /* HealthManager.h */,
-				1B36FD441EC4349000FBA5CD /* HealthManager.m */,
-			);
-			path = HealthManager;
-			sourceTree = "<group>";
-		};
 		1B389A8A1EA09D9300A927E4 /* libexidcard */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,7 +995,6 @@
 		1B4630BD1E669703000260D2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				1B36FD421EC4345700FBA5CD /* HealthManager */,
 				1B4630BE1E669703000260D2 /* Category */,
 				1B4630E21E669796000260D2 /* CustomiseTool.h */,
 				1B4630E31E669796000260D2 /* CustomiseTool.m */,
@@ -1419,6 +1411,7 @@
 				1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */,
 				1B2E58851EBC773900770953 /* DownloadViewCell.m in Sources */,
 				1B4630E41E669796000260D2 /* CustomiseTool.m in Sources */,
 				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
@@ -1442,12 +1435,12 @@
 				1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */,
 				1B4630DA1E669703000260D2 /* UIImage+Tool.m in Sources */,
 				1BD7691B1E8D0F5E00860D92 /* UIView+Tool.m in Sources */,
+				1B3491F31EC582A6002483CC /* StepCountView.m in Sources */,
 				1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */,
 				1B099C8B1DE7E57400161396 /* MJRefreshNormalHeader.m in Sources */,
 				1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */,
 				1B099C711DE7E57400161396 /* Aspects.m in Sources */,
 				1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */,
-				1B36FD451EC4349000FBA5CD /* HealthManager.m in Sources */,
 				1B099C8E1DE7E57400161396 /* MJRefreshConst.m in Sources */,
 				1B099C891DE7E57400161396 /* MJRefreshBackStateFooter.m in Sources */,
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,
@@ -1509,7 +1502,6 @@
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */,
 				1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */,
-				1B2D07FD1DE7E8DB0034C22D /* LineView.m in Sources */,
 				1B2E58801EBC76E800770953 /* VideoPlayerController.m in Sources */,
 				1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */,
 				1B099C831DE7E57400161396 /* MJRefreshHeader.m in Sources */,

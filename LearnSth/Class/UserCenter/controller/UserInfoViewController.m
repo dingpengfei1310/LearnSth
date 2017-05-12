@@ -67,6 +67,10 @@ static NSString *Identifier = @"cell";
         [UserManager updateUser];
         
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if (self.ChangeUsernameBlock) {
+            self.ChangeUsernameBlock();
+        }
     }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
