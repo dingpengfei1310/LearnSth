@@ -98,6 +98,7 @@
     self.maxY = [max floatValue];
     self.minY  = [min floatValue];
     self.scaleY = (_viewH - self.topMargin - self.bottomMargin) / (self.maxY - self.minY);
+    self.scaleX = 6;
     
     [self handleData];
     [self drawLineLayer];

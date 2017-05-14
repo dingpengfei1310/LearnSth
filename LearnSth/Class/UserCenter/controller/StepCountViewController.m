@@ -145,7 +145,13 @@ typedef NS_ENUM(NSInteger,StepCountDateType) {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (arrayM.count > 0) {
-            self.stepLabel.text = [NSString stringWithFormat:@" 今天共走了：%@步",arrayM.lastObject];
+            NSString *today = [self.dateFormatter stringFromDate:[NSDate date]];
+            NSString *stepCount = @"0";
+            if (dictM[today]) {
+                stepCount = [NSString stringWithFormat:@"%@",dictM[today]];
+            }
+            
+            self.stepLabel.text = [NSString stringWithFormat:@" 今天共走了：%@步",stepCount];
             self.stepCountView.dataArray = arrayM;
         }
     });

@@ -9,6 +9,7 @@
 #import "WebViewController.h"
 #import <WebKit/WebKit.h>
 #import "WebProgressView.h"
+#import "UIViewController+PopAction.h"
 
 @interface WebViewController ()<WKNavigationDelegate,UIGestureRecognizerDelegate,WKScriptMessageHandler>
 
@@ -25,7 +26,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self setLeftItemsWithCanGoBack:NO];
     if (self.urlString) {
         self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
@@ -35,49 +35,19 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [self.progressView removeFromSuperview];
-    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }
 
-#pragma mark
-- (void)setLeftItemsWithCanGoBack:(BOOL)flag {
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    spaceItem.width = -8;
-    
-    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(webBackClick)];
-    
-    if (flag) {
-        UIBarButtonItem *spaceItem1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        spaceItem1.width = -8;
-        
-        UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeController)];
-        
-        self.navigationItem.leftBarButtonItems = @[spaceItem,backItem,spaceItem1,closeItem];
-    } else {
-        self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
-    }
-    
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-}
-
-- (void)webBackClick {
+- (BOOL)navigationShouldPopItem {
     if ([self.KWebView canGoBack]) {
         [self.KWebView goBack];
+        return NO;
+        
     } else {
-        [self closeController];
+        return YES;
     }
-}
-
-- (void)closeController {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark
@@ -96,7 +66,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
-    [self setLeftItemsWithCanGoBack:[webView canGoBack]];
     
     [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
         if (!self.title) {
@@ -127,7 +96,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WebProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61 + 0, Screen_W, 3)];
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61, Screen_W, 3)];
     }
     return _progressView;
 }
