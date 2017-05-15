@@ -7,15 +7,15 @@
 //
 
 #import "DDImageBrowserController.h"
+#import "DDImageBrowserFlowLayout.h"
 #import "DDImageBrowserCell.h"
 #import "DDImageBrowserVideo.h"
 
-#import <Photos/Photos.h>
-#import <AVFoundation/AVFoundation.h>
+#import "QRCodeRecognizer.h"
 
-@interface DDImageBrowserController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface DDImageBrowserController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) BOOL statusBarHidden;
 
 @property (nonatomic, strong) UIView *barView;
@@ -24,6 +24,7 @@
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
+const CGFloat lineSpacing = 30;
 
 @implementation DDImageBrowserController
 
@@ -40,7 +41,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.collectionView];
     [self.view addSubview:self.barView];
 }
 
@@ -60,6 +61,22 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)recognize:(UIButton *)button {
+    [self loading];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        QRCodeRecognizer *code = [[QRCodeRecognizer alloc] init];
+        code.codeImage = self.thumbImages[_currentIndex];
+        NSString *message = [code getQRString];
+        message = message ?:@"未识别到二维码信息";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
+        });
+    });
+}
+
 - (void)hideNavigationBar {
     self.barView.hidden = !self.barView.hidden;
     self.statusBarHidden = !self.statusBarHidden;
@@ -73,104 +90,94 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
-//识别图中二维码
-- (void)showImageInfoWithIndex:(NSInteger)index {
-    [self loading];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *image = self.thumbImages[index];
-        
-        //1. 初始化扫描仪，设置设别类型和识别质量
-        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-        //2. 扫描获取的特征组
-        NSArray *features = [detector featuresInImage:[[CIImage alloc] initWithImage:image]];
-        
-        NSString *message = @"未识别到二维码信息";
-        //3. 获取扫描结果
-        if (features.count > 0) {
-            CIQRCodeFeature *feature = [features objectAtIndex:0];
-            message = feature.messageString;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self hideHUD];
-            [self showAlertWithTitle:@"扫描结果" message:message operationTitle:@"确定" operation:nil];
-        });
-    });
-}
-
 #pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.thumbImages.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DDImageBrowserCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    DDImageBrowserCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    __weak typeof(self) wSelf = self;
     cell.SingleTapBlock = ^{
-        [self hideNavigationBar];
-    };
-    cell.LongPressBlock = ^{
-        [self showImageInfoWithIndex:indexPath.row];
+        [wSelf hideNavigationBar];
     };
     cell.image = self.thumbImages[indexPath.row];
+    
     return cell;
 }
 
 #pragma mark
 - (void)showImageOfIndex:(NSInteger)index {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+                                atScrollPosition:UICollectionViewScrollPositionLeft
+                                        animated:NO];
     self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",index + 1,self.thumbImages.count];
     if (self.ScrollToIndexBlock) {
         self.ScrollToIndexBlock(self,index);
     }
 }
 
-//显示原图
-- (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset {
-    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-        
-        UIImage *result = [UIImage imageWithData:imageData];
-        DDImageBrowserCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-        cell.image = result;
-        self.thumbImages[index] = result;
-    }];
+//显示对应页的高清图
+- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image {
+    DDImageBrowserCell *cell = (DDImageBrowserCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    cell.image = image;
 }
 
+#pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (!self.thumbImages) return;
+//    //滑动停止
+//    if (!self.thumbImages) return;
+//    
+//    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:scrollView.contentOffset];
+//    if (self.currentIndex == indexPath.row) {
+//        return;
+//    }
+//    
+//    self.currentIndex = indexPath.row;
+//    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
+//    if (self.ScrollToIndexBlock) {
+//        self.ScrollToIndexBlock(self,self.currentIndex);
+//    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:scrollView.contentOffset];
-    if (self.currentIndex == indexPath.row) {
+    CGFloat pageWidth = scrollView.frame.size.width + lineSpacing;
+    NSInteger lastPage = scrollView.contentOffset.x / pageWidth;
+    NSInteger maxPage = (scrollView.contentSize.width + lineSpacing) / pageWidth - 1;
+    
+    lastPage = velocity.x <= 0 ? lastPage : lastPage + 1;
+    lastPage = MIN(MAX(lastPage, 0), maxPage);
+    
+    if (self.currentIndex == lastPage) {
         return;
     }
     
-    self.currentIndex = indexPath.row;
-    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
+    self.currentIndex = lastPage;
+    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",lastPage + 1,self.thumbImages.count];
     if (self.ScrollToIndexBlock) {
         self.ScrollToIndexBlock(self,self.currentIndex);
     }
 }
 
 #pragma mark
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, Screen_W)
-                                                  style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.pagingEnabled = YES;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.rowHeight = Screen_W;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        DDImageBrowserFlowLayout *flowLayout = [[DDImageBrowserFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowLayout.itemSize = CGSizeMake(Screen_W, Screen_H);
+        flowLayout.minimumLineSpacing = lineSpacing;
         
-        _tableView.transform = CGAffineTransformMakeRotation(- M_PI_2);
-        _tableView.center = CGPointMake(Screen_W * 0.5, Screen_H * 0.5);
-        [_tableView registerClass:[DDImageBrowserCell class] forCellReuseIdentifier:reuseIdentifier];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)
+                                             collectionViewLayout:flowLayout];
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        [_collectionView registerClass:[DDImageBrowserCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
-    
-    return _tableView;
+    return _collectionView;
 }
 
 - (UIView *)barView {
@@ -184,11 +191,16 @@ static NSString * const reuseIdentifier = @"Cell";
         _countLabel.font = [UIFont boldSystemFontOfSize:18];
         [_barView addSubview:_countLabel];
         
-        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 42, 42)];
+        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 30, 42)];
         UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
         [backButton setImage:originalImage forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_barView addSubview:backButton];
+        
+        UIButton *recognizeButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_W - 42, 20, 42, 42)];
+        [recognizeButton setTitle:@" " forState:UIControlStateNormal];
+        [recognizeButton addTarget:self action:@selector(recognize:) forControlEvents:UIControlEventTouchUpInside];
+        [_barView addSubview:recognizeButton];
     }
     return _barView;
 }

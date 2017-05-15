@@ -15,9 +15,13 @@
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
 
+#import <Photos/Photos.h>
+
 @interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+//点击使用
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
 @property (nonatomic, assign) NSInteger selectIndex;//选中的index，包括视频，为了拿到frame做动画
 
@@ -55,13 +59,14 @@ const NSInteger photoColumn = 4;
     }
     
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = YES;
-    
-    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-        cell.photoImageView.image = [self resizeImage:result];
-    }];
-    
+    [[PHImageManager defaultManager] requestImageForAsset:asset
+                                               targetSize:CGSizeZero
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:options
+                                            resultHandler:^(UIImage * result, NSDictionary *info) {
+                                                cell.photoImageView.image = [self resizeImage:result];
+                                            }];
     return cell;
 }
 
@@ -87,22 +92,30 @@ const NSInteger photoColumn = 4;
         }
         
     } else {
+        __weak typeof(self) wSelf = self;
         
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
         controller.ScrollToIndexBlock = ^(DDImageBrowserController *controller, NSInteger index){
             __block int count = 0;
-            [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
+            [wSelf.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
                 if (obj.mediaType == PHAssetMediaTypeImage) {
                     if (count == index) {
-                        [controller showHighQualityImageOfIndex:index WithAsset:obj];
+                        
+                        [[PHImageManager defaultManager] requestImageDataForAsset:obj options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+                            
+                            UIImage *result = [UIImage imageWithData:imageData];
+                            [controller showHighQualityImageOfIndex:index withImage:result];
+                        }];
+                        
                         *stop = YES;
                     }
                     count++;
                 }
             }];
         };
+        
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
@@ -162,25 +175,6 @@ const NSInteger photoColumn = 4;
 }
 
 #pragma mark
-- (NSMutableArray *)thumbImages {
-    if (!_thumbImages) {
-        _thumbImages = [NSMutableArray array];
-        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-        options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
-        options.synchronous = YES;
-        
-        [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
-            if (obj.mediaType != PHAssetMediaTypeVideo) {
-                
-                [[PHImageManager defaultManager] requestImageForAsset:obj targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * result, NSDictionary *info) {
-                    [self.thumbImages addObject:result];
-                }];
-            }
-        }];
-    }
-    return _thumbImages;
-}
-
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         CGFloat itemWidth = (Screen_W - (photoColumn + 1) * interitemSpacing) / photoColumn;
@@ -200,6 +194,23 @@ const NSInteger photoColumn = 4;
         _collectionView.delegate = self;
     }
     return _collectionView;
+}
+
+- (NSMutableArray *)thumbImages {
+    if (!_thumbImages) {
+        _thumbImages = [NSMutableArray array];
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.synchronous = YES;
+        
+        [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
+            if (obj.mediaType != PHAssetMediaTypeVideo) {
+                [[PHImageManager defaultManager] requestImageForAsset:obj targetSize:CGSizeZero contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * result, NSDictionary *info) {
+                    [_thumbImages addObject:result];
+                }];
+            }
+        }];
+    }
+    return _thumbImages;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM (NSInteger){
+typedef NS_ENUM (NSInteger, LanguageType){
     LanguageTypeZH = 0,
     LanguageTypeEn
-}LanguageType;
+};
 
 @interface CustomiseTool : NSObject
 

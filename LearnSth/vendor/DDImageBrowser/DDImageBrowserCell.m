@@ -23,14 +23,9 @@ const CGFloat DDImageBrowserMinZoom = 1;
 
 @implementation DDImageBrowserCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        
-        self.contentView.transform = CGAffineTransformMakeRotation(M_PI_2);
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
-        
         [self initImageZoomView];
     }
     return self;
@@ -67,11 +62,11 @@ const CGFloat DDImageBrowserMinZoom = 1;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     [self.contentView addGestureRecognizer:singleTap];
     
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    [self.contentView addGestureRecognizer:longPress];
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+//    [self.contentView addGestureRecognizer:longPress];
     
     [singleTap requireGestureRecognizerToFail:doubleTap];
-    [singleTap requireGestureRecognizerToFail:longPress];
+//    [singleTap requireGestureRecognizerToFail:longPress];
 }
 
 #pragma mark
@@ -130,10 +125,6 @@ const CGFloat DDImageBrowserMinZoom = 1;
     
     CGPoint centerPoint = CGPointMake(MAX(contentSize.width, boundSize.width) * 0.5, MAX(contentSize.height, boundSize.height) * 0.5);
     _photoImageView.center = centerPoint;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 }
 
 @end

@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger){
+typedef NS_ENUM(NSInteger, AnimatedTransitioningType){
     AnimatedTransitioningTypeMove = 0,
     AnimatedTransitioningTypeScale
-}AnimatedTransitioningType;
+};
 
-typedef NS_ENUM(NSInteger){
+typedef NS_ENUM(NSInteger, AnimatedTransitioningOperation){
     AnimatedTransitioningOperationPush = 0,
     AnimatedTransitioningOperationPop,
     AnimatedTransitioningOperationPresent,
     AnimatedTransitioningOperationDismiss
-}AnimatedTransitioningOperation;
+};
 
 @interface AnimatedTransitioning : NSObject<UIViewControllerAnimatedTransitioning>
 

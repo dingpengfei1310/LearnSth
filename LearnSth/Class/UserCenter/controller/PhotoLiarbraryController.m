@@ -138,4 +138,8 @@ static NSString *Identifier = @"Cell";
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc {
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
 @end

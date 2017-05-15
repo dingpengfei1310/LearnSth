@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-//typedef NS_ENUM(NSInteger,UIImageResizeMode) {
+//typedef NS_ENUM(NSInteger, UIImageResizeMode) {
 //    UIImageResizeModeUp,
 //    UIImageResizeModeLeft,
 //    UIImageResizeModeCenter,

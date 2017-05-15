@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
 
-typedef NS_ENUM(NSInteger){
+typedef NS_ENUM(NSInteger, VideoScanType){
     VideoScanTypeNormal = 0,//普通效果
     VideoScanTypeFilter,//滤镜效果
     VideoScanTypeTransform//（转码，不是播放）加滤镜效果
-}VideoScanType;
+};
+
+@class PHAsset,PHFetchResult;
 
 @interface PhotosCollectionController : UIViewController
 
-@property (nonatomic, strong) PHFetchResult<PHAsset *> *fetchResult;//结果集，这里是PHAsset集合
+@property (nonatomic, strong) PHFetchResult *fetchResult;//结果集，这里是PHAsset集合
 @property (nonatomic, assign) VideoScanType scanType;//视频才有效，照片无效
 
 @end

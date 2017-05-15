@@ -12,7 +12,7 @@ typedef void (^SuccessArray)(NSArray *list,NSError *error);
 typedef void (^Success)(id responseData);
 typedef void (^Failure)(NSError *error);
 
-typedef NS_ENUM(NSInteger,HttpErrorCode) {
+typedef NS_ENUM(NSInteger, HttpErrorCode) {
     HttpErrorCodeDefault,
     HttpErrorCodeCancel,
     HttpErrorCodeNodata,

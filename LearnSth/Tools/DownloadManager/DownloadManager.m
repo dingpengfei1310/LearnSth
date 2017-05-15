@@ -8,7 +8,7 @@
 
 #import "DownloadManager.h"
 
-typedef NS_ENUM(NSInteger,SessionTaskType) {
+typedef NS_ENUM(NSInteger, SessionTaskType) {
     SessionTaskTypeDownload = 0,
     SessionTaskTypeData
 };

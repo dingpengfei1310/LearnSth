@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger,DanMuPosition) {
+typedef NS_ENUM(NSInteger, DanMuPosition) {
     DanMuPositionDefault,
     DanMuPositionTop,
     DanMuPositionMiddle,

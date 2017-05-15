@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger,DownloadState) {
+typedef NS_ENUM(NSInteger, DownloadState) {
     DownloadStateWaiting = 0,
     DownloadStateRunning,
     DownloadStatePause,

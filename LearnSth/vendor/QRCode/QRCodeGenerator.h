@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger,WatermarkMode) {
+typedef NS_ENUM(NSInteger, WatermarkMode) {
     WatermarkModeScaleAspectFit,
     WatermarkModeScaleAspectFill
 };

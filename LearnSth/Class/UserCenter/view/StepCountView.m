@@ -98,6 +98,7 @@
     self.maxY = [max floatValue];
     self.minY  = [min floatValue];
     self.scaleY = (_viewH - self.topMargin - self.bottomMargin) / (self.maxY - self.minY);
+    self.scaleX = 6;
     
     [self handleData];
     [self drawLineLayer];
@@ -210,8 +211,8 @@
     CABasicAnimation*pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     pathAnimation.duration = 2.0f;
     pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    pathAnimation.fromValue = @0.0f;
-    pathAnimation.toValue = @(1);
+    pathAnimation.fromValue = @(0.0);
+    pathAnimation.toValue = @(1.0);
     [self.lineLayer addAnimation:pathAnimation forKey:nil];
 }
 

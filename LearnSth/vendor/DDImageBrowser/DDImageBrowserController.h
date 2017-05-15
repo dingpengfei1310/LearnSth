@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class PHAsset;
-
 @interface DDImageBrowserController : UIViewController
 
 //默认为0，第一张
@@ -20,6 +18,6 @@
 @property (nonatomic, copy) void (^ScrollToIndexBlock)(DDImageBrowserController *controller, NSInteger index);
 
 //显示对应页的高清图
-- (void)showHighQualityImageOfIndex:(NSInteger)index WithAsset:(PHAsset *)asset;
+- (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image;
 
 @end

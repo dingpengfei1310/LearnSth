@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DDImageBrowserCell : UITableViewCell
+@interface DDImageBrowserCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImage *image;
 
