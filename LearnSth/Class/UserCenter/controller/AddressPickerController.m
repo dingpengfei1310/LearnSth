@@ -31,7 +31,6 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
     
     self.currentProvince = self.provinces[0];
     self.currentCity = self.cities[0];
@@ -89,12 +88,13 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 #pragma mark
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    CGFloat viewW = pickerView.frame.size.width;
     if (component == 0) {
-        return Screen_W * 0.2;
+        return viewW * 0.2;
     } else if (component == 1) {
-        return Screen_W * 0.3;
+        return viewW * 0.3;
     } else if (component == 2) {
-        return Screen_W * 0.5;
+        return viewW * 0.5;
     }
     
     return 0.0;
@@ -171,7 +171,7 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 - (UIPickerView *)pickerView {
     if (!_pickerView) {
-        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, ToolbarHeight, Screen_W, PickViewHeight)];
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, ToolbarHeight, self.view.frame.size.width, PickViewHeight)];
         _pickerView.backgroundColor = KBackgroundColor;
         _pickerView.dataSource = self;
         _pickerView.delegate  = self;
@@ -181,7 +181,7 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 - (UIView *)pickerBackgroundView {
     if (!_pickerBackgroundView) {
-        UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, Screen_W, ToolbarHeight)];
+        UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, ToolbarHeight)];
         toolBar.backgroundColor = KBackgroundColor;
         [self.view addSubview:toolBar];
         
@@ -192,7 +192,7 @@ const CGFloat PickViewAppearDuration = 0.3;
         toolBar.items = @[cancelItem,spaceItem,submitItem];
         
         CGFloat height = PickViewHeight + ToolbarHeight;
-        _pickerBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, Screen_H - height, Screen_W, height)];
+        _pickerBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - height, self.view.frame.size.width, height)];
         [_pickerBackgroundView addSubview:toolBar];
         
         [_pickerBackgroundView addSubview:self.pickerView];

@@ -31,9 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"滤镜";
-    self.view.backgroundColor = [UIColor whiteColor];
     
-    _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H)];
+    _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     //    _backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:_backgroundImageView];
     
@@ -116,7 +115,7 @@
                  @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]}
                  ];
     
-    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, Screen_H - 40, Screen_W, 40)];
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
     filterView.filters = _filterArray;
     filterView.FilterSelect = ^(NSInteger index){
         [self changeFilterWith:index];
@@ -161,8 +160,8 @@
     movieFile.playAtActualSpeed = NO;
     movieFile.runBenchmark = YES;
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, Screen_W)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (Screen_W - 40) / 2, Screen_H, 40)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.width - 40) / 2, self.view.frame.size.height, 40)];
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont boldSystemFontOfSize:20];
     label.textColor = [UIColor redColor];

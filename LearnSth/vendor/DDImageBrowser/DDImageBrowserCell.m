@@ -26,15 +26,15 @@ const CGFloat DDImageBrowserMinZoom = 1;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
+        viewWidth = frame.size.width;
+        viewHeight = frame.size.height;
+        
         [self initImageZoomView];
     }
     return self;
 }
 
 - (void)initImageZoomView {
-    viewWidth = [UIScreen mainScreen].bounds.size.width;
-    viewHeight = [UIScreen mainScreen].bounds.size.height;
-    
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
     _scrollView.bounces = NO;
     _scrollView.delegate = self;

@@ -29,18 +29,19 @@ const float margin = 20;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"身份证";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(scanClick)];
     
     [self initSubView];
 }
 
 - (void)initSubView {
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64)];
+    CGFloat viewW = self.view.frame.size.width;
+    
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
     [self.view addSubview:scrollView];
     
-    _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(margin, margin, Screen_W - 2 * margin, (Screen_W - 2 * margin) * 0.63)];
+    _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(margin, margin, viewW - 2 * margin, (viewW - 2 * margin) * 0.63)];
     _cardImageView.backgroundColor = KBackgroundColor;
     [scrollView addSubview:_cardImageView];
     
@@ -54,7 +55,7 @@ const float margin = 20;
         label.text = textArray[i];
         [scrollView addSubview:label];
         
-        UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(margin + 40, 20 + CGRectGetMaxY(_cardImageView.frame) + (spaceH + labelH) * i, Screen_W - margin * 2 - 40, labelH)];
+        UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(margin + 40, 20 + CGRectGetMaxY(_cardImageView.frame) + (spaceH + labelH) * i, viewW - margin * 2 - 40, labelH)];
         field.font = [UIFont systemFontOfSize:16];
         field.borderStyle = UITextBorderStyleRoundedRect;
         [scrollView addSubview:field];

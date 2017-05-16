@@ -23,8 +23,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 @implementation WebViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     if (self.urlString) {
         self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -86,7 +84,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64)];
+        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
         _KWebView.navigationDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -96,7 +94,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (WebProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61, Screen_W, 3)];
+        _progressView = [[WebProgressView alloc] initWithFrame:CGRectMake(0, 61, self.view.frame.size.width, 3)];
     }
     return _progressView;
 }

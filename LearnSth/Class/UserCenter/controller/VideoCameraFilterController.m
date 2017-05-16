@@ -12,7 +12,10 @@
 
 #import <GPUImage.h>
 
-@interface VideoCameraFilterController ()
+@interface VideoCameraFilterController () {
+    CGFloat viewW;
+    CGFloat viewH;
+}
 
 @property (nonatomic, strong) GPUImageView *videoView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
@@ -39,6 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isRecording = NO;
+    
+    viewW = self.view.frame.size.width;
+    viewH = self.view.frame.size.height;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,7 +100,7 @@
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     self.movieName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     
-    _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, Screen_W, Screen_H)];
+    _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, viewW, viewH)];
     [self.videoCamera addTarget:_videoView];//默认，不带滤镜
     [self.view addSubview:_videoView];
     
@@ -114,7 +120,7 @@
     CGFloat bottomHeight = 100;
     
     UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
-    dismissButton.center = CGPointMake(Screen_W * 0.5 - Screen_W * 0.2, Screen_H - bottomHeight);
+    dismissButton.center = CGPointMake(viewW * 0.5 - viewW * 0.2, viewH - bottomHeight);
     UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
     UIImage *image = [UIImage imageWithCGImage:originalImage.CGImage
                                          scale:2.0
@@ -124,13 +130,13 @@
     [self.view addSubview:dismissButton];
     
     UIButton *captureButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 49, 49)];
-    captureButton.center = CGPointMake(Screen_W * 0.5, Screen_H - bottomHeight);
+    captureButton.center = CGPointMake(viewW * 0.5, viewH - bottomHeight);
     [captureButton setImage:[UIImage imageNamed:@"redSpot"] forState:UIControlStateNormal];
     [captureButton addTarget:self action:@selector(captureButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:captureButton];
     
     UIButton *changeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
-    changeButton.center = CGPointMake(Screen_W * 0.5 + Screen_W * 0.2, Screen_H - bottomHeight);
+    changeButton.center = CGPointMake(viewW * 0.5 + viewW * 0.2, viewH - bottomHeight);
     [changeButton setTitle:@"切换" forState:UIControlStateNormal];
     [changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [changeButton addTarget:self action:@selector(changeDevice:) forControlEvents:UIControlEventTouchUpInside];
@@ -138,7 +144,7 @@
     
     [self.view addSubview:self.timeLabel];
     
-    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, Screen_H - 50, Screen_W, 50)];
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, viewH - 50, viewW, 50)];
     filterView.filters = self.imageFilters;
     filterView.FilterSelect = ^(NSInteger index){
         [self changeFilterWith:index];
@@ -365,7 +371,7 @@
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 21)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, viewW, 21)];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.backgroundColor = [UIColor clearColor];
         _timeLabel.textColor = [UIColor whiteColor];

@@ -30,7 +30,7 @@
 #pragma mark
 - (UIButton *)registerButton {
     if (!_registerButton) {
-        _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 200, Screen_W - 80, 40)];
+        _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 200, self.view.frame.size.width - 80, 40)];
 //        _registerButton.enabled = NO;
         UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
         [_registerButton setBackgroundImage:image

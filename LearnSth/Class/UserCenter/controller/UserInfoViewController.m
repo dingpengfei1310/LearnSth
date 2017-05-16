@@ -29,7 +29,6 @@ static NSString *Identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"个人信息";
     
     self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
@@ -114,7 +113,7 @@ static NSString *Identifier = @"cell";
         
         UIImageView *headerImageView = [cell viewWithTag:101];
         if (!headerImageView) {
-            headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(Screen_W - 80, 10, 50, 50)];
+            headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 80, 10, 50, 50)];
             headerImageView.layer.masksToBounds = YES;
             headerImageView.layer.cornerRadius = 3;
             [cell.contentView addSubview:headerImageView];
@@ -186,7 +185,7 @@ static NSString *Identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStyleGrouped];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;

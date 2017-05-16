@@ -30,8 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码扫描";
-    self.view.backgroundColor = [UIColor whiteColor];
-    scanWidth = Screen_W * 0.7;
+    scanWidth = self.view.frame.size.width * 0.7;
     
     [self checkAuthorizationStatusOnVideo];
 }
@@ -87,7 +86,7 @@
     
     [self.captureSession startRunning];
     
-    _scanRect = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth) / 2 - Screen_W * 0.1, scanWidth, scanWidth);
+    _scanRect = CGRectMake((self.view.frame.size.width - scanWidth) / 2, (self.view.frame.size.height - scanWidth) / 2 - self.view.frame.size.width * 0.1, scanWidth, scanWidth);
     CGRect rectOfInterest = [preLayer metadataOutputRectOfInterestForRect:_scanRect];
     self.metadataOutput.rectOfInterest = rectOfInterest;
     
@@ -96,7 +95,7 @@
 
 - (void)addMaskViewWithRect:(CGRect)scanRect {
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:scanRect cornerRadius:scanWidth * 0.02] bezierPathByReversingPath]];
     maskLayer.path = maskPath.CGPath;
     

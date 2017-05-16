@@ -99,10 +99,12 @@
 
 #pragma mark
 - (void)setButton {
+    CGFloat viewW = self.view.frame.size.width;
+    CGFloat viewH = self.view.frame.size.height;
     CGFloat bottomHeight = 70;
     
     UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
-    dismissButton.center = CGPointMake(Screen_W * 0.5 - Screen_W * 0.2, Screen_H - bottomHeight);
+    dismissButton.center = CGPointMake(viewW * 0.5 - viewW * 0.2, viewH - bottomHeight);
     UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
     UIImage *image = [UIImage imageWithCGImage:originalImage.CGImage
                                          scale:2.0
@@ -112,13 +114,13 @@
     [self.view addSubview:dismissButton];
     
     UIButton *captureButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 49, 49)];
-    captureButton.center = CGPointMake(Screen_W * 0.5, Screen_H - bottomHeight);
+    captureButton.center = CGPointMake(viewW * 0.5, viewH - bottomHeight);
     [captureButton setImage:[UIImage imageNamed:@"redSpot"] forState:UIControlStateNormal];
     [captureButton addTarget:self action:@selector(captureButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:captureButton];
     
     UIButton *changeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
-    changeButton.center = CGPointMake(Screen_W * 0.5 + Screen_W * 0.2, Screen_H - bottomHeight);
+    changeButton.center = CGPointMake(viewW * 0.5 + viewW * 0.2, viewH - bottomHeight);
     [changeButton setTitle:@"切换" forState:UIControlStateNormal];
     [changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [changeButton addTarget:self action:@selector(changeDevice:) forControlEvents:UIControlEventTouchUpInside];
@@ -299,7 +301,7 @@
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 21)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 21)];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.backgroundColor = [UIColor clearColor];
         _timeLabel.textColor = [UIColor whiteColor];

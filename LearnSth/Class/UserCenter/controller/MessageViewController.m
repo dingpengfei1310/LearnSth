@@ -49,9 +49,10 @@ static NSString *reuseIdentifier = @"cell";
     UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
     [style setLineSpacing:2.0];
-    NSDictionary *attribute = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:style};
+    NSDictionary *attribute = @{NSFontAttributeName:font,
+                                NSParagraphStyleAttributeName:style};
     
-    CGSize size = [content boundingRectWithSize:CGSizeMake(Screen_W - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
+    CGSize size = [content boundingRectWithSize:CGSizeMake(tableView.frame.size.width - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
     
     return size.height + 40;
 }
@@ -59,7 +60,7 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect frame = CGRectMake(0, 0, Screen_W, Screen_H);
+        CGRect frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
         _tableView = [[UITableView alloc] initWithFrame:frame
                                                   style:UITableViewStylePlain];
         [_tableView registerClass:[MessageTableCell class] forCellReuseIdentifier:reuseIdentifier];

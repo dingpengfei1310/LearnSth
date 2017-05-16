@@ -185,14 +185,14 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStyleGrouped];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
         
         UIButton *logoutButon = [UIButton buttonWithType:UIButtonTypeSystem];
-        logoutButon.frame = CGRectMake(0, 0, Screen_W, 40);
+        logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
         logoutButon.backgroundColor = [UIColor whiteColor];
         [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];

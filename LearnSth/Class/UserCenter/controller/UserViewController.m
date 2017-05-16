@@ -29,8 +29,6 @@ static NSString *Identifier = @"cell";
 @implementation UserViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"🏓";
     
     self.dataArray = @[@[@"头像"],
@@ -42,6 +40,10 @@ static NSString *Identifier = @"cell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
+    
+    if ([CustomiseTool isLogin]) {
+        [UserManager loadUser];
+    }
 }
 
 #pragma mark
@@ -154,7 +156,7 @@ static NSString *Identifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStyleGrouped];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;

@@ -30,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     [self loadViewControllersWithSelectIndex:0];
     [self networkMonitoring];
 }
@@ -38,7 +37,6 @@
 - (void)networkMonitoring {
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusNotReachable) {
-            
             [self showError:@"网络已断开连接"];
         }
     }];

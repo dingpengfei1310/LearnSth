@@ -11,6 +11,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (assign, nonatomic) BOOL isAutorotate;
+@property (assign, nonatomic) BOOL isAutorotate;//是否自动旋转
 
 @end

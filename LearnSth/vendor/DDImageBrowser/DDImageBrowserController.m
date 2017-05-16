@@ -24,7 +24,7 @@
 @end
 
 static NSString * const reuseIdentifier = @"Cell";
-const CGFloat lineSpacing = 30;
+const CGFloat minLineSpacing = 40;
 
 @implementation DDImageBrowserController
 
@@ -39,8 +39,6 @@ const CGFloat lineSpacing = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.view.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.barView];
 }
@@ -122,54 +120,63 @@ const CGFloat lineSpacing = 30;
 - (void)showHighQualityImageOfIndex:(NSInteger)index withImage:(UIImage *)image {
     DDImageBrowserCell *cell = (DDImageBrowserCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
     cell.image = image;
+//    self.thumbImages[index] = image;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        cell.image = image;
+//    });
 }
 
 #pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    //滑动停止
-//    if (!self.thumbImages) return;
-//    
-//    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:scrollView.contentOffset];
-//    if (self.currentIndex == indexPath.row) {
-//        return;
-//    }
-//    
-//    self.currentIndex = indexPath.row;
-//    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",indexPath.row + 1,self.thumbImages.count];
-//    if (self.ScrollToIndexBlock) {
-//        self.ScrollToIndexBlock(self,self.currentIndex);
-//    }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    //减速停止
+    CGFloat pageWidth = scrollView.frame.size.width + minLineSpacing;
+    NSInteger currentPage = scrollView.contentOffset.x / pageWidth;
     
-    CGFloat pageWidth = scrollView.frame.size.width + lineSpacing;
-    NSInteger lastPage = scrollView.contentOffset.x / pageWidth;
-    NSInteger maxPage = (scrollView.contentSize.width + lineSpacing) / pageWidth - 1;
-    
-    lastPage = velocity.x <= 0 ? lastPage : lastPage + 1;
-    lastPage = MIN(MAX(lastPage, 0), maxPage);
-    
-    if (self.currentIndex == lastPage) {
+    if (self.currentIndex == currentPage) {
         return;
     }
     
-    self.currentIndex = lastPage;
-    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",lastPage + 1,self.thumbImages.count];
+    self.currentIndex = currentPage;
+    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",currentPage + 1,self.thumbImages.count];
     if (self.ScrollToIndexBlock) {
         self.ScrollToIndexBlock(self,self.currentIndex);
     }
 }
+
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+//    CGFloat pageWidth = scrollView.frame.size.width + minLineSpacing;
+//    
+//    NSInteger lastPage;
+//    if (velocity.x == 0) {
+//        lastPage = roundf(self.collectionView.contentOffset.x / pageWidth);
+//    } else {
+//        lastPage = self.collectionView.contentOffset.x / pageWidth;
+//        NSInteger maxPage = (self.collectionView.contentSize.width + minLineSpacing) / pageWidth - 1;
+//        
+//        lastPage = velocity.x < 0 ? lastPage : lastPage + 1;
+//        lastPage = MIN(MAX(lastPage, 0), maxPage);
+//    }
+//    
+//    if (self.currentIndex == lastPage) {
+//        return;
+//    }
+//    
+//    self.currentIndex = lastPage;
+//    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",lastPage + 1,self.thumbImages.count];
+//    if (self.ScrollToIndexBlock) {
+//        self.ScrollToIndexBlock(self,self.currentIndex);
+//    }
+//}
 
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         DDImageBrowserFlowLayout *flowLayout = [[DDImageBrowserFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        flowLayout.itemSize = CGSizeMake(Screen_W, Screen_H);
-        flowLayout.minimumLineSpacing = lineSpacing;
+        flowLayout.itemSize = self.view.bounds.size;
+        flowLayout.minimumLineSpacing = minLineSpacing;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
                                              collectionViewLayout:flowLayout];
         _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView registerClass:[DDImageBrowserCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -182,10 +189,10 @@ const CGFloat lineSpacing = 30;
 
 - (UIView *)barView {
     if (!_barView) {
-        _barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 64)];
+        _barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
         _barView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
         
-        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, Screen_W, 44)];
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, _barView.bounds.size.width, 44)];
         _countLabel.textColor = [UIColor whiteColor];
         _countLabel.textAlignment = NSTextAlignmentCenter;
         _countLabel.font = [UIFont boldSystemFontOfSize:18];
@@ -197,7 +204,7 @@ const CGFloat lineSpacing = 30;
         [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_barView addSubview:backButton];
         
-        UIButton *recognizeButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_W - 42, 20, 42, 42)];
+        UIButton *recognizeButton = [[UIButton alloc] initWithFrame:CGRectMake(_barView.bounds.size.width - 42, 20, 42, 42)];
         [recognizeButton setTitle:@" " forState:UIControlStateNormal];
         [recognizeButton addTarget:self action:@selector(recognize:) forControlEvents:UIControlEventTouchUpInside];
         [_barView addSubview:recognizeButton];
@@ -207,6 +214,7 @@ const CGFloat lineSpacing = 30;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    [self showAlertWithTitle:@"警告" message:@"收到内存警告" operationTitle:@"确定" operation:nil];
 }
 
 @end

@@ -9,22 +9,13 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
-#import "UserManager.h"
 #import "FPSLabel.h"
-
-#ifdef DEBUG
-#import "UIViewController+Swizzled.h"
-#endif
 
 @interface AppDelegate ()
 @end
 
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-//#ifdef DEBUG
-//    SWIZZ_IT
-//#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -33,10 +24,6 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
-    
-    if ([CustomiseTool isLogin]) {
-        [UserManager loadUser];
-    }
     
 //    application.applicationIconBadgeNumber = 0;
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];

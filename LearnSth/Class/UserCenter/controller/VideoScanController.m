@@ -13,7 +13,10 @@
 #import <Photos/Photos.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface VideoScanController ()
+@interface VideoScanController () {
+    CGFloat viewW;
+    CGFloat viewH;
+}
 
 @property (nonatomic, strong) GPUImageMovie *movie;
 @property (nonatomic, strong) GPUImageView *videoView;
@@ -36,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    viewW = self.view.frame.size.width;
+    viewH = self.view.frame.size.height;
     
     [self setBackgropundImage];
     
@@ -102,11 +108,11 @@
                          @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]}
                          ];
     
-    _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)];
+    _videoView = [[GPUImageView alloc] init];
     //如果不用下面这几句代码，画面会逆时针旋转90度
-    _videoView.frame = CGRectMake(0, 0, Screen_H, Screen_W);
+    _videoView.frame = CGRectMake(0, 0, viewH, viewW);
     _videoView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    _videoView.center = CGPointMake(Screen_W * 0.5, Screen_H * 0.5);
+    _videoView.center = CGPointMake(viewW * 0.5, viewH * 0.5);
     [self.view addSubview:_videoView];
     
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
@@ -122,25 +128,25 @@
 - (void)addButton {
     CGFloat buttonW = 40;
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, Screen_H - buttonW * 2, Screen_W, buttonW)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, viewH - buttonW * 2, viewW, buttonW)];
     bottomView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     [self.view addSubview:bottomView];
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonW, buttonW)];
-    backButton.center = CGPointMake(Screen_W / 4, buttonW / 2);
+    backButton.center = CGPointMake(viewW / 4, buttonW / 2);
     [backButton setTitle:@"取消" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backButton];
     
     UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonW, buttonW)];
-    playButton.center = CGPointMake(Screen_W / 4 * 3, buttonW / 2);
+    playButton.center = CGPointMake(viewW / 4 * 3, buttonW / 2);
     [playButton setTitle:@"播放" forState:UIControlStateNormal];
     [playButton setTitle:@"暂停" forState:UIControlStateSelected];
     [playButton addTarget:self action:@selector(videoPaly:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:playButton];
     _playButton = playButton;
     
-    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, Screen_H - buttonW, Screen_W, buttonW)];
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, viewH - buttonW, viewW, buttonW)];
     filterView.filters = self.filterArray;
     filterView.FilterSelect = ^(NSInteger index){
         [self changeFilterWith:index];

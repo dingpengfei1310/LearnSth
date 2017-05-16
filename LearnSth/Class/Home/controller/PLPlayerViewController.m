@@ -12,7 +12,10 @@
 
 #import <PLPlayerKit/PLPlayerKit.h>
 
-@interface PLPlayerViewController ()<PLPlayerDelegate>
+@interface PLPlayerViewController ()<PLPlayerDelegate> {
+    CGFloat viewW;
+    CGFloat viewH;
+}
 
 @property (nonatomic, strong) LiveModel *live;
 
@@ -31,6 +34,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    viewW = self.view.frame.size.width;
+    viewH = self.view.frame.size.height;
     
     self.live = self.liveArray[self.index];
     self.title = self.live.myname;
@@ -78,7 +84,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     [self.window addSubview:self.player.playerView];
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.player.playerView.frame = CGRectMake((1 - PlayerViewScale) * Screen_W, 64, Screen_W * PlayerViewScale, Screen_H * PlayerViewScale);
+        self.player.playerView.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
     } completion:^(BOOL finished) {
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
         [self.player.playerView addGestureRecognizer:panGesture];
@@ -108,16 +114,16 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         CGFloat Center_Y = center.y + change_Y;
         CGFloat scale = PlayerViewScale * 0.5;
         
-        if (Center_X < Screen_W * scale) {
-            Center_X = Screen_W * scale;
-        } else if (Center_X > Screen_W * (1 - scale)) {
-            Center_X = Screen_W * (1 - scale);
+        if (Center_X < viewW * scale) {
+            Center_X = viewW * scale;
+        } else if (Center_X > viewW * (1 - scale)) {
+            Center_X = viewW * (1 - scale);
         }
         
-        if (Center_Y < Screen_H * scale) {
-            Center_Y = Screen_H * scale;
-        } else if (Center_Y > Screen_H * (1 - scale)) {
-            Center_Y = Screen_H * (1 - scale);
+        if (Center_Y < viewH * scale) {
+            Center_Y = viewH * scale;
+        } else if (Center_Y > viewH * (1 - scale)) {
+            Center_Y = viewH * (1 - scale);
         }
         
         self.player.playerView.center = CGPointMake(Center_X, Center_Y);
@@ -212,6 +218,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    [self showAlertWithTitle:@"警告" message:@"收到内存警告" operationTitle:@"确定" operation:nil];
 }
 
 @end

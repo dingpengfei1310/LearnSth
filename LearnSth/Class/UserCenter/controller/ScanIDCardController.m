@@ -12,7 +12,9 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface ScanIDCardController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate>
+@interface ScanIDCardController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate> {
+    CGFloat viewW;
+}
 
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -35,6 +37,7 @@
 #if TARGET_OS_SIMULATOR
     [self dismisss];
 #else
+    viewW = self.view.frame.size.width;
     // 初始化rect
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
     int ret = EXCARDS_Init(thePath);
@@ -88,15 +91,15 @@
     _previewLayer.frame = self.view.bounds;
     [self.view.layer addSublayer:_previewLayer];
     
-    CGFloat scanWidth = Screen_W * 0.75;
-    _scanCardFrame = CGRectMake((Screen_W - scanWidth) / 2, (Screen_H - scanWidth * 1.585) / 2, scanWidth, scanWidth * 1.585);
+    CGFloat scanWidth = viewW * 0.75;
+    _scanCardFrame = CGRectMake((viewW - scanWidth) / 2, (self.view.frame.size.height - scanWidth * 1.585) / 2, scanWidth, scanWidth * 1.585);
     
     CGFloat faceH = 32.0 / 54 * scanWidth;
     CGFloat faceW = (26.0 / 54) * scanWidth;
-    CGRect headerFrame = CGRectMake((Screen_W - faceH) / 2 + Screen_W * 0.04, CGRectGetMaxY(_scanCardFrame) - Screen_W * 0.08 - faceW, faceH, faceW);
+    CGRect headerFrame = CGRectMake((viewW - faceH) / 2 + viewW * 0.04, CGRectGetMaxY(_scanCardFrame) - viewW * 0.08 - faceW, faceH, faceW);
     [self addMaskViewWithCardRect:_scanCardFrame faceRect:headerFrame];
     
-    _scanFaceFrame = CGRectMake((Screen_W - faceH) / 2 + Screen_W * 0.04 + faceH * 0.2, CGRectGetMaxY(_scanCardFrame) - Screen_W * 0.08 - faceW + faceW * 0.2, faceH * 0.6, faceW * 0.6);
+    _scanFaceFrame = CGRectMake((viewW - faceH) / 2 + viewW * 0.04 + faceH * 0.2, CGRectGetMaxY(_scanCardFrame) - viewW * 0.08 - faceW + faceW * 0.2, faceH * 0.6, faceW * 0.6);
     [self.captureSession startRunning];
     
     CGRect rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:_scanFaceFrame];
@@ -104,7 +107,7 @@
 }
 
 - (void)addMaskViewWithCardRect:(CGRect)cardRect faceRect:(CGRect)faceRect {
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, Screen_W, Screen_H)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, viewW, self.view.frame.size.height)];
     [maskPath appendPath:[[UIBezierPath bezierPathWithRoundedRect:cardRect cornerRadius:15] bezierPathByReversingPath]];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = maskPath.CGPath;
@@ -273,7 +276,7 @@
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
     CGImageRef imageRef = [[CIContext contextWithOptions:nil] createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer))];
     
-    CGFloat scale = CGRectGetWidth(cardRect) / Screen_W;
+    CGFloat scale = CGRectGetWidth(cardRect) / viewW;
     CGRect imageRect = CGRectMake(CVPixelBufferGetWidth(imageBuffer) * (1 - scale) * 0.5, CVPixelBufferGetHeight(imageBuffer) * (1 - scale) * 0.5, CVPixelBufferGetWidth(imageBuffer) * scale, CVPixelBufferGetHeight(imageBuffer) * scale);
     
     CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, imageRect);

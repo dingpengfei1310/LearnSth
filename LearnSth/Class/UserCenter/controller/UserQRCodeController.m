@@ -22,19 +22,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码生成";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(QRCodeCreate)];
     
     [self initSubView];
 }
 
 - (void)initSubView {
-    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, Screen_W - 40, 35)];
+    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 84, self.view.frame.size.width - 40, 35)];
     _qrTextField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:_qrTextField];
     
-    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 20 + CGRectGetMaxY(_qrTextField.frame), Screen_W - 100, Screen_W - 100)];
+    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 84 + CGRectGetMaxY(_qrTextField.frame), self.view.frame.size.width - 100, self.view.frame.size.width - 100)];
     [self.view addSubview:_qrImageView];
 }
 

@@ -13,7 +13,9 @@
 #import "UserManager.h"
 #import "NSString+Tool.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () {
+    CGFloat viewW;
+}
 
 @property (nonatomic, strong) UITextField *accountField;
 @property (nonatomic, strong) UITextField *passwordField;
@@ -30,41 +32,48 @@ const CGFloat fieldHeight = 35;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"登录";
     
-    CGRect scrollRect = CGRectMake(0, 0, Screen_W, Screen_H);
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:scrollRect];
-//    scrollView.delaysContentTouches = NO;
-    [self.view addSubview:scrollView];
-    
-    [scrollView addSubview:self.accountField];
-    [scrollView addSubview:self.passwordField];
-    [scrollView addSubview:self.loginButton];
-    [self addRegButtonWithView:scrollView];
+    [self initSubView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
-- (void)addRegButtonWithView:(TPKeyboardAvoidingScrollView *)scrollView {
+- (void)initSubView {
+    viewW = self.view.frame.size.width;
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
+    [self.view addSubview:scrollView];
+    
+    //输入框
+    [scrollView addSubview:self.accountField];
+    [scrollView addSubview:self.passwordField];
+    [scrollView addSubview:self.loginButton];
+    
+    //按钮
     CGFloat buttonW = 80;
     UIFont *font = [UIFont systemFontOfSize:15];
+    NSDictionary *attNormal = @{NSFontAttributeName:font,NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+    NSDictionary *attHighlighted = @{NSFontAttributeName:font,
+                                     NSForegroundColorAttributeName:KBaseTextColor,
+                                     NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
     
     CGFloat regButtonY = CGRectGetMaxY(self.loginButton.frame);
     CGRect rect = CGRectMake(fieldMargin, regButtonY, buttonW, 40);
     UIButton *regButton = [[UIButton alloc] initWithFrame:rect];
     regButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [regButton.titleLabel setFont:font];
-    [regButton setTitle:@"快速注册" forState:UIControlStateNormal];
-    [regButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];
+    NSAttributedString *attStringNormal = [[NSAttributedString alloc] initWithString:@"快速注册" attributes:attNormal];
+    NSAttributedString *attStringHigh = [[NSAttributedString alloc] initWithString:@"快速注册" attributes:attHighlighted];
+    [regButton setAttributedTitle:attStringNormal forState:UIControlStateNormal];
+    [regButton setAttributedTitle:attStringHigh forState:UIControlStateHighlighted];
     [regButton addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
     
-    rect = CGRectMake(Screen_W - buttonW - fieldMargin, regButtonY, buttonW, 40);
+    rect = CGRectMake(viewW - buttonW - fieldMargin, regButtonY, buttonW, 40);
     UIButton *forgetButton = [[UIButton alloc] initWithFrame:rect];
     forgetButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [forgetButton.titleLabel setFont:font];
-    [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
-    [forgetButton setTitleColor:KBaseTextColor forState:UIControlStateNormal];
+    attStringNormal = [[NSAttributedString alloc] initWithString:@"忘记密码?" attributes:attNormal];
+    attStringHigh = [[NSAttributedString alloc] initWithString:@"忘记密码?" attributes:attHighlighted];
+    [forgetButton setAttributedTitle:attStringNormal forState:UIControlStateNormal];
+    [forgetButton setAttributedTitle:attStringHigh forState:UIControlStateHighlighted];
     [forgetButton addTarget:self action:@selector(forgetClick) forControlEvents:UIControlEventTouchUpInside];
     
     [scrollView addSubview:regButton];
@@ -121,7 +130,7 @@ const CGFloat fieldHeight = 35;
 #pragma mark
 - (UITextField *)accountField {
     if (!_accountField) {
-        CGRect rect = CGRectMake(fieldMargin, topSpace, Screen_W - fieldMargin * 2, fieldHeight);
+        CGRect rect = CGRectMake(fieldMargin, topSpace, viewW - fieldMargin * 2, fieldHeight);
         
         _accountField = [[UITextField alloc] initWithFrame:rect];
         _accountField.placeholder = @"请输入用户名";
@@ -136,7 +145,7 @@ const CGFloat fieldHeight = 35;
 - (UITextField *)passwordField {
     if (!_passwordField) {
         CGFloat pwdFieldY = topSpace + fieldHeight + fieldMargin / 2;
-        CGRect rect = CGRectMake(fieldMargin, pwdFieldY, Screen_W - fieldMargin * 2, fieldHeight);
+        CGRect rect = CGRectMake(fieldMargin, pwdFieldY, viewW - fieldMargin * 2, fieldHeight);
         
         _passwordField = [[UITextField alloc] initWithFrame:rect];
         _passwordField.placeholder = @"请输入密码";
@@ -152,7 +161,7 @@ const CGFloat fieldHeight = 35;
 - (UIButton *)loginButton {
     if (!_loginButton) {
         CGFloat loginButtonY = topSpace + fieldHeight * 2 + fieldMargin * 1.5;
-        CGRect rect = CGRectMake(fieldMargin, loginButtonY, Screen_W - fieldMargin * 2, fieldHeight * 1.2);
+        CGRect rect = CGRectMake(fieldMargin, loginButtonY, viewW - fieldMargin * 2, fieldHeight * 1.2);
         
         _loginButton = [[UIButton alloc] initWithFrame:rect];
         _loginButton.enabled = NO;

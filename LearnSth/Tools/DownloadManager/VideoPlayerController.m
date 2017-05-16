@@ -39,7 +39,6 @@
 #pragma mark
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
     
     self.dataArray = @[@"",@"",@"",@"",@""];
     
@@ -117,7 +116,7 @@
 - (VideoPlayerView *)playerView {
     if (!_playerView) {
         
-        UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_H, 20)];
+        UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, 20)];
         statusBarView.backgroundColor = [UIColor blackColor];
         [self.view addSubview:statusBarView];
         
@@ -146,7 +145,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_playerView.frame), Screen_W, Screen_H - CGRectGetMaxY(_playerView.frame)) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_playerView.frame), self.view.frame.size.width, self.view.frame.size.height - CGRectGetMaxY(_playerView.frame)) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;

@@ -60,7 +60,12 @@
     UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
     [style setLineSpacing:2.0];
-    NSDictionary *attribute = @{NSFontAttributeName:font,NSParagraphStyleAttributeName:style};
+    NSDictionary *attribute = @{NSFontAttributeName:font,
+                                NSParagraphStyleAttributeName:style,
+//                                NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle),
+//                                NSStrikethroughStyleAttributeName:@(NSUnderlinePatternDashDotDot | NSUnderlineStyleSingle),
+//                                NSBaselineOffsetAttributeName:@(NSUnderlineStyleSingle)
+                                };
     
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:content
                                                                     attributes:attribute];

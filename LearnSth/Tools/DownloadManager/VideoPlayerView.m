@@ -15,6 +15,9 @@
 
 @interface VideoPlayerView () <UIGestureRecognizerDelegate>{
     id playerTimeObserver;
+    
+    CGFloat viewW;
+    CGFloat viewH;
 }
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -67,8 +70,11 @@ const CGFloat BottomH = 30;
 }
 
 - (void)initialize {
+    viewW = [UIScreen mainScreen].bounds.size.width;
+    viewH = [UIScreen mainScreen].bounds.size.height;
+    
     self.backgroundColor = [UIColor blackColor];
-    self.frame = CGRectMake(0, 20, Screen_W, Screen_W * HeightScale);
+    self.frame = CGRectMake(0, 20, viewW, viewW * HeightScale);
     self.clipsToBounds = YES;
 }
 
@@ -99,7 +105,7 @@ const CGFloat BottomH = 30;
 
 #pragma mark
 - (void)initTopView {
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, BottomH)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewW, BottomH)];
     topView.backgroundColor = [UIColor clearColor];
     [self addSubview:topView];
     _topView = topView;
@@ -115,7 +121,7 @@ const CGFloat BottomH = 30;
     [topView addSubview:nameLabel];
     nameLabel.text = self.model.fileName;
     
-//    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_H - BottomH, 0, BottomH, BottomH)];
+//    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(viewH - BottomH, 0, BottomH, BottomH)];
 //    [screenCaptureButton setTitle:@"截屏" forState:UIControlStateNormal];
 //    screenCaptureButton.titleLabel.font = [UIFont systemFontOfSize:13];
 //    [screenCaptureButton addTarget:self action:@selector(screenCapture) forControlEvents:UIControlEventTouchUpInside];
@@ -124,7 +130,7 @@ const CGFloat BottomH = 30;
 
 - (void)initBottonView {
     UIButton *lockButton = [[UIButton alloc] init];
-    lockButton.frame = CGRectMake(-BottomH * 0.5, (Screen_W - BottomH * 1.2) * 0.5, BottomH * 1.2, BottomH * 1.2);
+    lockButton.frame = CGRectMake(-BottomH * 0.5, (viewW - BottomH * 1.2) * 0.5, BottomH * 1.2, BottomH * 1.2);
     lockButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [lockButton setTitle:@"锁屏" forState:UIControlStateNormal];
     [lockButton setTitle:@"解锁" forState:UIControlStateSelected];
@@ -137,10 +143,10 @@ const CGFloat BottomH = 30;
     _lockButton.hidden = YES;
     
     //－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
-    CGFloat playerH = Screen_W * HeightScale;
+    CGFloat playerH = viewW * HeightScale;
     
     UIView *bottomView = [[UIView alloc] init];
-    bottomView.frame = CGRectMake(0, playerH - BottomH, Screen_W, BottomH);
+    bottomView.frame = CGRectMake(0, playerH - BottomH, viewW, BottomH);
     bottomView.backgroundColor = [UIColor clearColor];
     [self addSubview:bottomView];
     _bottomView = bottomView;
@@ -154,9 +160,9 @@ const CGFloat BottomH = 30;
     [bottomView addSubview:playButton];
     _playButton = playButton;
     
-    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Screen_W * 0.5, 20)];
+    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, viewW * 0.5, 20)];
     progressView.progress = 0.0;
-    progressView.center = CGPointMake(Screen_W * 0.5, height * 0.5);
+    progressView.center = CGPointMake(viewW * 0.5, height * 0.5);
     progressView.trackTintColor = [UIColor whiteColor];
     progressView.progressTintColor = KBaseBlueColor;
     [bottomView addSubview:progressView];
@@ -189,7 +195,7 @@ const CGFloat BottomH = 30;
     [bottomView addSubview:totalTime];
     _totalTimeLabel = totalTime;
     
-    UIButton *rotationButton = [[UIButton alloc] initWithFrame:CGRectMake(Screen_W - height, 0, height, height)];
+    UIButton *rotationButton = [[UIButton alloc] initWithFrame:CGRectMake(viewW - height, 0, height, height)];
     [rotationButton setImage:[UIImage imageNamed:@"playerFullScreen"] forState:UIControlStateNormal];
     [rotationButton addTarget:self action:@selector(fullScreen) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:rotationButton];
@@ -545,8 +551,8 @@ const CGFloat BottomH = 30;
     
     if (previousTraitCollection.verticalSizeClass != UIUserInterfaceSizeClassRegular) {
         //竖屏
-        self.frame = CGRectMake(0, 20, Screen_W, Screen_W * HeightScale);
-        self.playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_W * HeightScale);
+        self.frame = CGRectMake(0, 20, viewW, viewW * HeightScale);
+        self.playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
         
         if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft) {
             self.transform = CGAffineTransformMakeRotation(-M_PI_4);
@@ -561,11 +567,11 @@ const CGFloat BottomH = 30;
         self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
         if (!self.isTopViewHidden) {
-            self.topView.frame = CGRectMake(0, 0, Screen_W, BottomH);
-            self.bottomView.frame = CGRectMake(0, Screen_W * HeightScale - BottomH, Screen_W, BottomH);
+            self.topView.frame = CGRectMake(0, 0, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW * HeightScale - BottomH, viewW, BottomH);
         } else {
-            self.topView.frame = CGRectMake(0, -BottomH, Screen_W, BottomH);
-            self.bottomView.frame = CGRectMake(0, Screen_W * HeightScale, Screen_W, BottomH);
+            self.topView.frame = CGRectMake(0, -BottomH, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW * HeightScale, viewW, BottomH);
         }
         
         self.lockButton.hidden = YES;
@@ -575,8 +581,8 @@ const CGFloat BottomH = 30;
         
     } else {
         //横屏
-        self.frame = CGRectMake(0, 0, Screen_W, Screen_H);
-        self.playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_H);
+        self.frame = CGRectMake(0, 0, viewW, viewH);
+        self.playerLayer.frame = CGRectMake(0, 0, viewW, viewH);
         self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
         
         if (self.lastOrientation == UIInterfaceOrientationPortrait) {
@@ -607,25 +613,25 @@ const CGFloat BottomH = 30;
                 self.lockButton.frame = lockButtonRect;
             }];
             
-            self.topView.frame = CGRectMake(0, 20, Screen_W, BottomH);
-            self.bottomView.frame = CGRectMake(0, Screen_H - BottomH, Screen_W, BottomH);
+            self.topView.frame = CGRectMake(0, 20, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewH - BottomH, viewW, BottomH);
             
         } else {
-            self.topView.frame = CGRectMake(0, -BottomH, Screen_W, BottomH);
-            self.bottomView.frame = CGRectMake(0, Screen_H, Screen_W, BottomH);
+            self.topView.frame = CGRectMake(0, -BottomH, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewH, viewW, BottomH);
         }
     }
     
-    self.loadingProgress.bounds = CGRectMake(0, 0, Screen_W * 0.5, 20);
-    self.loadingProgress.center = CGPointMake(Screen_W * 0.5, BottomH * 0.5);
+    self.loadingProgress.bounds = CGRectMake(0, 0, viewW * 0.5, 20);
+    self.loadingProgress.center = CGPointMake(viewW * 0.5, BottomH * 0.5);
     
-    self.playSlider.bounds = CGRectMake(0, 0, Screen_W * 0.5, 20);
-    self.playSlider.center = CGPointMake(Screen_W * 0.5, BottomH * 0.5);
+    self.playSlider.bounds = CGRectMake(0, 0, viewW * 0.5, 20);
+    self.playSlider.center = CGPointMake(viewW * 0.5, BottomH * 0.5);
     
     self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingProgress.frame) + 10, 0, 60, BottomH);
     self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingProgress.frame) - 70, 0, 60, BottomH);
     
-    self.rotationButton.frame = CGRectMake(Screen_W - BottomH, 0, BottomH, BottomH);
+    self.rotationButton.frame = CGRectMake(viewW - BottomH, 0, BottomH, BottomH);
     
     [self delayExecute];
 }
@@ -645,7 +651,7 @@ const CGFloat BottomH = 30;
         _player = [AVPlayer playerWithPlayerItem:_playerItem];
         
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = CGRectMake(0, 0, Screen_W, Screen_W * 0.5625);
+        _playerLayer.frame = CGRectMake(0, 0, viewW, viewW * 0.5625);
         _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     }
     return _playerLayer;

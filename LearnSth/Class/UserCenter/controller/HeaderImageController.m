@@ -22,11 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"头像";
-    self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeHeaderImage)];
     
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H)];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     _imageView.backgroundColor = [UIColor blackColor];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.image = [UserManager shareManager].headerImage;

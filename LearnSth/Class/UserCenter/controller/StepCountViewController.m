@@ -33,8 +33,6 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self.view addSubview:self.stepLabel];
     [self.view addSubview:self.stepCountView];
@@ -200,7 +198,7 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
 #pragma makr
 - (StepCountView *)stepCountView {
     if (!_stepCountView) {
-        _stepCountView = [[StepCountView alloc] initWithFrame:CGRectMake(0, 30, Screen_W, Screen_W * 0.6)];
+        _stepCountView = [[StepCountView alloc] initWithFrame:CGRectMake(0, 94, self.view.frame.size.width, self.view.frame.size.width * 0.6)];
         _stepCountView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
     return _stepCountView;
@@ -208,7 +206,7 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
 
 - (UILabel *)stepLabel {
     if (!_stepLabel) {
-        _stepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Screen_W, 30)];
+        _stepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 30)];
         _stepLabel.font = [UIFont boldSystemFontOfSize:16];
         _stepLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }

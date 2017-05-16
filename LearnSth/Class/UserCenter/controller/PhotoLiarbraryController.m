@@ -24,8 +24,6 @@ static NSString *Identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"相册";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self checkAuthorizationStatusOnPhotos];
 }
@@ -124,7 +122,7 @@ static NSString *Identifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_H - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

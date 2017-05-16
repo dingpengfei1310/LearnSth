@@ -35,9 +35,9 @@ static NSString *headerReuseIdentifier = @"headerCell";
 const NSInteger liveColumn = 2;
 
 @implementation HomeViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.title = @"🍎";
     self.page = 1;
     [self.view addSubview:self.collectionView];
@@ -176,13 +176,14 @@ const NSInteger liveColumn = 2;
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat itemWidth = (Screen_W - (liveColumn + 1) * 10) / liveColumn;
+        CGFloat viewW = self.view.frame.size.width;
+        CGFloat itemWidth = (viewW - (liveColumn + 1) * 10) / liveColumn;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, 0, Screen_W, Screen_H - 113);
+        CGRect collectionViewRect = CGRectMake(0, 64, viewW, self.view.frame.size.height - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];
@@ -228,7 +229,8 @@ const NSInteger liveColumn = 2;
 
 - (BannerScrollView *)bannerScrollView {
     if (!_bannerScrollView) {
-        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_W, Screen_W * 0.24)];
+        CGFloat viewW = self.view.frame.size.width;
+        _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW * 0.24)];
         
         __weak typeof(self) weakSelf = self;
         _bannerScrollView.imageClickBlock = ^(NSInteger index) {
