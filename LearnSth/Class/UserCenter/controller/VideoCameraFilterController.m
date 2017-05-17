@@ -18,7 +18,8 @@
 }
 
 @property (nonatomic, strong) GPUImageView *videoView;
-@property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
+//@property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
+@property (nonatomic, strong) GPUImageStillCamera *videoCamera;
 @property (nonatomic, strong) GPUImageMovieWriter *movieWriter;
 
 @property (nonatomic, strong) GPUImageFilter *currentFilter;
@@ -30,6 +31,10 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, assign) BOOL isRecording;
+
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UILabel *watermarkLabel;
+@property (nonatomic, assign) CGRect watermarkFrame;
 
 @end
 
@@ -100,7 +105,10 @@
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     self.movieName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     
-    _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, viewW, viewH)];
+    _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewH)];
+//    _videoView.frame = CGRectMake(0, 0, viewH, viewW);
+//    _videoView.transform = CGAffineTransformMakeRotation(M_PI_2);
+//    _videoView.center = CGPointMake(viewW * 0.5, viewH * 0.5);
     [self.videoCamera addTarget:_videoView];//默认，不带滤镜
     [self.view addSubview:_videoView];
     
@@ -110,6 +118,7 @@
 
 #pragma mark
 - (void)dismiss:(UIButton *)sender {
+    self.videoCamera.delegate = nil;
     [self.videoCamera stopCameraCapture];
     if (self.FilterMovieDismissBlock) {
         self.FilterMovieDismissBlock();
@@ -192,6 +201,20 @@
         
         [self.currentFilter addTarget:self.videoView];
         [self.videoCamera addTarget:self.currentFilter];
+        
+//        //水印
+//        GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
+//        GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+//        blendFilter.mix = 1.0;
+//        
+//        [self.currentFilter addTarget:blendFilter];
+//        [element addTarget:blendFilter];
+//        [blendFilter addTarget:self.videoView];
+//        [self.videoCamera addTarget:self.currentFilter];
+//        [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+//            [element updateWithTimestamp:time];
+//        }];
+        
     }
 }
 
@@ -228,9 +251,27 @@
         if (self.currentFilter) {
             [self.currentFilter removeAllTargets];
             
-            [self.currentFilter addTarget:self.movieWriter];
-            [self.currentFilter addTarget:self.videoView];
+//            [self.currentFilter addTarget:self.movieWriter];
+//            [self.currentFilter addTarget:self.videoView];
+//            [self.videoCamera addTarget:self.currentFilter];
+            
+            //水印
+            GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
+            GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+            blendFilter.mix = 1.0;
+            
+            [self.currentFilter addTarget:blendFilter];
+            [element addTarget:blendFilter];
+            [blendFilter addTarget:self.movieWriter];
+            [blendFilter addTarget:self.videoView];
             [self.videoCamera addTarget:self.currentFilter];
+            
+            __weak typeof(self) wSelf = self;
+            [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+//                wSelf.watermarkLabel.transform = CGAffineTransformRotate(wSelf.watermarkLabel.transform, M_PI / 360);
+                wSelf.watermarkLabel.frame = wSelf.watermarkFrame;
+                [element updateWithTimestamp:time];
+            }];
             
         } else {
             [self.videoCamera addTarget:self.videoView];
@@ -249,7 +290,9 @@
         [self.movieWriter finishRecording];
         _isRecording = NO;
         
-        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:nil operation:^{
+        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:^{
+            [self dismiss:nil];
+        } operation:^{
             [self loading];
             UISaveVideoAtPathToSavedPhotosAlbum(moviePath, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
 //            [self compressVideo];//压缩视频
@@ -286,6 +329,38 @@
         second = totalSecond % 60;
         self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
     }
+    
+    [self progressBuffer];
+}
+
+- (void)progressBuffer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+        [self.videoCamera capturePhotoAsImageProcessedUpToFilter:self.currentFilter withOrientation:UIImageOrientationUp withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+            
+            CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace
+                                                      context:[CIContext contextWithOptions:nil]
+                                                      options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+            NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:processedImage.CGImage]];
+            
+            if (features.count > 0) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CIFaceFeature *feature = [features objectAtIndex:0];
+                    CGRect faceRect = feature.bounds;
+                    CGFloat faceW = faceRect.size.width;
+                    
+                    CGSize viewSize = self.view.frame.size;
+                    CGFloat cgW = CGImageGetWidth(processedImage.CGImage);
+                    CGFloat cgH = CGImageGetHeight(processedImage.CGImage);
+                    
+                    CGFloat scale = viewSize.width / cgW;
+                    
+                    CGRect rect = CGRectMake(faceRect.origin.x * scale, (cgH - faceRect.origin.y - faceW) * scale, faceW * scale, faceW * scale);
+                    self.watermarkFrame = rect;
+                });
+            }
+        }];
+    });
 }
 
 - (void)compressVideo {
@@ -310,10 +385,11 @@
 }
 
 #pragma mark
-- (GPUImageVideoCamera *)videoCamera {
+- (GPUImageStillCamera *)videoCamera {
     if (!_videoCamera) {
-        _videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPresetHigh cameraPosition:AVCaptureDevicePositionBack];
+        _videoCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetHigh cameraPosition:AVCaptureDevicePositionBack];
         _videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+        _videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     }
     return _videoCamera;
 }
@@ -323,7 +399,7 @@
         NSString *moviePath = [KDocumentPath stringByAppendingPathComponent:self.movieName];
         NSURL *url = [NSURL fileURLWithPath:moviePath];
 //        1920x1080 1280x720  960x540 640x480
-        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeMake(720.0, 1280.0)];
+        _movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:url size:CGSizeMake(1080, 1920)];
         _movieWriter.encodingLiveVideo = YES;
     }
     return _movieWriter;
@@ -364,7 +440,8 @@
 - (CADisplayLink *)displayLink {
     if (!_displayLink) {
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refreshTime)];
-        _displayLink.frameInterval = 60;
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        _displayLink.frameInterval = 20;
     }
     return _displayLink;
 }
@@ -378,6 +455,27 @@
         _timeLabel.font = [UIFont boldSystemFontOfSize:18];
     }
     return _timeLabel;
+}
+
+- (UIView *)contentView {
+    if (!_contentView) {
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 40) / 2, self.view.frame.size.width, 40)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(90, 300, 100, 100)];
+        label.layer.borderColor = [UIColor redColor].CGColor;
+        label.layer.borderWidth = 2.0;
+        label.layer.masksToBounds = YES;
+        label.numberOfLines = 0;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont boldSystemFontOfSize:20];
+        label.textColor = [UIColor redColor];
+//        label.text = @"长风破浪会有时，直挂云帆济沧海";
+        _watermarkLabel = label;
+        
+        [_contentView addSubview:label];
+    }
+    
+    return _contentView;
 }
 
 - (void)didReceiveMemoryWarning {
