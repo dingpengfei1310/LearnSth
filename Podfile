@@ -14,4 +14,5 @@ target 'LearnSth' do
     pod 'AsyncDisplayKit'
     pod 'SocketRocket'
     pod 'FLAnimatedImage'
+    pod 'SDWebImage/GIF'
 end

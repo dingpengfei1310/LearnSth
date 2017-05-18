@@ -8,6 +8,8 @@
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
+
+#import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
 
 @interface HeaderImageViewCell()
@@ -45,12 +47,12 @@
 }
 
 - (void)setUserModel:(UserManager *)userModel {
-    if (userModel.headerImageData) {
-        FLAnimatedImage *animationImage = [FLAnimatedImage animatedImageWithGIFData:userModel.headerImageData];
-        if (animationImage) {
-            _headerImageView.animatedImage = animationImage;
+    NSData *data = userModel.headerImageData;
+    if (data) {
+        if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+            _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
         } else {
-            _headerImageView.image = [UIImage imageWithData:userModel.headerImageData];
+            _headerImageView.image = [UIImage imageWithData:data];
         }
     } else {
         _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];

@@ -9,12 +9,15 @@
 #import "HeaderImageController.h"
 #import "UserManager.h"
 
+#import <FLAnimatedImage.h>
+#import <NSData+ImageContentType.h>
+
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
 
 @interface HeaderImageController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) FLAnimatedImageView *imageView;
 
 @end
 
@@ -26,9 +29,19 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeHeaderImage)];
     
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width)];
-    _imageView.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5);
+    CGFloat viewW = self.view.frame.size.width;
+    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW)];
+    _imageView.center = CGPointMake(viewW * 0.5, self.view.frame.size.height * 0.5);
     _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
+    
+    NSData *data = [UserManager shareManager].headerImageData;
+    if (data) {
+        if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+            _imageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+        } else {
+            _imageView.image = [UIImage imageWithData:data];
+        }
+    }
     [self.view addSubview:_imageView];
 }
 

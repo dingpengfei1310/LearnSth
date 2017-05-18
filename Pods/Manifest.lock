@@ -57,6 +57,9 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SDWebImage/GIF (4.0.0):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - SocketRocket (0.5.1)
   - SSZipArchive (1.7)
   - UICountingLabel (1.2.0)
@@ -72,6 +75,7 @@ DEPENDENCIES:
   - PLPlayerKit
   - PNChart
   - SDWebImage
+  - SDWebImage/GIF
   - SocketRocket
   - SSZipArchive
 
@@ -95,6 +99,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: d9a440ba11f68b3bd53e045cfa6e6669e112d2c1
+PODFILE CHECKSUM: 9d54bc18c26e5673121f03053164fb6e58716924
 
 COCOAPODS: 1.2.0

@@ -14,6 +14,8 @@
 #import "UserQRCodeController.h"
 
 #import "UserManager.h"
+
+#import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -120,12 +122,12 @@ static NSString *Identifier = @"cell";
             headerImageView.layer.cornerRadius = 3;
             [cell.contentView addSubview:headerImageView];
             
-            if ([UserManager shareManager].headerImageData) {
-                FLAnimatedImage *animationImage = [FLAnimatedImage animatedImageWithGIFData:[UserManager shareManager].headerImageData];
-                if (animationImage) {
-                    headerImageView.animatedImage = animationImage;
+            NSData *data = [UserManager shareManager].headerImageData;
+            if (data) {
+                if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+                    headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
                 } else {
-                    headerImageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
+                    headerImageView.image = [UIImage imageWithData:data];
                 }
             }
         }
