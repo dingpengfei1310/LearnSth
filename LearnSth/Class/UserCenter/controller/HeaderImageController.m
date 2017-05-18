@@ -8,6 +8,7 @@
 
 #import "HeaderImageController.h"
 #import "UserManager.h"
+
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
 
@@ -22,13 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"头像";
-    
+    self.view.backgroundColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeHeaderImage)];
     
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
-    _imageView.backgroundColor = [UIColor blackColor];
-    _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    _imageView.image = [UserManager shareManager].headerImage;
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width)];
+    _imageView.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5);
+    _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
     [self.view addSubview:_imageView];
 }
 
@@ -103,12 +103,17 @@
 }
 
 #pragma mark
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(nonnull UIViewController *)viewController animated:(BOOL)animated {
+    viewController.automaticallyAdjustsScrollViewInsets = YES;
+    viewController.view.backgroundColor = [UIColor blackColor];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = info[UIImagePickerControllerEditedImage];
     self.imageView.image = image;
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [UserManager shareManager].headerImage = image;
+        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
         [UserManager updateUser];
         if (self.ChangeHeaderImageBlock) {
             self.ChangeHeaderImageBlock();

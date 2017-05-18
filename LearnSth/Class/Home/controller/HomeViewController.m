@@ -32,7 +32,7 @@
 
 static NSString *reuseIdentifier = @"cell";
 static NSString *headerReuseIdentifier = @"headerCell";
-const NSInteger liveColumn = 2;
+const  NSInteger liveColumn = 2;
 
 @implementation HomeViewController
 
@@ -45,10 +45,6 @@ const NSInteger liveColumn = 2;
     [self navigationBackItem];
     [self getHomeAdBanner];
 //    [self refreshLiveData];
-}
-
-- (void)closeField:(UIButton *)button {
-    button.selected = !button.selected;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -120,7 +116,6 @@ const NSInteger liveColumn = 2;
 }
 
 - (void)homeRightItemClick {
-//    self.collectionView.hidden = !self.collectionView.hidden;
 }
 
 #pragma mark

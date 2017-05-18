@@ -12,7 +12,7 @@
 
 #import <GPUImage.h>
 
-@interface VideoCameraFilterController () {
+@interface VideoCameraFilterController ()<GPUImageVideoCameraDelegate> {
     CGFloat viewW;
     CGFloat viewH;
 }
@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, assign) BOOL isRecording;
+@property (nonatomic, assign) NSInteger timeCount;
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UILabel *watermarkLabel;
@@ -106,9 +107,6 @@
     self.movieName = [NSString stringWithFormat:@"%@-FilterVideo.mov",dateString];
     
     _videoView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewH)];
-//    _videoView.frame = CGRectMake(0, 0, viewH, viewW);
-//    _videoView.transform = CGAffineTransformMakeRotation(M_PI_2);
-//    _videoView.center = CGPointMake(viewW * 0.5, viewH * 0.5);
     [self.videoCamera addTarget:_videoView];//默认，不带滤镜
     [self.view addSubview:_videoView];
     
@@ -199,21 +197,24 @@
         [self.currentFilter removeAllTargets];
         [self.videoCamera removeAllTargets];
         
-        [self.currentFilter addTarget:self.videoView];
+//        [self.currentFilter addTarget:self.videoView];
+//        [self.videoCamera addTarget:self.currentFilter];
+        
+        //水印
+        GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
+        GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+        blendFilter.mix = 1.0;
+        
+        [self.currentFilter addTarget:blendFilter];
+        [element addTarget:blendFilter];
+        [blendFilter addTarget:self.videoView];
         [self.videoCamera addTarget:self.currentFilter];
         
-//        //水印
-//        GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
-//        GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-//        blendFilter.mix = 1.0;
-//        
-//        [self.currentFilter addTarget:blendFilter];
-//        [element addTarget:blendFilter];
-//        [blendFilter addTarget:self.videoView];
-//        [self.videoCamera addTarget:self.currentFilter];
-//        [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
-//            [element updateWithTimestamp:time];
-//        }];
+        __weak typeof(self) wSelf = self;
+        [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+            wSelf.watermarkLabel.frame = wSelf.watermarkFrame;
+            [element updateWithTimestamp:time];
+        }];
         
     }
 }
@@ -251,27 +252,27 @@
         if (self.currentFilter) {
             [self.currentFilter removeAllTargets];
             
-//            [self.currentFilter addTarget:self.movieWriter];
-//            [self.currentFilter addTarget:self.videoView];
-//            [self.videoCamera addTarget:self.currentFilter];
-            
-            //水印
-            GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
-            GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-            blendFilter.mix = 1.0;
-            
-            [self.currentFilter addTarget:blendFilter];
-            [element addTarget:blendFilter];
-            [blendFilter addTarget:self.movieWriter];
-            [blendFilter addTarget:self.videoView];
+            [self.currentFilter addTarget:self.movieWriter];
+            [self.currentFilter addTarget:self.videoView];
             [self.videoCamera addTarget:self.currentFilter];
             
-            __weak typeof(self) wSelf = self;
-            [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
-//                wSelf.watermarkLabel.transform = CGAffineTransformRotate(wSelf.watermarkLabel.transform, M_PI / 360);
-                wSelf.watermarkLabel.frame = wSelf.watermarkFrame;
-                [element updateWithTimestamp:time];
-            }];
+//            //水印
+//            GPUImageUIElement *element = [[GPUImageUIElement alloc] initWithView:self.contentView];
+//            GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+//            blendFilter.mix = 1.0;
+//            
+//            [self.currentFilter addTarget:blendFilter];
+//            [element addTarget:blendFilter];
+//            [blendFilter addTarget:self.movieWriter];
+//            [blendFilter addTarget:self.videoView];
+//            [self.videoCamera addTarget:self.currentFilter];
+//            
+//            __weak typeof(self) wSelf = self;
+//            [self.currentFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *output, CMTime time) {
+////                wSelf.watermarkLabel.transform = CGAffineTransformRotate(wSelf.watermarkLabel.transform, M_PI / 360);
+//                wSelf.watermarkLabel.frame = wSelf.watermarkFrame;
+//                [element updateWithTimestamp:time];
+//            }];
             
         } else {
             [self.videoCamera addTarget:self.videoView];
@@ -329,8 +330,6 @@
         second = totalSecond % 60;
         self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
     }
-    
-    [self progressBuffer];
 }
 
 - (void)progressBuffer {
@@ -343,24 +342,30 @@
             NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:processedImage.CGImage]];
             
             if (features.count > 0) {
+                CIFaceFeature *feature = [features objectAtIndex:0];
+                CGRect faceRect = feature.bounds;
+                CGFloat faceW = faceRect.size.width;
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    CIFaceFeature *feature = [features objectAtIndex:0];
-                    CGRect faceRect = feature.bounds;
-                    CGFloat faceW = faceRect.size.width;
-                    
-                    CGSize viewSize = self.view.frame.size;
-                    CGFloat cgW = CGImageGetWidth(processedImage.CGImage);
-                    CGFloat cgH = CGImageGetHeight(processedImage.CGImage);
-                    
-                    CGFloat scale = viewSize.width / cgW;
-                    
-                    CGRect rect = CGRectMake(faceRect.origin.x * scale, (cgH - faceRect.origin.y - faceW) * scale, faceW * scale, faceW * scale);
-                    self.watermarkFrame = rect;
-                });
+                CGSize viewSize = self.view.frame.size;
+                CGFloat cgW = CGImageGetWidth(processedImage.CGImage);
+                CGFloat cgH = CGImageGetHeight(processedImage.CGImage);
+                
+                CGFloat scale = viewSize.width / cgW;
+                
+                CGRect rect = CGRectMake(faceRect.origin.x * scale, (cgH - faceRect.origin.y - faceW) * scale, faceW * scale, faceW * scale);
+                self.watermarkFrame = rect;
             }
         }];
     });
+}
+
+#pragma mark - GPUImageVideoCameraDelegate
+- (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer {
+    _timeCount++;
+    if (_timeCount % 19 == 0) {
+        _timeCount = 0;
+        [self progressBuffer];
+    }
 }
 
 - (void)compressVideo {
@@ -390,6 +395,7 @@
         _videoCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetHigh cameraPosition:AVCaptureDevicePositionBack];
         _videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
         _videoCamera.horizontallyMirrorFrontFacingCamera = YES;
+        _videoCamera.delegate = self;
     }
     return _videoCamera;
 }
@@ -469,6 +475,7 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:20];
         label.textColor = [UIColor redColor];
+        label.text = @"😄";
 //        label.text = @"长风破浪会有时，直挂云帆济沧海";
         _watermarkLabel = label;
         

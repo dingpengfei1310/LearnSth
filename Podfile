@@ -13,4 +13,5 @@ target 'LearnSth' do
     pod 'PNChart'
     pod 'AsyncDisplayKit'
     pod 'SocketRocket'
+    pod 'FLAnimatedImage'
 end

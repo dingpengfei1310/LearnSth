@@ -31,6 +31,7 @@ PODS:
   - CocoaLumberjack/Default (3.1.0)
   - CocoaLumberjack/Extensions (3.1.0):
     - CocoaLumberjack/Default
+  - FLAnimatedImage (1.0.12)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - AFNetworking
   - AsyncDisplayKit
   - CocoaHTTPServer
+  - FLAnimatedImage
   - FMDB
   - GPUImage
   - Masonry
@@ -79,6 +81,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
@@ -92,6 +95,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: a780a4281d4d2d856ba2170343be0e8d352b1f46
+PODFILE CHECKSUM: d9a440ba11f68b3bd53e045cfa6e6669e112d2c1
 
 COCOAPODS: 1.2.0

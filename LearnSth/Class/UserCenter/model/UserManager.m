@@ -58,19 +58,6 @@ static dispatch_once_t allocOnceToken;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-//    UserManager *userModel = [UserManager allocWithZone:zone];
-//
-//    unsigned int outCount;
-//    objc_property_t *propertities = class_copyPropertyList([UserManager class], &outCount);
-//    for (int i = 0; i < outCount; i++) {
-//        objc_property_t property = propertities[i];
-//        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-//
-//        [userModel setValue:[self valueForKey:propertyName] forKey:propertyName];
-//    }
-//    free(propertities);
-//    return userModel;
-    
     return userModel;
 }
 
@@ -104,15 +91,12 @@ static dispatch_once_t allocOnceToken;
             AddressModel *model = [userModel valueForKey:propertyName];
             NSDictionary *addressDict = [model dictionary];
             [mutDict setValue:addressDict forKey:propertyName];
-        } else if ([propertyName isEqualToString:@"headerImage"]) {
-            UIImage *image = userModel.headerImage;
-            NSData *data = UIImagePNGRepresentation(image);
-            [mutDict setValue:data forKey:propertyName];
         } else {
             [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
         }
     }
     free(propertities);
+    
     return [NSDictionary dictionaryWithDictionary:mutDict];
 }
 

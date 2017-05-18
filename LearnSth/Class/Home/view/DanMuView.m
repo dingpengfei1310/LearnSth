@@ -11,6 +11,8 @@
 
 @interface DanMuView ()
 
+//@property (nonatomic, strong) NSMutableArray *danmuArray;
+
 @end
 
 @implementation DanMuView
@@ -35,21 +37,29 @@
     self.userInteractionEnabled = NO;
 }
 
--(void)setModel:(DanMuModel *)model {
-    int viewHeight = self.frame.size.height;
+- (void)addDanmu:(DanMuModel *)model {
+    _danmuCount++;
+    
+    int viewHeight = self.frame.size.height - 30;
+    CGFloat viewY = 0;
     
     switch (model.position) {
-        case DanMuPositionTop:
+        case DanMuPositionTop: {
             viewHeight = viewHeight * 0.33 - 30;
             break;
+        }
             
-        case DanMuPositionMiddle:
+        case DanMuPositionMiddle: {
             viewHeight = viewHeight * 0.66 - 30;
+            viewY = viewHeight * 0.33;
             break;
+        }
             
-        case DanMuPositionBottom:
+        case DanMuPositionBottom: {
             viewHeight = viewHeight - 30;
+            viewY = viewHeight * 0.66;
             break;
+        }
             
         default:
             break;
@@ -59,22 +69,23 @@
     NSDictionary *att = @{NSFontAttributeName:font};
     CGSize size = [model.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:att context:nil].size;
     
-    int originY = arc4random() % viewHeight;
+    int originY = MAX(viewY, arc4random() % viewHeight);
     UILabel *danMuLabel = [[UILabel alloc] initWithFrame:CGRectMake(Screen_W, originY, size.width, size.height)];
+    danMuLabel.backgroundColor = KBackgroundColor;
     danMuLabel.font = font;
     danMuLabel.text = model.text;
     danMuLabel.textColor = model.textColor;
     [self addSubview:danMuLabel];
     
-    [UIView animateWithDuration:4.0
+    [UIView animateWithDuration:(3 + size.width / 200)
                           delay:0.0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          danMuLabel.frame = CGRectMake(-size.width, originY, size.width, size.height);
                      } completion:^(BOOL finished) {
                          [danMuLabel removeFromSuperview];
+                         _danmuCount--;
                      }];
-    
 }
 
 @end

@@ -91,7 +91,11 @@ const CGFloat fieldHeight = 35;
     if ([self.accountField.text validatePhoneNumber]) {
         if (![[UserManager loadUser].mobile isEqualToString:self.accountField.text]) {
             [UserManager shareManager].mobile = self.accountField.text;
-            [UserManager shareManager].headerImage = [UIImage imageNamed:@"defaultHeader"];
+            [UserManager shareManager].username = @"匿名用户";
+            
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"catDance.gif" ofType:nil];
+            [UserManager shareManager].headerImageData = [NSData dataWithContentsOfFile:path];
+            
             [UserManager updateUser];
         }
         

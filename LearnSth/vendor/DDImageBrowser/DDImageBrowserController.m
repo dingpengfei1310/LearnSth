@@ -121,9 +121,6 @@ const CGFloat minLineSpacing = 40;
     DDImageBrowserCell *cell = (DDImageBrowserCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
     cell.image = image;
 //    self.thumbImages[index] = image;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        cell.image = image;
-//    });
 }
 
 #pragma mark
@@ -214,7 +211,7 @@ const CGFloat minLineSpacing = 40;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self showAlertWithTitle:@"警告" message:@"收到内存警告" operationTitle:@"确定" operation:nil];
+//    [self showAlertWithTitle:@"警告" message:@"收到内存警告" operationTitle:@"确定" operation:nil];
 }
 
 @end

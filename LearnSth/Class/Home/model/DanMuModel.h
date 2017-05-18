@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, DanMuPosition) {
-    DanMuPositionDefault,
+    DanMuPositionDefault = 0,
     DanMuPositionTop,
     DanMuPositionMiddle,
     DanMuPositionBottom

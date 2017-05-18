@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *mobile;
 
-@property (nonatomic, strong) UIImage *headerImage;
+@property (nonatomic, strong) NSData *headerImageData;
 
 @property (nonatomic, strong) AddressModel *address;
 

@@ -66,6 +66,9 @@
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */; };
 		1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */; };
+		1B1C75421ECD78390060D824 /* catDance.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B1C75411ECD78390060D824 /* catDance.gif */; };
+		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
+		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -75,8 +78,6 @@
 		1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */; };
 		1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */; };
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
-		1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */; };
-		1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
 		1B2E587D1EBC76E800770953 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58741EBC76E800770953 /* DownloadManager.m */; };
@@ -289,6 +290,11 @@
 		1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
 		1B139C101EAEE8BC003F678E /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
 		1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
+		1B1C75411ECD78390060D824 /* catDance.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = catDance.gif; sourceTree = "<group>"; };
+		1B1C75431ECD87AD0060D824 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1B1C75441ECD87AD0060D824 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1B1C75451ECD87AD0060D824 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		1B1C75461ECD87AD0060D824 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -309,10 +315,6 @@
 		1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		1B2D07E81DE7E8DB0034C22D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		1B2D07E91DE7E8DB0034C22D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
-		1B2D07EB1DE7E8DB0034C22D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		1B2D07ED1DE7E8DB0034C22D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1B2D07F01DE7E8DB0034C22D /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		1B2D07F11DE7E8DB0034C22D /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
@@ -800,6 +802,17 @@
 			path = QRCode;
 			sourceTree = "<group>";
 		};
+		1B1C75491ECD87B00060D824 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C75431ECD87AD0060D824 /* LoginViewController.h */,
+				1B1C75441ECD87AD0060D824 /* LoginViewController.m */,
+				1B1C75451ECD87AD0060D824 /* RegisterViewController.h */,
+				1B1C75461ECD87AD0060D824 /* RegisterViewController.m */,
+			);
+			name = login;
+			sourceTree = "<group>";
+		};
 		1B2D07BC1DE7E8DB0034C22D /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -890,7 +903,6 @@
 			isa = PBXGroup;
 			children = (
 				1B2D07DD1DE7E8DB0034C22D /* controller */,
-				1B2D07EA1DE7E8DB0034C22D /* login */,
 				1B2D07EF1DE7E8DB0034C22D /* model */,
 				1B2D07F21DE7E8DB0034C22D /* view */,
 			);
@@ -903,6 +915,7 @@
 				CF7096121E0D7ECD00A821C8 /* address */,
 				1B04FA221E52F20A00CDFC80 /* cameraVideo */,
 				1B02B2FF1E973F51002610FD /* card-QRCode */,
+				1B1C75491ECD87B00060D824 /* login */,
 				CF7096111E0D792400A821C8 /* photos */,
 				1B11327B1EA46C2C00323189 /* setting */,
 				1B1132771EA464FB00323189 /* userInfo */,
@@ -910,17 +923,6 @@
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
 			);
 			path = controller;
-			sourceTree = "<group>";
-		};
-		1B2D07EA1DE7E8DB0034C22D /* login */ = {
-			isa = PBXGroup;
-			children = (
-				1B2D07EB1DE7E8DB0034C22D /* LoginViewController.h */,
-				1B2D07EC1DE7E8DB0034C22D /* LoginViewController.m */,
-				1B2D07ED1DE7E8DB0034C22D /* RegisterViewController.h */,
-				1B2D07EE1DE7E8DB0034C22D /* RegisterViewController.m */,
-			);
-			path = login;
 			sourceTree = "<group>";
 		};
 		1B2D07EF1DE7E8DB0034C22D /* model */ = {
@@ -1168,6 +1170,7 @@
 		CFEAB8C11DE97E7700CB9DDF /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1B1C75411ECD78390060D824 /* catDance.gif */,
 				CFEAB8C21DE97E7700CB9DDF /* province.db */,
 				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
 				1B4043611E5AD5D500C14EE6 /* Localizable.strings */,
@@ -1304,6 +1307,7 @@
 			files = (
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
+				1B1C75421ECD78390060D824 /* catDance.gif in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
@@ -1454,10 +1458,8 @@
 				1B099C861DE7E57400161396 /* MJRefreshAutoStateFooter.m in Sources */,
 				CFEAB8CE1DE9849700CB9DDF /* CityViewController.m in Sources */,
 				1B4630DC1E669703000260D2 /* UIViewController+Tool.m in Sources */,
-				1B2D08071DE7E8DB0034C22D /* LoginViewController.m in Sources */,
 				1B099C901DE7E57400161396 /* UIScrollView+MJExtension.m in Sources */,
 				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
-				1B2D08081DE7E8DB0034C22D /* RegisterViewController.m in Sources */,
 				1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */,
 				1B099C961DE7E57400161396 /* TAPageControl.m in Sources */,
 				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,
@@ -1467,6 +1469,7 @@
 				1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */,
 				1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */,
 				1B4630DF1E669703000260D2 /* SQLManager.m in Sources */,
+				1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */,
 				1B2E58811EBC76E800770953 /* VideoPlayerView.m in Sources */,
 				1B041A861E9B5790002E3F54 /* IDCardViewController.m in Sources */,
 				1BEED0FE1E56D2920072BFB9 /* GPUImageBeautifyFilter.m in Sources */,
@@ -1493,6 +1496,7 @@
 				1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
+				1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */,
 				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,
 				1B099C8F1DE7E57400161396 /* NSBundle+MJRefresh.m in Sources */,
 				1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */,

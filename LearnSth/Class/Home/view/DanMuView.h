@@ -12,7 +12,8 @@
 
 @interface DanMuView : UIView
 
-@property (nonatomic, copy) NSString *addString;
-@property (nonatomic, strong) DanMuModel *model;
+@property (nonatomic, assign, readonly) NSInteger danmuCount;
+
+- (void)addDanmu:(DanMuModel *)model;
 
 @end

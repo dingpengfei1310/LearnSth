@@ -8,10 +8,11 @@
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
+#import <FLAnimatedImage.h>
 
 @interface HeaderImageViewCell()
 
-@property (strong, nonatomic) UIImageView *headerImageView;
+@property (strong, nonatomic) FLAnimatedImageView *headerImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *mobileLabel;
 
@@ -21,15 +22,15 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = [UIColor whiteColor];
-        
         [self initSubViews];
     }
     return self;
 }
 
 - (void)initSubViews {
-    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
+    self.backgroundColor = [UIColor whiteColor];
+    
+    _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
     _headerImageView.layer.masksToBounds = YES;
     _headerImageView.layer.cornerRadius = 3;
     [self.contentView addSubview:_headerImageView];
@@ -44,7 +45,17 @@
 }
 
 - (void)setUserModel:(UserManager *)userModel {
-    _headerImageView.image = userModel.headerImage ? :[UIImage imageNamed:@"defaultHeader"];
+    if (userModel.headerImageData) {
+        FLAnimatedImage *animationImage = [FLAnimatedImage animatedImageWithGIFData:userModel.headerImageData];
+        if (animationImage) {
+            _headerImageView.animatedImage = animationImage;
+        } else {
+            _headerImageView.image = [UIImage imageWithData:userModel.headerImageData];
+        }
+    } else {
+        _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
+    }
+    
     _nameLabel.text = userModel.username;
     _mobileLabel.text = userModel.mobile;
 }

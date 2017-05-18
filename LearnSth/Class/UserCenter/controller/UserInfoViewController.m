@@ -14,6 +14,7 @@
 #import "UserQRCodeController.h"
 
 #import "UserManager.h"
+#import <FLAnimatedImage.h>
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -111,14 +112,23 @@ static NSString *Identifier = @"cell";
         }
         cell.textLabel.text = self.dataArray[indexPath.row];
         
-        UIImageView *headerImageView = [cell viewWithTag:101];
+        FLAnimatedImageView *headerImageView = [cell viewWithTag:101];
         if (!headerImageView) {
-            headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 80, 10, 50, 50)];
+            headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 80, 10, 50, 50)];
+            headerImageView.tag = 101;
             headerImageView.layer.masksToBounds = YES;
             headerImageView.layer.cornerRadius = 3;
             [cell.contentView addSubview:headerImageView];
+            
+            if ([UserManager shareManager].headerImageData) {
+                FLAnimatedImage *animationImage = [FLAnimatedImage animatedImageWithGIFData:[UserManager shareManager].headerImageData];
+                if (animationImage) {
+                    headerImageView.animatedImage = animationImage;
+                } else {
+                    headerImageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
+                }
+            }
         }
-        headerImageView.image = [UserManager shareManager].headerImage;
         
         return cell;
     } else {
