@@ -53,8 +53,8 @@
     [[UINavigationBar appearance] setBackIndicatorImage:image];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
     
-    FPSLabel *fpsLabel = [[FPSLabel alloc] initWithFrame:CGRectMake(Screen_W * 0.5 - 50, 0, 20, 20)];
-    [self.window addSubview:fpsLabel];
+//    FPSLabel *fpsLabel = [[FPSLabel alloc] initWithFrame:CGRectMake(Screen_W * 0.5 - 50, 0, 20, 20)];
+//    [self.window addSubview:fpsLabel];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {

@@ -23,7 +23,6 @@
 + (void)deallocManager;
 
 + (void)updateUser;
-+ (UserManager *)loadUser;
 
 @end
 

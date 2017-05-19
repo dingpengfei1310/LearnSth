@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, PhotoCollectionSubtype){
+    PhotoCollectionSubtypeDefault = 0,
+    PhotoCollectionSubtypeImage,
+    PhotoCollectionSubtypeVideo
+};
+
 @interface PhotoLiarbraryController : UIViewController
+
+@property (nonatomic, assign) PhotoCollectionSubtype subtype;
 
 @end

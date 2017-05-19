@@ -60,6 +60,8 @@
     
     _nameLabel.text = userModel.username;
     _mobileLabel.text = userModel.mobile;
+    
+    self.detailTextLabel.text = userModel.mobile ? @"" : @"请先登录";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

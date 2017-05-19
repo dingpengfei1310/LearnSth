@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "UserViewController.h"
 
+#import "PhotoLiarbraryController.h"
 #import "PhotosCollectionController.h"
 #import "VideoCameraController.h"
 #import "VideoCameraFilterController.h"
@@ -17,7 +18,7 @@
 #import "CustomizeButton.h"
 #import <Photos/Photos.h>
 
-#import "AFNetworkReachabilityManager.h"
+#import <AFNetworkReachabilityManager.h>
 
 @interface RootViewController ()
 
@@ -181,18 +182,11 @@
 }
 
 - (void)localVideo {
-    PHFetchResult *collection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumVideos options:nil];
-    PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection[0] options:nil];
+    PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+    controller.subtype = PhotoCollectionSubtypeVideo;
+    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismiss)];
     
-    PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
-    controller.title = @"相册视频";
-    controller.fetchResult = fetchResult;
-    controller.scanType = VideoScanTypeFilter;//滤镜播放
-//    controller.scanType = VideoScanTypeTransform;//添加滤镜
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-    
-    UIImage *image = [UIImage imageNamed:@"deleteButtonImage"];
-    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     [self presentViewController:nvc animated:YES completion:nil];
 }
 

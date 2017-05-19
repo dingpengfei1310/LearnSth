@@ -55,13 +55,24 @@ static NSString *Identifier = @"Cell";
     
     [self getSmartAlbum];
     [self.view addSubview:self.tableView];
+    
+    if (self.subtype == PhotoCollectionSubtypeImage) {
+        
+    } else if (self.subtype == PhotoCollectionSubtypeVideo) {
+        PHAssetCollection *assetCollection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumVideos options:nil].firstObject;
+        PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        
+        PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
+        controller.fetchResult = fetchResult;
+        controller.title = assetCollection.localizedTitle;
+        [self.navigationController pushViewController:controller animated:NO];
+    }
 }
 
 #pragma mark
 - (void)getSmartAlbum {
     // 列出所有智能相册
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    
 //    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
     
     self.smartAlbum = smartAlbums;
@@ -76,7 +87,7 @@ static NSString *Identifier = @"Cell";
 - (void)getAllPhotosOrderByTime {
     // 获取所有资源的集合，并按资源的创建时间排序
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
-    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     
     PHFetchResult *assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
     
@@ -110,8 +121,6 @@ static NSString *Identifier = @"Cell";
     
     PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
-    
-//    controller.assetCollection = assetCollection;
     
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
     controller.fetchResult = fetchResult;

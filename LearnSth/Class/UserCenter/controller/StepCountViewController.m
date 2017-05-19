@@ -12,7 +12,8 @@
 #import <HealthKit/HealthKit.h>
 
 typedef NS_ENUM(NSInteger, StepCountDateType) {
-    StepCountDateTypeWeek = 0,
+    StepCountDateTypeRecent = 0,
+    StepCountDateTypeWeek,
     StepCountDateTypeMonth,
     StepCountDateTypeYear,
 };
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
     [self.view addSubview:self.stepLabel];
     [self.view addSubview:self.stepCountView];
     
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"最近10天",@"本月",@"本年"]];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"最近30天",@"本年"]];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(segmentedClick:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = segmentedControl;
@@ -81,10 +82,10 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
 #pragma mark
 - (void)segmentedClick:(UISegmentedControl *)segmentedControl {
     if (segmentedControl.selectedSegmentIndex == 0) {
-        _dateType = StepCountDateTypeWeek;
+        _dateType = StepCountDateTypeRecent;
         
     } else if (segmentedControl.selectedSegmentIndex == 1) {
-        _dateType = StepCountDateTypeMonth;
+        _dateType = StepCountDateTypeYear;
         
     } else if (segmentedControl.selectedSegmentIndex == 2) {
         _dateType = StepCountDateTypeYear;
@@ -166,7 +167,11 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
     NSDate *startDate = [calendar dateFromComponents:components];
     NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
     
-    if (type == StepCountDateTypeWeek) {
+    if (type == StepCountDateTypeRecent) {
+        //最近30天
+        startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-29 toDate:startDate options:0];
+        
+    } else if (type == StepCountDateTypeWeek) {
 //        NSInteger weekday = components.weekday;
         startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:-9 toDate:startDate options:0];
         

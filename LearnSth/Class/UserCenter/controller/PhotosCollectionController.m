@@ -147,7 +147,7 @@ const NSInteger photoColumn = 4;
     }
     
     CGImageRef cgImage = CGImageCreateWithImageInRect(originalImage.CGImage, rect);
-    UIImage *resultImage = [UIImage imageWithCGImage:cgImage];;
+    UIImage *resultImage = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
     
     return resultImage;

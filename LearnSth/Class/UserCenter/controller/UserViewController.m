@@ -27,6 +27,7 @@ static NSString *HeaderIdentifier = @"headerCell";
 static NSString *Identifier = @"cell";
 
 @implementation UserViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"🏓";
@@ -41,35 +42,35 @@ static NSString *Identifier = @"cell";
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
     
-    if ([CustomiseTool isLogin]) {
-        [UserManager loadUser];
-    }
 }
 
 #pragma mark
 - (void)loginClick {
-    if (![CustomiseTool isLogin]) {
+    if ([CustomiseTool isLogin]) {
+        UserInfoViewController *controller = [[UserInfoViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        controller.ChangeHeaderImageBlock = ^{
+            [self reloadHeaderCell];
+        };
+        controller.ChangeUsernameBlock = ^{
+            [self reloadHeaderCell];
+        };
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.DismissBlock = ^ {
-            if ([CustomiseTool isLogin]) {
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            [self reloadHeaderCell];
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
         [self presentViewController:nvc animated:YES completion:nil];
-        
-    } else {
-        UserInfoViewController *controller = [[UserInfoViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        controller.ChangeHeaderImageBlock = ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-        };
-        controller.ChangeUsernameBlock = ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-        };
-        [self.navigationController pushViewController:controller animated:YES];
     }
+}
+
+//刷新头像cell
+- (void)reloadHeaderCell {
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -93,11 +94,8 @@ static NSString *Identifier = @"cell";
             cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:HeaderIdentifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+        
         cell.userModel = [UserManager shareManager];
-        cell.detailTextLabel.text = nil;
-        if (![CustomiseTool isLogin]) {
-            cell.detailTextLabel.text = @"请先登录";
-        }
         
         return cell;
     } else {
@@ -146,7 +144,7 @@ static NSString *Identifier = @"cell";
     } else if (indexPath.section == 2) {
         SettingViewController *controller = [[SettingViewController alloc] init];
         controller.LogoutBlock = ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self reloadHeaderCell];
         };
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];

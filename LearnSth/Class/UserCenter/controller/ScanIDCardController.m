@@ -29,6 +29,7 @@
 @end
 
 @implementation ScanIDCardController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

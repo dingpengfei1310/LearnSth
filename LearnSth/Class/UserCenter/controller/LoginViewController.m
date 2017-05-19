@@ -33,10 +33,9 @@ const CGFloat fieldHeight = 35;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
     
     [self initSubView];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];;
 }
 
 - (void)initSubView {
@@ -89,7 +88,7 @@ const CGFloat fieldHeight = 35;
 
 - (void)loginClick {
     if ([self.accountField.text validatePhoneNumber]) {
-        if (![[UserManager loadUser].mobile isEqualToString:self.accountField.text]) {
+        if (![[UserManager shareManager].mobile isEqualToString:self.accountField.text]) {
             [UserManager shareManager].mobile = self.accountField.text;
             [UserManager shareManager].username = @"匿名用户";
             

@@ -25,6 +25,7 @@
 @end
 
 @implementation VideoPlayerController
+
 - (BOOL)prefersStatusBarHidden {
     if (self.isLandscape) {
         return self.statusBarHidden;

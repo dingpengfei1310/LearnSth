@@ -26,10 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"WiFi";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
     
     [self.view addSubview:self.ipLabel];
     [self.view addSubview:self.progressView];

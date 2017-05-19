@@ -24,6 +24,10 @@ static dispatch_once_t allocOnceToken;
 + (instancetype)shareManager {
     dispatch_once(&managerOnceToken, ^{
         userModel = [[UserManager alloc] init];
+        if ([CustomiseTool isLogin]) {
+            NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
+            [userModel setValuesForKeysWithDictionary:dict];
+        }
     });
     
     return userModel;
@@ -38,14 +42,6 @@ static dispatch_once_t allocOnceToken;
 + (void)updateUser {
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager shareManager] dictionary]];
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserManagerCache];
-}
-
-+ (UserManager *)loadUser {
-    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
-    UserManager *user = [UserManager shareManager];
-    [user setValuesForKeysWithDictionary:dict];
-    
-    return user;
 }
 
 #pragma mark

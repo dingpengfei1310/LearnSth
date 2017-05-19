@@ -262,7 +262,7 @@
 
 - (AVCaptureMovieFileOutput *)movieFileOutput {
     if (!_movieFileOutput) {
-        _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];;
+        _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
     }
     return _movieFileOutput;
 }

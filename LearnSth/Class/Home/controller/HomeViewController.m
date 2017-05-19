@@ -79,7 +79,7 @@ const  NSInteger liveColumn = 2;
             
 //            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"orderid > 2"];
 //            self.bannerList = [adArray filteredArrayUsingPredicate:predicate];
-            self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];;
+            self.bannerList = [[NSArray alloc] initWithArray:adArray copyItems:YES];
             
             NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:self.bannerList.count];
             [self.bannerList enumerateObjectsUsingBlock:^(ADModel * obj, NSUInteger idx, BOOL * stop) {
