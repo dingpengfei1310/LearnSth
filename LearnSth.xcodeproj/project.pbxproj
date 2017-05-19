@@ -94,13 +94,13 @@
 		1B3491F31EC582A6002483CC /* StepCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491F21EC582A6002483CC /* StepCountView.m */; };
 		1B3620501E164E75004C9FF9 /* AddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36204F1E164E75004C9FF9 /* AddressDataSource.m */; };
 		1B36FD481EC4370C00FBA5CD /* StepCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */; };
-		1B36FD4B1EC43B5F00FBA5CD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */; };
 		1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A8D1EA09D9300A927E4 /* zocr0.lib */; };
 		1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A8F1EA09D9300A927E4 /* libexidcardios.a */; };
 		1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */; };
 		1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A981EA0C82500A927E4 /* SettingViewController.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
+		1B40D0021ECEF24A00B65DD7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */; };
 		1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C01E669703000260D2 /* NSString+Tool.m */; };
 		1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C21E669703000260D2 /* UICollectionView+Tool.m */; };
 		1B4630D91E669703000260D2 /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C41E669703000260D2 /* UIColor+Tool.m */; };
@@ -346,8 +346,6 @@
 		1B36204F1E164E75004C9FF9 /* AddressDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataSource.m; sourceTree = "<group>"; };
 		1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepCountViewController.h; sourceTree = "<group>"; };
 		1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepCountViewController.m; sourceTree = "<group>"; };
-		1B36FD491EC43B5E00FBA5CD /* LearnSth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
-		1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1B389A8B1EA09D9300A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
 		1B389A8D1EA09D9300A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
 		1B389A8E1EA09D9300A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
@@ -360,6 +358,8 @@
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B4043651E5AD6AF00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		1B40D0031ECEF61A00B65DD7 /* LearnSth.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
 		1B4630971E665D55000260D2 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		1B4630BF1E669703000260D2 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B4630C01E669703000260D2 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 				1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */,
 				1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
-				1B36FD4B1EC43B5F00FBA5CD /* HealthKit.framework in Frameworks */,
+				1B40D0021ECEF24A00B65DD7 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1095,7 +1095,7 @@
 		1BF7F6C51D92492200F8E5B1 /* LearnSth */ = {
 			isa = PBXGroup;
 			children = (
-				1B36FD491EC43B5E00FBA5CD /* LearnSth.entitlements */,
+				1B40D0031ECEF61A00B65DD7 /* LearnSth.entitlements */,
 				1BF7F6FA1D924BE500F8E5B1 /* AppDelegate */,
 				1B2D07BC1DE7E8DB0034C22D /* Class */,
 				1B4630BD1E669703000260D2 /* Tools */,
@@ -1181,7 +1181,7 @@
 		F88C22F665434B573DDEE7FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1B36FD4A1EC43B5F00FBA5CD /* HealthKit.framework */,
+				1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */,
 				1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */,
 				1B1148E51D9A499A004817B1 /* libz.tbd */,
 				F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */,

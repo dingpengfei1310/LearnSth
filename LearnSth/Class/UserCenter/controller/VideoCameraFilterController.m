@@ -312,6 +312,27 @@
     [self dismiss:nil];
 }
 
+- (void)compressVideo {
+    NSString *path = [KDocumentPath stringByAppendingPathComponent:self.movieName];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
+    
+    NSString *compressName = [NSString stringWithFormat:@"Compress%@",self.movieName];
+    NSString *compressPath = [KDocumentPath stringByAppendingPathComponent:compressName];
+    
+    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
+    exportSession.outputURL = [NSURL fileURLWithPath:compressPath];
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        AVAssetExportSessionStatus status = exportSession.status;
+        NSString *message = (status == AVAssetExportSessionStatusCompleted) ? @"压缩成功" : @"压缩失败";
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            [self showSuccess:message];
+        });
+    }];
+}
+
 - (void)refreshTime {
     CMTime time = self.movieWriter.duration;
     NSInteger totalSecond = time.value / time.timescale;
@@ -332,61 +353,14 @@
     }
 }
 
-- (void)progressBuffer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-        [self.videoCamera capturePhotoAsImageProcessedUpToFilter:self.currentFilter withOrientation:UIImageOrientationUp withCompletionHandler:^(UIImage *processedImage, NSError *error) {
-            
-            CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace
-                                                      context:[CIContext contextWithOptions:nil]
-                                                      options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-            NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:processedImage.CGImage]];
-            
-            if (features.count > 0) {
-                CIFaceFeature *feature = [features objectAtIndex:0];
-                CGRect faceRect = feature.bounds;
-                CGFloat faceW = faceRect.size.width;
-                
-                CGSize viewSize = self.view.frame.size;
-                CGFloat cgW = CGImageGetWidth(processedImage.CGImage);
-                CGFloat cgH = CGImageGetHeight(processedImage.CGImage);
-                
-                CGFloat scale = viewSize.width / cgW;
-                
-                CGRect rect = CGRectMake(faceRect.origin.x * scale, (cgH - faceRect.origin.y - faceW) * scale, faceW * scale, faceW * scale);
-                self.watermarkFrame = rect;
-            }
-        }];
-    });
-}
-
 #pragma mark - GPUImageVideoCameraDelegate
 - (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-    _timeCount++;
-    if (_timeCount % 19 == 0) {
-        _timeCount = 0;
-        [self progressBuffer];
+    CGRect rect = self.watermarkFrame;
+    rect.origin.x += 2;
+    if (rect.origin.x >= 320) {
+        rect.origin.x = 0;
     }
-}
-
-- (void)compressVideo {
-    NSString *path = [KDocumentPath stringByAppendingPathComponent:self.movieName];
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
-    
-    NSString *compressName = [NSString stringWithFormat:@"Compress%@",self.movieName];
-    NSString *compressPath = [KDocumentPath stringByAppendingPathComponent:compressName];
-    
-    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
-    exportSession.outputURL = [NSURL fileURLWithPath:compressPath];
-    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
-    [exportSession exportAsynchronouslyWithCompletionHandler:^{
-        AVAssetExportSessionStatus status = exportSession.status;
-        NSString *message = (status == AVAssetExportSessionStatusCompleted) ? @"压缩成功" : @"压缩失败";
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self hideHUD];
-            [self showSuccess:message];
-        });
-    }];
+    self.watermarkFrame = rect;
 }
 
 #pragma mark
@@ -467,7 +441,7 @@
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 //        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.frame.size.height - 40) / 2, self.view.frame.size.width, 40)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(90, 300, 100, 100)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 50, 50)];
         label.layer.borderColor = [UIColor redColor].CGColor;
         label.layer.borderWidth = 2.0;
         label.layer.masksToBounds = YES;
@@ -475,9 +449,10 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:20];
         label.textColor = [UIColor redColor];
-        label.text = @"😄";
+//        label.text = @"😄";
 //        label.text = @"长风破浪会有时，直挂云帆济沧海";
         _watermarkLabel = label;
+        _watermarkFrame = _watermarkLabel.frame;
         
         [_contentView addSubview:label];
     }
