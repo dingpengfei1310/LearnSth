@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
+#import "GameViewController.h"
 
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
@@ -63,7 +64,7 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)navigationBackItem {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(homeRightItemClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(homeRightItemClick)];
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";
@@ -115,6 +116,9 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)homeRightItemClick {
+    GameViewController *controller = [[GameViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark

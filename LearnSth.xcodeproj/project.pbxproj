@@ -80,6 +80,7 @@
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
+		1B2D1F2D1ED2C6FE004ED03C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */; };
 		1B2E587D1EBC76E800770953 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58741EBC76E800770953 /* DownloadManager.m */; };
 		1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58761EBC76E800770953 /* DownloadModel.m */; };
 		1B2E587F1EBC76E800770953 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58781EBC76E800770953 /* DownloadViewController.m */; };
@@ -319,6 +320,8 @@
 		1B2D07F11DE7E8DB0034C22D /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
+		1B2D1F2B1ED2C6FE004ED03C /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1B2E58731EBC76E800770953 /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
 		1B2E58741EBC76E800770953 /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 		1B2E58751EBC76E800770953 /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
@@ -861,6 +864,8 @@
 				1BB786A21E8E2D5B00185869 /* RotationViewController.h */,
 				1BB786A31E8E2D5B00185869 /* RotationViewController.m */,
 				1BB786A41E8E2D5B00185869 /* RotationViewController.xib */,
+				1B2D1F2B1ED2C6FE004ED03C /* GameViewController.h */,
+				1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1479,6 +1484,7 @@
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
 				1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */,
+				1B2D1F2D1ED2C6FE004ED03C /* GameViewController.m in Sources */,
 				1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B113ADF1EC1B7CF00B3482D /* VideoProcessWithFilter.m in Sources */,

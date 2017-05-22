@@ -21,6 +21,7 @@
 
 @property (nonatomic, assign) BOOL isFillColor;
 
+//长按显示
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, strong) CAShapeLayer *xLayer;
 @property (nonatomic, strong) CAShapeLayer *yLayer;
