@@ -7,7 +7,7 @@
 //
 
 #import "UserViewController.h"
-#import "PhotoLiarbraryController.h"
+#import "PhotoLibraryController.h"
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
@@ -59,7 +59,7 @@ static NSString *Identifier = @"cell";
         
     } else {
         LoginViewController *controller = [[LoginViewController alloc] init];
-        controller.DismissBlock = ^ {
+        controller.LoginDismissBlock = ^ {
             [self reloadHeaderCell];
             [self dismissViewControllerAnimated:YES completion:nil];
         };
@@ -131,9 +131,16 @@ static NSString *Identifier = @"cell";
         
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+            PhotoLibraryController *controller = [[PhotoLibraryController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
+            
+//            controller.subtype = PhotoCollectionSubtypeImage;
+//            controller.LibraryDismissBlock = ^{
+//                [self dismissViewControllerAnimated:YES completion:nil];
+//            };
+//            UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+//            [self presentViewController:nvc animated:YES completion:nil];
             
         } else if (indexPath.row == 1) {
             StepCountViewController *controller = [[StepCountViewController alloc] init];

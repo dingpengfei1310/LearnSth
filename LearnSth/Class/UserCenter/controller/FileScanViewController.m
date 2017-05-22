@@ -11,10 +11,9 @@
 #import <QuickLook/QLPreviewController.h>
 #import "DDPreviewItem.h"
 
-#import "VideoProcessWithFilter.h"
-
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
+@property (nonatomic, strong) NSString *previewItemPath;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *previewItems;
 
@@ -23,6 +22,9 @@
 @property (nonatomic, assign) BOOL editing;
 @property (nonatomic, strong) NSMutableArray *selectArray;//删除用
 
+@property (nonatomic, strong) UIToolbar *toolBar;
+@property (nonatomic, strong) UIBarButtonItem *deleteItem;
+
 @end
 
 @implementation FileScanViewController
@@ -30,55 +32,66 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"文件";
+    _selectArray = [NSMutableArray array];
+    _previewItemPath = KDocumentPath;
     
     [self loadPreviewItems];
     [self.view addSubview:self.tableView];
+    [self initToolBar];
+}
+
+- (void)initToolBar {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(tableViewEditing:)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(tableViewEditing:)];
-    _selectArray = [NSMutableArray array];
+    _toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.frame.size.width, 49)];
+    _toolBar.hidden = YES;
+    [self.view addSubview:_toolBar];
+    
+    _deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelectArray)];
+    _deleteItem.tintColor = [UIColor grayColor];
+    _deleteItem.enabled = NO;
+    _toolBar.items = @[_deleteItem];
 }
 
 #pragma mark
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
-    if (self.previewItems.count == 0) {
-        return;
-    }
-    BOOL flag = [buttonItem.title isEqualToString:@"编辑"];
-    NSString *title = flag ? @"完成" : @"编辑";
-    buttonItem.title = title;
+    self.editing = !self.editing;
+    _toolBar.hidden = !self.editing;
+    CGRect rect = self.tableView.frame;
+    UIBarButtonSystemItem systemItem;
     
-    if (flag) {
-        UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteSelectArray)];
-        self.navigationItem.rightBarButtonItems = @[buttonItem,deleteItem];
+    if (self.editing) {
+        rect.size.height -= 49;
+        systemItem = UIBarButtonSystemItemCancel;
     } else {
-        self.navigationItem.rightBarButtonItems = nil;
-        self.navigationItem.rightBarButtonItem = buttonItem;
+        rect.size.height += 49;
+        systemItem = UIBarButtonSystemItemEdit;
         [self.selectArray removeAllObjects];
     }
     
-    self.editing = flag;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(tableViewEditing:)];
+    self.tableView.frame = rect;
     [self.tableView reloadData];
 }
 
 - (void)deleteSelectArray {
     if (self.selectArray.count > 0) {
-        
-        [self showAlertWithTitle:@"提示" message:@"确定删除选中的文件吗?"
-                          cancel:^{
-                          } destructive:^{
-                              
-                              for (NSIndexPath *indexPath in self.selectArray) {
-                                  NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
-                                  
-                                  NSFileManager *fileManager = [NSFileManager defaultManager];
-                                  [fileManager removeItemAtPath:filePath error:NULL];
-                              }
-                              
-                              [self.selectArray removeAllObjects];
-                              
-                              [self loadPreviewItems];
-                              [self.tableView reloadData];
-                          }];
+        [self showAlertWithTitle:@"提示"
+                         message:@"确定删除选中的文件吗?"
+                          cancel:nil
+                     destructive:^{
+                         for (NSIndexPath *indexPath in self.selectArray) {
+                             NSString *filePath = [_previewItemPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
+                             
+                             NSFileManager *fileManager = [NSFileManager defaultManager];
+                             [fileManager removeItemAtPath:filePath error:NULL];
+                         }
+                         
+                         [self.selectArray removeAllObjects];
+                         
+                         [self loadPreviewItems];
+                         [self.tableView reloadData];
+                     }];
     } else {
         [self showError:@"请选择删除的文件"];
     }
@@ -86,12 +99,11 @@
 
 - (void)loadPreviewItems {
     _previewItems = [NSMutableArray array];
-    NSString *docString = KDocumentPath;
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *files = [fileManager contentsOfDirectoryAtPath:docString error:NULL];
+    NSArray *files = [fileManager contentsOfDirectoryAtPath:_previewItemPath error:NULL];
     [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
-        NSString *filePath = [docString stringByAppendingPathComponent:obj];
+        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:obj];
         
         BOOL flag;
         if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
@@ -117,7 +129,7 @@
     NSString *fileName = self.previewItems[indexPath.row];
     cell.textLabel.text = fileName;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:fileName];
+        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:fileName];
         
         long long longSize = [CustomiseTool fileSizeAtPath:filePath];
         CGFloat cacheSize = longSize / 1024.0 / 1024.0;
@@ -145,16 +157,12 @@
         QLPreviewController *previewController = [[QLPreviewController alloc] init];
         previewController.dataSource = self;
         [self.navigationController pushViewController:previewController animated:YES];
-        
-//        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
-//        VideoProcessWithFilter *controller = [[VideoProcessWithFilter alloc] init];
-//        controller.filePath = filePath;
-//        [self.navigationController pushViewController:controller animated:YES];
-        
     } else {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.imageView.image = [UIImage imageNamed:@"switchOn"];
         [self.selectArray addObject:indexPath];
+        
+        _deleteItem.enabled = YES;
     }
 }
 
@@ -163,16 +171,18 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.imageView.image = [UIImage imageNamed:@"switchOff"];
         [self.selectArray removeObject:indexPath];
+        
+        _deleteItem.enabled = self.selectArray.count > 0;
     }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
         [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
                           cancel:^{
                               [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                           } destructive:^{
+                              NSString *filePath = [_previewItemPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
                               NSFileManager *fileManager = [NSFileManager defaultManager];
                               [fileManager removeItemAtPath:filePath error:NULL];
                               
@@ -199,7 +209,7 @@
 }
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
-    NSString *filePath = [KDocumentPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
+    NSString *filePath = [_previewItemPath stringByAppendingPathComponent:self.previewItems[self.selectIndex]];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     
     DDPreviewItem *previewItem = [[DDPreviewItem alloc] init];
@@ -213,6 +223,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStylePlain];
+        _tableView.backgroundColor = KBackgroundColor;
         _tableView.rowHeight = 55;
         _tableView.dataSource = self;
         _tableView.delegate = self;

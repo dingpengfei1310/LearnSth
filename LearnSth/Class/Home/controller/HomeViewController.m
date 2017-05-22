@@ -43,7 +43,7 @@ const  NSInteger liveColumn = 2;
     [self.view addSubview:self.collectionView];
     
     [self navigationBackItem];
-    [self getHomeAdBanner];
+//    [self getHomeAdBanner];
 //    [self refreshLiveData];
 }
 
@@ -63,8 +63,7 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)navigationBackItem {
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(homeRightItemClick)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(homeRightItemClick)];
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     backItem.title = @"";

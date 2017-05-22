@@ -28,7 +28,7 @@
     [super viewDidLoad];
     self.title = @"WiFi";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissWiFiController)];
     
     [self.view addSubview:self.ipLabel];
     [self.view addSubview:self.progressView];
@@ -39,7 +39,7 @@
 }
 
 #pragma mark
-- (void)dismiss {
+- (void)dismissWiFiController {
     WiFiUploadManager *manager = [WiFiUploadManager shareManager];
     [manager stopHTTPServer];
     self.WiFiDismissBlock();

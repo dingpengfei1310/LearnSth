@@ -103,7 +103,7 @@
 }
 
 - (void)initFilterView {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"00" style:UIBarButtonItemStylePlain target:self action:@selector(videoFilter)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(videoFilter)];
     
     _filterArray = @[
                  @{@"name":@"普通",@"className":[GPUImageBrightnessFilter class]},

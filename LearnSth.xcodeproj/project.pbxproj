@@ -74,7 +74,7 @@
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
 		1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */; };
 		1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */; };
-		1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */; };
+		1B2D08021DE7E8DB0034C22D /* PhotoLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E11DE7E8DB0034C22D /* PhotoLibraryController.m */; };
 		1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */; };
 		1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */; };
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
@@ -307,8 +307,8 @@
 		1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldPaperView.m; sourceTree = "<group>"; };
 		1B2D07DE1DE7E8DB0034C22D /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
-		1B2D07E01DE7E8DB0034C22D /* PhotoLiarbraryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLiarbraryController.h; sourceTree = "<group>"; };
-		1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLiarbraryController.m; sourceTree = "<group>"; };
+		1B2D07E01DE7E8DB0034C22D /* PhotoLibraryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryController.h; sourceTree = "<group>"; };
+		1B2D07E11DE7E8DB0034C22D /* PhotoLibraryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryController.m; sourceTree = "<group>"; };
 		1B2D07E21DE7E8DB0034C22D /* PhotosCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosCollectionController.h; sourceTree = "<group>"; };
 		1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosCollectionController.m; sourceTree = "<group>"; };
 		1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
@@ -1142,8 +1142,8 @@
 		CF7096111E0D792400A821C8 /* photos */ = {
 			isa = PBXGroup;
 			children = (
-				1B2D07E01DE7E8DB0034C22D /* PhotoLiarbraryController.h */,
-				1B2D07E11DE7E8DB0034C22D /* PhotoLiarbraryController.m */,
+				1B2D07E01DE7E8DB0034C22D /* PhotoLibraryController.h */,
+				1B2D07E11DE7E8DB0034C22D /* PhotoLibraryController.m */,
 				1B2D07E21DE7E8DB0034C22D /* PhotosCollectionController.h */,
 				1B2D07E31DE7E8DB0034C22D /* PhotosCollectionController.m */,
 			);
@@ -1465,7 +1465,7 @@
 				1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */,
 				1B099C991DE7E57400161396 /* UIView+SDExtension.m in Sources */,
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
-				1B2D08021DE7E8DB0034C22D /* PhotoLiarbraryController.m in Sources */,
+				1B2D08021DE7E8DB0034C22D /* PhotoLibraryController.m in Sources */,
 				1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */,
 				1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */,
 				1B4630DF1E669703000260D2 /* SQLManager.m in Sources */,

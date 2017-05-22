@@ -109,12 +109,11 @@ typedef void (^CancelBlock)();
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
     hud.label.font = [self hudTextFont];
-    hud.contentColor = [UIColor whiteColor];
     hud.margin = [self hudTextMargin];
     hud.mode = MBProgressHUDModeText;
+    hud.contentColor = [UIColor whiteColor];
     
 //    hud.mode = MBProgressHUDModeCustomView;
-//    hud.customView =
     
     hud.animationType = MBProgressHUDAnimationZoom;
     hud.bezelView.backgroundColor = [UIColor blackColor];

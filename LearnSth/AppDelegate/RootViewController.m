@@ -10,8 +10,7 @@
 #import "HomeViewController.h"
 #import "UserViewController.h"
 
-#import "PhotoLiarbraryController.h"
-#import "PhotosCollectionController.h"
+#import "PhotoLibraryController.h"
 #import "VideoCameraController.h"
 #import "VideoCameraFilterController.h"
 
@@ -159,11 +158,6 @@
                                                         }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        if (TARGET_OS_SIMULATOR) {
-            [self showError:@"真机使用"];
-            return;
-        }
-        
         VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
         controller.FilterMovieDismissBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -176,22 +170,21 @@
     
     [actionSheet addAction:cancelAction];
     [actionSheet addAction:videoAction];
-    [actionSheet addAction:GPUVideoAction];
+    if (!TARGET_OS_SIMULATOR) {
+        [actionSheet addAction:GPUVideoAction];
+    }
     
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 - (void)localVideo {
-    PhotoLiarbraryController *controller = [[PhotoLiarbraryController alloc] init];
+    PhotoLibraryController *controller = [[PhotoLibraryController alloc] init];
     controller.subtype = PhotoCollectionSubtypeVideo;
-    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismiss)];
-    
+    controller.LibraryDismissBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:nvc animated:YES completion:nil];
-}
-
-- (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

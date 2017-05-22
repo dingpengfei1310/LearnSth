@@ -40,7 +40,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     
     self.live = self.liveArray[self.index];
     self.title = self.live.myname;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"deleteButtonImage"] style:UIBarButtonItemStylePlain target:self action:@selector(dismisss)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
     [self.view addSubview:self.player.playerView];
     [self.view addSubview:self.backgroundImageView];
@@ -63,7 +63,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 #pragma mark
 - (void)addGesture {
-    UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismisss)];
+    UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPlayerController)];
     dismissGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:dismissGesture];
     
@@ -72,7 +72,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     [self.view addGestureRecognizer:nextGesture];
 }
 
-- (void)dismisss {
+- (void)dismissPlayerController {
     [self.player stop];
     if (self.PlayerDismissBlock) {
         self.PlayerDismissBlock();

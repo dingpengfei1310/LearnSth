@@ -1,5 +1,5 @@
 //
-//  PhotoLiarbraryTableViewController.h
+//  PhotoLibraryController.h
 //  LearnSth
 //
 //  Created by 丁鹏飞 on 16/10/11.
@@ -14,8 +14,9 @@ typedef NS_ENUM(NSInteger, PhotoCollectionSubtype){
     PhotoCollectionSubtypeVideo
 };
 
-@interface PhotoLiarbraryController : UIViewController
+@interface PhotoLibraryController : UIViewController
 
 @property (nonatomic, assign) PhotoCollectionSubtype subtype;
+@property (nonatomic, strong) void (^LibraryDismissBlock)();
 
 @end

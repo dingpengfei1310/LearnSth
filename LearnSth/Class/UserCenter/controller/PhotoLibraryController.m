@@ -1,16 +1,16 @@
 //
-//  PhotoLiarbraryTableViewController.m
+//  PhotoLibraryController.m
 //  LearnSth
 //
 //  Created by 丁鹏飞 on 16/10/11.
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import "PhotoLiarbraryController.h"
+#import "PhotoLibraryController.h"
 #import "PhotosCollectionController.h"
 #import <Photos/Photos.h>
 
-@interface PhotoLiarbraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
+@interface PhotoLibraryController ()<UITableViewDataSource,UITableViewDelegate,PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) PHFetchResult *smartAlbum;
@@ -19,11 +19,15 @@
 
 static NSString *Identifier = @"Cell";
 
-@implementation PhotoLiarbraryController
+@implementation PhotoLibraryController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"相册";
+    
+    if (self.LibraryDismissBlock) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLibraryController)];
+    }
     
     [self checkAuthorizationStatusOnPhotos];
 }
@@ -56,10 +60,17 @@ static NSString *Identifier = @"Cell";
     [self getSmartAlbum];
     [self.view addSubview:self.tableView];
     
-    if (self.subtype == PhotoCollectionSubtypeImage) {
+    if (self.subtype != 0) {
+        // 默认不会走到这里，除非指定了subtype
+        PHAssetCollectionSubtype type = PHAssetCollectionSubtypeSmartAlbumUserLibrary;
         
-    } else if (self.subtype == PhotoCollectionSubtypeVideo) {
-        PHAssetCollection *assetCollection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumVideos options:nil].firstObject;
+        if (self.subtype == PhotoCollectionSubtypeImage) {
+            type = PHAssetCollectionSubtypeSmartAlbumUserLibrary;
+        } else if (self.subtype == PhotoCollectionSubtypeVideo) {
+            type = PHAssetCollectionSubtypeSmartAlbumVideos;
+        }
+        
+        PHAssetCollection *assetCollection = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:type options:nil].firstObject;
         PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
         
         PhotosCollectionController *controller = [[PhotosCollectionController alloc] init];
@@ -69,11 +80,16 @@ static NSString *Identifier = @"Cell";
     }
 }
 
+- (void)dismissLibraryController {
+    if (self.LibraryDismissBlock) {
+        self.LibraryDismissBlock();
+    }
+}
+
 #pragma mark
 - (void)getSmartAlbum {
     // 列出所有智能相册
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-//    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
     
     self.smartAlbum = smartAlbums;
 }

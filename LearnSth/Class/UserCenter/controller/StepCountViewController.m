@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
 - (StepCountView *)stepCountView {
     if (!_stepCountView) {
         _stepCountView = [[StepCountView alloc] initWithFrame:CGRectMake(0, 94, self.view.frame.size.width, self.view.frame.size.width * 0.6)];
-        _stepCountView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _stepCountView.backgroundColor = KBackgroundColor;
     }
     return _stepCountView;
 }
@@ -213,7 +213,7 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
     if (!_stepLabel) {
         _stepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 30)];
         _stepLabel.font = [UIFont boldSystemFontOfSize:16];
-        _stepLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _stepLabel.backgroundColor = KBackgroundColor;
     }
     return _stepLabel;
 }

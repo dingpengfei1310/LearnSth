@@ -33,7 +33,7 @@ const CGFloat fieldHeight = 35;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissLoginController)];
     
     [self initSubView];
 }
@@ -80,9 +80,9 @@ const CGFloat fieldHeight = 35;
 }
 
 #pragma mark
-- (void)dismiss {
-    if (self.DismissBlock) {
-        self.DismissBlock();
+- (void)dismissLoginController {
+    if (self.LoginDismissBlock) {
+        self.LoginDismissBlock();
     }
 }
 
@@ -99,7 +99,7 @@ const CGFloat fieldHeight = 35;
         }
         
         [CustomiseTool setIsLogin:YES];
-        [self dismiss];
+        [self dismissLoginController];
         
     } else {
         [self showError:@"手机号不正确"];
