@@ -64,7 +64,7 @@ typedef void (^CancelBlock)();
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
     hud.label.font = [self hudTextFont];
-    hud.margin = [self hudTextMargin];
+    hud.margin = [self hudTextMargin] * 1.5;
     
     hud.bezelView.color = [UIColor clearColor];
     hud.animationType = MBProgressHUDAnimationZoom;
@@ -76,9 +76,10 @@ typedef void (^CancelBlock)();
     }
     
     UIButton *button = hud.button;
-    button.titleLabel.font = [self hudTextFont];
     button.layer.borderWidth = 0.0;
-    [button setTitle:@"取消" forState:UIControlStateNormal];
+    button.backgroundColor = KBaseBlueColor;
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    [button setTitle:@"X" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);

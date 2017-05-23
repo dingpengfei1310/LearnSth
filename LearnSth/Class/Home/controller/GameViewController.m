@@ -120,7 +120,10 @@
     }
     CGPoint point = [touch locationInView:_gameView];
     if (point.x >=0 && point.y >= 0) {
-        if (CGRectContainsPoint(_pointView.frame, point)) {
+        CGPoint center = _pointView.center;
+        CGFloat distance = (center.x - point.x) * (center.x - point.x) + (center.y - point.y) * (center.y - point.y);
+        
+        if (distance < _pointRadiu * _pointRadiu) {
             _score++;
             _scoreLabel.text = [NSString stringWithFormat:@"分数:%ld",_score];
             _pointView.hidden = YES;

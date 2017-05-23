@@ -531,7 +531,8 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     NSMutableArray *bezelConstraints = [NSMutableArray array];
     NSDictionary *metrics = @{@"margin": @(margin)};
 
-    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.button, self.bottomSpacer, nil];
+    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.bottomSpacer, nil];
+//    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.button, self.bottomSpacer, nil];
     if (self.indicator) [subviews insertObject:self.indicator atIndex:1];
 
     // Remove existing constraints
@@ -609,6 +610,13 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     
     self.paddingConstraints = [paddingConstraints copy];
     [self updatePaddingConstraints];
+    
+    NSMutableArray *arrayM = [NSMutableArray array];
+    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margin * 0.3]];
+    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeTop multiplier:1.0 constant:margin * 0.3]];
+    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:margin]];
+    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:margin]];
+    [self addConstraints:arrayM];
     
     [super updateConstraints];
 }
@@ -1116,7 +1124,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
             _color = [[UIColor blackColor] colorWithAlphaComponent:0.8];
         }
 
-        self.clipsToBounds = YES;
+//        self.clipsToBounds = YES;
 
         [self updateForBackgroundStyle];
     }
@@ -1209,6 +1217,10 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     } else {
         self.backgroundColor = self.color;
     }
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    return YES;
 }
 
 @end
@@ -1461,7 +1473,9 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     if (self.allControlEvents == 0) return CGSizeZero;
     CGSize size = [super intrinsicContentSize];
     // Add some side padding
-    size.width += 20.f;
+//    size.width += 20.f;
+    CGFloat width = MAX(size.width, size.width);
+    return CGSizeMake(width, width);
     return size;
 }
 
@@ -1474,10 +1488,10 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.layer.borderColor = color.CGColor;
 }
 
-- (void)setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-    UIColor *baseColor = [self titleColorForState:UIControlStateSelected];
-    self.backgroundColor = highlighted ? [baseColor colorWithAlphaComponent:0.1f] : [UIColor clearColor];
-}
+//- (void)setHighlighted:(BOOL)highlighted {
+//    [super setHighlighted:highlighted];
+//    UIColor *baseColor = [self titleColorForState:UIControlStateSelected];
+//    self.backgroundColor = highlighted ? [baseColor colorWithAlphaComponent:0.1f] : [UIColor clearColor];
+//}
 
 @end

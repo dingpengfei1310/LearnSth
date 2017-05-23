@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  HomeViewController.m
 //  LearnSth
 //
 //  Created by 丁鹏飞 on 16/9/21.
@@ -231,7 +231,7 @@ const  NSInteger liveColumn = 2;
         _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW * 0.24)];
         
         __weak typeof(self) weakSelf = self;
-        _bannerScrollView.imageClickBlock = ^(NSInteger index) {
+        _bannerScrollView.ImageClickBlock = ^(NSInteger index) {
             
             ADModel *model = weakSelf.bannerList[index];
             if (model.link.length > 0) {

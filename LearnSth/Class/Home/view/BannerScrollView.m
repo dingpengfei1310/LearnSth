@@ -63,7 +63,7 @@
             self.leftImageView = imageView;
         } else if (i == 1) {
             self.centerImageView = imageView;
-        } else {
+        } else if (i == 2) {
             self.rightImageView = imageView;
         }
     }
@@ -146,8 +146,8 @@
 }
 
 - (void)imageClick {
-    if (self.imageClickBlock) {
-        self.imageClickBlock(self.currentPage);
+    if (self.ImageClickBlock) {
+        self.ImageClickBlock(self.currentPage);
     }
 }
 

@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^ImageClickBlock)(NSInteger index);
-
 @interface BannerScrollView : UIView
 
 @property (nonatomic, copy) NSArray *imageArray;
-@property (nonatomic, copy) ImageClickBlock imageClickBlock;
+@property (nonatomic, copy) void (^ImageClickBlock)(NSInteger index);
 
 - (void)setUpTimer;
 - (void)invalidateTimer;
