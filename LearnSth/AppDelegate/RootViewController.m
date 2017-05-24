@@ -15,7 +15,6 @@
 #import "VideoCameraFilterController.h"
 
 #import "CustomizeButton.h"
-
 #import <AFNetworkReachabilityManager.h>
 
 @interface RootViewController ()
@@ -52,11 +51,12 @@
     
     CGFloat totalWidth = [UIScreen mainScreen].bounds.size.width;
     UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, 49)];
-    barView.backgroundColor = [UIColor whiteColor];
+    barView.backgroundColor = KBackgroundColor;
+//    barView.backgroundColor = [UIColor whiteColor];
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSArray *titles = @[@"00",@"😃",@"22"];
+    NSArray *titles = @[@"00",@"",@"22"];
     CGFloat buttonWidth = totalWidth / titles.count;
     
     for (int i = 0; i < titles.count; i++) {
@@ -73,10 +73,11 @@
         if (i == index) {
             [self buttonClick:button];
         }
-//        if (i == 1) {
-//            button.frame = CGRectMake(0, 0, 100, 100);
-//            button.center = CGPointMake(totalWidth * 0.5, 30);
-//        }
+        if (i == 1) {
+            button.frame = CGRectMake(0, 0, 80, 80);
+            button.center = CGPointMake(totalWidth * 0.5, 20);
+            [button setImage:[UIImage imageNamed:@"redSpot"] forState:UIControlStateNormal];
+        }
         
         [button setImagePoisition:ImagePoisitionTop];
         [barView addSubview:button];

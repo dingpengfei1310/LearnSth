@@ -32,7 +32,7 @@
     _qrTextField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:_qrTextField];
     
-    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 84 + CGRectGetMaxY(_qrTextField.frame), self.view.frame.size.width - 100, self.view.frame.size.width - 100)];
+    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 20 + CGRectGetMaxY(_qrTextField.frame), self.view.frame.size.width - 100, self.view.frame.size.width - 100)];
     [self.view addSubview:_qrImageView];
 }
 
