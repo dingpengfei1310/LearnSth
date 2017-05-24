@@ -51,7 +51,7 @@
     
     CGFloat totalWidth = [UIScreen mainScreen].bounds.size.width;
     UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, 49)];
-    barView.backgroundColor = KBackgroundColor;
+    barView.backgroundColor = [UIColor whiteColor];
 //    barView.backgroundColor = [UIColor whiteColor];
     [self.tabBar addSubview:barView];
     self.barView = barView;

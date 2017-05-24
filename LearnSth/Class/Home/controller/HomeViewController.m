@@ -181,7 +181,7 @@ const  NSInteger liveColumn = 2;
         CGRect collectionViewRect = CGRectMake(0, 64, viewW, self.view.frame.size.height - 113);
         _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = KBackgroundColor;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
