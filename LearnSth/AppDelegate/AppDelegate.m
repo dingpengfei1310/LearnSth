@@ -15,6 +15,7 @@
 @end
 
 @implementation AppDelegate
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -37,28 +38,23 @@
     [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                  NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-    
-//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
-//    UIImage *image = [UIImage imageNamed:@"backButtonImage"];
-//    UIImage *resizeableImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 42, 0, 42)];//26 42
-//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:resizeableImage
-//                                                      forState:UIControlStateNormal
-//                                                    barMetrics:UIBarMetricsDefault];
     
     UIImage *image = [UIImage imageNamed:@"backButtonImage"];
     [[UINavigationBar appearance] setBackIndicatorImage:image];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-5, 0) forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16]}
+                                            forState:UIControlStateNormal];
     
 //    FPSLabel *fpsLabel = [[FPSLabel alloc] initWithFrame:CGRectMake(Screen_W * 0.5 - 50, 0, 20, 20)];
 //    [self.window addSubview:fpsLabel];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    
     if (self.isAutorotate) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     }

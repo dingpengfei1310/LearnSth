@@ -64,7 +64,7 @@ typedef void (^CancelBlock)();
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.label.text = text;
     hud.label.font = [self hudTextFont];
-    hud.margin = [self hudTextMargin] * 1.5;
+    hud.margin = [self hudTextMargin] * 2.0;
     
     hud.bezelView.color = [UIColor clearColor];
     hud.animationType = MBProgressHUDAnimationZoom;
@@ -76,12 +76,10 @@ typedef void (^CancelBlock)();
     }
     
     UIButton *button = hud.button;
-    button.layer.borderWidth = 0.0;
     button.backgroundColor = KBaseBlueColor;
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    [button setTitle:@"X" forState:UIControlStateNormal];
+    UIImage *image = [UIImage imageNamed:@"closeButton"];
+    [button setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);
 }
 
@@ -113,8 +111,6 @@ typedef void (^CancelBlock)();
     hud.margin = [self hudTextMargin];
     hud.mode = MBProgressHUDModeText;
     hud.contentColor = [UIColor whiteColor];
-    
-//    hud.mode = MBProgressHUDModeCustomView;
     
     hud.animationType = MBProgressHUDAnimationZoom;
     hud.bezelView.backgroundColor = [UIColor blackColor];

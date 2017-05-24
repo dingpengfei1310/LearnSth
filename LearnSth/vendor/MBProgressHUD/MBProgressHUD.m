@@ -347,7 +347,8 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     detailsLabel.backgroundColor = [UIColor clearColor];
     _detailsLabel = detailsLabel;
 
-    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeSystem];
+//    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     button.titleLabel.font = [UIFont boldSystemFontOfSize:MBDefaultDetailsLabelFontSize];
     [button setTitleColor:defaultColor forState:UIControlStateNormal];
@@ -611,12 +612,15 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.paddingConstraints = [paddingConstraints copy];
     [self updatePaddingConstraints];
     
-    NSMutableArray *arrayM = [NSMutableArray array];
-    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margin * 0.3]];
-    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeTop multiplier:1.0 constant:margin * 0.3]];
-    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:margin]];
-    [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:margin]];
-    [self addConstraints:arrayM];
+    if (self.button.allControlEvents != 0) {
+        //按钮有事件
+        NSMutableArray *arrayM = [NSMutableArray array];
+        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margin * 0.3]];
+        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeTop multiplier:1.0 constant:margin * 0.3]];
+        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:margin]];
+        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:margin]];
+        [self addConstraints:arrayM];
+    }
     
     [super updateConstraints];
 }
@@ -1453,8 +1457,8 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        CALayer *layer = self.layer;
-        layer.borderWidth = 1.f;
+//        CALayer *layer = self.layer;
+//        layer.borderWidth = 1.f;
     }
     return self;
 }
@@ -1468,25 +1472,23 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.layer.cornerRadius = ceil(height / 2.f);
 }
 
-- (CGSize)intrinsicContentSize {
-    // Only show if we have associated control events
-    if (self.allControlEvents == 0) return CGSizeZero;
-    CGSize size = [super intrinsicContentSize];
-    // Add some side padding
-//    size.width += 20.f;
-    CGFloat width = MAX(size.width, size.width);
-    return CGSizeMake(width, width);
-    return size;
-}
+//- (CGSize)intrinsicContentSize {
+//    // Only show if we have associated control events
+//    if (self.allControlEvents == 0) return CGSizeZero;
+//    CGSize size = [super intrinsicContentSize];
+//    // Add some side padding
+////    size.width += 20.f;
+//    return size;
+//}
 
 #pragma mark - Color
 
-- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
-    [super setTitleColor:color forState:state];
-    // Update related colors
-    [self setHighlighted:self.highlighted];
-    self.layer.borderColor = color.CGColor;
-}
+//- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
+//    [super setTitleColor:color forState:state];
+//    // Update related colors
+//    [self setHighlighted:self.highlighted];
+//    self.layer.borderColor = color.CGColor;
+//}
 
 //- (void)setHighlighted:(BOOL)highlighted {
 //    [super setHighlighted:highlighted];

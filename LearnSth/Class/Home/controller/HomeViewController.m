@@ -39,13 +39,18 @@ const  NSInteger liveColumn = 2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"🍎";
+    self.navigationItem.title = @"首页";
     self.page = 1;
     [self.view addSubview:self.collectionView];
     
-    [self navigationBackItem];
 //    [self getHomeAdBanner];
 //    [self refreshLiveData];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -61,14 +66,6 @@ const  NSInteger liveColumn = 2;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.bannerScrollView invalidateTimer];
-}
-
-- (void)navigationBackItem {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(homeRightItemClick)];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    backItem.title = @"";
-    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark

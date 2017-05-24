@@ -27,7 +27,7 @@
     [super viewDidLoad];
     self.title = @"头像";
     self.view.backgroundColor = [UIColor blackColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeHeaderImage)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(changeHeaderImage)];
     
     CGFloat viewW = self.view.frame.size.width;
     _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW)];

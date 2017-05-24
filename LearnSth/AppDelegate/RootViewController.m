@@ -15,7 +15,6 @@
 #import "VideoCameraFilterController.h"
 
 #import "CustomizeButton.h"
-#import <Photos/Photos.h>
 
 #import <AFNetworkReachabilityManager.h>
 
@@ -57,10 +56,7 @@
     [self.tabBar addSubview:barView];
     self.barView = barView;
     
-    NSString *home = @"00";
-    NSString *user = @"22";
-    
-    NSArray *titles = @[home,@"",user];
+    NSArray *titles = @[@"00",@"😃",@"22"];
     CGFloat buttonWidth = totalWidth / titles.count;
     
     for (int i = 0; i < titles.count; i++) {
@@ -71,7 +67,7 @@
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
         [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:11]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         if (i == index) {
@@ -97,11 +93,7 @@
                                           NSFontAttributeName:[UIFont systemFontOfSize:12],
                                           NSForegroundColorAttributeName:KBaseBlueColor
                                           };
-    
-    NSString *home = @"00";
-    NSString *user = @"22";
-    
-    NSArray *itemTitles = @[home,user];
+    NSArray *itemTitles = @[@"00",@"22"];
     
     for (int i = 0; i < self.tabBar.items.count; i++) {
         UITabBarItem *item = self.tabBar.items[i];

@@ -30,18 +30,13 @@ static NSString *Identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"🏓";
+    self.navigationItem.title = @"我";
     
     self.dataArray = @[@[@"头像"],
                        @[@"相册",@"步数"],
                        @[@"设置"]
                        ];
     [self.view addSubview:self.tableView];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    backItem.title = @"";
-    self.navigationItem.backBarButtonItem = backItem;
-    
 }
 
 #pragma mark
