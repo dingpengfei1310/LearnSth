@@ -16,10 +16,15 @@
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
 
-@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "AnimatedTransitioning.h"
+#import "PanInteractiveTransition.h"
+
+@interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+
+@property (nonatomic, strong) PanInteractiveTransition *transition;
 
 @end
 
@@ -59,13 +64,20 @@ static NSString *Identifier = @"cell";
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+        nvc.transitioningDelegate = self;
         [self presentViewController:nvc animated:YES completion:nil];
+        
+        if (!_transition) {
+            _transition = [[PanInteractiveTransition alloc] init];
+        }
+        [_transition setController:nvc];
     }
 }
 
 //刷新头像cell
 - (void)reloadHeaderCell {
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark
@@ -86,7 +98,8 @@ static NSString *Identifier = @"cell";
     if (indexPath.section == 0) {
         HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
         if (!cell) {
-            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:HeaderIdentifier];
+            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier:HeaderIdentifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
@@ -151,6 +164,24 @@ static NSString *Identifier = @"cell";
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    transition.operation = AnimatedTransitioningOperationPresent;
+    return transition;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    transition.operation = AnimatedTransitioningOperationDismiss;
+    return transition;
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
+    return _transition.interacting ? _transition : nil;
 }
 
 #pragma mark

@@ -38,12 +38,15 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     viewW = self.view.frame.size.width;
     viewH = self.view.frame.size.height;
     
-    self.live = self.liveArray[self.index];
-    self.title = self.live.myname;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
-    [self.view addSubview:self.player.playerView];
-    [self.view addSubview:self.backgroundImageView];
+    if (self.index < self.liveArray.count) {
+        self.live = self.liveArray[self.index];
+        self.title = self.live.myname;
+        
+        [self.view addSubview:self.player.playerView];
+        [self.view addSubview:self.backgroundImageView];
+    }
     
     [self addGesture];
 }

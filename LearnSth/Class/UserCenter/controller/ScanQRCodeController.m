@@ -7,9 +7,10 @@
 //
 
 #import "ScanQRCodeController.h"
-#import <AVFoundation/AVFoundation.h>
 #import "WebViewController.h"
 #import "UserQRCodeController.h"
+
+#import <AVFoundation/AVFoundation.h>
 
 @interface ScanQRCodeController ()<AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat scanWidth;
@@ -22,6 +23,8 @@
 @property (nonatomic, assign) CGRect scanRect;
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) UIImageView *lineImageView;
+
+@property (nonatomic, assign) BOOL isAuthorized;
 
 @end
 
@@ -38,20 +41,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.captureSession startRunning];
-    [self startDisplayLink];
-    
-    if (!self.metadataOutput.metadataObjectsDelegate) {
-        [self.metadataOutput setMetadataObjectsDelegate:self queue:self.queue];
+    if (_isAuthorized) {
+        [self.captureSession startRunning];
+        [self startDisplayLink];
+        
+        if (!self.metadataOutput.metadataObjectsDelegate) {
+            [self.metadataOutput setMetadataObjectsDelegate:self queue:self.queue];
+        }
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.captureSession stopRunning];
-    [_displayLink invalidate];
-    _displayLink = nil;
+    if (_isAuthorized) {
+        [self.captureSession stopRunning];
+        [_displayLink invalidate];
+        _displayLink = nil;
+    }
 }
 
 #pragma mark
@@ -77,6 +84,7 @@
 }
 
 - (void)showVideoPreviewLayer {
+    _isAuthorized = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(QRCode)];
     
     //创建一个预览图层
@@ -91,6 +99,8 @@
     self.metadataOutput.rectOfInterest = rectOfInterest;
     
     [self addMaskViewWithRect:_scanRect];
+    
+    [self startDisplayLink];
 }
 
 - (void)addMaskViewWithRect:(CGRect)scanRect {

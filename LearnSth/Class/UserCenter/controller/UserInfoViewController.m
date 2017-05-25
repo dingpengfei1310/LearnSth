@@ -14,11 +14,12 @@
 #import "UserQRCodeController.h"
 
 #import "UserManager.h"
+#import "AnimatedTransitioning.h"
 
 #import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
 
-@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -42,6 +43,16 @@ static NSString *Identifier = @"cell";
     [button addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.delegate = nil;
+}
+
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    self.navigationController.delegate = nil;
+//}
 
 #pragma mark
 - (void)scanQRCode {
@@ -158,6 +169,7 @@ static NSString *Identifier = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
+        self.navigationController.delegate = self;
         HeaderImageController *controller = [[HeaderImageController alloc] init];
         controller.ChangeHeaderImageBlock = ^{
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -192,6 +204,19 @@ static NSString *Identifier = @"cell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
+}
+
+#pragma mark - UINavigationControllerDelegate
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    if (operation == UINavigationControllerOperationPush) {
+        transition.operation = AnimatedTransitioningOperationPush;
+    } else {
+        transition.operation = AnimatedTransitioningOperationPop;
+    }
+    transition.transitioningType = AnimatedTransitioningTypeScale;
+    transition.originalFrame = CGRectMake(self.view.frame.size.width - 80, 84, 50, 50);
+    return transition;
 }
 
 #pragma mark

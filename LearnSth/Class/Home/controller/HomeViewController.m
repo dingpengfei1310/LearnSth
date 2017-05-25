@@ -14,13 +14,14 @@
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
 #import "UICollectionView+Tool.h"
+
 #import "ADModel.h"
 #import "LiveModel.h"
 
 #import "Aspects.h"
 #import "MJRefresh.h"
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSArray *bannerList;
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
@@ -43,7 +44,7 @@ const  NSInteger liveColumn = 2;
     self.page = 1;
     [self.view addSubview:self.collectionView];
     
-//    [self getHomeAdBanner];
+    [self getHomeAdBanner];
 //    [self refreshLiveData];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
@@ -63,8 +64,8 @@ const  NSInteger liveColumn = 2;
     } error:NULL];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.bannerScrollView invalidateTimer];
 }
 
@@ -113,9 +114,9 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)homeRightItemClick {
-    GameViewController *controller = [[GameViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+//    GameViewController *controller = [[GameViewController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark
@@ -229,7 +230,6 @@ const  NSInteger liveColumn = 2;
         
         __weak typeof(self) weakSelf = self;
         _bannerScrollView.ImageClickBlock = ^(NSInteger index) {
-            
             ADModel *model = weakSelf.bannerList[index];
             if (model.link.length > 0) {
                 WebViewController *controller = [[WebViewController alloc] init];

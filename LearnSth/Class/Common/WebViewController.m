@@ -11,7 +11,7 @@
 #import "WebProgressView.h"
 #import "UIViewController+PopAction.h"
 
-@interface WebViewController ()<WKNavigationDelegate,UIGestureRecognizerDelegate,WKScriptMessageHandler>
+@interface WebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *KWebView;
 @property (nonatomic, strong) WebProgressView *progressView;
@@ -57,6 +57,10 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 #pragma mark WKNavigationDelegate
+//- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+//    decisionHandler(WKNavigationActionPolicyAllow);
+//}
+
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
     self.progressView.progress = 0;
@@ -65,30 +69,38 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
-    
-    [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
-        if (!self.title) {
-            self.navigationItem.title = title;
-        }
-    }];
+    self.title = webView.title;
+//    [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
+//        self.title = title;
+//    }];
+//    [webView evaluateJavaScript:@"window.webkit.messageHandlers.currentCookies.postMessage(document.cookie)" completionHandler:nil];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSLog(@"WKUserContentController:%@",message);
+    [self showSuccess:message.name];
+    NSLog(@"WKUserContentController:%@",message.name);
 }
 
-#pragma mark
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return YES;
+#pragma mark WKUIDelegate
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    completionHandler();
 }
 
 #pragma mark
 - (WKWebView *)KWebView {
     if (!_KWebView) {
-        _KWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
+        WKUserContentController *userController = [[WKUserContentController alloc] init];
+        WKWebViewConfiguration *configuation = [[WKWebViewConfiguration alloc] init];
+        configuation.userContentController = userController;
+        
+        CGRect frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+        _KWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuation];
         _KWebView.navigationDelegate = self;
+        _KWebView.UIDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
         [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        
+//        [userController addScriptMessageHandler:self name:@"currentCookies"];
     }
     return _KWebView;
 }
@@ -103,6 +115,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (void)dealloc {
     [self.KWebView removeObserver:self forKeyPath:EstimatedProgress];
+    [self.KWebView.configuration.userContentController removeScriptMessageHandlerForName:@"currentCookies"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -117,7 +117,7 @@
 		1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */; };
 		1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */; };
 		1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */; };
-		1B72BEED1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */; };
+		1B72BEED1E4D9805007DFF74 /* PanInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanInteractiveTransition.m */; };
 		1B7D05651EC977A600C36FEB /* DDImageBrowserFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
@@ -395,8 +395,8 @@
 		1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveModel.m; sourceTree = "<group>"; };
 		1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionCell.h; sourceTree = "<group>"; };
 		1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionCell.m; sourceTree = "<group>"; };
-		1B72BEEB1E4D9805007DFF74 /* PanDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanDrivenInteractiveTransition.h; sourceTree = "<group>"; };
-		1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		1B72BEEB1E4D9805007DFF74 /* PanInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanInteractiveTransition.h; sourceTree = "<group>"; };
+		1B72BEEC1E4D9805007DFF74 /* PanInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanInteractiveTransition.m; sourceTree = "<group>"; };
 		1B7D05631EC977A600C36FEB /* DDImageBrowserFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserFlowLayout.h; sourceTree = "<group>"; };
 		1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserFlowLayout.m; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
@@ -839,8 +839,8 @@
 				1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */,
 				CF3959231E4CB94A0018C7D8 /* AnimatedTransitioning.h */,
 				CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */,
-				1B72BEEB1E4D9805007DFF74 /* PanDrivenInteractiveTransition.h */,
-				1B72BEEC1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m */,
+				1B72BEEB1E4D9805007DFF74 /* PanInteractiveTransition.h */,
+				1B72BEEC1E4D9805007DFF74 /* PanInteractiveTransition.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1443,7 +1443,7 @@
 				1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */,
 				1B099CA01DE7E57400161396 /* WiFiUploadManager.m in Sources */,
 				1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */,
-				1B72BEED1E4D9805007DFF74 /* PanDrivenInteractiveTransition.m in Sources */,
+				1B72BEED1E4D9805007DFF74 /* PanInteractiveTransition.m in Sources */,
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				CFF9AE7F1E333C1500397359 /* VideoCameraFilterController.m in Sources */,
 				1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */,
