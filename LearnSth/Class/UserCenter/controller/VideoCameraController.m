@@ -53,6 +53,11 @@
     
     [self.view addSubview:self.timeLabel];
     [self setButton];
+    
+//    SceneGameView *gameView = [[SceneGameView alloc] initWithFrame:CGRectMake(0, 64, 320, 320)];
+//    [self.view addSubview:gameView];
+//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"boss_attack" withExtension:@"dae"];
+//    [gameView addModelFile:url position:SCNVector3Make(0, 0, -1000)];
 }
 
 - (void)checkAuthorizationStatusOnVideo {

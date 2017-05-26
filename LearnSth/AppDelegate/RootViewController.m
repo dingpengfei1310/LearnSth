@@ -136,11 +136,11 @@
     }];
     
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        VideoCameraController *controller = [[VideoCameraController alloc] init];
-        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
-        controller.FilterMovieDismissBlock = ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
+        VideoCameraController *controller = [[VideoCameraController alloc] init];
+//        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
+//        controller.FilterMovieDismissBlock = ^{
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        };
         [self presentViewController:controller animated:YES completion:nil];
     }];
     

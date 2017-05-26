@@ -9,7 +9,9 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
+
 #import "GameViewController.h"
+#import "SceneViewController.h"
 
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
@@ -42,9 +44,9 @@ const  NSInteger liveColumn = 2;
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
     self.page = 1;
-    [self.view addSubview:self.collectionView];
+//    [self.view addSubview:self.collectionView];
     
-    [self getHomeAdBanner];
+//    [self getHomeAdBanner];
 //    [self refreshLiveData];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
@@ -117,6 +119,10 @@ const  NSInteger liveColumn = 2;
 //    GameViewController *controller = [[GameViewController alloc] init];
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
+    
+    SceneViewController *controller = [[SceneViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark

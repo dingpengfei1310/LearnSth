@@ -103,6 +103,12 @@
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
 		1B40D0021ECEF24A00B65DD7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */; };
+		1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B430D691ED7D5410097248C /* SceneGameView.m */; };
+		1B430D721ED7FABC0097248C /* boss.dae in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D6E1ED7FABC0097248C /* boss.dae */; };
+		1B430D731ED7FABC0097248C /* boss_attack.dae in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D6F1ED7FABC0097248C /* boss_attack.dae */; };
+		1B430D741ED7FABC0097248C /* demon_01_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D701ED7FABC0097248C /* demon_01_512.png */; };
+		1B430D751ED7FABC0097248C /* demon_01_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D711ED7FABC0097248C /* demon_01_normal.png */; };
+		1B430D781ED801260097248C /* SceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B430D771ED801260097248C /* SceneViewController.m */; };
 		1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C01E669703000260D2 /* NSString+Tool.m */; };
 		1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C21E669703000260D2 /* UICollectionView+Tool.m */; };
 		1B4630D91E669703000260D2 /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C41E669703000260D2 /* UIColor+Tool.m */; };
@@ -366,6 +372,14 @@
 		1B4043651E5AD6AF00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1B40D0031ECEF61A00B65DD7 /* LearnSth.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
+		1B430D681ED7D5410097248C /* SceneGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGameView.h; sourceTree = "<group>"; };
+		1B430D691ED7D5410097248C /* SceneGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneGameView.m; sourceTree = "<group>"; };
+		1B430D6E1ED7FABC0097248C /* boss.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = boss.dae; sourceTree = "<group>"; };
+		1B430D6F1ED7FABC0097248C /* boss_attack.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = boss_attack.dae; sourceTree = "<group>"; };
+		1B430D701ED7FABC0097248C /* demon_01_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demon_01_512.png; sourceTree = "<group>"; };
+		1B430D711ED7FABC0097248C /* demon_01_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demon_01_normal.png; sourceTree = "<group>"; };
+		1B430D761ED801260097248C /* SceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneViewController.h; sourceTree = "<group>"; };
+		1B430D771ED801260097248C /* SceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneViewController.m; sourceTree = "<group>"; };
 		1B4630971E665D55000260D2 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		1B4630BF1E669703000260D2 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B4630C01E669703000260D2 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
@@ -869,6 +883,8 @@
 				1BB786A41E8E2D5B00185869 /* RotationViewController.xib */,
 				1B2D1F2B1ED2C6FE004ED03C /* GameViewController.h */,
 				1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */,
+				1B430D761ED801260097248C /* SceneViewController.h */,
+				1B430D771ED801260097248C /* SceneViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -903,6 +919,8 @@
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
 				1BFEA60D1EA738EA0033CD15 /* DanMuView.h */,
 				1BFEA60E1EA738EA0033CD15 /* DanMuView.m */,
+				1B430D681ED7D5410097248C /* SceneGameView.h */,
+				1B430D691ED7D5410097248C /* SceneGameView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1005,6 +1023,17 @@
 				1B389A8D1EA09D9300A927E4 /* zocr0.lib */,
 			);
 			path = dicts;
+			sourceTree = "<group>";
+		};
+		1B430D6D1ED7FABC0097248C /* boss */ = {
+			isa = PBXGroup;
+			children = (
+				1B430D6E1ED7FABC0097248C /* boss.dae */,
+				1B430D6F1ED7FABC0097248C /* boss_attack.dae */,
+				1B430D701ED7FABC0097248C /* demon_01_512.png */,
+				1B430D711ED7FABC0097248C /* demon_01_normal.png */,
+			);
+			path = boss;
 			sourceTree = "<group>";
 		};
 		1B4630BD1E669703000260D2 /* Tools */ = {
@@ -1180,6 +1209,7 @@
 		CFEAB8C11DE97E7700CB9DDF /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1B430D6D1ED7FABC0097248C /* boss */,
 				1B1C75411ECD78390060D824 /* catDance.gif */,
 				CFEAB8C21DE97E7700CB9DDF /* province.db */,
 				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
@@ -1325,11 +1355,15 @@
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
 				1B2E58861EBC773900770953 /* DownloadViewCell.xib in Resources */,
+				1B430D721ED7FABC0097248C /* boss.dae in Resources */,
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
+				1B430D731ED7FABC0097248C /* boss_attack.dae in Resources */,
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
+				1B430D741ED7FABC0097248C /* demon_01_512.png in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
+				1B430D751ED7FABC0097248C /* demon_01_normal.png in Resources */,
 				1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
@@ -1497,6 +1531,7 @@
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,
+				1B430D781ED801260097248C /* SceneViewController.m in Sources */,
 				1B2E58891EBC796800770953 /* FileScanViewController.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
@@ -1507,6 +1542,7 @@
 				1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */,
 				1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */,
 				1B099C841DE7E57400161396 /* MJRefreshAutoGifFooter.m in Sources */,
+				1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */,
 				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,
