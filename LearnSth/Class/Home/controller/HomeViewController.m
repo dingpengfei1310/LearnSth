@@ -44,7 +44,7 @@ const  NSInteger liveColumn = 2;
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
     self.page = 1;
-//    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.collectionView];
     
 //    [self getHomeAdBanner];
 //    [self refreshLiveData];

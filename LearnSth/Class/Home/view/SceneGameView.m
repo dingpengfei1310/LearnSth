@@ -16,7 +16,9 @@
 
 @property (nonatomic, strong) SCNView *sceneView;
 @property (nonatomic, strong) SCNScene *scene;
-@property (nonatomic, strong) SCNNode *eyeNode;
+//@property (nonatomic, strong) SCNNode *eyeNode;
+
+@property (nonatomic, strong) SCNNode *bossNode;
 
 @property (nonatomic, assign) CGPoint lastPanPoint;
 
@@ -31,7 +33,7 @@
         
         [self initialize];
         
-        [self addGesture];
+        [self addSomeGestures];
         [self addModelFile];
     }
     return self;
@@ -48,11 +50,11 @@
 //    SCNBox *box = [SCNBox boxWithWidth:10 height:100 length:100 chamferRadius:1];
 //    SCNNode *node = [SCNNode nodeWithGeometry:box];
     
-    _eyeNode = [SCNNode node];
-    _eyeNode.camera = [SCNCamera camera];
-    _eyeNode.camera.automaticallyAdjustsZRange = YES;
-    
-    [self.scene.rootNode addChildNode:_eyeNode];//将创建的原子节点添加到根节点
+//    _eyeNode = [SCNNode node];
+//    _eyeNode.camera = [SCNCamera camera];
+//    _eyeNode.camera.automaticallyAdjustsZRange = YES;
+//    
+//    [self.scene.rootNode addChildNode:_eyeNode];//将创建的原子节点添加到根节点
     self.sceneView.scene = self.scene;
     
     //重力感应
@@ -80,12 +82,25 @@
 //    }];
 }
 
-- (void)addGesture {
+- (void)addSomeGestures {
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
     [self addGestureRecognizer:panGesture];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer:)];
-    [self addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureRecognizer:)];
+    [self addGestureRecognizer:singleTapGesture];
+    
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGestureRecognizer:)];
+    doubleTapGesture.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:doubleTapGesture];
+    
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureRecognizer:)];
+    [self addGestureRecognizer:pinchGesture];
+    
+    [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+    
+//    U *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer:)];
+//    tapGesture.numberOfTapsRequired = 2;
+//    [self addGestureRecognizer:tapGesture];
 }
 
 - (void)addModelFile {
@@ -93,8 +108,9 @@
     
     SCNScene *scene = [SCNScene sceneWithURL:url options:nil error:nil];
     SCNNode *node = scene.rootNode;
-    node.position = SCNVector3Make(0, 0, -5000);
-//    node.position = SCNVector3Make(100, -100, -2000);
+    _bossNode = node;
+    node.name = @"boss";
+    node.position = SCNVector3Make(0, 0, -8000);
     [self.sceneView.scene.rootNode addChildNode:node];
 }
 
@@ -106,30 +122,49 @@
     if (state == UIGestureRecognizerStateBegan) {
         self.lastPanPoint = point;
     } else if (state == UIGestureRecognizerStateChanged) {
-        SCNVector3 vector = self.eyeNode.eulerAngles;
+        SCNVector3 vector = self.bossNode.eulerAngles;
         
-//        vector.y += (point.x - self.lastPanPoint.x) / viewW * M_PI_4;
-//        vector.x += (point.y - self.lastPanPoint.y) / (viewH - 64) * M_PI_4;
-//        
-//        vector.y = MAX(vector.y, -0.23);
-//        vector.y = MIN(vector.y, 0.25);
-//        
-//        vector.x = MAX(vector.x, -0.5);
-//        vector.x = MIN(vector.x, 0.46);
-        
-        vector.z = -atan((point.x - viewW * 0.5) / (point.y - viewH * 0.5));
+        vector.z = atan((point.x - viewW * 0.5) / (point.y - viewH * 0.5));
         if (point.y - viewH * 0.5 < 0) {
             vector.z += M_PI;
         }
         
-        self.eyeNode.eulerAngles = vector;
-        
+        self.bossNode.eulerAngles = vector;
         self.lastPanPoint = point;
     }
 }
 
-- (void)tapGestureRecognizer:(UITapGestureRecognizer *)tap {
-    self.eyeNode.eulerAngles = SCNVector3Make(0, 0, 0);
+- (void)pinchGestureRecognizer:(UIPinchGestureRecognizer *)pinch {
+    if (pinch.state == UIGestureRecognizerStateChanged) {
+        SCNVector3 vector = self.bossNode.position;
+        
+        if (pinch.scale >= 1.0) {
+            vector.z = vector.z + 200 * pinch.scale;
+        } else {
+            vector.z = vector.z - 200 * pinch.scale;
+        }
+        
+        vector.z = MIN(-5000, MAX(-10000, vector.z));
+        self.bossNode.position = vector;
+    }
+}
+
+- (void)doubleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
+    self.bossNode.eulerAngles = SCNVector3Make(0, 0, 0);
+}
+
+- (void)singleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
+    CGPoint point = [tap locationInView:self];
+    //
+    SCNVector3 vector = self.bossNode.eulerAngles;
+    vector.x = point.x;
+    vector.y = point.y / viewH;
+    self.bossNode.eulerAngles = vector;
+    
+    //
+//    CGFloat rotationX = (point.y - viewH * 0.5) / viewH * 0.5;
+//    CGFloat rotationY = (point.x - viewW * 0.5) / viewW * 0.5;
+//    self.bossNode.rotation = SCNVector4Make(rotationX, rotationY, 0, 2);
 }
 
 @end
