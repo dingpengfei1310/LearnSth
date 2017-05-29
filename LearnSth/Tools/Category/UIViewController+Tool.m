@@ -27,8 +27,6 @@ typedef void (^CancelBlock)();
 
 - (void)dd_viewDidLoad {
     [self dd_viewDidLoad];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
     if (self.navigationController) {
         self.view.backgroundColor = [UIColor whiteColor];
     }

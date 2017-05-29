@@ -67,7 +67,6 @@
 		1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */; };
 		1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */; };
 		1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */; };
-		1B1C75421ECD78390060D824 /* catDance.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B1C75411ECD78390060D824 /* catDance.gif */; };
 		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
 		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
@@ -102,6 +101,9 @@
 		1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A981EA0C82500A927E4 /* SettingViewController.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
+		1B4081DC1EDBF7B200407B94 /* SceneRainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4081DB1EDBF7B200407B94 /* SceneRainView.m */; };
+		1B4081DF1EDBF7C800407B94 /* Rain.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 1B4081DD1EDBF7C800407B94 /* Rain.scnp */; };
+		1B4081E01EDBF7C800407B94 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B4081DE1EDBF7C800407B94 /* spark.png */; };
 		1B40D0021ECEF24A00B65DD7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */; };
 		1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B430D691ED7D5410097248C /* SceneGameView.m */; };
 		1B430D721ED7FABC0097248C /* boss.dae in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D6E1ED7FABC0097248C /* boss.dae */; };
@@ -300,7 +302,6 @@
 		1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
 		1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Tool.h"; sourceTree = "<group>"; };
 		1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Tool.m"; sourceTree = "<group>"; };
-		1B1C75411ECD78390060D824 /* catDance.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = catDance.gif; sourceTree = "<group>"; };
 		1B1C75431ECD87AD0060D824 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1B1C75441ECD87AD0060D824 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1B1C75451ECD87AD0060D824 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -370,6 +371,10 @@
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B4043651E5AD6AF00C14EE6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1B4081DA1EDBF7B200407B94 /* SceneRainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRainView.h; sourceTree = "<group>"; };
+		1B4081DB1EDBF7B200407B94 /* SceneRainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneRainView.m; sourceTree = "<group>"; };
+		1B4081DD1EDBF7C800407B94 /* Rain.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Rain.scnp; sourceTree = "<group>"; };
+		1B4081DE1EDBF7C800407B94 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		1B40D0011ECEF24A00B65DD7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1B40D0031ECEF61A00B65DD7 /* LearnSth.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LearnSth.entitlements; sourceTree = "<group>"; };
 		1B430D681ED7D5410097248C /* SceneGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGameView.h; sourceTree = "<group>"; };
@@ -921,6 +926,8 @@
 				1BFEA60E1EA738EA0033CD15 /* DanMuView.m */,
 				1B430D681ED7D5410097248C /* SceneGameView.h */,
 				1B430D691ED7D5410097248C /* SceneGameView.m */,
+				1B4081DA1EDBF7B200407B94 /* SceneRainView.h */,
+				1B4081DB1EDBF7B200407B94 /* SceneRainView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1023,6 +1030,15 @@
 				1B389A8D1EA09D9300A927E4 /* zocr0.lib */,
 			);
 			path = dicts;
+			sourceTree = "<group>";
+		};
+		1B4081D71EDBF6C900407B94 /* sceneModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B4081DD1EDBF7C800407B94 /* Rain.scnp */,
+				1B4081DE1EDBF7C800407B94 /* spark.png */,
+			);
+			path = sceneModel;
 			sourceTree = "<group>";
 		};
 		1B430D6D1ED7FABC0097248C /* boss */ = {
@@ -1209,8 +1225,8 @@
 		CFEAB8C11DE97E7700CB9DDF /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1B4081D71EDBF6C900407B94 /* sceneModel */,
 				1B430D6D1ED7FABC0097248C /* boss */,
-				1B1C75411ECD78390060D824 /* catDance.gif */,
 				CFEAB8C21DE97E7700CB9DDF /* province.db */,
 				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
 				1B4043611E5AD5D500C14EE6 /* Localizable.strings */,
@@ -1347,7 +1363,6 @@
 			files = (
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
-				1B1C75421ECD78390060D824 /* catDance.gif in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
@@ -1359,6 +1374,7 @@
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
 				1B430D731ED7FABC0097248C /* boss_attack.dae in Resources */,
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
+				1B4081E01EDBF7C800407B94 /* spark.png in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1B430D741ED7FABC0097248C /* demon_01_512.png in Resources */,
@@ -1366,6 +1382,7 @@
 				1B430D751ED7FABC0097248C /* demon_01_normal.png in Resources */,
 				1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
+				1B4081DF1EDBF7C800407B94 /* Rain.scnp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1563,6 +1580,7 @@
 				1B2E58801EBC76E800770953 /* VideoPlayerController.m in Sources */,
 				1BF3B3BB1E03737E0061DD5A /* SearchResultController.m in Sources */,
 				1B099C831DE7E57400161396 /* MJRefreshHeader.m in Sources */,
+				1B4081DC1EDBF7B200407B94 /* SceneRainView.m in Sources */,
 				1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */,
 				1B099C881DE7E57400161396 /* MJRefreshBackNormalFooter.m in Sources */,
 				1B099C8C1DE7E57400161396 /* MJRefreshStateHeader.m in Sources */,

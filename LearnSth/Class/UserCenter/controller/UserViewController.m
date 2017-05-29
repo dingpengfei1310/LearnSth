@@ -17,14 +17,11 @@
 #import "UserManager.h"
 
 #import "AnimatedTransitioning.h"
-#import "PanInteractiveTransition.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
-
-@property (nonatomic, strong) PanInteractiveTransition *transition;
 
 @end
 
@@ -66,11 +63,6 @@ static NSString *Identifier = @"cell";
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
         nvc.transitioningDelegate = self;
         [self presentViewController:nvc animated:YES completion:nil];
-        
-        if (!_transition) {
-            _transition = [[PanInteractiveTransition alloc] init];
-        }
-        [_transition setController:nvc];
     }
 }
 
@@ -168,7 +160,6 @@ static NSString *Identifier = @"cell";
 
 #pragma mark - UIViewControllerTransitioningDelegate
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    
     AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
     transition.operation = AnimatedTransitioningOperationPresent;
     return transition;
@@ -180,18 +171,13 @@ static NSString *Identifier = @"cell";
     return transition;
 }
 
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    return _transition.interacting ? _transition : nil;
-}
-
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        
     }
     return _tableView;
 }

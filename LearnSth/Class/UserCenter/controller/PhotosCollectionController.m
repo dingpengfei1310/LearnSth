@@ -177,15 +177,14 @@ const NSInteger photoColumn = 4;
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat itemWidth = (self.view.frame.size.width - (photoColumn + 1) * interitemSpacing) / photoColumn;
+        CGFloat itemWidth = (Screen_W - (photoColumn + 1) * interitemSpacing) / photoColumn;
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(5, interitemSpacing, 5, interitemSpacing);
         flowLayout.minimumInteritemSpacing = interitemSpacing;
         flowLayout.minimumLineSpacing = interitemSpacing;
         
-        CGRect collectionViewRect = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
-        _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
                                              collectionViewLayout:flowLayout];
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];
         [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];

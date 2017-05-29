@@ -40,7 +40,7 @@ const CGFloat fieldHeight = 35;
 
 - (void)initSubView {
     viewW = self.view.frame.size.width;
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:scrollView];
     
     //输入框
@@ -92,8 +92,8 @@ const CGFloat fieldHeight = 35;
             [UserManager shareManager].mobile = self.accountField.text;
             [UserManager shareManager].username = @"用户007";
             
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"catDance.gif" ofType:nil];
-            [UserManager shareManager].headerImageData = [NSData dataWithContentsOfFile:path];
+            UIImage *image = [UIImage imageNamed:@"defaultHeader"];
+            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
             
             [UserManager updateUser];
         }

@@ -8,6 +8,7 @@
 
 #import "SceneViewController.h"
 #import "SceneGameView.h"
+#import "SceneRainView.h"
 
 @interface SceneViewController ()
 
@@ -19,7 +20,10 @@
     [super viewDidLoad];
     self.title = @"小怪兽";
     
-    SceneGameView *gameView = [[SceneGameView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 64)];
+//    SceneGameView *gameView = [[SceneGameView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 64)];
+//    [self.view addSubview:gameView];
+    
+    SceneRainView *gameView = [[SceneRainView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 64)];
     [self.view addSubview:gameView];
 }
 

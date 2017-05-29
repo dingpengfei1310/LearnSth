@@ -185,8 +185,7 @@ const  NSInteger liveColumn = 2;
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
-        CGRect collectionViewRect = CGRectMake(0, 64, viewW, self.view.frame.size.height - 113);
-        _collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
                                              collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = KBackgroundColor;
         _collectionView.dataSource = self;

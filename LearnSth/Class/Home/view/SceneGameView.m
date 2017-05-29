@@ -7,6 +7,7 @@
 //
 
 #import "SceneGameView.h"
+#import <SceneKit/SceneKit.h>
 //#import <CoreMotion/CoreMotion.h>
 
 @interface SceneGameView () {
@@ -136,16 +137,18 @@
 
 - (void)pinchGestureRecognizer:(UIPinchGestureRecognizer *)pinch {
     if (pinch.state == UIGestureRecognizerStateChanged) {
-        SCNVector3 vector = self.bossNode.position;
+//        SCNVector3 vector = self.bossNode.position;
+//        
+//        if (pinch.scale >= 1.0) {
+//            vector.z = vector.z + 200 * pinch.scale;
+//        } else {
+//            vector.z = vector.z - 200 * pinch.scale;
+//        }
+//        
+//        vector.z = MIN(-5000, MAX(-10000, vector.z));
+//        self.bossNode.position = vector;
         
-        if (pinch.scale >= 1.0) {
-            vector.z = vector.z + 200 * pinch.scale;
-        } else {
-            vector.z = vector.z - 200 * pinch.scale;
-        }
-        
-        vector.z = MIN(-5000, MAX(-10000, vector.z));
-        self.bossNode.position = vector;
+        self.scene.rootNode.transform = SCNMatrix4MakeScale(1, 1, pinch.scale);
     }
 }
 
