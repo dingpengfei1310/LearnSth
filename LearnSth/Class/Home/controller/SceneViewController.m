@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"小怪兽";
+    self.title = @"Game";
     
 //    SceneGameView *gameView = [[SceneGameView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 64)];
 //    [self.view addSubview:gameView];

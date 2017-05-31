@@ -21,30 +21,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ANj-H9-yl7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_Diffuse" translatesAutoresizingMaskIntoConstraints="NO" id="ANj-H9-yl7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👀你瞅啥👀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dA-H5-aB8">
-                                <rect key="frame" x="138.5" y="323" width="98" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ANj-H9-yl7" secondAttribute="bottom" id="66Z-bu-Rfp"/>
                             <constraint firstItem="ANj-H9-yl7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="GIw-4q-Rzd"/>
-                            <constraint firstItem="5dA-H5-aB8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ScN-U8-EqH"/>
                             <constraint firstItem="ANj-H9-yl7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ghK-0o-oRE"/>
                             <constraint firstAttribute="trailing" secondItem="ANj-H9-yl7" secondAttribute="trailing" id="xLe-yf-Wbe"/>
-                            <constraint firstItem="5dA-H5-aB8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xb5-Hi-N6b"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188" y="166"/>
+            <point key="canvasLocation" x="-532" y="85"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo_Diffuse" width="256" height="256"/>
+    </resources>
 </document>

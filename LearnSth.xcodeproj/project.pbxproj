@@ -150,6 +150,7 @@
 		1BF9B0DC1E0A2B6C005B0EDF /* DDPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B0DB1E0A2B6C005B0EDF /* DDPreviewItem.m */; };
 		1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */; };
 		1BFCEAAF1E4C6DB5000C8E99 /* DDImageBrowserVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */; };
+		1BFDBAC31EDEC05400EF244A /* Explode.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 1BFDBAC21EDEC05400EF244A /* Explode.scnp */; };
 		1BFEA60F1EA738EA0033CD15 /* DanMuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFEA60E1EA738EA0033CD15 /* DanMuView.m */; };
 		1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFEA6111EA747D60033CD15 /* DanMuModel.m */; };
 		CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49551E0FA007007FD07D /* CustomizeButton.m */; };
@@ -455,6 +456,7 @@
 		1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerController.m; sourceTree = "<group>"; };
 		1BFCEAAD1E4C6DB5000C8E99 /* DDImageBrowserVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageBrowserVideo.h; sourceTree = "<group>"; };
 		1BFCEAAE1E4C6DB5000C8E99 /* DDImageBrowserVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserVideo.m; sourceTree = "<group>"; };
+		1BFDBAC21EDEC05400EF244A /* Explode.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Explode.scnp; sourceTree = "<group>"; };
 		1BFEA60D1EA738EA0033CD15 /* DanMuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanMuView.h; sourceTree = "<group>"; };
 		1BFEA60E1EA738EA0033CD15 /* DanMuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanMuView.m; sourceTree = "<group>"; };
 		1BFEA6101EA747D60033CD15 /* DanMuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanMuModel.h; sourceTree = "<group>"; };
@@ -1035,6 +1037,7 @@
 		1B4081D71EDBF6C900407B94 /* sceneModel */ = {
 			isa = PBXGroup;
 			children = (
+				1BFDBAC21EDEC05400EF244A /* Explode.scnp */,
 				1B4081DD1EDBF7C800407B94 /* Rain.scnp */,
 				1B4081DE1EDBF7C800407B94 /* spark.png */,
 			);
@@ -1366,6 +1369,7 @@
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
+				1BFDBAC31EDEC05400EF244A /* Explode.scnp in Resources */,
 				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
