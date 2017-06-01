@@ -57,6 +57,9 @@ static NSString *Identifier = @"cell";
     } else {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.LoginDismissBlock = ^ {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        controller.LoginSuccessBlock = ^{
             [self reloadHeaderCell];
             [self dismissViewControllerAnimated:YES completion:nil];
         };

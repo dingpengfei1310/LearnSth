@@ -9,15 +9,13 @@
 #import "SceneRainView.h"
 #import <SceneKit/SceneKit.h>
 
-@interface SceneRainView () <SCNSceneRendererDelegate>{
+@interface SceneRainView () {
     CGFloat viewW;
     CGFloat viewH;
 }
 
 @property (nonatomic, strong) SCNView *sceneView;
 @property (nonatomic, strong) SCNScene *scene;
-
-@property (nonatomic, assign) NSTimeInterval spawnTime;
 
 @end
 
@@ -29,7 +27,6 @@
         viewH = CGRectGetHeight(frame);
         
         [self initialize];
-        self.sceneView.delegate = self;
     }
     return self;
 }
@@ -39,24 +36,24 @@
     self.sceneView.backgroundColor = [UIColor clearColor];
     self.sceneView.autoenablesDefaultLighting = YES;
 //    self.sceneView.showsStatistics = YES;
-//    self.sceneView.allowsCameraControl = YES;//方便调试
+    self.sceneView.allowsCameraControl = YES;//方便调试
     [self addSubview:self.sceneView];
     
     self.scene = [SCNScene scene];
     SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
+    SCNCamera *camera = [SCNCamera camera];
+    camera.yFov = 90;//
+    cameraNode.camera = camera;
     cameraNode.position = SCNVector3Make(0, 5, 10);
     [self.scene.rootNode addChildNode:cameraNode];
     
     self.sceneView.scene = self.scene;
     
-//    SCNPhysicsBody
-    
-//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
-//    [self addGestureRecognizer:panGesture];
-//    
-//    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureRecognizer:)];
-//    [self addGestureRecognizer:pinchGesture];
+    SCNGeometry *geometry = [SCNSphere sphereWithRadius:0.5];
+    geometry.firstMaterial.diffuse.contents = [UIColor greenColor];
+    geometry.firstMaterial.normal.contents = [UIImage imageNamed:@"mybricks1_AO"];
+    SCNNode *geometryNode = [SCNNode nodeWithGeometry:geometry];
+    [self.scene.rootNode addChildNode:geometryNode];
 }
 
 - (SCNNode *)geometryNode {
@@ -95,6 +92,7 @@
     }
     UIColor *color = [self randomColor];
     geometry.firstMaterial.diffuse.contents = color;
+    
     
     SCNNode *geometryNode = [SCNNode nodeWithGeometry:geometry];
     geometryNode.physicsBody = [SCNPhysicsBody bodyWithType:SCNPhysicsBodyTypeDynamic shape:nil];
@@ -156,21 +154,6 @@
     return par;
 }
 
-#pragma mark - SCNSceneRendererDelegate
-- (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
-    if (time > _spawnTime) {
-        [self.scene.rootNode addChildNode:[self geometryNode]];
-        
-        for (SCNNode *node in self.scene.rootNode.childNodes) {
-            if (node.presentationNode.position.y < -2) {
-                [node removeFromParentNode];
-            }
-        }
-        
-        _spawnTime = time + (arc4random() % 14 + 2) / 10.0;
-    }
-}
-
 #pragma mark
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touche = touches.anyObject;
@@ -189,6 +172,7 @@
 - (void)createExplosionGeometry:(SCNGeometry *)geometry position:(SCNVector3)position rotation:(SCNVector4)rotation {
     SCNParticleSystem *explode = [SCNParticleSystem particleSystemNamed:@"Explode.scnp" inDirectory:nil];
     explode.emitterShape = geometry;
+    
     explode.particleColor = geometry.firstMaterial.diffuse.contents;
     
     SCNMatrix4 rotationMatrix = SCNMatrix4MakeRotation(rotation.w, rotation.x, rotation.y, rotation.z);

@@ -8,20 +8,16 @@
 
 #import "SceneGameView.h"
 #import <SceneKit/SceneKit.h>
-//#import <CoreMotion/CoreMotion.h>
 
-@interface SceneGameView () {
+@interface SceneGameView () <SCNSceneRendererDelegate>{
     CGFloat viewW;
     CGFloat viewH;
 }
 
 @property (nonatomic, strong) SCNView *sceneView;
 @property (nonatomic, strong) SCNScene *scene;
-//@property (nonatomic, strong) SCNNode *eyeNode;
 
-@property (nonatomic, strong) SCNNode *bossNode;
-
-@property (nonatomic, assign) CGPoint lastPanPoint;
+@property (nonatomic, assign) NSTimeInterval spawnTime;
 
 @end
 
@@ -33,141 +29,164 @@
         viewH = CGRectGetHeight(frame);
         
         [self initialize];
-        
-        [self addSomeGestures];
-        [self addModelFile];
+        self.sceneView.delegate = self;
     }
     return self;
 }
 
 - (void)initialize {
-    
     self.sceneView = [[SCNView alloc] initWithFrame:self.bounds];
     self.sceneView.backgroundColor = [UIColor clearColor];
-//    self.sceneView.allowsCameraControl = YES;//方便调试
+    self.sceneView.autoenablesDefaultLighting = YES;
+    //    self.sceneView.showsStatistics = YES;
+    //    self.sceneView.allowsCameraControl = YES;//方便调试
     [self addSubview:self.sceneView];
     
     self.scene = [SCNScene scene];
-//    SCNBox *box = [SCNBox boxWithWidth:10 height:100 length:100 chamferRadius:1];
-//    SCNNode *node = [SCNNode nodeWithGeometry:box];
+    SCNNode *cameraNode = [SCNNode node];
+    cameraNode.camera = [SCNCamera camera];
+    cameraNode.position = SCNVector3Make(0, 5, 10);
+    [self.scene.rootNode addChildNode:cameraNode];
     
-//    _eyeNode = [SCNNode node];
-//    _eyeNode.camera = [SCNCamera camera];
-//    _eyeNode.camera.automaticallyAdjustsZRange = YES;
-//    
-//    [self.scene.rootNode addChildNode:_eyeNode];//将创建的原子节点添加到根节点
     self.sceneView.scene = self.scene;
-    
-    //重力感应
-//    CMMotionManager *motionManager = [[CMMotionManager alloc] init];
-//    motionManager.gyroUpdateInterval = 60;
-//    motionManager.deviceMotionUpdateInterval = 1/30.0;
-//    motionManager.showsDeviceMovementDisplay = YES;
-//    [motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXMagneticNorthZVertical toQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion * motion, NSError * error) {
-//        
-//        CMAttitude *attitude = motion.attitude;
-//        SCNVector3 vector = SCNVector3Zero;
-//        
-//        if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait) {
-//            vector.x = attitude.pitch;
-//            vector.y = attitude.roll;
-//        } else if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight){
-//            vector.x = attitude.pitch;
-//            vector.y = attitude.roll;
-//        } else {
-//            vector.x = attitude.pitch;
-//            vector.y = attitude.roll;
-//        }
-//        vector.z = attitude.yaw;
-//        self.eyeNode.eulerAngles = vector;
-//    }];
 }
 
-- (void)addSomeGestures {
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
-    [self addGestureRecognizer:panGesture];
+- (SCNNode *)geometryNode {
+    SCNGeometry *geometry;
     
-    UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureRecognizer:)];
-    [self addGestureRecognizer:singleTapGesture];
+    NSInteger shapeType = 0;
+    shapeType = arc4random() % 8;
     
-    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGestureRecognizer:)];
-    doubleTapGesture.numberOfTapsRequired = 2;
-    [self addGestureRecognizer:doubleTapGesture];
+    switch (shapeType) {
+        case 0:
+            geometry = [SCNBox boxWithWidth:1 height:1 length:1 chamferRadius:0];
+            break;
+        case 1:
+            geometry = [SCNSphere sphereWithRadius:0.5];
+            break;
+        case 2:
+            geometry = [SCNPyramid pyramidWithWidth:1 height:1 length:1];
+            break;
+        case 3:
+            geometry = [SCNTorus torusWithRingRadius:0.5 pipeRadius:0.25];
+            break;
+        case 4:
+            geometry = [SCNCapsule capsuleWithCapRadius:0.3 height:2.5];
+            break;
+        case 5:
+            geometry = [SCNCylinder cylinderWithRadius:0.3 height:2.5];
+            break;
+        case 6:
+            geometry = [SCNCone coneWithTopRadius:0.25 bottomRadius:0.5 height:1.0];
+            break;
+        case 7:
+            geometry = [SCNTube tubeWithInnerRadius:0.25 outerRadius:0.5 height:1.0];
+            break;
+        default:
+            break;
+    }
+    UIColor *color = [self randomColor];
+    geometry.firstMaterial.diffuse.contents = color;
     
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureRecognizer:)];
-    [self addGestureRecognizer:pinchGesture];
+    SCNNode *geometryNode = [SCNNode nodeWithGeometry:geometry];
+    geometryNode.physicsBody = [SCNPhysicsBody bodyWithType:SCNPhysicsBodyTypeDynamic shape:nil];
+    //    [geometryNode addParticleSystem:[self particleSystemWithColor:color geometry:geometry]];
     
-    [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+    NSInteger randomI = arc4random();
+    float randomX = (randomI % 40 - 20) * 0.1;
+    float randomY = (randomI % 80 + 100) * 0.1;
     
-//    U *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer:)];
-//    tapGesture.numberOfTapsRequired = 2;
-//    [self addGestureRecognizer:tapGesture];
+    SCNVector3 force = SCNVector3Make(randomX, randomY, 0);
+    SCNVector3 position = SCNVector3Make(0.05, 0.05, 0.05);
+    [geometryNode.physicsBody applyForce:force atPosition:position impulse:YES];
+    
+    return geometryNode;
 }
 
-- (void)addModelFile {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"boss_attack" withExtension:@"dae"];
+- (UIColor *)randomColor {
+    UIColor *color;
     
-    SCNScene *scene = [SCNScene sceneWithURL:url options:nil error:nil];
-    SCNNode *node = scene.rootNode;
-    _bossNode = node;
-    node.name = @"boss";
-    node.position = SCNVector3Make(0, 0, -8000);
-    [self.sceneView.scene.rootNode addChildNode:node];
+    NSInteger colorNum = 0;
+    colorNum = arc4random() % 8;
+    
+    switch (colorNum) {
+        case 0:
+            color = [UIColor blueColor];
+            break;
+        case 1:
+            color = [UIColor whiteColor];
+            break;
+        case 2:
+            color = [UIColor redColor];
+            break;
+        case 3:
+            color = [UIColor yellowColor];
+            break;
+        case 4:
+            color = [UIColor greenColor];
+            break;
+        case 5:
+            color = [UIColor colorWithRed:0 green:0.5 blue:0.5 alpha:1.0];
+            break;
+        case 6:
+            color = [UIColor colorWithRed:0.5 green:0 blue:0.5 alpha:1.0];
+            break;
+        case 7:
+            color = [UIColor colorWithRed:0.5 green:0.5 blue:0 alpha:1.0];
+            break;
+        default:
+            break;
+    }
+    
+    return color;
+}
+
+- (SCNParticleSystem *)particleSystemWithColor:(UIColor *)color geometry:(SCNGeometry *)geometry {
+    SCNParticleSystem *par = [SCNParticleSystem particleSystemNamed:@"Rain.scnp" inDirectory:nil];
+    par.particleColor = color;
+    par.emitterShape = geometry;
+    return par;
+}
+
+#pragma mark - SCNSceneRendererDelegate
+- (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
+    if (time > _spawnTime) {
+        [self.scene.rootNode addChildNode:[self geometryNode]];
+        
+        for (SCNNode *node in self.scene.rootNode.childNodes) {
+            if (node.presentationNode.position.y < -2) {
+                [node removeFromParentNode];
+            }
+        }
+        
+        _spawnTime = time + (arc4random() % 14 + 2) / 10.0;
+    }
 }
 
 #pragma mark
-- (void)panGestureRecognizer:(UIPanGestureRecognizer *)pan {
-    UIGestureRecognizerState state = pan.state;
-    CGPoint point = [pan locationInView:self];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touche = touches.anyObject;
+    CGPoint location = [touche locationInView:self.sceneView];
     
-    if (state == UIGestureRecognizerStateBegan) {
-        self.lastPanPoint = point;
-    } else if (state == UIGestureRecognizerStateChanged) {
-        SCNVector3 vector = self.bossNode.eulerAngles;
-        
-        vector.z = atan((point.x - viewW * 0.5) / (point.y - viewH * 0.5));
-        if (point.y - viewH * 0.5 < 0) {
-            vector.z += M_PI;
-        }
-        
-        self.bossNode.eulerAngles = vector;
-        self.lastPanPoint = point;
+    NSArray *hitResults = [self.sceneView hitTest:location options:nil];
+    if (hitResults.count > 0) {
+        SCNHitTestResult *result = hitResults.firstObject;
+        SCNNode *node = result.node;
+        [self createExplosionGeometry:node.geometry
+                             position:node.presentationNode.position
+                             rotation:node.presentationNode.rotation];
     }
 }
 
-- (void)pinchGestureRecognizer:(UIPinchGestureRecognizer *)pinch {
-    if (pinch.state == UIGestureRecognizerStateChanged) {
-//        SCNVector3 vector = self.bossNode.position;
-//        
-//        if (pinch.scale >= 1.0) {
-//            vector.z = vector.z + 200 * pinch.scale;
-//        } else {
-//            vector.z = vector.z - 200 * pinch.scale;
-//        }
-//        
-//        vector.z = MIN(-5000, MAX(-10000, vector.z));
-//        self.bossNode.position = vector;
-        
-        self.scene.rootNode.transform = SCNMatrix4MakeScale(1, 1, pinch.scale);
-    }
-}
-
-- (void)doubleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
-    self.bossNode.eulerAngles = SCNVector3Make(0, 0, 0);
-}
-
-- (void)singleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
-    CGPoint point = [tap locationInView:self];
-    //
-    SCNVector3 vector = self.bossNode.eulerAngles;
-    vector.x = point.x;
-    vector.y = point.y / viewH;
-    self.bossNode.eulerAngles = vector;
+- (void)createExplosionGeometry:(SCNGeometry *)geometry position:(SCNVector3)position rotation:(SCNVector4)rotation {
+    SCNParticleSystem *explode = [SCNParticleSystem particleSystemNamed:@"Explode.scnp" inDirectory:nil];
+    explode.emitterShape = geometry;
+    explode.particleColor = geometry.firstMaterial.diffuse.contents;
     
-    //
-//    CGFloat rotationX = (point.y - viewH * 0.5) / viewH * 0.5;
-//    CGFloat rotationY = (point.x - viewW * 0.5) / viewW * 0.5;
-//    self.bossNode.rotation = SCNVector4Make(rotationX, rotationY, 0, 2);
+    SCNMatrix4 rotationMatrix = SCNMatrix4MakeRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+    SCNMatrix4 translationMatrix = SCNMatrix4MakeTranslation(position.x, position.y, position.z);
+    SCNMatrix4 transformMatrix = SCNMatrix4Mult(rotationMatrix, translationMatrix);
+    [self.scene addParticleSystem:explode withTransform:transformMatrix];
 }
 
 @end

@@ -128,7 +128,7 @@
     
     UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 42)];
     dismissButton.center = CGPointMake(viewW * 0.5 - viewW * 0.2, viewH - bottomHeight);
-    UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
+    UIImage *originalImage = [UIImage imageNamed:@"backButton"];
     UIImage *image = [UIImage imageWithCGImage:originalImage.CGImage
                                          scale:2.0
                                    orientation:UIImageOrientationLeft];

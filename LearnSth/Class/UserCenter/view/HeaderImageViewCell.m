@@ -47,21 +47,28 @@
 }
 
 - (void)setUserModel:(UserManager *)userModel {
-    NSData *data = userModel.headerImageData;
-    if (data) {
-        if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
-            _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-        } else {
-            _headerImageView.image = [UIImage imageWithData:data];
+    if ([CustomiseTool isLogin]) {
+        self.detailTextLabel.text = nil;
+        _nameLabel.text = userModel.username;
+        _mobileLabel.text = userModel.mobile;
+        
+        NSData *data = userModel.headerImageData;
+        if (data) {
+            if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+                _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+            } else {
+                _headerImageView.image = [UIImage imageWithData:data];
+            }
+        } else{
+            _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
         }
+        
     } else {
+        self.detailTextLabel.text = @"点击登录";
+        _nameLabel.text = nil;
+        _mobileLabel.text = nil;
         _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
     }
-    
-    _nameLabel.text = userModel.username;
-    _mobileLabel.text = userModel.mobile;
-    
-    self.detailTextLabel.text = userModel.mobile ? @"" : @"请先登录";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -35,7 +35,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                            NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    UIImage *image = [[UIImage imageNamed:@"backButtonImage"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *image = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [[UINavigationBar appearance] setBackIndicatorImage:image];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
     

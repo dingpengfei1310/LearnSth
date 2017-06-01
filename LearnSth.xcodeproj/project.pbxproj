@@ -61,6 +61,7 @@
 		1B099CA11DE7E57400161396 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C561DE7E57400161396 /* WiFiUploadViewController.m */; };
 		1B0DBC711E308D0F00A57C30 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */; };
 		1B0DBC741E30915D00A57C30 /* VideoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DBC731E30915D00A57C30 /* VideoCameraController.m */; };
+		1B0EE8031EDFADA7007FDBFB /* mybricks1_AO.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0EE7FF1EDFADA7007FDBFB /* mybricks1_AO.png */; };
 		1B11327A1EA4659E00323189 /* HeaderImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1132791EA4659E00323189 /* HeaderImageController.m */; };
 		1B113ADF1EC1B7CF00B3482D /* VideoProcessWithFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B113ADE1EC1B7CF00B3482D /* VideoProcessWithFilter.m */; };
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
@@ -292,6 +293,7 @@
 		1B0DBC701E308D0F00A57C30 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1B0DBC721E30915D00A57C30 /* VideoCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCameraController.h; sourceTree = "<group>"; };
 		1B0DBC731E30915D00A57C30 /* VideoCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCameraController.m; sourceTree = "<group>"; };
+		1B0EE7FF1EDFADA7007FDBFB /* mybricks1_AO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mybricks1_AO.png; sourceTree = "<group>"; };
 		1B1132781EA4659E00323189 /* HeaderImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageController.h; sourceTree = "<group>"; };
 		1B1132791EA4659E00323189 /* HeaderImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageController.m; sourceTree = "<group>"; };
 		1B113ADD1EC1B7CF00B3482D /* VideoProcessWithFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProcessWithFilter.h; sourceTree = "<group>"; };
@@ -1037,6 +1039,7 @@
 		1B4081D71EDBF6C900407B94 /* sceneModel */ = {
 			isa = PBXGroup;
 			children = (
+				1B0EE7FF1EDFADA7007FDBFB /* mybricks1_AO.png */,
 				1BFDBAC21EDEC05400EF244A /* Explode.scnp */,
 				1B4081DD1EDBF7C800407B94 /* Rain.scnp */,
 				1B4081DE1EDBF7C800407B94 /* spark.png */,
@@ -1379,6 +1382,7 @@
 				1B430D731ED7FABC0097248C /* boss_attack.dae in Resources */,
 				1B099C8D1DE7E57400161396 /* MJRefresh.bundle in Resources */,
 				1B4081E01EDBF7C800407B94 /* spark.png in Resources */,
+				1B0EE8031EDFADA7007FDBFB /* mybricks1_AO.png in Resources */,
 				CFEAB8C41DE97E7700CB9DDF /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1B430D741ED7FABC0097248C /* demon_01_512.png in Resources */,

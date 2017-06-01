@@ -11,5 +11,6 @@
 @interface LoginViewController : UIViewController
 
 @property (nonatomic, copy) void (^LoginDismissBlock)();
+@property (nonatomic, copy) void (^LoginSuccessBlock)();
 
 @end

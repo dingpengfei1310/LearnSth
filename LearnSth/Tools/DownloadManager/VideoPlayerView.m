@@ -111,7 +111,7 @@ const CGFloat BottomH = 30;
     _topView = topView;
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, BottomH - 5, BottomH)];
-    [backButton setImage:[UIImage imageNamed:@"backButtonImage"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backButton];
     

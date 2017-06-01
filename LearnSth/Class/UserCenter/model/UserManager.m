@@ -24,10 +24,13 @@ static dispatch_once_t allocOnceToken;
 + (instancetype)shareManager {
     dispatch_once(&managerOnceToken, ^{
         userModel = [[UserManager alloc] init];
-        if ([CustomiseTool isLogin]) {
-            NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
-            [userModel setValuesForKeysWithDictionary:dict];
-        }
+        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
+        [userModel setValuesForKeysWithDictionary:dict];
+        
+//        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:KUserManagerCache];
+//        if (data) {
+//            userModel = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//        }
     });
     
     return userModel;
@@ -42,6 +45,9 @@ static dispatch_once_t allocOnceToken;
 + (void)updateUser {
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager shareManager] dictionary]];
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserManagerCache];
+    
+//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userModel];
+//    [[NSUserDefaults standardUserDefaults] setObject:data forKey:KUserManagerCache];
 }
 
 #pragma mark
@@ -56,6 +62,40 @@ static dispatch_once_t allocOnceToken;
 - (instancetype)copyWithZone:(NSZone *)zone {
     return userModel;
 }
+
+//#pragma mark
+//- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+//    if (self = [super init]) {
+//        unsigned int outCount;
+//        objc_property_t *propertities = class_copyPropertyList([UserManager class], &outCount);
+//        for (int i = 0; i < outCount; i++) {
+//            objc_property_t property = propertities[i];
+//            NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+//            
+//            if ([propertyName isEqualToString:@"address"]) {
+//            } else {
+//                [super setValue:[aDecoder decodeObjectForKey:propertyName] forKey:propertyName];
+//            }
+//        }
+//        free(propertities);
+//    }
+//    return self;
+//}
+//
+//- (void)encodeWithCoder:(NSCoder *)aCoder {
+//    unsigned int outCount;
+//    objc_property_t *propertities = class_copyPropertyList([UserManager class], &outCount);
+//    for (int i = 0; i < outCount; i++) {
+//        objc_property_t property = propertities[i];
+//        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+//        
+//        if ([propertyName isEqualToString:@"address"]) {
+//        } else {
+//            [aCoder encodeObject:[userModel valueForKey:propertyName] forKey:propertyName];
+//        }
+//    }
+//    free(propertities);
+//}
 
 #pragma mark
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {

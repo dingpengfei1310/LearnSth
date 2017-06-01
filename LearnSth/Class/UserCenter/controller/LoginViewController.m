@@ -99,7 +99,10 @@ const CGFloat fieldHeight = 35;
         }
         
         [CustomiseTool setIsLogin:YES];
-        [self dismissLoginController];
+        
+        if (self.LoginSuccessBlock) {
+            self.LoginSuccessBlock();
+        }
         
     } else {
         [self showError:@"手机号不正确"];

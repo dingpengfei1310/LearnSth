@@ -13,7 +13,7 @@
 
 #import "QRCodeRecognizer.h"
 
-@interface DDImageBrowserController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIGestureRecognizerDelegate>
+@interface DDImageBrowserController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) BOOL statusBarHidden;
@@ -38,6 +38,7 @@ const CGFloat minLineSpacing = 40;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.barView];
@@ -45,8 +46,9 @@ const CGFloat minLineSpacing = 40;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self showImageOfIndex:self.currentIndex];
+    
     self.navigationController.navigationBarHidden = YES;
+    [self showImageOfIndex:self.currentIndex];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -76,8 +78,9 @@ const CGFloat minLineSpacing = 40;
 }
 
 - (void)hideNavigationBar {
-    self.barView.hidden = !self.barView.hidden;
     self.statusBarHidden = !self.statusBarHidden;
+    self.barView.hidden = self.statusBarHidden;
+    
     [self prefersStatusBarHidden];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -196,7 +199,7 @@ const CGFloat minLineSpacing = 40;
         [_barView addSubview:_countLabel];
         
         UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 30, 42)];
-        UIImage *originalImage = [UIImage imageNamed:@"backButtonImage"];
+        UIImage *originalImage = [UIImage imageNamed:@"backButton"];
         [backButton setImage:originalImage forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
         [_barView addSubview:backButton];
