@@ -28,7 +28,7 @@
     if (self = [super initWithFrame:frame]) {
         width = frame.size.width;
         height = frame.size.height;
-        self.currentImage = [UIImage imageNamed:@"defaultBackground"];
+        self.currentImage = [UIImage imageNamed:@"panda"];
         
         [self addImageViews];
     }

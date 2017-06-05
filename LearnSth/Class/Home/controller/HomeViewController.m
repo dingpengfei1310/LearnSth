@@ -10,6 +10,7 @@
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
 
+#import "JPuzzleViewController.h"
 #import "GameViewController.h"
 #import "SceneViewController.h"
 
@@ -120,7 +121,11 @@ const  NSInteger liveColumn = 2;
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    SceneViewController *controller = [[SceneViewController alloc] init];
+//    SceneViewController *controller = [[SceneViewController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+    
+    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

@@ -11,9 +11,9 @@
 
 @interface DanMuView ()
 
-//@property (nonatomic, strong) NSMutableArray *danmuArray;
-
 @end
+
+const CGFloat labelH = 30;
 
 @implementation DanMuView
 
@@ -32,7 +32,7 @@
     return self;
 }
 
-- (void)initialize {
+- (void)initialize { 
     self.backgroundColor = [UIColor clearColor];
     self.userInteractionEnabled = NO;
 }
@@ -77,6 +77,7 @@
     danMuLabel.textColor = model.textColor;
     [self addSubview:danMuLabel];
     
+//    (3 + size.width / 200) * size.width / (size.width + 2 * Screen_W) + 0.1;
     [UIView animateWithDuration:(3 + size.width / 200)
                           delay:0.0
                         options:UIViewAnimationOptionCurveLinear

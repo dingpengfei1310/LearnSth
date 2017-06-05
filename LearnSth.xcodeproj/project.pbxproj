@@ -67,6 +67,11 @@
 		1B1148E61D9A499A004817B1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1148E51D9A499A004817B1 /* libz.tbd */; };
 		1B139C0E1EAEE528003F678E /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */; };
 		1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */; };
+		1B16B48C1EE5047100F84CB1 /* JPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16B48B1EE5047100F84CB1 /* JPuzzleViewController.m */; };
+		1B16B4921EE51F3400F84CB1 /* JPuzzleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16B4911EE51F3400F84CB1 /* JPuzzleStatus.m */; };
+		1B16B4951EE51F4B00F84CB1 /* JPuzzlePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */; };
+		1B1770C51EE130910048F0B4 /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B1770C31EE130910048F0B4 /* earth.jpg */; };
+		1B1770C61EE130910048F0B4 /* earthSurface.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B1770C41EE130910048F0B4 /* earthSurface.jpg */; };
 		1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */; };
 		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
 		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
@@ -303,6 +308,14 @@
 		1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
 		1B139C101EAEE8BC003F678E /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
 		1B139C111EAEE8BC003F678E /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
+		1B16B48A1EE5047100F84CB1 /* JPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzleViewController.h; sourceTree = "<group>"; };
+		1B16B48B1EE5047100F84CB1 /* JPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzleViewController.m; sourceTree = "<group>"; };
+		1B16B4901EE51F3400F84CB1 /* JPuzzleStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzleStatus.h; sourceTree = "<group>"; };
+		1B16B4911EE51F3400F84CB1 /* JPuzzleStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzleStatus.m; sourceTree = "<group>"; };
+		1B16B4931EE51F4B00F84CB1 /* JPuzzlePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzlePiece.h; sourceTree = "<group>"; };
+		1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzlePiece.m; sourceTree = "<group>"; };
+		1B1770C31EE130910048F0B4 /* earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth.jpg; sourceTree = "<group>"; };
+		1B1770C41EE130910048F0B4 /* earthSurface.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earthSurface.jpg; sourceTree = "<group>"; };
 		1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Tool.h"; sourceTree = "<group>"; };
 		1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Tool.m"; sourceTree = "<group>"; };
 		1B1C75431ECD87AD0060D824 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -831,6 +844,27 @@
 			path = QRCode;
 			sourceTree = "<group>";
 		};
+		1B16B4881EE502F500F84CB1 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				1B16B4891EE503F100F84CB1 /* JigsawPuzzle */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		1B16B4891EE503F100F84CB1 /* JigsawPuzzle */ = {
+			isa = PBXGroup;
+			children = (
+				1B16B4931EE51F4B00F84CB1 /* JPuzzlePiece.h */,
+				1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */,
+				1B16B4901EE51F3400F84CB1 /* JPuzzleStatus.h */,
+				1B16B4911EE51F3400F84CB1 /* JPuzzleStatus.m */,
+				1B16B48A1EE5047100F84CB1 /* JPuzzleViewController.h */,
+				1B16B48B1EE5047100F84CB1 /* JPuzzleViewController.m */,
+			);
+			path = JigsawPuzzle;
+			sourceTree = "<group>";
+		};
 		1B1C75491ECD87B00060D824 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,6 +880,7 @@
 			isa = PBXGroup;
 			children = (
 				1B2D07BD1DE7E8DB0034C22D /* Common */,
+				1B16B4881EE502F500F84CB1 /* Game */,
 				1B2D07C01DE7E8DB0034C22D /* Home */,
 				1B2D07DC1DE7E8DB0034C22D /* UserCenter */,
 			);
@@ -1231,11 +1266,13 @@
 		CFEAB8C11DE97E7700CB9DDF /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1B4081D71EDBF6C900407B94 /* sceneModel */,
 				1B430D6D1ED7FABC0097248C /* boss */,
-				CFEAB8C21DE97E7700CB9DDF /* province.db */,
-				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
+				1B1770C31EE130910048F0B4 /* earth.jpg */,
+				1B1770C41EE130910048F0B4 /* earthSurface.jpg */,
 				1B4043611E5AD5D500C14EE6 /* Localizable.strings */,
+				CFEAB8C21DE97E7700CB9DDF /* province.db */,
+				1B4081D71EDBF6C900407B94 /* sceneModel */,
+				CFEAB8C31DE97E7700CB9DDF /* SDSloganPoints.plist */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1368,12 +1405,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BDCED761DE58812002A27B5 /* mdialog.js in Resources */,
+				1B1770C51EE130910048F0B4 /* earth.jpg in Resources */,
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
 				1BFDBAC31EDEC05400EF244A /* Explode.scnp in Resources */,
 				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
+				1B1770C61EE130910048F0B4 /* earthSurface.jpg in Resources */,
 				1BDCED711DE57D97002A27B5 /* upload.html in Resources */,
 				CFEAB8C51DE97E7700CB9DDF /* SDSloganPoints.plist in Resources */,
 				1B2E58861EBC773900770953 /* DownloadViewCell.xib in Resources */,
@@ -1466,6 +1505,7 @@
 				1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */,
 				1B36FD481EC4370C00FBA5CD /* StepCountViewController.m in Sources */,
 				1B099C871DE7E57400161396 /* MJRefreshBackGifFooter.m in Sources */,
+				1B16B4951EE51F4B00F84CB1 /* JPuzzlePiece.m in Sources */,
 				CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */,
 				1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */,
 				1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */,
@@ -1488,6 +1528,7 @@
 				1B2E587F1EBC76E800770953 /* DownloadViewController.m in Sources */,
 				1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */,
 				1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */,
+				1B16B48C1EE5047100F84CB1 /* JPuzzleViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */,
@@ -1504,6 +1545,7 @@
 				1BFA800A1E2CB66C006B0CD6 /* AddressPickerController.m in Sources */,
 				1B72BEED1E4D9805007DFF74 /* PanInteractiveTransition.m in Sources */,
 				1B099C9A1DE7E57400161396 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				1B16B4921EE51F3400F84CB1 /* JPuzzleStatus.m in Sources */,
 				CFF9AE7F1E333C1500397359 /* VideoCameraFilterController.m in Sources */,
 				1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */,
 				1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */,
