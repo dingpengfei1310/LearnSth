@@ -26,6 +26,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [super viewDidLoad];
     
     if (self.urlString) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
         self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];

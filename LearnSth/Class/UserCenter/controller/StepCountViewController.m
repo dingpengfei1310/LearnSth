@@ -152,6 +152,13 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
             
             self.stepLabel.text = [NSString stringWithFormat:@" 今天共走了：%@步",stepCount];
             self.stepCountView.dataArray = arrayM;
+        } else {
+            for (int i = 0; i < 100; i++) {
+                NSInteger value = arc4random() % 10000;
+                [arrayM addObject:@(value)];
+            }
+            
+            self.stepCountView.dataArray = arrayM;
         }
     });
 }

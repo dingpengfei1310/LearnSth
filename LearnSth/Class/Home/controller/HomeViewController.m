@@ -47,7 +47,7 @@ const  NSInteger liveColumn = 2;
     self.page = 1;
     [self.view addSubview:self.collectionView];
     
-//    [self getHomeAdBanner];
+    [self getHomeAdBanner];
 //    [self refreshLiveData];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
