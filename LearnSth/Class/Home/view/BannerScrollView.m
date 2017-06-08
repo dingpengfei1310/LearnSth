@@ -81,16 +81,13 @@
 }
 
 #pragma mark UIScrollViewDelegate
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self setUpTimer];
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self invalidateTimer];
     [self calculateCurrrentPage:scrollView];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self setUpTimer];
     [self calculateCurrrentPage:scrollView];
 }
 
@@ -107,7 +104,6 @@
                                                      repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
-    
 }
 
 - (void)invalidateTimer {
