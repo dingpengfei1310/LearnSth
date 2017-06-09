@@ -33,6 +33,8 @@
                                           context:nil].size;
         
         self.userInteractionEnabled = size.width + 30 > point.x;
+//        self.backItem.leftBarButtonItem.enabled = size.width + 30 > point.x;
+//        self.backItem.backBarButtonItem.enabled = size.width + 30 > point.x;
     }
     
     return [super hitTest:point withEvent:event];

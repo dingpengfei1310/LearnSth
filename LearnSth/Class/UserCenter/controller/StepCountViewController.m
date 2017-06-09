@@ -42,7 +42,6 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(segmentedClick:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = segmentedControl;
-    
     self.healthStore = [[HKHealthStore alloc] init];
     [self checkAuthorize];
 }

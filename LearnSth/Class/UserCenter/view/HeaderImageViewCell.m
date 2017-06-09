@@ -23,6 +23,9 @@
 @implementation HeaderImageViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (style == UITableViewCellStyleDefault) {
+        style = UITableViewCellStyleValue1;
+    }
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self initSubViews];
     }

@@ -223,6 +223,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         _tableView.backgroundColor = KBackgroundColor;
         _tableView.rowHeight = 55;
         _tableView.dataSource = self;

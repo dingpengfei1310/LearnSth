@@ -210,11 +210,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
         _backgroundImageView.image = image;
         
-        UIBlurEffect *beffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:beffect];
-        blurView.frame = self.view.bounds;
-        
-        [_backgroundImageView addSubview:blurView];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        effectView.frame = self.view.bounds;
+        [_backgroundImageView addSubview:effectView];
     }
     return _backgroundImageView;
 }

@@ -92,21 +92,13 @@ static NSString *Identifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
-        if (!cell) {
-            cell = [[HeaderImageViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                              reuseIdentifier:HeaderIdentifier];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.userModel = [UserManager shareManager];
         
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Identifier];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         NSArray *array = self.dataArray[indexPath.section];
         cell.textLabel.text = array[indexPath.row];
         
@@ -178,6 +170,8 @@ static NSString *Identifier = @"cell";
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
+        [_tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
