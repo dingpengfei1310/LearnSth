@@ -75,8 +75,9 @@
 		1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */; };
 		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
 		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
+		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
-		1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* ADModel.m */; };
+		1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* BannerModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
 		1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */; };
 		1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07DF1DE7E8DB0034C22D /* MessageViewController.m */; };
@@ -322,12 +323,14 @@
 		1B1C75441ECD87AD0060D824 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1B1C75451ECD87AD0060D824 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1B1C75461ECD87AD0060D824 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1B29B87B1EEE3E660069780C /* LiveCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionView.h; sourceTree = "<group>"; };
+		1B29B87C1EEE3E660069780C /* LiveCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionView.m; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		1B2D07C51DE7E8DB0034C22D /* ADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
-		1B2D07C61DE7E8DB0034C22D /* ADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
+		1B2D07C51DE7E8DB0034C22D /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
+		1B2D07C61DE7E8DB0034C22D /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
 		1B2D07CB1DE7E8DB0034C22D /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
 		1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldPaperView.h; sourceTree = "<group>"; };
@@ -936,12 +939,12 @@
 		1B2D07C41DE7E8DB0034C22D /* model */ = {
 			isa = PBXGroup;
 			children = (
-				1B2D07C51DE7E8DB0034C22D /* ADModel.h */,
-				1B2D07C61DE7E8DB0034C22D /* ADModel.m */,
-				1B5E7BFA1E49C9BB00153A58 /* LiveModel.h */,
-				1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */,
+				1B2D07C51DE7E8DB0034C22D /* BannerModel.h */,
+				1B2D07C61DE7E8DB0034C22D /* BannerModel.m */,
 				1BFEA6101EA747D60033CD15 /* DanMuModel.h */,
 				1BFEA6111EA747D60033CD15 /* DanMuModel.m */,
+				1B5E7BFA1E49C9BB00153A58 /* LiveModel.h */,
+				1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -955,14 +958,16 @@
 				1B08C0951DF6A626005F3059 /* BannerScrollView.m */,
 				CF1A49541E0FA007007FD07D /* CustomizeButton.h */,
 				CF1A49551E0FA007007FD07D /* CustomizeButton.m */,
+				1BFEA60D1EA738EA0033CD15 /* DanMuView.h */,
+				1BFEA60E1EA738EA0033CD15 /* DanMuView.m */,
 				1B098E701E24B50A00D5754A /* DropWaterView.h */,
 				1B098E711E24B50A00D5754A /* DropWaterView.m */,
 				1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */,
 				1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */,
 				1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */,
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
-				1BFEA60D1EA738EA0033CD15 /* DanMuView.h */,
-				1BFEA60E1EA738EA0033CD15 /* DanMuView.m */,
+				1B29B87B1EEE3E660069780C /* LiveCollectionView.h */,
+				1B29B87C1EEE3E660069780C /* LiveCollectionView.m */,
 				1B430D681ED7D5410097248C /* SceneGameView.h */,
 				1B430D691ED7D5410097248C /* SceneGameView.m */,
 				1B4081DA1EDBF7B200407B94 /* SceneRainView.h */,
@@ -1589,6 +1594,7 @@
 				1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */,
 				1B099C811DE7E57400161396 /* MJRefreshComponent.m in Sources */,
 				1B099C9C1DE7E57400161396 /* TPKeyboardAvoidingTableView.m in Sources */,
+				1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
 				1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */,
 				1B2D1F2D1ED2C6FE004ED03C /* GameViewController.m in Sources */,
@@ -1623,7 +1629,7 @@
 				1B099C911DE7E57400161396 /* UIScrollView+MJRefresh.m in Sources */,
 				1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */,
 				1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */,
-				1B2D07F71DE7E8DB0034C22D /* ADModel.m in Sources */,
+				1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */,
 				1B04FA251E52F28A00CDFC80 /* VideoScanController.m in Sources */,

@@ -12,7 +12,7 @@
 
 #import <PLPlayerKit/PLPlayerKit.h>
 
-@interface PLPlayerViewController ()<PLPlayerDelegate> {
+@interface PLPlayerViewController () <PLPlayerDelegate> {
     CGFloat viewW;
     CGFloat viewH;
 }
@@ -203,12 +203,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (UIImageView *)backgroundImageView {
     if (!_backgroundImageView) {
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.live.bigpic]];
-        UIImage *image = [UIImage imageWithData:data];
-        
         _backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _backgroundImageView.image = image;
+        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.live.bigpic]];
         
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];

@@ -43,7 +43,8 @@
     if (![_liveModel isEqual:liveModel]) {
         
         _liveModel = liveModel;
-        NSURL *url = [NSURL URLWithString:liveModel.smallpic];
+//        NSURL *url = [NSURL URLWithString:liveModel.smallpic];
+        NSURL *url = [NSURL URLWithString:liveModel.bigpic];
         [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             self.liveImageView.frame = self.contentView.bounds;
             

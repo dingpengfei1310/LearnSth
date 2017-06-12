@@ -42,8 +42,12 @@
 }
 
 - (void)setImageArray:(NSArray *)imageArray {
+    if (imageArray.count == 0) {
+        return;
+    }
     [self.indicatorView removeFromSuperview];
     _imageArray = imageArray;
+    
     
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -118,10 +122,10 @@
     } else if (scrollView.contentOffset.x < width) {
         self.currentPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
     }
-    [self scrollToCenter];
+    [self scrollToCenterWithAnimated:NO];
 }
 
-- (void)scrollToCenter {
+- (void)scrollToCenterWithAnimated:(BOOL)animated {
     NSInteger leftPage;
     NSInteger rightPage;
     
@@ -138,7 +142,13 @@
                            placeholderImage:nil];
     
     self.pageControl.currentPage = self.currentPage;
-    [self.scrollView setContentOffset:CGPointMake(width, 0)];
+    
+    if (animated) {
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+        [self.scrollView setContentOffset:CGPointMake(width, 0) animated:YES];
+    } else {
+        [self.scrollView setContentOffset:CGPointMake(width, 0) animated:NO];
+    }
 }
 
 - (void)imageClick {
@@ -149,7 +159,7 @@
 
 - (void)autoScroll {
     self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
-    [self scrollToCenter];
+    [self scrollToCenterWithAnimated:YES];
 }
 
 #pragma mark

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class LiveModel;
 @interface PLPlayerViewController : UIViewController
+
+@property (nonatomic, copy) void (^PlayerDismissBlock)();
 
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) NSArray *liveArray;
-@property (nonatomic, copy) void (^PlayerDismissBlock)();
 
 @end
