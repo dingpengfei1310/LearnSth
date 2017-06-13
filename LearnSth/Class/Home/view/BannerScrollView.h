@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSArray *imageArray;
 @property (nonatomic, copy) void (^ImageClickBlock)(NSInteger index);
 
-- (void)setUpTimer;
+- (void)openTimer;
 - (void)invalidateTimer;
 
 @end

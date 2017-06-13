@@ -54,7 +54,7 @@ const  NSInteger liveColumn = 2;
 
 - (void)viewWillShow:(BOOL)flag {
     if (flag) {
-        [self.bannerScrollView setUpTimer];
+        [self.bannerScrollView openTimer];
     } else {
         [self.bannerScrollView invalidateTimer];
     }

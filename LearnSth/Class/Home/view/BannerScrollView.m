@@ -12,12 +12,12 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *centerImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
 
-@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger currentPage;
 
@@ -46,13 +46,11 @@
         return;
     }
     [self.indicatorView removeFromSuperview];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _imageArray = imageArray;
     
-    
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     for (int i = 0; i < 3; i++) {
-        NSInteger index = (imageArray.count - 1 + i) % imageArray.count;
+        NSInteger index = (imageArray.count - 1 + i) % imageArray.count;//last,0,1
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width * i, 0, width, height)];
         imageView.userInteractionEnabled = YES;
@@ -80,7 +78,7 @@
         
         self.scrollView.contentSize = CGSizeMake(width * 3, height);
         
-        [self setUpTimer];
+        [self openTimer];
     }
 }
 
@@ -91,21 +89,18 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self setUpTimer];
+    [self openTimer];
     [self calculateCurrrentPage:scrollView];
+    [self scrollToCenterWithAnimated:NO];
 }
 
 #pragma mark
-- (void)setUpTimer {
+- (void)openTimer {
     if (self.imageArray.count < 2) {
         return;
     }
     if (!_timer) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0
-                                                      target:self
-                                                    selector:@selector(autoScroll)
-                                                    userInfo:nil
-                                                     repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(autoScroll) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
 }
@@ -118,19 +113,15 @@
 - (void)calculateCurrrentPage:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.x > width) {
         self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
-        
     } else if (scrollView.contentOffset.x < width) {
         self.currentPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
     }
-    [self scrollToCenterWithAnimated:NO];
+    self.pageControl.currentPage = self.currentPage;
 }
 
 - (void)scrollToCenterWithAnimated:(BOOL)animated {
-    NSInteger leftPage;
-    NSInteger rightPage;
-    
-    leftPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
-    rightPage = (self.currentPage + 1 ) % self.imageArray.count;
+    NSInteger leftPage = (self.imageArray.count + self.currentPage - 1 ) % self.imageArray.count;
+    NSInteger rightPage = (self.currentPage + 1 ) % self.imageArray.count;
     
     [self.leftImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[leftPage]]
                           placeholderImage:nil];
@@ -140,8 +131,6 @@
     
     [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[rightPage]]
                            placeholderImage:nil];
-    
-    self.pageControl.currentPage = self.currentPage;
     
     if (animated) {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -159,6 +148,7 @@
 
 - (void)autoScroll {
     self.currentPage = (self.currentPage + 1 ) % self.imageArray.count;
+    self.pageControl.currentPage = self.currentPage;
     [self scrollToCenterWithAnimated:YES];
 }
 
@@ -188,10 +178,8 @@
 - (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {
         _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _indicatorView.frame = CGRectMake(0, 0, 20, 20);
         _indicatorView.center = CGPointMake(width * 0.5, height * 0.5);
     }
-    
     return _indicatorView;
 }
 
