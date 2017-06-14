@@ -26,8 +26,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [super viewDidLoad];
     
     if (self.urlString) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        _urlString = [_urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         
@@ -44,10 +43,8 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     if ([self.KWebView canGoBack]) {
         [self.KWebView goBack];
         return NO;
-        
-    } else {
-        return YES;
     }
+    return YES;
 }
 
 #pragma mark
@@ -94,7 +91,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         WKWebViewConfiguration *configuation = [[WKWebViewConfiguration alloc] init];
         configuation.userContentController = userController;
         
-        CGRect frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
         _KWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuation];
         _KWebView.navigationDelegate = self;
         _KWebView.UIDelegate = self;
@@ -116,7 +113,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 #pragma mark
 - (void)dealloc {
     [self.KWebView removeObserver:self forKeyPath:EstimatedProgress];
-    [self.KWebView.configuration.userContentController removeScriptMessageHandlerForName:@"currentCookies"];
+//    [self.KWebView.configuration.userContentController removeScriptMessageHandlerForName:@"currentCookies"];
 }
 
 - (void)didReceiveMemoryWarning {

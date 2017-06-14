@@ -29,8 +29,7 @@ const CGFloat Margin = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    
-    _row = 3;
+    self.row = 3;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];
     [self initilizSubviews];

@@ -291,7 +291,7 @@
         [self.movieWriter finishRecording];
         _isRecording = NO;
         
-        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:^{
+        [self showAlertWithTitle:nil message:@"是否保存到手机？" cancel:^{
             [self dismiss:nil];
         } operation:^{
             [self loading];

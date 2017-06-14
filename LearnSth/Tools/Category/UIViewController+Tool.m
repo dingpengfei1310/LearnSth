@@ -35,16 +35,23 @@ typedef void (^CancelBlock)();
 #pragma mark
 - (void)navigationBarColorClear {
     UIImage *image = [CustomiseTool imageWithColor:[UIColor clearColor]];
-    
     [self.navigationController.navigationBar setBackgroundImage:image
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];
 }
 
 - (void)navigationBarColorRestore {
-    [self.navigationController.navigationBar setBackgroundImage:nil
+    UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
+    [self.navigationController.navigationBar setBackgroundImage:image
                                                   forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
+    [self.navigationController.navigationBar setShadowImage:image];
+}
+
+- (void)navigationBarBackgroundImage:(UIColor *)color {
+    UIImage *image = [CustomiseTool imageWithColor:color];
+    [self.navigationController.navigationBar setBackgroundImage:image
+                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:image];
 }
 
 #pragma mark - HUD提示框
@@ -191,7 +198,7 @@ typedef void (^CancelBlock)();
         operation ? operation() : 0;
     };
     
-    [self showAlertWithTitle:@"提示" message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
+    [self showAlertWithTitle:nil message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
@@ -206,11 +213,11 @@ typedef void (^CancelBlock)();
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
-    [self showAlertWithTitle:nil message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel destructive:(void (^)())operation {
-    [self showAlertWithTitle:nil message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDestructive];
+    [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDestructive];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style {

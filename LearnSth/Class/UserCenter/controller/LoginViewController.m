@@ -94,12 +94,10 @@ const CGFloat fieldHeight = 35;
             
             UIImage *image = [UIImage imageNamed:@"defaultHeader"];
             [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
-            
             [UserManager updateUser];
         }
         
         [CustomiseTool setIsLogin:YES];
-        
         if (self.LoginSuccessBlock) {
             self.LoginSuccessBlock();
         }
@@ -115,7 +113,6 @@ const CGFloat fieldHeight = 35;
 }
 
 - (void)forgetClick {
-    
 }
 
 #pragma mark

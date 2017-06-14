@@ -52,7 +52,7 @@
 }
 
 - (void)showAlertOnClearDiskCache {
-    [self showAlertWithTitle:@"提示" message:@"确定要清除缓存吗" cancel:nil destructive:^{
+    [self showAlertWithTitle:nil message:@"确定要清除缓存吗" cancel:nil destructive:^{
         [self clearDiskCache];
     }];
 }
@@ -90,7 +90,7 @@
 }
 
 - (void)logOut {
-    [self showAlertWithTitle:@"提示" message:@"确定要退出登录吗" cancel:nil destructive:^{
+    [self showAlertWithTitle:nil message:@"确定要退出登录吗" cancel:nil destructive:^{
         [CustomiseTool remoAllCaches];
         [UserManager deallocManager];
         
@@ -106,10 +106,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [cell setSeparatorInset:UIEdgeInsetsZero];
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -130,6 +126,10 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setLayoutMargins:UIEdgeInsetsZero];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -186,18 +186,21 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.layoutMargins = UIEdgeInsetsZero;
         
-        UIButton *logoutButon = [UIButton buttonWithType:UIButtonTypeSystem];
-        logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-        logoutButon.backgroundColor = [UIColor whiteColor];
-        [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];
-        [logoutButon addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
-        _tableView.tableFooterView = logoutButon;
+        if ([CustomiseTool isLogin]) {
+            UIButton *logoutButon = [UIButton buttonWithType:UIButtonTypeSystem];
+            logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
+            logoutButon.backgroundColor = [UIColor whiteColor];
+            [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];
+            [logoutButon addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
+            _tableView.tableFooterView = logoutButon;
+        }
     }
     return _tableView;
 }

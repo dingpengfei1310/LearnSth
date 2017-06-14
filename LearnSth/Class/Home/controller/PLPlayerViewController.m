@@ -217,7 +217,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self showAlertWithTitle:@"警告" message:@"收到内存警告" operationTitle:@"确定" operation:nil];
+    [self showAlertWithTitle:nil message:@"收到内存警告" operationTitle:@"确定" operation:nil];
 }
 
 @end

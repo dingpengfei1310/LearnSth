@@ -30,8 +30,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuList"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
     
     CGFloat viewW = self.view.frame.size.width;
-    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW)];
-    _imageView.center = CGPointMake(viewW * 0.5, self.view.frame.size.height * 0.5);
+    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
     
     NSData *data = [UserManager shareManager].headerImageData;

@@ -28,7 +28,7 @@
 }
 
 - (void)initSubView {
-    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 84, self.view.frame.size.width - 40, 35)];
+    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 64 + 20, self.view.frame.size.width - 40, 35)];
     _qrTextField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:_qrTextField];
     

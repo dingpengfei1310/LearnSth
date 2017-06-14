@@ -11,6 +11,7 @@
 @implementation UINavigationBar (Tool)
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    
     if (point.y < 0 || point.y > 44) {
         return nil;
         
@@ -18,23 +19,31 @@
         self.userInteractionEnabled = YES;
         
     } else if (self.backItem) {
-        NSString *title = @"返回";
+        __block BOOL flag = NO;
+        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * obj, NSUInteger idx, BOOL * stop) {
+            if (obj.userInteractionEnabled && CGRectContainsPoint(obj.frame, point)) {
+                flag = YES;
+                *stop = YES;
+            }
+        }];
         
-        if (self.backItem.backBarButtonItem.title) {
+        if (flag) {
+            self.userInteractionEnabled = YES;
+            return [super hitTest:point withEvent:event];
+        }
+        
+        NSString *title = @"返回";
+        if (self.backItem.backBarButtonItem) {
             title = self.backItem.backBarButtonItem.title;
         } else {
             title = self.backItem.title;
         }
-        
         NSDictionary *attributes = [[UIBarButtonItem appearance] titleTextAttributesForState:UIControlStateNormal];
         CGSize size = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30)
                                           options:NSStringDrawingUsesLineFragmentOrigin
                                        attributes:attributes
                                           context:nil].size;
-        
-        self.userInteractionEnabled = size.width + 30 > point.x;
-//        self.backItem.leftBarButtonItem.enabled = size.width + 30 > point.x;
-//        self.backItem.backBarButtonItem.enabled = size.width + 30 > point.x;
+        self.userInteractionEnabled = size.width + 35 > point.x;
     }
     
     return [super hitTest:point withEvent:event];

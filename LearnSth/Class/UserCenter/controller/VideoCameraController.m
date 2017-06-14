@@ -180,7 +180,7 @@
         self.displayLink = nil;
         self.timeLabel.text = nil;
         
-        [self showAlertWithTitle:@"提示" message:@"是否保存到手机？" cancel:nil operation:^{
+        [self showAlertWithTitle:nil message:@"是否保存到手机？" cancel:nil operation:^{
             [self loading];
             UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), NULL);
 //            [self compressVideo];//压缩视频

@@ -71,7 +71,6 @@ typedef NS_ENUM(NSInteger, StepCountDateType) {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (success) {
             [self getStepCount];
-            
         } else {
             [self showError:@"您已拒绝此权限"];
         }

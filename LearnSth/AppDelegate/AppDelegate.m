@@ -30,14 +30,14 @@
 #pragma mark
 - (void)setNavigationBar {
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
-    [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+    
+    UIImage *originalImage = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [[UINavigationBar appearance] setBackIndicatorImage:originalImage];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:originalImage];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                            NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-    UIImage *image = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [[UINavigationBar appearance] setBackIndicatorImage:image];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-5, 0) forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16]}

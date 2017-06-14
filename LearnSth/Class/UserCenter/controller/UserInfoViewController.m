@@ -162,6 +162,18 @@ static NSString *Identifier = @"cell";
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.row == 0 ? 70 : 50;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -183,24 +195,12 @@ static NSString *Identifier = @"cell";
         [self presentAddressPickerController];
         
     } else if (indexPath.row == 3) {
-        if (TARGET_OS_SIMULATOR) {
-            [self showError:@"真机使用"];
-            return;
-        }
         IDCardViewController *controller = [[IDCardViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 4) {
         UserQRCodeController *controller = [[UserQRCodeController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? 70 : 50;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -221,9 +221,10 @@ static NSString *Identifier = @"cell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.layoutMargins = UIEdgeInsetsZero;
     }
     return _tableView;
 }

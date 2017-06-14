@@ -64,7 +64,7 @@ static NSString *Identifier = @"cell";
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-        nvc.transitioningDelegate = self;
+//        nvc.transitioningDelegate = self;
         [self presentViewController:nvc animated:YES completion:nil];
     }
 }
@@ -85,10 +85,6 @@ static NSString *Identifier = @"cell";
     return array.count;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell setSeparatorInset:UIEdgeInsetsZero];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
@@ -107,16 +103,16 @@ static NSString *Identifier = @"cell";
     return nil;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == 0 ? 70 : 50;
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setLayoutMargins:UIEdgeInsetsZero];//iOS10.0以上可以不用设置
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 10.0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section == 0 ? 70 : 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,9 +168,11 @@ static NSString *Identifier = @"cell";
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         [_tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableView.dataSource = self;
-        _tableView.delegate = self;
+        _tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
+        _tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
     }
     return _tableView;
 }

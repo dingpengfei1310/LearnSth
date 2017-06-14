@@ -109,7 +109,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         DownloadModel *model = self.downloadFile.allValues[indexPath.row];
-        [self showAlertWithTitle:@"提示" message:@"确定删除吗?"
+        [self showAlertWithTitle:nil message:@"确定删除吗?"
                           cancel:^{
                               [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                           } destructive:^{

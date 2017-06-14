@@ -76,9 +76,7 @@
 
 - (void)deleteSelectArray {
     if (self.selectArray.count > 0) {
-        [self showAlertWithTitle:@"提示"
-                         message:@"确定删除选中的文件吗?"
-                          cancel:nil
+        [self showAlertWithTitle:nil message:@"确定删除选中的文件吗?" cancel:nil
                      destructive:^{
                          for (NSIndexPath *indexPath in self.selectArray) {
                              NSString *filePath = [_previewItemPath stringByAppendingPathComponent:self.previewItems[indexPath.row]];
@@ -178,7 +176,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self showAlertWithTitle:@"提示" message:@"确定删除这个文件吗?"
+        [self showAlertWithTitle:nil message:@"确定删除这个文件吗?"
                           cancel:^{
                               [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                           } destructive:^{
