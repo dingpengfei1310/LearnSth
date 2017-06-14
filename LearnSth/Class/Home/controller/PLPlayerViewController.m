@@ -158,6 +158,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         
         self.title = self.live.myname;
         self.navigationItem.rightBarButtonItem = nil;
+        
+        [self.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.live.bigpic]];
+        [self.backgroundImageView removeFromSuperview];
         [self.view addSubview:self.backgroundImageView];
         
         NSURL *url = [NSURL URLWithString:self.live.flv];
