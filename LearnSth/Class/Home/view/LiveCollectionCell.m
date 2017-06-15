@@ -26,33 +26,31 @@
 }
 
 - (void)initialize {
-    _liveImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:self.liveImageView];
+    UIColor *backgroundColor = [UIColor whiteColor];
     
-    UIColor *backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    _liveImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:_liveImageView];
     
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.backgroundColor = backgroundColor;
-    _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.font = [UIFont systemFontOfSize:12];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:self.nameLabel];
+    [self.contentView addSubview:_nameLabel];
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
     if (![_liveModel isEqual:liveModel]) {
         
         _liveModel = liveModel;
-//        NSURL *url = [NSURL URLWithString:liveModel.smallpic];
         NSURL *url = [NSURL URLWithString:liveModel.bigpic];
         [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            self.liveImageView.frame = self.contentView.bounds;
+            CGFloat width = CGRectGetWidth(self.contentView.bounds);
+            self.liveImageView.frame = CGRectMake(0, 0, width, width);
             
             if (liveModel.myname.length > 0) {
-                self.nameLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), 21);
+                self.nameLabel.frame = CGRectMake(0, width, width, 21);
                 self.nameLabel.text = liveModel.myname;
             }
-            
         }];
     }
 }

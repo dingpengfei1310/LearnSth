@@ -36,9 +36,8 @@ const float margin = 20;
 }
 
 - (void)initSubView {
-    CGFloat viewW = self.view.frame.size.width;
-    
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 0, viewW, self.view.frame.size.height - 64)];
+    CGFloat viewW = CGRectGetWidth(self.view.frame);
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 0, viewW, CGRectGetHeight(self.view.frame) - 64)];
     [self.view addSubview:scrollView];
     
     _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(margin, margin, viewW - 2 * margin, (viewW - 2 * margin) * 0.63)];

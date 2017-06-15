@@ -13,7 +13,7 @@
 + (instancetype)pieceWithIndex:(NSInteger)index image:(UIImage *)image {
     JPuzzlePiece *piece = [[JPuzzlePiece alloc] init];
     piece.index = index;
-    piece.layer.borderWidth = 1;
+    piece.layer.borderWidth = 2.0;
     piece.layer.borderColor = [UIColor whiteColor].CGColor;
     [piece setBackgroundImage:image forState:UIControlStateNormal];
     

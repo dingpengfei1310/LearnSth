@@ -38,7 +38,7 @@
 #if TARGET_OS_SIMULATOR
     [self dismisss];
 #else
-    viewW = self.view.frame.size.width;
+    viewW = CGRectGetWidth(self.view.frame);
     // 初始化rect
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
     int ret = EXCARDS_Init(thePath);

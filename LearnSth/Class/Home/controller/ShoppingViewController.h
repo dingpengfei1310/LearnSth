@@ -10,6 +10,6 @@
 
 @interface ShoppingViewController : UIViewController
 
-@property (nonatomic, copy) void (^BackItemBlock)();
+@property (nonatomic, copy) void (^BackItemBlock)();//返回操作。不设置则为默认返回
 
 @end

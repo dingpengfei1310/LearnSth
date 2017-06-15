@@ -150,11 +150,11 @@ const  NSInteger liveColumn = 2;
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat viewW = self.frame.size.width;
+        CGFloat viewW = CGRectGetWidth(self.frame);
         CGFloat itemWidth = (viewW - (liveColumn + 1) * 10) / liveColumn;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth + 21);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
@@ -198,7 +198,7 @@ const  NSInteger liveColumn = 2;
 
 - (BannerScrollView *)bannerScrollView {
     if (!_bannerScrollView) {
-        CGFloat viewW = self.frame.size.width;
+        CGFloat viewW = CGRectGetWidth(self.frame);
         _bannerScrollView = [[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, viewW, viewW * 0.24)];
         
         __weak typeof(self) weakSelf = self;

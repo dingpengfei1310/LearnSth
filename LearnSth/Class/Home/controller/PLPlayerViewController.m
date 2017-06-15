@@ -17,10 +17,10 @@
     CGFloat viewH;
 }
 
-@property (nonatomic, strong) LiveModel *live;
+@property (nonatomic, strong) LiveModel *liveModel;
 
 @property (nonatomic, strong) PLPlayer *player;
-@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *foregroundView;
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) CGPoint lastPanPoint;
@@ -35,26 +35,26 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    viewW = self.view.frame.size.width;
-    viewH = self.view.frame.size.height;
+    viewW = CGRectGetWidth(self.view.frame);
+    viewH = CGRectGetHeight(self.view.frame);
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
     if (self.index < self.liveArray.count) {
-        self.live = self.liveArray[self.index];
-        self.title = self.live.myname;
+        self.liveModel = self.liveArray[self.index];
+        self.title = self.liveModel.myname;
         
         [self.view addSubview:self.player.playerView];
-        [self.view addSubview:self.backgroundImageView];
+        [self showForegroundView];
     }
     
-    [self addGesture];
+    [self addOriginalGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self navigationBarColorClear];
+    
     [self.player play];
     self.player.playerView.gestureRecognizers = nil;
 }
@@ -65,7 +65,23 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 #pragma mark
-- (void)addGesture {
+- (void)showForegroundView {
+    if (!_foregroundView) {
+        _foregroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        _foregroundView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithFrame:self.view.bounds];
+        effectView.effect =  blurEffect;
+        [_foregroundView addSubview:effectView];
+        
+        [self.view addSubview:_foregroundView];
+    }
+    
+    [_foregroundView sd_setImageWithURL:[NSURL URLWithString:self.liveModel.bigpic]];
+}
+
+- (void)addOriginalGesture {
     UISwipeGestureRecognizer *dismissGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPlayerController)];
     dismissGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:dismissGesture];
@@ -82,7 +98,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-- (void)smallView:(UIBarButtonItem *)sender {
+- (void)smallWindow:(UIBarButtonItem *)sender {
     [self.player.playerView removeFromSuperview];
     [self.window addSubview:self.player.playerView];
     
@@ -92,7 +108,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
         [self.player.playerView addGestureRecognizer:panGesture];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPlayerView:)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
         [self.player.playerView addGestureRecognizer:tapGesture];
     }];
     
@@ -135,7 +151,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     self.lastPanPoint = point;
 }
 
-- (void)clickPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
+- (void)tapPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
     [self backToRootController];
 }
 
@@ -154,16 +170,14 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (void)nextLive {
     if (self.index < self.liveArray.count - 1) {
         self.index ++;
-        self.live = self.liveArray[self.index];
+        self.liveModel = self.liveArray[self.index];
         
-        self.title = self.live.myname;
+        self.title = self.liveModel.myname;
         self.navigationItem.rightBarButtonItem = nil;
         
-        [self.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.live.bigpic]];
-        [self.backgroundImageView removeFromSuperview];
-        [self.view addSubview:self.backgroundImageView];
+        [self showForegroundView];
         
-        NSURL *url = [NSURL URLWithString:self.live.flv];
+        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         [self.player playWithURL:url];
         
     } else {
@@ -174,10 +188,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 #pragma mark
 - (void)player:(PLPlayer *)player statusDidChange:(PLPlayerStatus)state {
     if (state == PLPlayerStatusPlaying) {
-        [self.backgroundImageView removeFromSuperview];
-        self.backgroundImageView = nil;
+        [self.foregroundView removeFromSuperview];
+        self.foregroundView = nil;
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallView:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
     }
 }
 
@@ -187,7 +201,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         PLPlayerOption *option = [PLPlayerOption defaultOption];
 //        [option setOptionValue:@1 forKey:PLPlayerOptionKeyVideoToolbox];
         
-        NSURL *url = [NSURL URLWithString:self.live.flv];
+        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
         
@@ -202,20 +216,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         _window = [UIApplication sharedApplication].keyWindow;
     }
     return _window;
-}
-
-- (UIImageView *)backgroundImageView {
-    if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.live.bigpic]];
-        
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        effectView.frame = self.view.bounds;
-        [_backgroundImageView addSubview:effectView];
-    }
-    return _backgroundImageView;
 }
 
 - (void)didReceiveMemoryWarning {

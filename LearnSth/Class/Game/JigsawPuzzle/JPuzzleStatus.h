@@ -11,7 +11,7 @@
 @class JPuzzlePiece;
 @interface JPuzzleStatus : NSObject
 
-@property (nonatomic, assign) NSInteger row;
+@property (nonatomic, assign) NSInteger rowCount;
 @property (nonatomic, strong) NSMutableArray<JPuzzlePiece*> *pieceArray;
 
 /// 空格位置，无空格时为-1
@@ -24,5 +24,7 @@
 #pragma mark
 - (BOOL)canMoveToIndex:(NSInteger)index;
 - (void)moveToIndex:(NSInteger)index;
+
+- (void)shuffleWithStep:(NSInteger)count;
 
 @end

@@ -27,30 +27,6 @@
     }
     
     if(shouldPop) {
-//        if (navigationBar.backItem) {
-//            NSString *title = @"返回";
-//            
-//            if (navigationBar.backItem.backBarButtonItem) {
-//                title = navigationBar.backItem.backBarButtonItem.title;
-//                
-//                NSDictionary *attributes = [[UIBarButtonItem appearance] titleTextAttributesForState:UIControlStateNormal];
-//                CGSize size = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30)
-//                                                  options:NSStringDrawingUsesLineFragmentOrigin
-//                                               attributes:attributes
-//                                                  context:nil].size;
-//                
-//                BOOL flag = size.width + 30 > point.x;
-//                self.backItem.backBarButtonItem.enabled = flag;
-//                
-//            } else {
-//                title = self.backItem.title;
-//                //            self.backItem.backBarButtonItem.en
-//            }
-//            
-//            //        self.userInteractionEnabled = size.width + 30 > point.x;
-//        }
-        
-        
         [self popViewControllerAnimated:YES];
         
     } else {

@@ -30,6 +30,7 @@ const CGFloat Margin = 10;
     [super viewDidLoad];
     self.title = @"Game";
     self.row = 3;
+    _image = [UIImage imageNamed:@"JPuzzleGame"];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];
     [self initilizSubviews];
@@ -38,17 +39,18 @@ const CGFloat Margin = 10;
 - (void)initilizSubviews {
     CGFloat viewW = self.view.frame.size.width - Margin * 2;
     
-    _gameView = [[UIView alloc] initWithFrame:CGRectMake(Margin, 64 + Margin, viewW, viewW)];
+    _gameView = [[UIView alloc] initWithFrame:CGRectMake(Margin - 2, 64 + Margin, viewW + 4, viewW + 4)];
     _gameView.backgroundColor = KBackgroundColor;
     [self.view addSubview:_gameView];
     
-    UIView *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(Margin, CGRectGetMaxY(_gameView.frame), viewW, 40)];
+    UIView *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(Margin, Margin + CGRectGetMaxY(_gameView.frame), viewW, 30)];
     [self.view addSubview:buttonView];
     
     CGFloat buttonW = 60;
-    NSArray *titles = @[@"难度:低",@"重置",@""];
+    NSArray *titles = @[@"难度:低",@"重置",@"打乱",@"自动"];
     for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * (Margin + buttonW), 0, buttonW, 40)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * (Margin + buttonW), 0, buttonW, 30)];
+        button.backgroundColor = KBaseBlueColor;
         button.tag = i;
         button.titleLabel.font = [UIFont systemFontOfSize:15];
         [button setTitle:titles[i] forState:UIControlStateNormal];
@@ -100,6 +102,11 @@ const CGFloat Margin = 10;
 }
 
 - (void)buttonClick:(UIButton *)button {
+    if (!_image) {
+        [self showError:@"请先选择图片"];
+        return;
+    }
+    
     if (button.tag == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"高" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -119,6 +126,17 @@ const CGFloat Margin = 10;
         
     } else if (button.tag == 1) {
         [self resetGame];
+        
+    } else if (button.tag == 2) {
+        if (self.currentStatus.emptyIndex >= 0) {
+            [self.currentStatus shuffleWithStep:_row * _row * 10];
+            [self reloadWithStatus:self.currentStatus];
+        } else {
+            [self showError:@"请先挖去一块"];
+        }
+        
+    } else if (button.tag == 3) {
+        
     }
 }
 
@@ -155,7 +173,9 @@ const CGFloat Margin = 10;
     [self reloadWithStatus:self.currentStatus];
 
     if ([status equalWithStatus:self.completedStatus]) {
-        [self showAlertWithTitle:@"恭喜" message:@"拼图完成！" operationTitle:@"确定" operation:nil];
+        [self showAlertWithTitle:@"恭喜你" message:@"拼图完成啦！" operationTitle:@"确定" operation:^{
+            [self resetGame];
+        }];
     }
 }
 

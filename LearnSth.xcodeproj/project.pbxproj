@@ -1254,16 +1254,16 @@
 		CF7096121E0D7ECD00A821C8 /* address */ = {
 			isa = PBXGroup;
 			children = (
+				1B36204E1E164E75004C9FF9 /* AddressDataSource.h */,
+				1B36204F1E164E75004C9FF9 /* AddressDataSource.m */,
+				1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */,
+				1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */,
 				CFEAB8CC1DE9849700CB9DDF /* CityViewController.h */,
 				CFEAB8CD1DE9849700CB9DDF /* CityViewController.m */,
 				CFEAB8C91DE983CC00CB9DDF /* ProvinceViewController.h */,
 				CFEAB8CA1DE983CC00CB9DDF /* ProvinceViewController.m */,
 				1BF3B3B91E03737E0061DD5A /* SearchResultController.h */,
 				1BF3B3BA1E03737E0061DD5A /* SearchResultController.m */,
-				1B36204E1E164E75004C9FF9 /* AddressDataSource.h */,
-				1B36204F1E164E75004C9FF9 /* AddressDataSource.m */,
-				1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */,
-				1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */,
 			);
 			name = address;
 			sourceTree = "<group>";

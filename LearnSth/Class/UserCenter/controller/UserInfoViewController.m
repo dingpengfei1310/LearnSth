@@ -49,10 +49,10 @@ static NSString *Identifier = @"cell";
     self.navigationController.delegate = nil;
 }
 
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    self.navigationController.delegate = nil;
-//}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.delegate = nil;
+}
 
 #pragma mark
 - (void)scanQRCode {

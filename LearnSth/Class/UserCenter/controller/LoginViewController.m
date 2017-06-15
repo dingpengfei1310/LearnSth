@@ -39,7 +39,7 @@ const CGFloat fieldHeight = 35;
 }
 
 - (void)initSubView {
-    viewW = self.view.frame.size.width;
+    viewW = CGRectGetWidth(self.view.frame);
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:scrollView];
     

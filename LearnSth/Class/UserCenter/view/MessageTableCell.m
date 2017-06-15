@@ -33,6 +33,7 @@
     [self.contentView addSubview:_contentBackgroundView];
     
     _contentLabel = [[UILabel alloc] init];
+    _contentLabel.layer.masksToBounds = YES;
     _contentLabel.numberOfLines = 0;
     _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.contentView addSubview:_contentLabel];
@@ -66,10 +67,7 @@
 //                                NSStrikethroughStyleAttributeName:@(NSUnderlinePatternDashDotDot | NSUnderlineStyleSingle),
 //                                NSBaselineOffsetAttributeName:@(NSUnderlineStyleSingle)
                                 };
-    
-    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:content
-                                                                    attributes:attribute];
-    self.contentLabel.attributedText = attString;
+    self.contentLabel.attributedText = [[NSAttributedString alloc] initWithString:content attributes:attribute];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

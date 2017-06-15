@@ -29,7 +29,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuList"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
     
-    CGFloat viewW = self.view.frame.size.width;
+    CGFloat viewW = CGRectGetWidth(self.view.frame);
     _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];

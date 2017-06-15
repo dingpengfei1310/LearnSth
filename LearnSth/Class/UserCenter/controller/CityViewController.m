@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"地区";
+    self.view.backgroundColor = KBackgroundColor;
     
     CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
         cell.textLabel.text = info[@"name"];

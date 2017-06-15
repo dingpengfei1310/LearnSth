@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"地区";
+    self.view.backgroundColor = KBackgroundColor;
     
     self.searchController.searchBar.backgroundImage = [CustomiseTool imageWithColor:[UIColor clearColor]];
     CellInfoBlock block = ^(UITableViewCell *cell,NSDictionary *info){
@@ -36,7 +37,6 @@
                                                  cellBlock:block];
     
     self.tableView.dataSource = _dataSource;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
     self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
@@ -72,6 +72,7 @@
         SearchResultController *resultController = [[SearchResultController alloc] init];
         _searchController = [[UISearchController alloc] initWithSearchResultsController:resultController];
         _searchController.searchResultsUpdater = self;
+         _searchController.searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44);
 //        _searchController.dimsBackgroundDuringPresentation = NO;
 //        _searchController.obscuresBackgroundDuringPresentation = NO;
 //        _searchController.hidesNavigationBarDuringPresentation = NO;

@@ -78,16 +78,14 @@ static char reloadBlockKey;
 
 #pragma mark
 - (void)createPlaceHolderView {
-    CGFloat viewWidth = self.frame.size.width;
-    CGFloat ViewHeight = self.frame.size.height;
-    
-    UIView *placeholderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, ViewHeight)];
+    UIView *placeholderView = [[UIView alloc] initWithFrame:self.bounds];
     placeholderView.backgroundColor = self.backgroundColor;
     [self setPlaceholderView:placeholderView];
     
     CGFloat buttonW = 100;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake((viewWidth - buttonW) / 2, ViewHeight * 0.3, buttonW, buttonW);
+    button.bounds = CGRectMake(0, 0, buttonW, buttonW);
+    button.center = placeholderView.center;
     [button setTitle:@"暂无内容\n点击重新加载" forState:UIControlStateNormal];
     [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];

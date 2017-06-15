@@ -19,6 +19,7 @@
 @interface HomeViewController ()
 
 @property (nonatomic, strong) LiveCollectionView *liveCollectionView;
+@property (nonatomic, strong) UIView *vv;
 
 @end
 
@@ -31,7 +32,6 @@
     [self.view addSubview:self.liveCollectionView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
-    
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
 //    backItem.title = @"";
 //    self.navigationItem.backBarButtonItem = backItem;

@@ -20,8 +20,17 @@
     [super viewDidLoad];
     self.title = @"shop";
     
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 #pragma mark
@@ -34,9 +43,9 @@
 - (BOOL)navigationShouldPopItem {
     if (self.BackItemBlock) {
         self.BackItemBlock();
+        return NO;
     }
-    
-    return NO;
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

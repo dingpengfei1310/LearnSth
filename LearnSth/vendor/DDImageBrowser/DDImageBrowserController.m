@@ -129,7 +129,7 @@ const CGFloat minLineSpacing = 40;
 #pragma mark
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //减速停止
-    CGFloat pageWidth = scrollView.frame.size.width + minLineSpacing;
+    CGFloat pageWidth = CGRectGetWidth(scrollView.frame) + minLineSpacing;
     NSInteger currentPage = scrollView.contentOffset.x / pageWidth;
     
     if (self.currentIndex == currentPage) {
@@ -144,7 +144,7 @@ const CGFloat minLineSpacing = 40;
 }
 
 //- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    CGFloat pageWidth = scrollView.frame.size.width + minLineSpacing;
+//    CGFloat pageWidth = CGRectGetWidth(scrollView.frame) + minLineSpacing;
 //    
 //    NSInteger lastPage;
 //    if (velocity.x == 0) {
