@@ -33,6 +33,7 @@ const CGFloat fieldHeight = 35;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
     
     [self initSubView];

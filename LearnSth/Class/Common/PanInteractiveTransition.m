@@ -8,7 +8,7 @@
 
 #import "PanInteractiveTransition.h"
 
-@interface PanInteractiveTransition ()
+@interface PanInteractiveTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) BOOL shouldComplete;
 @property (nonatomic, strong) UIViewController *presentingVC;
@@ -21,34 +21,29 @@
     _presentingVC = controler;
     
     UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    gesture.delegate = self;
     [_presentingVC.view addGestureRecognizer:gesture];
 }
 
 - (void)handleGesture:(UIPanGestureRecognizer *)gestureRecognizer {
-    CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view.superview];
+    CGPoint translation = [gestureRecognizer locationInView:gestureRecognizer.view.superview];
+    
     switch (gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:
-            // 1. Mark the interacting flag. Used when supplying it in delegate.
             self.interacting = YES;
-            if (self.presentingVC.presentingViewController) {
-                [self.presentingVC.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-            } else {
-                [self.presentingVC dismissViewControllerAnimated:YES completion:nil];
-            }
+            [self.presentingVC dismissViewControllerAnimated:YES completion:nil];
+            
             break;
         case UIGestureRecognizerStateChanged: {
-            // 2. Calculate the percentage of guesture
             CGFloat fraction = translation.x / CGRectGetWidth(gestureRecognizer.view.superview.frame);
-            //Limit it between 0 and 1
             fraction = fminf(fmaxf(fraction, 0.0), 1.0);
-            self.shouldComplete = (fraction > 0.4);
+            self.shouldComplete = (fraction > 0.5);
             
             [self updateInteractiveTransition:fraction];
             break;
         }
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
-            // 3. Gesture over. Check if the transition should happen or not
             self.interacting = NO;
             if (!self.shouldComplete || gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
                 [self cancelInteractiveTransition];
@@ -60,6 +55,16 @@
         default:
             break;
     }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint translation = [gestureRecognizer locationInView:gestureRecognizer.view.superview];
+    if (gestureRecognizer.state == UIGestureRecognizerStatePossible) {
+        if (translation.x > 30) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

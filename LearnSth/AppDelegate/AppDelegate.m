@@ -48,15 +48,6 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
 
-//- (void)debugSth {
-//    Class debugCls = NSClassFromString(@"UIDebuggingInformationOverlay");
-//    [debugCls performSelector:NSSelectorFromString(@"prepareDebuggingOverlay")];
-//    
-//    Class someClass = NSClassFromString(@"UIDebuggingInformationOverlay");
-//    id obj = [someClass performSelector:NSSelectorFromString(@"overlay")];
-//    [obj performSelector:NSSelectorFromString(@"toggleVisibility")];
-//}
-
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     if (self.isAutorotate) {
         return UIInterfaceOrientationMaskAllButUpsideDown;

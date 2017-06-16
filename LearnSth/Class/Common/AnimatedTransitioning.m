@@ -56,16 +56,15 @@
             [containerView addSubview:toView];
             [transitionContext completeTransition:YES];
         }];
-        
     } else if (operation == AnimatedTransitioningOperationDismiss) {
         [containerView addSubview:toViewSnapshot];
         [containerView addSubview:fromViewSnapshot];
         toViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
         
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+        //UIViewAnimationOptionCurveLinear。线性
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             fromViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
             toViewSnapshot.transform = CGAffineTransformIdentity;
-            
         } completion:^(BOOL finished) {
             if (![transitionContext transitionWasCancelled]) {
                 [containerView addSubview:toView];
@@ -73,10 +72,8 @@
             
             [toViewSnapshot removeFromSuperview];
             [fromViewSnapshot removeFromSuperview];
-            
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
-        
     } else if (operation == AnimatedTransitioningOperationPop) {
         [containerView addSubview:toViewSnapshot];
         [containerView addSubview:fromViewSnapshot];

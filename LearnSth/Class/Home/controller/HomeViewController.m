@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
+#import "LiveInfoViewController.h"
 
 #import "JPuzzleViewController.h"
 #import "GameViewController.h"
@@ -84,6 +85,15 @@
             controller.hidesBottomBarWhenPushed = YES;
             UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
             [weakSelf presentViewController:nvc animated:YES completion:nil];
+            
+//            LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
+//            controller.hidesBottomBarWhenPushed = YES;
+//            controller.liveModel = liveArray[index];
+//            controller.LiveInfoDismissBlock = ^{
+//                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+//            };
+//            UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+//            [weakSelf presentViewController:nvc animated:YES completion:nil];
         };
     }
     return _liveCollectionView;
