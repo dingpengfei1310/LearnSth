@@ -91,8 +91,8 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         WKWebViewConfiguration *configuation = [[WKWebViewConfiguration alloc] init];
         configuation.userContentController = userController;
         
-        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
-        _KWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuation];
+//        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
+        _KWebView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuation];
         _KWebView.navigationDelegate = self;
         _KWebView.UIDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。

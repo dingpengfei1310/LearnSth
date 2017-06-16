@@ -127,46 +127,46 @@ const CGFloat minLineSpacing = 40;
 }
 
 #pragma mark
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    //减速停止
-    CGFloat pageWidth = CGRectGetWidth(scrollView.frame) + minLineSpacing;
-    NSInteger currentPage = scrollView.contentOffset.x / pageWidth;
-    
-    if (self.currentIndex == currentPage) {
-        return;
-    }
-    
-    self.currentIndex = currentPage;
-    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",currentPage + 1,self.thumbImages.count];
-    if (self.ScrollToIndexBlock) {
-        self.ScrollToIndexBlock(self,self.currentIndex);
-    }
-}
-
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    //减速停止
 //    CGFloat pageWidth = CGRectGetWidth(scrollView.frame) + minLineSpacing;
+//    NSInteger currentPage = scrollView.contentOffset.x / pageWidth;
 //    
-//    NSInteger lastPage;
-//    if (velocity.x == 0) {
-//        lastPage = roundf(self.collectionView.contentOffset.x / pageWidth);
-//    } else {
-//        lastPage = self.collectionView.contentOffset.x / pageWidth;
-//        NSInteger maxPage = (self.collectionView.contentSize.width + minLineSpacing) / pageWidth - 1;
-//        
-//        lastPage = velocity.x < 0 ? lastPage : lastPage + 1;
-//        lastPage = MIN(MAX(lastPage, 0), maxPage);
-//    }
-//    
-//    if (self.currentIndex == lastPage) {
+//    if (self.currentIndex == currentPage) {
 //        return;
 //    }
 //    
-//    self.currentIndex = lastPage;
-//    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",lastPage + 1,self.thumbImages.count];
+//    self.currentIndex = currentPage;
+//    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",currentPage + 1,self.thumbImages.count];
 //    if (self.ScrollToIndexBlock) {
 //        self.ScrollToIndexBlock(self,self.currentIndex);
 //    }
 //}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat pageWidth = CGRectGetWidth(scrollView.frame) + minLineSpacing;
+    
+    NSInteger lastPage;
+    if (velocity.x == 0) {
+        lastPage = roundf(self.collectionView.contentOffset.x / pageWidth);
+    } else {
+        lastPage = self.collectionView.contentOffset.x / pageWidth;
+        NSInteger maxPage = (self.collectionView.contentSize.width + minLineSpacing) / pageWidth - 1;
+        
+        lastPage = velocity.x < 0 ? lastPage : lastPage + 1;
+        lastPage = MIN(MAX(lastPage, 0), maxPage);
+    }
+    
+    if (self.currentIndex == lastPage) {
+        return;
+    }
+    
+    self.currentIndex = lastPage;
+    self.countLabel.text = [NSString stringWithFormat:@"%ld / %ld",lastPage + 1,self.thumbImages.count];
+    if (self.ScrollToIndexBlock) {
+        self.ScrollToIndexBlock(self,self.currentIndex);
+    }
+}
 
 #pragma mark
 - (UICollectionView *)collectionView {
