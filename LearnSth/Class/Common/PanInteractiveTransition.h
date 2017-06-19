@@ -12,6 +12,6 @@
 
 @property (nonatomic, assign) BOOL interacting;
 
-- (void)setController:(UIViewController *)controler;
+- (void)setPresentingController:(UIViewController *)controler;
 
 @end

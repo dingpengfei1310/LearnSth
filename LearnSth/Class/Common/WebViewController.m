@@ -26,10 +26,11 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     [super viewDidLoad];
     
     if (self.urlString) {
+//        _urlString = @"https://m.weibo.cn/n/ever丶飞飞";
         _urlString = [_urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
-        
+
         [self.view addSubview:self.KWebView];
     }
 }

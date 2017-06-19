@@ -33,11 +33,18 @@
 }
 
 - (void)networkMonitoring {
+    __block BOOL isFirst = YES;
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status == AFNetworkReachabilityStatusNotReachable) {
-            [self showError:@"网络已断开连接"];
+        if (!isFirst) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [self showError:@"网络已断开连接"];
+            } else if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                [self showSuccess:@"网络已连接"];
+            }
         }
+        isFirst = NO;
     }];
+    
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 

@@ -17,7 +17,7 @@
 
 @implementation PanInteractiveTransition
 
-- (void)setController:(UIViewController *)controler {
+- (void)setPresentingController:(UIViewController *)controler {
     _presentingVC = controler;
     
     UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];

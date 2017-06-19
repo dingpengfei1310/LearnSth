@@ -17,14 +17,14 @@
 #import "UserManager.h"
 
 #import "AnimatedTransitioning.h"
-#import "PanInteractiveTransition.h"
+//#import "PanInteractiveTransition.h"
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 
-@property (nonatomic, strong) PanInteractiveTransition *interactiveTransition;
+//@property (nonatomic, strong) PanInteractiveTransition *interactiveTransition;
 
 @end
 
@@ -67,9 +67,9 @@ static NSString *Identifier = @"cell";
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-//        nvc.transitioningDelegate = self;
+        nvc.transitioningDelegate = self;
 //        self.interactiveTransition = [[PanInteractiveTransition alloc] init];
-//        [self.interactiveTransition setController:nvc];
+//        [self.interactiveTransition setPresentingController:nvc];
         
         [self presentViewController:nvc animated:YES completion:nil];
     }
@@ -167,9 +167,9 @@ static NSString *Identifier = @"cell";
     return transition;
 }
 
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    return self.interactiveTransition.interacting ? self.interactiveTransition : nil;
-}
+//- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
+//    return self.interactiveTransition.interacting ? self.interactiveTransition : nil;
+//}
 
 #pragma mark
 - (UITableView *)tableView {
