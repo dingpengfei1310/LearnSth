@@ -191,14 +191,15 @@ typedef void (^CancelBlock)();
     }
 }
 
-- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
-    NSString *mess = [NSString stringWithFormat:@"%@\n%@",message,@"您可以到“隐私设置“中启用访问"];
+- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message {
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    NSString *mess = [NSString stringWithFormat:@"%@\n%@",message,@"您可以到“隐私-设置“中启用访问"];
     void (^operationBlock)() = ^{
         [self openSystemSetting];
-        operation ? operation() : 0;
     };
     
-    [self showAlertWithTitle:nil message:mess cancelTitle:@"知道了" cancel:cancel operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
+    [self showAlertWithTitle:nil message:mess cancelTitle:@"知道了" cancel:nil operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation {

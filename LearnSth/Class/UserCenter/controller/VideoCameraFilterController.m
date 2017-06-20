@@ -65,15 +65,13 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self checkAuthorizationStatusOnAudio];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } operation:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                granted ? [self checkAuthorizationStatusOnAudio] : [self dismissViewControllerAnimated:YES completion:nil];
+            });
         }];
     }
 }
@@ -84,11 +82,7 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoView];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限" cancel:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } operation:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有麦克风访问权限"];
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {

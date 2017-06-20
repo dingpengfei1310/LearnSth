@@ -11,6 +11,8 @@
 #import "IDCardInfo.h"
 #import "TPKeyboardAvoidingScrollView.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 @interface IDCardViewController ()
 
 @property (strong, nonatomic) UIImageView *cardImageView;
@@ -80,12 +82,30 @@ const float margin = 20;
     }
 }
 
+#pragma mark
 - (void)scanClick {
     if (TARGET_OS_SIMULATOR) {
         [self showError:@"真机使用"];
         return;
     }
     
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        [self toScanController];
+        
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
+        
+    } else if (status == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                granted ? [self toScanController] : 0;
+            });
+        }];
+    }
+}
+
+- (void)toScanController {
     ScanIDCardController *controller = [[ScanIDCardController alloc] init];
     controller.ScanResult = ^(IDCardInfo *cardInfo, UIImage *image) {
         self.cardImageView.image = image;

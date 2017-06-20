@@ -45,19 +45,18 @@
     if (ret != 0) {
         NSLog(@"初始化失败：ret=%d", ret);
     }
-    [self checkAuthorizationStatusOnVideo];
+    
+    [self showVideoPreviewLayer];//前面已经判断有相机权限，否则会有错误
 #endif
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self navigationBarColorClear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [self navigationBarColorRestore];
     [self.captureSession stopRunning];
 }
@@ -66,23 +65,6 @@
 - (void)dismisss {
     if (self.DismissBlock) {
         self.DismissBlock();
-    }
-}
-
-- (void)checkAuthorizationStatusOnVideo {
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    
-    if (status == AVAuthorizationStatusAuthorized) {
-        [self showVideoPreviewLayer];
-    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
-        
-    } else if (status == AVAuthorizationStatusNotDetermined) {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
-            });
-        }];
     }
 }
 

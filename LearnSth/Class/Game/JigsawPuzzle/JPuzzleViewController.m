@@ -30,7 +30,6 @@ const CGFloat Margin = 10;
     [super viewDidLoad];
     self.title = @"Game";
     self.row = 3;
-    _image = [UIImage imageNamed:@"JPuzzleGame"];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];
     [self initilizSubviews];
@@ -103,7 +102,7 @@ const CGFloat Margin = 10;
 
 - (void)buttonClick:(UIButton *)button {
     if (!_image) {
-        [self showError:@"请先选择图片"];
+        [self showError:@"请先选择一张图片"];
         return;
     }
     

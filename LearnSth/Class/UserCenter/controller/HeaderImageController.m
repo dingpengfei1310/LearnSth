@@ -80,7 +80,7 @@
             [self openUserCameraWithType:sourceType];
             
         } else if (status == AVAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
             
         } else if (status == AVAuthorizationStatusNotDetermined) {
             [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
@@ -99,7 +99,7 @@
             }];
             
         } else if (currentStatus == PHAuthorizationStatusDenied) {
-            [self showAuthorizationStatusDeniedAlertMessage:@"没有相册访问权限" cancel:nil operation:nil];
+            [self showAuthorizationStatusDeniedAlertMessage:@"没有相册访问权限"];
             
         } else if (currentStatus == PHAuthorizationStatusAuthorized) {
             [self openUserCameraWithType:sourceType];

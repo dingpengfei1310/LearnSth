@@ -36,7 +36,7 @@
 
 #pragma mark - 确认弹出框
 ///没有访问权限时的弹出框
-- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation;
+- (void)showAuthorizationStatusDeniedAlertMessage:(NSString *)message;
 ///弹出框(确定)
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation;
 ///通用弹出框(取消－确定)

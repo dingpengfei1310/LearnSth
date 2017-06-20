@@ -46,7 +46,7 @@ static NSString *Identifier = @"Cell";
         }];
         
     } else if (currentStatus == PHAuthorizationStatusDenied) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:nil operation:nil];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
         
     } else if (currentStatus == PHAuthorizationStatusAuthorized) {
         [self initSubView];

@@ -68,16 +68,12 @@
     if (status == AVAuthorizationStatusAuthorized) {
         [self showVideoPreviewLayer];
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
-        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限" cancel:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } operation:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
         
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                granted ? [self showVideoPreviewLayer] : [self dismissViewControllerAnimated:YES completion:nil];
+                granted ? [self showVideoPreviewLayer] : 0;
             });
         }];
     }
@@ -194,14 +190,14 @@
 
 - (AVCaptureSession *)captureSession {
     if (!_captureSession) {
-        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-        
         _captureSession = [[AVCaptureSession alloc] init];
         _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
         
-        if ([_captureSession canAddInput:videoDeviceInput]) {
-            [_captureSession addInput:videoDeviceInput];
+        AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
+        
+        if ([_captureSession canAddInput:deviceInput]) {
+            [_captureSession addInput:deviceInput];
         }
         if ([_captureSession canAddOutput:self.metadataOutput]) {
             [_captureSession addOutput:self.metadataOutput];
