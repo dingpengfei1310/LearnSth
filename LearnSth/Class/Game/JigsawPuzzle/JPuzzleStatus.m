@@ -32,6 +32,8 @@
             CGImageRef imgRef = CGImageCreateWithImageInRect(image.CGImage, rect);
             JPuzzlePiece *piece = [JPuzzlePiece pieceWithIndex:index++ image:[UIImage imageWithCGImage:imgRef]];
             [status.pieceArray addObject:piece];
+            
+            CGImageRelease(imgRef);
         }
     }
     

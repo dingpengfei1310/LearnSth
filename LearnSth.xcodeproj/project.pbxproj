@@ -76,6 +76,7 @@
 		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
 		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
 		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
+		1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29CA871EFBC397004177AD /* HandDrawView.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* BannerModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -326,6 +327,8 @@
 		1B1C75461ECD87AD0060D824 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1B29B87B1EEE3E660069780C /* LiveCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionView.h; sourceTree = "<group>"; };
 		1B29B87C1EEE3E660069780C /* LiveCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionView.m; sourceTree = "<group>"; };
+		1B29CA861EFBC397004177AD /* HandDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandDrawView.h; sourceTree = "<group>"; };
+		1B29CA871EFBC397004177AD /* HandDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandDrawView.m; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -816,12 +819,12 @@
 		1B1132771EA464FB00323189 /* userInfo */ = {
 			isa = PBXGroup;
 			children = (
-				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
-				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 				1B1132781EA4659E00323189 /* HeaderImageController.h */,
 				1B1132791EA4659E00323189 /* HeaderImageController.m */,
 				1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */,
 				1B36FD471EC4370C00FBA5CD /* StepCountViewController.m */,
+				1B2D07E61DE7E8DB0034C22D /* UserInfoViewController.h */,
+				1B2D07E71DE7E8DB0034C22D /* UserInfoViewController.m */,
 			);
 			name = userInfo;
 			sourceTree = "<group>";
@@ -969,6 +972,8 @@
 				1B098E711E24B50A00D5754A /* DropWaterView.m */,
 				1B2D07CD1DE7E8DB0034C22D /* FoldPaperView.h */,
 				1B2D07CE1DE7E8DB0034C22D /* FoldPaperView.m */,
+				1B29CA861EFBC397004177AD /* HandDrawView.h */,
+				1B29CA871EFBC397004177AD /* HandDrawView.m */,
 				1B5E7BFD1E49C9C400153A58 /* LiveCollectionCell.h */,
 				1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */,
 				1B29B87B1EEE3E660069780C /* LiveCollectionView.h */,
@@ -1612,6 +1617,7 @@
 				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,
 				1B430D781ED801260097248C /* SceneViewController.m in Sources */,
 				1B2E58891EBC796800770953 /* FileScanViewController.m in Sources */,
+				1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
 				1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */,

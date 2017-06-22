@@ -14,8 +14,10 @@
 @interface JPuzzleViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, assign) NSInteger row;
-@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIView *gameView;
+
+@property (nonatomic, strong) UIImage *gameImage;
+@property (nonatomic, strong) UIImage *numImage;//数字图片
 
 @property (nonatomic, strong) JPuzzleStatus *currentStatus;
 @property (nonatomic, strong) JPuzzleStatus *completedStatus;
@@ -29,10 +31,20 @@ const CGFloat Margin = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    self.row = 3;
+    _row = 3;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];
+    
     [self initilizSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (!(_numImage || _gameImage)) {
+        [self resetImage];
+        [self resetGame];
+    }
 }
 
 - (void)initilizSubviews {
@@ -57,16 +69,44 @@ const CGFloat Margin = 10;
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [buttonView addSubview:button];
     }
-    
-    [self resetGame];
 }
 
 - (void)resetGame {
-    _currentStatus = [JPuzzleStatus statusWithRow:_row image:_image];
-    [_currentStatus.pieceArray enumerateObjectsUsingBlock:^(JPuzzlePiece * obj, NSUInteger idx, BOOL * stop) {
+    if (_gameImage) {
+        _currentStatus = [JPuzzleStatus statusWithRow:_row image:_gameImage];
+    } else {
+        _currentStatus = [JPuzzleStatus statusWithRow:_row image:_numImage];
+    }
+    
+    [_currentStatus.pieceArray enumerateObjectsUsingBlock:^(JPuzzlePiece *obj, NSUInteger idx, BOOL *stop) {
         [obj addTarget:self action:@selector(onPieceTouch:) forControlEvents:UIControlEventTouchUpInside];
     }];
     [self showCurrentStatusOnView:_gameView];
+}
+
+- (void)resetImage {
+    CGRect rect = CGRectMake(0, 0, Screen_W * _row, Screen_W * _row);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    
+    [KBackgroundColor setFill];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
+    
+    for (int i = 0; i < _row * _row; i++) {
+        NSString *num = [NSString stringWithFormat:@"%d",i + 1];
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        [style setAlignment:NSTextAlignmentCenter];
+        
+        NSDictionary *att = @{NSFontAttributeName:[UIFont systemFontOfSize:200],
+                              NSForegroundColorAttributeName:KBaseBlueColor,
+                              NSParagraphStyleAttributeName:style};
+        
+        CGRect numRect = CGRectMake(i % _row * Screen_W, i / _row * Screen_W + 40, Screen_W, Screen_W - 40);
+        [num drawInRect:numRect withAttributes:att];
+    }
+    
+    _numImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 }
 
 - (void)showCurrentStatusOnView:(UIView *)view {
@@ -87,6 +127,10 @@ const CGFloat Margin = 10;
 - (void)setRow:(NSInteger)row {
     if (_row != row) {
         _row = row;
+        if (!_gameImage) {
+            [self resetImage];
+        }
+        
         [self resetGame];
     }
 }
@@ -101,10 +145,6 @@ const CGFloat Margin = 10;
 }
 
 - (void)buttonClick:(UIButton *)button {
-    if (!_image) {
-        [self showError:@"请先选择一张图片"];
-        return;
-    }
     
     if (button.tag == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -139,10 +179,16 @@ const CGFloat Margin = 10;
     }
 }
 
+#pragma mark
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(nonnull UIViewController *)viewController animated:(BOOL)animated {
+    viewController.view.backgroundColor = [UIColor blackColor];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    _image = info[UIImagePickerControllerEditedImage];
+    _numImage = nil;
+    _gameImage = info[UIImagePickerControllerEditedImage];
     [self resetGame];
 }
 

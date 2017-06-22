@@ -20,6 +20,7 @@
 @interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, assign) CGFloat itemWidth;
 
 //点击使用
 @property (nonatomic, strong) NSMutableArray *thumbImages;//图片（不包括视频）
@@ -36,7 +37,9 @@ const NSInteger photoColumn = 4;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.collectionView];
+    if (self.fetchResult.count > 0) {
+        [self.view addSubview:self.collectionView];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -58,10 +61,20 @@ const NSInteger photoColumn = 4;
         cell.videoLabel.text = @"Video";
     }
     
+//    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+//    options.synchronous = YES;
+//    [[PHImageManager defaultManager] requestImageForAsset:asset
+//                                               targetSize:CGSizeZero
+//                                              contentMode:PHImageContentModeAspectFit
+//                                                  options:options
+//                                            resultHandler:^(UIImage * result, NSDictionary *info) {
+//                                                cell.photoImageView.image = [self resizeImage:result];
+//                                            }];
+    
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.synchronous = YES;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:CGSizeZero
+                                               targetSize:CGSizeMake(_itemWidth * 2, _itemWidth * 2)
                                               contentMode:PHImageContentModeAspectFit
                                                   options:options
                                             resultHandler:^(UIImage * result, NSDictionary *info) {
@@ -92,30 +105,12 @@ const NSInteger photoColumn = 4;
         }
         
     } else {
-        __weak typeof(self) wSelf = self;
-        
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
-        controller.ScrollToIndexBlock = ^(DDImageBrowserController *controller, NSInteger index){
-            __block int count = 0;
-            [wSelf.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
-                if (obj.mediaType == PHAssetMediaTypeImage) {
-                    if (count == index) {
-                        
-                        [[PHImageManager defaultManager] requestImageDataForAsset:obj options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-                            
-                            UIImage *result = [UIImage imageWithData:imageData];
-                            [controller showHighQualityImageOfIndex:index withImage:result];
-                        }];
-                        
-                        *stop = YES;
-                    }
-                    count++;
-                }
-            }];
+        controller.ScrollToIndexBlock = ^(DDImageBrowserController *browserController, NSInteger index) {
+            [self scrollTo:browserController index:index];
         };
-        
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
@@ -130,6 +125,22 @@ const NSInteger photoColumn = 4;
         }
     }
     return index;
+}
+
+- (void)scrollTo:(DDImageBrowserController *)controller index:(NSInteger)index {
+    __block int count = 0;
+    [self.fetchResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
+        if (obj.mediaType == PHAssetMediaTypeImage) {
+            if (count == index) {
+                *stop = YES;
+                [[PHImageManager defaultManager] requestImageDataForAsset:obj options:nil resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+                    UIImage *result = [UIImage imageWithData:imageData];
+                    [controller showHighQualityImageOfIndex:index withImage:result];
+                }];
+            }
+            count++;
+        }
+    }];
 }
 
 #pragma mark
@@ -177,10 +188,18 @@ const NSInteger photoColumn = 4;
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat itemWidth = (Screen_W - (photoColumn + 1) * interitemSpacing) / photoColumn;
+        CGFloat viewWidth = Screen_W - (photoColumn + 1) * interitemSpacing;//去掉空隙的宽度
+        //计算能否除尽
+        CGFloat offsetW = (NSInteger)viewWidth % photoColumn;
+        CGFloat pointX = (offsetW == 0) ? 0 : (photoColumn - offsetW) / 2;
+        CGFloat space = (offsetW == 0) ? 0 : 1;
+        
+        CGFloat itemWidth = (viewWidth - offsetW) / photoColumn + space;
+        _itemWidth = itemWidth;
+        
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
-        flowLayout.sectionInset = UIEdgeInsetsMake(5, interitemSpacing, 5, interitemSpacing);
+        flowLayout.sectionInset = UIEdgeInsetsMake(5, interitemSpacing - pointX, 5, interitemSpacing - pointX);
         flowLayout.minimumInteritemSpacing = interitemSpacing;
         flowLayout.minimumLineSpacing = interitemSpacing;
         

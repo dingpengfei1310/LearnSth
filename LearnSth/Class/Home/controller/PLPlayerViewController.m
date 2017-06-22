@@ -72,7 +72,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithFrame:self.view.bounds];
-        effectView.effect =  blurEffect;
+        effectView.effect = blurEffect;
         [_foregroundView addSubview:effectView];
         
         [self.view addSubview:_foregroundView];

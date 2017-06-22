@@ -117,7 +117,6 @@
 
 #pragma mark
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(nonnull UIViewController *)viewController animated:(BOOL)animated {
-    viewController.automaticallyAdjustsScrollViewInsets = YES;
     viewController.view.backgroundColor = [UIColor blackColor];
 }
 
