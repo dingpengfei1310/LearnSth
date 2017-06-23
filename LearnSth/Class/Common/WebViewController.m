@@ -32,6 +32,8 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
 
         [self.view addSubview:self.KWebView];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshWebView)];
     }
 }
 
@@ -46,6 +48,11 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         return NO;
     }
     return YES;
+}
+
+- (void)refreshWebView {
+    NSURL *url = [NSURL URLWithString:self.urlString];
+    [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 #pragma mark

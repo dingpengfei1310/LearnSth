@@ -9,9 +9,10 @@
 #import "WiFiUploadManager.h"
 #import "WiFiUploadViewController.h"
 
-#import "HTTPServer.h"
 #import "WiFiUploadHTTPConnection.h"
 #import "DeviceConfig.h"
+
+#import <HTTPServer.h>
 
 NSString * const FileUploadDidStartNotification = @"SGFileUploadDidStartNotification";
 NSString * const FileUploadProgressNotification = @"SGFileUploadProgressNotification";

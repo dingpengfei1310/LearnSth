@@ -9,10 +9,6 @@ target 'LearnSth' do
     pod 'FMDB'
     pod 'PLPlayerKit'
     pod 'SDWebImage'
-    pod 'Masonry'
-    pod 'PNChart'
-    pod 'AsyncDisplayKit'
-    pod 'SocketRocket'
-    pod 'FLAnimatedImage'
     pod 'SDWebImage/GIF'
+    pod 'FLAnimatedImage'
 end

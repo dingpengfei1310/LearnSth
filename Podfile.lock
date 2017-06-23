@@ -14,13 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (2.1):
-    - AsyncDisplayKit/PINRemoteImage (= 2.1)
-  - AsyncDisplayKit/Core (2.1)
-  - AsyncDisplayKit/PINRemoteImage (2.1):
-    - AsyncDisplayKit/Core
-    - PINRemoteImage/iOS (= 3.0.0-beta.7)
-    - PINRemoteImage/PINCache
   - CocoaAsyncSocket (7.6.0)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
@@ -37,51 +30,29 @@ PODS:
   - FMDB/standard (2.6.2)
   - GPUImage (0.1.7)
   - HappyDNS (0.3.10)
-  - Masonry (1.0.2)
-  - PINCache (3.0.1-beta.2):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.2)
-    - PINCache/Core (= 3.0.1-beta.2)
-  - PINCache/Arc-exception-safe (3.0.1-beta.2):
-    - PINCache/Core
-  - PINCache/Core (3.0.1-beta.2)
-  - PINRemoteImage/Core (3.0.0-beta.7)
-  - PINRemoteImage/iOS (3.0.0-beta.7):
-    - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0-beta.7):
-    - PINCache (= 3.0.1-beta.2)
-    - PINRemoteImage/Core
   - PLPlayerKit (2.4.2):
     - HappyDNS (~> 0.3.10)
-  - PNChart (0.8.9):
-    - UICountingLabel (~> 1.2.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - SDWebImage/GIF (4.0.0):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - SocketRocket (0.5.1)
   - SSZipArchive (1.7)
-  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking
-  - AsyncDisplayKit
   - CocoaHTTPServer
   - FLAnimatedImage
   - FMDB
   - GPUImage
-  - Masonry
   - PLPlayerKit
-  - PNChart
   - SDWebImage
   - SDWebImage/GIF
-  - SocketRocket
   - SSZipArchive
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AsyncDisplayKit: 28de788f9d6ec573be7662f0fe8931e656357e93
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
@@ -89,16 +60,10 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  PINCache: 6d273a6e0754bd26e3f12a38a90dde73cc6a42b2
-  PINRemoteImage: ff63baf185088530db6cfa41cb665e2b5126b5c3
   PLPlayerKit: 513e328d861ee02bbe682b79c9be36f7ed224239
-  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
-  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: 9d54bc18c26e5673121f03053164fb6e58716924
+PODFILE CHECKSUM: 649ce040cc03c96d352931cd50896a477b5ad33c
 
 COCOAPODS: 1.2.0

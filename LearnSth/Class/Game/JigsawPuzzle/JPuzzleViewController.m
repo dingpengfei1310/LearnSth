@@ -10,11 +10,16 @@
 
 #import "JPuzzlePiece.h"
 #import "JPuzzleStatus.h"
+#import "JPuzzleViewCell.h"
 
-@interface JPuzzleViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface JPuzzleViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, assign) NSInteger row;
-@property (nonatomic, strong) UIView *gameView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, assign) CGFloat itemWidth;
+@property (nonatomic, assign) UIEdgeInsets sectionInsets;
+
+@property (nonatomic, assign) NSInteger column;
 
 @property (nonatomic, strong) UIImage *gameImage;
 @property (nonatomic, strong) UIImage *numImage;//数字图片
@@ -24,14 +29,16 @@
 
 @end
 
-const CGFloat Margin = 10;
+const CGFloat Margin = 8.0;
+const CGFloat LineSpace = 3.0;
 
 @implementation JPuzzleViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    _row = 3;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    _column = 3;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];
     
@@ -48,24 +55,21 @@ const CGFloat Margin = 10;
 }
 
 - (void)initilizSubviews {
-    CGFloat viewW = self.view.frame.size.width - Margin * 2;
+    [self.view addSubview:self.collectionView];
     
-    _gameView = [[UIView alloc] initWithFrame:CGRectMake(Margin - 2, 64 + Margin, viewW + 4, viewW + 4)];
-    _gameView.backgroundColor = KBackgroundColor;
-    [self.view addSubview:_gameView];
-    
-    UIView *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(Margin, Margin + CGRectGetMaxY(_gameView.frame), viewW, 30)];
+    UIView *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(0, Margin + 64 + Screen_W, Screen_W, 30)];
     [self.view addSubview:buttonView];
     
-    CGFloat buttonW = 60;
+    CGFloat buttonW = 80;
     NSArray *titles = @[@"难度:低",@"重置",@"打乱",@"自动"];
     for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * (Margin + buttonW), 0, buttonW, 30)];
-        button.backgroundColor = KBaseBlueColor;
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * (Margin + buttonW) + Margin, 0, buttonW, 40)];
         button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        button.titleLabel.font = [UIFont systemFontOfSize:16];
         [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:KBaseBlueColor forState:UIControlStateNormal];
+        [button setBackgroundImage:[CustomiseTool imageWithColor:KBackgroundColor]
+                          forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [buttonView addSubview:button];
     }
@@ -73,35 +77,31 @@ const CGFloat Margin = 10;
 
 - (void)resetGame {
     if (_gameImage) {
-        _currentStatus = [JPuzzleStatus statusWithRow:_row image:_gameImage];
+        _currentStatus = [JPuzzleStatus statusWithRow:_column image:_gameImage];
     } else {
-        _currentStatus = [JPuzzleStatus statusWithRow:_row image:_numImage];
+        _currentStatus = [JPuzzleStatus statusWithRow:_column image:_numImage];
     }
-    
-    [_currentStatus.pieceArray enumerateObjectsUsingBlock:^(JPuzzlePiece *obj, NSUInteger idx, BOOL *stop) {
-        [obj addTarget:self action:@selector(onPieceTouch:) forControlEvents:UIControlEventTouchUpInside];
-    }];
-    [self showCurrentStatusOnView:_gameView];
+    [self.collectionView reloadData];
 }
 
 - (void)resetImage {
-    CGRect rect = CGRectMake(0, 0, Screen_W * _row, Screen_W * _row);
+    CGRect rect = CGRectMake(0, 0, _itemWidth * _column, _itemWidth * _column);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     
-    [KBackgroundColor setFill];
+    [[UIColor whiteColor] setFill];
     CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
     
-    for (int i = 0; i < _row * _row; i++) {
+    for (int i = 0; i < _column * _column; i++) {
         NSString *num = [NSString stringWithFormat:@"%d",i + 1];
         
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         [style setAlignment:NSTextAlignmentCenter];
         
-        NSDictionary *att = @{NSFontAttributeName:[UIFont systemFontOfSize:200],
+        NSDictionary *att = @{NSFontAttributeName:[UIFont systemFontOfSize:_itemWidth * 0.5],
                               NSForegroundColorAttributeName:KBaseBlueColor,
                               NSParagraphStyleAttributeName:style};
         
-        CGRect numRect = CGRectMake(i % _row * Screen_W, i / _row * Screen_W + 40, Screen_W, Screen_W - 40);
+        CGRect numRect = CGRectMake(i % _column * _itemWidth, i / _column * _itemWidth + _itemWidth * 0.2, _itemWidth, _itemWidth - _itemWidth * 0.2);
         [num drawInRect:numRect withAttributes:att];
     }
     
@@ -109,28 +109,22 @@ const CGFloat Margin = 10;
     UIGraphicsEndImageContext();
 }
 
-- (void)showCurrentStatusOnView:(UIView *)view {
-    [view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    CGFloat size = CGRectGetWidth(view.bounds) / _row;
-    NSInteger index = 0;
-    
-    for (NSInteger i = 0; i < _row; i++) {
-        for (NSInteger j = 0; j < _row; j++) {
-            JPuzzlePiece *piece = _currentStatus.pieceArray[index++];
-            piece.frame = CGRectMake(j * size, i * size, size, size);
-            [_gameView addSubview:piece];
-        }
-    }
-}
-
-- (void)setRow:(NSInteger)row {
-    if (_row != row) {
-        _row = row;
+- (void)setColumn:(NSInteger)column {
+    if (_column != column) {
+        _column = column;
+        
+        CGFloat viewW = Screen_W - Margin * 2 -  (_column - 1) * LineSpace;
+        //计算能否除尽
+        CGFloat offsetW = (NSInteger)viewW % _column;
+        CGFloat pointX = (offsetW == 0) ? 0 : (_column - offsetW) / 2;
+        CGFloat space = (offsetW == 0) ? 0 : 1;
+        
+        _itemWidth = (viewW - offsetW) / _column + space;
+        _sectionInsets = UIEdgeInsetsMake(Margin - pointX, Margin - pointX, Margin - pointX, Margin - pointX);
+        
         if (!_gameImage) {
             [self resetImage];
         }
-        
         [self resetGame];
     }
 }
@@ -145,21 +139,18 @@ const CGFloat Margin = 10;
 }
 
 - (void)buttonClick:(UIButton *)button {
-    
     if (button.tag == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"高" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self.row = 5;
-            [button setTitle:@"难度:高" forState:UIControlStateNormal];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"中" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self.row = 4;
-            [button setTitle:@"难度:中" forState:UIControlStateNormal];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"低" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            self.row = 3;
-            [button setTitle:@"难度:低" forState:UIControlStateNormal];
-        }]];
+        
+        NSArray *titleArray = @[@"高",@"中",@"低"];
+        NSArray *numArray = @[@"5",@"4",@"3"];
+        for (int i = 0; i < titleArray.count; i++) {
+            NSString *title = titleArray[i];
+            [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                self.column = [numArray[i] integerValue];
+                [button setTitle:[NSString stringWithFormat:@"难度:%@",title] forState:UIControlStateNormal];
+            }]];
+        }
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         
@@ -168,14 +159,17 @@ const CGFloat Margin = 10;
         
     } else if (button.tag == 2) {
         if (self.currentStatus.emptyIndex >= 0) {
-            [self.currentStatus shuffleWithStep:_row * _row * 10];
-            [self reloadWithStatus:self.currentStatus];
+            [self.currentStatus shuffleWithStep:_column * _column * 10];
+//            [self.collectionView reloadData];
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.collectionView performBatchUpdates:^{
+                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+                } completion:nil];
+            }];
+            
         } else {
             [self showError:@"请先挖去一块"];
         }
-        
-    } else if (button.tag == 3) {
-        
     }
 }
 
@@ -193,49 +187,89 @@ const CGFloat Margin = 10;
 }
 
 #pragma mark
-- (void)onPieceTouch:(JPuzzlePiece *)piece {
-    JPuzzleStatus *status = self.currentStatus;
-    NSInteger pieceIndex = [status.pieceArray indexOfObject:piece];
-    
-    // 挖空一格
-    if (status.emptyIndex < 0) {
-        // 所选方块成为空格
-        [UIView animateWithDuration:0.1 animations:^{
-            piece.alpha = 0;
-        }];
-        
-        status.emptyIndex = pieceIndex;
-        self.completedStatus = [self.currentStatus  copyStatus];// 设置目标状态
-        
-        return;
-    }
-    
-    if (![status canMoveToIndex:pieceIndex]) {
-        return;
-    }
-    
-    [status moveToIndex:pieceIndex];
-    [self reloadWithStatus:self.currentStatus];
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _column * _column;
+}
 
-    if ([status equalWithStatus:self.completedStatus]) {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    JPuzzleViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    JPuzzlePiece *piece = _currentStatus.pieceArray[indexPath.item];
+    cell.image = piece.image;
+    
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(_itemWidth, _itemWidth);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return _sectionInsets;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger pieceIndex = indexPath.item;
+    JPuzzlePiece *selectPiece = self.currentStatus.pieceArray[pieceIndex];
+    
+    if (_currentStatus.emptyIndex < 0) {
+        //挖空一格,所选方块成为空格
+        selectPiece.image = nil;
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        
+        _currentStatus.emptyIndex = pieceIndex;
+        self.completedStatus = [self.currentStatus copyStatus];// 设置目标状态
+        
+        return;
+    }
+    
+    if (![_currentStatus canMoveToIndex:pieceIndex]) {
+        return;
+    }
+    
+//    [_currentStatus moveToIndex:pieceIndex];
+//    [self.collectionView reloadData];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView moveItemAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForItem:_currentStatus.emptyIndex inSection:0]];
+            [self.collectionView moveItemAtIndexPath:[NSIndexPath indexPathForItem:_currentStatus.emptyIndex inSection:0] toIndexPath:indexPath];
+        } completion:nil];
+    }];
+    [_currentStatus moveToIndex:pieceIndex];
+    
+    if ([_currentStatus equalWithStatus:self.completedStatus]) {
         [self showAlertWithTitle:@"恭喜你" message:@"拼图完成啦！" operationTitle:@"确定" operation:^{
             [self resetGame];
         }];
     }
 }
 
-- (void)reloadWithStatus:(JPuzzleStatus *)status {
-    [UIView animateWithDuration:0.25 animations:^{
-        CGSize size = status.pieceArray.firstObject.frame.size;
-        NSInteger index = 0;
+#pragma mark
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        CGFloat viewW = Screen_W - Margin * 2 -  (_column - 1) * LineSpace;
+        //计算能否除尽
+        CGFloat offsetW = (NSInteger)viewW % _column;
+        CGFloat pointX = (offsetW == 0) ? 0 : (_column - offsetW) / 2;
+        CGFloat space = (offsetW == 0) ? 0 : 1;
         
-        for (NSInteger i = 0; i < _row; i++) {
-            for (NSInteger j = 0; j < _row; j++) {
-                JPuzzlePiece *piece = status.pieceArray[index++];
-                piece.frame = CGRectMake(j * size.width, i * size.height, size.width, size.height);
-            }
-        }
-    }];
+        _itemWidth = (viewW - offsetW) / _column + space;
+        _sectionInsets = UIEdgeInsetsMake(Margin - pointX, Margin - pointX, Margin - pointX, Margin - pointX);
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.minimumInteritemSpacing = LineSpace;
+        flowLayout.minimumLineSpacing = LineSpace;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_W)
+                                             collectionViewLayout:flowLayout];
+        _collectionView.backgroundColor = KBackgroundColor;
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        
+        [_collectionView registerClass:[JPuzzleViewCell class] forCellWithReuseIdentifier:@"cell"];
+    }
+    
+    return _collectionView;
 }
 
 - (void)didReceiveMemoryWarning {

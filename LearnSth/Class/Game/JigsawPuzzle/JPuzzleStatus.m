@@ -30,9 +30,11 @@
             // 切割图片
             CGRect rect = CGRectMake(j * pieceWidh, i * pieceHeight, pieceWidh, pieceHeight);
             CGImageRef imgRef = CGImageCreateWithImageInRect(image.CGImage, rect);
-            JPuzzlePiece *piece = [JPuzzlePiece pieceWithIndex:index++ image:[UIImage imageWithCGImage:imgRef]];
-            [status.pieceArray addObject:piece];
+            JPuzzlePiece *piece = [[JPuzzlePiece alloc] init];
+            piece.image = [UIImage imageWithCGImage:imgRef];
+            piece.index = index++;
             
+            [status.pieceArray addObject:piece];
             CGImageRelease(imgRef);
         }
     }
@@ -101,7 +103,6 @@
         }
     }
 }
-
 
 #pragma mark
 //行号

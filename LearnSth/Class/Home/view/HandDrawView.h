@@ -11,6 +11,6 @@
 @interface HandDrawView : UIView
 
 @property (nonatomic, assign) CGFloat lineWidth;
-@property (nonatomic, strong) UIColor *drawColor;
+@property (nonatomic, strong) UIColor *forekgroundColor;
 
 @end

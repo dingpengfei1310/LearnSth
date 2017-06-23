@@ -6,12 +6,11 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface JPuzzlePiece : UIButton
+@interface JPuzzlePiece : NSObject
 
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, assign) NSInteger index;
-
-+ (instancetype)pieceWithIndex:(NSInteger)index image:(UIImage *)image;
 
 @end

@@ -9,13 +9,13 @@
 #import "WiFiUploadHTTPConnection.h"
 #import "WiFiUploadManager.h"
 
-#import "HTTPLogging.h"
-#import "HTTPMessage.h"
+#import <HTTPLogging.h>
+#import <HTTPMessage.h>
 
-#import "MultipartFormDataParser.h"
-#import "HTTPDynamicFileResponse.h"
-#import "HTTPFileResponse.h"
-#import "MultipartMessageHeaderField.h"
+#import <MultipartFormDataParser.h>
+#import <HTTPDynamicFileResponse.h>
+#import <HTTPFileResponse.h>
+#import <MultipartMessageHeaderField.h>
 
 #import <UIKit/UIKit.h>
 
