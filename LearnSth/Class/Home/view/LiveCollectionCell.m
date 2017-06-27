@@ -40,8 +40,8 @@
 
 - (void)setLiveModel:(LiveModel *)liveModel {
     if (![_liveModel isEqual:liveModel]) {
-        
         _liveModel = liveModel;
+        
         NSURL *url = [NSURL URLWithString:liveModel.bigpic];
         [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             CGFloat width = CGRectGetWidth(self.contentView.bounds);

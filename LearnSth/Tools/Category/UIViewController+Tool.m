@@ -47,8 +47,7 @@ typedef void (^CancelBlock)();
     [self.navigationController.navigationBar setShadowImage:image];
 }
 
-- (void)navigationBarBackgroundImage:(UIColor *)color {
-    UIImage *image = [CustomiseTool imageWithColor:color];
+- (void)navigationBarBackgroundImage:(UIImage *)image {
     [self.navigationController.navigationBar setBackgroundImage:image
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];

@@ -17,7 +17,7 @@
 ///导航栏恢复
 - (void)navigationBarColorRestore;
 ///导航栏背景
-- (void)navigationBarBackgroundImage:(UIColor *)color;
+- (void)navigationBarBackgroundImage:(UIImage *)image;
 
 #pragma mark - HUD提示框
 ///加载

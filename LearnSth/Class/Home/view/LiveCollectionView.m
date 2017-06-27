@@ -154,7 +154,7 @@ const  NSInteger liveColumn = 2;
         CGFloat itemWidth = (viewW - (liveColumn + 1) * 10) / liveColumn;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth + 21);
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth + 21);//21是Text高度
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds

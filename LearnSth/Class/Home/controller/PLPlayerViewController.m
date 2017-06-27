@@ -7,7 +7,7 @@
 //
 
 #import "PLPlayerViewController.h"
-#import "ShoppingViewController.h"
+#import "LiveInfoViewController.h"
 #import "LiveModel.h"
 
 #import <PLPlayerKit/PLPlayerKit.h>
@@ -112,11 +112,13 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         [self.player.playerView addGestureRecognizer:tapGesture];
     }];
     
-    ShoppingViewController *controller = [[ShoppingViewController alloc] init];
-    controller.BackItemBlock = ^{
+    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    controller.liveModel = self.liveModel;
+    [self.navigationController pushViewController:controller animated:NO];
+    controller.LiveInfoDismissBlock = ^{
         [self backToRootController];
     };
-    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (void)movePlayerView:(UIPanGestureRecognizer *)gestureRecognizer {

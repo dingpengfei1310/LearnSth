@@ -231,8 +231,10 @@ const CGFloat LineSpace = 3.0;
     
     [UIView animateWithDuration:0.2 animations:^{
         [self.collectionView performBatchUpdates:^{
-            [self.collectionView moveItemAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForItem:_currentStatus.emptyIndex inSection:0]];
-            [self.collectionView moveItemAtIndexPath:[NSIndexPath indexPathForItem:_currentStatus.emptyIndex inSection:0] toIndexPath:indexPath];
+            NSIndexPath *emptyIndex = [NSIndexPath indexPathForItem:_currentStatus.emptyIndex inSection:0];
+            
+            [self.collectionView moveItemAtIndexPath:indexPath toIndexPath:emptyIndex];
+            [self.collectionView moveItemAtIndexPath:emptyIndex toIndexPath:indexPath];
         } completion:nil];
     }];
     [_currentStatus moveToIndex:pieceIndex];

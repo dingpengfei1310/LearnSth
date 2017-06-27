@@ -14,7 +14,11 @@ static NSString *KLanguageTypeCache = @"LanguageTypeCache";
 static NSString *ZHLANGUAGE = @"zh-Hans";
 static NSString *ENLANGUAGE = @"en";
 
+@interface CustomiseTool ()
+@end
+
 @implementation CustomiseTool
+
 + (void)remoAllCaches {
     //    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     //    for(NSString * key in [dict allKeys]) {

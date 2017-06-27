@@ -141,7 +141,6 @@
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
-		1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* RootViewController.m */; };
 		1BD7691B1E8D0F5E00860D92 /* UIView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7691A1E8D0F5E00860D92 /* UIView+Tool.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
@@ -451,8 +450,6 @@
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
 		1BB786A31E8E2D5B00185869 /* RotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationViewController.m; sourceTree = "<group>"; };
 		1BB786A41E8E2D5B00185869 /* RotationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationViewController.xib; sourceTree = "<group>"; };
-		1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
-		1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		1BD769191E8D0F5E00860D92 /* UIView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Tool.h"; sourceTree = "<group>"; };
@@ -943,8 +940,6 @@
 				1BB786A41E8E2D5B00185869 /* RotationViewController.xib */,
 				1B430D761ED801260097248C /* SceneViewController.h */,
 				1B430D771ED801260097248C /* SceneViewController.m */,
-				1BCAFAF51E4AC0A1005FA337 /* ShoppingViewController.h */,
-				1BCAFAF61E4AC0A1005FA337 /* ShoppingViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1600,7 +1595,6 @@
 				1B099C991DE7E57400161396 /* UIView+SDExtension.m in Sources */,
 				1B099C791DE7E57400161396 /* FPSLabel.m in Sources */,
 				1B2D08021DE7E8DB0034C22D /* PhotoLibraryController.m in Sources */,
-				1BCAFAF71E4AC0A1005FA337 /* ShoppingViewController.m in Sources */,
 				1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */,
 				1B4630DF1E669703000260D2 /* SQLManager.m in Sources */,
 				1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */,
