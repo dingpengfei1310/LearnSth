@@ -34,29 +34,30 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     viewW = CGRectGetWidth(self.view.frame);
     viewH = CGRectGetHeight(self.view.frame);
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
     
     if (self.index < self.liveArray.count) {
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
         
-        [self.view addSubview:self.player.playerView];
+//        [self.view addSubview:self.player.playerView];
         [self showForegroundView];
+        [self addOriginalGesture];
     }
-    
-    [self addOriginalGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
     
-    [self.player play];
-    self.player.playerView.gestureRecognizers = nil;
+//    [self.player play];
+//    self.player.playerView.gestureRecognizers = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

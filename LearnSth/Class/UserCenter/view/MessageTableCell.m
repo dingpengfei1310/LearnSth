@@ -35,6 +35,7 @@
     _contentLabel = [[UILabel alloc] init];
     _contentLabel.layer.masksToBounds = YES;
     _contentLabel.numberOfLines = 0;
+    _contentLabel.font = [UIFont systemFontOfSize:16];
     _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.contentView addSubview:_contentLabel];
 }
@@ -59,8 +60,9 @@
     _content = content;
     
     UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
-    [style setLineSpacing:2.0];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    style.lineBreakMode = NSLineBreakByCharWrapping;
     NSDictionary *attribute = @{NSFontAttributeName:font,
                                 NSParagraphStyleAttributeName:style,
 //                                NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle),

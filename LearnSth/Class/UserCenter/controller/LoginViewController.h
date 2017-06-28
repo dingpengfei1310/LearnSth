@@ -6,9 +6,9 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : BaseViewController
 
 @property (nonatomic, copy) void (^LoginDismissBlock)();
 @property (nonatomic, copy) void (^LoginSuccessBlock)();

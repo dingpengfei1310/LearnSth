@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface StepCountViewController : UIViewController
+@interface StepCountViewController : BaseViewController
 
 @end

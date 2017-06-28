@@ -7,7 +7,6 @@
 //
 
 #import "LiveInfoViewController.h"
-#import "MessageViewController.h"
 #import "LiveModel.h"
 
 @interface LiveInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -27,8 +26,6 @@
     [self.view addSubview:self.tableView];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissInfoControler)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,11 +44,6 @@
     if (self.LiveInfoDismissBlock) {
         self.LiveInfoDismissBlock();
     }
-}
-
-- (void)addClick:(UIBarButtonItem *)sender {
-    MessageViewController *controller = [[MessageViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (UIView *)tableHeaderView {
@@ -104,7 +96,7 @@
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY < -Screen_W * 0.5) {
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);
-        
+        NSLog(@"<<<");
     } else if (offsetY < 64) {
         self.title = nil;
         UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:offsetY / 64.0];

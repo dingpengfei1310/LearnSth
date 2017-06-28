@@ -57,12 +57,13 @@ static NSString *reuseIdentifier = @"cell";
     } else {
         NSString *content = self.dataArray[indexPath.row];
         UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc]init];
-        [style setLineSpacing:2.0];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 1.0;
+        style.lineBreakMode = NSLineBreakByCharWrapping;
         NSDictionary *attribute = @{NSFontAttributeName:font,
                                     NSParagraphStyleAttributeName:style};
         
-        CGSize size = [content boundingRectWithSize:CGSizeMake(CGRectGetWidth(tableView.frame) - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
+        CGSize size = [content boundingRectWithSize:CGSizeMake(CGRectGetWidth(tableView.frame) - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
         
         [self.heightArray addObject:@(ceilf(size.height) + 40.0)];
         return ceilf(size.height) + 40.0;

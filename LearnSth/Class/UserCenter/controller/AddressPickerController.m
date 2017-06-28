@@ -24,13 +24,14 @@
 @end
 
 const CGFloat PickViewHeight = 200;
-const CGFloat ToolbarHeight = 40;
+const CGFloat ToolbarHeight = 44;
 const CGFloat PickViewAppearDuration = 0.3;
 
 @implementation AddressPickerController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
     
     self.currentProvince = self.provinces[0];
     self.currentCity = self.cities[0];
@@ -38,9 +39,8 @@ const CGFloat PickViewAppearDuration = 0.3;
     [self.view addSubview:self.pickerBackgroundView];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.pickerBackgroundView.transform = CGAffineTransformMakeTranslation(0, PickViewHeight + ToolbarHeight);
     [UIView animateWithDuration:PickViewAppearDuration animations:^{
         self.pickerBackgroundView.transform = CGAffineTransformIdentity;
@@ -65,10 +65,6 @@ const CGFloat PickViewAppearDuration = 0.3;
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self cancel];
-}
-
 #pragma mark
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
@@ -78,7 +74,6 @@ const CGFloat PickViewAppearDuration = 0.3;
     } else if (component == 2) {
         return self.areas.count;
     }
-    
     return 0;
 }
 
@@ -182,21 +177,18 @@ const CGFloat PickViewAppearDuration = 0.3;
 - (UIView *)pickerBackgroundView {
     if (!_pickerBackgroundView) {
         UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), ToolbarHeight)];
-        toolBar.backgroundColor = KBackgroundColor;
-        [self.view addSubview:toolBar];
+        toolBar.backgroundColor = [UIColor whiteColor];
         
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
         UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         UIBarButtonItem *submitItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(submit)];
-        
         toolBar.items = @[cancelItem,spaceItem,submitItem];
         
         CGFloat height = PickViewHeight + ToolbarHeight;
-        _pickerBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - height, CGRectGetWidth(self.view.frame), height)];
+        _pickerBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 20 + CGRectGetHeight(self.view.frame) - height, CGRectGetWidth(self.view.frame), height)];
         [_pickerBackgroundView addSubview:toolBar];
         
         [_pickerBackgroundView addSubview:self.pickerView];
-        
     }
     return _pickerBackgroundView;
 }
