@@ -9,6 +9,7 @@
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
 
+#import "CustomiseTool.h"
 #import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
 

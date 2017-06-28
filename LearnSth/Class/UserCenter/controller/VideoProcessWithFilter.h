@@ -6,11 +6,11 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @class PHAsset;
 
-@interface VideoProcessWithFilter : UIViewController
+@interface VideoProcessWithFilter : BaseViewController
 
 @property (nonatomic, strong) PHAsset *asset;
 

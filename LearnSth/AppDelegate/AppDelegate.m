@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#import "AppConfigure.h"
 #import "RootViewController.h"
 #import "FPSLabel.h"
 

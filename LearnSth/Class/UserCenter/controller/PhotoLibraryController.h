@@ -6,7 +6,7 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 typedef NS_ENUM(NSInteger, PhotoCollectionSubtype){
     PhotoCollectionSubtypeDefault = 0,
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, PhotoCollectionSubtype){
     PhotoCollectionSubtypeVideo
 };
 
-@interface PhotoLibraryController : UIViewController
+@interface PhotoLibraryController : BaseViewController
 
 @property (nonatomic, assign) PhotoCollectionSubtype subtype;
 @property (nonatomic, strong) void (^LibraryDismissBlock)();

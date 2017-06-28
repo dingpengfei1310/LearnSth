@@ -17,6 +17,7 @@
 #import "UIView+Tool.h"
 
 #import "MJRefresh.h"
+#import "HttpManager.h"
 
 @interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -159,7 +160,7 @@ const  NSInteger liveColumn = 2;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = KBackgroundColor;
+        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         

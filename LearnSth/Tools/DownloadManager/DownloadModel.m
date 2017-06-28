@@ -71,7 +71,9 @@ static NSString *KDownloadDirectory = @"download";
 }
 
 + (NSString *)directoryPath {
-    NSString *directoryPath = [KDocumentPath stringByAppendingPathComponent:KDownloadDirectory];
+    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+    NSString *directoryPath = [documentPath stringByAppendingPathComponent:KDownloadDirectory];
+    
     BOOL flag;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     

@@ -86,7 +86,7 @@ static char reloadBlockKey;
     button.bounds = CGRectMake(0, 0, buttonW, buttonW);
     button.center = placeholderView.center;
     [button setTitle:@"暂无内容\n点击重新加载" forState:UIControlStateNormal];
-    [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     button.titleLabel.numberOfLines = 0;
     button.titleLabel.textAlignment = NSTextAlignmentCenter;

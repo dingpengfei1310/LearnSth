@@ -61,7 +61,7 @@
 - (void)fileUploadFinish:(NSNotification *)nof {
     self.progressView.progress = 1.0;
     _progressLabel.text = @"100.0%";
-    [self showSuccess:@"上传成功"];
+//    [self showSuccess:@"上传成功"];
     
 //    NSString *folder = [WiFiUploadManager shareManager].savePath;
 //    NSString *filePath = [folder stringByAppendingPathComponent:self.fileName];

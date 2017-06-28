@@ -23,7 +23,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.startButon setBackgroundColor:KBackgroundColor];
+    [self.startButon setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     self.sizeLabel.text = @"--/--";
     self.progressView.progress = 0;

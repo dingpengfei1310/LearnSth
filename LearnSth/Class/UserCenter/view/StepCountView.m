@@ -56,8 +56,8 @@
     self.scaleY = 1.0;
     
     self.lineWidth = 1.0;
-    self.lineColor = KBaseBlueColor;
-    self.fillColor = KBaseTextColor;
+    self.lineColor = [UIColor purpleColor];
+    self.fillColor = [UIColor grayColor];
     //self.isFillColor = YES;
     
     _minScaleX = 2.0;

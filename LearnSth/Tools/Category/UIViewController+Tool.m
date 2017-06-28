@@ -7,7 +7,10 @@
 //
 
 #import "UIViewController+Tool.h"
+
 #import "MBProgressHUD.h"
+#import "CustomiseTool.h"
+
 #import <objc/runtime.h>
 
 static char CancelKey;
@@ -15,22 +18,22 @@ typedef void (^CancelBlock)();
 
 @implementation UIViewController (Tool)
 
-+ (void)load {
-    Method viewDidLoad = class_getInstanceMethod([UIViewController class], @selector(viewDidLoad));
-    Method ddViewDidLoad = class_getInstanceMethod([UIViewController class], @selector(dd_viewDidLoad));
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(viewDidLoad, ddViewDidLoad);
-    });
-}
-
-- (void)dd_viewDidLoad {
-    [self dd_viewDidLoad];
-    if (self.navigationController) {
-        self.view.backgroundColor = [UIColor whiteColor];
-    }
-}
+//+ (void)load {
+//    Method viewDidLoad = class_getInstanceMethod([UIViewController class], @selector(viewDidLoad));
+//    Method ddViewDidLoad = class_getInstanceMethod([UIViewController class], @selector(dd_viewDidLoad));
+//
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        method_exchangeImplementations(viewDidLoad, ddViewDidLoad);
+//    });
+//}
+//
+//- (void)dd_viewDidLoad {
+//    [self dd_viewDidLoad];
+//    if (self.navigationController) {
+//        self.view.backgroundColor = [UIColor whiteColor];
+//    }
+//}
 
 #pragma mark
 - (void)navigationBarColorClear {
@@ -41,7 +44,8 @@ typedef void (^CancelBlock)();
 }
 
 - (void)navigationBarColorRestore {
-    UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
+    UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0];
+    UIImage *image = [CustomiseTool imageWithColor:color];
     [self.navigationController.navigationBar setBackgroundImage:image
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];
@@ -80,7 +84,7 @@ typedef void (^CancelBlock)();
     }
     
     UIButton *button = hud.button;
-    button.backgroundColor = KBaseBlueColor;
+    button.backgroundColor = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0];;
     UIImage *image = [UIImage imageNamed:@"closeButton"];
     [button setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];

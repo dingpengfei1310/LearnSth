@@ -15,6 +15,8 @@
 #import "VideoCameraFilterController.h"
 
 #import "CustomizeButton.h"
+#import "BaseViewController.h"
+
 #import <AFNetworkReachabilityManager.h>
 
 @interface RootViewController ()

@@ -17,14 +17,6 @@ const CGFloat labelH = 30;
 
 @implementation DanMuView
 
-- (instancetype)init {
-    if (self = [super init]) {
-        self.frame = CGRectMake(0, 0, Screen_W, 300);
-        [self initialize];
-    }
-    return self;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initialize];
@@ -70,8 +62,8 @@ const CGFloat labelH = 30;
     CGSize size = [model.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:att context:nil].size;
     
     int originY = MAX(viewY, arc4random() % viewHeight);
-    UILabel *danMuLabel = [[UILabel alloc] initWithFrame:CGRectMake(Screen_W, originY, size.width, size.height)];
-    danMuLabel.backgroundColor = KBackgroundColor;
+    UILabel *danMuLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, originY, size.width, size.height)];
+//    danMuLabel.backgroundColor = KBackgroundColor;
     danMuLabel.font = font;
     danMuLabel.text = model.text;
     danMuLabel.textColor = model.textColor;

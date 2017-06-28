@@ -9,6 +9,8 @@
 #import "LiveCollectionCell.h"
 #import "LiveModel.h"
 
+#import <UIImageView+WebCache.h>
+
 @interface LiveCollectionCell ()
 
 @property (strong, nonatomic) UIImageView *liveImageView;

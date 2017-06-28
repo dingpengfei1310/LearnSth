@@ -6,10 +6,10 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @class LiveModel;
-@interface LiveInfoViewController : UIViewController
+@interface LiveInfoViewController : BaseViewController
 
 @property (nonatomic, copy) void (^LiveInfoDismissBlock)();
 @property (nonatomic, strong) LiveModel *liveModel;

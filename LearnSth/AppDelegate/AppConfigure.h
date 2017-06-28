@@ -1,19 +1,13 @@
 //
-//  PrefixHeader.pch
+//  AppConfigure.h
 //  LearnSth
 //
-//  Created by 丁鹏飞 on 17/3/1.
+//  Created by 丁鹏飞 on 2017/6/28.
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#ifndef PrefixHeader_pch
-#define PrefixHeader_pch
-
-#import "UIViewController+Tool.h"
-#import <UIImageView+WebCache.h>
-
-#import "HttpManager.h"
-#import "CustomiseTool.h"
+#ifndef AppConfigure_h
+#define AppConfigure_h
 
 #pragma mark
 //#ifdef DEBUG
@@ -50,4 +44,4 @@
 #pragma mark
 #define DLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
 
-#endif /* PrefixHeader_pch */
+#endif /* AppConfigure_h */

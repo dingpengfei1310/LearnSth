@@ -61,7 +61,7 @@ static NSString *ReuseIdentifier = @"cell";
     cell.backgroundColor = [UIColor whiteColor];
     
     cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = KBackgroundColor;
+    cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     self.selectIndexPath = indexPath;
     

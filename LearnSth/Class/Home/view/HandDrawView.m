@@ -7,6 +7,7 @@
 //
 
 #import "HandDrawView.h"
+#import "CustomiseTool.h"
 
 @interface HandDrawView()
 
@@ -25,7 +26,7 @@
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_imageView];
         
-        self.forekgroundColor = KBackgroundColor;
+        self.forekgroundColor = [UIColor groupTableViewBackgroundColor];
     }
     return self;
 }

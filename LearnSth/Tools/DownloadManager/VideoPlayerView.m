@@ -164,7 +164,7 @@ const CGFloat BottomH = 30;
     progressView.progress = 0.0;
     progressView.center = CGPointMake(viewW * 0.5, height * 0.5);
     progressView.trackTintColor = [UIColor whiteColor];
-    progressView.progressTintColor = KBaseBlueColor;
+    progressView.progressTintColor = [UIColor blueColor];
     [bottomView addSubview:progressView];
     _loadingProgress = progressView;
     
