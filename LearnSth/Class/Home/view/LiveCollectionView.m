@@ -184,9 +184,9 @@ const  NSInteger liveColumn = 2;
         }];
         
         MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;
-        NSArray *images = @[[UIImage imageNamed:@"reflesh1"],
-                            [UIImage imageNamed:@"reflesh2"],
-                            [UIImage imageNamed:@"reflesh3"]];
+        NSArray *images = @[[UIImage imageNamed:@"refresh1"],
+                            [UIImage imageNamed:@"refresh2"],
+                            [UIImage imageNamed:@"refresh3"]];
         [gifHeader setImages:images forState:MJRefreshStatePulling];
         [gifHeader setImages:images forState:MJRefreshStateRefreshing];
         

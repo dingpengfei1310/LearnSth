@@ -6,7 +6,7 @@
 //  Copyright © 2016年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 typedef NS_ENUM(NSInteger, VideoScanType){
     VideoScanTypeNormal = 0,//普通效果
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, VideoScanType){
 
 @class PHAsset,PHFetchResult;
 
-@interface PhotosCollectionController : UIViewController
+@interface PhotosCollectionController : BaseViewController
 
 @property (nonatomic, strong) PHFetchResult *fetchResult;//结果集，这里是PHAsset集合
 @property (nonatomic, assign) VideoScanType scanType;//视频才有效，照片无效

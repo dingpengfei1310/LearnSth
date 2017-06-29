@@ -53,14 +53,17 @@ const NSTimeInterval timeoutInterval = 10.0;
                  paramets:(NSDictionary *)paramets
                   success:(Success)success
                   failure:(Failure)failure {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     [self.sessionManager GET:urlString
                   parameters:paramets
                     progress:^(NSProgress * uploadProgress) {}
                      success:^(NSURLSessionDataTask *task, id responseObject) {
+                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                          success(responseObject);
                      }
                      failure:^(NSURLSessionDataTask *task, NSError *error) {
+                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                          if ([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"已取消"]) {
                              NSDictionary *info = @{@"message":@"您已取消"};
                              NSError *error = [NSError errorWithDomain:@"用户取消" code:HttpErrorCodeCancel userInfo:info];

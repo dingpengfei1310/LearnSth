@@ -61,6 +61,9 @@ const float margin = 20;
         field.borderStyle = UITextBorderStyleRoundedRect;
         [scrollView addSubview:field];
         
+//        [field setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//        [field setValue:[UIFont boldSystemFontOfSize:15] forKeyPath:@"_placeholderLabel.font"];
+        
         switch (i) {
             case 0:
                 _nameField = field;

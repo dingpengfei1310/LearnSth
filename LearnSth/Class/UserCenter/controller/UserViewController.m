@@ -177,6 +177,7 @@ static NSString *Identifier = @"cell";
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         [_tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+//        _tableView.separatorColor = KBaseBlueColor;
         _tableView.dataSource = self;
         _tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
         _tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置

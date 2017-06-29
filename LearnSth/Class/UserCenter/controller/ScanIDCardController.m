@@ -188,6 +188,10 @@
                 [self.captureSession stopRunning];
             }
             
+//            //手机震动
+//            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+//            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            
             char ctype;
             char content[256];
             int xlen;

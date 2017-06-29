@@ -46,18 +46,18 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
         
-//        [self.view addSubview:self.player.playerView];
+        [self.view addSubview:self.player.playerView];
         [self showForegroundView];
         [self addOriginalGesture];
+        
+        [self.player play];
+        self.player.playerView.gestureRecognizers = nil;
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
-    
-//    [self.player play];
-//    self.player.playerView.gestureRecognizers = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -174,15 +174,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     if (self.index < self.liveArray.count - 1) {
         self.index ++;
         self.liveModel = self.liveArray[self.index];
-        
         self.title = self.liveModel.myname;
-        self.navigationItem.rightBarButtonItem = nil;
-        
         [self showForegroundView];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         [self.player playWithURL:url];
-        
     } else {
         [self showError:@"没有更多数据"];
     }
@@ -193,8 +189,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     if (state == PLPlayerStatusPlaying) {
         [self.foregroundView removeFromSuperview];
         self.foregroundView = nil;
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
     }
 }
 
