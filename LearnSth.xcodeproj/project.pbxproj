@@ -133,6 +133,7 @@
 		1B4630DF1E669703000260D2 /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630D21E669703000260D2 /* SQLManager.m */; };
 		1B4630E01E669703000260D2 /* UserLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630D41E669703000260D2 /* UserLocalNotification.m */; };
 		1B4630E41E669796000260D2 /* CustomiseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630E31E669796000260D2 /* CustomiseTool.m */; };
+		1B54748B1F0634B400101359 /* BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54748A1F0634B400101359 /* BuyViewController.m */; };
 		1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */; };
 		1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */; };
 		1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */; };
@@ -435,6 +436,8 @@
 		1B4630D41E669703000260D2 /* UserLocalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocalNotification.m; sourceTree = "<group>"; };
 		1B4630E21E669796000260D2 /* CustomiseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomiseTool.h; sourceTree = "<group>"; };
 		1B4630E31E669796000260D2 /* CustomiseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomiseTool.m; sourceTree = "<group>"; };
+		1B5474891F0634B400101359 /* BuyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyViewController.h; sourceTree = "<group>"; };
+		1B54748A1F0634B400101359 /* BuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyViewController.m; sourceTree = "<group>"; };
 		1B5E7BF71E49C9B200153A58 /* PLPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlayerViewController.h; sourceTree = "<group>"; };
 		1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlayerViewController.m; sourceTree = "<group>"; };
 		1B5E7BFA1E49C9BB00153A58 /* LiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveModel.h; sourceTree = "<group>"; };
@@ -995,6 +998,8 @@
 		1B2D07DD1DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				1B5474891F0634B400101359 /* BuyViewController.h */,
+				1B54748A1F0634B400101359 /* BuyViewController.m */,
 				1B04FA221E52F20A00CDFC80 /* cameraVideo */,
 				1B02B2FF1E973F51002610FD /* card-QRCode */,
 				1B1C75491ECD87B00060D824 /* login */,
@@ -1558,6 +1563,7 @@
 				1B3491F31EC582A6002483CC /* StepCountView.m in Sources */,
 				1B2D08051DE7E8DB0034C22D /* UserInfoViewController.m in Sources */,
 				1B099C8B1DE7E57400161396 /* MJRefreshNormalHeader.m in Sources */,
+				1B54748B1F0634B400101359 /* BuyViewController.m in Sources */,
 				1B2D07FB1DE7E8DB0034C22D /* FoldPaperView.m in Sources */,
 				1B099C711DE7E57400161396 /* Aspects.m in Sources */,
 				1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */,

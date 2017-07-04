@@ -12,6 +12,7 @@
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
 #import "StepCountViewController.h"
+#import "BuyViewController.h"
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
@@ -38,7 +39,7 @@ static NSString *Identifier = @"cell";
     self.navigationItem.title = @"我";
     
     self.dataArray = @[@[@"头像"],
-                       @[@"相册",@"步数"],
+                       @[@"相册",@"步数",@"购买"],
                        @[@"设置"]
                        ];
     [self.view addSubview:self.tableView];
@@ -140,6 +141,10 @@ static NSString *Identifier = @"cell";
             
         } else if (indexPath.row == 1) {
             StepCountViewController *controller = [[StepCountViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        } else if (indexPath.row == 2) {
+            BuyViewController *controller = [[BuyViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }

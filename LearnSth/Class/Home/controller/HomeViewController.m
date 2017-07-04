@@ -37,6 +37,7 @@
 //    backItem.title = @"";
 //    self.navigationItem.backBarButtonItem = backItem;
     
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -61,6 +62,7 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 #pragma mark
