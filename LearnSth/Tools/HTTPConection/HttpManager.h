@@ -32,4 +32,7 @@ typedef NS_ENUM(NSInteger, HttpErrorCode) {
 - (void)getHotLiveListWithParamers:(NSDictionary *)paramers
                         completion:(SuccessArray)completion;
 
+///本地测试数据
+- (void)getLoacalTestDataCompletion:(SuccessArray)completion;
+
 @end

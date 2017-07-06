@@ -89,7 +89,6 @@
 		1B2D08061DE7E8DB0034C22D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07E91DE7E8DB0034C22D /* UserViewController.m */; };
 		1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F11DE7E8DB0034C22D /* UserManager.m */; };
 		1B2D080A1DE7E8DB0034C22D /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */; };
-		1B2D1F2D1ED2C6FE004ED03C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */; };
 		1B2E587D1EBC76E800770953 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58741EBC76E800770953 /* DownloadManager.m */; };
 		1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58761EBC76E800770953 /* DownloadModel.m */; };
 		1B2E587F1EBC76E800770953 /* DownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58781EBC76E800770953 /* DownloadViewController.m */; };
@@ -121,7 +120,6 @@
 		1B430D731ED7FABC0097248C /* boss_attack.dae in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D6F1ED7FABC0097248C /* boss_attack.dae */; };
 		1B430D741ED7FABC0097248C /* demon_01_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D701ED7FABC0097248C /* demon_01_512.png */; };
 		1B430D751ED7FABC0097248C /* demon_01_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B430D711ED7FABC0097248C /* demon_01_normal.png */; };
-		1B430D781ED801260097248C /* SceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B430D771ED801260097248C /* SceneViewController.m */; };
 		1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C01E669703000260D2 /* NSString+Tool.m */; };
 		1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C21E669703000260D2 /* UICollectionView+Tool.m */; };
 		1B4630D91E669703000260D2 /* UIColor+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C41E669703000260D2 /* UIColor+Tool.m */; };
@@ -355,8 +353,6 @@
 		1B2D07F11DE7E8DB0034C22D /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		1B2D07F31DE7E8DB0034C22D /* MessageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableCell.h; sourceTree = "<group>"; };
 		1B2D07F41DE7E8DB0034C22D /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
-		1B2D1F2B1ED2C6FE004ED03C /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1B2E58731EBC76E800770953 /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
 		1B2E58741EBC76E800770953 /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 		1B2E58751EBC76E800770953 /* DownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
@@ -412,8 +408,6 @@
 		1B430D6F1ED7FABC0097248C /* boss_attack.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = boss_attack.dae; sourceTree = "<group>"; };
 		1B430D701ED7FABC0097248C /* demon_01_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demon_01_512.png; sourceTree = "<group>"; };
 		1B430D711ED7FABC0097248C /* demon_01_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demon_01_normal.png; sourceTree = "<group>"; };
-		1B430D761ED801260097248C /* SceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneViewController.h; sourceTree = "<group>"; };
-		1B430D771ED801260097248C /* SceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneViewController.m; sourceTree = "<group>"; };
 		1B4630BF1E669703000260D2 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
 		1B4630C01E669703000260D2 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
 		1B4630C11E669703000260D2 /* UICollectionView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Tool.h"; sourceTree = "<group>"; };
@@ -926,8 +920,6 @@
 		1B2D07C11DE7E8DB0034C22D /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				1B2D1F2B1ED2C6FE004ED03C /* GameViewController.h */,
-				1B2D1F2C1ED2C6FE004ED03C /* GameViewController.m */,
 				1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */,
 				1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */,
 				1B348D0A1EF3A37000F63BD4 /* LiveInfoViewController.h */,
@@ -937,8 +929,6 @@
 				1BB786A21E8E2D5B00185869 /* RotationViewController.h */,
 				1BB786A31E8E2D5B00185869 /* RotationViewController.m */,
 				1BB786A41E8E2D5B00185869 /* RotationViewController.xib */,
-				1B430D761ED801260097248C /* SceneViewController.h */,
-				1B430D771ED801260097248C /* SceneViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1595,14 +1585,12 @@
 				1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */,
 				1B099C731DE7E57400161396 /* BHBMyDrawer.m in Sources */,
 				1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */,
-				1B2D1F2D1ED2C6FE004ED03C /* GameViewController.m in Sources */,
 				1BEED1011E56F5460072BFB9 /* ScanQRCodeController.m in Sources */,
 				1B099C9E1DE7E57400161396 /* UIViewController+Swizzled.m in Sources */,
 				1B113ADF1EC1B7CF00B3482D /* VideoProcessWithFilter.m in Sources */,
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,
-				1B430D781ED801260097248C /* SceneViewController.m in Sources */,
 				1B2E58891EBC796800770953 /* FileScanViewController.m in Sources */,
 				1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
@@ -1797,6 +1785,11 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TESTIP=1",
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2\"",
@@ -1845,6 +1838,10 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2\"",

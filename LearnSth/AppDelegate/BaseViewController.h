@@ -11,7 +11,9 @@
 #import "AppConfigure.h"
 
 #import "UIViewController+Tool.h"
+
 #import "CustomiseTool.h"
+#import "HttpManager.h"
 
 #import <UIImageView+WebCache.h>
 

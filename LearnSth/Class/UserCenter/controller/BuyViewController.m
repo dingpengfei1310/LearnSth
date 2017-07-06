@@ -22,11 +22,16 @@
 }
 
 - (void)buySth {
+//    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    
     [self showAlertWithTitle:nil message:@"确定购买吗" cancel:nil operation:^{
+//        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+//        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+        
         if([SKPaymentQueue canMakePayments]) {
             NSString *product = @"123";
             [self requestProductData:product];
-        } else{
+        } else {
             NSLog(@"不允许程序内付费");
         }
     }];
@@ -41,14 +46,16 @@
     request.delegate = self;
     [request start];
     
+    [self loading];
 }
 
-#pragma mark
+#pragma mark - 产品返回信息
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-    NSLog(@"--------------收到产品反馈消息---------------------");
+    [self hideHUD];
+    
     NSArray *product = response.products;
     if([product count] == 0){
-        NSLog(@"--------------没有商品------------------");
+        [self showError:@"没有商品"];
         return;
     }
     
@@ -73,6 +80,9 @@
     NSLog(@"发送购买请求");
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
+
+#pragma mark -
+//- (void)payment
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

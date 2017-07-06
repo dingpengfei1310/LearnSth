@@ -24,6 +24,7 @@ static NSString *reuseIdentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
+    
     self.dataArray = @[
                        @"浅copy:指针复制，不会创建一个新的对象。\n深copy:内容复制，会创建一个新的对象。",
                        @"对immutableObject，即不可变对象，执行copy，会得到不可变对象，并且是浅copy。\n对immutableObject，即不可变对象，执行mutableCopy，会得到可变对象，并且是深copy。\n对mutableObject，即可变对象，执行copy，会得到不可变对象，并且是深copy。\n对mutableObject，即可变对象，执行mutableCopy，会得到可变对象，并且是深copy。",
@@ -34,8 +35,8 @@ static NSString *reuseIdentifier = @"cell";
         [arrayM addObjectsFromArray:self.dataArray];
     }
     self.dataArray = [NSArray arrayWithArray:arrayM];
-    self.heightArray = [NSMutableArray array];
     
+    self.heightArray = [NSMutableArray array];
     [self.view addSubview:self.tableView];
 }
 

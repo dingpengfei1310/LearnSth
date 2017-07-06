@@ -101,11 +101,13 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *files = [fileManager contentsOfDirectoryAtPath:_previewItemPath error:NULL];
     [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
-        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:obj];
-        
-        BOOL flag;
-        if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
-            [_previewItems addObject:obj];
+        if (![obj hasSuffix:@".DS_Store"]) {
+            NSString *filePath = [_previewItemPath stringByAppendingPathComponent:obj];
+            
+            BOOL flag;
+            if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
+                [_previewItems addObject:obj];
+            }
         }
     }];
 }

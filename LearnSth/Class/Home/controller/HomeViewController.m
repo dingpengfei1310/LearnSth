@@ -9,11 +9,7 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
-#import "LiveInfoViewController.h"
-
 #import "JPuzzleViewController.h"
-#import "GameViewController.h"
-#import "SceneViewController.h"
 
 #import "LiveCollectionView.h"
 
@@ -51,10 +47,6 @@
 }
 
 - (void)homeRightItemClick {
-//    GameViewController *controller = [[GameViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
-    
 //    SceneViewController *controller = [[SceneViewController alloc] init];
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
@@ -62,7 +54,6 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma mark

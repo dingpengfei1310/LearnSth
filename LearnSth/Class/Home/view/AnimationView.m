@@ -15,9 +15,7 @@
 }
 
 @property (nonatomic, strong) CAShapeLayer *baseCircleLayer;
-
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
-
 @property (nonatomic, strong) CAEmitterLayer *emitterLayer;
 
 @end
@@ -29,7 +27,7 @@ CGFloat const totalDuration = 3.0;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
         width = CGRectGetWidth(frame);
         height = CGRectGetHeight(frame);
         radius = width * 0.5 - 10;
@@ -318,22 +316,15 @@ CGFloat const totalDuration = 3.0;
     NSArray *colors = @[(id)[UIColor greenColor].CGColor, (id)[UIColor redColor].CGColor];
     CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpace, (CFArrayRef  _Nullable)colors, locations);
     
-    
-    CGContextSaveGState(context);
-    
     CGContextAddEllipseInRect(context, rect);
     CGContextClip(context);
     CGContextDrawLinearGradient(context, gradientRef, CGPointMake(0, 0), CGPointMake(50, 50), kCGGradientDrawsBeforeStartLocation);
 //    CGPoint center = CGPointMake(width * 0.5, height * 0.5);
 //    CGContextDrawRadialGradient(context, gradientRef, center, 0, center, height * 0.5, kCGGradientDrawsBeforeStartLocation);
     
-    CGContextRestoreGState(context);
-    
-    
     CGColorSpaceRelease(colorSpace);
     CGGradientRelease(gradientRef);
 }
-
 
 #pragma mark
 - (UIColor *)randomColor {
@@ -352,7 +343,6 @@ CGFloat const totalDuration = 3.0;
     }
     [self.gradientLayer setColors:colors];
 }
-
 
 #pragma mark
 - (CAShapeLayer *)baseCircleLayer {

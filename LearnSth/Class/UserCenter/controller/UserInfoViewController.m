@@ -38,10 +38,12 @@ static NSString *Identifier = @"cell";
     self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
     [self.view addSubview:self.tableView];
     
+#if !TARGET_OS_SIMULATOR
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [button setImage:[UIImage imageNamed:@"scanQRCode"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,10 +58,6 @@ static NSString *Identifier = @"cell";
 
 #pragma mark
 - (void)scanQRCode {
-    if (TARGET_OS_SIMULATOR) {
-        [self showError:@"真机使用"];
-        return;
-    }
     ScanQRCodeController *controller = [[ScanQRCodeController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }

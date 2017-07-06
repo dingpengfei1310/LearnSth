@@ -32,7 +32,9 @@ const float margin = 20;
     [super viewDidLoad];
     self.title = @"身份证";
     
+#if !TARGET_OS_SIMULATOR
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(scanClick)];
+#endif
     
     [self initSubView];
 }
@@ -87,11 +89,6 @@ const float margin = 20;
 
 #pragma mark
 - (void)scanClick {
-    if (TARGET_OS_SIMULATOR) {
-        [self showError:@"真机使用"];
-        return;
-    }
-    
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
         [self toScanController];

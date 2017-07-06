@@ -30,10 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadViewControllersWithSelectIndex:0];
     [self networkMonitoring];
+    [self loadViewControllersWithSelectIndex:0];
 }
 
+#pragma mark
 - (void)networkMonitoring {
     __block BOOL isFirst = YES;
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -50,7 +51,6 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
-#pragma mark
 - (void)loadViewControllersWithSelectIndex:(NSInteger)index {
     HomeViewController *homeController = [[HomeViewController alloc] init];
     UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
@@ -144,20 +144,22 @@
         [self localVideo];
     }];
     
+#if !TARGET_OS_SIMULATOR
     UIAlertAction *GPUVideoAction = [UIAlertAction actionWithTitle:@"相机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         VideoCameraController *controller = [[VideoCameraController alloc] init];
-//        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
-//        controller.FilterMovieDismissBlock = ^{
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        };
+        //        VideoCameraFilterController *controller = [[VideoCameraFilterController alloc] init];
+        //        controller.FilterMovieDismissBlock = ^{
+        //            [self dismissViewControllerAnimated:YES completion:nil];
+        //        };
         [self presentViewController:controller animated:YES completion:nil];
     }];
     
+    [actionSheet addAction:GPUVideoAction];
+#endif
+    
     [actionSheet addAction:cancelAction];
     [actionSheet addAction:videoAction];
-    if (!TARGET_OS_SIMULATOR) {
-        [actionSheet addAction:GPUVideoAction];
-    }
+    
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 

@@ -35,9 +35,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismisss)];
     
-#if TARGET_OS_SIMULATOR
-    [self dismisss];
-#else
+#if !TARGET_OS_SIMULATOR
     viewW = CGRectGetWidth(self.view.frame);
     // 初始化rect
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
@@ -159,8 +157,7 @@
 }
 
 - (void)IDCardRecognit:(CVImageBufferRef)imageBuffer {
-#if TARGET_OS_SIMULATOR
-#else
+#if !TARGET_OS_SIMULATOR
     CVBufferRetain(imageBuffer);
     if (CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess) {
         size_t width= CVPixelBufferGetWidth(imageBuffer);// 1920

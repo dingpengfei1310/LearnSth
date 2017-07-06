@@ -90,6 +90,20 @@ const NSTimeInterval timeoutInterval = 10.0;
                       }];
 }
 
+- (NSError *)errorWithResponse:(NSDictionary *)dict {
+    //    NSString *message = [dict objectForKey:@"msg"];
+    //    NSInteger code = [[dict objectForKey:@"code"] integerValue];
+    //    message = message ?: @"网络错误";
+    //    code = code ?: HttpErrorCodeDefault;
+    //    NSDictionary *info = @{@"message":message};
+    
+    NSString *message = @"暂无数据";
+    NSInteger code = HttpErrorCodeNodata;
+    NSDictionary *info = @{@"message":message};
+    
+    return [NSError errorWithDomain:message code:code userInfo:info];
+}
+
 #pragma mark
 - (void)getAdBannerListCompletion:(SuccessArray)completion {
     NSString * urlString = @"https://live.9158.com/Living/GetAD";
@@ -125,18 +139,13 @@ const NSTimeInterval timeoutInterval = 10.0;
     }];
 }
 
-- (NSError *)errorWithResponse:(NSDictionary *)dict {
-//    NSString *message = [dict objectForKey:@"msg"];
-//    NSInteger code = [[dict objectForKey:@"code"] integerValue];
-//    message = message ?: @"网络错误";
-//    code = code ?: HttpErrorCodeDefault;
-//    NSDictionary *info = @{@"message":message};
-    
-    NSString *message = @"暂无数据";
-    NSInteger code = HttpErrorCodeNodata;
-    NSDictionary *info = @{@"message":message};
-    
-    return [NSError errorWithDomain:message code:code userInfo:info];
+- (void)getLoacalTestDataCompletion:(SuccessArray)completion {
+    NSString *localIP = @"http://192.168.1.146:80/test.json";
+    [self getDataWithString:localIP paramets:nil success:^(id responseData) {
+        completion(responseData[@"data"],nil);
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 #pragma mark
