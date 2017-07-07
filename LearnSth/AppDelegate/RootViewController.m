@@ -11,13 +11,13 @@
 #import "UserViewController.h"
 
 #import "PhotoLibraryController.h"
+#import "CustomizeButton.h"
+#import <AFNetworkReachabilityManager.h>
+
+#if !TARGET_OS_SIMULATOR
 #import "VideoCameraController.h"
 #import "VideoCameraFilterController.h"
-
-#import "CustomizeButton.h"
-#import "BaseViewController.h"
-
-#import <AFNetworkReachabilityManager.h>
+#endif
 
 @interface RootViewController ()
 
@@ -153,7 +153,6 @@
         //        };
         [self presentViewController:controller animated:YES completion:nil];
     }];
-    
     [actionSheet addAction:GPUVideoAction];
 #endif
     

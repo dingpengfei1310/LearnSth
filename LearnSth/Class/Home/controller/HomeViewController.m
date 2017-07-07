@@ -16,7 +16,6 @@
 @interface HomeViewController ()
 
 @property (nonatomic, strong) LiveCollectionView *liveCollectionView;
-@property (nonatomic, strong) UIView *vv;
 
 @end
 

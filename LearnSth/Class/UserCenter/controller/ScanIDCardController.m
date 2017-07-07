@@ -7,10 +7,12 @@
 //
 
 #import "ScanIDCardController.h"
+#import <AVFoundation/AVFoundation.h>
+
+#if !TARGET_OS_SIMULATOR
 #import "IDCardInfo.h"
 #import "excards.h"
-
-#import <AVFoundation/AVFoundation.h>
+#endif
 
 @interface ScanIDCardController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate> {
     CGFloat viewW;

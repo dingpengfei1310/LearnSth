@@ -13,7 +13,7 @@
 #import "BannerModel.h"
 #import "LiveModel.h"
 
-#import "UICollectionView+Tool.h"
+//#import "UICollectionView+Tool.h"
 #import "UIView+Tool.h"
 
 #import "MJRefresh.h"
@@ -114,7 +114,6 @@ const  NSInteger liveColumn = 2;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
     if ([kind isEqualToString:UICollectionElementKindSectionHeader] && self.bannerList.count > 0) {
         UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerReuseIdentifier forIndexPath:indexPath];
         

@@ -43,7 +43,7 @@
                                           options:NSStringDrawingUsesLineFragmentOrigin
                                        attributes:attributes
                                           context:nil].size;
-        self.userInteractionEnabled = size.width + 35 > point.x;
+        self.userInteractionEnabled = ceil(size.width) + 35 > point.x;
     }
     
     return [super hitTest:point withEvent:event];
