@@ -43,7 +43,10 @@ const  NSInteger liveColumn = 2;
         self.page = 1;
         
         [self addSubview:self.collectionView];
-        [self loadData];
+        [self loadBannerData];
+//        [self refreshLiveData];
+        
+//        [self loadData];//dispatch_group_t用法
         
 //        __weak typeof(self) weakSelf = self;
 //        [self.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
@@ -61,7 +64,7 @@ const  NSInteger liveColumn = 2;
     }
 }
 
-- (void)loadData {
+- (void)loadBannerData {
     [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
         if (!error) {
             self.bannerList = [BannerModel bannerWithArray:list];
@@ -79,8 +82,6 @@ const  NSInteger liveColumn = 2;
         
         [BannerModel cacheWithBanners:self.bannerList];
     }];
-    
-//    [self refreshLiveData];
 }
 
 - (void)refreshLiveData {
@@ -103,6 +104,56 @@ const  NSInteger liveColumn = 2;
         }
         [self.collectionView reloadData];
     }];
+}
+
+/**
+ * 2个数据都加载完，才reload
+ */
+- (void)loadData {
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t serialQueue = dispatch_queue_create("com.test.www", DISPATCH_QUEUE_CONCURRENT);
+    
+    dispatch_group_enter(group);
+    dispatch_group_async(group, serialQueue, ^{
+        [[HttpManager shareManager] getAdBannerListCompletion:^(NSArray *list, NSError *error) {
+            dispatch_group_leave(group);
+            
+            if (!error) {
+                self.bannerList = [BannerModel bannerWithArray:list];
+            } else {
+                self.bannerList = [BannerModel bannerWithCacheArray];
+            }
+            
+            NSMutableArray *imageStringArray = [NSMutableArray arrayWithCapacity:_bannerList.count];
+            [self.bannerList enumerateObjectsUsingBlock:^(BannerModel * obj, NSUInteger idx, BOOL * stop) {
+                [imageStringArray addObject:obj.imageUrl];
+            }];
+            
+            self.bannerScrollView.imageArray = imageStringArray;
+            
+            [BannerModel cacheWithBanners:self.bannerList];
+        }];
+    });
+    
+    dispatch_group_enter(group);
+    dispatch_group_async(group, serialQueue, ^{
+        NSDictionary *params = @{@"page":[@(self.page) stringValue]};
+        [[HttpManager shareManager] getHotLiveListWithParamers:params completion:^(NSArray *list, NSError *error) {
+            dispatch_group_leave(group);
+            
+            if (error) {
+                [self showErrorWithError:error];
+            } else {
+                self.liveList = [NSMutableArray arrayWithArray:[LiveModel liveWithArray:list]];
+            }
+        }];
+    });
+    
+    dispatch_group_notify(group, serialQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    });
 }
 
 #pragma mark
@@ -159,7 +210,7 @@ const  NSInteger liveColumn = 2;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         

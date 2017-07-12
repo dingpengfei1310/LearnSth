@@ -34,7 +34,8 @@
                        @"我的下载",
                        @"本机文件",
                        @"清除缓存",
-                       @"语言"];
+                       @"语言",
+                       @"夜间"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
@@ -46,7 +47,7 @@
     BOOL success = [manager startHTTPServerAtPort:10000];
     
     if (success) {
-        NSLog(@"URL = %@:%@",manager.ip,@(manager.port));
+        DNSLog(@"URL = %@:%@",manager.ip,@(manager.port));
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
     }
 }
@@ -179,6 +180,9 @@
         [actionSheet addAction:cancel];
         
         [self presentViewController:actionSheet animated:YES completion:nil];
+    } else if (indexPath.row == 5) {
+        
+        
     }
 }
 

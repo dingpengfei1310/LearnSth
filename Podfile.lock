@@ -30,6 +30,7 @@ PODS:
   - FMDB/standard (2.6.2)
   - GPUImage (0.1.7)
   - HappyDNS (0.3.10)
+  - KVOController (1.2.0)
   - PLPlayerKit (2.4.2):
     - HappyDNS (~> 0.3.10)
   - SDWebImage (4.0.0):
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - FLAnimatedImage
   - FMDB
   - GPUImage
+  - KVOController
   - PLPlayerKit
   - SDWebImage
   - SDWebImage/GIF
@@ -60,10 +62,11 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   PLPlayerKit: 513e328d861ee02bbe682b79c9be36f7ed224239
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
 
-PODFILE CHECKSUM: 649ce040cc03c96d352931cd50896a477b5ad33c
+PODFILE CHECKSUM: 6c69e09ccc144a0ada649753d84a579802eb6b23
 
 COCOAPODS: 1.2.0

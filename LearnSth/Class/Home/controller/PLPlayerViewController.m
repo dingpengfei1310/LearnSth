@@ -47,11 +47,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.title = self.liveModel.myname;
         
         [self.view addSubview:self.player.playerView];
-        [self showForegroundView];
-        [self addOriginalGesture];
-        
-        [self.player play];
         self.player.playerView.gestureRecognizers = nil;
+        [self.player play];
+        
+        [self addOriginalGesture];
+        [self showForegroundView];
     }
 }
 

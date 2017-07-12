@@ -7,9 +7,10 @@
 //
 
 #import "WebViewController.h"
-#import <WebKit/WebKit.h>
 #import "WebProgressView.h"
 #import "UIViewController+PopAction.h"
+
+#import <WebKit/WebKit.h>
 
 @interface WebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -84,7 +85,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     [self showSuccess:message.name];
-    NSLog(@"WKUserContentController:%@",message.name);
 }
 
 #pragma mark WKUIDelegate

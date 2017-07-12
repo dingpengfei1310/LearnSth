@@ -61,6 +61,7 @@ const float margin = 20;
         UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(margin + 40, 20 + CGRectGetMaxY(_cardImageView.frame) + (spaceH + labelH) * i, viewW - margin * 2 - 40, labelH)];
         field.font = [UIFont systemFontOfSize:16];
         field.borderStyle = UITextBorderStyleRoundedRect;
+        field.keyboardAppearance = UIKeyboardAppearanceDark;
         [scrollView addSubview:field];
         
 //        [field setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];

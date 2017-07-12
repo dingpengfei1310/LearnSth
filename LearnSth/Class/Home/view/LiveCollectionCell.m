@@ -28,13 +28,13 @@
 }
 
 - (void)initialize {
-    UIColor *backgroundColor = [UIColor whiteColor];
+    UIColor *backgroundColor = [UIColor clearColor];
     
     _liveImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:_liveImageView];
     
     _nameLabel = [[UILabel alloc] init];
-    _nameLabel.backgroundColor = backgroundColor;
+    _nameLabel.backgroundColor = [UIColor whiteColor];
     _nameLabel.font = [UIFont systemFontOfSize:12];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_nameLabel];

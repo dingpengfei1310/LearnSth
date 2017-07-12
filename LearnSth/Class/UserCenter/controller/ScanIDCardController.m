@@ -43,7 +43,7 @@
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
     int ret = EXCARDS_Init(thePath);
     if (ret != 0) {
-        NSLog(@"初始化失败：ret=%d", ret);
+        DNSLog(@"初始化失败：ret=%d", ret);
     }
     
     [self showVideoPreviewLayer];//前面已经判断有相机权限，否则会有错误
@@ -181,7 +181,6 @@
         unsigned char pResult[1024];
         int ret = EXCARDS_RecoIDCardData(buffer, (int)width, (int)height, (int)rowBytes, (int)8, (char*)pResult, sizeof(pResult));
         if (ret > 0) {
-            NSLog(@"ret=[%d]", ret);
             AudioServicesPlaySystemSound(1108);// 播放一下“拍照”的声音，模拟拍照
             if ([self.captureSession isRunning]) {
                 [self.captureSession stopRunning];

@@ -68,6 +68,7 @@ static SQLManager *manager = nil;
     NSMutableArray *mutArray = [NSMutableArray array];
     
     [self.dbQueue inDatabase:^(FMDatabase *db) {
+        
         NSString *sql = [NSString stringWithFormat:@"select * from t_address where parent_id = '%@'",provinceId];
         
         FMResultSet *result = [db executeQuery:sql];

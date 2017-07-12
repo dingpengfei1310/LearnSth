@@ -22,7 +22,8 @@
 //#define NSLog(FORMAT, ...)
 //#endif
 
-#define DDNSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#define DNSLog(...) NSLog(__VA_ARGS__)
+//#define DDNSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
 //[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String]
 //#ifdef __IPHONE_10_0

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8EA5A8E33D8B46B2442814DFD0488DCC'
-               BlueprintName = 'SSZipArchive'
+               BlueprintIdentifier = '9C2D3327264C1DB785EADD89D3242323'
+               BlueprintName = 'KVOController'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSSZipArchive.a'>
+               BuildableName = 'libKVOController.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

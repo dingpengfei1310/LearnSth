@@ -12,7 +12,7 @@
 @interface LiveInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIImage *navigationBarImage;
+@property (nonatomic, assign) BOOL showTitle;//导航栏是否完全显示
 
 @end
 
@@ -81,7 +81,7 @@
 
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,17 +94,18 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY < -Screen_W * 0.5) {
+    if (offsetY >= 64) {
+        if (!_showTitle) {
+            _showTitle = YES;
+            self.title = self.liveModel.myname;
+            [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:KBaseBlueColor]];
+        }
+    } else if (offsetY < -Screen_W * 0.5) {
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);
-        NSLog(@"<<<");
     } else if (offsetY < 64) {
         self.title = nil;
         UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:offsetY / 64.0];
         [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:color]];
-        
-    } else {
-        self.title = self.liveModel.myname;
-        [self navigationBarBackgroundImage:self.navigationBarImage];
     }
 }
 
@@ -119,13 +120,6 @@
         _tableView.rowHeight = 60;
     }
     return _tableView;
-}
-
-- (UIImage *)navigationBarImage {
-    if (!_navigationBarImage) {
-        _navigationBarImage = [CustomiseTool imageWithColor:KBaseBlueColor];
-    }
-    return _navigationBarImage;
 }
 
 - (void)didReceiveMemoryWarning {

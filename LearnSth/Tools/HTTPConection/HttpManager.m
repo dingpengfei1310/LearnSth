@@ -144,7 +144,7 @@ const NSTimeInterval timeoutInterval = 10.0;
     [self getDataWithString:localIP paramets:nil success:^(id responseData) {
         completion(responseData[@"data"],nil);
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }];
 }
 

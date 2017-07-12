@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KVOController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-LearnSth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,7 +67,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>125DE295CFC12CBB2722EC97DED53C27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>23D7DA26C40DEA0CBB49A7825C7CD4F1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>255BC120F42F8E2D36D6472CBF55E95B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +102,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8BE1FA519E3CC34C9EFDF83DFB5C794C</key>
+		<key>8EA5A8E33D8B46B2442814DFD0488DCC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9C2D3327264C1DB785EADD89D3242323</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,17 +117,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B9901E807D808E36C2816C0A40FEB239</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>C92FE3681884E565A5AB3C622863B4C8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D9C8DB9673A894F3393717968D6A68C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

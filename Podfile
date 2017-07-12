@@ -11,4 +11,5 @@ target 'LearnSth' do
     pod 'SDWebImage'
     pod 'SDWebImage/GIF'
     pod 'FLAnimatedImage'
+    pod 'KVOController'
 end
