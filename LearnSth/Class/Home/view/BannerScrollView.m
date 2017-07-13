@@ -9,6 +9,7 @@
 #import "BannerScrollView.h"
 #import "AppConfigure.h"
 #import <UIImageView+WebCache.h>
+#import "NSTimer+Tool.h"
 
 @interface BannerScrollView ()<UIScrollViewDelegate>
 
@@ -102,9 +103,12 @@
         return;
     }
     if (!_timer) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(autoScroll) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+        __weak typeof(self) wSelf = self;
+        self.timer = [NSTimer timerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            [wSelf autoScroll];
+        }];
     }
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)invalidateTimer {

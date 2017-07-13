@@ -24,6 +24,7 @@ PODS:
   - CocoaLumberjack/Default (3.1.0)
   - CocoaLumberjack/Extensions (3.1.0):
     - CocoaLumberjack/Default
+  - FBRetainCycleDetector (0.1.3)
   - FLAnimatedImage (1.0.12)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -31,6 +32,8 @@ PODS:
   - GPUImage (0.1.7)
   - HappyDNS (0.3.10)
   - KVOController (1.2.0)
+  - MLeaksFinder (0.2.1):
+    - FBRetainCycleDetector
   - PLPlayerKit (2.4.2):
     - HappyDNS (~> 0.3.10)
   - SDWebImage (4.0.0):
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - FMDB
   - GPUImage
   - KVOController
+  - MLeaksFinder
   - PLPlayerKit
   - SDWebImage
   - SDWebImage/GIF
@@ -58,15 +62,17 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
+  FBRetainCycleDetector: f0c7b290bf48ae77f6ae060843ce34ae341781eb
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  MLeaksFinder: 0850e2f2abc7227adc4d4e2d1992b431264eb4d5
   PLPlayerKit: 513e328d861ee02bbe682b79c9be36f7ed224239
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
 
-PODFILE CHECKSUM: 6c69e09ccc144a0ada649753d84a579802eb6b23
+PODFILE CHECKSUM: be3d80b81538a34bd6a5ce4682fc0086dec10a3a
 
 COCOAPODS: 1.2.0

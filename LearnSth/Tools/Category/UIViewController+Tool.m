@@ -18,23 +18,6 @@ typedef void (^CancelBlock)();
 
 @implementation UIViewController (Tool)
 
-//+ (void)load {
-//    Method viewDidLoad = class_getInstanceMethod([UIViewController class], @selector(viewDidLoad));
-//    Method ddViewDidLoad = class_getInstanceMethod([UIViewController class], @selector(dd_viewDidLoad));
-//
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        method_exchangeImplementations(viewDidLoad, ddViewDidLoad);
-//    });
-//}
-//
-//- (void)dd_viewDidLoad {
-//    [self dd_viewDidLoad];
-//    if (self.navigationController) {
-//        self.view.backgroundColor = [UIColor whiteColor];
-//    }
-//}
-
 #pragma mark
 - (void)navigationBarColorClear {
     UIImage *image = [[UIImage alloc] init];

@@ -138,6 +138,7 @@
 		1B72BEED1E4D9805007DFF74 /* PanInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanInteractiveTransition.m */; };
 		1B7D05651EC977A600C36FEB /* DDImageBrowserFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
+		1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
@@ -444,6 +445,8 @@
 		1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserFlowLayout.m; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
 		1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionView.m; sourceTree = "<group>"; };
+		1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Tool.h"; sourceTree = "<group>"; };
+		1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Tool.m"; sourceTree = "<group>"; };
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
 		1BB786A31E8E2D5B00185869 /* RotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationViewController.m; sourceTree = "<group>"; };
 		1BB786A41E8E2D5B00185869 /* RotationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationViewController.xib; sourceTree = "<group>"; };
@@ -1118,8 +1121,12 @@
 		1B4630BE1E669703000260D2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1B34C7561F04CCC800026864 /* NSDate+Tool.h */,
+				1B34C7571F04CCC800026864 /* NSDate+Tool.m */,
 				1B4630BF1E669703000260D2 /* NSString+Tool.h */,
 				1B4630C01E669703000260D2 /* NSString+Tool.m */,
+				1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */,
+				1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */,
 				1B4630C11E669703000260D2 /* UICollectionView+Tool.h */,
 				1B4630C21E669703000260D2 /* UICollectionView+Tool.m */,
 				1B4630C31E669703000260D2 /* UIColor+Tool.h */,
@@ -1128,6 +1135,8 @@
 				1B139C0D1EAEE528003F678E /* UIImage+QRCode.m */,
 				1B4630C51E669703000260D2 /* UIImage+Tool.h */,
 				1B4630C61E669703000260D2 /* UIImage+Tool.m */,
+				1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */,
+				1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */,
 				1B4630C71E669703000260D2 /* UITableView+Tool.h */,
 				1B4630C81E669703000260D2 /* UITableView+Tool.m */,
 				1BD769191E8D0F5E00860D92 /* UIView+Tool.h */,
@@ -1136,10 +1145,6 @@
 				1B008EE31E91F51C003AE2DB /* UIViewController+PopAction.m */,
 				1B4630C91E669703000260D2 /* UIViewController+Tool.h */,
 				1B4630CA1E669703000260D2 /* UIViewController+Tool.m */,
-				1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */,
-				1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */,
-				1B34C7561F04CCC800026864 /* NSDate+Tool.h */,
-				1B34C7571F04CCC800026864 /* NSDate+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1605,6 +1610,7 @@
 				1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */,
+				1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */,
 				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,
 				1B099C8F1DE7E57400161396 /* NSBundle+MJRefresh.m in Sources */,
 				1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */,

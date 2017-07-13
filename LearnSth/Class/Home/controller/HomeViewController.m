@@ -53,7 +53,6 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma mark

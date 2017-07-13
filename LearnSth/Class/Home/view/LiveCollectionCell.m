@@ -28,8 +28,6 @@
 }
 
 - (void)initialize {
-    UIColor *backgroundColor = [UIColor clearColor];
-    
     _liveImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:_liveImageView];
     

@@ -8,7 +8,7 @@
 
 #import "WebProgressView.h"
 
-@interface WebProgressView ()
+@interface WebProgressView ()<CAAnimationDelegate>
 
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
@@ -30,7 +30,21 @@
 
 - (void)setProgress:(CGFloat)progress {
     _progress = progress;
-    _gradientLayer.frame = CGRectMake(0, 0, _width * _progress, _height);
+    
+    if (_progress == 1.0) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"bounds"];
+        animation.delegate = self;
+        animation.duration = 0.2;
+        animation.fromValue = [NSValue valueWithCGRect:_gradientLayer.frame];
+        animation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, _width, _height)];
+        [_gradientLayer addAnimation:animation forKey:@"animation"];
+    } else {
+        _gradientLayer.frame = CGRectMake(0, 0, _width * _progress, _height);
+    }
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [self removeFromSuperview];
 }
 
 #pragma mark

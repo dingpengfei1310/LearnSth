@@ -11,11 +11,14 @@
 #import "UIViewController+PopAction.h"
 
 #import <WebKit/WebKit.h>
+#import <KVOController/KVOController.h>
 
 @interface WebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *KWebView;
 @property (nonatomic, strong) WebProgressView *progressView;
+
+@property (nonatomic, strong) FBKVOController *KVOController;//KVO
 
 @end
 
@@ -28,13 +31,19 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     
     if (self.urlString) {
 //        _urlString = @"https://m.weibo.cn/n/ever丶飞飞";
-        _urlString = [_urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        self.urlString = [_urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
-
         [self.view addSubview:self.KWebView];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshWebView)];
+        
+        //进度条
+        __weak typeof(self) wSelf = self;
+        _KVOController = [FBKVOController controllerWithObserver:self];
+        [_KVOController observe:wSelf.KWebView keyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(id  observer, id  object, NSDictionary<NSString *,id> * change) {
+            wSelf.progressView.progress = [change[NSKeyValueChangeNewKey] floatValue];
+        }];
     }
 }
 
@@ -52,15 +61,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 - (void)refreshWebView {
-    NSURL *url = [NSURL URLWithString:self.urlString];
-    [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
-}
-
-#pragma mark
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:EstimatedProgress]) {
-        self.progressView.progress = self.KWebView.estimatedProgress;
-    }
+    [self.KWebView reload];
 }
 
 #pragma mark WKNavigationDelegate
@@ -70,12 +71,11 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self.progressView removeFromSuperview];
-    self.progressView.progress = 0;
+    self.progressView.progress = 0.0;
     [self.navigationController.view addSubview:self.progressView];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [self.progressView removeFromSuperview];
     self.title = webView.title;
 //    [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
 //        self.title = title;
@@ -99,12 +99,10 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         WKWebViewConfiguration *configuation = [[WKWebViewConfiguration alloc] init];
         configuation.userContentController = userController;
         
-//        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
         _KWebView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuation];
         _KWebView.navigationDelegate = self;
         _KWebView.UIDelegate = self;
 //        _KWebView.allowsBackForwardNavigationGestures = YES;//左滑goBack，右滑。。。
-        [_KWebView addObserver:self forKeyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         
 //        [userController addScriptMessageHandler:self name:@"currentCookies"];
     }
@@ -120,7 +118,6 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 
 #pragma mark
 - (void)dealloc {
-    [self.KWebView removeObserver:self forKeyPath:EstimatedProgress];
 //    [self.KWebView.configuration.userContentController removeScriptMessageHandlerForName:@"currentCookies"];
 }
 

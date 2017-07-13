@@ -12,4 +12,5 @@ target 'LearnSth' do
     pod 'SDWebImage/GIF'
     pod 'FLAnimatedImage'
     pod 'KVOController'
+    pod 'MLeaksFinder'
 end

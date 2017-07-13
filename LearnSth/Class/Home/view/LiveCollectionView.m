@@ -210,7 +210,7 @@ const  NSInteger liveColumn = 2;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
