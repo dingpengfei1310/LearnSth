@@ -63,6 +63,7 @@
 #pragma mark
 - (void)setBackgropundImage {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imageView];
     
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];

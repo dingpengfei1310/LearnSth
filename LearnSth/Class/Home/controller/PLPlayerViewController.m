@@ -160,6 +160,8 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 //返回到这个页面的处理
 - (void)backToRootController {
+    self.player.playerView.gestureRecognizers = nil;
+    
     [UIView animateWithDuration:0.5 animations:^{
         self.player.playerView.frame = self.view.bounds;
     } completion:^(BOOL finished) {
