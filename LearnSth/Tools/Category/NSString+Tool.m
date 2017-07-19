@@ -55,8 +55,14 @@
 }
 
 - (BOOL)validatePhoneNumber {
-    NSString *number=@"^1[3|4|5|7|8][0-9]\\d{8}$";
+    NSString *number = @"^1[3|4|5|7|8][0-9]\\d{8}$";
     NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",number];
+    return [numberPre evaluateWithObject:self];
+}
+
+- (BOOL)validatePassword {
+    NSString *pwd = @"^(?![0-9]+$)[a-zA-Z0-9]{6,12}$";
+    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pwd];
     return [numberPre evaluateWithObject:self];
 }
 

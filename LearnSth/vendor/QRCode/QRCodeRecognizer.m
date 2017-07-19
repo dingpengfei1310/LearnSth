@@ -19,7 +19,7 @@
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
     NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:_codeImage.CGImage]];
     
-    if (features.count <= 0) {
+    if (features.count == 0) {
         features = [detector featuresInImage:[CIImage imageWithCGImage:[self grayImage:_codeImage.CGImage]]];
     }
     

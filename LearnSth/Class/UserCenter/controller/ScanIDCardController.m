@@ -148,7 +148,7 @@
         
         if ([self.videoOutput isEqual:captureOutput]) {
             CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-            [self IDCardRecognit:imageBuffer];
+            [self IDCardRecognition:imageBuffer];
             
             if (self.videoOutput.sampleBufferDelegate) {
                 [self.videoOutput setSampleBufferDelegate:nil queue:self.queue];
@@ -158,7 +158,7 @@
     }
 }
 
-- (void)IDCardRecognit:(CVImageBufferRef)imageBuffer {
+- (void)IDCardRecognition:(CVImageBufferRef)imageBuffer {
 #if !TARGET_OS_SIMULATOR
     CVBufferRetain(imageBuffer);
     if (CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess) {
@@ -246,6 +246,7 @@
 #endif
 }
 
+#pragma mark
 - (UIImage *)getImageWithImageBuffer:(CVImageBufferRef)imageBuffer {
     CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer];
     CIContext *context = [CIContext contextWithOptions:nil];

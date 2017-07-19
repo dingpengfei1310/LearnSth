@@ -104,7 +104,7 @@ typedef void (^CancelBlock)();
     hud.contentColor = [UIColor whiteColor];
     
     hud.animationType = MBProgressHUDAnimationZoom;
-    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.bezelView.color = [UIColor blackColor];
     
     [hud hideAnimated:YES afterDelay:1.5];
 }
@@ -117,12 +117,12 @@ typedef void (^CancelBlock)();
     hud.label.font = [self hudTextFont];
     hud.margin = [self hudTextMargin];
     
-    hud.bezelView.color = [UIColor clearColor];
+    hud.bezelView.color = [UIColor groupTableViewBackgroundColor];
     hud.animationType = MBProgressHUDAnimationZoom;
     
     if (message.length > 0) {
         hud.contentColor = [UIColor whiteColor];
-        hud.bezelView.backgroundColor = [UIColor blackColor];
+        hud.bezelView.color = [UIColor blackColor];
     }
     
     return hud;

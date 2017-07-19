@@ -42,7 +42,20 @@ static NSString *Identifier = @"cell";
                        @[@"相册",@"步数",@"购买"],
                        @[@"设置"]
                        ];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
+    [self.tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
+    self.tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
     [self.view addSubview:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadHeaderCell];
 }
 
 #pragma mark
@@ -50,21 +63,11 @@ static NSString *Identifier = @"cell";
     if ([CustomiseTool isLogin]) {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
-        controller.ChangeHeaderImageBlock = ^{
-            [self reloadHeaderCell];
-        };
-        controller.ChangeUsernameBlock = ^{
-            [self reloadHeaderCell];
-        };
         [self.navigationController pushViewController:controller animated:YES];
         
     } else {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.LoginDismissBlock = ^ {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
-        controller.LoginSuccessBlock = ^{
-            [self reloadHeaderCell];
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -151,9 +154,9 @@ static NSString *Identifier = @"cell";
         
     } else if (indexPath.section == 2) {
         SettingViewController *controller = [[SettingViewController alloc] init];
-        controller.LogoutBlock = ^{
-            [self reloadHeaderCell];
-        };
+//        controller.LogoutBlock = ^{
+//            [self reloadHeaderCell];
+//        };
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -175,22 +178,6 @@ static NSString *Identifier = @"cell";
 //- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
 //    return self.interactiveTransition.interacting ? self.interactiveTransition : nil;
 //}
-
-#pragma mark
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
-        [_tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
-//        _tableView.separatorColor = KBaseBlueColor;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
-        _tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置
-        _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
-    }
-    return _tableView;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -19,4 +19,7 @@
 ///手机号码
 - (BOOL)validatePhoneNumber;
 
+///密码
+- (BOOL)validatePassword;
+
 @end

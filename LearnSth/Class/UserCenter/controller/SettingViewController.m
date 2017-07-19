@@ -15,8 +15,6 @@
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
 
-#import <Photos/Photos.h>
-
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -34,8 +32,7 @@
                        @"我的下载",
                        @"本机文件",
                        @"清除缓存",
-                       @"语言",
-                       @"夜间"];
+                       @"语言"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];

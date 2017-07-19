@@ -36,6 +36,12 @@ static NSString *Identifier = @"cell";
     self.title = @"个人信息";
     
     self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.layoutMargins = UIEdgeInsetsZero;
     [self.view addSubview:self.tableView];
     
 #if !TARGET_OS_SIMULATOR
@@ -63,6 +69,8 @@ static NSString *Identifier = @"cell";
 }
 
 - (void)showAlertControllerOnChangeUsername {
+//    __weak typeof(self) wSelf = self;
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
@@ -73,15 +81,15 @@ static NSString *Identifier = @"cell";
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        UITextField *field = alert.textFields[0];
-        [UserManager shareManager].username = field.text;
-        [UserManager updateUser];
-        
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (self.ChangeUsernameBlock) {
-            self.ChangeUsernameBlock();
-        }
+//        UITextField *field = alert.textFields[0];
+//        [UserManager shareManager].username = field.text;
+//        [UserManager updateUser];
+//        
+//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        
+//        if (self.ChangeUsernameBlock) {
+//            self.ChangeUsernameBlock();
+//        }
     }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
@@ -212,19 +220,6 @@ static NSString *Identifier = @"cell";
     transition.transitioningType = AnimatedTransitioningTypeScale;
     transition.originalFrame = CGRectMake(self.view.frame.size.width - 80, 84, 50, 50);
     return transition;
-}
-
-#pragma mark
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.layoutMargins = UIEdgeInsetsZero;
-    }
-    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

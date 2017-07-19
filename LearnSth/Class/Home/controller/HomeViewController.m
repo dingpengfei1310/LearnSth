@@ -25,13 +25,33 @@
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
     
+    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.liveCollectionView];
+    
+    __weak typeof(self) weakSelf = self;
+    self.liveCollectionView.BannerClickBlock = ^(NSString *link) {
+        WebViewController *controller = [[WebViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        controller.urlString = link;
+        [weakSelf.navigationController pushViewController:controller animated:YES];
+    };
+    
+    self.liveCollectionView.LiveClickBlock = ^(NSInteger index, NSArray *liveArray) {
+        PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
+        controller.PlayerDismissBlock = ^{
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        };
+        controller.index = index;
+        controller.liveArray = liveArray;
+        controller.hidesBottomBarWhenPushed = YES;
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+        [weakSelf presentViewController:nvc animated:YES completion:nil];
+    };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
 //    backItem.title = @"";
 //    self.navigationItem.backBarButtonItem = backItem;
-    
     
 }
 
@@ -53,34 +73,6 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-#pragma mark
-- (LiveCollectionView *)liveCollectionView {
-    if (!_liveCollectionView) {
-        __weak typeof(self) weakSelf = self;
-        
-        _liveCollectionView = [[LiveCollectionView alloc] initWithFrame:self.view.bounds];
-        _liveCollectionView.BannerClickBlock = ^(NSString *link) {
-            WebViewController *controller = [[WebViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            controller.urlString = link;
-            [weakSelf.navigationController pushViewController:controller animated:YES];
-        };
-        
-        _liveCollectionView.LiveClickBlock = ^(NSInteger index, NSArray *liveArray) {
-            PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
-            controller.PlayerDismissBlock = ^{
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
-            };
-            controller.index = index;
-            controller.liveArray = liveArray;
-            controller.hidesBottomBarWhenPushed = YES;
-            UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-            [weakSelf presentViewController:nvc animated:YES completion:nil];
-        };
-    }
-    return _liveCollectionView;
 }
 
 - (void)didReceiveMemoryWarning {

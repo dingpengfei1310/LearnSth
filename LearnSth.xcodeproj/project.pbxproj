@@ -109,6 +109,7 @@
 		1B389A911EA09D9300A927E4 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A8F1EA09D9300A927E4 /* libexidcardios.a */; };
 		1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */; };
 		1B389A991EA0C82500A927E4 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A981EA0C82500A927E4 /* SettingViewController.m */; };
+		1B3B49811F1DA406006F135E /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3B49801F1DA406006F135E /* RegisterViewController.xib */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B4043611E5AD5D500C14EE6 /* Localizable.strings */; };
 		1B4081DC1EDBF7B200407B94 /* SceneRainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4081DB1EDBF7B200407B94 /* SceneRainView.m */; };
@@ -393,6 +394,7 @@
 		1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageViewCell.m; sourceTree = "<group>"; };
 		1B389A971EA0C82500A927E4 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		1B389A981EA0C82500A927E4 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		1B3B49801F1DA406006F135E /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		1B3D3DEF1E1B89EB00E6FBE9 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1B4043621E5AD5D900C14EE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 				1B1C75441ECD87AD0060D824 /* LoginViewController.m */,
 				1B1C75451ECD87AD0060D824 /* RegisterViewController.h */,
 				1B1C75461ECD87AD0060D824 /* RegisterViewController.m */,
+				1B3B49801F1DA406006F135E /* RegisterViewController.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1406,6 +1409,7 @@
 				1BF7F6D61D92492200F8E5B1 /* LaunchScreen.storyboard in Resources */,
 				CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */,
 				1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */,
+				1B3B49811F1DA406006F135E /* RegisterViewController.xib in Resources */,
 				1BDCED701DE57D97002A27B5 /* index.html in Resources */,
 				1BFDBAC31EDEC05400EF244A /* Explode.scnp in Resources */,
 				1B40435F1E5AD5D500C14EE6 /* Localizable.strings in Resources */,
