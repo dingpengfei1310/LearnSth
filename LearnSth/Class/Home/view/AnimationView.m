@@ -280,7 +280,6 @@ CGFloat const totalDuration = 3.0;
     textLayer.strokeColor = [UIColor purpleColor].CGColor;
     [self.layer addSublayer:textLayer];
     textLayer.position = CGPointMake(width * 0.5, height * 0.5);
-    
     textLayer.path = path.CGPath;
     
     CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];

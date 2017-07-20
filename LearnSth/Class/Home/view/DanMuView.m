@@ -52,8 +52,7 @@ const CGFloat labelH = 30;
             viewY = viewHeight * 0.66;
             break;
         }
-            
-        default:
+        case DanMuPositionDefault:
             break;
     }
     

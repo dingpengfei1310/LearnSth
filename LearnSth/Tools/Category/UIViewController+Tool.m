@@ -40,6 +40,32 @@ typedef void (^CancelBlock)();
     [self.navigationController.navigationBar setShadowImage:image];
 }
 
+//+ (BOOL)resolveInstanceMethod:(SEL)sel {
+//    if (sel == NSSelectorFromString(@"dddd")) {
+//        Method mm = class_getInstanceMethod(self, @selector(errorM));
+//        IMP ii = class_getMethodImplementation(self, @selector(errorM));
+//        
+//        class_addMethod(self, sel, ii, method_getTypeEncoding(mm));
+//        return YES;
+//    }
+//    return [super resolveInstanceMethod:sel];
+//}
+//
+//- (void)errorM {
+//    NSLog(@"can't find");
+//}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    NSMethodSignature *signature = [NSMethodSignature methodSignatureForSelector:aSelector];
+    if (!signature) {
+        signature = [NSMethodSignature signatureWithObjCTypes:"v@:"];
+    }
+    return signature;
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+}
+
 #pragma mark - HUD提示框
 - (void)loading {
     [self showMessage:nil toView:nil];

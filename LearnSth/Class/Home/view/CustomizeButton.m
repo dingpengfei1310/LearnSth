@@ -63,9 +63,6 @@ const CGFloat titleScale = 0.2;//文字比例
             imageRect = CGRectMake(width * (spaceScale + titleScale), 0, width * imageScale, height);
             break;
         }
-        default: {
-            break;
-        }
     }
     
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;

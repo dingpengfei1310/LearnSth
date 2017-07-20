@@ -108,9 +108,6 @@ const CGFloat PickViewAppearDuration = 0.3;
         case 2:
             info = self.areas[row];
             break;
-        default:
-            return nil;
-            break;
     }
     
     return info[@"name"];
