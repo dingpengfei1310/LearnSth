@@ -131,8 +131,6 @@
         
         _playerView.TapGestureBlock = ^{
             wSelf.statusBarHidden = !wSelf.statusBarHidden;
-            
-            [wSelf prefersStatusBarHidden];
             [wSelf setNeedsStatusBarAppearanceUpdate];
         };
         

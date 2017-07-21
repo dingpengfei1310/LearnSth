@@ -69,27 +69,23 @@ static NSString *Identifier = @"cell";
 }
 
 - (void)showAlertControllerOnChangeUsername {
-//    __weak typeof(self) wSelf = self;
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
         textField.placeholder = @"请输入昵称";
+        textField.text = [UserManager shareManager].username;
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
+    __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        UITextField *field = alert.textFields[0];
-//        [UserManager shareManager].username = field.text;
-//        [UserManager updateUser];
-//        
-//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        
-//        if (self.ChangeUsernameBlock) {
-//            self.ChangeUsernameBlock();
-//        }
+        UITextField *field = weakAlert.textFields[0];
+        [UserManager shareManager].username = field.text;
+        [UserManager updateUser];
+        
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
@@ -188,9 +184,6 @@ static NSString *Identifier = @"cell";
         HeaderImageController *controller = [[HeaderImageController alloc] init];
         controller.ChangeHeaderImageBlock = ^{
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            if (self.ChangeHeaderImageBlock) {
-                self.ChangeHeaderImageBlock();
-            }
         };
         [self.navigationController pushViewController:controller animated:YES];
         

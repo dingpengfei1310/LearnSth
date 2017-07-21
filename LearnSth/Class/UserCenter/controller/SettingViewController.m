@@ -56,8 +56,7 @@
 }
 
 - (void)clearDiskCache {
-    [self loading];
-    
+    [self loadingWithText:@"清除中..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [CustomiseTool clearCacheAtPath:KCachePath];
         

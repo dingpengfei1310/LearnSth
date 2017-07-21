@@ -16,17 +16,19 @@
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
 @property (nonatomic, strong) UIButton *playButton;
+@property (nonatomic, assign) BOOL statusBarHidden;
 
 @end
 
 @implementation DDImageBrowserVideo
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return self.statusBarHidden;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     
     [self setBackgropundImage];
     
@@ -49,6 +51,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -110,7 +119,7 @@
 
 - (void)back {
     [self.player pause];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)videoPaly:(UIButton *)buton {

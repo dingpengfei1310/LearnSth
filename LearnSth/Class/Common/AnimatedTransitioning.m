@@ -12,7 +12,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.originalFrame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 64);
+        self.originalFrame = CGRectMake([UIScreen mainScreen].bounds.size.width * 0.5, 64, 1, 1);
     }
     return self;
 }
@@ -119,7 +119,6 @@
     UIView *toViewSnapshot = [toView snapshotViewAfterScreenUpdates:YES];
     
     if (self.operation == AnimatedTransitioningOperationPush) {
-        [containerView addSubview:fromViewSnapshot];
         [containerView addSubview:toViewSnapshot];
         toViewSnapshot.frame = self.originalFrame;
         
@@ -127,10 +126,9 @@
             toViewSnapshot.frame = containerView.frame;
             
         } completion:^(BOOL finished) {
-            [toViewSnapshot removeFromSuperview];
-            [fromViewSnapshot removeFromSuperview];
-            
             [containerView addSubview:toView];
+            [toViewSnapshot removeFromSuperview];
+            
             [transitionContext completeTransition:YES];
         }];
     } else if (self.operation == AnimatedTransitioningOperationPop) {
@@ -141,67 +139,26 @@
             fromViewSnapshot.frame = self.originalFrame;
             
         } completion:^(BOOL finished) {
+            [containerView addSubview:toView];
             [toViewSnapshot removeFromSuperview];
             [fromViewSnapshot removeFromSuperview];
             
+            [transitionContext completeTransition:YES];
+        }];
+    } else if (self.operation == AnimatedTransitioningOperationPresent) {
+        [containerView addSubview:toViewSnapshot];
+        toViewSnapshot.frame = self.originalFrame;
+        
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+            toViewSnapshot.frame = containerView.frame;
+            
+        } completion:^(BOOL finished) {
             [containerView addSubview:toView];
+            [toViewSnapshot removeFromSuperview];
+            
             [transitionContext completeTransition:YES];
         }];
     }
 }
-
-//- (void)transitioningWithTypeNone:(id<UIViewControllerContextTransitioning>)transitionContext {
-//    UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-//    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-//    
-//    UIView *containerView = [transitionContext containerView];
-//    CGFloat viewWidth = CGRectGetWidth(containerView.frame);
-//    
-//    UIView *fromViewSnapshot = [fromVC.navigationController.view snapshotViewAfterScreenUpdates:NO];
-//    [containerView addSubview:fromViewSnapshot];
-//    
-//    UIView *toViewSnapshot = [toView snapshotViewAfterScreenUpdates:YES];
-//    [containerView addSubview:toViewSnapshot];
-//    toViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
-//    
-//    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-//        
-//        fromViewSnapshot.transform = CGAffineTransformMakeTranslation(-100, 0);
-//        toViewSnapshot.transform = CGAffineTransformIdentity;
-//        
-//    } completion:^(BOOL finished) {
-//        [toViewSnapshot removeFromSuperview];
-//        [fromViewSnapshot removeFromSuperview];
-//        
-//        [containerView addSubview:toView];
-//        [transitionContext completeTransition:YES];
-//    }];
-//}
-
-//- (void)transitioningWithTypeScale:(id<UIViewControllerContextTransitioning>)transitionContext {
-//    UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-//    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-//    
-//    UIView *containerView = [transitionContext containerView];
-//    
-//    UIView *fromViewSnapshot = [fromVC.navigationController.view snapshotViewAfterScreenUpdates:NO];
-//    [containerView addSubview:fromViewSnapshot];
-//    
-//    UIView *toViewSnapshot = [toView snapshotViewAfterScreenUpdates:YES];
-//    [containerView addSubview:toViewSnapshot];
-//    toViewSnapshot.frame = self.originalFrame;
-//    
-//    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-//        
-//        toViewSnapshot.frame = containerView.bounds;
-//        
-//    } completion:^(BOOL finished) {
-//        [toViewSnapshot removeFromSuperview];
-//        [fromViewSnapshot removeFromSuperview];
-//        
-//        [containerView addSubview:toView];
-//        [transitionContext completeTransition:YES];
-//    }];
-//}
 
 @end

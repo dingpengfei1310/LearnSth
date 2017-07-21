@@ -66,6 +66,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     //账号
     _accountField = [[UITextField alloc] initWithFrame:CGRectMake(fieldMargin, topSpace, filedW, fieldHeight)];
     _accountField.placeholder = @"请输入手机号";
+    _accountField.text = [UserManager shareManager].mobile;
     _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _accountField.keyboardType = UIKeyboardTypeNumberPad;
     _accountField.leftViewMode = UITextFieldViewModeAlways;
@@ -210,7 +211,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
         if ([manager.mobile isEqualToString:self.accountField.text] && [manager.password isEqualToString:password]) {
             
             [self loadingWithText:@"登录中..."];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self hideHUD];
                 
                 [CustomiseTool setIsLogin:YES];
@@ -225,17 +226,23 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 
 - (void)registerAction {
     if ([self validateAccountAndPwd]) {
-        NSString *password = [self.passwordField.text MD5String];
-        [UserManager shareManager].mobile = self.accountField.text;
-        [UserManager shareManager].password = password;
-        [UserManager shareManager].username = @"我是谁";
-        
-        UIImage *image = [UIImage imageNamed:@"defaultHeader"];
-        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
-        [UserManager updateUser];
-        
-        [CustomiseTool setIsLogin:YES];
-        
+        [self loadingWithText:@"注册中..."];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self hideHUD];
+            
+            NSString *password = [self.passwordField.text MD5String];
+            [UserManager shareManager].mobile = self.accountField.text;
+            [UserManager shareManager].password = password;
+            [UserManager shareManager].username = @"我是谁";
+            
+            UIImage *image = [UIImage imageNamed:@"defaultHeader"];
+            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
+            [UserManager updateUser];
+            
+            [CustomiseTool setIsLogin:YES];
+            
+            [self dismissLoginController];
+        });
     }
 }
 

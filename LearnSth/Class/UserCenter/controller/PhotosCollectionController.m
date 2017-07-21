@@ -17,7 +17,7 @@
 
 #import <Photos/Photos.h>
 
-@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate>
+@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGFloat itemWidth;
@@ -86,32 +86,36 @@ const NSInteger photoColumn = 4;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PHAsset *asset = self.fetchResult[indexPath.row];
     self.selectIndex = indexPath.row;
-    self.navigationController.delegate = self;
     
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        
+        UIViewController *controller;
         if (self.scanType == VideoScanTypeNormal) {
-            DDImageBrowserVideo *controller = [[DDImageBrowserVideo alloc] init];
-            controller.asset = asset;
-            [self.navigationController pushViewController:controller animated:YES];
+            DDImageBrowserVideo *videoController = [[DDImageBrowserVideo alloc] init];
+            videoController.asset = asset;
+            controller = videoController;
+            
         } else if (self.scanType == VideoScanTypeFilter) {
-            VideoScanController *controller = [[VideoScanController alloc] init];
-            controller.asset = asset;
-            [self.navigationController pushViewController:controller animated:YES];
+            VideoScanController *scanController = [[VideoScanController alloc] init];
+            scanController.asset = asset;
+            controller = scanController;
+            
         } else if (self.scanType == VideoScanTypeTransform) {
-            VideoProcessWithFilter *controller = [[VideoProcessWithFilter alloc] init];
-            controller.asset = asset;
-            [self.navigationController pushViewController:controller animated:YES];
+            VideoProcessWithFilter *filterController = [[VideoProcessWithFilter alloc] init];
+            filterController.asset = asset;
+            controller = filterController;
         }
         
+        controller.transitioningDelegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
     } else {
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
+        controller.transitioningDelegate = self;
         controller.thumbImages = self.thumbImages;
         controller.currentIndex = [self calculateCurrentIndex:indexPath.row];
         controller.ScrollToIndexBlock = ^(DDImageBrowserController *browserController, NSInteger index) {
             [self scrollTo:browserController index:index];
         };
-        [self.navigationController pushViewController:controller animated:YES];
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 
@@ -165,25 +169,34 @@ const NSInteger photoColumn = 4;
 }
 
 #pragma mark UINavigationControllerDelegate - UIViewControllerTransitioningDelegate
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-//    return [[AnimatedTransitioning alloc] init];
-//}
-
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    if (operation == UINavigationControllerOperationPush) {
-        AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
-        transition.operation = AnimatedTransitioningOperationPush;
-        transition.transitioningType = AnimatedTransitioningTypeScale;
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        CGRect rect = [self.collectionView convertRect:cell.frame toView:self.navigationController.view];
-        transition.originalFrame = rect;
-        
-        return transition;
-    }
-    return nil;
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+    transition.operation = AnimatedTransitioningOperationPresent;
+    transition.transitioningType = AnimatedTransitioningTypeScale;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    CGRect rect = [self.collectionView convertRect:cell.frame toView:self.navigationController.view];
+    transition.originalFrame = rect;
+    
+    return transition;
 }
+
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+//    if (operation == UINavigationControllerOperationPush) {
+//        AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
+//        transition.operation = AnimatedTransitioningOperationPush;
+//        transition.transitioningType = AnimatedTransitioningTypeScale;
+//        
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];
+//        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//        CGRect rect = [self.collectionView convertRect:cell.frame toView:self.navigationController.view];
+//        transition.originalFrame = rect;
+//        
+//        return transition;
+//    }
+//    return nil;
+//}
 
 #pragma mark
 - (UICollectionView *)collectionView {

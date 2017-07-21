@@ -18,11 +18,13 @@
 
 #import "AnimatedTransitioning.h"
 //#import "PanInteractiveTransition.h"
+#import <KVOController/KVOController.h>
 
 @interface UserViewController ()<UITableViewDataSource,UITableViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) FBKVOController *kvoController;
 
 //@property (nonatomic, strong) PanInteractiveTransition *interactiveTransition;
 
@@ -38,7 +40,7 @@ static NSString *Identifier = @"cell";
     self.navigationItem.title = @"我";
     
     self.dataArray = @[@[@"头像"],
-                       @[@"相册",@"步数",@"购买"],
+                       @[@"相册",@"步数"],
                        @[@"设置"]
                        ];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -50,11 +52,18 @@ static NSString *Identifier = @"cell";
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
     [self.view addSubview:self.tableView];
+    
+    [self addObserve];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self reloadHeaderCell];
+- (void)addObserve {
+    _kvoController = [[FBKVOController alloc] initWithObserver:self];
+    [_kvoController observe:[UserManager shareManager] keyPath:@"username" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary<NSString *,id> * change) {
+        [self reloadHeaderCell];
+    }];
+    [_kvoController observe:[UserManager shareManager] keyPath:@"headerImageData" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary<NSString *,id> * change) {
+        [self reloadHeaderCell];
+    }];
 }
 
 #pragma mark
@@ -67,6 +76,10 @@ static NSString *Identifier = @"cell";
     } else {
         LoginViewController *controller = [[LoginViewController alloc] init];
         controller.LoginDismissBlock = ^ {
+            if ([CustomiseTool isLogin]) {
+                [self reloadHeaderCell];
+                [self addObserve];
+            }
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -149,9 +162,9 @@ static NSString *Identifier = @"cell";
         
     } else if (indexPath.section == 2) {
         SettingViewController *controller = [[SettingViewController alloc] init];
-//        controller.LogoutBlock = ^{
-//            [self reloadHeaderCell];
-//        };
+        controller.LogoutBlock = ^{
+            [self reloadHeaderCell];
+        };
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }

@@ -58,7 +58,7 @@ const CGFloat minLineSpacing = 40;
 
 #pragma mark
 - (void)backClick:(UIButton *)button {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)recognize:(UIButton *)button {
@@ -80,8 +80,6 @@ const CGFloat minLineSpacing = 40;
 - (void)hideNavigationBar {
     self.statusBarHidden = !self.statusBarHidden;
     self.barView.hidden = self.statusBarHidden;
-    
-    [self prefersStatusBarHidden];
     [self setNeedsStatusBarAppearanceUpdate];
 }
 

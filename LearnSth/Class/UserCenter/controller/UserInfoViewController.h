@@ -10,7 +10,4 @@
 
 @interface UserInfoViewController : BaseViewController
 
-@property (nonatomic, copy) void (^ChangeHeaderImageBlock)();
-@property (nonatomic, copy) void (^ChangeUsernameBlock)();
-
 @end

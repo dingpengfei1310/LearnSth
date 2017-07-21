@@ -70,12 +70,9 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-//    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
-    
-    [self performSelector:@selector(dddd) withObject:nil afterDelay:0.0];
-    
+    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

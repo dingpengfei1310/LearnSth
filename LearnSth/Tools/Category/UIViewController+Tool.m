@@ -54,17 +54,17 @@ typedef void (^CancelBlock)();
 //- (void)errorM {
 //    NSLog(@"can't find");
 //}
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-    NSMethodSignature *signature = [NSMethodSignature methodSignatureForSelector:aSelector];
-    if (!signature) {
-        signature = [NSMethodSignature signatureWithObjCTypes:"v@:"];
-    }
-    return signature;
-}
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
-}
+//
+//- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+//    NSMethodSignature *signature = [NSMethodSignature methodSignatureForSelector:aSelector];
+//    if (!signature) {
+//        signature = [NSMethodSignature signatureWithObjCTypes:"v@:"];
+//    }
+//    return signature;
+//}
+//
+//- (void)forwardInvocation:(NSInvocation *)anInvocation {
+//}
 
 #pragma mark - HUD提示框
 - (void)loading {
