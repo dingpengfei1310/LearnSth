@@ -10,7 +10,7 @@
 
 @implementation NSTimer (Tool)
 
-+ (instancetype)timerWithTimeInterval:(NSTimeInterval)ti repeats:(BOOL)yesOrNo block:(TimerBlock)block {
++ (instancetype)dd_timerWithTimeInterval:(NSTimeInterval)ti repeats:(BOOL)yesOrNo block:(TimerBlock)block {
     return [NSTimer timerWithTimeInterval:ti
                                    target:self
                                  selector:@selector(execute:)

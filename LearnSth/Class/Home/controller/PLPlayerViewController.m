@@ -32,6 +32,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 @implementation PLPlayerViewController
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     viewW = CGRectGetWidth(self.view.frame);
@@ -174,7 +178,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)nextLive {
     if (self.index < self.liveArray.count - 1) {
-        self.index ++;
+        self.index++;
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
         [self showForegroundView];

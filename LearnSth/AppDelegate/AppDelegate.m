@@ -10,7 +10,9 @@
 #import "AppConfigure.h"
 
 #import "RootViewController.h"
+#import "ShowViewController.h"
 #import "FPSLabel.h"
+#import "CustomiseTool.h"
 
 @interface AppDelegate ()
 @end
@@ -20,7 +22,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[RootViewController alloc] init];
+    
+    if ([CustomiseTool isFirstLaunch]) {
+        ShowViewController *showVC = [[ShowViewController alloc] init];
+        showVC.DismissShowBlock = ^{
+            self.window.rootViewController = [[RootViewController alloc] init];
+            [CustomiseTool setCurrentVersion];
+        };
+        self.window.rootViewController = showVC;
+    } else {
+        self.window.rootViewController = [[RootViewController alloc] init];
+    }
+    
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];

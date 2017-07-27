@@ -44,7 +44,7 @@ CGFloat const totalDuration = 3.0;
             
 //            [self setGradientLayerText];
             
-//            [self emitterLayerFly];
+            [self emitterLayerFly];
             
 //            [self textWithPath];
             
@@ -55,10 +55,10 @@ CGFloat const totalDuration = 3.0;
     return self;
 }
 
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    [self lightSpotWithRect:rect];
-}
+//- (void)drawRect:(CGRect)rect {
+//    [super drawRect:rect];
+//    [self lightSpotWithRect:rect];
+//}
 
 #pragma mark
 - (void)roation {
@@ -157,21 +157,41 @@ CGFloat const totalDuration = 3.0;
     
     CAEmitterCell *cell = [CAEmitterCell emitterCell];
     cell.contents = (id)[UIImage imageNamed:@"lightDot"].CGImage;
-    cell.birthRate = 10;
-    cell.lifetime = 3;
     
-    cell.velocity = 9.8;
-    cell.velocityRange = 200;
+    cell.alphaRange = 0.2;
+    cell.alphaSpeed = -0.1;
     
-    cell.emissionRange = M_PI * 2;
+    cell.lifetime = 1.0;
+    cell.lifetimeRange  = 0.3;
+    
+    cell.birthRate = 1000;
+    cell.velocity = 10;
+    cell.velocityRange = 20;
+    
+//    cell.emissionRange = M_PI * 2;
     
     cell.scale = 0.1;
-    cell.scaleRange = 0.6;
-    
-    cell.alphaRange = 0.5;
-    cell.alphaSpeed = -0.15;
+    cell.scaleRange = 0.1;
     
     self.emitterLayer.emitterCells = @[cell];
+    
+    CABasicAnimation *strokeStart = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    strokeStart.repeatCount = NSIntegerMax;
+    strokeStart.duration = 2.0;
+//    strokeStart.fromValue = [NSValue valueWithCGRect:CGRectZero];
+//    strokeStart.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 30, 30)];
+    strokeStart.fromValue = @(0);
+    strokeStart.toValue = @(1);
+    [self.emitterLayer addAnimation:strokeStart forKey:@""];
+//    
+//    CABasicAnimation *strokeStart1 = [CABasicAnimation animationWithKeyPath:@"transform.scale.z"];
+//    strokeStart1.repeatCount = NSIntegerMax;
+//    strokeStart1.duration = 2.0;
+//    //    strokeStart.fromValue = [NSValue valueWithCGRect:CGRectZero];
+//    //    strokeStart.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 30, 30)];
+//    strokeStart1.fromValue = @(0);
+//    strokeStart1.toValue = @(1);
+//    [self.emitterLayer addAnimation:strokeStart1 forKey:@"1"];
 }
 
 - (void)textWithPath {
@@ -382,9 +402,15 @@ CGFloat const totalDuration = 3.0;
 - (CAEmitterLayer *)emitterLayer {
     if (!_emitterLayer) {
         _emitterLayer = [CAEmitterLayer layer];
-        _emitterLayer.emitterPosition = CGPointMake(width * 0.5, height * 0.5);
-        _emitterLayer.emitterSize = self.frame.size;
-        _emitterLayer.emitterMode = kCAEmitterLayerPoints;
+        _emitterLayer.position = CGPointMake(width * 0.5, height * 0.5);
+//        _emitterLayer.emitterPosition = CGPointMake(width * 0.5, height * 0.5);
+//        _emitterLayer.birthRate = 0;
+//        _emitterLayer.emitterSize = self.frame.size;
+        _emitterLayer.emitterSize = CGSizeMake(30, 30);
+        _emitterLayer.emitterMode = kCAEmitterLayerOutline;
+        _emitterLayer.emitterShape = kCAEmitterLayerCircle;
+//        _emitterLayer.renderMode = kCAEmitterLayerOldestFirst;
+//        _emitterLayer.zPosition = -1;
     }
     return _emitterLayer;
 }

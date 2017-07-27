@@ -12,6 +12,6 @@ typedef void(^TimerBlock)(NSTimer *timer);
 
 @interface NSTimer (Tool)
 
-+ (instancetype)timerWithTimeInterval:(NSTimeInterval)ti repeats:(BOOL)yesOrNo block:(TimerBlock)block;
++ (instancetype)dd_timerWithTimeInterval:(NSTimeInterval)ti repeats:(BOOL)yesOrNo block:(TimerBlock)block;
 
 @end

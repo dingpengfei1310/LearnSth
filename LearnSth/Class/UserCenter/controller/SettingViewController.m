@@ -11,6 +11,7 @@
 #import "MessageViewController.h"
 #import "DownloadViewController.h"
 #import "FileScanViewController.h"
+#import "ShowViewController.h"
 
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
@@ -32,7 +33,8 @@
                        @"我的下载",
                        @"本机文件",
                        @"清除缓存",
-                       @"语言"];
+                       @"语言",
+                       @"新功能"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
@@ -177,8 +179,11 @@
         
         [self presentViewController:actionSheet animated:YES completion:nil];
     } else if (indexPath.row == 5) {
-        
-        
+        ShowViewController *showVC = [[ShowViewController alloc] init];
+        showVC.DismissShowBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:showVC animated:YES completion:nil];
     }
 }
 

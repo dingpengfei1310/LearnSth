@@ -69,7 +69,7 @@
         [self.selectArray removeAllObjects];
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(tableViewEditing:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:self action:@selector(tableViewEditing:)];
     self.tableView.frame = rect;
     [self.tableView reloadData];
 }

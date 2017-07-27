@@ -9,6 +9,7 @@
 #import "CustomiseTool.h"
 
 static NSString *KIsLoginCache = @"UserLoginCache";
+static NSString *KCurrentVersion = @"CurrentVersion";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
 
 static NSString *ZHLANGUAGE = @"zh-Hans";
@@ -37,6 +38,17 @@ static NSString *ENLANGUAGE = @"en";
 
 + (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
+}
+
++ (void)setCurrentVersion {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [[NSUserDefaults standardUserDefaults] setFloat:version.floatValue forKey:KCurrentVersion];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)isFirstLaunch {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    return [[NSUserDefaults standardUserDefaults] floatForKey:KCurrentVersion] < version.floatValue;
 }
 
 #pragma mark

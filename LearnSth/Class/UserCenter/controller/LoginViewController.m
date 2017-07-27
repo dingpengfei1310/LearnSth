@@ -14,11 +14,6 @@
 #import "NSString+Tool.h"
 #import "UIImage+Tool.h"
 
-typedef NS_ENUM(NSInteger,UserType) {
-    UserTypeLogin = 0,
-    UserTypeRegister
-};
-
 @interface LoginViewController () {
     CGFloat viewW;
 }
@@ -33,7 +28,7 @@ typedef NS_ENUM(NSInteger,UserType) {
 @property (nonatomic, strong) NSDictionary *attNormal;
 @property (nonatomic, strong) NSDictionary *attHighlighted;
 
-@property (nonatomic, assign) UserType type;
+@property (nonatomic, assign) BOOL isLoginState;//是否是登录模式（还有注册模式）
 
 @end
 
@@ -49,6 +44,8 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initSubView];
+    self.isLoginState = YES;
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
 }
 
@@ -159,7 +156,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)loginClick {
-    if (self.type == UserTypeLogin) {
+    if (self.isLoginState) {
         [self loginAction];
         
     } else {
@@ -171,20 +168,9 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 //    RegisterViewController *controller = [[RegisterViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    if (self.type == UserTypeLogin) {
-        self.title = @"注册";
-        self.type = UserTypeRegister;
-        self.forgetButton.hidden = YES;
-        [self.loginButton setTitle:@"注册" forState:UIControlStateNormal];
-        
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attNormal]
-                          forState:UIControlStateNormal];
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attHighlighted]
-                          forState:UIControlStateHighlighted];
-        
-    } else {
+    self.isLoginState = !self.isLoginState;
+    if (self.isLoginState) {
         self.title = @"登录";
-        self.type = UserTypeLogin;
         self.forgetButton.hidden = NO;
         [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
         
@@ -192,15 +178,27 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
                           forState:UIControlStateNormal];
         [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attHighlighted]
                           forState:UIControlStateHighlighted];
+        
+        self.accountField.text = [UserManager shareManager].mobile;
+        
+    } else {
+        self.title = @"注册";
+        self.forgetButton.hidden = YES;
+        [self.loginButton setTitle:@"注册" forState:UIControlStateNormal];
+        
+        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attNormal]
+                          forState:UIControlStateNormal];
+        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attHighlighted]
+                          forState:UIControlStateHighlighted];
+        self.accountField.text = nil;
     }
     
-    self.accountField.text = nil;
     self.passwordField.text = nil;
     self.loginButton.enabled = NO;
 }
 
 - (void)forgetClick {
-    [self showAlertWithTitle:nil message:@"忘了能怪谁呢😂" operationTitle:@"知道了" operation:nil];
+    [self showAlertWithTitle:nil message:@"怪我咯😂" operationTitle:@"知道了" operation:nil];
 }
 
 - (void)loginAction {
@@ -213,9 +211,9 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
             [self loadingWithText:@"登录中..."];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self hideHUD];
+                [self performSelector:@selector(dismissLoginController) withObject:nil afterDelay:0.1];
                 
                 [CustomiseTool setIsLogin:YES];
-                [self dismissLoginController];
             });
             
         } else {
@@ -228,7 +226,9 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     if ([self validateAccountAndPwd]) {
         [self loadingWithText:@"注册中..."];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            
             [self hideHUD];
+            [self dismissLoginController];
             
             NSString *password = [self.passwordField.text MD5String];
             [UserManager shareManager].mobile = self.accountField.text;
@@ -241,7 +241,6 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
             
             [CustomiseTool setIsLogin:YES];
             
-            [self dismissLoginController];
         });
     }
 }

@@ -76,6 +76,7 @@
 		1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */; };
 		1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75441ECD87AD0060D824 /* LoginViewController.m */; };
 		1B1C75481ECD87AD0060D824 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C75461ECD87AD0060D824 /* RegisterViewController.m */; };
+		1B27B53B1F29B73B00AA36F3 /* UIView+SparkAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */; };
 		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
 		1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29CA871EFBC397004177AD /* HandDrawView.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
@@ -143,6 +144,7 @@
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
+		1BCD9B5D1F25D9AC000492CC /* ShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* RootViewController.m */; };
 		1BD7691B1E8D0F5E00860D92 /* UIView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7691A1E8D0F5E00860D92 /* UIView+Tool.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
@@ -320,6 +322,8 @@
 		1B1C75441ECD87AD0060D824 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1B1C75451ECD87AD0060D824 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1B1C75461ECD87AD0060D824 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1B27B5391F29B73B00AA36F3 /* UIView+SparkAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SparkAnimation.h"; sourceTree = "<group>"; };
+		1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SparkAnimation.m"; sourceTree = "<group>"; };
 		1B29B87B1EEE3E660069780C /* LiveCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionView.h; sourceTree = "<group>"; };
 		1B29B87C1EEE3E660069780C /* LiveCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionView.m; sourceTree = "<group>"; };
 		1B29CA861EFBC397004177AD /* HandDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandDrawView.h; sourceTree = "<group>"; };
@@ -446,6 +450,8 @@
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
 		1BB786A31E8E2D5B00185869 /* RotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationViewController.m; sourceTree = "<group>"; };
 		1BB786A41E8E2D5B00185869 /* RotationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationViewController.xib; sourceTree = "<group>"; };
+		1BCD9B5B1F25D9AC000492CC /* ShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController.h; sourceTree = "<group>"; };
+		1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		1BD1761A1D9A73D300C28051 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		1BD769191E8D0F5E00860D92 /* UIView+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Tool.h"; sourceTree = "<group>"; };
@@ -1134,6 +1140,8 @@
 				1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */,
 				1B4630C71E669703000260D2 /* UITableView+Tool.h */,
 				1B4630C81E669703000260D2 /* UITableView+Tool.m */,
+				1B27B5391F29B73B00AA36F3 /* UIView+SparkAnimation.h */,
+				1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */,
 				1BD769191E8D0F5E00860D92 /* UIView+Tool.h */,
 				1BD7691A1E8D0F5E00860D92 /* UIView+Tool.m */,
 				1B008EE21E91F51C003AE2DB /* UIViewController+PopAction.h */,
@@ -1230,6 +1238,8 @@
 				1B01DA381F035BA900235BC0 /* BaseViewController.m */,
 				1BD176191D9A73D300C28051 /* RootViewController.h */,
 				1BD1761A1D9A73D300C28051 /* RootViewController.m */,
+				1BCD9B5B1F25D9AC000492CC /* ShowViewController.h */,
+				1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */,
 				1BF7F6C61D92492200F8E5B1 /* Supporting Files */,
 			);
 			path = AppDelegate;
@@ -1311,6 +1321,7 @@
 				1BF7F6C11D92492200F8E5B1 /* Resources */,
 				1C6F2A04721CBCE92ADF0811 /* [CP] Embed Pods Frameworks */,
 				84EAB8159764C26CAB90A78D /* [CP] Copy Pods Resources */,
+				1B3A6A921F271DAB0032A944 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1413,6 +1424,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B3A6A921F271DAB0032A944 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		1C6F2A04721CBCE92ADF0811 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1540,6 +1564,7 @@
 				1B099C751DE7E57400161396 /* BHBScrollView.m in Sources */,
 				1B4630E01E669703000260D2 /* UserLocalNotification.m in Sources */,
 				1B099C861DE7E57400161396 /* MJRefreshAutoStateFooter.m in Sources */,
+				1B27B53B1F29B73B00AA36F3 /* UIView+SparkAnimation.m in Sources */,
 				1B4630DC1E669703000260D2 /* UIViewController+Tool.m in Sources */,
 				1B099C901DE7E57400161396 /* UIScrollView+MJExtension.m in Sources */,
 				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
@@ -1595,6 +1620,7 @@
 				1B099C911DE7E57400161396 /* UIScrollView+MJRefresh.m in Sources */,
 				1B2D08031DE7E8DB0034C22D /* PhotosCollectionController.m in Sources */,
 				1B098E721E24B50A00D5754A /* DropWaterView.m in Sources */,
+				1BCD9B5D1F25D9AC000492CC /* ShowViewController.m in Sources */,
 				1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */,
 				1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */,
 				1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */,

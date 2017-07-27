@@ -104,7 +104,7 @@
     }
     if (!_timer) {
         __weak typeof(self) wSelf = self;
-        self.timer = [NSTimer timerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        self.timer = [NSTimer dd_timerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
             [wSelf autoScroll];
         }];
     }

@@ -79,6 +79,7 @@ static NSString *Identifier = @"cell";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
+    
     __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         UITextField *field = weakAlert.textFields[0];

@@ -21,6 +21,9 @@ typedef NS_ENUM (NSInteger, LanguageType){
 + (void)setIsLogin:(BOOL)login;
 + (BOOL)isLogin;
 
++ (void)setCurrentVersion;
++ (BOOL)isFirstLaunch;
+
 //+ (void)setDownloadFile:(NSDictionary *)file;
 //+ (NSDictionary *)downloadFile;
 

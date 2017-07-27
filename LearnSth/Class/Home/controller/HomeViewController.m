@@ -12,6 +12,7 @@
 #import "JPuzzleViewController.h"
 
 #import "LiveCollectionView.h"
+#import "UserManager.h"
 
 @interface HomeViewController ()
 
@@ -70,9 +71,16 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+//    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+    
+    
+    UserManager *mm = [[UserManager alloc] init];
+    NSLog(@"%@ -- %p",mm.mobile,mm);
+    
+    UserManager *mmm = [UserManager shareManager];
+    NSLog(@"%@ -- %p",mmm.mobile,mmm);
 }
 
 - (void)didReceiveMemoryWarning {
