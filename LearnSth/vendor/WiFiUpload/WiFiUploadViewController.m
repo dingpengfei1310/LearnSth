@@ -46,9 +46,9 @@
 }
 
 - (void)addUploadNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadStart:) name:FileUploadDidStartNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadFinish:) name:FileUploadDidEndNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadProgress:) name:FileUploadProgressNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadStart:) name:WiFiUploadManagerDidStart object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadProgress:) name:WiFiUploadManagerProgress object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadFinish:) name:WiFiUploadManagerDidEnd object:nil];
 }
 
 #pragma mark WiFiUploadNotification Callback

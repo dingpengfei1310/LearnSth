@@ -146,8 +146,8 @@
     [bottomView addSubview:playButton];
     _playButton = playButton;
     
-    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, viewH - buttonW, viewW, buttonW)];
-    filterView.filters = self.filterArray;
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, viewH - buttonW, viewW, buttonW)
+                                                                           filters:_filterArray];
     filterView.FilterSelect = ^(NSInteger index){
         [self changeFilterWith:index];
     };

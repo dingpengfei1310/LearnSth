@@ -10,8 +10,8 @@
 
 @interface FilterCollectionView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSIndexPath *selectIndexPath;
+@property (nonatomic, strong) NSArray *filters;
+
 @end
 
 static NSString *ReuseIdentifier = @"cell";
@@ -19,17 +19,35 @@ static NSString *ReuseIdentifier = @"cell";
 @implementation FilterCollectionView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self addSubview:self.collectionView];
+    if (self = [super initWithFrame:CGRectZero]) {
     }
     return self;
 }
 
-- (void)setFilters:(NSArray *)filters {
-    if (_filters != filters) {
+- (instancetype)initWithFrame:(CGRect)frame filters:(NSArray *)filters {
+    if (filters.count == 0) {
+        return [self initWithFrame:CGRectZero];
+    } else if (self = [super initWithFrame:frame]) {
         _filters = filters;
-        [self.collectionView reloadData];
+        
+        CGFloat itemWidth = self.frame.size.height;
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
+        flowLayout.minimumInteritemSpacing = 5;
+        
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
+                                                              collectionViewLayout:flowLayout];
+        collectionView.showsHorizontalScrollIndicator = NO;
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+        collectionView.backgroundColor = [UIColor whiteColor];
+        collectionView.dataSource = self;
+        collectionView.delegate = self;
+        
+        [self addSubview:collectionView];
     }
+    return self;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -39,6 +57,10 @@ static NSString *ReuseIdentifier = @"cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ReuseIdentifier forIndexPath:indexPath];
+    
+    UIView *backgroundView = [[UIView alloc] init];
+    backgroundView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    cell.selectedBackgroundView = backgroundView;
     
     UILabel *contentLabel = [cell.contentView viewWithTag:100];
     if (!contentLabel) {
@@ -57,39 +79,9 @@ static NSString *ReuseIdentifier = @"cell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:self.selectIndexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
-    self.selectIndexPath = indexPath;
-    
     if (self.FilterSelect) {
         self.FilterSelect(indexPath.item);
     }
-}
-
-#pragma mark
-- (UICollectionView *)collectionView {
-    if (!_collectionView) {
-        CGFloat itemWidth = self.frame.size.height;
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
-        flowLayout.minimumInteritemSpacing = 5;
-//        flowLayout.minimumLineSpacing = interitemSpacing;
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
-                                             collectionViewLayout:flowLayout];
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-    }
-    return _collectionView;
 }
 
 @end

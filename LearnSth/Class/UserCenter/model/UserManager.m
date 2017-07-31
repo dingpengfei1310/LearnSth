@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
+
 @interface UserManager ()<NSCopying>
 
 @end
@@ -53,13 +54,13 @@ static dispatch_once_t allocOnceToken;
 }
 
 #pragma mark
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    dispatch_once(&allocOnceToken, ^{
-        userModel = [super allocWithZone:zone];
-    });
-    
-    return userModel;
-}
+//+ (instancetype)allocWithZone:(struct _NSZone *)zone {
+//    dispatch_once(&allocOnceToken, ^{
+//        userModel = [super allocWithZone:zone];
+//    });
+//    
+//    return userModel;
+//}
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     return userModel;

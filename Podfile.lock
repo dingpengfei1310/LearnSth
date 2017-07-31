@@ -32,6 +32,7 @@ PODS:
   - GPUImage (0.1.7)
   - HappyDNS (0.3.10)
   - KVOController (1.2.0)
+  - MJExtension (3.0.13)
   - MLeaksFinder (0.2.1):
     - FBRetainCycleDetector
   - PLPlayerKit (2.4.2):
@@ -43,6 +44,7 @@ PODS:
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
   - SSZipArchive (1.7)
+  - YYText (1.0.7)
 
 DEPENDENCIES:
   - AFNetworking
@@ -51,11 +53,13 @@ DEPENDENCIES:
   - FMDB
   - GPUImage
   - KVOController
+  - MJExtension
   - MLeaksFinder
   - PLPlayerKit
   - SDWebImage
   - SDWebImage/GIF
   - SSZipArchive
+  - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -68,11 +72,13 @@ SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MLeaksFinder: 0850e2f2abc7227adc4d4e2d1992b431264eb4d5
   PLPlayerKit: 513e328d861ee02bbe682b79c9be36f7ed224239
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: be3d80b81538a34bd6a5ce4682fc0086dec10a3a
+PODFILE CHECKSUM: 08b48ee849e05d427d320d46bcbf5053475ef611
 
 COCOAPODS: 1.2.0

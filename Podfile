@@ -13,4 +13,6 @@ target 'LearnSth' do
     pod 'FLAnimatedImage'
     pod 'KVOController'
     pod 'MLeaksFinder'
+    pod 'MJExtension'
+    pod 'YYText'
 end

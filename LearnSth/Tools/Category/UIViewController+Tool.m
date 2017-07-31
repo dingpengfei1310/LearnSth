@@ -217,9 +217,11 @@ typedef void (^CancelBlock)();
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *action = [UIAlertAction actionWithTitle:operationTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        operation ? operation() : 0;
-    }];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:operationTitle.length ? operationTitle : @"确定"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       operation ? operation() : 0;
+                                                   }];
     [alert addAction:action];
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -236,12 +238,12 @@ typedef void (^CancelBlock)();
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelA = [UIAlertAction actionWithTitle:cancelTitle
+    UIAlertAction *cancelA = [UIAlertAction actionWithTitle:cancelTitle.length ? cancelTitle : @"取消"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction * action) {
                                                         cancel ? cancel() : 0;
                                                     }];
-    UIAlertAction *operationA  = [UIAlertAction actionWithTitle:operationTitle
+    UIAlertAction *operationA  = [UIAlertAction actionWithTitle:operationTitle.length ? operationTitle : @"确定"
                                                           style:style
                                                         handler:^(UIAlertAction * action) {
                                                             operation ? operation() : 0;

@@ -17,8 +17,6 @@
 #import <HTTPFileResponse.h>
 #import <MultipartMessageHeaderField.h>
 
-#import <UIKit/UIKit.h>
-
 @interface WiFiUploadHTTPConnection () {
     MultipartFormDataParser* parser;
     NSFileHandle* storeFile;
@@ -163,7 +161,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     }
     // 这里用于发出文件开始上传的通知
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadDidStartNotification object:@{@"fileName" : filename ?: @"File"}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WiFiUploadManagerDidStart object:@{@"fileName" : filename ?: @"File"}];
     });
     // 这里用于设置文件的保存路径，先预存一个空文件，然后进行追加写内容
     NSString *uploadDirPath = [WiFiUploadManager shareManager].savePath;
@@ -209,7 +207,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         progress = (CGFloat)self.currentLength / self.contentLength;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadProgressNotification object:@{@"progress" : @(progress)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WiFiUploadManagerProgress object:@{@"progress" : @(progress)}];
     });
     if (storeFile) {
         [storeFile writeData:data];
@@ -230,7 +228,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     [storeFile closeFile];
     storeFile = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadDidEndNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WiFiUploadManagerDidEnd object:nil];
     });
 }
 

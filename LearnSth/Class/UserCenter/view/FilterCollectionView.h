@@ -10,8 +10,7 @@
 
 @interface FilterCollectionView : UIView
 
-@property (nonatomic, strong) NSArray *filters;
-
 @property (nonatomic, copy) void (^FilterSelect)(NSInteger index);
+- (instancetype)initWithFrame:(CGRect)frame filters:(NSArray *)filters;
 
 @end

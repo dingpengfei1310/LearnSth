@@ -12,7 +12,6 @@
 #import "JPuzzleViewController.h"
 
 #import "LiveCollectionView.h"
-#import "UserManager.h"
 
 @interface HomeViewController ()
 
@@ -50,10 +49,6 @@
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-//    backItem.title = @"";
-//    self.navigationItem.backBarButtonItem = backItem;
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -71,16 +66,11 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     
-//    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
+    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
     
     
-    UserManager *mm = [[UserManager alloc] init];
-    NSLog(@"%@ -- %p",mm.mobile,mm);
-    
-    UserManager *mmm = [UserManager shareManager];
-    NSLog(@"%@ -- %p",mmm.mobile,mmm);
 }
 
 - (void)didReceiveMemoryWarning {

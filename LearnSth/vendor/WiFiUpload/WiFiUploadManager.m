@@ -14,9 +14,9 @@
 
 #import <HTTPServer.h>
 
-NSString * const FileUploadDidStartNotification = @"SGFileUploadDidStartNotification";
-NSString * const FileUploadProgressNotification = @"SGFileUploadProgressNotification";
-NSString * const FileUploadDidEndNotification = @"FileUploadDidEndNotification";
+NSString * const WiFiUploadManagerDidStart = @"FileUploadDidStartNotification";
+NSString * const WiFiUploadManagerProgress = @"FileUploadProgressNotification";
+NSString * const WiFiUploadManagerDidEnd = @"FileUploadDidEndNotification";
 
 @implementation WiFiUploadManager
 

@@ -10,9 +10,9 @@
 
 @class HTTPServer;
 
-extern NSString * const FileUploadDidStartNotification;
-extern NSString * const FileUploadProgressNotification;
-extern NSString * const FileUploadDidEndNotification;
+extern NSString * const WiFiUploadManagerDidStart;
+extern NSString * const WiFiUploadManagerProgress;
+extern NSString * const WiFiUploadManagerDidEnd;
 
 @interface WiFiUploadManager : NSObject
 

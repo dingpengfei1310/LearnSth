@@ -115,8 +115,7 @@
                  @{@"name":@"卡通",@"className":[GPUImageSmoothToonFilter class]}
                  ];
     
-    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
-    filterView.filters = _filterArray;
+    FilterCollectionView *filterView = [[FilterCollectionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40) filters:_filterArray];
     filterView.FilterSelect = ^(NSInteger index){
         [self changeFilterWith:index];
     };

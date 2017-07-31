@@ -58,10 +58,7 @@ static NSString *Identifier = @"cell";
 
 - (void)addObserve {
     _kvoController = [[FBKVOController alloc] initWithObserver:self];
-    [_kvoController observe:[UserManager shareManager] keyPath:@"username" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary<NSString *,id> * change) {
-        [self reloadHeaderCell];
-    }];
-    [_kvoController observe:[UserManager shareManager] keyPath:@"headerImageData" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary<NSString *,id> * change) {
+    [_kvoController observe:[UserManager shareManager] keyPaths:@[@"username",@"headerImageData"] options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary<NSString *,id> * change) {
         [self reloadHeaderCell];
     }];
 }

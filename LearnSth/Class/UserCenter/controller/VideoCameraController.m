@@ -127,6 +127,7 @@
 - (void)dismiss:(UIButton *)sender {
     [self.movieFileOutput stopRecording];
     [self.captureSession stopRunning];
+    [self.displayLink invalidate];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
