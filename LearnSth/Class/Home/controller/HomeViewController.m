@@ -29,9 +29,10 @@
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;
-    self.liveCollectionView.BannerClickBlock = ^(NSString *link) {
+    self.liveCollectionView.BannerClickBlock = ^(NSString *link, NSString *title) {
         WebViewController *controller = [[WebViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
+        controller.title = title;
         controller.urlString = link;
         [weakSelf.navigationController pushViewController:controller animated:YES];
     };
@@ -69,7 +70,6 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
     
 }
 

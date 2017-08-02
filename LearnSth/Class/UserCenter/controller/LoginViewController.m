@@ -165,36 +165,36 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)quickRegisterClick:(UIButton *)button {
-//    RegisterViewController *controller = [[RegisterViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
+    RegisterViewController *controller = [[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
     
-    self.isLoginState = !self.isLoginState;
-    if (self.isLoginState) {
-        self.title = @"登录";
-        self.forgetButton.hidden = NO;
-        [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
-        
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attNormal]
-                          forState:UIControlStateNormal];
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attHighlighted]
-                          forState:UIControlStateHighlighted];
-        
-        self.accountField.text = [UserManager shareManager].mobile;
-        
-    } else {
-        self.title = @"注册";
-        self.forgetButton.hidden = YES;
-        [self.loginButton setTitle:@"注册" forState:UIControlStateNormal];
-        
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attNormal]
-                          forState:UIControlStateNormal];
-        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attHighlighted]
-                          forState:UIControlStateHighlighted];
-        self.accountField.text = nil;
-    }
-    
-    self.passwordField.text = nil;
-    self.loginButton.enabled = NO;
+//    self.isLoginState = !self.isLoginState;
+//    if (self.isLoginState) {
+//        self.title = @"登录";
+//        self.forgetButton.hidden = NO;
+//        [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+//        
+//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attNormal]
+//                          forState:UIControlStateNormal];
+//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attHighlighted]
+//                          forState:UIControlStateHighlighted];
+//        
+//        self.accountField.text = [UserManager shareManager].mobile;
+//        
+//    } else {
+//        self.title = @"注册";
+//        self.forgetButton.hidden = YES;
+//        [self.loginButton setTitle:@"注册" forState:UIControlStateNormal];
+//        
+//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attNormal]
+//                          forState:UIControlStateNormal];
+//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attHighlighted]
+//                          forState:UIControlStateHighlighted];
+//        self.accountField.text = nil;
+//    }
+//    
+//    self.passwordField.text = nil;
+//    self.loginButton.enabled = NO;
 }
 
 - (void)forgetClick {

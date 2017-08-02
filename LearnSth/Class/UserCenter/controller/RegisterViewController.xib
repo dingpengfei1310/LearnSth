@@ -19,6 +19,7 @@
                 <outlet property="pwdField" destination="4dP-OT-HFD" id="8gB-fP-csR"/>
                 <outlet property="rePwdField" destination="lE7-iC-QJO" id="wkA-M6-LPC"/>
                 <outlet property="registerButton" destination="1e5-tM-vdv" id="LDQ-8i-LoO"/>
+                <outlet property="ruleText" destination="5OP-aF-orR" id="wgd-0w-e0V"/>
                 <outlet property="view" destination="iN0-l3-epB" id="IkK-Rw-Q4z"/>
             </connections>
         </placeholder>
@@ -73,7 +74,7 @@
                                 <action selector="regClick:" destination="-1" eventType="touchUpInside" id="1yh-gH-aud"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-iC-QJO">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-iC-QJO">
                             <rect key="frame" x="40" y="125" width="240" height="40"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -89,6 +90,15 @@
                                 <constraint firstAttribute="height" constant="1" id="g1W-m0-sdS"/>
                             </constraints>
                         </view>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="text" translatesAutoresizingMaskIntoConstraints="NO" id="5OP-aF-orR">
+                            <rect key="frame" x="40" y="257" width="240" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="AON-70-JPf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
                     <constraints>
                         <constraint firstItem="lE7-iC-QJO" firstAttribute="height" secondItem="dja-NB-zcf" secondAttribute="height" id="05o-Yh-Sxd"/>
@@ -96,24 +106,27 @@
                         <constraint firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" constant="40" id="2No-Xa-bwu"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="8XG-qQ-qJn"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="top" secondItem="4dP-OT-HFD" secondAttribute="bottom" id="AHR-4A-PiE"/>
+                        <constraint firstAttribute="bottom" secondItem="5OP-aF-orR" secondAttribute="bottom" constant="20" id="AJg-dN-OZ5"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="leading" secondItem="VvT-Xh-ysF" secondAttribute="leading" id="BgB-yq-par"/>
                         <constraint firstItem="sQt-W1-gFB" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="Feu-h9-Rmh"/>
                         <constraint firstItem="1e5-tM-vdv" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="GtB-2J-aM9"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="height" secondItem="dja-NB-zcf" secondAttribute="height" id="HMu-zp-3cW"/>
                         <constraint firstItem="lE7-iC-QJO" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="KqE-gb-ngx"/>
+                        <constraint firstItem="5OP-aF-orR" firstAttribute="top" secondItem="1e5-tM-vdv" secondAttribute="bottom" id="MKF-bs-Iuv"/>
                         <constraint firstItem="1e5-tM-vdv" firstAttribute="top" secondItem="lE7-iC-QJO" secondAttribute="bottom" constant="44" id="Nlw-gE-ScE"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="Okt-l9-qdo"/>
                         <constraint firstItem="lE7-iC-QJO" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="XYa-Qy-qEr"/>
                         <constraint firstItem="sQt-W1-gFB" firstAttribute="top" secondItem="lE7-iC-QJO" secondAttribute="bottom" id="Ya3-tW-VBy"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="a7H-jH-wYc"/>
                         <constraint firstItem="VvT-Xh-ysF" firstAttribute="top" secondItem="dja-NB-zcf" secondAttribute="bottom" id="a9H-x0-yzq"/>
-                        <constraint firstAttribute="bottom" secondItem="1e5-tM-vdv" secondAttribute="bottom" constant="20" id="eXA-ir-ZFF"/>
+                        <constraint firstItem="5OP-aF-orR" firstAttribute="leading" secondItem="gcO-pc-h6x" secondAttribute="leading" constant="40" id="au7-LV-s8g"/>
                         <constraint firstItem="1e5-tM-vdv" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="eiP-P1-fLe"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="trailing" secondItem="VvT-Xh-ysF" secondAttribute="trailing" id="keq-bq-o9m"/>
                         <constraint firstItem="1e5-tM-vdv" firstAttribute="height" secondItem="dja-NB-zcf" secondAttribute="height" multiplier="1.2" id="mUj-Uo-ItK"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="top" secondItem="dja-NB-zcf" secondAttribute="bottom" id="ppn-rt-d8x"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="leading" secondItem="gcO-pc-h6x" secondAttribute="leading" constant="40" id="tz3-sm-ECr"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="top" secondItem="gcO-pc-h6x" secondAttribute="top" constant="44" id="uEm-UC-Noy"/>
+                        <constraint firstAttribute="trailing" secondItem="5OP-aF-orR" secondAttribute="trailing" constant="40" id="vY8-mZ-3fC"/>
                         <constraint firstItem="lE7-iC-QJO" firstAttribute="top" secondItem="ezh-hQ-zaU" secondAttribute="bottom" id="vc3-mP-xd8"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="y26-Cg-VFm"/>
                     </constraints>

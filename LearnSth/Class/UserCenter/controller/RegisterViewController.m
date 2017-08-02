@@ -12,13 +12,14 @@
 #import "NSString+Tool.h"
 #import "UIImage+Tool.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController ()<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UITextField *rePwdField;
 
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UITextView *ruleText;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fieldHeight;
@@ -60,6 +61,22 @@
     [_registerButton setBackgroundImage:cornerImage forState:UIControlStateNormal];
     [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attachment.image = [UIImage imageNamed:@"refresh1"];
+    attachment.bounds= CGRectMake(0, 0, 20, 20);
+    NSAttributedString *att = [NSAttributedString attributedStringWithAttachment:attachment];
+    
+    NSMutableAttributedString *attributedStringM = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意《注册协议》"];
+//    [attributedStringM insertAttributedString:att atIndex:13];
+    NSRange range = NSMakeRange(7, 6);
+//    [attributedStringM addAttribute:NSForegroundColorAttributeName value:KBaseBlueColor range:range];
+//    [attributedStringM addAttribute:NSLinkAttributeName value:@"link" range:range];
+    [attributedStringM addAttribute:NSAttachmentAttributeName value:attachment range:NSMakeRange(12, 1)];
+    self.ruleText.attributedText = attributedStringM;
+    self.ruleText.delegate = self;
+    
+    
 }
 
 - (IBAction)regClick:(UIButton *)sender {
@@ -109,6 +126,14 @@
     }
     
     self.registerButton.enabled = (self.accountField.text.length == 11 && self.pwdField.text.length >= 6 && self.rePwdField.text.length >= 6);
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    if ([URL.absoluteString isEqualToString:@"link"]) {
+        [self showAlertWithTitle:nil message:@"没有协议😂" operationTitle:nil operation:nil];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

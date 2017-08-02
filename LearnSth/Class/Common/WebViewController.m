@@ -76,7 +76,10 @@ static NSString *EstimatedProgress = @"estimatedProgress";
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    self.title = webView.title;
+    if (webView.title.length > 0) {
+        self.title = webView.title;
+    }
+    
 //    [webView evaluateJavaScript:@"document.title" completionHandler:^(id title, NSError * error) {
 //        self.title = title;
 //    }];

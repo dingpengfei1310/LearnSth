@@ -139,6 +139,24 @@ const NSTimeInterval timeoutInterval = 10.0;
     }];
 }
 
+#pragma mark
+- (void)getPDF {
+//    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/futuresoption.pdf"];
+//    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/optionstate.pdf"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/security.pdf"];
+    
+    NSURLSessionDownloadTask *dd = [self.sessionManager downloadTaskWithRequest:[NSURLRequest requestWithURL:url] progress:^(NSProgress * downloadProgress) {
+        NSLog(@"downloadProgress");
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSString *ss = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+        return [NSURL fileURLWithPath:[ss stringByAppendingPathComponent:@"p.pdf"]];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        NSLog(@"completionHandler");
+    }];
+    [dd resume];
+}
+
 - (void)getLoacalTestDataCompletion:(SuccessArray)completion {
     NSString *localIP = @"http://192.168.1.146:80/test.json";
     [self getDataWithString:localIP paramets:nil success:^(id responseData) {

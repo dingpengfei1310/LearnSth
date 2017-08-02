@@ -15,4 +15,5 @@ target 'LearnSth' do
     pod 'MLeaksFinder'
     pod 'MJExtension'
     pod 'YYText'
+    pod 'YYImage'
 end

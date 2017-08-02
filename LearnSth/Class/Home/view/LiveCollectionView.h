@@ -10,7 +10,7 @@
 
 @interface LiveCollectionView : UIView
 
-@property (nonatomic, copy) void (^BannerClickBlock)(NSString *link);
+@property (nonatomic, copy) void (^BannerClickBlock)(NSString *link,NSString *title);
 @property (nonatomic, copy) void (^LiveClickBlock)(NSInteger index, NSArray *liveArray);
 
 - (void)viewWillShow:(BOOL)flag;

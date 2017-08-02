@@ -256,7 +256,7 @@ const  NSInteger liveColumn = 2;
         _bannerScrollView.ImageClickBlock = ^(NSInteger index) {
             BannerModel *model = weakSelf.bannerList[index];
             if (model.link.length > 0 && weakSelf.BannerClickBlock) {
-                weakSelf.BannerClickBlock(model.link);
+                weakSelf.BannerClickBlock(model.link,model.title);
             }
         };
     }
