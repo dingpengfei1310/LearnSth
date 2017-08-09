@@ -8,10 +8,10 @@
 
 #import "FileScanViewController.h"
 #import "DDPreviewItem.h"
-
+#import "AppDelegate.h"
 #import <QuickLook/QLPreviewController.h>
 
-@interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
+@interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
 
 @property (nonatomic, strong) NSString *previewItemPath;
 @property (nonatomic, strong) UITableView *tableView;
@@ -155,13 +155,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) {
         self.selectIndex = indexPath.row;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         QLPreviewController *previewController = [[QLPreviewController alloc] init];
-        previewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
         previewController.dataSource = self;
-        [self presentViewController:previewController animated:YES completion:^{
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        }];
+        previewController.delegate = self;
+        
+//        [self presentViewController:previewController animated:YES completion:^{
+//            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//            app.isAutorotate = YES;
+//        }];
+        
+        [self.navigationController pushViewController:previewController animated:YES];
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        app.isAutorotate = YES;
         
     } else {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -228,7 +235,15 @@
 }
 
 - (void)previewControllerWillDismiss:(QLPreviewController *)controller {
-    NSLog(@"previewControllerWillDismiss");
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        app.isAutorotate = NO;
+    });
 }
 
 #pragma mark
