@@ -62,21 +62,12 @@
     [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [_registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    NSTextAttachment *attachment = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-    attachment.image = [UIImage imageNamed:@"refresh1"];
-    attachment.bounds= CGRectMake(0, 0, 20, 20);
-    NSAttributedString *att = [NSAttributedString attributedStringWithAttachment:attachment];
-    
     NSMutableAttributedString *attributedStringM = [[NSMutableAttributedString alloc] initWithString:@"注册即表示同意《注册协议》"];
-//    [attributedStringM insertAttributedString:att atIndex:13];
     NSRange range = NSMakeRange(7, 6);
-//    [attributedStringM addAttribute:NSForegroundColorAttributeName value:KBaseBlueColor range:range];
-//    [attributedStringM addAttribute:NSLinkAttributeName value:@"link" range:range];
-    [attributedStringM addAttribute:NSAttachmentAttributeName value:attachment range:NSMakeRange(12, 1)];
+    [attributedStringM addAttribute:NSLinkAttributeName value:@"link" range:range];
+//    [attributedStringM addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
     self.ruleText.attributedText = attributedStringM;
     self.ruleText.delegate = self;
-    
-    
 }
 
 - (IBAction)regClick:(UIButton *)sender {
@@ -125,7 +116,10 @@
         }
     }
     
-    self.registerButton.enabled = (self.accountField.text.length == 11 && self.pwdField.text.length >= 6 && self.rePwdField.text.length >= 6);
+    BOOL validateAccount = self.accountField.text.length == 11;
+    BOOL validatePwd = (self.pwdField.text.length >= 6 && self.rePwdField.text.length >= 6);
+    
+    self.registerButton.enabled = (validateAccount && validatePwd);
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {

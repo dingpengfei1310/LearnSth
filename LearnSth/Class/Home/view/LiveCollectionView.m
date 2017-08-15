@@ -15,9 +15,9 @@
 
 //#import "UICollectionView+Tool.h"
 #import "UIView+Tool.h"
-
-#import "MJRefresh.h"
 #import "HttpManager.h"
+
+#import <MJRefresh/MJRefresh.h>
 
 @interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate>
 

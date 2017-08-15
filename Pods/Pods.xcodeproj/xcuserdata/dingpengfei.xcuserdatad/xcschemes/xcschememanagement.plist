@@ -59,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MLeaksFinder.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,7 +97,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1BEFF8C32294BEB265CD9D40A1E19F19</key>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>12C6B7C23F2DAEB7CC63C37D0BF1D130</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,12 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>26A69CC959616A83E6CCAA74692523D4</key>
+		<key>3286BBA6768DA9D2A450D6E03416464C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>379B6FFEE1C97716D204805F756C4109</key>
+		<key>4CE572E5740186798D2C60E1528F348A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,17 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8481B50640F15C94ED52F409DFA3389B</key>
+		<key>6BDC5F89F617C341C2D0436D27E36D01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>711A167E546370E97D4075DAE39C9937</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8BDCD0C3F1E9CB3561E2EC7B69A2CC2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

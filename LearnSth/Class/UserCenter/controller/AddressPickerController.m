@@ -62,7 +62,11 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 - (void)submit {
     self.SelectBlock(self.currentProvince,self.currentCity);
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self cancel];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self cancel];
 }
 
 #pragma mark
