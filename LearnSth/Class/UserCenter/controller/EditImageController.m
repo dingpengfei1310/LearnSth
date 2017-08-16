@@ -92,7 +92,9 @@
 
 #pragma mark
 - (void)cancel {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.FinishImageBlock) {
+        self.FinishImageBlock(nil);
+    }
 }
 
 - (void)finish:(UIBarButtonItem *)item {
@@ -116,7 +118,6 @@
     UIGraphicsEndImageContext();
     CGImageRelease(imageRef);
     
-    [self cancel];
     if (self.FinishImageBlock) {
         self.FinishImageBlock(image);
     }

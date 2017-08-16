@@ -131,16 +131,31 @@
 //    }];
     
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    if (originalImage.imageOrientation != UIImageOrientationUp) {
+        UIGraphicsBeginImageContext(originalImage.size);
+        [originalImage drawInRect:CGRectMake(0, 0, originalImage.size.width, originalImage.size.height)];
+        originalImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
     EditImageController *controller = [[EditImageController alloc] init];
     controller.originalImage = originalImage;
     controller.FinishImageBlock = ^(UIImage *editImage) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        self.imageView.image = editImage;
-        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
-        [UserManager updateUser];
-        if (self.ChangeHeaderImageBlock) {
-            self.ChangeHeaderImageBlock();
+        if (editImage) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            self.imageView.image = editImage;
+            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
+            [UserManager updateUser];
+            if (self.ChangeHeaderImageBlock) {
+                self.ChangeHeaderImageBlock();
+            }
+        } else {
+            if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [picker dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     };
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];

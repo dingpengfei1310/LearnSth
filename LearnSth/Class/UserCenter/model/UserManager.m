@@ -48,6 +48,7 @@ static dispatch_once_t allocOnceToken;
 + (void)updateUser {
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager shareManager] dictionary]];
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserManagerCache];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
 //    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userModel];
 //    [[NSUserDefaults standardUserDefaults] setObject:data forKey:KUserManagerCache];
