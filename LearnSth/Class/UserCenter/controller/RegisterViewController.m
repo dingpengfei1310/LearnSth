@@ -88,6 +88,8 @@
         return;
     }
     
+    [CustomiseTool setIsLogin:YES];
+    
     NSString *password = [self.pwdField.text MD5String];
     [UserManager shareManager].mobile = self.accountField.text;
     [UserManager shareManager].password = password;
@@ -97,7 +99,6 @@
     [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
     [UserManager updateUser];
     
-    [CustomiseTool setIsLogin:YES];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

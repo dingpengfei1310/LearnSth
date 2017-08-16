@@ -78,6 +78,7 @@
 		1B30D9251E9CA926000E0D48 /* UserQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30D9241E9CA926000E0D48 /* UserQRCodeController.m */; };
 		1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */; };
 		1B327FB71EFD07010011AEC1 /* JPuzzleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B327FB61EFD07010011AEC1 /* JPuzzleViewCell.m */; };
+		1B32C6341F42D31C002E5115 /* EditImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B32C6331F42D31B002E5115 /* EditImageController.m */; };
 		1B348D0C1EF3A37000F63BD4 /* LiveInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B348D0B1EF3A37000F63BD4 /* LiveInfoViewController.m */; };
 		1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491EF1EC5817A002483CC /* BaseChartView.m */; };
 		1B3491F31EC582A6002483CC /* StepCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491F21EC582A6002483CC /* StepCountView.m */; };
@@ -309,6 +310,8 @@
 		1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeRecognizer.m; sourceTree = "<group>"; };
 		1B327FB51EFD07010011AEC1 /* JPuzzleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzleViewCell.h; sourceTree = "<group>"; };
 		1B327FB61EFD07010011AEC1 /* JPuzzleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzleViewCell.m; sourceTree = "<group>"; };
+		1B32C6321F42D31B002E5115 /* EditImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditImageController.h; sourceTree = "<group>"; };
+		1B32C6331F42D31B002E5115 /* EditImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditImageController.m; sourceTree = "<group>"; };
 		1B348D0A1EF3A37000F63BD4 /* LiveInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveInfoViewController.h; sourceTree = "<group>"; };
 		1B348D0B1EF3A37000F63BD4 /* LiveInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveInfoViewController.m; sourceTree = "<group>"; };
 		1B3491EE1EC5817A002483CC /* BaseChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseChartView.h; sourceTree = "<group>"; };
@@ -651,6 +654,8 @@
 			children = (
 				1BFA80081E2CB66C006B0CD6 /* AddressPickerController.h */,
 				1BFA80091E2CB66C006B0CD6 /* AddressPickerController.m */,
+				1B32C6321F42D31B002E5115 /* EditImageController.h */,
+				1B32C6331F42D31B002E5115 /* EditImageController.m */,
 				1B1132781EA4659E00323189 /* HeaderImageController.h */,
 				1B1132791EA4659E00323189 /* HeaderImageController.m */,
 				1B36FD461EC4370C00FBA5CD /* StepCountViewController.h */,
@@ -1426,6 +1431,7 @@
 				1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */,
 				1B2D08011DE7E8DB0034C22D /* MessageViewController.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
+				1B32C6341F42D31C002E5115 /* EditImageController.m in Sources */,
 				1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */,
 				CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */,
 				1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */,

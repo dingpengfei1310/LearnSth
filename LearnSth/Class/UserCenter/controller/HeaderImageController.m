@@ -7,6 +7,8 @@
 //
 
 #import "HeaderImageController.h"
+#import "EditImageController.h"
+
 #import "UserManager.h"
 
 #import <FLAnimatedImage.h>
@@ -110,27 +112,39 @@
 - (void)openUserCameraWithType:(UIImagePickerControllerSourceType)sourceType {
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     pickerController.delegate = self;
-    pickerController.allowsEditing = YES;
+//    pickerController.allowsEditing = YES;
     pickerController.sourceType = sourceType;
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 
 #pragma mark
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(nonnull UIViewController *)viewController animated:(BOOL)animated {
-    viewController.view.backgroundColor = [UIColor blackColor];
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    self.imageView.image = image;
+//    UIImage *image = info[UIImagePickerControllerEditedImage];
+//    self.imageView.image = image;
+//
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
+//        [UserManager updateUser];
+//        if (self.ChangeHeaderImageBlock) {
+//            self.ChangeHeaderImageBlock();
+//        }
+//    }];
     
-    [self dismissViewControllerAnimated:YES completion:^{
-        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    EditImageController *controller = [[EditImageController alloc] init];
+    controller.originalImage = originalImage;
+    controller.FinishImageBlock = ^(UIImage *editImage) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        self.imageView.image = editImage;
+        [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
         [UserManager updateUser];
         if (self.ChangeHeaderImageBlock) {
             self.ChangeHeaderImageBlock();
         }
-    }];
+    };
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+    [picker presentViewController:nvc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

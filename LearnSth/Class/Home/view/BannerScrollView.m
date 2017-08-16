@@ -134,6 +134,11 @@
     
     [self.centerImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentPage]]
                             placeholderImage:nil];
+//    [self.centerImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[self.currentPage]]
+//                            placeholderImage:nil
+//                                   completed:^(UIImage * image, NSError * error, SDImageCacheType cacheType, NSURL * imageURL) {
+//                                       self.centerImageView.image = [self scaleImageWithSize:CGSizeMake(width, height) image:image];
+//                            }];
     
     [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:self.imageArray[rightPage]]
                            placeholderImage:nil];
@@ -157,6 +162,24 @@
     self.pageControl.currentPage = self.currentPage;
     [self scrollToCenterWithAnimated:YES];
 }
+
+//#pragma mark
+//- (UIImage *)scaleImageWithSize:(CGSize)size image:(UIImage *)image {
+//    if (CGSizeEqualToSize(size, image.size)) {
+//        return image;
+//    }
+//    
+//    //创建上下文
+//    UIGraphicsBeginImageContextWithOptions(size, YES, [UIScreen mainScreen].scale);
+//    //绘图
+//    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+//    
+//    //获取新图片
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    return newImage;
+//}
 
 #pragma mark
 - (UIScrollView *)scrollView {
