@@ -92,8 +92,8 @@
 
 #pragma mark
 - (void)cancel {
-    if (self.FinishImageBlock) {
-        self.FinishImageBlock(nil);
+    if (self.ImageFinishBlock) {
+        self.ImageFinishBlock(nil);
     }
 }
 
@@ -118,8 +118,8 @@
     UIGraphicsEndImageContext();
     CGImageRelease(imageRef);
     
-    if (self.FinishImageBlock) {
-        self.FinishImageBlock(image);
+    if (self.ImageFinishBlock) {
+        self.ImageFinishBlock(image);
     }
 }
 

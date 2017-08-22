@@ -10,7 +10,7 @@
 
 @interface EditImageController : BaseViewController
 
-@property (nonatomic, copy) void (^FinishImageBlock)(UIImage *editImage);
+@property (nonatomic, copy) void (^ImageFinishBlock)(UIImage *editImage);
 @property (nonatomic, strong) UIImage *originalImage;
 
 @end

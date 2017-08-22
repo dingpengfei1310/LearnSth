@@ -31,7 +31,7 @@
     [super viewDidLoad];
     
     [self networkMonitoring];
-    [self loadViewControllersWithSelectIndex:2];
+    [self loadViewControllersWithSelectIndex:0];
 }
 
 #pragma mark

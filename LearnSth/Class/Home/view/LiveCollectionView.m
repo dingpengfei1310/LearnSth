@@ -13,7 +13,7 @@
 #import "BannerModel.h"
 #import "LiveModel.h"
 
-//#import "UICollectionView+Tool.h"
+#import "UICollectionView+Tool.h"
 #import "UIView+Tool.h"
 #import "HttpManager.h"
 

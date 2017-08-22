@@ -140,7 +140,7 @@
     
     EditImageController *controller = [[EditImageController alloc] init];
     controller.originalImage = originalImage;
-    controller.FinishImageBlock = ^(UIImage *editImage) {
+    controller.ImageFinishBlock = ^(UIImage *editImage) {
         if (editImage) {
             [self dismissViewControllerAnimated:YES completion:nil];
             
