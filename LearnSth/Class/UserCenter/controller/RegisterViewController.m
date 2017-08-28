@@ -11,6 +11,7 @@
 #import "UserManager.h"
 #import "NSString+Tool.h"
 #import "UIImage+Tool.h"
+#import "HttpConnection.h"
 
 @interface RegisterViewController ()<UITextViewDelegate>
 
@@ -92,11 +93,9 @@
     
     NSString *password = [self.pwdField.text MD5String];
     [UserManager shareManager].mobile = self.accountField.text;
-    [UserManager shareManager].password = password;
+//    [UserManager shareManager].password = password;
     [UserManager shareManager].username = @"我是谁";
     
-    UIImage *image = [UIImage imageNamed:@"defaultHeader"];
-    [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
     [UserManager updateUser];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];

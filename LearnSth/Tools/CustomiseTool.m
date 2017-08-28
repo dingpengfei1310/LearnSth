@@ -9,6 +9,8 @@
 #import "CustomiseTool.h"
 
 static NSString *KIsLoginCache = @"UserLoginCache";
+static NSString *KLoginToken = @"UserLoginToken";
+
 static NSString *KCurrentVersion = @"CurrentVersion";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
 
@@ -38,6 +40,15 @@ static NSString *ENLANGUAGE = @"en";
 
 + (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:KIsLoginCache];
+}
+
++ (void)setLoginToken:(NSString *)token {
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:KLoginToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)loginToken {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:KLoginToken];
 }
 
 + (void)setCurrentVersion {

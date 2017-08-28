@@ -8,6 +8,9 @@
 
 #import "EditImageController.h"
 
+#import "UserManager.h"
+#import "HttpConnection.h"
+
 @interface EditImageController ()<UIScrollViewDelegate> {
     CGFloat circleW;
 }
@@ -118,9 +121,23 @@
     UIGraphicsEndImageContext();
     CGImageRelease(imageRef);
     
-    if (self.ImageFinishBlock) {
-        self.ImageFinishBlock(image);
-    }
+//    UIImageJPEGRepresentation(image, 0.8)
+    [self loadingWithText:@"正在上传"];
+    [HttpConnection uploadImageWithName:@"00" data:UIImagePNGRepresentation(image) completion:^(NSDictionary *data, NSError *error) {
+        [self hideHUD];
+        
+        if (error) {
+            [self showError:@"上传失败"];
+        } else {
+            [UserManager shareManager].headerImage = data[@"url"];
+            [UserManager updateUser];
+            
+            if (self.ImageFinishBlock) {
+                self.ImageFinishBlock(image);
+            }
+        }
+        
+    }];
 }
 
 #pragma mark

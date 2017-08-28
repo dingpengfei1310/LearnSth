@@ -56,6 +56,9 @@
 		1B27B53B1F29B73B00AA36F3 /* UIView+SparkAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */; };
 		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
 		1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29CA871EFBC397004177AD /* HandDrawView.m */; };
+		1B2BFE5B1F53AA3300860E6A /* HttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2BFE5A1F53AA3300860E6A /* HttpConnection.m */; };
+		1B2BFE5F1F54018800860E6A /* VerifyCodeLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2BFE5D1F54018800860E6A /* VerifyCodeLoginController.m */; };
+		1B2BFE601F54018800860E6A /* VerifyCodeLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2BFE5E1F54018800860E6A /* VerifyCodeLoginController.xib */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* BannerModel.m */; };
 		1B2D07FA1DE7E8DB0034C22D /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07CC1DE7E8DB0034C22D /* AnimationView.m */; };
@@ -265,6 +268,11 @@
 		1B29B87C1EEE3E660069780C /* LiveCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionView.m; sourceTree = "<group>"; };
 		1B29CA861EFBC397004177AD /* HandDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandDrawView.h; sourceTree = "<group>"; };
 		1B29CA871EFBC397004177AD /* HandDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandDrawView.m; sourceTree = "<group>"; };
+		1B2BFE591F53AA3300860E6A /* HttpConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpConnection.h; sourceTree = "<group>"; };
+		1B2BFE5A1F53AA3300860E6A /* HttpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpConnection.m; sourceTree = "<group>"; };
+		1B2BFE5C1F54018800860E6A /* VerifyCodeLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCodeLoginController.h; sourceTree = "<group>"; };
+		1B2BFE5D1F54018800860E6A /* VerifyCodeLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeLoginController.m; sourceTree = "<group>"; };
+		1B2BFE5E1F54018800860E6A /* VerifyCodeLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCodeLoginController.xib; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1B2D07C21DE7E8DB0034C22D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -723,6 +731,9 @@
 				1B1C75451ECD87AD0060D824 /* RegisterViewController.h */,
 				1B1C75461ECD87AD0060D824 /* RegisterViewController.m */,
 				1B3B49801F1DA406006F135E /* RegisterViewController.xib */,
+				1B2BFE5C1F54018800860E6A /* VerifyCodeLoginController.h */,
+				1B2BFE5D1F54018800860E6A /* VerifyCodeLoginController.m */,
+				1B2BFE5E1F54018800860E6A /* VerifyCodeLoginController.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -984,6 +995,8 @@
 			children = (
 				1B4630CE1E669703000260D2 /* HttpManager.h */,
 				1B4630CF1E669703000260D2 /* HttpManager.m */,
+				1B2BFE591F53AA3300860E6A /* HttpConnection.h */,
+				1B2BFE5A1F53AA3300860E6A /* HttpConnection.m */,
 			);
 			path = HTTPConection;
 			sourceTree = "<group>";
@@ -1255,6 +1268,7 @@
 				1BDCED791DE58D10002A27B5 /* testHUD.html in Resources */,
 				1B48A5AA1F304D9600F54741 /* boss.dae in Resources */,
 				1B48A5B31F304D9600F54741 /* SDSloganPoints.plist in Resources */,
+				1B2BFE601F54018800860E6A /* VerifyCodeLoginController.xib in Resources */,
 				1B48A5B21F304D9600F54741 /* spark.png in Resources */,
 				1B48A5AF1F304D9600F54741 /* province.db in Resources */,
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
@@ -1359,6 +1373,7 @@
 				1B2E587D1EBC76E800770953 /* DownloadManager.m in Sources */,
 				1B099C951DE7E57400161396 /* TADotView.m in Sources */,
 				1B099C721DE7E57400161396 /* BHBDrawBoarderView.m in Sources */,
+				1B2BFE5B1F53AA3300860E6A /* HttpConnection.m in Sources */,
 				1BFEA60F1EA738EA0033CD15 /* DanMuView.m in Sources */,
 				1B2E587F1EBC76E800770953 /* DownloadViewController.m in Sources */,
 				1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */,
@@ -1442,6 +1457,7 @@
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				1B1C75471ECD87AD0060D824 /* LoginViewController.m in Sources */,
 				1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */,
+				1B2BFE5F1F54018800860E6A /* VerifyCodeLoginController.m in Sources */,
 				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,
 				1B099C9F1DE7E57400161396 /* WiFiUploadHTTPConnection.m in Sources */,
 				1BF7F6C81D92492200F8E5B1 /* main.m in Sources */,

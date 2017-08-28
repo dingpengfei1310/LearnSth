@@ -11,9 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-
 @interface UserManager ()<NSCopying>
-
 @end
 
 static NSString *KUserManagerCache = @"KUserManagerCache";
@@ -110,9 +108,6 @@ static dispatch_once_t allocOnceToken;
         AddressModel *model = [[AddressModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
         [super setValue:model forKey:key];
-    } else if ([key isEqualToString:@"headerImage"]) {
-        UIImage *image = [[UIImage alloc] initWithData:value];
-        [super setValue:image forKey:key];
     } else {
         [super setValue:value forKey:key];
     }

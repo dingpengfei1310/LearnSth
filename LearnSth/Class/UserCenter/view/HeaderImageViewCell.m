@@ -12,6 +12,7 @@
 #import "CustomiseTool.h"
 #import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
+#import <UIImageView+WebCache.h>
 
 @interface HeaderImageViewCell()
 
@@ -56,16 +57,19 @@
         _nameLabel.text = userModel.username;
         _mobileLabel.text = userModel.mobile;
         
-        NSData *data = userModel.headerImageData;
-        if (data) {
-            if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
-                _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-            } else {
-                _headerImageView.image = [UIImage imageWithData:data];
-            }
-        } else{
-            _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
-        }
+//        NSData *data = userModel.headerImageData;
+//        if (data) {
+//            if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+//                _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+//            } else {
+//                _headerImageView.image = [UIImage imageWithData:data];
+//            }
+//        } else{
+//            _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
+//        }
+        
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headerImage]
+                            placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
         
     } else {
         self.detailTextLabel.text = @"点击登录";

@@ -22,5 +22,4 @@ target 'LearnSth' do
     
     pod 'KVOController'
     pod 'MLeaksFinder'
-    
 end

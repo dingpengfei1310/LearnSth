@@ -19,7 +19,8 @@
 
 @interface HeaderImageController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (strong, nonatomic) FLAnimatedImageView *imageView;
+//@property (strong, nonatomic) FLAnimatedImageView *imageView;
+@property (strong, nonatomic) UIImageView *imageView;
 
 @end
 
@@ -32,19 +33,23 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuList"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
     
     CGFloat viewW = CGRectGetWidth(self.view.frame);
-    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
+//    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
-    
-    NSData *data = [UserManager shareManager].headerImageData;
-    if (data) {
-        if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
-            _imageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-        } else {
-            _imageView.image = [UIImage imageWithData:data];
-        }
-    }
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerImage]
+                  placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
     [self.view addSubview:_imageView];
+    
+//    _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
+    
+//    NSData *data = [UserManager shareManager].headerImageData;
+//    if (data) {
+//        if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+//            _imageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+//        } else {
+//            _imageView.image = [UIImage imageWithData:data];
+//        }
+//    }
 }
 
 #pragma mark
@@ -145,8 +150,8 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             
             self.imageView.image = editImage;
-            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
-            [UserManager updateUser];
+//            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
+//            [UserManager updateUser];
             if (self.ChangeHeaderImageBlock) {
                 self.ChangeHeaderImageBlock();
             }

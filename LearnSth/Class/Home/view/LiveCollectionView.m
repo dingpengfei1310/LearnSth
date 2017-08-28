@@ -85,8 +85,8 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)refreshLiveData {
-    NSDictionary *params = @{@"page":[@(self.page) stringValue]};
-    [[HttpManager shareManager] getHotLiveListWithParamers:params completion:^(NSArray *list, NSError *error) {
+    NSDictionary *param = @{@"page":[@(self.page) stringValue]};
+    [[HttpManager shareManager] getHotLiveListWithParam:param completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
         [self.collectionView.mj_footer endRefreshing];
 
@@ -137,8 +137,8 @@ const  NSInteger liveColumn = 2;
     
     dispatch_group_enter(group);
     dispatch_group_async(group, serialQueue, ^{
-        NSDictionary *params = @{@"page":[@(self.page) stringValue]};
-        [[HttpManager shareManager] getHotLiveListWithParamers:params completion:^(NSArray *list, NSError *error) {
+        NSDictionary *param = @{@"page":[@(self.page) stringValue]};
+        [[HttpManager shareManager] getHotLiveListWithParam:param completion:^(NSArray *list, NSError *error) {
             dispatch_group_leave(group);
             
             if (error) {

@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "VerifyCodeLoginController.h"
 
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserManager.h"
@@ -47,6 +48,8 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     self.isLoginState = YES;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(quickRegisterClick:)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -165,7 +168,10 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)quickRegisterClick:(UIButton *)button {
-    RegisterViewController *controller = [[RegisterViewController alloc] init];
+//    RegisterViewController *controller = [[RegisterViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
+    
+    VerifyCodeLoginController *controller = [[VerifyCodeLoginController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
     
 //    self.isLoginState = !self.isLoginState;
@@ -199,26 +205,29 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 
 - (void)forgetClick {
     [self showAlertWithTitle:nil message:@"怪我咯😂" operationTitle:@"知道了" operation:nil];
+    
+    
 }
 
 - (void)loginAction {
     if ([self validateAccountAndPwd]) {
-        NSString *password = [self.passwordField.text MD5String];
-        UserManager *manager = [UserManager shareManager];
+        [self loadingWithText:@"登录中..."];
         
-        if ([manager.mobile isEqualToString:self.accountField.text] && [manager.password isEqualToString:password]) {
+        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
+        [[HttpManager shareManager] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
+            [self hideHUD];
             
-            [self loadingWithText:@"登录中..."];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self hideHUD];
-                [self performSelector:@selector(dismissLoginController) withObject:nil afterDelay:0.1];
-                
+            if (!error) {
                 [CustomiseTool setIsLogin:YES];
-            });
-            
-        } else {
-            [self showError:@"手机号或密码不正确"];
-        }
+                [CustomiseTool setLoginToken:data[@"sessionToken"]];
+                
+                [[UserManager shareManager] setValuesForKeysWithDictionary:data];
+                
+                [self dismissLoginController];
+            } else {
+                 [self showErrorWithError:error];
+            }
+        }];
     }
 }
 
@@ -232,11 +241,11 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
             
             NSString *password = [self.passwordField.text MD5String];
             [UserManager shareManager].mobile = self.accountField.text;
-            [UserManager shareManager].password = password;
+//            [UserManager shareManager].password = password;
             [UserManager shareManager].username = @"我是谁";
             
-            UIImage *image = [UIImage imageNamed:@"defaultHeader"];
-            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
+//            UIImage *image = [UIImage imageNamed:@"defaultHeader"];
+//            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
             [UserManager updateUser];
             
             [CustomiseTool setIsLogin:YES];

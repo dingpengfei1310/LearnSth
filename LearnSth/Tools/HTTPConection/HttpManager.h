@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^SuccessArray)(NSArray *list,NSError *error);
 typedef void (^Success)(id responseData);
 typedef void (^Failure)(NSError *error);
+
+typedef void (^CompletionArray)(NSArray *list,NSError *error);
+typedef void (^Completion)(NSDictionary *data,NSError *error);
 
 typedef NS_ENUM(NSInteger, HttpErrorCode) {
     HttpErrorCodeDefault,
@@ -26,13 +28,17 @@ typedef NS_ENUM(NSInteger, HttpErrorCode) {
 
 #pragma mark
 /// 广告
-- (void)getAdBannerListCompletion:(SuccessArray)completion;
+- (void)getAdBannerListCompletion:(CompletionArray)completion;
 
 ///热门直播
-- (void)getHotLiveListWithParamers:(NSDictionary *)paramers
-                        completion:(SuccessArray)completion;
+- (void)getHotLiveListWithParam:(NSDictionary *)paramers
+                     completion:(CompletionArray)completion;
 
 ///本地测试数据
-- (void)getLoacalTestDataCompletion:(SuccessArray)completion;
+- (void)getLoacalTestDataCompletion:(CompletionArray)completion;
+
+- (void)userLoginWithParam:(NSDictionary *)param completion:(Completion)completion;
+
+- (void)uploadImage:(NSData *)data;
 
 @end

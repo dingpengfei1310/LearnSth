@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码生成";
+    self.view.backgroundColor = KBackgroundColor;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(QRCodeCreate)];
     
     [self initSubView];
@@ -33,6 +34,7 @@
     [self.view addSubview:_qrTextField];
     
     _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 20 + CGRectGetMaxY(_qrTextField.frame), self.view.frame.size.width - 100, self.view.frame.size.width - 100)];
+    _qrImageView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_qrImageView];
 }
 
@@ -45,16 +47,32 @@
         return;
     }
     
+//    CIColor *color = [CIColor colorWithRed:0.0 green:1.0 blue:1.0];
 //    UIImage *codeImage = [UIImage imageWithText:qrString
 //                                           size:CGRectGetWidth(self.qrImageView.frame)
-//                                      watermark:[UIImage imageNamed:@"panda"]];
+//                                      frontColor:nil
+//                                      backColor:color];
 //    self.qrImageView.image = codeImage;
     
     QRCodeGenerator *generator = [[QRCodeGenerator alloc] init];
     generator.content = qrString;
     generator.codeWidth = CGRectGetWidth(self.qrImageView.frame);
+    generator.backgroundColor = [UIColor clearColor];
 //    generator.watermark = [UIImage imageNamed:@"panda"];
     self.qrImageView.image = [generator QRCodeImage];
+    
+    //渐变色二维码（必须透明背景色）
+//    CALayer *maskLayer = [CALayer layer];
+//    maskLayer.frame = self.qrImageView.bounds;
+////    maskLayer.contents = (id)codeImage.CGImage;
+//    
+//    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+//    gradientLayer.frame = self.qrImageView.bounds;
+//    gradientLayer.colors = @[(id)[UIColor redColor].CGColor,
+//                             (id)[UIColor greenColor].CGColor,
+//                             (id)[UIColor blueColor].CGColor];
+//    gradientLayer.mask = maskLayer;
+//    [self.qrImageView.layer addSublayer:gradientLayer];
 }
 
 #pragma mark

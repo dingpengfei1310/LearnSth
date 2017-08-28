@@ -21,6 +21,9 @@ typedef NS_ENUM (NSInteger, LanguageType){
 + (void)setIsLogin:(BOOL)login;
 + (BOOL)isLogin;
 
++ (void)setLoginToken:(NSString *)token;
++ (NSString *)loginToken;
+
 + (void)setCurrentVersion;
 + (BOOL)isFirstLaunch;
 

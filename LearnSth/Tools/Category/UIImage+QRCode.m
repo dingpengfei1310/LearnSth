@@ -95,36 +95,51 @@
     const int colorHeight = normalImage.size.height;
     
     size_t bytesPerRow = colorWidth * 4;
-    uint32_t *rgbImageBuf = (uint32_t*)malloc(bytesPerRow * colorHeight);
-    CGContextRef context = CGBitmapContextCreate(rgbImageBuf, colorWidth, colorHeight, 8, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
+    uint32_t *imagaData = (uint32_t*)malloc(bytesPerRow * colorHeight);
+    CGContextRef context = CGBitmapContextCreate(imagaData, colorWidth, colorHeight, 8, bytesPerRow, CGColorSpaceCreateDeviceRGB(),kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
+    //注意参数kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast。。
+    
     CGContextDrawImage(context, CGRectMake(0, 0, colorWidth, colorHeight), normalImage.CGImage);
     // 遍历像素
     int pixelNum = colorWidth * colorHeight;
-    uint32_t* pCurPtr = rgbImageBuf;
+    uint32_t* pCurPtr = imagaData;
     for (int i = 0; i < pixelNum; i++, pCurPtr++){
-        if ((*pCurPtr & 0xFFFFFF00) < 0x99999900) {
-            // 改成下面的代码，会将图片转成想要的颜色。这里理解为：二维码颜色
+        if ((*pCurPtr & 0xFFFFFF00) == 0) {
+            //(*pCurPtr & 0xFFFFFF00) < 0x99999900。将黑色转变为自定义颜色，这里理解为：二维码颜色
             uint8_t* ptr = (uint8_t*)pCurPtr;
             ptr[3] = fRed; //0~255
             ptr[2] = fGreen;
             ptr[1] = fBlue;
-        } else {
-            //这里理解为：背景色
+        } else if ((*pCurPtr & 0xFFFFFF00) == 0xffffff00) {
+            //将白色转变为自定义颜色，这里理解为：背景色
             uint8_t* ptr = (uint8_t*)pCurPtr;
-//            ptr[0] = 0;//透明
-            ptr[3] = bRed; //0~255
-            ptr[2] = bGreen;
-            ptr[1] = bBlue;
+            ptr[0] = 0;//透明
+//            ptr[3] = bRed; //0~255
+//            ptr[2] = bGreen;
+//            ptr[1] = bBlue;
         }
     }
+    
+    // 将内存转成image
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, imagaData, bytesPerRow * colorHeight, ProviderReleaseData);
+    CGImageRef imageRef = CGImageCreate(colorWidth, colorHeight, 8, 32, bytesPerRow, CGColorSpaceCreateDeviceRGB(),
+                                        kCGImageAlphaLast | kCGBitmapByteOrder32Little, dataProvider,
+                                        NULL, true, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    
     // 输出图片
-    CGImageRef imageRef = CGBitmapContextCreateImage(context);
+//    CGImageRef imageRef = CGBitmapContextCreateImage(context);
     UIImage *colorImage = [UIImage imageWithCGImage:imageRef];
     
     CGImageRelease(imageRef);
     CGContextRelease(context);
     
     return colorImage;
+}
+
+void ProviderReleaseData (void *info, const void *data, size_t size)
+{
+    free((void*)data);
 }
 
 + (UIImage *)imageWithText:(NSString *)text size:(CGFloat)size frontColor:(CIColor *)fColor backColor:(CIColor *)bColor watermark:(UIImage *)watermark {

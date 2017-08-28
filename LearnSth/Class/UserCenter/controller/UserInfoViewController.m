@@ -133,14 +133,17 @@ static NSString *Identifier = @"cell";
             headerImageView.layer.cornerRadius = 3;
             [cell.contentView addSubview:headerImageView];
             
-            NSData *data = [UserManager shareManager].headerImageData;
-            if (data) {
-                if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
-                    headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-                } else {
-                    headerImageView.image = [UIImage imageWithData:data];
-                }
-            }
+//            NSData *data = [UserManager shareManager].headerImageData;
+//            if (data) {
+//                if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
+//                    headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
+//                } else {
+//                    headerImageView.image = [UIImage imageWithData:data];
+//                }
+//            }
+            
+            [headerImageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerImage]
+                               placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
         }
         
         return cell;

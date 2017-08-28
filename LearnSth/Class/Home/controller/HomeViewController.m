@@ -50,6 +50,7 @@
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
