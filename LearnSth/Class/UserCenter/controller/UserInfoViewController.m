@@ -13,6 +13,7 @@
 #import "IDCardViewController.h"
 #import "UserQRCodeController.h"
 
+#import "HttpConnection.h"
 #import "UserManager.h"
 #import "AnimatedTransitioning.h"
 
@@ -83,10 +84,7 @@ static NSString *Identifier = @"cell";
     __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
     UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         UITextField *field = weakAlert.textFields[0];
-        [UserManager shareManager].username = field.text;
-        [UserManager updateUser];
-        
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateUsername:field.text];
     }];
     [alert addAction:cancelAction];
     [alert addAction:certainAction];
@@ -115,6 +113,23 @@ static NSString *Identifier = @"cell";
 }
 
 #pragma mark
+- (void)updateUsername:(NSString *)username {
+    [self loading];
+    
+    NSDictionary *param = @{@"username":username};
+    [[HttpConnection defaultConnection] userUpdate:[UserManager shareManager].objectId WithParam:param completion:^(NSDictionary *data, NSError *error) {
+        [self hideHUD];
+        if (data) {
+            [UserManager shareManager].username = username;
+            [UserManager updateUser];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [self showError:@"修改失败"];
+        }
+    }];
+}
+
+#pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
@@ -130,7 +145,7 @@ static NSString *Identifier = @"cell";
             headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 80, 10, 50, 50)];
             headerImageView.tag = 101;
             headerImageView.layer.masksToBounds = YES;
-            headerImageView.layer.cornerRadius = 3;
+            headerImageView.layer.cornerRadius = 25;
             [cell.contentView addSubview:headerImageView];
             
 //            NSData *data = [UserManager shareManager].headerImageData;
@@ -142,7 +157,7 @@ static NSString *Identifier = @"cell";
 //                }
 //            }
             
-            [headerImageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerImage]
+            [headerImageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerUrl]
                                placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
         }
         

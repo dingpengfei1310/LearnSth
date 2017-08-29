@@ -10,6 +10,7 @@
 
 #import "UserManager.h"
 #import "HttpConnection.h"
+#import "UIImage+Tool.h"
 
 @interface EditImageController ()<UIScrollViewDelegate> {
     CGFloat circleW;
@@ -112,31 +113,47 @@
                               circleW / size.width * imageRefWidth);
     CGImageRef imageRef = CGImageCreateWithImageInRect(_originalImage.CGImage, rect);
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(circleW, circleW), NO, 0);
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, circleW, circleW) cornerRadius:circleW * 0.5];
-    [bezierPath addClip];
-    [[UIImage imageWithCGImage:imageRef] drawInRect:CGRectMake(0, 0, circleW, circleW)];
+    CGFloat imageW = circleW;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(imageW, imageW), NO, 1);
+//    //切圆角
+//    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, imageW, imageW) cornerRadius:imageW * 0.5];
+//    [bezierPath addClip];
+    [[UIImage imageWithCGImage:imageRef] drawInRect:CGRectMake(0, 0, imageW, imageW)];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     CGImageRelease(imageRef);
     
-//    UIImageJPEGRepresentation(image, 0.8)
+//    NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+    
     [self loadingWithText:@"正在上传"];
-    [HttpConnection uploadImageWithName:@"00" data:UIImagePNGRepresentation(image) completion:^(NSDictionary *data, NSError *error) {
+    [[HttpConnection defaultConnection] uploadImageWithName:@"" data:imageData completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            [self hideHUD];
+            [self showError:@"上传失败"];
+        } else {
+            [self updateUserHeaderImage:data[@"url"] image:image];
+        }
+    }];
+}
+
+- (void)updateUserHeaderImage:(NSString *)imageUrl image:(UIImage *)image {
+    
+    NSDictionary *param = @{@"headerUrl":imageUrl};
+    [[HttpConnection defaultConnection] userUpdate:[UserManager shareManager].objectId WithParam:param completion:^(NSDictionary *data, NSError *error) {
         [self hideHUD];
         
         if (error) {
             [self showError:@"上传失败"];
         } else {
-            [UserManager shareManager].headerImage = data[@"url"];
+            [UserManager shareManager].headerUrl = imageUrl;
             [UserManager updateUser];
             
             if (self.ImageFinishBlock) {
                 self.ImageFinishBlock(image);
             }
         }
-        
     }];
 }
 

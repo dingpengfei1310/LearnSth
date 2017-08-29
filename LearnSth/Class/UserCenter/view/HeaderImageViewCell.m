@@ -39,7 +39,7 @@
     
     _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
     _headerImageView.layer.masksToBounds = YES;
-    _headerImageView.layer.cornerRadius = 3;
+    _headerImageView.layer.cornerRadius = 25;
     [self.contentView addSubview:_headerImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_headerImageView.frame) + 10, 10, 200, 25)];
@@ -55,7 +55,7 @@
     if ([CustomiseTool isLogin]) {
         self.detailTextLabel.text = nil;
         _nameLabel.text = userModel.username;
-        _mobileLabel.text = userModel.mobile;
+        _mobileLabel.text = userModel.mobilePhoneNumber;
         
 //        NSData *data = userModel.headerImageData;
 //        if (data) {
@@ -68,7 +68,7 @@
 //            _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
 //        }
         
-        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headerImage]
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headerUrl]
                             placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
         
     } else {

@@ -14,6 +14,7 @@
 #import "UserManager.h"
 #import "NSString+Tool.h"
 #import "UIImage+Tool.h"
+#import "HttpConnection.h"
 
 @interface LoginViewController () {
     CGFloat viewW;
@@ -66,7 +67,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     //账号
     _accountField = [[UITextField alloc] initWithFrame:CGRectMake(fieldMargin, topSpace, filedW, fieldHeight)];
     _accountField.placeholder = @"请输入手机号";
-    _accountField.text = [UserManager shareManager].mobile;
+    _accountField.text = [UserManager shareManager].mobilePhoneNumber;
     _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _accountField.keyboardType = UIKeyboardTypeNumberPad;
     _accountField.leftViewMode = UITextFieldViewModeAlways;
@@ -168,11 +169,11 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)quickRegisterClick:(UIButton *)button {
-//    RegisterViewController *controller = [[RegisterViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
-    
-    VerifyCodeLoginController *controller = [[VerifyCodeLoginController alloc] init];
+    RegisterViewController *controller = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+    
+//    VerifyCodeLoginController *controller = [[VerifyCodeLoginController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
     
 //    self.isLoginState = !self.isLoginState;
 //    if (self.isLoginState) {
@@ -214,7 +215,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
         [self loadingWithText:@"登录中..."];
         
         NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
-        [[HttpManager shareManager] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
+        [[HttpConnection defaultConnection] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
             [self hideHUD];
             
             if (!error) {
@@ -223,9 +224,11 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
                 
                 [[UserManager shareManager] setValuesForKeysWithDictionary:data];
                 
+                [UserManager updateUser];
+                
                 [self dismissLoginController];
             } else {
-                 [self showErrorWithError:error];
+                [self showErrorWithError:error];
             }
         }];
     }
@@ -240,7 +243,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
             [self dismissLoginController];
             
             NSString *password = [self.passwordField.text MD5String];
-            [UserManager shareManager].mobile = self.accountField.text;
+            [UserManager shareManager].mobilePhoneNumber = self.accountField.text;
 //            [UserManager shareManager].password = password;
             [UserManager shareManager].username = @"我是谁";
             
@@ -249,7 +252,6 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
             [UserManager updateUser];
             
             [CustomiseTool setIsLogin:YES];
-            
         });
     }
 }

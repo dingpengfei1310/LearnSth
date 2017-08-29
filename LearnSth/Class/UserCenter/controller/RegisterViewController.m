@@ -89,16 +89,20 @@
         return;
     }
     
-    [CustomiseTool setIsLogin:YES];
+    NSDictionary *param = @{@"username":self.accountField.text,@"password":self.pwdField.text,@"mobilePhoneNumber":self.accountField.text};
+    [[HttpConnection defaultConnection] userRegisterWithParam:param completion:^(NSDictionary *data, NSError *error) {
+//        [CustomiseTool setIsLogin:YES];
+        
+        
+    }];
     
-    NSString *password = [self.pwdField.text MD5String];
-    [UserManager shareManager].mobile = self.accountField.text;
-//    [UserManager shareManager].password = password;
-    [UserManager shareManager].username = @"我是谁";
     
-    [UserManager updateUser];
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//    [UserManager shareManager].mobilePhoneNumber = self.accountField.text;
+//    [UserManager shareManager].username = @"我是谁";
+//    
+//    [UserManager updateUser];
+//    
+//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)textFieldValueChanged:(UITextField *)textField {

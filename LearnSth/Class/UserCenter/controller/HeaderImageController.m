@@ -36,11 +36,9 @@
 //    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerImage]
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerUrl]
                   placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
     [self.view addSubview:_imageView];
-    
-//    _imageView.image = [UIImage imageWithData:[UserManager shareManager].headerImageData];
     
 //    NSData *data = [UserManager shareManager].headerImageData;
 //    if (data) {
@@ -150,8 +148,6 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             
             self.imageView.image = editImage;
-//            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(editImage);
-//            [UserManager updateUser];
             if (self.ChangeHeaderImageBlock) {
                 self.ChangeHeaderImageBlock();
             }

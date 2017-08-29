@@ -8,17 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-//typedef void (^Success)(id responseData);
-//typedef void (^Failure)(NSError *error);
-
+typedef void (^CompletionArray)(NSArray *list,NSError *error);
 typedef void (^Completion)(NSDictionary *data,NSError *error);
 
 
 @interface HttpConnection : NSObject
 
-+ (void)userRegisterWithParam:(NSDictionary *)param completion:(Completion)completion;
-+ (void)userLoginWithParam:(NSDictionary *)param completion:(Completion)completion;
++ (instancetype)defaultConnection;
 
-+ (void)uploadImageWithName:(NSString *)name data:(NSData *)data completion:(Completion)completion;
+#pragma mark
+///注册
+- (void)userRegisterWithParam:(NSDictionary *)param completion:(Completion)completion;
+///登录
+- (void)userLoginWithParam:(NSDictionary *)param completion:(Completion)completion;
+///修改信息
+- (void)userUpdate:(NSString *)objectId WithParam:(NSDictionary *)param completion:(Completion)completion;
+///上传头像
+- (void)uploadImageWithName:(NSString *)name data:(NSData *)data completion:(Completion)completion;
+//- (void)uploadImageWithUserInfo:(NSDictionary *)info data:(NSData *)imageData completion:(Completion)completion;
 
 @end

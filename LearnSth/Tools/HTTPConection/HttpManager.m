@@ -9,11 +9,7 @@
 #import "HttpManager.h"
 #import <AFNetworking.h>
 
-const NSTimeInterval timeoutInterval = 10.0;
-
-static NSString *HttpUrl = @"https://api.leancloud.cn/1.1/";
-static NSString *App_Id = @"OWeFHFMxQw86Jivizz0B6jcE-gzGzoHsz";
-static NSString *App_Key = @"064JmjwmQF0tcLaF7BBPJWxL";
+const NSTimeInterval timeoutInterval = 15.0;
 
 @interface HttpManager ()
 
@@ -40,9 +36,6 @@ static NSString *App_Key = @"064JmjwmQF0tcLaF7BBPJWxL";
         [multSet addObject:@"text/html"];
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
         _sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
-        
-        [_sessionManager.requestSerializer setValue:App_Id forHTTPHeaderField:@"X-LC-Id"];
-        [_sessionManager.requestSerializer setValue:App_Key forHTTPHeaderField:@"X-LC-Key"];
     }
     return self;
 }
@@ -61,10 +54,6 @@ static NSString *App_Key = @"064JmjwmQF0tcLaF7BBPJWxL";
                   success:(Success)success
                   failure:(Failure)failure {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    if (![urlString hasPrefix:@"http"]) {
-        urlString = [NSString stringWithFormat:@"%@%@",HttpUrl,urlString];
-    }
     
     [self.sessionManager GET:urlString
                   parameters:paramets
@@ -174,100 +163,6 @@ static NSString *App_Key = @"064JmjwmQF0tcLaF7BBPJWxL";
     } failure:^(NSError *error) {
 //        NSLog(@"%@",error);
     }];
-}
-
-#pragma mark
-- (void)userRegisterWithParam:(NSDictionary *)param completion:(Completion)completion {
-    [self postDataWithString:@"users" paramets:param success:^(id responseData) {
-        completion(responseData,nil);
-    } failure:^(NSError *error) {
-        completion(nil,error);
-    }];
-    
-//    NSString *url = [NSString stringWithFormat:@"%@users",HttpUrl];
-//    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-//    requestM.HTTPMethod = @"POST";
-//    
-//    [requestM setValue:App_Id forHTTPHeaderField:@"X-LC-Id"];
-//    [requestM setValue:App_Key forHTTPHeaderField:@"X-LC-Key"];
-//    [requestM setValue:@"application/octet-stream" forHTTPHeaderField:@"Content-Type"];
-//    
-//    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
-//    [requestM setHTTPBody:data];
-//    
-//    NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:requestM completionHandler:^(NSURLResponse * response, id responseObject, NSError * error) {
-////        NSString *ss = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@",responseObject);
-//    }];
-//    [task resume];
-    
-//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-//    
-//    NSString *url = [NSString stringWithFormat:@"%@users",HttpUrl];
-//    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-//    requestM.HTTPMethod = @"POST";
-//    
-//    [requestM setValue:App_Id forHTTPHeaderField:@"X-LC-Id"];
-//    [requestM setValue:App_Key forHTTPHeaderField:@"X-LC-Key"];
-//    
-////    @"username":@"15381026458",@"password":@"123456"
-////    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
-////    NSData *data = [@"username=15381026458&password=123456" dataUsingEncoding:NSUTF8StringEncoding];
-////    [requestM setHTTPBody:data];
-//    
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:requestM completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-//        NSString *ss = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@",ss);
-//    }];
-//    [task resume];
-    
-}
-
-- (void)userLoginWithParam:(NSDictionary *)param completion:(Completion)completion {
-    [self getDataWithString:@"login" paramets:param success:^(id responseData) {
-        completion(responseData,nil);
-    } failure:^(NSError *error) {
-        completion(nil,error);
-    }];
-}
-
-- (void)uploadImage:(NSData *)data {
-//    NSString *urlString = [NSString stringWithFormat:@"%@files/8_28.png",HttpUrl];
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    NSMutableURLRequest *requestM = [self mutableURLRequest];
-//    requestM.URL = url;
-//    [requestM setValue:@"image/png" forHTTPHeaderField:@"Content-Type"];
-//    //    [requestM setValue:data forKey:@"--data-binary"];
-//    
-//    NSURLSession *session = [self session];
-//    //    NSURLSessionDataTask *task = [session dataTaskWithRequest:requestM completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-//    //        if (error) {
-//    //            NSLog(@"%@",error);
-//    //        } else {
-//    //            NSError *jsonError;
-//    //            NSDictionary *dataInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-//    //            NSLog(@"%@",dataInfo);
-//    //        }
-//    //
-//    //    }];
-//    //    [task resume];
-//    
-//    NSURLSessionDataTask *task = [session uploadTaskWithRequest:requestM fromData:data completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-//        if (error) {
-//            NSLog(@"%@",error);
-//        } else {
-//            NSError *jsonError;
-//            NSDictionary *dataInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-//            NSLog(@"%@",dataInfo);
-//        }
-//    }];
-//    [task resume];
-//    
-//    
-//    
-//    
-//    [self.sessionManager uploadTaskWithRequest:<#(nonnull NSURLRequest *)#> fromData:<#(nullable NSData *)#> progress:<#^(NSProgress * _Nonnull uploadProgress)uploadProgressBlock#> completionHandler:<#^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)completionHandler#>];
 }
 
 #pragma mark

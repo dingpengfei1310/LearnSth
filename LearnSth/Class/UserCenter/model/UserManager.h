@@ -12,15 +12,14 @@
 @interface UserManager : NSObject
 
 @property (nonatomic, copy) NSString *objectId;
+//@property (nonatomic, copy) NSString *sessionToken;
 
 @property (nonatomic, copy) NSString *createdAt;
 @property (nonatomic, copy) NSString *updatedAt;
 
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *mobile;
-
-//@property (nonatomic, strong) NSData *headerImageData;
-@property (nonatomic, copy) NSString *headerImage;
+@property (nonatomic, copy) NSString *mobilePhoneNumber;
+@property (nonatomic, copy) NSString *headerUrl;
 
 @property (nonatomic, strong) AddressModel *address;
 

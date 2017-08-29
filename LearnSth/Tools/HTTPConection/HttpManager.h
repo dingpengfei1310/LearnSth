@@ -37,8 +37,4 @@ typedef NS_ENUM(NSInteger, HttpErrorCode) {
 ///本地测试数据
 - (void)getLoacalTestDataCompletion:(CompletionArray)completion;
 
-- (void)userLoginWithParam:(NSDictionary *)param completion:(Completion)completion;
-
-- (void)uploadImage:(NSData *)data;
-
 @end
