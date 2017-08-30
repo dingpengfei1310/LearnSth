@@ -8,12 +8,22 @@
 
 #import "HttpConnection.h"
 #import "CustomiseTool.h"
+#import "UserManager.h"
 
-static NSString *HttpUrl = @"https://api.bmob.cn/1/";
-static NSString *FileUrl = @"https://api.bmob.cn/2/";
+//static NSString *HttpUrl = @"https://api.bmob.cn/1/";
+//static NSString *FileUrl = @"https://api.bmob.cn/2/";
+//
+//static NSString *App_Id = @"0be470c9a422cb420388bd703898ee16";
+//static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
 
-static NSString *App_Id = @"0be470c9a422cb420388bd703898ee16";
-static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
+static NSString *HttpUrl = @"https://api.leancloud.cn/1.1/";
+static NSString *FileUrl = @"https://api.leancloud.cn/1.1/";
+
+static NSString *App_Id = @"OWeFHFMxQw86Jivizz0B6jcE-gzGzoHsz";
+static NSString *App_Key = @"064JmjwmQF0tcLaF7BBPJWxL";
+
+static NSString *App_Id_Filed = @"X-LC-Id";
+static NSString *App_Key_Field = @"X-LC-Key";
 
 @interface HttpConnection ()
 
@@ -45,8 +55,12 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
-    [requestM setValue:App_Id forHTTPHeaderField:@"X-Bmob-Application-Id"];
-    [requestM setValue:App_Key forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
+    [requestM setValue:App_Id forHTTPHeaderField:App_Id_Filed];
+    [requestM setValue:App_Key forHTTPHeaderField:App_Key_Field];
+    [requestM setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if ([CustomiseTool loginToken]) {
+        [requestM setValue:[CustomiseTool loginToken] forHTTPHeaderField:@"X-LC-Session"];
+    }
     return requestM;
 }
 
@@ -54,11 +68,7 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
                     param:(NSDictionary *)param
                completion:(Completion)completion {
     NSString *urlString = [NSString stringWithFormat:@"%@%@?%@",HttpUrl,URLString,[self stringWithDictionary:param]];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
-    [requestM setValue:App_Id forHTTPHeaderField:@"X-Bmob-Application-Id"];
-    [requestM setValue:App_Key forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
+    NSMutableURLRequest *requestM = [self mutableRequestWithUrl:urlString];
     
     NSURLSessionDataTask *task = [_URLSession dataTaskWithRequest:requestM completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -85,15 +95,13 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
                   param:(NSDictionary *)param
                 completion:(Completion)completion {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",HttpUrl,URLString];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
     
-    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *requestM = [self mutableRequestWithUrl:urlString];
     requestM.HTTPMethod = @"POST";
-    requestM.HTTPBody = data;
-    [requestM setValue:App_Id forHTTPHeaderField:@"X-Bmob-Application-Id"];
-    [requestM setValue:App_Key forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
-    [requestM setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if (param) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
+        requestM.HTTPBody = data;
+    }
     
     NSURLSessionDataTask *task = [_URLSession dataTaskWithRequest:requestM completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -120,17 +128,12 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
                      param:(NSDictionary *)param
                 completion:(Completion)completion {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",HttpUrl,URLString];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
     
-    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *requestM = [self mutableRequestWithUrl:urlString];
     requestM.HTTPMethod = @"PUT";
-    requestM.HTTPBody = data;
-    [requestM setValue:App_Id forHTTPHeaderField:@"X-Bmob-Application-Id"];
-    [requestM setValue:App_Key forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
-    [requestM setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    if ([CustomiseTool isLogin]) {
-        [requestM setValue:[CustomiseTool loginToken] forHTTPHeaderField:@"X-Bmob-Session-Token"];
+    if (param) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:param options:NSJSONWritingPrettyPrinted error:nil];
+        requestM.HTTPBody = data;
     }
     
     NSURLSessionDataTask *task = [_URLSession dataTaskWithRequest:requestM completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
@@ -155,21 +158,104 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
 }
 
 #pragma mark -
+- (void)userGetSMSCodeWithParam:(NSDictionary *)param completion:(Completion)completion {
+    [self postDataWithString:@"requestSmsCode" param:param completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            completion(nil,error);
+        } else {
+            completion(data,nil);
+        }
+    }];
+}
+
+- (void)userLoginWithSMSCode:(NSDictionary *)param completion:(Completion)completion {
+    [self postDataWithString:@"usersByMobilePhone" param:param completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            completion(nil,error);
+        } else if (data[@"code"]) {
+            NSString *message = @"验证码错误";
+            NSInteger code = 0;
+            NSDictionary *info = @{@"message":message};
+            
+            NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+            completion(nil,jsonError);
+        } else {
+            completion(data,nil);
+        }
+    }];
+}
+
+- (void)userLoginWithTokenCompletion:(Completion)completion {
+    [self getDataWithString:@"users/me" param:nil completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            completion(nil,error);
+        } else if (data[@"code"]) {
+            NSString *message = @"Token错误";
+            NSInteger code = [data[@"code"] integerValue];
+            NSDictionary *info = @{@"message":message};
+            
+            NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+            completion(nil,jsonError);
+        } else {
+            completion(data,nil);
+        }
+    }];
+}
+- (void)userResetTokenCompletion:(Completion)completion {
+    NSString *urlString = [NSString stringWithFormat:@"users/%@/refreshSessionToken",[UserManager shareManager].objectId];
+    [self putDataWithString:urlString param:nil completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            completion(nil,error);
+        } else if (data[@"code"]) {
+            NSString *message = @"重置Token错误";
+            NSInteger code = [data[@"code"] integerValue];
+            NSDictionary *info = @{@"message":message};
+            
+            NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+            completion(nil,jsonError);
+        } else {
+            completion(data,nil);
+        }
+    }];
+}
+
+- (void)userFindPasswordWithParam:(NSDictionary *)param Completion:(Completion)completion {
+    NSString *urlString = [NSString stringWithFormat:@"resetPasswordBySmsCode/%@",param[@"code"]];
+//    NSDictionary *par = @{}:
+    
+    [self putDataWithString:urlString param:param completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            completion(nil,error);
+        } else {
+            completion(data,nil);
+        }
+    }];
+}
+
+#pragma mark
 - (void)userRegisterWithParam:(NSDictionary *)param completion:(Completion)completion {
     [self postDataWithString:@"users" param:param completion:^(NSDictionary *data, NSError *error) {
         if (error) {
             completion(nil,error);
-        } else {
+        } else if (data[@"code"]) {
+            NSString *message = @"注册失败";
+            NSInteger code = 0;
+            NSDictionary *info = @{@"message":message};
+            
+            NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+            
             if ([data[@"code"] integerValue] == 202) {
                 NSString *message = @"手机号已被注册";
                 NSInteger code = 0;
                 NSDictionary *info = @{@"message":message};
                 
-                NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+                jsonError = [NSError errorWithDomain:message code:code userInfo:info];
                 completion(nil,jsonError);
             } else {
-                completion(data,nil);
+                completion(nil,jsonError);
             }
+        } else {
+            completion(data,nil);
         }
     }];
 }
@@ -178,17 +264,16 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
     [self getDataWithString:@"login" param:param completion:^(NSDictionary *data, NSError *error) {
         if (error) {
             completion(nil,error);
+        } else if (data[@"code"]) {
+            NSString *message = @"用户名或密码错误";
+            NSInteger code = 0;
+            NSDictionary *info = @{@"message":message};
+            
+            NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
+            completion(nil,jsonError);
+            
         } else {
-            if ([data[@"code"] integerValue] == 101) {
-                NSString *message = @"用户名或密码错误";
-                NSInteger code = 0;
-                NSDictionary *info = @{@"message":message};
-                
-                NSError *jsonError = [NSError errorWithDomain:message code:code userInfo:info];
-                completion(nil,jsonError);
-            } else {
-                completion(data,nil);
-            }
+            completion(data,nil);
         }
     }];
 }
@@ -208,15 +293,12 @@ static NSString *App_Key = @"70331dfe7b1a72c57dfcba0dff017b12";
     }];
 }
 
-#pragma mark
+#pragma mark -  上传图片
 - (void)uploadImageWithName:(NSString *)name data:(NSData *)data completion:(Completion)completion; {
-    NSString *urlString = [NSString stringWithFormat:@"%@files/8_28.png",FileUrl];
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSString *urlString = [NSString stringWithFormat:@"%@files/%@",FileUrl,name];
     
-    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *requestM = [self mutableRequestWithUrl:urlString];
     requestM.HTTPMethod = @"POST";
-    [requestM setValue:App_Id forHTTPHeaderField:@"X-Bmob-Application-Id"];
-    [requestM setValue:App_Key forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
     [requestM setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
     
     NSURLSessionDataTask *task = [_URLSession uploadTaskWithRequest:requestM fromData:data completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {

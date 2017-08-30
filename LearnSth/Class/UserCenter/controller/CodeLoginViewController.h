@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
-@interface RegisterViewController : BaseViewController
+@interface CodeLoginViewController : BaseViewController
+
+@property (nonatomic, copy) void (^LoginSuccessBlock)();
 
 @end

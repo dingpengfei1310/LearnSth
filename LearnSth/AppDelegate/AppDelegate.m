@@ -13,6 +13,8 @@
 #import "ShowViewController.h"
 #import "FPSLabel.h"
 #import "CustomiseTool.h"
+#import "HttpConnection.h"
+#import "UserManager.h"
 
 @interface AppDelegate ()
 @end
@@ -38,6 +40,8 @@
     
     [self setNavigationBar];
     
+    [self autoLogin];//自动登录
+    
     return YES;
 }
 
@@ -62,6 +66,34 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
 
+- (void)autoLogin {
+    [CustomiseTool setIsLogin:NO];
+    
+    if ([CustomiseTool loginToken]) {
+        [[HttpConnection defaultConnection] userLoginWithTokenCompletion:^(NSDictionary *data, NSError *error) {
+            if (error) {
+                if (error.code == 403) {
+                    [CustomiseTool setLoginToken:nil];
+                }
+                [CustomiseTool setIsLogin:NO];
+            } else {
+                [CustomiseTool setIsLogin:YES];
+                [CustomiseTool setLoginToken:data[@"sessionToken"]];
+                
+                [[UserManager shareManager] setValuesForKeysWithDictionary:data];
+                [UserManager updateUser];
+                
+                [[HttpConnection defaultConnection] userResetTokenCompletion:^(NSDictionary *data, NSError *error) {
+                    if (!error) {
+                        [CustomiseTool setLoginToken:data[@"sessionToken"]];
+                    }
+                }];
+            }
+        }];
+    }
+}
+
+#pragma mark
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     if (self.isAutorotate) {
         return UIInterfaceOrientationMaskAllButUpsideDown;

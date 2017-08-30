@@ -17,6 +17,17 @@ typedef void (^Completion)(NSDictionary *data,NSError *error);
 + (instancetype)defaultConnection;
 
 #pragma mark
+///获取验证码
+- (void)userGetSMSCodeWithParam:(NSDictionary *)param completion:(Completion)completion;
+///验证码登录第一次默认注册)
+- (void)userLoginWithSMSCode:(NSDictionary *)param completion:(Completion)completion;
+///自动登录(token)
+- (void)userLoginWithTokenCompletion:(Completion)completion;
+///重置Token
+- (void)userResetTokenCompletion:(Completion)completion;
+///找回密码(验证码找回)
+- (void)userFindPasswordWithParam:(NSDictionary *)param Completion:(Completion)completion;
+
 ///注册
 - (void)userRegisterWithParam:(NSDictionary *)param completion:(Completion)completion;
 ///登录

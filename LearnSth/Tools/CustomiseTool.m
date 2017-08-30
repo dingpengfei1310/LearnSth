@@ -30,6 +30,7 @@ static NSString *ENLANGUAGE = @"en";
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KLanguageTypeCache];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KLoginToken];
 }
 
 #pragma mark

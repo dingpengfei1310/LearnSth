@@ -127,8 +127,12 @@
 //    NSData *imageData = UIImagePNGRepresentation(image);
     NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyMMddHHmmsss";
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    
     [self loadingWithText:@"正在上传"];
-    [[HttpConnection defaultConnection] uploadImageWithName:@"" data:imageData completion:^(NSDictionary *data, NSError *error) {
+    [[HttpConnection defaultConnection] uploadImageWithName:dateString data:imageData completion:^(NSDictionary *data, NSError *error) {
         if (error) {
             [self hideHUD];
             [self showError:@"上传失败"];
@@ -147,6 +151,8 @@
         if (error) {
             [self showError:@"上传失败"];
         } else {
+            [self showError:@"上传成功"];
+            
             [UserManager shareManager].headerUrl = imageUrl;
             [UserManager updateUser];
             

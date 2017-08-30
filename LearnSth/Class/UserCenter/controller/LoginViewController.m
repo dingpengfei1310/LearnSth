@@ -7,8 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import "RegisterViewController.h"
-#import "VerifyCodeLoginController.h"
+#import "CodeLoginViewController.h"
+#import "FindPasswordController.h"
 
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UserManager.h"
@@ -24,13 +24,11 @@
 @property (nonatomic, strong) UITextField *passwordField;
 
 @property (nonatomic, strong) UIButton *loginButton;//登录
-@property (nonatomic, strong) UIButton *quickRegButton;//快速注册、返回登录
+@property (nonatomic, strong) UIButton *quickLoginButton;//快速登录
 @property (nonatomic, strong) UIButton *forgetButton;//忘记密码
 
 @property (nonatomic, strong) NSDictionary *attNormal;
 @property (nonatomic, strong) NSDictionary *attHighlighted;
-
-@property (nonatomic, assign) BOOL isLoginState;//是否是登录模式（还有注册模式）
 
 @end
 
@@ -46,7 +44,6 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initSubView];
-    self.isLoginState = YES;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
     
@@ -59,7 +56,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)initSubView {
-    viewW = CGRectGetWidth(self.view.frame);
+    viewW = [UIScreen mainScreen].bounds.size.width;
     TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, viewW, Screen_H - 64)];
     [self.view addSubview:scrollView];
 
@@ -121,7 +118,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     [_loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:self.loginButton];
     
-    //快速注册
+    //快速登录
     CGFloat buttonW = 80;
     UIFont *font = [UIFont systemFontOfSize:16];
     _attNormal = @{NSFontAttributeName:font,NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
@@ -131,14 +128,14 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     
     CGFloat quickRegButtonY = CGRectGetMaxY(self.loginButton.frame);
     CGRect rect = CGRectMake(fieldMargin, quickRegButtonY, buttonW, 40);
-    _quickRegButton = [[UIButton alloc] initWithFrame:rect];
-    _quickRegButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    NSAttributedString *stringNormal = [[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attNormal];
-    NSAttributedString *stringHighlighted = [[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attHighlighted];
-    [_quickRegButton setAttributedTitle:stringNormal forState:UIControlStateNormal];
-    [_quickRegButton setAttributedTitle:stringHighlighted forState:UIControlStateHighlighted];
-    [_quickRegButton addTarget:self action:@selector(quickRegisterClick:) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:self.quickRegButton];
+    _quickLoginButton = [[UIButton alloc] initWithFrame:rect];
+    _quickLoginButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    NSAttributedString *stringNormal = [[NSAttributedString alloc] initWithString:@"快速登录" attributes:_attNormal];
+    NSAttributedString *stringHighlighted = [[NSAttributedString alloc] initWithString:@"快速登录" attributes:_attHighlighted];
+    [_quickLoginButton setAttributedTitle:stringNormal forState:UIControlStateNormal];
+    [_quickLoginButton setAttributedTitle:stringHighlighted forState:UIControlStateHighlighted];
+    [_quickLoginButton addTarget:self action:@selector(quickRegisterClick:) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:self.quickLoginButton];
     
     //忘记密码
     rect = CGRectMake(viewW - buttonW - fieldMargin, quickRegButtonY, buttonW, 40);
@@ -160,61 +157,13 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)loginClick {
-    if (self.isLoginState) {
-        [self loginAction];
-        
-    } else {
-        [self registerAction];
-    }
-}
-
-- (void)quickRegisterClick:(UIButton *)button {
-    RegisterViewController *controller = [[RegisterViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-    
-//    VerifyCodeLoginController *controller = [[VerifyCodeLoginController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
-    
-//    self.isLoginState = !self.isLoginState;
-//    if (self.isLoginState) {
-//        self.title = @"登录";
-//        self.forgetButton.hidden = NO;
-//        [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
-//        
-//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attNormal]
-//                          forState:UIControlStateNormal];
-//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"快速注册" attributes:_attHighlighted]
-//                          forState:UIControlStateHighlighted];
-//        
-//        self.accountField.text = [UserManager shareManager].mobile;
-//        
-//    } else {
-//        self.title = @"注册";
-//        self.forgetButton.hidden = YES;
-//        [self.loginButton setTitle:@"注册" forState:UIControlStateNormal];
-//        
-//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attNormal]
-//                          forState:UIControlStateNormal];
-//        [button setAttributedTitle:[[NSAttributedString alloc] initWithString:@"返回登录" attributes:_attHighlighted]
-//                          forState:UIControlStateHighlighted];
-//        self.accountField.text = nil;
-//    }
-//    
-//    self.passwordField.text = nil;
-//    self.loginButton.enabled = NO;
-}
-
-- (void)forgetClick {
-    [self showAlertWithTitle:nil message:@"怪我咯😂" operationTitle:@"知道了" operation:nil];
-    
-    
-}
-
-- (void)loginAction {
     if ([self validateAccountAndPwd]) {
         [self loadingWithText:@"登录中..."];
         
-        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
+//        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
+        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
+//        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"smsCode":@"913667"};
+        
         [[HttpConnection defaultConnection] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
             [self hideHUD];
             
@@ -234,26 +183,19 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     }
 }
 
-- (void)registerAction {
-    if ([self validateAccountAndPwd]) {
-        [self loadingWithText:@"注册中..."];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            
-            [self hideHUD];
-            [self dismissLoginController];
-            
-            NSString *password = [self.passwordField.text MD5String];
-            [UserManager shareManager].mobilePhoneNumber = self.accountField.text;
-//            [UserManager shareManager].password = password;
-            [UserManager shareManager].username = @"我是谁";
-            
-//            UIImage *image = [UIImage imageNamed:@"defaultHeader"];
-//            [UserManager shareManager].headerImageData = UIImagePNGRepresentation(image);
-            [UserManager updateUser];
-            
-            [CustomiseTool setIsLogin:YES];
-        });
-    }
+- (void)quickRegisterClick:(UIButton *)button {
+    CodeLoginViewController *controller = [[CodeLoginViewController alloc] init];
+    controller.LoginSuccessBlock = ^{
+        self.LoginDismissBlock();
+    };
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)forgetClick {
+//    [self showAlertWithTitle:nil message:@"怪我咯😂" operationTitle:@"知道了" operation:nil];
+    
+    FindPasswordController *controller = [[FindPasswordController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (BOOL)validateAccountAndPwd {

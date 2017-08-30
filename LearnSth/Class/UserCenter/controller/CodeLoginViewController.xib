@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CodeLoginViewController">
             <connections>
                 <outlet property="accountField" destination="dja-NB-zcf" id="i34-qj-ftd"/>
                 <outlet property="buttonHeight" destination="mUj-Uo-ItK" id="2hh-eP-WlK"/>
+                <outlet property="codeField" destination="4dP-OT-HFD" id="amL-ho-iaB"/>
                 <outlet property="fieldHeight" destination="AUX-rr-cHj" id="v9M-uO-kpR"/>
                 <outlet property="leftMargin" destination="tz3-sm-ECr" id="ieR-gX-rp3"/>
-                <outlet property="pwdField" destination="4dP-OT-HFD" id="8gB-fP-csR"/>
-                <outlet property="rePwdField" destination="lE7-iC-QJO" id="wkA-M6-LPC"/>
                 <outlet property="registerButton" destination="1e5-tM-vdv" id="LDQ-8i-LoO"/>
                 <outlet property="ruleText" destination="5OP-aF-orR" id="wgd-0w-e0V"/>
                 <outlet property="view" destination="iN0-l3-epB" id="IkK-Rw-Q4z"/>
@@ -39,7 +38,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             <connections>
                                 <action selector="textFieldValueChanged:" destination="-1" eventType="editingChanged" id="IoW-a4-AdR"/>
                             </connections>
@@ -51,11 +50,11 @@
                                 <constraint firstAttribute="height" constant="1" id="HBW-kr-B2b"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4dP-OT-HFD">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4dP-OT-HFD">
                             <rect key="frame" x="40" y="84" width="240" height="40"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             <connections>
                                 <action selector="textFieldValueChanged:" destination="-1" eventType="editingChanged" id="m3g-pA-gFE"/>
                             </connections>
@@ -68,30 +67,14 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1e5-tM-vdv">
-                            <rect key="frame" x="40" y="209" width="240" height="48"/>
+                            <rect key="frame" x="40" y="169" width="240" height="48"/>
                             <state key="normal" title="注册"/>
                             <connections>
                                 <action selector="regClick:" destination="-1" eventType="touchUpInside" id="1yh-gH-aud"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-iC-QJO">
-                            <rect key="frame" x="40" y="125" width="240" height="40"/>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
-                            <connections>
-                                <action selector="textFieldValueChanged:" destination="-1" eventType="editingChanged" id="52T-at-aF7"/>
-                            </connections>
-                        </textField>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQt-W1-gFB">
-                            <rect key="frame" x="40" y="165" width="240" height="1"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="g1W-m0-sdS"/>
-                            </constraints>
-                        </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="text" translatesAutoresizingMaskIntoConstraints="NO" id="5OP-aF-orR">
-                            <rect key="frame" x="40" y="257" width="240" height="30"/>
+                            <rect key="frame" x="40" y="217" width="240" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="AON-70-JPf"/>
@@ -101,22 +84,16 @@
                         </textView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="lE7-iC-QJO" firstAttribute="height" secondItem="dja-NB-zcf" secondAttribute="height" id="05o-Yh-Sxd"/>
-                        <constraint firstItem="sQt-W1-gFB" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="2N5-Yk-eU1"/>
                         <constraint firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" constant="40" id="2No-Xa-bwu"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="8XG-qQ-qJn"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="top" secondItem="4dP-OT-HFD" secondAttribute="bottom" id="AHR-4A-PiE"/>
                         <constraint firstAttribute="bottom" secondItem="5OP-aF-orR" secondAttribute="bottom" constant="20" id="AJg-dN-OZ5"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="leading" secondItem="VvT-Xh-ysF" secondAttribute="leading" id="BgB-yq-par"/>
-                        <constraint firstItem="sQt-W1-gFB" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="Feu-h9-Rmh"/>
                         <constraint firstItem="1e5-tM-vdv" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="GtB-2J-aM9"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="height" secondItem="dja-NB-zcf" secondAttribute="height" id="HMu-zp-3cW"/>
-                        <constraint firstItem="lE7-iC-QJO" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="KqE-gb-ngx"/>
+                        <constraint firstItem="1e5-tM-vdv" firstAttribute="top" secondItem="ezh-hQ-zaU" secondAttribute="bottom" constant="44" id="IPj-sA-Ie9"/>
                         <constraint firstItem="5OP-aF-orR" firstAttribute="top" secondItem="1e5-tM-vdv" secondAttribute="bottom" id="MKF-bs-Iuv"/>
-                        <constraint firstItem="1e5-tM-vdv" firstAttribute="top" secondItem="lE7-iC-QJO" secondAttribute="bottom" constant="44" id="Nlw-gE-ScE"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="Okt-l9-qdo"/>
-                        <constraint firstItem="lE7-iC-QJO" firstAttribute="trailing" secondItem="dja-NB-zcf" secondAttribute="trailing" id="XYa-Qy-qEr"/>
-                        <constraint firstItem="sQt-W1-gFB" firstAttribute="top" secondItem="lE7-iC-QJO" secondAttribute="bottom" id="Ya3-tW-VBy"/>
                         <constraint firstItem="4dP-OT-HFD" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="a7H-jH-wYc"/>
                         <constraint firstItem="VvT-Xh-ysF" firstAttribute="top" secondItem="dja-NB-zcf" secondAttribute="bottom" id="a9H-x0-yzq"/>
                         <constraint firstItem="5OP-aF-orR" firstAttribute="leading" secondItem="gcO-pc-h6x" secondAttribute="leading" constant="40" id="au7-LV-s8g"/>
@@ -127,7 +104,6 @@
                         <constraint firstItem="dja-NB-zcf" firstAttribute="leading" secondItem="gcO-pc-h6x" secondAttribute="leading" constant="40" id="tz3-sm-ECr"/>
                         <constraint firstItem="dja-NB-zcf" firstAttribute="top" secondItem="gcO-pc-h6x" secondAttribute="top" constant="44" id="uEm-UC-Noy"/>
                         <constraint firstAttribute="trailing" secondItem="5OP-aF-orR" secondAttribute="trailing" constant="40" id="vY8-mZ-3fC"/>
-                        <constraint firstItem="lE7-iC-QJO" firstAttribute="top" secondItem="ezh-hQ-zaU" secondAttribute="bottom" id="vc3-mP-xd8"/>
                         <constraint firstItem="ezh-hQ-zaU" firstAttribute="leading" secondItem="dja-NB-zcf" secondAttribute="leading" id="y26-Cg-VFm"/>
                     </constraints>
                 </scrollView>
