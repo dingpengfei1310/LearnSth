@@ -24,6 +24,7 @@ static NSString *Identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"相册";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     if (self.LibraryDismissBlock) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLibraryController)];
@@ -146,7 +147,8 @@ static NSString *Identifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        CGRect rect = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

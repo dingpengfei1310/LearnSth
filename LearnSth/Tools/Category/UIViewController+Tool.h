@@ -33,6 +33,7 @@
 
 ///隐藏
 - (void)hideHUD;
+- (void)hideHUDAnimation;
 
 #pragma mark - 确认弹出框
 ///没有访问权限时的弹出框

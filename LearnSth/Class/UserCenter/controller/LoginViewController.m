@@ -100,7 +100,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     [scrollView addSubview:pwdLine];
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(fieldMargin, topSpace + fieldHeight * 2, filedW, 20)];
-    tipLabel.text = @"密码为6-12位数字和字母，不能为纯数字";
+    tipLabel.text = @"密码为6-12位数字和字母,不能为纯数字";
     tipLabel.textColor = KBaseTextColor;
     tipLabel.font = [UIFont systemFontOfSize:13];
     [scrollView addSubview:tipLabel];

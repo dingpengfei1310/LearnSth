@@ -115,7 +115,11 @@ typedef void (^CancelBlock)();
 }
 
 - (void)hideHUD {
-    [self hideHUDForView:nil];
+    [self hideHUDForView:nil animated:NO];
+}
+
+- (void)hideHUDAnimation {
+    [self hideHUDForView:nil animated:YES];
 }
 
 #pragma mark
@@ -154,9 +158,9 @@ typedef void (^CancelBlock)();
     return hud;
 }
 
-- (void)hideHUDForView:(UIView *)view {
+- (void)hideHUDForView:(UIView *)view animated:(BOOL)animated {
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
-    [MBProgressHUD hideHUDForView:view animated:YES];
+    [MBProgressHUD hideHUDForView:view animated:animated];
 }
 
 - (UIFont *)hudTextFont {

@@ -38,4 +38,6 @@ typedef void (^Completion)(NSDictionary *data,NSError *error);
 - (void)uploadImageWithName:(NSString *)name data:(NSData *)data completion:(Completion)completion;
 //- (void)uploadImageWithUserInfo:(NSDictionary *)info data:(NSData *)imageData completion:(Completion)completion;
 
+- (void)operationTestCompletion:(Completion)completion;
+
 @end

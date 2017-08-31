@@ -32,9 +32,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 @implementation PLPlayerViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -198,18 +198,26 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
+- (void)player:(PLPlayer *)player stoppedWithError:(NSError *)error {
+    NSLog(@"%@",error);
+}
+
 #pragma mark
 - (PLPlayer *)player {
     if (!_player) {
         PLPlayerOption *option = [PLPlayerOption defaultOption];
-//        [option setOptionValue:@1 forKey:PLPlayerOptionKeyVideoToolbox];
+//        [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
+//        [option setOptionValue:@2000 forKey:PLPlayerOptionKeyMaxL1BufferDuration];
+//        [option setOptionValue:@1000 forKey:PLPlayerOptionKeyMaxL2BufferDuration];
+//        [option setOptionValue:@(NO) forKey:PLPlayerOptionKeyVideoToolbox];
+//        [option setOptionValue:@(kPLLogInfo) forKey:PLPlayerOptionKeyLogLevel];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
         
-        _player.backgroundPlayEnable = YES;
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+//        _player.backgroundPlayEnable = YES;
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
     return _player;
 }

@@ -11,6 +11,7 @@
 #import "UserManager.h"
 #import "HttpConnection.h"
 #import "UIImage+Tool.h"
+#import <NSData+ImageContentType.h>
 
 @interface EditImageController ()<UIScrollViewDelegate> {
     CGFloat circleW;
@@ -124,20 +125,23 @@
     UIGraphicsEndImageContext();
     CGImageRelease(imageRef);
     
+    //这里的Data和后面的图片格式有关，要注意
 //    NSData *imageData = UIImagePNGRepresentation(image);
     NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyMMddHHmmsss";
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg",dateString];
     
     [self loadingWithText:@"正在上传"];
-    [[HttpConnection defaultConnection] uploadImageWithName:dateString data:imageData completion:^(NSDictionary *data, NSError *error) {
+    [[HttpConnection defaultConnection] uploadImageWithName:fileName data:imageData completion:^(NSDictionary *data, NSError *error) {
         if (error) {
             [self hideHUD];
             [self showError:@"上传失败"];
         } else {
             [self updateUserHeaderImage:data[@"url"] image:image];
+            
         }
     }];
 }

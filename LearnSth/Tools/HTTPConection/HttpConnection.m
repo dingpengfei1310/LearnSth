@@ -300,6 +300,7 @@ static NSString *App_Key_Field = @"X-LC-Key";
     NSMutableURLRequest *requestM = [self mutableRequestWithUrl:urlString];
     requestM.HTTPMethod = @"POST";
     [requestM setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
+//    [requestM setValue:@"image/png" forHTTPHeaderField:@"Content-Type"];//图片格式
     
     NSURLSessionDataTask *task = [_URLSession uploadTaskWithRequest:requestM fromData:data completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         
@@ -325,6 +326,16 @@ static NSString *App_Key_Field = @"X-LC-Key";
         }
     }];
     [task resume];
+}
+
+- (void)operationTestCompletion:(Completion)completion {
+    [self getDataWithString:@"files" param:nil completion:^(NSDictionary *data, NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+        } else {
+            NSLog(@"%@",data);
+        }
+    }];
 }
 
 #pragma mark
