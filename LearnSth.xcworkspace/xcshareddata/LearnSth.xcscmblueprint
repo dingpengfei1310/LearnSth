@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "12E6625777EAE12570D5DE832EA6FC09D2686B4C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "12E6625777EAE12570D5DE832EA6FC09D2686B4C" : 9223372036854775807,
+    "E1679FC111225C1A98EA0394D0D0D5A7DEF963BC" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5EFCBD62-47FD-419F-8538-913F98B46916",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "12E6625777EAE12570D5DE832EA6FC09D2686B4C" : "LearnSth\/",
+    "E1679FC111225C1A98EA0394D0D0D5A7DEF963BC" : "ijkplayer-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "LearnSth",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LearnSth.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/dingpengfei1310\/LearnSth.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12E6625777EAE12570D5DE832EA6FC09D2686B4C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Bilibili\/ijkplayer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E1679FC111225C1A98EA0394D0D0D5A7DEF963BC"
+    }
+  ]
+}

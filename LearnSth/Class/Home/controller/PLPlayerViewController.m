@@ -45,7 +45,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
-    
+
     if (self.index < self.liveArray.count) {
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;

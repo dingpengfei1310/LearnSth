@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
+#import "LivePlayerViewController.h"
 #import "JPuzzleViewController.h"
 
 #import "LiveCollectionView.h"
@@ -38,19 +39,29 @@
     };
     
     self.liveCollectionView.LiveClickBlock = ^(NSInteger index, NSArray *liveArray) {
-        PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
+//        PLPlayerViewController *controller = [[PLPlayerViewController alloc] init];
+//        controller.PlayerDismissBlock = ^{
+//            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+//        };
+//        controller.index = index;
+//        controller.liveArray = liveArray;
+//        controller.hidesBottomBarWhenPushed = YES;
+//        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
+//        [weakSelf presentViewController:nvc animated:YES completion:nil];
+        
+        
+        LivePlayerViewController *controller = [[LivePlayerViewController alloc] init];
         controller.PlayerDismissBlock = ^{
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
         };
-        controller.index = index;
-        controller.liveArray = liveArray;
+//        controller.index = index;
+        controller.liveModel = liveArray[index];
         controller.hidesBottomBarWhenPushed = YES;
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
         [weakSelf presentViewController:nvc animated:YES completion:nil];
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
