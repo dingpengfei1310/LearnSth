@@ -185,6 +185,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         [self.player playWithURL:url];
+//        [self.player playWithURL:url sameSource:YES];
     } else {
         [self showError:@"没有更多数据"];
     }
@@ -209,15 +210,15 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 //        [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
 //        [option setOptionValue:@2000 forKey:PLPlayerOptionKeyMaxL1BufferDuration];
 //        [option setOptionValue:@1000 forKey:PLPlayerOptionKeyMaxL2BufferDuration];
-//        [option setOptionValue:@(NO) forKey:PLPlayerOptionKeyVideoToolbox];
-//        [option setOptionValue:@(kPLLogInfo) forKey:PLPlayerOptionKeyLogLevel];
+        [option setOptionValue:@(YES) forKey:PLPlayerOptionKeyVideoToolbox];
+        [option setOptionValue:@(kPLLogNone) forKey:PLPlayerOptionKeyLogLevel];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
-        
-//        _player.backgroundPlayEnable = YES;
-//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        NSLog(@"%@",self.liveModel.flv);
+        _player.backgroundPlayEnable = YES;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
     return _player;
 }
