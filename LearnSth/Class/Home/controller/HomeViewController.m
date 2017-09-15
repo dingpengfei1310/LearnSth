@@ -47,7 +47,6 @@
         controller.hidesBottomBarWhenPushed = YES;
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
         [weakSelf presentViewController:nvc animated:YES completion:nil];
-        
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];

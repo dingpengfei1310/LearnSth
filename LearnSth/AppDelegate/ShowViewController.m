@@ -8,7 +8,7 @@
 
 #import "ShowViewController.h"
 
-#import "AppConfigure.h"
+#import "BaseConfigure.h"
 #import "UIColor+Tool.h"
 #import "UIImage+Tool.h"
 

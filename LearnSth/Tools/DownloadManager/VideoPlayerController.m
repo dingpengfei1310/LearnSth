@@ -70,7 +70,7 @@
         
     } else {
         [self.playerView pausePlayer];
-        self.BackBlock ? self.BackBlock() : 0;
+        self.DismissBlock ? self.DismissBlock() : 0;
     }
 }
 

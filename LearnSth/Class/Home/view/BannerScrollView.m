@@ -7,9 +7,9 @@
 //
 
 #import "BannerScrollView.h"
-#import "AppConfigure.h"
-#import <UIImageView+WebCache.h>
+#import "BaseConfigure.h"
 #import "NSTimer+Tool.h"
+#import <UIImageView+WebCache.h>
 
 @interface BannerScrollView ()<UIScrollViewDelegate>
 

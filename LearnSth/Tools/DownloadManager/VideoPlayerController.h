@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) DownloadModel *downloadModel;
 
-@property (nonatomic, copy) void (^BackBlock)();
+@property (nonatomic, copy) void (^DismissBlock)();
 
 @end

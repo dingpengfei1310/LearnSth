@@ -84,8 +84,9 @@
     VideoPlayerController *controller = [[VideoPlayerController alloc] init];
     controller.downloadModel = model;
     controller.transitioningDelegate = self;
-    controller.BackBlock = ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
+    __weak typeof(self) weakSelf = self;
+    controller.DismissBlock = ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
     };
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -166,7 +167,7 @@
         VideoPlayerController *controller = [[VideoPlayerController alloc] init];
         controller.downloadModel = model;
         controller.transitioningDelegate = self;
-        controller.BackBlock = ^{
+        controller.DismissBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         };
         [self presentViewController:controller animated:YES completion:nil];

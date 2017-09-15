@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Qiniu Cloud Storage. All rights reserved.
 //
 
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <stdlib.h>
-#include <string.h>
+#include "string.h"
+#include "netdb.h"
+#include "stdlib.h"
+#import <arpa/inet.h>
 
 #include "QNGetAddrInfo.h"
 
