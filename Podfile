@@ -3,6 +3,7 @@ platform :ios,'8.0'
 target 'LearnSth' do
     
     pod 'AFNetworking'
+    pod 'PLPlayerKit','2.4.3'
     
     pod 'SDWebImage'
     pod 'SDWebImage/GIF'
@@ -11,7 +12,6 @@ target 'LearnSth' do
     pod 'YYText'
     pod 'YYImage'
     
-    pod 'PLPlayerKit'
     pod 'MJExtension'
     pod 'MJRefresh'
     
