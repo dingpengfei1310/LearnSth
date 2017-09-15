@@ -581,8 +581,9 @@ const CGFloat BottomH = 30;
         
     } else {
         //横屏
-        self.frame = CGRectMake(0, 0, viewW, viewH);
-        self.playerLayer.frame = CGRectMake(0, 0, viewW, viewH);
+        CGRect rect = CGRectMake(0, 0, viewH, viewW);
+        self.frame = rect;
+        self.playerLayer.frame = rect;
         self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
         
         if (self.lastOrientation == UIInterfaceOrientationPortrait) {
@@ -614,24 +615,30 @@ const CGFloat BottomH = 30;
             }];
             
             self.topView.frame = CGRectMake(0, 20, viewW, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewH - BottomH, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW - BottomH, viewH, BottomH);
             
         } else {
             self.topView.frame = CGRectMake(0, -BottomH, viewW, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewH, viewW, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW, viewH, BottomH);
         }
     }
     
-    self.loadingProgress.bounds = CGRectMake(0, 0, viewW * 0.5, 20);
-    self.loadingProgress.center = CGPointMake(viewW * 0.5, BottomH * 0.5);
+    CGSize frameSize = self.frame.size;
+    CGRect loadingProgessFrame = CGRectMake(0, 0, frameSize.width * 0.5, 20);
+    CGPoint loadingProgessCenter = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);
     
-    self.playSlider.bounds = CGRectMake(0, 0, viewW * 0.5, 20);
-    self.playSlider.center = CGPointMake(viewW * 0.5, BottomH * 0.5);
+    self.loadingProgress.bounds = loadingProgessFrame;
+    self.loadingProgress.center = loadingProgessCenter;
+    
+    self.playSlider.bounds = loadingProgessFrame;
+    self.playSlider.center = loadingProgessCenter;
     
     self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingProgress.frame) + 10, 0, 60, BottomH);
     self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingProgress.frame) - 70, 0, 60, BottomH);
     
-    self.rotationButton.frame = CGRectMake(viewW - BottomH, 0, BottomH, BottomH);
+//    self.rotationButton.frame = CGRectMake(CGRectGetMaxX(_bottomView.frame) - BottomH, 0, BottomH, BottomH);
+    self.rotationButton.center = CGPointMake(CGRectGetMaxX(_totalTimeLabel.frame) * 0.5 + frameSize.width * 0.5, BottomH * 0.5);
+    self.playButton.center = CGPointMake(CGRectGetMinX(_currentTimeLabel.frame) * 0.5, BottomH * 0.5);
     
     [self delayExecute];
 }

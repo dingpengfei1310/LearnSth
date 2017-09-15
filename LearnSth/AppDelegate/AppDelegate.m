@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AppConfigure.h"
+#import "BaseConfigure.h"
 
 #import "RootViewController.h"
 #import "ShowViewController.h"

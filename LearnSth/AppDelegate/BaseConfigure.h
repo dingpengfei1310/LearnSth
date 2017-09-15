@@ -1,13 +1,13 @@
 //
-//  AppConfigure.h
+//  BaseConfigure.h
 //  LearnSth
 //
 //  Created by 丁鹏飞 on 2017/6/28.
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#ifndef AppConfigure_h
-#define AppConfigure_h
+#ifndef BaseConfigure_h
+#define BaseConfigure_h
 
 #pragma mark
 //#ifdef DEBUG
@@ -46,4 +46,4 @@
 #pragma mark
 #define DLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
 
-#endif /* AppConfigure_h */
+#endif /* BaseConfigure_h */

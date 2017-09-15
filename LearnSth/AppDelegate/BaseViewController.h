@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AppConfigure.h"
-
-#import "UIViewController+Tool.h"
-
+#import "BaseConfigure.h"
 #import "CustomiseTool.h"
 #import "HttpManager.h"
 
+#import "UIViewController+Tool.h"
 #import <UIImageView+WebCache.h>
 
 @interface BaseViewController : UIViewController
