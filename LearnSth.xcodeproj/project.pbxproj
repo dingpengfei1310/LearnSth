@@ -144,7 +144,6 @@
 		CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1A49581E0FBD76007FD07D /* PhotosCollectionCell.m */; };
 		CF1A495B1E0FBD76007FD07D /* PhotosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */; };
 		CF3959251E4CB94A0018C7D8 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */; };
-		CF60D0E01F5BF7C80004EFE7 /* LivePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF60D0DF1F5BF7C80004EFE7 /* LivePlayerViewController.m */; };
 		CF6DEAAC1DFBE17B0039B0D4 /* WebProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */; };
 		CFF9AE7F1E333C1500397359 /* VideoCameraFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF9AE7E1E333C1500397359 /* VideoCameraFilterController.m */; };
 		DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B79FEA5584229A931479F8 /* libPods-LearnSth.a */; };
@@ -424,8 +423,6 @@
 		CF1A49591E0FBD76007FD07D /* PhotosCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionCell.xib; sourceTree = "<group>"; };
 		CF3959231E4CB94A0018C7D8 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
 		CF3959241E4CB94A0018C7D8 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
-		CF60D0DE1F5BF7C80004EFE7 /* LivePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePlayerViewController.h; sourceTree = "<group>"; };
-		CF60D0DF1F5BF7C80004EFE7 /* LivePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePlayerViewController.m; sourceTree = "<group>"; };
 		CF6DEAAA1DFBE17B0039B0D4 /* WebProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebProgressView.h; sourceTree = "<group>"; };
 		CF6DEAAB1DFBE17B0039B0D4 /* WebProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebProgressView.m; sourceTree = "<group>"; };
 		CFF9AE7D1E333C1500397359 /* VideoCameraFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCameraFilterController.h; sourceTree = "<group>"; };
@@ -761,8 +758,6 @@
 				1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */,
 				1B348D0A1EF3A37000F63BD4 /* LiveInfoViewController.h */,
 				1B348D0B1EF3A37000F63BD4 /* LiveInfoViewController.m */,
-				CF60D0DE1F5BF7C80004EFE7 /* LivePlayerViewController.h */,
-				CF60D0DF1F5BF7C80004EFE7 /* LivePlayerViewController.m */,
 				1B5E7BF71E49C9B200153A58 /* PLPlayerViewController.h */,
 				1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */,
 				1BB786A21E8E2D5B00185869 /* RotationViewController.h */,
@@ -1330,7 +1325,6 @@
 				1B16B48C1EE5047100F84CB1 /* JPuzzleViewController.m in Sources */,
 				1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */,
 				1B099C9B1DE7E57400161396 /* TPKeyboardAvoidingScrollView.m in Sources */,
-				CF60D0E01F5BF7C80004EFE7 /* LivePlayerViewController.m in Sources */,
 				1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */,
 				1B2E58851EBC773900770953 /* DownloadViewCell.m in Sources */,
 				1B4630E41E669796000260D2 /* CustomiseTool.m in Sources */,
