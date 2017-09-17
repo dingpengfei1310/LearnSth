@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class DownloadModel;
 @interface VideoPlayerController : UIViewController
 
-@property (nonatomic, strong) DownloadModel *downloadModel;
+@property (nonatomic, copy) NSString *fileUrl;
 
 @property (nonatomic, copy) void (^DismissBlock)();
 

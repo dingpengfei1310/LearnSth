@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class DownloadModel;
 @interface VideoPlayerView : UIView
 
 @property (nonatomic, copy) void (^BackBlock)();
 @property (nonatomic, copy) void (^FullScreenBlock)();
 @property (nonatomic, copy) void (^TapGestureBlock)();
 
-@property (nonatomic, strong) DownloadModel *model;
+@property (nonatomic, copy) NSString *fileUrl;
+@property (nonatomic, copy) NSString *fileName;
 
 - (void)pausePlayer;
 //- (void)screenCapture;

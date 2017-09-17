@@ -40,11 +40,12 @@
 #pragma mark
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.dataArray = @[@"",@"",@"",@"",@""];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.playerView];
-    [self.view addSubview:self.tableView];
+    
+//    self.dataArray = @[@"",@"",@"",@"",@""];
+//    [self.view addSubview:self.tableView];
     
     [self.view bringSubviewToFront:self.playerView];
 }
@@ -119,7 +120,8 @@
         
         __weak typeof(self) wSelf = self;
         _playerView = [[VideoPlayerView alloc] init];
-        _playerView.model = self.downloadModel;
+        _playerView.fileName = self.title;
+        _playerView.fileUrl = self.fileUrl;
         
         _playerView.BackBlock = ^{
             [wSelf backToParentController];

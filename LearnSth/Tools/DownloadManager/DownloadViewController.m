@@ -82,11 +82,17 @@
     DownloadModel *model = self.downloadFile.allValues[indexPath.row];
     
     VideoPlayerController *controller = [[VideoPlayerController alloc] init];
-    controller.downloadModel = model;
+    NSString *urlString;
+    if (model.state == DownloadStateCompletion) {
+        urlString = model.savePath;
+    } else {
+        urlString = model.fileUrl;
+    }
+    controller.fileUrl = urlString;
+    controller.title = model.fileName;
     controller.transitioningDelegate = self;
-    __weak typeof(self) weakSelf = self;
     controller.DismissBlock = ^{
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     };
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -165,7 +171,14 @@
         DownloadModel *model = self.downloadFile.allValues[index];
         
         VideoPlayerController *controller = [[VideoPlayerController alloc] init];
-        controller.downloadModel = model;
+        NSString *urlString;
+        if (model.state == DownloadStateCompletion) {
+            urlString = model.savePath;
+        } else {
+            urlString = model.fileUrl;
+        }
+        controller.title = model.fileName;
+        controller.fileUrl = urlString;
         controller.transitioningDelegate = self;
         controller.DismissBlock = ^{
             [self dismissViewControllerAnimated:YES completion:nil];

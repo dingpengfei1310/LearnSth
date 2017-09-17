@@ -8,10 +8,10 @@
 
 #import "FileScanViewController.h"
 #import "DDPreviewItem.h"
-#import "AppDelegate.h"
 #import <QuickLook/QLPreviewController.h>
+#import "VideoPlayerController.h"
 
-@interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
+@interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
 @property (nonatomic, strong) NSString *previewItemPath;
 @property (nonatomic, strong) UITableView *tableView;
@@ -157,18 +157,19 @@
         self.selectIndex = indexPath.row;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        QLPreviewController *previewController = [[QLPreviewController alloc] init];
-        previewController.dataSource = self;
-        previewController.delegate = self;
+//        QLPreviewController *previewController = [[QLPreviewController alloc] init];
+//        previewController.dataSource = self;
+//        [self presentViewController:previewController animated:YES completion:nil];
         
-//        [self presentViewController:previewController animated:YES completion:^{
-//            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//            app.isAutorotate = YES;
-//        }];
-        
-        [self.navigationController pushViewController:previewController animated:YES];
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        app.isAutorotate = YES;
+        NSString *fileName = self.previewItems[indexPath.row];
+        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:fileName];
+        VideoPlayerController *cc = [[VideoPlayerController alloc] init];
+        cc.title = fileName;
+        cc.fileUrl = filePath;
+        cc.DismissBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:cc animated:YES completion:nil];
         
     } else {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -232,18 +233,6 @@
 //    previewItem.previewItemTitle = @"文件";
     
     return previewItem;
-}
-
-- (void)previewControllerWillDismiss:(QLPreviewController *)controller {
-    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
-        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        app.isAutorotate = NO;
-    });
 }
 
 #pragma mark

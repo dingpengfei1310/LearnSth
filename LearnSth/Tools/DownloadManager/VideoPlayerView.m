@@ -8,10 +8,10 @@
 
 #import "VideoPlayerView.h"
 
-#import "DownloadModel.h"
 #import "AppDelegate.h"
 #import "UIView+Tool.h"
 #import <AVFoundation/AVFoundation.h>
+#import <NSObject+MemoryLeak.h>
 
 @interface VideoPlayerView () <UIGestureRecognizerDelegate>{
     id playerTimeObserver;
@@ -30,7 +30,7 @@
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *rotationButton;
 
-@property (nonatomic, strong) UIProgressView *loadingProgress;//加载进度
+@property (nonatomic, strong) UIProgressView *loadingView;//加载进度
 @property (nonatomic, strong) UISlider *playSlider;//播放进度
 
 @property (nonatomic, strong) UILabel *currentTimeLabel;
@@ -51,7 +51,7 @@
 @end
 
 const CGFloat HeightScale = 0.5625;//竖屏时，player高度
-const CGFloat BottomH = 30;
+const CGFloat BottomH = 40;
 
 @implementation VideoPlayerView
 - (instancetype)init {
@@ -78,15 +78,15 @@ const CGFloat BottomH = 30;
     self.clipsToBounds = YES;
 }
 
--(void)setModel:(DownloadModel *)model {
-    if (model && !_model) {
-        _model = model;
+-(void)setFileUrl:(NSString *)fileUrl {
+    if (fileUrl && !_fileUrl) {
+        _fileUrl = fileUrl;
         
         [self.layer addSublayer:self.playerLayer];
-
+        
         [self initTopView];
         [self initBottonView];
-
+        
         [self addPlayerObserver];
         [self addGesture];
         
@@ -110,16 +110,16 @@ const CGFloat BottomH = 30;
     [self addSubview:topView];
     _topView = topView;
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, BottomH - 5, BottomH)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, BottomH, BottomH)];
     [backButton setImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backButton];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BottomH - 5, 0, 200, BottomH)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BottomH, 0, viewW - BottomH, BottomH)];
     nameLabel.font = [UIFont systemFontOfSize:16];
     nameLabel.textColor = [UIColor whiteColor];
     [topView addSubview:nameLabel];
-    nameLabel.text = self.model.fileName;
+    nameLabel.text = self.fileName;
     
 //    UIButton *screenCaptureButton = [[UIButton alloc] initWithFrame:CGRectMake(viewH - BottomH, 0, BottomH, BottomH)];
 //    [screenCaptureButton setTitle:@"截屏" forState:UIControlStateNormal];
@@ -160,36 +160,36 @@ const CGFloat BottomH = 30;
     [bottomView addSubview:playButton];
     _playButton = playButton;
     
-    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, viewW * 0.5, 20)];
-    progressView.progress = 0.0;
-    progressView.center = CGPointMake(viewW * 0.5, height * 0.5);
-    progressView.trackTintColor = [UIColor whiteColor];
-    progressView.progressTintColor = [UIColor blueColor];
-    [bottomView addSubview:progressView];
-    _loadingProgress = progressView;
+    _loadingView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, viewW * 0.5, 20)];
+    _loadingView.center = CGPointMake(viewW * 0.5, height * 0.5);
+    _loadingView.trackTintColor = [UIColor whiteColor];
+    _loadingView.progressTintColor = [UIColor lightGrayColor];
+    [bottomView addSubview:_loadingView];
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:progressView.frame];
-    slider.continuous = NO;
-    slider.maximumTrackTintColor = [UIColor clearColor];
-    slider.minimumTrackTintColor = [UIColor clearColor];
-    [slider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
+    UISlider *playSlider = [[UISlider alloc] initWithFrame:_loadingView.frame];
+    playSlider.continuous = NO;
+    playSlider.minimumValue = 0.0;
+    playSlider.maximumTrackTintColor = [UIColor clearColor];
+    playSlider.minimumTrackTintColor = [UIColor redColor];
+    [playSlider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
+    [playSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [playSlider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
     
-    [slider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragInside];
-    [slider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragOutside];
+    [playSlider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragInside];
+    [playSlider addTarget:self action:@selector(sliderTouchDrag:) forControlEvents:UIControlEventTouchDragOutside];
     
-    [bottomView addSubview:slider];
-    _playSlider = slider;
+    [bottomView addSubview:playSlider];
+    _playSlider = playSlider;
     
-    UILabel *currentTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(progressView.frame) - 70, 0, 60, height)];
+    UILabel *currentTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(playSlider.frame) - 70, 0, 60, height)];
     currentTime.font = [UIFont systemFontOfSize:12];
     currentTime.textColor = [UIColor whiteColor];
     currentTime.textAlignment = NSTextAlignmentRight;
+    currentTime.text = @"00:00";
     [bottomView addSubview:currentTime];
     _currentTimeLabel = currentTime;
     
-    UILabel *totalTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(progressView.frame) + 10, 0, 60, height)];
+    UILabel *totalTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(playSlider.frame) + 10, 0, 60, height)];
     totalTime.font = [UIFont systemFontOfSize:12];
     totalTime.textColor = [UIColor whiteColor];
     [bottomView addSubview:totalTime];
@@ -248,6 +248,7 @@ const CGFloat BottomH = 30;
 
 #pragma mark
 - (void)pausePlayer {
+    self.player.rate = 0;
     [self.player pause];
 }
 
@@ -284,8 +285,9 @@ const CGFloat BottomH = 30;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
+            NSLog(@"status");
             [self setMaxDuration:item.duration];
-            [self videoPaly];
+//            [self videoPaly];
             
             [self delayExecute];
         } else if (status == AVPlayerItemStatusFailed) {
@@ -294,8 +296,7 @@ const CGFloat BottomH = 30;
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         double timeInterval = [self availableDurationRanges];// 缓冲时间
-        // 更新缓冲条
-        self.loadingProgress.progress = (self.totalTime == 0.0) ? 0.0 : timeInterval / self.totalTime;
+        self.loadingView.progress = (self.totalTime == 0.0) ? 0.0 : timeInterval / _totalTime;
         
         if (timeInterval > CMTimeGetSeconds(self.playerItem.currentTime)) {
             [self hideHUD];
@@ -424,14 +425,20 @@ const CGFloat BottomH = 30;
     switch (state) {
         case UIGestureRecognizerStateBegan:
         {
-            self.isSliding = YES;
+            
             self.lastPoint = point;
             break;
         }
         case UIGestureRecognizerStateChanged:
         {
-            CGFloat distance = point.x - self.lastPoint.x;
-            CGFloat value = distance / self.frame.size.width * _totalTime;
+            CGFloat distanceX = point.x - self.lastPoint.x;
+            CGFloat distanceY = point.y - self.lastPoint.y;
+            if (fabs(distanceX) <= fabs(distanceY)) {
+                break;
+            }
+            
+            self.isSliding = YES;
+            CGFloat value = distanceX / self.frame.size.width * _totalTime;
             
             self.playSlider.value = MIN(self.playSlider.value + value, _totalTime);
             self.lastPoint = point;
@@ -443,7 +450,10 @@ const CGFloat BottomH = 30;
         case UIGestureRecognizerStateEnded:
         {
             [self hideHUD];
-            [self sliderValueChanged:self.playSlider];
+            if (self.isSliding) {
+                [self sliderValueChanged:self.playSlider];
+            }
+            
             break;
         }
         default:
@@ -624,17 +634,17 @@ const CGFloat BottomH = 30;
     }
     
     CGSize frameSize = self.frame.size;
-    CGRect loadingProgessFrame = CGRectMake(0, 0, frameSize.width * 0.5, 20);
-    CGPoint loadingProgessCenter = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);
+    CGRect sliderFrame = CGRectMake(0, 0, frameSize.width * 0.5, 20);
+    CGPoint sliderCenter = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);
     
-    self.loadingProgress.bounds = loadingProgessFrame;
-    self.loadingProgress.center = loadingProgessCenter;
+    self.loadingView.bounds = sliderFrame;
+    self.loadingView.center = sliderCenter;
     
-    self.playSlider.bounds = loadingProgessFrame;
-    self.playSlider.center = loadingProgessCenter;
+    self.playSlider.bounds = CGRectMake(0, 0, frameSize.width * 0.5 + 6, 20);;
+    self.playSlider.center = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);;
     
-    self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingProgress.frame) + 10, 0, 60, BottomH);
-    self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingProgress.frame) - 70, 0, 60, BottomH);
+    self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingView.frame) + 10, 0, 60, BottomH);
+    self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingView.frame) - 70, 0, 60, BottomH);
     
 //    self.rotationButton.frame = CGRectMake(CGRectGetMaxX(_bottomView.frame) - BottomH, 0, BottomH, BottomH);
     self.rotationButton.center = CGPointMake(CGRectGetMaxX(_totalTimeLabel.frame) * 0.5 + frameSize.width * 0.5, BottomH * 0.5);
@@ -648,10 +658,10 @@ const CGFloat BottomH = 30;
     if (!_playerLayer) {
         
         NSURL *url;
-        if (self.model.state == DownloadStateCompletion) {
-            url = [NSURL fileURLWithPath:self.model.savePath];
+        if ([self.fileUrl hasPrefix:@"http"]) {
+            url = [NSURL URLWithString:self.fileUrl];
         } else {
-            url = [NSURL URLWithString:self.model.fileUrl];
+            url = [NSURL fileURLWithPath:self.fileUrl];
         }
         
         _playerItem = [AVPlayerItem playerItemWithURL:url];
@@ -667,9 +677,14 @@ const CGFloat BottomH = 30;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_player removeTimeObserver:playerTimeObserver];
+    
     [_playerItem removeObserver:self forKeyPath:@"status"];
     [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+}
+
+- (BOOL)willDealloc {
+    return NO;
 }
 
 @end
