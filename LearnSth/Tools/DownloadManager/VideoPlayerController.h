@@ -10,8 +10,8 @@
 
 @interface VideoPlayerController : UIViewController
 
-@property (nonatomic, copy) NSString *fileUrl;
-
 @property (nonatomic, copy) void (^DismissBlock)();
+
+@property (nonatomic, copy) NSString *fileUrl;
 
 @end

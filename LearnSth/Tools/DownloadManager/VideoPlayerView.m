@@ -110,13 +110,13 @@ const CGFloat BottomH = 40;
     [self addSubview:topView];
     _topView = topView;
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, BottomH, BottomH)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, BottomH)];
     [backButton setImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backButton];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BottomH, 0, viewW - BottomH, BottomH)];
-    nameLabel.font = [UIFont systemFontOfSize:16];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, viewW - BottomH, BottomH)];
+    nameLabel.font = [UIFont systemFontOfSize:15];
     nameLabel.textColor = [UIColor whiteColor];
     [topView addSubview:nameLabel];
     nameLabel.text = self.fileName;
@@ -182,16 +182,17 @@ const CGFloat BottomH = 40;
     _playSlider = playSlider;
     
     UILabel *currentTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(playSlider.frame) - 70, 0, 60, height)];
-    currentTime.font = [UIFont systemFontOfSize:12];
+    currentTime.font = [UIFont systemFontOfSize:11];
     currentTime.textColor = [UIColor whiteColor];
-    currentTime.textAlignment = NSTextAlignmentRight;
+    currentTime.textAlignment = NSTextAlignmentCenter;
     currentTime.text = @"00:00";
     [bottomView addSubview:currentTime];
     _currentTimeLabel = currentTime;
     
     UILabel *totalTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(playSlider.frame) + 10, 0, 60, height)];
-    totalTime.font = [UIFont systemFontOfSize:12];
+    totalTime.font = [UIFont systemFontOfSize:11];
     totalTime.textColor = [UIColor whiteColor];
+    totalTime.textAlignment = NSTextAlignmentCenter;
     [bottomView addSubview:totalTime];
     _totalTimeLabel = totalTime;
     
@@ -330,16 +331,20 @@ const CGFloat BottomH = 40;
 }
 
 - (NSString *)stringWithTime:(NSInteger)seconds {
-    NSInteger hour = 0;
+//    NSInteger hour = 0;
     NSInteger minute = 0;
     NSInteger second = 0;
     
     NSString *time;
     if (seconds >= 3600) {
-        hour = seconds / 3600;
-        minute = (seconds % 3600) / 600;
+//        hour = seconds / 3600;
+//        minute = (seconds % 3600) / 600;
+//        second = seconds % 60;
+//        time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+        
+        minute = seconds / 600;
         second = seconds % 60;
-        time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+        time = [NSString stringWithFormat:@"%ld:%02ld",minute,second];
     } else {
         minute = seconds / 60;
         second = seconds % 60;
@@ -559,6 +564,7 @@ const CGFloat BottomH = 40;
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     NSTimeInterval duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
     
+    CGFloat spaceW = 0;
     if (previousTraitCollection.verticalSizeClass != UIUserInterfaceSizeClassRegular) {
         //竖屏
         self.frame = CGRectMake(0, 20, viewW, viewW * HeightScale);
@@ -591,6 +597,7 @@ const CGFloat BottomH = 40;
         
     } else {
         //横屏
+        spaceW = 5;
         CGRect rect = CGRectMake(0, 0, viewH, viewW);
         self.frame = rect;
         self.playerLayer.frame = rect;
@@ -634,21 +641,21 @@ const CGFloat BottomH = 40;
     }
     
     CGSize frameSize = self.frame.size;
-    CGRect sliderFrame = CGRectMake(0, 0, frameSize.width * 0.5, 20);
+    
+    self.playButton.center = CGPointMake(spaceW + BottomH * 0.5, BottomH * 0.5);
+    self.rotationButton.center = CGPointMake(frameSize.width - BottomH * 0.5 - spaceW, BottomH * 0.5);
+    
+    self.currentTimeLabel.frame = CGRectMake(CGRectGetMaxX(_playButton.frame) + spaceW, 0, 40, BottomH);
+    self.totalTimeLabel.frame = CGRectMake(CGRectGetMinX(_rotationButton.frame) - 40 - spaceW, 0, 40, BottomH);
+    
+    CGRect sliderFrame = CGRectMake(0, 0, frameSize.width - BottomH * 2 - spaceW * 4 - 90, 20);
     CGPoint sliderCenter = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);
     
     self.loadingView.bounds = sliderFrame;
     self.loadingView.center = sliderCenter;
     
-    self.playSlider.bounds = CGRectMake(0, 0, frameSize.width * 0.5 + 6, 20);;
-    self.playSlider.center = CGPointMake(frameSize.width * 0.5, BottomH * 0.5);;
-    
-    self.totalTimeLabel.frame = CGRectMake(CGRectGetMaxX(_loadingView.frame) + 10, 0, 60, BottomH);
-    self.currentTimeLabel.frame = CGRectMake(CGRectGetMinX(_loadingView.frame) - 70, 0, 60, BottomH);
-    
-//    self.rotationButton.frame = CGRectMake(CGRectGetMaxX(_bottomView.frame) - BottomH, 0, BottomH, BottomH);
-    self.rotationButton.center = CGPointMake(CGRectGetMaxX(_totalTimeLabel.frame) * 0.5 + frameSize.width * 0.5, BottomH * 0.5);
-    self.playButton.center = CGPointMake(CGRectGetMinX(_currentTimeLabel.frame) * 0.5, BottomH * 0.5);
+    self.playSlider.bounds = CGRectMake(0, 0, CGRectGetWidth(sliderFrame) + 6, 20);
+    self.playSlider.center = sliderCenter;
     
     [self delayExecute];
 }

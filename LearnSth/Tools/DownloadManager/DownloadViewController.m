@@ -44,7 +44,7 @@
     model1.state = DownloadStatePause;
     
     DownloadModel *model2 = [[DownloadModel alloc] init];
-    model2.fileName = @"好看的电影";
+    model2.fileName = @"GoodMovie";
     model2.fileUrl = downloadURLString2;
     model2.state = DownloadStatePause;
     

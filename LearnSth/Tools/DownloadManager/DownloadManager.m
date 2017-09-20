@@ -7,6 +7,7 @@
 //
 
 #import "DownloadManager.h"
+#import "NSTimer+Tool.h"
 
 typedef NS_ENUM(NSInteger, SessionTaskType) {
     SessionTaskTypeDownload = 0,
@@ -272,13 +273,20 @@ static DownloadManager *manager = nil;
 
 - (NSTimer *)timer {
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * timer) {
-            
+//        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * timer) {
+//            
+//            [DownloadModel update:_currentModel];
+//            if (self.DownloadProgress) {
+//                self.DownloadProgress(_currentModel.bytesReceived,_currentModel.bytesTotal);
+//            }
+//            
+//        }];
+        
+        _timer = [NSTimer dd_timerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) {
             [DownloadModel update:_currentModel];
             if (self.DownloadProgress) {
                 self.DownloadProgress(_currentModel.bytesReceived,_currentModel.bytesTotal);
             }
-            
         }];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
