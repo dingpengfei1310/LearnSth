@@ -11,6 +11,6 @@
 @interface AddressPickerController : BaseViewController
 
 @property (nonatomic, copy) void (^SelectBlock)(NSDictionary *province,NSDictionary *city);
-@property (nonatomic, copy) void (^AddressDismissBlock)();
+@property (nonatomic, copy) void (^AddressDismissBlock)(void);
 
 @end

@@ -11,7 +11,7 @@
 @class LiveModel;
 @interface LiveInfoViewController : BaseViewController
 
-@property (nonatomic, copy) void (^LiveInfoDismissBlock)();
+@property (nonatomic, copy) void (^LiveInfoDismissBlock)(void);
 @property (nonatomic, strong) LiveModel *liveModel;
 
 @end

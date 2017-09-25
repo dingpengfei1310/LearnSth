@@ -199,6 +199,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;
+        _tableView.sectionHeaderHeight = 0.0;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.layoutMargins = UIEdgeInsetsZero;
         

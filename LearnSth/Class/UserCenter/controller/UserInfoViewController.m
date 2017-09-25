@@ -50,6 +50,9 @@ static NSString *Identifier = @"cell";
     [button setImage:[UIImage imageNamed:@"scanQRCode"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
+    
 #endif
 }
 

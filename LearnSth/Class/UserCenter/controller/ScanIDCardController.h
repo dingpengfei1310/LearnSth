@@ -12,6 +12,6 @@
 @interface ScanIDCardController : BaseViewController
 
 @property (nonatomic, copy) void (^ScanResult)(IDCardInfo *cardInfo,UIImage *image);
-@property (nonatomic, copy) void (^DismissBlock)();
+@property (nonatomic, copy) void (^DismissBlock)(void);
 
 @end

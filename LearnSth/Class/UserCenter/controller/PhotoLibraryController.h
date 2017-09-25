@@ -17,6 +17,6 @@ typedef NS_ENUM(NSInteger, PhotoCollectionSubtype){
 @interface PhotoLibraryController : BaseViewController
 
 @property (nonatomic, assign) PhotoCollectionSubtype subtype;
-@property (nonatomic, strong) void (^LibraryDismissBlock)();
+@property (nonatomic, strong) void (^LibraryDismissBlock)(void);
 
 @end

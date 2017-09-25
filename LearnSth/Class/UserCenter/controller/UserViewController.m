@@ -51,6 +51,7 @@ static NSString *Identifier = @"cell";
     self.tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
+    self.tableView.sectionHeaderHeight = 10.0;
     [self.view addSubview:self.tableView];
     
     [self addObserve];
@@ -125,9 +126,9 @@ static NSString *Identifier = @"cell";
     [cell setLayoutMargins:UIEdgeInsetsZero];//iOS10.0以上可以不用设置
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10.0;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 1.0;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.section == 0 ? 70 : 50;

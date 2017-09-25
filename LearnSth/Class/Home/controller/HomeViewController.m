@@ -24,8 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:self.view.bounds];
+    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 113)];
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;

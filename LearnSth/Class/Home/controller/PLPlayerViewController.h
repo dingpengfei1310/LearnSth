@@ -10,7 +10,7 @@
 
 @interface PLPlayerViewController : BaseViewController
 
-@property (nonatomic, copy) void (^PlayerDismissBlock)();
+@property (nonatomic, copy) void (^PlayerDismissBlock)(void);
 
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) NSArray *liveArray;

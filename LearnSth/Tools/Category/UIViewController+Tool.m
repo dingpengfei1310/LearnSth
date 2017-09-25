@@ -14,7 +14,7 @@
 #import <objc/runtime.h>
 
 static char CancelKey;
-typedef void (^CancelBlock)();
+typedef void (^CancelBlock)(void);
 
 @implementation UIViewController (Tool)
 
@@ -75,7 +75,7 @@ typedef void (^CancelBlock)();
     [self showMessage:text toView:nil];
 }
 
-- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)())cancel {
+- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel {
     UIView *view = [[UIApplication sharedApplication].windows lastObject];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
@@ -211,14 +211,14 @@ typedef void (^CancelBlock)();
     [self dismissViewControllerAnimated:NO completion:nil];
     
     NSString *mess = [NSString stringWithFormat:@"%@\n%@",message,@"您可以到“隐私-设置“中启用访问"];
-    void (^operationBlock)() = ^{
+    void (^operationBlock)(void) = ^{
         [self openSystemSetting];
     };
     
     [self showAlertWithTitle:nil message:mess cancelTitle:@"知道了" cancel:nil operationTitle:@"去设置" operation:operationBlock style:UIAlertActionStyleDefault];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)())operation {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message operationTitle:(NSString *)operationTitle operation:(void (^)(void))operation {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:operationTitle.length ? operationTitle : @"确定"
@@ -231,15 +231,15 @@ typedef void (^CancelBlock)();
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel operation:(void (^)())operation {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)(void))cancel operation:(void (^)(void))operation {
     [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDefault];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)())cancel destructive:(void (^)())operation {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancel:(void (^)(void))cancel destructive:(void (^)(void))operation {
     [self showAlertWithTitle:title message:message cancelTitle:@"取消" cancel:cancel operationTitle:@"确定" operation:operation style:UIAlertActionStyleDestructive];
 }
 
-- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)())cancel operationTitle:(NSString *)operationTitle operation:(void (^)())operation style:(UIAlertActionStyle)style {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message cancelTitle:(NSString *)cancelTitle cancel:(void (^)(void))cancel operationTitle:(NSString *)operationTitle operation:(void (^)(void))operation style:(UIAlertActionStyle)style {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelA = [UIAlertAction actionWithTitle:cancelTitle.length ? cancelTitle : @"取消"

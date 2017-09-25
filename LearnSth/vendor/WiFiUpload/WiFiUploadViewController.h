@@ -10,6 +10,6 @@
 
 @interface WiFiUploadViewController : UIViewController
 
-@property (nonatomic, copy) void (^WiFiDismissBlock)();
+@property (nonatomic, copy) void (^WiFiDismissBlock)(void);
 
 @end

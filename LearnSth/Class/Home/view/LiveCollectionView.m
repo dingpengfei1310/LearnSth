@@ -213,7 +213,11 @@ const  NSInteger liveColumn = 2;
         _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        
+        if (@available(iOS 11.0, *)) {
+            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
         [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
         [_collectionView registerClass:[UICollectionReusableView class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader

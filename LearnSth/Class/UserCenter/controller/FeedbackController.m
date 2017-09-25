@@ -40,7 +40,7 @@ const CGFloat emoteWidth = 28.0;//item宽高为28
     viewH = self.view.frame.size.height;
     _emoteFont = [UIFont systemFontOfSize:16];
     
-    _textView = [[YYTextView alloc] initWithFrame:CGRectMake(0, 0, viewW, 200)];
+    _textView = [[YYTextView alloc] initWithFrame:CGRectMake(0, 64, viewW, 200)];
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.font = _emoteFont;
     _textView.delegate = self;
