@@ -19,7 +19,7 @@
 
 #import <MJRefresh/MJRefresh.h>
 
-@interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -184,6 +184,8 @@ const  NSInteger liveColumn = 2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"cellForItemAtIndexPath");
+    
     LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     LiveModel *model = self.liveList[indexPath.item];
@@ -197,6 +199,17 @@ const  NSInteger liveColumn = 2;
         self.LiveClickBlock(indexPath.item, self.liveList);
     }
 }
+
+//- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+//    NSLog(@"prefetchItemsAtIndexPaths");
+//
+//    for (NSIndexPath *indexPath in indexPaths) {
+//        LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+//
+//        LiveModel *model = self.liveList[indexPath.item];
+//        cell.liveModel = model;
+//    }
+//}
 
 #pragma mark
 - (UICollectionView *)collectionView {
@@ -213,10 +226,8 @@ const  NSInteger liveColumn = 2;
         _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        if (@available(iOS 11.0, *)) {
+        if ([UIDevice currentDevice].systemVersion.floatValue > 10.0) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
         }
         [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
         [_collectionView registerClass:[UICollectionReusableView class]

@@ -32,7 +32,9 @@ static NSString *EstimatedProgress = @"estimatedProgress";
     if (self.urlString) {
 //        _urlString = @"https://m.weibo.cn/n/ever丶飞飞";
         self.urlString = [_urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        NSURL *url = [NSURL URLWithString:self.urlString];
+//        NSURL *url = [NSURL URLWithString:self.urlString];
+        NSURL *url = [NSURL URLWithString:@"http://192.168.2.10:8080/sctd/operate/scroom/notice"];
+        
         [self.KWebView loadRequest:[NSURLRequest requestWithURL:url]];
         [self.view addSubview:self.KWebView];
         

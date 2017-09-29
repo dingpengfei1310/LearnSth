@@ -46,12 +46,14 @@ static NSString *Identifier = @"cell";
     [self.view addSubview:self.tableView];
     
 #if !TARGET_OS_SIMULATOR
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    [button setImage:[UIImage imageNamed:@"scanQRCode"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+//    [button setImage:[UIImage imageNamed:@"scanQRCode"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(scanQRCode) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"scanQRCode"] style:UIBarButtonItemStylePlain target:self action:@selector(scanQRCode)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(scanQRCode)];
     
 #endif
 }

@@ -212,7 +212,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 //        [option setOptionValue:@(NO) forKey:PLPlayerOptionKeyVideoToolbox];
 //        [option setOptionValue:@(kPLLogInfo) forKey:PLPlayerOptionKeyLogLevel];
         
-        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
+//        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
+        NSURL *url = [NSURL URLWithString:@"http://qqpull99.inke.cn/live/1506414489983991.flv?ikHost=tx&ikOp=0&codecInfo=8192"];
+        
+        
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
         
