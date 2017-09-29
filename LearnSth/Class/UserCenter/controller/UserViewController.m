@@ -52,6 +52,8 @@ static NSString *Identifier = @"cell";
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
     self.tableView.sectionHeaderHeight = 10.0;
+    self.tableView.estimatedSectionHeaderHeight =0;
+    self.tableView.estimatedSectionFooterHeight =0;
     [self.view addSubview:self.tableView];
     
     [self addObserve];

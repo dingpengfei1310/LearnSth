@@ -38,6 +38,8 @@
 #define KDocumentPath         NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject
 #define KCachePath            NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject
 
+#define CurrentVersion        [UIDevice currentDevice].systemVersion.floatValue
+
 #pragma mark
 #define KBaseBlueColor        [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
 #define KBaseTextColor        [UIColor grayColor]
@@ -45,5 +47,6 @@
 
 #pragma mark
 #define DLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
+
 
 #endif /* BaseConfigure_h */
