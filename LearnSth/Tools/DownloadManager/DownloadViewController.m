@@ -254,7 +254,12 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        CGRect frame = CGRectMake(0, 64, Screen_W, Screen_H - 113);
+        if (IPHONE_X) {
+            frame = CGRectMake(0, 88, Screen_W, Screen_H - 171);
+        }
+        
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         UINib *nib = [UINib nibWithNibName:@"DownloadViewCell" bundle:[NSBundle mainBundle]];
         [_tableView registerNib:nib forCellReuseIdentifier:@"cell"];
         

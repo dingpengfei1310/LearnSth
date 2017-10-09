@@ -34,6 +34,7 @@
 #define Screen_W              UIScreen.mainScreen.bounds.size.width
 #define Screen_H              UIScreen.mainScreen.bounds.size.height
 #define SystemVersion         UIDevice.currentDevice.systemVersion.floatValue
+#define IPHONE_X              (Screen_H == 812.0 || Screen_W == 812.0)
 
 #define KDocumentPath         NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject
 #define KCachePath            NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject

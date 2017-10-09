@@ -26,7 +26,11 @@
     self.navigationItem.title = @"首页";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:CGRectMake(0, 64, Screen_W, Screen_H - 113)];
+    CGRect rect = CGRectMake(0, 64, Screen_W, Screen_H - 113);
+    if (IPHONE_X) {
+        rect = CGRectMake(0, 88, Screen_W, Screen_H - 171);
+    }
+    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:rect];
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;
@@ -71,7 +75,6 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {

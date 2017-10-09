@@ -9,6 +9,7 @@
 #import "VideoPlayerView.h"
 
 #import "AppDelegate.h"
+#import "BaseConfigure.h"
 #import "UIView+Tool.h"
 #import <AVFoundation/AVFoundation.h>
 #import <NSObject+MemoryLeak.h>
@@ -18,6 +19,8 @@
     
     CGFloat viewW;
     CGFloat viewH;
+    
+    CGFloat statusBarH;
 }
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -74,8 +77,12 @@ const CGFloat BottomH = 40;
     viewH = [UIScreen mainScreen].bounds.size.height;
     
     self.backgroundColor = [UIColor blackColor];
-    self.frame = CGRectMake(0, 20, viewW, viewW * HeightScale);
     self.clipsToBounds = YES;
+    
+    statusBarH = 20;
+    if (IPHONE_X) {
+        statusBarH = 24;
+    }
 }
 
 -(void)setFileUrl:(NSString *)fileUrl {
@@ -567,7 +574,7 @@ const CGFloat BottomH = 40;
     CGFloat spaceW = 0;
     if (previousTraitCollection.verticalSizeClass != UIUserInterfaceSizeClassRegular) {
         //竖屏
-        self.frame = CGRectMake(0, 20, viewW, viewW * HeightScale);
+        self.frame = CGRectMake(0, statusBarH, viewW, viewW * HeightScale);
         self.playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
         
         if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -598,7 +605,14 @@ const CGFloat BottomH = 40;
     } else {
         //横屏
         spaceW = 5;
-        CGRect rect = CGRectMake(0, 0, viewH, viewW);
+        CGFloat leftW = 0;
+        CGFloat bottomH = 0;
+        if (IPHONE_X) {
+            leftW = 24;
+            bottomH = 34;;
+        }
+        
+        CGRect rect = CGRectMake(leftW, 0, viewH - leftW - bottomH, viewW - bottomH);
         self.frame = rect;
         self.playerLayer.frame = rect;
         self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
@@ -631,12 +645,12 @@ const CGFloat BottomH = 40;
                 self.lockButton.frame = lockButtonRect;
             }];
             
-            self.topView.frame = CGRectMake(0, 20, viewW, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewW - BottomH, viewH, BottomH);
+            self.topView.frame = CGRectMake(0, 20, viewW - leftW - bottomH, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW - BottomH - bottomH, viewH - leftW - bottomH, BottomH);
             
         } else {
-            self.topView.frame = CGRectMake(0, -BottomH, viewW, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewW, viewH, BottomH);
+            self.topView.frame = CGRectMake(0, -BottomH, viewW - leftW - bottomH, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW - bottomH, viewH - leftW - bottomH, BottomH);
         }
     }
     
@@ -675,7 +689,7 @@ const CGFloat BottomH = 40;
         _player = [AVPlayer playerWithPlayerItem:_playerItem];
         
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = CGRectMake(0, 0, viewW, viewW * 0.5625);
+        _playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
         _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     }
     return _playerLayer;

@@ -88,8 +88,6 @@
             }
         }
     }
-    
-    DNSLog(@"dataNetworkType:--%@",status);
 }
 
 #pragma mark

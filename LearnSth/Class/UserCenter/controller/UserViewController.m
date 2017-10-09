@@ -43,7 +43,12 @@ static NSString *Identifier = @"cell";
                        @[@"相册",@"步数"],
                        @[@"设置"]
                        ];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    CGRect frame = CGRectMake(0, 64, Screen_W, Screen_H - 113);
+    if (IPHONE_X) {
+        frame = CGRectMake(0, 88, Screen_W, Screen_H - 171);
+    }
+    
+    self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
     [self.tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
     self.tableView.dataSource = self;
