@@ -51,6 +51,48 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
+- (void)checkNetworkType {
+    UIApplication *application = [UIApplication sharedApplication];
+    NSArray *children;
+    if ([[application valueForKeyPath:@"_statusBar"] isKindOfClass:NSClassFromString(@"UIStatusBar_Modern")]) {
+        children = [[[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    } else {
+        children = [[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    }
+    
+    NSString *status = [[NSString alloc] init];
+    NSInteger netType = 0;
+    
+    for (id child in children) {
+        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+            netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
+            
+            switch (netType) {
+                case 0:
+                    status = @"noNet";
+                    break;
+                case 1:
+                    status = @"2G";
+                    break;
+                case 2:
+                    status = @"3G";
+                    break;
+                case 3:
+                    status = @"4G";
+                    break;
+                case 5:
+                    status = @"WIFI";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    DNSLog(@"dataNetworkType:--%@",status);
+}
+
+#pragma mark
 - (void)loadViewControllersWithSelectIndex:(NSInteger)index {
     HomeViewController *homeController = [[HomeViewController alloc] init];
     UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];

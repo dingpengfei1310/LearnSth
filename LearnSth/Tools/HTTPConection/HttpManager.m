@@ -124,6 +124,7 @@ const NSTimeInterval timeoutInterval = 15.0;
 
 - (void)getHotLiveListWithParam:(NSDictionary *)paramers completion:(CompletionArray)completion {
     NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
+//    http://service.inke.com/api/live/aggregation?uid=147970465&interest=1&location=0
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         if (array.count == 0) {

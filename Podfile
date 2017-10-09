@@ -12,6 +12,7 @@ target 'LearnSth' do
     pod 'YYText'
     pod 'YYImage'
     
+    pod 'MBProgressHUD'
     pod 'MJExtension'
     pod 'MJRefresh'
     

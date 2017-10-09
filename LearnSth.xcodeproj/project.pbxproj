@@ -24,7 +24,6 @@
 		1B099C761DE7E57400161396 /* DDImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BF51DE7E57400161396 /* DDImageBrowserCell.m */; };
 		1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BF81DE7E57400161396 /* DDImageBrowserController.m */; };
 		1B099C791DE7E57400161396 /* FPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099BFD1DE7E57400161396 /* FPSLabel.m */; };
-		1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C041DE7E57400161396 /* MBProgressHUD.m */; };
 		1B099C931DE7E57400161396 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C371DE7E57400161396 /* TAAbstractDotView.m */; };
 		1B099C941DE7E57400161396 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C391DE7E57400161396 /* TAAnimatedDotView.m */; };
 		1B099C951DE7E57400161396 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B099C3B1DE7E57400161396 /* TADotView.m */; };
@@ -195,8 +194,6 @@
 		1B099BF81DE7E57400161396 /* DDImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserController.m; sourceTree = "<group>"; };
 		1B099BFC1DE7E57400161396 /* FPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSLabel.h; sourceTree = "<group>"; };
 		1B099BFD1DE7E57400161396 /* FPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSLabel.m; sourceTree = "<group>"; };
-		1B099C031DE7E57400161396 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		1B099C041DE7E57400161396 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1B099C361DE7E57400161396 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		1B099C371DE7E57400161396 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		1B099C381DE7E57400161396 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -501,7 +498,6 @@
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
 				1B099BFB1DE7E57400161396 /* FPSLabel */,
 				1B389A8A1EA09D9300A927E4 /* libexidcard */,
-				1B099BFE1DE7E57400161396 /* MBProgressHUD */,
 				1B08C0901DF6564C005F3059 /* PPNumberButton */,
 				1B139C0F1EAEE830003F678E /* QRCode */,
 				1B099C341DE7E57400161396 /* SDCycleScrollView */,
@@ -558,15 +554,6 @@
 				1B099BFD1DE7E57400161396 /* FPSLabel.m */,
 			);
 			path = FPSLabel;
-			sourceTree = "<group>";
-		};
-		1B099BFE1DE7E57400161396 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				1B099C031DE7E57400161396 /* MBProgressHUD.h */,
-				1B099C041DE7E57400161396 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		1B099C341DE7E57400161396 /* SDCycleScrollView */ = {
@@ -1328,7 +1315,6 @@
 				1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */,
 				1B2E58851EBC773900770953 /* DownloadViewCell.m in Sources */,
 				1B4630E41E669796000260D2 /* CustomiseTool.m in Sources */,
-				1B099C7E1DE7E57400161396 /* MBProgressHUD.m in Sources */,
 				1B7D05651EC977A600C36FEB /* DDImageBrowserFlowLayout.m in Sources */,
 				1B08C0931DF6564C005F3059 /* PPNumberButton.m in Sources */,
 				1B327FB71EFD07010011AEC1 /* JPuzzleViewCell.m in Sources */,

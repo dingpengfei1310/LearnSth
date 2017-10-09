@@ -10,6 +10,6 @@
 
 @interface VideoCameraFilterController : BaseViewController
 
-@property (nonatomic, copy) void (^FilterMovieDismissBlock)();
+@property (nonatomic, copy) void (^FilterMovieDismissBlock)(void);
 
 @end

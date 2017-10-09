@@ -140,7 +140,7 @@
     }
 }
 
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler {
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)(void))completionHandler {
     DNSLog(@"%@ -- %@",identifier,notification.userInfo);
     [self showAlertWithTitle:@"handleActionWithIdentifier"];
     completionHandler();

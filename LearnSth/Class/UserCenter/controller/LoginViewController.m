@@ -161,8 +161,8 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
         [self loadingWithText:@"登录中..."];
         
 //        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
-        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
-//        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"smsCode":@"913667"};
+//        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
+        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"smsCode":@"913667"};
         
         [[HttpConnection defaultConnection] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
             [self hideHUD];

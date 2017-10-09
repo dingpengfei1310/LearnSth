@@ -85,7 +85,7 @@ const  NSInteger liveColumn = 2;
 }
 
 - (void)refreshLiveData {
-    NSDictionary *param = @{@"page":[@(self.page) stringValue]};
+    NSDictionary *param = @{@"page":@(self.page)};
     [[HttpManager shareManager] getHotLiveListWithParam:param completion:^(NSArray *list, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
         [self.collectionView.mj_footer endRefreshing];
@@ -137,7 +137,7 @@ const  NSInteger liveColumn = 2;
     
     dispatch_group_enter(group);
     dispatch_group_async(group, serialQueue, ^{
-        NSDictionary *param = @{@"page":[@(self.page) stringValue]};
+        NSDictionary *param = @{@"page":@(self.page)};
         [[HttpManager shareManager] getHotLiveListWithParam:param completion:^(NSArray *list, NSError *error) {
             dispatch_group_leave(group);
             
@@ -184,8 +184,6 @@ const  NSInteger liveColumn = 2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cellForItemAtIndexPath");
-    
     LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     LiveModel *model = self.liveList[indexPath.item];
@@ -226,9 +224,13 @@ const  NSInteger liveColumn = 2;
         _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        if ([UIDevice currentDevice].systemVersion.floatValue > 10.0) {
+//        if ([UIDevice currentDevice].systemVersion.floatValue > 11.0) {
+//            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//        }
+        if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+        
         [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
         [_collectionView registerClass:[UICollectionReusableView class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader

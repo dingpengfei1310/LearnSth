@@ -57,6 +57,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 @implementation MBProgressHUD
 
 #pragma mark - Class methods
+
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
     MBProgressHUD *hud = [[self alloc] initWithView:view];
     hud.removeFromSuperViewOnHide = YES;
@@ -347,8 +348,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     detailsLabel.backgroundColor = [UIColor clearColor];
     _detailsLabel = detailsLabel;
 
-    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeSystem];
-//    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [MBProgressHUDRoundedButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     button.titleLabel.font = [UIFont boldSystemFontOfSize:MBDefaultDetailsLabelFontSize];
     [button setTitleColor:defaultColor forState:UIControlStateNormal];
@@ -532,8 +532,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     NSMutableArray *bezelConstraints = [NSMutableArray array];
     NSDictionary *metrics = @{@"margin": @(margin)};
 
-    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.bottomSpacer, nil];
-//    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.button, self.bottomSpacer, nil];
+    NSMutableArray *subviews = [NSMutableArray arrayWithObjects:self.topSpacer, self.label, self.detailsLabel, self.button, self.bottomSpacer, nil];
     if (self.indicator) [subviews insertObject:self.indicator atIndex:1];
 
     // Remove existing constraints
@@ -611,16 +610,6 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     
     self.paddingConstraints = [paddingConstraints copy];
     [self updatePaddingConstraints];
-    
-    if (self.button.allControlEvents != 0) {
-        //按钮有事件
-        NSMutableArray *arrayM = [NSMutableArray array];
-        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeRight multiplier:1.0 constant:-margin * 0.3]];
-        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeTop multiplier:1.0 constant:margin * 0.3]];
-        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:margin]];
-        [arrayM addObject:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:margin]];
-        [self addConstraints:arrayM];
-    }
     
     [super updateConstraints];
 }
@@ -1128,7 +1117,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
             _color = [[UIColor blackColor] colorWithAlphaComponent:0.8];
         }
 
-//        self.clipsToBounds = YES;
+        self.clipsToBounds = YES;
 
         [self updateForBackgroundStyle];
     }
@@ -1172,7 +1161,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0) {
             UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
             UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-//            [self addSubview:effectView];
+            [self addSubview:effectView];
             effectView.frame = self.bounds;
             effectView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             self.backgroundColor = self.color;
@@ -1221,10 +1210,6 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     } else {
         self.backgroundColor = self.color;
     }
-}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    return YES;
 }
 
 @end
@@ -1457,8 +1442,8 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-//        CALayer *layer = self.layer;
-//        layer.borderWidth = 1.f;
+        CALayer *layer = self.layer;
+        layer.borderWidth = 1.f;
     }
     return self;
 }
@@ -1472,28 +1457,28 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.layer.cornerRadius = ceil(height / 2.f);
 }
 
-//- (CGSize)intrinsicContentSize {
-//    // Only show if we have associated control events
-//    if (self.allControlEvents == 0) return CGSizeZero;
-//    CGSize size = [super intrinsicContentSize];
-//    // Add some side padding
-////    size.width += 20.f;
-//    return size;
-//}
+- (CGSize)intrinsicContentSize {
+    // Only show if we have associated control events
+    if (self.allControlEvents == 0) return CGSizeZero;
+    CGSize size = [super intrinsicContentSize];
+    // Add some side padding
+    size.width += 20.f;
+    return size;
+}
 
 #pragma mark - Color
 
-//- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
-//    [super setTitleColor:color forState:state];
-//    // Update related colors
-//    [self setHighlighted:self.highlighted];
-//    self.layer.borderColor = color.CGColor;
-//}
+- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
+    [super setTitleColor:color forState:state];
+    // Update related colors
+    [self setHighlighted:self.highlighted];
+    self.layer.borderColor = color.CGColor;
+}
 
-//- (void)setHighlighted:(BOOL)highlighted {
-//    [super setHighlighted:highlighted];
-//    UIColor *baseColor = [self titleColorForState:UIControlStateSelected];
-//    self.backgroundColor = highlighted ? [baseColor colorWithAlphaComponent:0.1f] : [UIColor clearColor];
-//}
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    UIColor *baseColor = [self titleColorForState:UIControlStateSelected];
+    self.backgroundColor = highlighted ? [baseColor colorWithAlphaComponent:0.1f] : [UIColor clearColor];
+}
 
 @end

@@ -7,10 +7,9 @@
 //
 
 #import "UIViewController+Tool.h"
-
-#import "MBProgressHUD.h"
 #import "CustomiseTool.h"
 
+#import <MBProgressHUD/MBProgressHUD.h>
 #import <objc/runtime.h>
 
 static char CancelKey;
@@ -76,26 +75,19 @@ typedef void (^CancelBlock)(void);
 }
 
 - (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel {
-    UIView *view = [[UIApplication sharedApplication].windows lastObject];
+    UIView *view = [UIApplication sharedApplication].keyWindow;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.label.text = text;
-    hud.label.font = [self hudTextFont];
-    hud.margin = [self hudTextMargin] * 2.0;
-    
-    hud.bezelView.color = [UIColor clearColor];
-    hud.animationType = MBProgressHUDAnimationZoom;
+    hud.bezelView.color = [UIColor blackColor];
+    hud.contentColor = [UIColor whiteColor];
     
     if (text.length > 0) {
-        hud.mode = MBProgressHUDModeText;
-        hud.contentColor = [UIColor whiteColor];
-        hud.bezelView.color = [UIColor blackColor];
+        hud.label.text = text;
     }
     
     UIButton *button = hud.button;
-    button.backgroundColor = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0];;
-    UIImage *image = [UIImage imageNamed:@"closeButton"];
-    [button setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [button setTitle:@"取消" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);
 }
@@ -124,42 +116,46 @@ typedef void (^CancelBlock)(void);
 
 #pragma mark
 - (void)show:(NSString *)text toView:(UIView *)view {
-    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    if (!view) {
+        view = [UIApplication sharedApplication].keyWindow;
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.label.text = text;
-    hud.label.font = [self hudTextFont];
-    hud.margin = [self hudTextMargin];
     hud.mode = MBProgressHUDModeText;
-    hud.contentColor = [UIColor whiteColor];
-    
-    hud.animationType = MBProgressHUDAnimationZoom;
     hud.bezelView.color = [UIColor blackColor];
+    
+    hud.label.text = text;
+    hud.label.textColor = [UIColor whiteColor];
+    
+//    hud.label.font = [self hudTextFont];
+//    hud.margin = [self hudTextMargin];
+//    hud.contentColor = [UIColor whiteColor];
+//    hud.animationType = MBProgressHUDAnimationZoom;
     
     [hud hideAnimated:YES afterDelay:1.5];
 }
 
 - (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
-    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    if (!view) {
+        view = [UIApplication sharedApplication].keyWindow;
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.label.text = message;
-    hud.label.font = [self hudTextFont];
-    hud.margin = [self hudTextMargin];
-    
-    hud.bezelView.color = [UIColor groupTableViewBackgroundColor];
-    hud.animationType = MBProgressHUDAnimationZoom;
+    hud.bezelView.color = [UIColor blackColor];
+    hud.contentColor = [UIColor whiteColor];
     
     if (message.length > 0) {
-        hud.contentColor = [UIColor whiteColor];
-        hud.bezelView.color = [UIColor blackColor];
+        hud.label.text = message;
     }
     
     return hud;
 }
 
 - (void)hideHUDForView:(UIView *)view animated:(BOOL)animated {
-    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    if (!view) {
+        view = [UIApplication sharedApplication].keyWindow;
+    }
+    
     [MBProgressHUD hideHUDForView:view animated:animated];
 }
 
