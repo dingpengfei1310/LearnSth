@@ -195,7 +195,10 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        CGFloat barH = NavigationBarH + StatusBarH;
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+        
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 50;

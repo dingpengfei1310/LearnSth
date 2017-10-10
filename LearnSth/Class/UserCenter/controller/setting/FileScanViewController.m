@@ -238,7 +238,10 @@
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        CGFloat barH = NavigationBarH + StatusBarH;
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+        
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         _tableView.backgroundColor = KBackgroundColor;
         _tableView.rowHeight = 55;

@@ -74,12 +74,10 @@ static NSString *reuseIdentifier = @"cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 64, Screen_W, Screen_H - 113);
-        if (IPHONE_X) {
-            rect = CGRectMake(0, 88, Screen_W, Screen_H - 171);
-        }
+        CGFloat barH = NavigationBarH + StatusBarH;
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
         
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerClass:[MessageTableCell class] forCellReuseIdentifier:reuseIdentifier];
         
         _tableView.backgroundColor = KBackgroundColor;

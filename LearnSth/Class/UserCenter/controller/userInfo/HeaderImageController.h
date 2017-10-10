@@ -10,6 +10,6 @@
 
 @interface HeaderImageController : BaseViewController
 
-@property (nonatomic, copy) void (^ChangeHeaderImageBlock)();
+@property (nonatomic, copy) void (^ChangeHeaderImageBlock)(void);
 
 @end

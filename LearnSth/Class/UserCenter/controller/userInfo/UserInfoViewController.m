@@ -36,13 +36,20 @@ static NSString *Identifier = @"cell";
     [super viewDidLoad];
     self.title = @"个人信息";
     
+    CGFloat barH = NavigationBarH + StatusBarH;
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+    
     self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.layoutMargins = UIEdgeInsetsZero;
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
     [self.view addSubview:self.tableView];
     
 #if !TARGET_OS_SIMULATOR
@@ -54,7 +61,6 @@ static NSString *Identifier = @"cell";
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"scanQRCode"] style:UIBarButtonItemStylePlain target:self action:@selector(scanQRCode)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(scanQRCode)];
-    
 #endif
 }
 

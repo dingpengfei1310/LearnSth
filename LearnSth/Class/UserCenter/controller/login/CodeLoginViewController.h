@@ -10,6 +10,6 @@
 
 @interface CodeLoginViewController : BaseViewController
 
-@property (nonatomic, copy) void (^LoginSuccessBlock)();
+@property (nonatomic, copy) void (^LoginSuccessBlock)(void);
 
 @end

@@ -26,11 +26,10 @@
     self.navigationItem.title = @"首页";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    CGRect rect = CGRectMake(0, 64, Screen_W, Screen_H - 113);
-    if (IPHONE_X) {
-        rect = CGRectMake(0, 88, Screen_W, Screen_H - 171);
-    }
-    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:rect];
+    CGFloat barH = NavigationBarH + StatusBarH;
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - BottomToolBarH);
+    
+    self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:frame];
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;

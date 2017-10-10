@@ -268,7 +268,7 @@
     }
     
     CGImageRelease(cgImage);
-    CGDataProviderRelease(provider);
+//    CGDataProviderRelease(provider);
     
     //codes
     NSMutableArray *codes = [NSMutableArray array];

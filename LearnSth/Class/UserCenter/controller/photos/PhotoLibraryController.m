@@ -147,8 +147,10 @@ static NSString *Identifier = @"Cell";
 #pragma mark
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        CGFloat barH = NavigationBarH + StatusBarH;
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+        
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;

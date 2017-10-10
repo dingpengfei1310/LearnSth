@@ -10,6 +10,6 @@
 
 @interface ShowViewController : UIViewController
 
-@property (nonatomic, copy) void (^DismissShowBlock)();
+@property (nonatomic, copy) void (^DismissShowBlock)(void);
 
 @end

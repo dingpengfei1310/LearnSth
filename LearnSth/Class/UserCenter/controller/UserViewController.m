@@ -43,22 +43,21 @@ static NSString *Identifier = @"cell";
                        @[@"相册",@"步数"],
                        @[@"设置"]
                        ];
-    CGRect frame = CGRectMake(0, 64, Screen_W, Screen_H - 113);
-    if (IPHONE_X) {
-        frame = CGRectMake(0, 88, Screen_W, Screen_H - 171);
-    }
+    CGFloat barH = NavigationBarH + StatusBarH;
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - BottomToolBarH);
     
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
     [self.tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
     self.tableView.layoutMargins = UIEdgeInsetsZero;//iOS10.0以上可以不用设置
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.sectionFooterHeight = 0.0;//通过代理设置无效，不知道为什么(如果只有一个section,可以不用设置)
-    self.tableView.sectionHeaderHeight = 10.0;
-    self.tableView.estimatedSectionHeaderHeight =0;
-    self.tableView.estimatedSectionFooterHeight =0;
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
     [self.view addSubview:self.tableView];
     
     [self addObserve];
@@ -133,9 +132,9 @@ static NSString *Identifier = @"cell";
     [cell setLayoutMargins:UIEdgeInsetsZero];//iOS10.0以上可以不用设置
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 1.0;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.0;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.section == 0 ? 70 : 50;

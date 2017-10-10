@@ -29,11 +29,11 @@
 }
 
 - (void)initSubView {
-    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 64 + 20, self.view.frame.size.width - 40, 35)];
+    _qrTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, StatusBarH + NavigationBarH + 20, Screen_W - 40, 35)];
     _qrTextField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:_qrTextField];
     
-    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 20 + CGRectGetMaxY(_qrTextField.frame), self.view.frame.size.width - 100, self.view.frame.size.width - 100)];
+    _qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 20 + CGRectGetMaxY(_qrTextField.frame), Screen_W - 100, Screen_W - 100)];
     _qrImageView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_qrImageView];
 }

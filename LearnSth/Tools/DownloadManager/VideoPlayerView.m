@@ -19,8 +19,6 @@
     
     CGFloat viewW;
     CGFloat viewH;
-    
-    CGFloat statusBarH;
 }
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -78,11 +76,6 @@ const CGFloat BottomH = 40;
     
     self.backgroundColor = [UIColor blackColor];
     self.clipsToBounds = YES;
-    
-    statusBarH = 20;
-    if (IPHONE_X) {
-        statusBarH = 24;
-    }
 }
 
 -(void)setFileUrl:(NSString *)fileUrl {
@@ -141,7 +134,7 @@ const CGFloat BottomH = 40;
     lockButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [lockButton setTitle:@"锁屏" forState:UIControlStateNormal];
     [lockButton setTitle:@"解锁" forState:UIControlStateSelected];
-    lockButton.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+    lockButton.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     lockButton.layer.cornerRadius = BottomH * 0.6;
     lockButton.layer.masksToBounds = YES;
     [lockButton addTarget:self action:@selector(lockScreen:) forControlEvents:UIControlEventTouchUpInside];
@@ -437,7 +430,6 @@ const CGFloat BottomH = 40;
     switch (state) {
         case UIGestureRecognizerStateBegan:
         {
-            
             self.lastPoint = point;
             break;
         }
@@ -516,11 +508,11 @@ const CGFloat BottomH = 40;
     CGRect bottomViewRect = self.bottomView.frame;
     
     if (self.isTopViewHidden) {
-        topViewRect.origin.y += 20 - CGRectGetMinY(self.frame) + BottomH;
+        topViewRect.origin.y = 20;
         bottomViewRect.origin.y -= BottomH;
         
     } else {
-        topViewRect.origin.y -= 20 - CGRectGetMinY(self.frame) + BottomH;
+        topViewRect.origin.y = -BottomH;
         bottomViewRect.origin.y += BottomH;
     }
     
@@ -574,7 +566,7 @@ const CGFloat BottomH = 40;
     CGFloat spaceW = 0;
     if (previousTraitCollection.verticalSizeClass != UIUserInterfaceSizeClassRegular) {
         //竖屏
-        self.frame = CGRectMake(0, statusBarH, viewW, viewW * HeightScale);
+        self.frame = CGRectMake(0, StatusBarH - 20, viewW, viewW * HeightScale);
         self.playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
         
         if (self.lastOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -590,7 +582,7 @@ const CGFloat BottomH = 40;
         self.lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
         if (!self.isTopViewHidden) {
-            self.topView.frame = CGRectMake(0, 0, viewW, BottomH);
+            self.topView.frame = CGRectMake(0, 20, viewW, BottomH);
             self.bottomView.frame = CGRectMake(0, viewW * HeightScale - BottomH, viewW, BottomH);
         } else {
             self.topView.frame = CGRectMake(0, -BottomH, viewW, BottomH);
@@ -608,13 +600,13 @@ const CGFloat BottomH = 40;
         CGFloat leftW = 0;
         CGFloat bottomH = 0;
         if (IPHONE_X) {
-            leftW = 24;
-            bottomH = 34;;
+            leftW = 44;
+            bottomH = 21;;
         }
         
-        CGRect rect = CGRectMake(leftW, 0, viewH - leftW - bottomH, viewW - bottomH);
-        self.frame = rect;
-        self.playerLayer.frame = rect;
+        CGRect frame = CGRectMake(leftW, 0, viewH - leftW * 2, viewW - bottomH);
+        self.frame = frame;
+        self.playerLayer.frame = frame;
         self.transform = CGAffineTransformMakeRotation(-M_PI_4 * 0.5);
         
         if (self.lastOrientation == UIInterfaceOrientationPortrait) {
@@ -645,12 +637,12 @@ const CGFloat BottomH = 40;
                 self.lockButton.frame = lockButtonRect;
             }];
             
-            self.topView.frame = CGRectMake(0, 20, viewW - leftW - bottomH, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewW - BottomH - bottomH, viewH - leftW - bottomH, BottomH);
+            self.topView.frame = CGRectMake(0, 20, viewW - leftW * 2, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW - BottomH - bottomH, viewH - leftW * 2, BottomH);
             
         } else {
-            self.topView.frame = CGRectMake(0, -BottomH, viewW - leftW - bottomH, BottomH);
-            self.bottomView.frame = CGRectMake(0, viewW - bottomH, viewH - leftW - bottomH, BottomH);
+            self.topView.frame = CGRectMake(0, -BottomH, viewW - leftW * 2, BottomH);
+            self.bottomView.frame = CGRectMake(0, viewW - bottomH, viewH - leftW * 2, BottomH);
         }
     }
     

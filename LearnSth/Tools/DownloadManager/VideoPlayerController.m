@@ -47,7 +47,7 @@
 //    self.dataArray = @[@"",@"",@"",@"",@""];
 //    [self.view addSubview:self.tableView];
     
-    [self.view bringSubviewToFront:self.playerView];
+//    [self.view bringSubviewToFront:self.playerView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

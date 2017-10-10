@@ -10,6 +10,6 @@
 
 @interface SettingViewController : BaseViewController
 
-@property (nonatomic, copy) void (^LogoutBlock)();
+@property (nonatomic, copy) void (^LogoutBlock)(void);
 
 @end

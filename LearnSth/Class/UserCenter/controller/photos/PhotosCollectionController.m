@@ -216,7 +216,10 @@ const NSInteger photoColumn = 4;
         flowLayout.minimumInteritemSpacing = interitemSpacing;
         flowLayout.minimumLineSpacing = interitemSpacing;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
+        CGFloat barH = NavigationBarH + StatusBarH;
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:frame
                                              collectionViewLayout:flowLayout];
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];
         [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];
