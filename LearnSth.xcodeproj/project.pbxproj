@@ -71,6 +71,8 @@
 		1B396A861F20574B00E5ABF8 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B396A851F20574B00E5ABF8 /* LearnSthTests.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
 		1B4081DC1EDBF7B200407B94 /* SceneRainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4081DB1EDBF7B200407B94 /* SceneRainView.m */; };
+		1B42E4A61F8DBCC700D6C463 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1B42E4A51F8DBCC700D6C463 /* Location.gpx */; };
+		1B42E4A91F8DC0F900D6C463 /* LocationTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B42E4A81F8DC0F900D6C463 /* LocationTransform.m */; };
 		1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B430D691ED7D5410097248C /* SceneGameView.m */; };
 		1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C01E669703000260D2 /* NSString+Tool.m */; };
 		1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4630C21E669703000260D2 /* UICollectionView+Tool.m */; };
@@ -292,6 +294,9 @@
 		1B4081DA1EDBF7B200407B94 /* SceneRainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRainView.h; sourceTree = "<group>"; };
 		1B4081DB1EDBF7B200407B94 /* SceneRainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneRainView.m; sourceTree = "<group>"; };
 		1B40D0031ECEF61A00B65DD7 /* LearnSth.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = LearnSth.entitlements; path = ../LearnSth.entitlements; sourceTree = "<group>"; };
+		1B42E4A51F8DBCC700D6C463 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		1B42E4A71F8DC0F900D6C463 /* LocationTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationTransform.h; sourceTree = "<group>"; };
+		1B42E4A81F8DC0F900D6C463 /* LocationTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationTransform.m; sourceTree = "<group>"; };
 		1B430D681ED7D5410097248C /* SceneGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGameView.h; sourceTree = "<group>"; };
 		1B430D691ED7D5410097248C /* SceneGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneGameView.m; sourceTree = "<group>"; };
 		1B4630BF1E669703000260D2 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
@@ -837,6 +842,8 @@
 				1B4630D01E669703000260D2 /* SQLManager */,
 				1B4630D31E669703000260D2 /* UserLocalNotification.h */,
 				1B4630D41E669703000260D2 /* UserLocalNotification.m */,
+				1B42E4A71F8DC0F900D6C463 /* LocationTransform.h */,
+				1B42E4A81F8DC0F900D6C463 /* LocationTransform.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -901,6 +908,7 @@
 				1B48A5A11F304D9600F54741 /* Localizable.strings */,
 				1B48A5A31F304D9600F54741 /* province.db */,
 				1B48A5A81F304D9600F54741 /* SDSloganPoints.plist */,
+				1B42E4A51F8DBCC700D6C463 /* Location.gpx */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1203,6 +1211,7 @@
 				1BF7F6D31D92492200F8E5B1 /* Assets.xcassets in Resources */,
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
 				1B48A5AE1F304D9600F54741 /* Localizable.strings in Resources */,
+				1B42E4A61F8DBCC700D6C463 /* Location.gpx in Resources */,
 				1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
@@ -1245,13 +1254,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LearnSth-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		84EAB8159764C26CAB90A78D /* [CP] Copy Pods Resources */ = {
@@ -1260,9 +1272,17 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LearnSth/Pods-LearnSth-resources.sh",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_amatorka.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_miss_etikate.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_1.png",
+				"${PODS_ROOT}/GPUImage/framework/Resources/lookup_soft_elegance_2.png",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1287,6 +1307,7 @@
 				1B65D2DE1F8CB0EF000A679A /* VideoCameraFilterController.m in Sources */,
 				1B65D2DD1F8CAF7E000A679A /* GPUImageBeautifyFilter.m in Sources */,
 				1B65D2DC1F8CAF75000A679A /* VideoProcessWithFilter.m in Sources */,
+				1B42E4A91F8DC0F900D6C463 /* LocationTransform.m in Sources */,
 				1B65D2DB1F8CAF6B000A679A /* ScanIDCardController.m in Sources */,
 				1B65D2DA1F8CAF5C000A679A /* FindPasswordController.m in Sources */,
 				1B65D2D91F8CAF53000A679A /* EditImageController.m in Sources */,
