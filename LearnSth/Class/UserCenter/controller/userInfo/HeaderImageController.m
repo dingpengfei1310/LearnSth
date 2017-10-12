@@ -30,7 +30,7 @@
     [super viewDidLoad];
     self.title = @"头像";
     self.view.backgroundColor = [UIColor blackColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuList"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuButton"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
     
     CGFloat viewW = CGRectGetWidth(self.view.frame);
 //    _imageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(0, 64, viewW, self.view.frame.size.height - 64)];
