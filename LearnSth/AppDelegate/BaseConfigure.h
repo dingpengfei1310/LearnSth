@@ -38,7 +38,7 @@
 #define IPHONE_X              (Screen_H == 812.0 || Screen_W == 812.0)
 #define StatusBarH            [[UIApplication sharedApplication] statusBarFrame].size.height
 #define NavigationBarH        44.0
-#define BottomToolBarH        (IPHONE_X ? 83 : 49)
+#define BottomToolBarH        (IPHONE_X ? 83.0 : 49.0)
 
 #define KDocumentPath         NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject
 #define KCachePath            NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject
