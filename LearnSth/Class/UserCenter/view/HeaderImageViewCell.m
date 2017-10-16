@@ -7,9 +7,11 @@
 //
 
 #import "HeaderImageViewCell.h"
-#import "UserManager.h"
 
+#import "BaseConfigure.h"
+#import "UserManager.h"
 #import "CustomiseTool.h"
+
 #import <NSData+ImageContentType.h>
 #import <FLAnimatedImage.h>
 #import <UIImageView+WebCache.h>
@@ -35,8 +37,6 @@
 }
 
 - (void)initSubViews {
-    self.backgroundColor = [UIColor whiteColor];
-    
     _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
     _headerImageView.layer.masksToBounds = YES;
     _headerImageView.layer.cornerRadius = 25;

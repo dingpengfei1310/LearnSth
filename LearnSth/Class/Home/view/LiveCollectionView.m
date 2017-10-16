@@ -10,6 +10,7 @@
 #import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
 
+#import "CustomiseTool.h"
 #import "BannerModel.h"
 #import "LiveModel.h"
 
@@ -221,7 +222,7 @@ const  NSInteger liveColumn = 2;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
 //        if ([UIDevice currentDevice].systemVersion.floatValue > 11.0) {

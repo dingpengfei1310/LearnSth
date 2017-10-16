@@ -255,7 +255,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         CGFloat barH = NavigationBarH + StatusBarH;
-        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - BottomToolBarH);
+        CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
         
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         UINib *nib = [UINib nibWithNibName:@"DownloadViewCell" bundle:[NSBundle mainBundle]];

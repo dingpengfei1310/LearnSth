@@ -18,6 +18,17 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    BOOL model = [CustomiseTool isNightModel];
+    if (model) {
+        self.view.backgroundColor = [UIColor blackColor];
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

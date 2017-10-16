@@ -123,7 +123,21 @@ static NSString *Identifier = @"Cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor *backgroundColor;
+    if ([CustomiseTool isNightModel]) {
+        tableView.backgroundColor = [UIColor blackColor];
+        tableView.separatorColor = [UIColor blackColor];
+        
+        backgroundColor = KCellBackgroundColor;
+    } else {
+        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tableView.separatorColor = [UIColor lightGrayColor];
+        
+        backgroundColor = [UIColor whiteColor];
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier forIndexPath:indexPath];
+    cell.backgroundColor = backgroundColor;
     
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
     PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];

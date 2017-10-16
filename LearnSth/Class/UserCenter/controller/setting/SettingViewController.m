@@ -109,10 +109,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor *backgroundColor;
+    if ([CustomiseTool isNightModel]) {
+        tableView.backgroundColor = [UIColor blackColor];
+        tableView.separatorColor = [UIColor blackColor];
+        
+        backgroundColor = KCellBackgroundColor;
+    } else {
+        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tableView.separatorColor = [UIColor lightGrayColor];
+        
+        backgroundColor = [UIColor whiteColor];;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.backgroundColor = backgroundColor;
     }
     cell.textLabel.text = self.dataArray[indexPath.row];
     cell.detailTextLabel.text = nil;

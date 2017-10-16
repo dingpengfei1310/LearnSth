@@ -24,8 +24,11 @@ typedef NS_ENUM (NSInteger, LanguageType){
 + (void)setLoginToken:(NSString *)token;
 + (NSString *)loginToken;
 
++ (void)setNightModel:(BOOL)model;
++ (BOOL)isNightModel;//是否夜间模式
+
 + (void)setCurrentVersion;
-+ (BOOL)isFirstLaunch;
++ (BOOL)isFirstLaunch;//是否（更新后）第一次启动
 
 //+ (void)setDownloadFile:(NSDictionary *)file;
 //+ (NSDictionary *)downloadFile;

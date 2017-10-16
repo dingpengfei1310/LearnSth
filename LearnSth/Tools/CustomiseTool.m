@@ -11,6 +11,8 @@
 static NSString *KIsLoginCache = @"UserLoginCache";
 static NSString *KLoginToken = @"UserLoginToken";
 
+static NSString *KNightModel = @"NightModel";
+
 static NSString *KCurrentVersion = @"CurrentVersion";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
 
@@ -50,6 +52,15 @@ static NSString *ENLANGUAGE = @"en";
 
 + (NSString *)loginToken {
     return [[NSUserDefaults standardUserDefaults] stringForKey:KLoginToken];
+}
+
++ (void)setNightModel:(BOOL)model {
+    [[NSUserDefaults standardUserDefaults] setBool:model forKey:KNightModel];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)isNightModel {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:KNightModel];
 }
 
 + (void)setCurrentVersion {

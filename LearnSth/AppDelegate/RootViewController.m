@@ -20,9 +20,7 @@
 #endif
 
 @interface RootViewController ()
-
 @property (nonatomic, strong) UIView *barView;
-
 @end
 
 @implementation RootViewController
@@ -32,6 +30,10 @@
     
     [self networkMonitoring];
     [self loadViewControllersWithSelectIndex:0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeModel) name:ChangeNightModel object:nil];
+    
+    [self changeModel];
 }
 
 #pragma mark
@@ -116,6 +118,11 @@
     barView.backgroundColor = [UIColor whiteColor];
     [self.tabBar addSubview:barView];
     self.barView = barView;
+    if ([CustomiseTool isNightModel]) {
+        barView.backgroundColor = [UIColor darkGrayColor];
+    } else {
+        barView.backgroundColor = [UIColor whiteColor];
+    }
     
     NSArray *titles = @[@"00",@"",@"22"];//必须为奇数，也就是真实的controller必须是偶数个
     CGFloat buttonWidth = totalWidth / titles.count;
@@ -172,6 +179,28 @@
         [item setTitleTextAttributes:textAttributeNormal forState:UIControlStateNormal];
         [item setTitleTextAttributes:textAttributeSelect forState:UIControlStateSelected];
     }
+}
+
+- (void)changeModel {
+    if ([CustomiseTool isNightModel]) {
+        self.barView.backgroundColor = [UIColor darkGrayColor];
+        
+        UIView *modelView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        modelView.tag = 1111;
+        modelView.userInteractionEnabled = NO;
+        modelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
+        [[UIApplication sharedApplication].keyWindow addSubview:modelView];
+        
+    } else {
+        self.barView.backgroundColor = [UIColor whiteColor];
+        
+        for (UIView *subView in [UIApplication sharedApplication].keyWindow.subviews) {
+            if (subView.tag == 1111) {
+                [subView removeFromSuperview];
+            }
+        }
+    }
+    
 }
 
 #pragma mark

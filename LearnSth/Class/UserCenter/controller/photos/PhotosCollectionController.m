@@ -221,9 +221,13 @@ const NSInteger photoColumn = 4;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:frame
                                              collectionViewLayout:flowLayout];
+        if ([CustomiseTool isNightModel]) {
+            _collectionView.backgroundColor = [UIColor blackColor];
+        } else {
+            _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        }
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];
         [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];
-        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
     }

@@ -27,7 +27,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     CGFloat barH = NavigationBarH + StatusBarH;
-    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - BottomToolBarH);
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
     
     self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:frame];
     [self.view addSubview:self.liveCollectionView];
@@ -59,6 +59,12 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.liveCollectionView viewWillShow:YES];
+    
+    if ([CustomiseTool isNightModel]) {
+        self.liveCollectionView.backgroundColor = [UIColor blackColor];
+    } else {
+        self.liveCollectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

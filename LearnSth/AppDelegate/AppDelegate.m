@@ -49,7 +49,11 @@
 - (void)setNavigationBar {
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];//设置后,UIStatusBarStyle,默认为LightContent
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+    if ([CustomiseTool isNightModel]) {
+        [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    } else {
+        [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+    }
     
     UIImage *originalImage = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [[UINavigationBar appearance] setBackIndicatorImage:originalImage];

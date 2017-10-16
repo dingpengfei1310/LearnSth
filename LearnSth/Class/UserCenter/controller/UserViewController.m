@@ -38,13 +38,13 @@ static NSString *Identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我";
-    
     self.dataArray = @[@[@"头像"],
                        @[@"相册",@"步数"],
+                       @[@"夜间"],
                        @[@"设置"]
                        ];
     CGFloat barH = NavigationBarH + StatusBarH;
-    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - BottomToolBarH);
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
     
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
@@ -112,15 +112,32 @@ static NSString *Identifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor *backgroundColor;
+    if ([CustomiseTool isNightModel]) {
+        tableView.backgroundColor = [UIColor blackColor];
+        tableView.separatorColor = [UIColor blackColor];
+        
+        backgroundColor = KCellBackgroundColor;
+    } else {
+        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tableView.separatorColor = [UIColor lightGrayColor];
+        
+        backgroundColor = [UIColor whiteColor];;
+    }
+    
     if (indexPath.section == 0) {
         HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.backgroundColor = backgroundColor;
+        
         cell.userModel = [UserManager shareManager];
         
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.backgroundColor = backgroundColor;
+        
         NSArray *array = self.dataArray[indexPath.section];
         cell.textLabel.text = array[indexPath.row];
         
@@ -165,6 +182,26 @@ static NSString *Identifier = @"cell";
         }
         
     } else if (indexPath.section == 2) {
+        BOOL model = [CustomiseTool isNightModel];
+        [CustomiseTool setNightModel:!model];
+        
+        [tableView reloadData];
+        
+        if ([CustomiseTool isNightModel]) {
+            [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+            [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+            self.view.backgroundColor = [UIColor blackColor];
+            
+        } else {
+            [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+            [self.navigationController.navigationBar setBarTintColor:KBaseBlueColor];
+            self.view.backgroundColor = [UIColor whiteColor];
+            
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeNightModel object:nil];
+        
+    } else if (indexPath.section == 3) {
         SettingViewController *controller = [[SettingViewController alloc] init];
         controller.LogoutBlock = ^{
             [self reloadHeaderCell];
