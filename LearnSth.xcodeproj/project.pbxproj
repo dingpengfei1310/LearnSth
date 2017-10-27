@@ -1597,6 +1597,7 @@
 				CODE_SIGN_ENTITLEMENTS = LearnSth/LearnSth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 1005079849@qq.com (X6FUA4DG7G)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1648,6 +1649,7 @@
 				CODE_SIGN_ENTITLEMENTS = LearnSth/LearnSth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 667L3Y3D6H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
