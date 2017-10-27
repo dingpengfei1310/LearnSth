@@ -13,6 +13,7 @@
 #import "FileScanViewController.h"
 #import "ShowViewController.h"
 #import "FeedbackController.h"
+#import "AboutViewController.h"
 
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
@@ -36,7 +37,8 @@
                        @"清除缓存",
                        @"语言",
                        @"新功能",
-                       @"意见反馈"];
+                       @"意见反馈",
+                       @"关于"];
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
@@ -202,6 +204,9 @@
         [self presentViewController:showVC animated:YES completion:nil];
     } else if (indexPath.row == 6) {
         FeedbackController *controller = [[FeedbackController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 7) {
+        AboutViewController *controller = [[AboutViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

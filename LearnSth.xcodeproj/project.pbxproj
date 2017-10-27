@@ -61,6 +61,7 @@
 		1B2E58851EBC773900770953 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E58831EBC773900770953 /* DownloadViewCell.m */; };
 		1B2E58861EBC773900770953 /* DownloadViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E58841EBC773900770953 /* DownloadViewCell.xib */; };
 		1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */; };
+		1B30FF1B1FA31F1E00CCFFCA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30FF1A1FA31F1E00CCFFCA /* AboutViewController.m */; };
 		1B327FB71EFD07010011AEC1 /* JPuzzleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B327FB61EFD07010011AEC1 /* JPuzzleViewCell.m */; };
 		1B348D0C1EF3A37000F63BD4 /* LiveInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B348D0B1EF3A37000F63BD4 /* LiveInfoViewController.m */; };
 		1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491EF1EC5817A002483CC /* BaseChartView.m */; };
@@ -270,6 +271,8 @@
 		1B2E58841EBC773900770953 /* DownloadViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadViewCell.xib; sourceTree = "<group>"; };
 		1B30E24C1EB02CBE0040BD87 /* QRCodeRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeRecognizer.h; sourceTree = "<group>"; };
 		1B30E24D1EB02CBE0040BD87 /* QRCodeRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeRecognizer.m; sourceTree = "<group>"; };
+		1B30FF191FA31F1E00CCFFCA /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		1B30FF1A1FA31F1E00CCFFCA /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		1B327FB51EFD07010011AEC1 /* JPuzzleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzleViewCell.h; sourceTree = "<group>"; };
 		1B327FB61EFD07010011AEC1 /* JPuzzleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzleViewCell.m; sourceTree = "<group>"; };
 		1B348D0A1EF3A37000F63BD4 /* LiveInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveInfoViewController.h; sourceTree = "<group>"; };
@@ -973,6 +976,8 @@
 				1B65D2B31F8CABD7000A679A /* FileScanViewController.m */,
 				1B65D2B41F8CABD7000A679A /* MessageViewController.h */,
 				1B65D2B51F8CABD7000A679A /* MessageViewController.m */,
+				1B30FF191FA31F1E00CCFFCA /* AboutViewController.h */,
+				1B30FF1A1FA31F1E00CCFFCA /* AboutViewController.m */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -1398,6 +1403,7 @@
 				1B4630DD1E669703000260D2 /* DeviceConfig.m in Sources */,
 				1B099C741DE7E57400161396 /* BHBPaintPath.m in Sources */,
 				1B139C121EAEE8BC003F678E /* QRCodeGenerator.m in Sources */,
+				1B30FF1B1FA31F1E00CCFFCA /* AboutViewController.m in Sources */,
 				1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */,
 				1B099C771DE7E57400161396 /* DDImageBrowserController.m in Sources */,
 				1BFEA6121EA747D60033CD15 /* DanMuModel.m in Sources */,
