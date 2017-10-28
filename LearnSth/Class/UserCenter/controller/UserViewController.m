@@ -122,7 +122,7 @@ static NSString *Identifier = @"cell";
         tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         tableView.separatorColor = [UIColor lightGrayColor];
         
-        backgroundColor = [UIColor whiteColor];;
+        backgroundColor = [UIColor whiteColor];
     }
     
     if (indexPath.section == 0) {
@@ -193,8 +193,8 @@ static NSString *Identifier = @"cell";
             self.view.backgroundColor = [UIColor blackColor];
             
         } else {
-            [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
-            [self.navigationController.navigationBar setBarTintColor:KBaseBlueColor];
+            [[UINavigationBar appearance] setBarTintColor:KBaseAppColor];
+            [self.navigationController.navigationBar setBarTintColor:KBaseAppColor];
             self.view.backgroundColor = [UIColor whiteColor];
             
         }

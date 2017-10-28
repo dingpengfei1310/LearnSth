@@ -30,6 +30,7 @@
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
     
     self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:frame];
+    self.liveCollectionView.hidden = YES;
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;
@@ -54,6 +55,7 @@
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -80,6 +82,10 @@
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)leftItemClick {
+    self.liveCollectionView.hidden = !self.liveCollectionView.hidden;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -44,7 +44,7 @@
     CGFloat leftM = 80;
     UIButton *startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, viewW - leftM * 2, 38)];
     startButton.center = CGPointMake(viewW * (pageCount - 1) + viewW * 0.5, viewH * 0.9 - 10);
-    UIImage *image = [UIImage imageWithColor:KBaseBlueColor];
+    UIImage *image = [UIImage imageWithColor:KBaseAppColor];
     UIImage *cornerImage = [image cornerImageWithSize:CGSizeMake(viewW - leftM * 2, 38) radius:3];
     [startButton setBackgroundImage:cornerImage forState:UIControlStateNormal];
     [startButton setTitle:@"开始体验" forState:UIControlStateNormal];
@@ -56,7 +56,7 @@
     _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, viewW, 20)];
     _pageControl.center = CGPointMake(viewW * 0.5, viewH - 20);
     _pageControl.pageIndicatorTintColor = KBackgroundColor;
-    _pageControl.currentPageIndicatorTintColor = KBaseBlueColor;
+    _pageControl.currentPageIndicatorTintColor = KBaseAppColor;
     _pageControl.numberOfPages = pageCount;
     [self.view addSubview:_pageControl];
     

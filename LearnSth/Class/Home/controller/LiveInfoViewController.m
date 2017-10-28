@@ -98,7 +98,7 @@
         if (!_showTitle) {
             _showTitle = YES;
             self.title = self.liveModel.myname;
-            [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:KBaseBlueColor]];
+            [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:KBaseAppColor]];
         }
     } else if (offsetY < -Screen_W * 0.5) {
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);

@@ -121,7 +121,7 @@
         tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         tableView.separatorColor = [UIColor lightGrayColor];
         
-        backgroundColor = [UIColor whiteColor];;
+        backgroundColor = [UIColor whiteColor];
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -228,7 +228,12 @@
         if ([CustomiseTool isLogin]) {
             UIButton *logoutButon = [UIButton buttonWithType:UIButtonTypeSystem];
             logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-            logoutButon.backgroundColor = [UIColor whiteColor];
+            if ([CustomiseTool isNightModel]) {
+                logoutButon.backgroundColor = KCellBackgroundColor;
+            } else {
+                logoutButon.backgroundColor = [UIColor whiteColor];
+            }
+            
             [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];
             [logoutButon addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];

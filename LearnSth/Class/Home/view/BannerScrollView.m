@@ -199,7 +199,7 @@
         CGRect pageRect = CGRectMake(width - pageWidth, height - 15, pageWidth, 10);
         _pageControl = [[UIPageControl alloc] initWithFrame:pageRect];
         _pageControl.pageIndicatorTintColor = KBackgroundColor;
-        _pageControl.currentPageIndicatorTintColor = KBaseBlueColor;
+        _pageControl.currentPageIndicatorTintColor = KBaseAppColor;
     }
     return _pageControl;
 }

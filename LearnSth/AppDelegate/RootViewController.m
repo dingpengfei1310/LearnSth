@@ -133,7 +133,7 @@
         button.tag = i;
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:KBaseTextColor forState:UIControlStateNormal];
-        [button setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
+        [button setTitleColor:KBaseAppColor forState:UIControlStateSelected];
         [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [button setImagePoisition:ImagePoisitionTop];
@@ -170,7 +170,7 @@
     NSDictionary *textAttributeNormal = @{NSFontAttributeName:[UIFont systemFontOfSize:12],
                                           NSForegroundColorAttributeName:KBaseTextColor};
     NSDictionary *textAttributeSelect = @{NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                          NSForegroundColorAttributeName:KBaseBlueColor};
+                                          NSForegroundColorAttributeName:KBaseAppColor};
     
     NSArray *itemTitles = @[@"00",@"22"];
     for (int i = 0; i < self.tabBar.items.count; i++) {

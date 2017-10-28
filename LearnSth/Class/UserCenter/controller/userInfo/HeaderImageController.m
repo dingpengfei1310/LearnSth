@@ -29,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"头像";
-    self.view.backgroundColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuButton"] style:UIBarButtonItemStylePlain target:self action:@selector(changeHeaderImage)];
     
     CGFloat viewW = CGRectGetWidth(self.view.frame);
@@ -48,6 +47,11 @@
 //            _imageView.image = [UIImage imageWithData:data];
 //        }
 //    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 #pragma mark

@@ -49,19 +49,18 @@
 #define CurrentVersion        [UIDevice currentDevice].systemVersion.floatValue
 
 #pragma mark - color
-#define KBaseBlueColor        [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
+//#define KBaseAppColor         [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
+#define KBaseAppColor         [UIColor colorWithRed:250/255.0 green:30/255.0 blue:80/255.0 alpha:1.0]
 #define KBaseTextColor        [UIColor grayColor]
 #define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
 
 #pragma mark - colorNight
 #define KCellBackgroundColor  [UIColor darkGrayColor]
-//#define KBaseTextColor        [UIColor grayColor]
-//#define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
 
 #pragma mark
 #define DLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
 
 #pragma mark - 通知
-#define ChangeNightModel      @"ChangeNightModel"
+#define ChangeNightModel      @"ChangeModelNotification"
 
 #endif /* BaseConfigure_h */

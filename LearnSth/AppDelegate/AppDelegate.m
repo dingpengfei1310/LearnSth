@@ -52,7 +52,7 @@
     if ([CustomiseTool isNightModel]) {
         [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     } else {
-        [[UINavigationBar appearance] setBarTintColor:KBaseBlueColor];
+        [[UINavigationBar appearance] setBarTintColor:KBaseAppColor];
     }
     
     UIImage *originalImage = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

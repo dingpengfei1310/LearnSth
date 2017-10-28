@@ -57,7 +57,7 @@ const CGFloat emoteWidth = 28.0;//item宽高为28
     
     UIButton *edit = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [edit setTitle:@"edit" forState:UIControlStateNormal];
-    [edit setTitleColor:KBaseBlueColor forState:UIControlStateSelected];
+    [edit setTitleColor:KBaseAppColor forState:UIControlStateSelected];
     [edit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [edit addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
     [_bottomView addSubview:edit];

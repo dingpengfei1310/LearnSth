@@ -71,7 +71,7 @@
         [self.view addSubview:webView];
         
     } else if (indexPath.row == 1) {
-        UIAlertController * alertController = [UIAlertController  alertControllerWithTitle:nil message:@"是否打开链接" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController * alertController = [UIAlertController  alertControllerWithTitle:nil message:@"是否打开网站" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSString *url = self.subTitleArray[indexPath.row];

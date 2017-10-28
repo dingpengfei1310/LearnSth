@@ -53,6 +53,14 @@ static NSString *Identifier = @"cell";
     self.tableView.estimatedSectionFooterHeight = 0;
     [self.view addSubview:self.tableView];
     
+    if ([CustomiseTool isNightModel]) {
+        self.tableView.backgroundColor = [UIColor blackColor];
+        self.tableView.separatorColor = [UIColor blackColor];
+    } else {
+        self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        self.tableView.separatorColor = [UIColor lightGrayColor];
+    }
+    
 #if !TARGET_OS_SIMULATOR
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 23)];
     [button setImage:[UIImage imageNamed:@"scanQRCode"] forState:UIControlStateNormal];
@@ -85,6 +93,9 @@ static NSString *Identifier = @"cell";
     [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
         textField.placeholder = @"请输入昵称";
         textField.text = [UserManager shareManager].username;
+        if ([CustomiseTool isNightModel]) {
+            textField.keyboardAppearance = UIKeyboardAppearanceDark;
+        }
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
@@ -145,8 +156,11 @@ static NSString *Identifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor *backgroundColor = ([CustomiseTool isNightModel] ? KCellBackgroundColor : [UIColor whiteColor]);
+    
     if (indexPath.row ==0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
+        cell.backgroundColor = backgroundColor;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.dataArray[indexPath.row];
         
@@ -176,6 +190,7 @@ static NSString *Identifier = @"cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Identifier];
+            cell.backgroundColor = backgroundColor;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.detailTextLabel.text = nil;

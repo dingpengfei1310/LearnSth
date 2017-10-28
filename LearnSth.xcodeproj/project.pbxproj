@@ -372,7 +372,6 @@
 		1B65D2B51F8CABD7000A679A /* MessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		1B65D2B91F8CABF6000A679A /* CodeLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeLoginViewController.h; sourceTree = "<group>"; };
 		1B65D2BA1F8CABF6000A679A /* CodeLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeLoginViewController.m; sourceTree = "<group>"; };
-		1B65D2BB1F8CABF6000A679A /* CodeLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeLoginViewController.xib; sourceTree = "<group>"; };
 		1B65D2BC1F8CABF6000A679A /* FindPasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindPasswordController.h; sourceTree = "<group>"; };
 		1B65D2BD1F8CABF6000A679A /* FindPasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindPasswordController.m; sourceTree = "<group>"; };
 		1B65D2BE1F8CABF6000A679A /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -987,7 +986,6 @@
 			children = (
 				1B65D2B91F8CABF6000A679A /* CodeLoginViewController.h */,
 				1B65D2BA1F8CABF6000A679A /* CodeLoginViewController.m */,
-				1B65D2BB1F8CABF6000A679A /* CodeLoginViewController.xib */,
 				1B65D2BC1F8CABF6000A679A /* FindPasswordController.h */,
 				1B65D2BD1F8CABF6000A679A /* FindPasswordController.m */,
 				1B65D2BE1F8CABF6000A679A /* LoginViewController.h */,

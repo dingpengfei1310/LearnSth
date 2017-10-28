@@ -67,7 +67,7 @@ const CGFloat LineSpace = 3.0;
         button.tag = i;
         button.titleLabel.font = [UIFont systemFontOfSize:16];
         [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setTitleColor:KBaseBlueColor forState:UIControlStateNormal];
+        [button setTitleColor:KBaseAppColor forState:UIControlStateNormal];
         [button setBackgroundImage:[CustomiseTool imageWithColor:KBackgroundColor]
                           forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -98,7 +98,7 @@ const CGFloat LineSpace = 3.0;
         [style setAlignment:NSTextAlignmentCenter];
         
         NSDictionary *att = @{NSFontAttributeName:[UIFont systemFontOfSize:_itemWidth * 0.5],
-                              NSForegroundColorAttributeName:KBaseBlueColor,
+                              NSForegroundColorAttributeName:KBaseAppColor,
                               NSParagraphStyleAttributeName:style};
         
         CGRect numRect = CGRectMake(i % _column * _itemWidth, i / _column * _itemWidth + _itemWidth * 0.2, _itemWidth, _itemWidth - _itemWidth * 0.2);

@@ -17,7 +17,9 @@
 #import "HttpConnection.h"
 
 @interface LoginViewController () {
-    CGFloat viewW;
+    CGFloat topSpace;//页面上方空白高度
+    CGFloat fieldMargin;//左右边距
+    CGFloat fieldHeight;//输入框和登录按钮高度
 }
 
 @property (nonatomic, strong) UITextField *accountField;
@@ -31,10 +33,6 @@
 @property (nonatomic, strong) NSDictionary *attHighlighted;
 
 @end
-
-const CGFloat topSpace = 64;//页面上方空白高度
-const CGFloat fieldMargin = 40;//左右边距
-const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 
 @implementation LoginViewController
 
@@ -61,11 +59,16 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 }
 
 - (void)initSubView {
-    viewW = [UIScreen mainScreen].bounds.size.width;
-    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 64, viewW, Screen_H - 64)];
+    topSpace = 44;
+    fieldMargin = 40;
+    fieldHeight = 40;
+    
+    CGFloat barH = NavigationBarH + StatusBarH;
+    CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
+    TPKeyboardAvoidingScrollView *scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:frame];
     [self.view addSubview:scrollView];
 
-    CGFloat filedW = viewW - fieldMargin * 2;
+    CGFloat filedW = Screen_W - fieldMargin * 2;
     //账号
     _accountField = [[UITextField alloc] initWithFrame:CGRectMake(fieldMargin, topSpace, filedW, fieldHeight)];
     _accountField.placeholder = @"请输入手机号";
@@ -76,17 +79,16 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     [_accountField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
     [scrollView addSubview:self.accountField];
     
-    UILabel *accountL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fieldHeight * 1.5, fieldHeight)];
+    UILabel *accountL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fieldHeight * 1.2, fieldHeight)];
     accountL.text = @"账号";
     _accountField.leftView = accountL;
     
-    UIView *accountLine = [[UIView alloc] initWithFrame:CGRectMake(fieldMargin, topSpace + fieldHeight, filedW, 1.0)];
+    UIView *accountLine = [[UIView alloc] initWithFrame:CGRectMake(fieldMargin, CGRectGetMaxY(_accountField.frame), filedW, 1.0)];
     accountLine.backgroundColor = KBackgroundColor;
     [scrollView addSubview:accountLine];
     
     //密码
-    CGFloat pwdFieldY = topSpace + fieldHeight;
-    _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(fieldMargin, pwdFieldY, filedW, fieldHeight)];
+    _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(fieldMargin, CGRectGetMaxY(_accountField.frame), filedW, fieldHeight)];
     _passwordField.placeholder = @"请输入密码";
     _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _passwordField.leftViewMode = UITextFieldViewModeAlways;
@@ -96,15 +98,15 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     [_passwordField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
     [scrollView addSubview:self.passwordField];
     
-    UILabel *pwdL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fieldHeight * 1.5, fieldHeight)];
+    UILabel *pwdL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fieldHeight * 1.2, fieldHeight)];
     pwdL.text = @"密码";
     _passwordField.leftView = pwdL;
     
-    UIView *pwdLine = [[UIView alloc] initWithFrame:CGRectMake(fieldMargin, topSpace + fieldHeight * 2, filedW, 1.0)];
+    UIView *pwdLine = [[UIView alloc] initWithFrame:CGRectMake(fieldMargin, CGRectGetMaxY(_passwordField.frame), filedW, 1.0)];
     pwdLine.backgroundColor = KBackgroundColor;
     [scrollView addSubview:pwdLine];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(fieldMargin, topSpace + fieldHeight * 2, filedW, 20)];
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(fieldMargin, CGRectGetMaxY(_passwordField.frame), filedW, 20)];
     tipLabel.text = @"密码为6-12位数字和字母,不能为纯数字";
     tipLabel.textColor = KBaseTextColor;
     tipLabel.font = [UIFont systemFontOfSize:13];
@@ -112,11 +114,11 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     
     //**************************************************
     //登录按钮
-    CGFloat loginButtonY = topSpace + fieldHeight * 2 + fieldMargin + 20;
+    CGFloat loginButtonY = CGRectGetMaxY(_passwordField.frame)+ fieldMargin;
     _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(fieldMargin, loginButtonY, filedW, fieldHeight * 1.2)];
     _loginButton.enabled = NO;
-    UIImage *image = [CustomiseTool imageWithColor:KBaseBlueColor];
-    UIImage *cornerImage = [image cornerImageWithSize:CGSizeMake(viewW - fieldMargin * 2, fieldHeight * 1.2) radius:3];
+    UIImage *image = [CustomiseTool imageWithColor:KBaseAppColor];
+    UIImage *cornerImage = [image cornerImageWithSize:_loginButton.frame.size radius:3];
     [_loginButton setBackgroundImage:cornerImage forState:UIControlStateNormal];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -143,7 +145,7 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
     [scrollView addSubview:self.quickLoginButton];
     
     //忘记密码
-    rect = CGRectMake(viewW - buttonW - fieldMargin, quickRegButtonY, buttonW, 40);
+    rect = CGRectMake(Screen_W - buttonW - fieldMargin, quickRegButtonY, buttonW, 40);
     _forgetButton = [[UIButton alloc] initWithFrame:rect];
     _forgetButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     stringNormal = [[NSAttributedString alloc] initWithString:@"忘记密码?" attributes:_attNormal];
@@ -166,8 +168,8 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
         [self loadingWithText:@"登录中..."];
         
 //        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
-//        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
-        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"smsCode":@"913667"};
+        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
+//        NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"smsCode":@"913667"};
         
         [[HttpConnection defaultConnection] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
             [self hideHUD];
@@ -220,16 +222,13 @@ const CGFloat fieldHeight = 40;//输入框和登录按钮高度
 
 #pragma mark
 - (void)textFieldValueChange:(UITextField *)textField {
-    if (textField == self.accountField) {
-        if (textField.text.length > 11) {
-            textField.text = [textField.text substringToIndex:11];
-        }
-    } else if (textField == self.passwordField) {
-        if (textField.text.length > 12) {
-            textField.text = [textField.text substringToIndex:12];
-        }
+    if (textField == self.accountField && textField.text.length > 11) {
+        textField.text = [textField.text substringToIndex:11];
+        
+    } else if (textField == self.passwordField && textField.text.length > 12) {
+        textField.text = [textField.text substringToIndex:12];
+        
     }
-    
     self.loginButton.enabled = (self.accountField.text.length == 11 && self.passwordField.text.length >= 6);
 }
 
