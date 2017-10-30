@@ -230,6 +230,8 @@
 		1B16B4911EE51F3400F84CB1 /* JPuzzleStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzleStatus.m; sourceTree = "<group>"; };
 		1B16B4931EE51F4B00F84CB1 /* JPuzzlePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPuzzlePiece.h; sourceTree = "<group>"; };
 		1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzlePiece.m; sourceTree = "<group>"; };
+		1B193A261FA720DC008FC858 /* OpenCVTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVTool.h; sourceTree = "<group>"; };
+		1B193A271FA720DC008FC858 /* OpenCVTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenCVTool.m; sourceTree = "<group>"; };
 		1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Tool.h"; sourceTree = "<group>"; };
 		1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Tool.m"; sourceTree = "<group>"; };
 		1B27B5391F29B73B00AA36F3 /* UIView+SparkAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SparkAnimation.h"; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 		1B099BE61DE7E57400161396 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1B193A251FA720DC008FC858 /* OpenCV */,
 				1B099BE71DE7E57400161396 /* Aspects */,
 				1B099BEA1DE7E57400161396 /* BHBDrawBoarder */,
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
@@ -627,6 +630,15 @@
 				1B16B48B1EE5047100F84CB1 /* JPuzzleViewController.m */,
 			);
 			path = JigsawPuzzle;
+			sourceTree = "<group>";
+		};
+		1B193A251FA720DC008FC858 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				1B193A261FA720DC008FC858 /* OpenCVTool.h */,
+				1B193A271FA720DC008FC858 /* OpenCVTool.m */,
+			);
+			path = OpenCV;
 			sourceTree = "<group>";
 		};
 		1B2D07BC1DE7E8DB0034C22D /* Class */ = {

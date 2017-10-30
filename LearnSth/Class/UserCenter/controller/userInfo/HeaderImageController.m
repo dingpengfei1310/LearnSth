@@ -16,6 +16,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/PHPhotoLibrary.h>
+#import "OpenCVTool.h"
 
 @interface HeaderImageController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -38,6 +39,9 @@
     [_imageView sd_setImageWithURL:[NSURL URLWithString:[UserManager shareManager].headerUrl]
                   placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
     [self.view addSubview:_imageView];
+    
+    UIImage *im = _imageView.image;
+    _imageView.image = [OpenCVTool opencvImage:im level:10];
     
 //    NSData *data = [UserManager shareManager].headerImageData;
 //    if (data) {
