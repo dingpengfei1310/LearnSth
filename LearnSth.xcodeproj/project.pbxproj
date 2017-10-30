@@ -67,7 +67,6 @@
 		1B3491F01EC5817A002483CC /* BaseChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491EF1EC5817A002483CC /* BaseChartView.m */; };
 		1B3491F31EC582A6002483CC /* StepCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3491F21EC582A6002483CC /* StepCountView.m */; };
 		1B34C7581F04CCC800026864 /* NSDate+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B34C7571F04CCC800026864 /* NSDate+Tool.m */; };
-		1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 1B389A8D1EA09D9300A927E4 /* zocr0.lib */; };
 		1B389A951EA0A87D00A927E4 /* HeaderImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */; };
 		1B396A861F20574B00E5ABF8 /* LearnSthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B396A851F20574B00E5ABF8 /* LearnSthTests.m */; };
 		1B3D3DF11E1B89EB00E6FBE9 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D3DF01E1B89EB00E6FBE9 /* AddressModel.m */; };
@@ -93,7 +92,6 @@
 		1B5E7BF91E49C9B200153A58 /* PLPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BF81E49C9B200153A58 /* PLPlayerViewController.m */; };
 		1B5E7BFC1E49C9BB00153A58 /* LiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */; };
 		1B5E7C001E49C9C400153A58 /* LiveCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E7BFE1E49C9C400153A58 /* LiveCollectionCell.m */; };
-		1B6150051F6BC0040083E096 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B389A8F1EA09D9300A927E4 /* libexidcardios.a */; };
 		1B6150071F6BC0780083E096 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6150061F6BC0780083E096 /* HealthKit.framework */; };
 		1B65D2C91F8CAE45000A679A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B65D2C81F8CAE31000A679A /* SettingViewController.m */; };
 		1B65D2CA1F8CAED5000A679A /* StepCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B65D2981F8CAB30000A679A /* StepCountViewController.m */; };
@@ -120,6 +118,8 @@
 		1B72BEED1E4D9805007DFF74 /* PanInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72BEEC1E4D9805007DFF74 /* PanInteractiveTransition.m */; };
 		1B7D05651EC977A600C36FEB /* DDImageBrowserFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
+		1B89F6181FA72A64003DA089 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B89F6171FA72A42003DA089 /* libexidcardios.a */; };
+		1B89F6201FA72C3C003DA089 /* OpenCVTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */; };
 		1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
@@ -283,10 +283,6 @@
 		1B3491F21EC582A6002483CC /* StepCountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepCountView.m; sourceTree = "<group>"; };
 		1B34C7561F04CCC800026864 /* NSDate+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Tool.h"; sourceTree = "<group>"; };
 		1B34C7571F04CCC800026864 /* NSDate+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Tool.m"; sourceTree = "<group>"; };
-		1B389A8B1EA09D9300A927E4 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
-		1B389A8D1EA09D9300A927E4 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
-		1B389A8E1EA09D9300A927E4 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
-		1B389A8F1EA09D9300A927E4 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
 		1B389A921EA0A87D00A927E4 /* HeaderImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderImageViewCell.h; sourceTree = "<group>"; };
 		1B389A931EA0A87D00A927E4 /* HeaderImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderImageViewCell.m; sourceTree = "<group>"; };
 		1B396A831F20574B00E5ABF8 /* LearnSthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnSthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +384,12 @@
 		1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageBrowserFlowLayout.m; sourceTree = "<group>"; };
 		1B858BA81E372DD70070CEA5 /* FilterCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionView.h; sourceTree = "<group>"; };
 		1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionView.m; sourceTree = "<group>"; };
+		1B89F6131FA72A42003DA089 /* commondef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
+		1B89F6151FA72A42003DA089 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
+		1B89F6161FA72A42003DA089 /* excards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
+		1B89F6171FA72A42003DA089 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
+		1B89F61E1FA72C3C003DA089 /* OpenCVTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVTool.h; sourceTree = "<group>"; };
+		1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenCVTool.m; sourceTree = "<group>"; };
 		1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Tool.h"; sourceTree = "<group>"; };
 		1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Tool.m"; sourceTree = "<group>"; };
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
@@ -446,8 +448,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B6150071F6BC0780083E096 /* HealthKit.framework in Frameworks */,
-				1B6150051F6BC0040083E096 /* libexidcardios.a in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
+				1B89F6181FA72A64003DA089 /* libexidcardios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,11 +468,12 @@
 		1B099BE61DE7E57400161396 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1B89F61D1FA72C1B003DA089 /* OpenCV */,
 				1B099BE71DE7E57400161396 /* Aspects */,
 				1B099BEA1DE7E57400161396 /* BHBDrawBoarder */,
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
 				1B099BFB1DE7E57400161396 /* FPSLabel */,
-				1B389A8A1EA09D9300A927E4 /* libexidcard */,
+				1B89F6121FA72A42003DA089 /* LibexidCard */,
 				1B08C0901DF6564C005F3059 /* PPNumberButton */,
 				1B139C0F1EAEE830003F678E /* QRCode */,
 				1B099C341DE7E57400161396 /* SDCycleScrollView */,
@@ -803,25 +806,6 @@
 			path = DownloadManager;
 			sourceTree = "<group>";
 		};
-		1B389A8A1EA09D9300A927E4 /* libexidcard */ = {
-			isa = PBXGroup;
-			children = (
-				1B389A8B1EA09D9300A927E4 /* commondef.h */,
-				1B389A8C1EA09D9300A927E4 /* dicts */,
-				1B389A8E1EA09D9300A927E4 /* excards.h */,
-				1B389A8F1EA09D9300A927E4 /* libexidcardios.a */,
-			);
-			path = libexidcard;
-			sourceTree = "<group>";
-		};
-		1B389A8C1EA09D9300A927E4 /* dicts */ = {
-			isa = PBXGroup;
-			children = (
-				1B389A8D1EA09D9300A927E4 /* zocr0.lib */,
-			);
-			path = dicts;
-			sourceTree = "<group>";
-		};
 		1B396A841F20574B00E5ABF8 /* LearnSthTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +987,34 @@
 				1B65D2C41F8CAC18000A679A /* PhotosCollectionController.m */,
 			);
 			path = photos;
+			sourceTree = "<group>";
+		};
+		1B89F6121FA72A42003DA089 /* LibexidCard */ = {
+			isa = PBXGroup;
+			children = (
+				1B89F6131FA72A42003DA089 /* commondef.h */,
+				1B89F6141FA72A42003DA089 /* dicts */,
+				1B89F6161FA72A42003DA089 /* excards.h */,
+				1B89F6171FA72A42003DA089 /* libexidcardios.a */,
+			);
+			path = LibexidCard;
+			sourceTree = "<group>";
+		};
+		1B89F6141FA72A42003DA089 /* dicts */ = {
+			isa = PBXGroup;
+			children = (
+				1B89F6151FA72A42003DA089 /* zocr0.lib */,
+			);
+			path = dicts;
+			sourceTree = "<group>";
+		};
+		1B89F61D1FA72C1B003DA089 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				1B89F61E1FA72C3C003DA089 /* OpenCVTool.h */,
+				1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */,
+			);
+			path = OpenCV;
 			sourceTree = "<group>";
 		};
 		1BDCED6D1DE57D97002A27B5 /* Web */ = {
@@ -1215,7 +1227,6 @@
 				1BDCED771DE58812002A27B5 /* zepto.min.js in Resources */,
 				1B48A5AE1F304D9600F54741 /* Localizable.strings in Resources */,
 				1B42E4A61F8DBCC700D6C463 /* Location.gpx in Resources */,
-				1B389A901EA09D9300A927E4 /* zocr0.lib in Resources */,
 				1BDCED751DE58812002A27B5 /* mdialog.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1339,6 +1350,7 @@
 				1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */,
 				1B4630DE1E669703000260D2 /* HttpManager.m in Sources */,
 				1B02B3021E976387002610FD /* IDCardInfo.m in Sources */,
+				1B89F6201FA72C3C003DA089 /* OpenCVTool.m in Sources */,
 				1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */,
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */,
@@ -1636,7 +1648,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/Vendor/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/Vendor/LibexidCard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1688,7 +1700,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/LearnSth/Vendor/libexidcard",
+					"$(PROJECT_DIR)/LearnSth/Vendor/LibexidCard",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dpf.LearnSth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
