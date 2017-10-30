@@ -119,7 +119,6 @@
 		1B7D05651EC977A600C36FEB /* DDImageBrowserFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D05641EC977A600C36FEB /* DDImageBrowserFlowLayout.m */; };
 		1B858BAA1E372DD70070CEA5 /* FilterCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B858BA91E372DD70070CEA5 /* FilterCollectionView.m */; };
 		1B89F6181FA72A64003DA089 /* libexidcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B89F6171FA72A42003DA089 /* libexidcardios.a */; };
-		1B89F6201FA72C3C003DA089 /* OpenCVTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */; };
 		1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
@@ -388,8 +387,6 @@
 		1B89F6151FA72A42003DA089 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
 		1B89F6161FA72A42003DA089 /* excards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
 		1B89F6171FA72A42003DA089 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
-		1B89F61E1FA72C3C003DA089 /* OpenCVTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVTool.h; sourceTree = "<group>"; };
-		1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenCVTool.m; sourceTree = "<group>"; };
 		1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Tool.h"; sourceTree = "<group>"; };
 		1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Tool.m"; sourceTree = "<group>"; };
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
@@ -468,7 +465,6 @@
 		1B099BE61DE7E57400161396 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1B89F61D1FA72C1B003DA089 /* OpenCV */,
 				1B099BE71DE7E57400161396 /* Aspects */,
 				1B099BEA1DE7E57400161396 /* BHBDrawBoarder */,
 				1B099BF31DE7E57400161396 /* DDImageBrowser */,
@@ -1008,15 +1004,6 @@
 			path = dicts;
 			sourceTree = "<group>";
 		};
-		1B89F61D1FA72C1B003DA089 /* OpenCV */ = {
-			isa = PBXGroup;
-			children = (
-				1B89F61E1FA72C3C003DA089 /* OpenCVTool.h */,
-				1B89F61F1FA72C3C003DA089 /* OpenCVTool.m */,
-			);
-			path = OpenCV;
-			sourceTree = "<group>";
-		};
 		1BDCED6D1DE57D97002A27B5 /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,7 +1337,6 @@
 				1B2D08091DE7E8DB0034C22D /* UserManager.m in Sources */,
 				1B4630DE1E669703000260D2 /* HttpManager.m in Sources */,
 				1B02B3021E976387002610FD /* IDCardInfo.m in Sources */,
-				1B89F6201FA72C3C003DA089 /* OpenCVTool.m in Sources */,
 				1B30E24E1EB02CBE0040BD87 /* QRCodeRecognizer.m in Sources */,
 				1B099C981DE7E57400161396 /* SDCycleScrollView.m in Sources */,
 				1B4630D71E669703000260D2 /* NSString+Tool.m in Sources */,
