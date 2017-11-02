@@ -215,19 +215,22 @@ const CGFloat BottomH = 40;
     
     [singleTap requireGestureRecognizerToFail:doubleTap];
     
-//    UISwipeGestureRecognizer *forward = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
-//    forward.delegate = self;
-//    forward.direction = UISwipeGestureRecognizerDirectionRight;
-//    [self addGestureRecognizer:forward];
-//    
-//    UISwipeGestureRecognizer *backWord = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
-//    backWord.delegate = self;
-//    backWord.direction = UISwipeGestureRecognizerDirectionLeft;
-//    [self addGestureRecognizer:backWord];
+    UISwipeGestureRecognizer *forward = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+    forward.delegate = self;
+    forward.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:forward];
+    
+    UISwipeGestureRecognizer *backWord = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+    backWord.delegate = self;
+    backWord.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:backWord];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnPlayer:)];
     panGesture.delegate = self;
     [self addGestureRecognizer:panGesture];
+    
+    [panGesture requireGestureRecognizerToFail:forward];
+    [panGesture requireGestureRecognizerToFail:backWord];
 }
 
 - (void)addPlayerObserver {
@@ -337,12 +340,7 @@ const CGFloat BottomH = 40;
     
     NSString *time;
     if (seconds >= 3600) {
-//        hour = seconds / 3600;
-//        minute = (seconds % 3600) / 600;
-//        second = seconds % 60;
-//        time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
-        
-        minute = seconds / 600;
+        minute = seconds / 60;
         second = seconds % 60;
         time = [NSString stringWithFormat:@"%ld:%02ld",minute,second];
     } else {

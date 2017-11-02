@@ -23,7 +23,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.titleArray = @[@"官方电话",@"官方网站"];
-    self.subTitleArray = @[@"4008886666",@"www.apple.com."];
+    self.subTitleArray = @[@"4008886666",@"www.apple.com"];
     
     CGFloat barH = NavigationBarH + StatusBarH;
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);

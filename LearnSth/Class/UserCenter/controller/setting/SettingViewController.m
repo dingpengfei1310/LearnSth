@@ -105,6 +105,38 @@
     }];
 }
 
+- (void)showAlertControllerToFile {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入密码" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
+        textField.placeholder = @"请输入密码";
+        textField.text = [UserManager shareManager].username;
+        if ([CustomiseTool isNightModel]) {
+            textField.keyboardAppearance = UIKeyboardAppearanceDark;
+        }
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UITextField *field = weakAlert.textFields[0];
+        if ([field.text isEqualToString:@"123123123"]) {
+            FileScanViewController *controller = [[FileScanViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        } else {
+            [self showError:@"密码错误"];
+        }
+    }];
+    [alert addAction:cancelAction];
+    [alert addAction:certainAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -167,9 +199,10 @@
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 2) {
-        FileScanViewController *controller = [[FileScanViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
+//        FileScanViewController *controller = [[FileScanViewController alloc] init];
+//        controller.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:controller animated:YES];
+        [self showAlertControllerToFile];
         
     } else if (indexPath.row == 3) {
         [self showAlertOnClearDiskCache];
