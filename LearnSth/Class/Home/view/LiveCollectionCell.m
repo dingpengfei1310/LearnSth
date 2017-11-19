@@ -30,10 +30,12 @@
 - (void)initialize {
     self.backgroundColor = [UIColor whiteColor];
     
-    _liveImageView = [[UIImageView alloc] init];
+    CGFloat width = CGRectGetWidth(self.contentView.bounds);
+    
+    _liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
     [self.contentView addSubview:_liveImageView];
     
-    _nameLabel = [[UILabel alloc] init];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, width, width, 21)];
     _nameLabel.backgroundColor = [UIColor whiteColor];
     _nameLabel.font = [UIFont systemFontOfSize:12];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -41,20 +43,16 @@
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
-    if (![_liveModel isEqual:liveModel]) {
-        _liveModel = liveModel;
-        
-        NSURL *url = [NSURL URLWithString:liveModel.bigpic];
-        [self.liveImageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            CGFloat width = CGRectGetWidth(self.contentView.bounds);
-            self.liveImageView.frame = CGRectMake(0, 0, width, width);
-            
-            if (liveModel.myname.length > 0) {
-                self.nameLabel.frame = CGRectMake(0, width, width, 21);
-                self.nameLabel.text = liveModel.myname;
-            }
-        }];
+    _liveModel = liveModel;
+    
+    if (liveModel.myname.length > 0) {
+        self.nameLabel.text = liveModel.myname;
+    } else {
+        self.nameLabel.text = @"";
     }
+    
+    NSURL *url = [NSURL URLWithString:liveModel.bigpic];
+    [self.liveImageView sd_setImageWithURL:url];
 }
 
 @end

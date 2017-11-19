@@ -165,7 +165,7 @@
 
 - (void)loginClick {
     if ([self validateAccountAndPwd]) {
-        [self loadingWithText:@"登录中..."];
+        [self loadingWithText:@"登录中"];
         
 //        NSDictionary *param = @{@"username":self.accountField.text,@"password":self.passwordField.text};
         NSDictionary *param = @{@"mobilePhoneNumber":self.accountField.text,@"password":self.passwordField.text};
@@ -179,7 +179,6 @@
                 [CustomiseTool setLoginToken:data[@"sessionToken"]];
                 
                 [[UserManager shareManager] setValuesForKeysWithDictionary:data];
-                
                 [UserManager updateUser];
                 
                 [self dismissLoginController];

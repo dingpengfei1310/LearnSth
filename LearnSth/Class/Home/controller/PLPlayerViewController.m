@@ -218,8 +218,8 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
         
-//        _player.backgroundPlayEnable = YES;
-//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        _player.backgroundPlayEnable = YES;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
     return _player;
 }

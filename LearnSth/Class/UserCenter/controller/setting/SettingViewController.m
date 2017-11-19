@@ -62,12 +62,12 @@
 }
 
 - (void)clearDiskCache {
-    [self loadingWithText:@"清除中..."];
+    [self loadingWithText:@"清除中"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [CustomiseTool clearCacheAtPath:KCachePath];
         
-        dispatch_async(dispatch_get_main_queue(),^{
-            [self hideHUD];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self hideHUDAnimation];
             [self.tableView reloadData];
         });
     });
@@ -110,7 +110,6 @@
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
         textField.placeholder = @"请输入密码";
-        textField.text = [UserManager shareManager].username;
         if ([CustomiseTool isNightModel]) {
             textField.keyboardAppearance = UIKeyboardAppearanceDark;
         }

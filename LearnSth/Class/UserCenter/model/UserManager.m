@@ -23,8 +23,8 @@ static dispatch_once_t allocOnceToken;
 + (instancetype)shareManager {
     dispatch_once(&managerOnceToken, ^{
         userModel = [[UserManager alloc] init];
-//        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
-//        [userModel setValuesForKeysWithDictionary:dict];
+        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
+        [userModel setValuesForKeysWithDictionary:dict];
         
 //        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:KUserManagerCache];
 //        if (data) {

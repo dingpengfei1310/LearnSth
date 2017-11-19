@@ -67,37 +67,39 @@ typedef void (^CancelBlock)(void);
 
 #pragma mark - HUD提示框
 - (void)loading {
-    [self showMessage:nil toView:nil];
+    [self showMessage:nil toView:self.view hide:YES];
 }
 
 - (void)loadingWithText:(NSString *)text {
-    [self showMessage:text toView:nil];
+    [self showMessage:text toView:self.view hide:YES];
 }
 
-- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel {
-    UIView *view = [UIApplication sharedApplication].keyWindow;
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.bezelView.color = [UIColor blackColor];
-    hud.contentColor = [UIColor whiteColor];
-    
-    if (text.length > 0) {
-        hud.label.text = text;
-    }
-    
-    UIButton *button = hud.button;
-    [button setTitle:@"取消" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);
-}
+//- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel {
+//    UIView *view = [UIApplication sharedApplication].keyWindow;
+//
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//    hud.bezelView.color = [UIColor blackColor];
+//    hud.contentColor = [UIColor whiteColor];
+//
+//    if (text.length > 0) {
+//        hud.label.text = text;
+//    }
+//
+//    UIButton *button = hud.button;
+//    [button setTitle:@"取消" forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    objc_setAssociatedObject(button, &CancelKey, cancel, OBJC_ASSOCIATION_COPY);
+//}
 
 - (void)showSuccess:(NSString *)success {
-    [self show:success toView:nil];
+//    [self show:success toView:self.view];
+    [self showMessage:success toView:self.view hide:YES];
 }
 
 - (void)showError:(NSString *)error {
-    [self show:error toView:nil];
+//    [self show:error toView:self.view];
+    [self showMessage:error toView:self.view hide:YES];
 }
 
 - (void)showErrorWithError:(NSError *)error {
@@ -107,35 +109,35 @@ typedef void (^CancelBlock)(void);
 }
 
 - (void)hideHUD {
-    [self hideHUDForView:nil animated:NO];
+    [self hideHUDForView:self.view animated:NO];
 }
 
 - (void)hideHUDAnimation {
-    [self hideHUDForView:nil animated:YES];
+    [self hideHUDForView:self.view animated:YES];
 }
 
 #pragma mark
-- (void)show:(NSString *)text toView:(UIView *)view {
-    if (!view) {
-        view = [UIApplication sharedApplication].keyWindow;
-    }
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.bezelView.color = [UIColor blackColor];
-    
-    hud.label.text = text;
-    hud.label.textColor = [UIColor whiteColor];
-    
-//    hud.label.font = [self hudTextFont];
-//    hud.margin = [self hudTextMargin];
-//    hud.contentColor = [UIColor whiteColor];
-//    hud.animationType = MBProgressHUDAnimationZoom;
-    
-    [hud hideAnimated:YES afterDelay:1.5];
-}
+//- (void)show:(NSString *)text toView:(UIView *)view {
+//    if (!view) {
+//        view = [UIApplication sharedApplication].keyWindow;
+//    }
+//
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//    hud.mode = MBProgressHUDModeText;
+//    hud.bezelView.color = [UIColor blackColor];
+//
+//    hud.label.text = text;
+//    hud.label.textColor = [UIColor whiteColor];
+//
+////    hud.label.font = [self hudTextFont];
+////    hud.margin = [self hudTextMargin];
+////    hud.contentColor = [UIColor whiteColor];
+////    hud.animationType = MBProgressHUDAnimationZoom;
+//
+//    [hud hideAnimated:YES afterDelay:1.5];
+//}
 
-- (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
+- (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view hide:(BOOL)hide {
     if (!view) {
         view = [UIApplication sharedApplication].keyWindow;
     }
@@ -145,7 +147,12 @@ typedef void (^CancelBlock)(void);
     hud.contentColor = [UIColor whiteColor];
     
     if (message.length > 0) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.numberOfLines = 0;
         hud.label.text = message;
+    }
+    if (hide) {
+        [hud hideAnimated:YES afterDelay:2.0];
     }
     
     return hud;

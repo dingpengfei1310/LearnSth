@@ -66,9 +66,10 @@
         NSString *telStr = [NSString stringWithFormat:@"tel:%@",tel];
         NSURL *url = [NSURL URLWithString:telStr];
         
-        UIWebView *webView = [[UIWebView alloc] init];
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-        [self.view addSubview:webView];
+        [[UIApplication sharedApplication] openURL:url];
+//        UIWebView *webView = [[UIWebView alloc] init];
+//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
+//        [self.view addSubview:webView];
         
     } else if (indexPath.row == 1) {
         UIAlertController * alertController = [UIAlertController  alertControllerWithTitle:nil message:@"是否打开网站" preferredStyle:UIAlertControllerStyleAlert];

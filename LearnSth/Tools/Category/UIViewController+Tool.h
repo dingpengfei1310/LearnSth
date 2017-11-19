@@ -24,7 +24,7 @@
 - (void)loading;
 - (void)loadingWithText:(NSString *)text;
 
-- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel;
+//- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel;
 
 ///自动消失的文字提示框
 - (void)showSuccess:(NSString *)success;

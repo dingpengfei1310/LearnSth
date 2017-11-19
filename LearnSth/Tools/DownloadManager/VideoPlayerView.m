@@ -171,6 +171,7 @@ const CGFloat BottomH = 40;
     playSlider.minimumValue = 0.0;
     playSlider.maximumTrackTintColor = [UIColor clearColor];
     playSlider.minimumTrackTintColor = [UIColor redColor];
+    playSlider.userInteractionEnabled = NO;
     [playSlider setThumbImage:[UIImage imageNamed:@"playerSliderDot"] forState:UIControlStateNormal];
     [playSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [playSlider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
@@ -193,6 +194,7 @@ const CGFloat BottomH = 40;
     totalTime.font = [UIFont systemFontOfSize:11];
     totalTime.textColor = [UIColor whiteColor];
     totalTime.textAlignment = NSTextAlignmentCenter;
+    totalTime.text = @"00:00";
     [bottomView addSubview:totalTime];
     _totalTimeLabel = totalTime;
     
@@ -215,22 +217,22 @@ const CGFloat BottomH = 40;
     
     [singleTap requireGestureRecognizerToFail:doubleTap];
     
-    UISwipeGestureRecognizer *forward = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
-    forward.delegate = self;
-    forward.direction = UISwipeGestureRecognizerDirectionRight;
-    [self addGestureRecognizer:forward];
-    
-    UISwipeGestureRecognizer *backWord = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
-    backWord.delegate = self;
-    backWord.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self addGestureRecognizer:backWord];
-    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panOnPlayer:)];
     panGesture.delegate = self;
     [self addGestureRecognizer:panGesture];
     
-    [panGesture requireGestureRecognizerToFail:forward];
-    [panGesture requireGestureRecognizerToFail:backWord];
+//    UISwipeGestureRecognizer *forward = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+//    forward.delegate = self;
+//    forward.direction = UISwipeGestureRecognizerDirectionRight;
+//    [self addGestureRecognizer:forward];
+//
+//    UISwipeGestureRecognizer *backWord = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipOnPlayer:)];
+//    backWord.delegate = self;
+//    backWord.direction = UISwipeGestureRecognizerDirectionLeft;
+//    [self addGestureRecognizer:backWord];
+//
+//    [panGesture requireGestureRecognizerToFail:forward];
+//    [panGesture requireGestureRecognizerToFail:backWord];
 }
 
 - (void)addPlayerObserver {
@@ -289,14 +291,16 @@ const CGFloat BottomH = 40;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
-            NSLog(@"status");
+            NSLog(@"status:AVPlayerItemStatusReadyToPlay");
+            self.playSlider.userInteractionEnabled = YES;
             [self setMaxDuration:item.duration];
 //            [self videoPaly];
             
             [self delayExecute];
         } else if (status == AVPlayerItemStatusFailed) {
             [self hideHUD];
-            [self backButtonClick];
+            [self showError:@"播放失败"];
+//            [self backButtonClick];
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         double timeInterval = [self availableDurationRanges];// 缓冲时间
@@ -334,7 +338,6 @@ const CGFloat BottomH = 40;
 }
 
 - (NSString *)stringWithTime:(NSInteger)seconds {
-//    NSInteger hour = 0;
     NSInteger minute = 0;
     NSInteger second = 0;
     
@@ -422,6 +425,9 @@ const CGFloat BottomH = 40;
 }
 
 - (void)panOnPlayer:(UIPanGestureRecognizer *)panGesture {
+    if (self.timeScale == 0) {
+        return;
+    }
     UIGestureRecognizerState state = panGesture.state;
     CGPoint point = [panGesture locationInView:self];
     
@@ -451,9 +457,10 @@ const CGFloat BottomH = 40;
         }
         case UIGestureRecognizerStateEnded:
         {
-            [self hideHUD];
             if (self.isSliding) {
                 [self sliderValueChanged:self.playSlider];
+            } else {
+                [self hideHUD];
             }
             
             break;
