@@ -178,8 +178,8 @@
                 [CustomiseTool setIsLogin:YES];
                 [CustomiseTool setLoginToken:data[@"sessionToken"]];
                 
-                [[UserManager shareManager] setValuesForKeysWithDictionary:data];
-                [UserManager updateUser];
+                [[UserManager shareManager] updateUserWithDict:data];
+                [UserManager cacheToDisk];
                 
                 [self dismissLoginController];
             } else {

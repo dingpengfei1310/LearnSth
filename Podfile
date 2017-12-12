@@ -11,6 +11,7 @@ target 'LearnSth' do
     
     pod 'YYText'
     pod 'YYImage'
+    pod 'YYModel'
     
     pod 'MBProgressHUD'
     pod 'MJExtension'

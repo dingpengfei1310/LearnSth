@@ -26,7 +26,8 @@
 + (instancetype)shareManager;
 + (void)deallocManager;
 
-+ (void)updateUser;
+- (void)updateUserWithDict:(NSDictionary *)dict;
++ (void)cacheToDisk;
 
 @end
 

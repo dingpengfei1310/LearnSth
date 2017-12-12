@@ -125,7 +125,7 @@ static NSString *Identifier = @"cell";
         address.city = city[@"name"];
         
         [UserManager shareManager].address = address;
-        [UserManager updateUser];
+        [UserManager cacheToDisk];
         
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]]
                               withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -142,7 +142,8 @@ static NSString *Identifier = @"cell";
         [self hideHUD];
         if (data) {
             [UserManager shareManager].username = username;
-            [UserManager updateUser];
+            [UserManager cacheToDisk];
+            
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
             [self showError:@"修改失败"];

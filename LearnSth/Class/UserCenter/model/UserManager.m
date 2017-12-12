@@ -8,6 +8,7 @@
 
 #import "UserManager.h"
 #import <objc/runtime.h>
+#import <YYModel/YYModel.h>
 
 @interface UserManager ()<NSCopying>
 @end
@@ -22,9 +23,10 @@ static dispatch_once_t allocOnceToken;
 
 + (instancetype)shareManager {
     dispatch_once(&managerOnceToken, ^{
-        userModel = [[UserManager alloc] init];
         NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:KUserManagerCache];
-        [userModel setValuesForKeysWithDictionary:dict];
+        
+        userModel = [[UserManager alloc] init];
+        [userModel yy_modelSetWithDictionary:dict];
         
 //        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:KUserManagerCache];
 //        if (data) {
@@ -41,13 +43,14 @@ static dispatch_once_t allocOnceToken;
     userModel = nil;
 }
 
-+ (void)updateUser {
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[[UserManager shareManager] dictionary]];
+- (void)updateUserWithDict:(NSDictionary *)dict {
+    [userModel yy_modelSetWithDictionary:dict];
+}
+
++ (void)cacheToDisk {
+    NSDictionary *dict = [userModel yy_modelToJSONObject];
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:KUserManagerCache];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userModel];
-//    [[NSUserDefaults standardUserDefaults] setObject:data forKey:KUserManagerCache];
 }
 
 #pragma mark
@@ -101,36 +104,36 @@ static dispatch_once_t allocOnceToken;
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
 }
 
-- (void)setValue:(id)value forKey:(NSString *)key {
-    if ([key isEqualToString:@"address"]) {
-        AddressModel *model = [[AddressModel alloc] init];
-        [model setValuesForKeysWithDictionary:value];
-        [super setValue:model forKey:key];
-    } else {
-        [super setValue:value forKey:key];
-    }
-}
-
-- (NSDictionary *)dictionary {
-    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
-    
-    unsigned int outCount;
-    objc_property_t *propertities = class_copyPropertyList([UserManager class], &outCount);
-    for (int i = 0; i < outCount; i++) {
-        objc_property_t property = propertities[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-        
-        if ([propertyName isEqualToString:@"address"]) {
-            AddressModel *model = [userModel valueForKey:propertyName];
-            NSDictionary *addressDict = [model dictionary];
-            [mutDict setValue:addressDict forKey:propertyName];
-        } else {
-            [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
-        }
-    }
-    free(propertities);
-    
-    return [NSDictionary dictionaryWithDictionary:mutDict];
-}
+//- (void)setValue:(id)value forKey:(NSString *)key {
+//    if ([key isEqualToString:@"address"]) {
+//        AddressModel *model = [[AddressModel alloc] init];
+//        [model setValuesForKeysWithDictionary:value];
+//        [super setValue:model forKey:key];
+//    } else {
+//        [super setValue:value forKey:key];
+//    }
+//}
+//
+//- (NSDictionary *)dictionary {
+//    NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
+//
+//    unsigned int outCount;
+//    objc_property_t *propertities = class_copyPropertyList([UserManager class], &outCount);
+//    for (int i = 0; i < outCount; i++) {
+//        objc_property_t property = propertities[i];
+//        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+//
+//        if ([propertyName isEqualToString:@"address"]) {
+//            AddressModel *model = [userModel valueForKey:propertyName];
+//            NSDictionary *addressDict = [model dictionary];
+//            [mutDict setValue:addressDict forKey:propertyName];
+//        } else {
+//            [mutDict setValue:[userModel valueForKey:propertyName] forKey:propertyName];
+//        }
+//    }
+//    free(propertities);
+//
+//    return [NSDictionary dictionaryWithDictionary:mutDict];
+//}
 
 @end

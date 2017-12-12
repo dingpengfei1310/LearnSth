@@ -18,7 +18,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

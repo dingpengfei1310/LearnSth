@@ -158,7 +158,7 @@
             [self showError:@"上传成功"];
             
             [UserManager shareManager].headerUrl = imageUrl;
-            [UserManager updateUser];
+            [UserManager cacheToDisk];
             
             if (self.ImageFinishBlock) {
                 self.ImageFinishBlock(image);
