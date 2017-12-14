@@ -98,7 +98,7 @@ static NSString *Identifier = @"cell";
 //刷新头像cell
 - (void)reloadHeaderCell {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                  withRowAnimation:UITableViewRowAnimationAutomatic];
+                  withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark

@@ -24,8 +24,8 @@
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius;
 
 ///创建相册并保存图片，默认名字为app名字
-- (void)saveImageToAlbum;
-- (void)saveImageToAlbumWithTitle:(NSString *)title;
+- (BOOL)saveImageToAlbum;
+- (BOOL)saveImageToAlbumWithTitle:(NSString *)title;
 
 ///图片某一点的颜色
 - (UIColor *)colorInPoint:(CGPoint)point;

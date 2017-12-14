@@ -7,6 +7,7 @@
 //
 
 #import "CustomiseTool.h"
+#import "DeviceConfig.h"
 
 static NSString *KIsLoginCache = @"UserLoginCache";
 static NSString *KLoginToken = @"UserLoginToken";
@@ -25,13 +26,7 @@ static NSString *ENLANGUAGE = @"en";
 @implementation CustomiseTool
 
 + (void)remoAllCaches {
-    //    NSDictionary* dict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    //    for(NSString * key in [dict allKeys]) {
-    //        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-    //    }
-    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KIsLoginCache];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KLanguageTypeCache];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KLoginToken];
 }
 
@@ -64,14 +59,14 @@ static NSString *ENLANGUAGE = @"en";
 }
 
 + (void)setCurrentVersion {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [[NSUserDefaults standardUserDefaults] setFloat:version.floatValue forKey:KCurrentVersion];
+    [[NSUserDefaults standardUserDefaults] setObject:[DeviceConfig getAppVersion] forKey:KCurrentVersion];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (BOOL)isFirstLaunch {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    return [[NSUserDefaults standardUserDefaults] floatForKey:KCurrentVersion] < version.floatValue;
+    NSString *currentVersion = [DeviceConfig getAppVersion];
+    NSString *cacheVersion = [[NSUserDefaults standardUserDefaults] stringForKey:KCurrentVersion];
+    return ([cacheVersion compare:currentVersion] == NSOrderedAscending);
 }
 
 #pragma mark
@@ -151,18 +146,6 @@ static NSString *ENLANGUAGE = @"en";
             }
         }
     }
-}
-
-+ (UIImage *)imageWithColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-    
-    [color setFill];
-    CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 
 @end

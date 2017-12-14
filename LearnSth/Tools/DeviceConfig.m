@@ -7,16 +7,15 @@
 //
 
 #import "DeviceConfig.h"
+#import <UIKit/UIKit.h>
+#import <AdSupport/ASIdentifierManager.h>
 
 #import <sys/utsname.h>
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
-
 #import <net/if.h>
-#import <sys/ioctl.h>
-
-#import <AdSupport/ASIdentifierManager.h>
+//#import <sys/ioctl.h>
 
 #import <sys/sysctl.h>
 #import <net/if_dl.h>
@@ -26,7 +25,6 @@
 #define IOS_VPN         @"utun0"
 #define IP_ADDR_IPv4    @"ipv4"
 #define IP_ADDR_IPv6    @"ipv6"
-
 
 @implementation DeviceConfig
 
@@ -104,57 +102,51 @@
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *device_model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    NSLog(@"device_model-->%@", device_model);
     return device_model;
 }
 
 + (NSString *)getIPhoneName {
-    NSString *iPhoneName = [UIDevice currentDevice].name;
-    NSLog(@"iPhone名称-->%@", iPhoneName);
-    return iPhoneName;
+    return [UIDevice currentDevice].name;
 }
 
 + (NSString *)getSystemName {
-    NSString *systemName = [UIDevice currentDevice].systemName;
-    NSLog(@"当前系统名称-->%@", systemName);
-    return systemName;
+    return [UIDevice currentDevice].systemName;
 }
 
 + (NSString *)getSystemVersion {
-    NSString *systemVersion = [UIDevice currentDevice].systemVersion;
-    NSLog(@"当前系统版本号-->%@", systemVersion);
-    return systemVersion;
+    return [UIDevice currentDevice].systemVersion;;
 }
 
 + (NSString *)getUUID {
-    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSLog(@"唯一识别码uuid-->%@", uuid);
-    return uuid;
+    return [UIDevice currentDevice].identifierForVendor.UUIDString;
 }
 
 + (NSString *)getADIdentifier {
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    NSLog(@"广告位标识符idfa-->%@", idfa);
-    return idfa;
+    return [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
 }
 
 #pragma mark
 + (NSString *)getAppVersion {
-    NSString *appVerion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSLog(@"app版本号-->%@", appVerion);
-    return appVerion;
+    return [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+}
+
++ (NSString *)getAppBuildVersion {
+    return [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 }
 
 + (NSString *)getAppName{
-    NSString *appName = [[NSBundle mainBundle] infoDictionary][(NSString *)kCFBundleNameKey];
-    NSLog(@"app名称-->%@", appName);
-    return appName;
+    return [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 }
 
 + (NSString *)getAppDisplayName {
-    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    NSLog(@"app名称-->%@", appName);
-    return appName;
+    return [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+}
+
++ (NSString *)getAppIconName {
+    NSDictionary *info = NSBundle.mainBundle.infoDictionary;
+    NSArray *imageNames = [info valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"];
+    NSString *imageName = imageNames.lastObject;
+    return imageName;
 }
 
 //- (NSString *)getMacAddress {
@@ -410,7 +402,7 @@
 //    return outstring;
 //}
 
-+ (NSString *) macaddress{
++ (NSString *)macaddress{
     
     int                 mib[6];
     size_t              len;

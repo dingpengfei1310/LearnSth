@@ -117,7 +117,7 @@
     CGFloat loginButtonY = CGRectGetMaxY(_passwordField.frame)+ fieldMargin;
     _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(fieldMargin, loginButtonY, filedW, fieldHeight * 1.2)];
     _loginButton.enabled = NO;
-    UIImage *image = [CustomiseTool imageWithColor:KBaseAppColor];
+    UIImage *image = [UIImage imageWithColor:KBaseAppColor];
     UIImage *cornerImage = [image cornerImageWithSize:_loginButton.frame.size radius:3];
     [_loginButton setBackgroundImage:cornerImage forState:UIControlStateNormal];
     [_loginButton setTitle:@"登录" forState:UIControlStateNormal];

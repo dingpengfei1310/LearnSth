@@ -12,6 +12,7 @@
 #import "PhotoLibraryController.h"
 
 #import "CustomizeButton.h"
+#import "UIImage+Tool.h"
 #import <AFNetworkReachabilityManager.h>
 
 #if !TARGET_OS_SIMULATOR
@@ -109,7 +110,7 @@
 ///自定义tabBar
 - (void)customizeBarButtonWithIndex:(NSInteger)index {
     //背景透明、消除黑线
-    UIImage *clearImage = [CustomiseTool imageWithColor:[UIColor clearColor]];
+    UIImage *clearImage = [UIImage imageWithColor:[UIColor clearColor]];
     [self.tabBar setBackgroundImage:clearImage];
     [self.tabBar setShadowImage:clearImage];
     

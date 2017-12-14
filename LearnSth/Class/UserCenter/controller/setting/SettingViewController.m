@@ -50,7 +50,7 @@
     BOOL success = [manager startHTTPServerAtPort:10000];
     
     if (success) {
-        DNSLog(@"URL = %@:%@",manager.ip,@(manager.port));
+        FFPrint(@"URL = %@:%d",manager.ip,manager.port);
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
     }
 }

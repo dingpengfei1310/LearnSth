@@ -58,10 +58,13 @@
     UIImage *originalImage = [[UIImage imageNamed:@"backButton"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [[UINavigationBar appearance] setBackIndicatorImage:originalImage];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:originalImage];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
-                                                           NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-5, 0) forBarMetrics:UIBarMetricsDefault];
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+                                 NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-5, 0)
+                                                         forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16]}
                                                 forState:UIControlStateNormal];
     
@@ -141,7 +144,7 @@
     //8.0
     application.applicationIconBadgeNumber = 0;
     if (application.applicationState != UIApplicationStateActive) {
-        DNSLog(@"%@",notification.userInfo);//
+        FFPrint(@"%@",notification.userInfo);//
         [self showAlertWithTitle:@"didReceiveLocalNotification"];
     } else {
         [self showAlertWithTitle:@"收到本地通知"];
@@ -149,7 +152,7 @@
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)(void))completionHandler {
-    DNSLog(@"%@ -- %@",identifier,notification.userInfo);
+    FFPrint(@"%@ -- %@",identifier,notification.userInfo);
     [self showAlertWithTitle:@"handleActionWithIdentifier"];
     completionHandler();
 }
@@ -171,7 +174,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 //    [[UIApplication sharedApplication] performSelector:@selector(suspend)];//私有方法，模拟HOME键
-    DNSLog(@"applicationDidEnterBackground");
+    FFPrint(@"applicationDidEnterBackground");
 //    DNSLog(@"%f",application.backgroundTimeRemaining);
 }
 
@@ -185,7 +188,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    DNSLog(@"applicationWillTerminate");
+    FFPrint(@"applicationWillTerminate");
 }
 
 @end

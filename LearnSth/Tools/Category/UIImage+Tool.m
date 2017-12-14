@@ -75,11 +75,11 @@
 }
 
 #pragma mark
-- (void)saveImageToAlbum {
-    [self saveImageToAlbumWithTitle:nil];
+- (BOOL)saveImageToAlbum {
+    return [self saveImageToAlbumWithTitle:nil];
 }
 
-- (void)saveImageToAlbumWithTitle:(NSString *)title {
+- (BOOL)saveImageToAlbumWithTitle:(NSString *)title {
     // 获得相片
     PHFetchResult<PHAsset *> *createdAssets = [self createAssets];
     // 获得相册
@@ -87,7 +87,7 @@
     
     if (createdAssets == nil || createdCollection == nil) {
         //保存失败
-        return;
+        return NO;
     }
     // 将相片添加到相册
     NSError *error = nil;
@@ -96,18 +96,17 @@
         [request insertAssets:createdAssets atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } error:&error];
     // 保存结果
-    if (error) {
-    } else {
+    if (!error) {
+        return YES;
     }
+    return NO;
 }
 
 - (PHFetchResult<PHAsset *> *)createAssets {
-    UIImage *image = [UIImage imageNamed:@"lookup"];
-    
     __block NSString *createdAssetId = nil;
     // 添加图片到【相机胶卷】
     [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-        createdAssetId = [PHAssetChangeRequest creationRequestForAssetFromImage:image].placeholderForCreatedAsset.localIdentifier;
+        createdAssetId = [PHAssetChangeRequest creationRequestForAssetFromImage:self].placeholderForCreatedAsset.localIdentifier;
     } error:nil];
     // 在保存完毕后取出图片
     return [PHAsset fetchAssetsWithLocalIdentifiers:@[createdAssetId] options:nil];
@@ -116,8 +115,7 @@
 - (PHAssetCollection *)createAssetCollectionWithTitle:(NSString *)title {
     if (!title) {
         // 获取软件的名字作为相册的标题(如果需求不是要软件名称作为相册名字就可以自己把这里改成想要的名称)
-        title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-        //NSString *title = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+        title = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     }
     
     // 获得所有的自定义相册

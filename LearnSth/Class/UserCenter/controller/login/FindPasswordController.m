@@ -58,7 +58,7 @@
     //
     _submitButton = [[UIButton alloc] initWithFrame:CGRectMake(space, CGRectGetMaxY(tipLabel.frame) + 20, Screen_W - space * 2, 48)];
     _submitButton.enabled = NO;
-    UIImage *image = [CustomiseTool imageWithColor:KBaseAppColor];
+    UIImage *image = [UIImage imageWithColor:KBaseAppColor];
     UIImage *cornerImage = [image cornerImageWithSize:_submitButton.frame.size radius:3];
     [_submitButton setBackgroundImage:cornerImage forState:UIControlStateNormal];
     [_submitButton setTitle:@"确定" forState:UIControlStateNormal];

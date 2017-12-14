@@ -7,6 +7,7 @@
 //
 
 #import "AboutViewController.h"
+#import "DeviceConfig.h"
 
 @interface AboutViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -110,12 +111,11 @@
     versionLabel.textColor = [UIColor grayColor];
     [headerView addSubview:versionLabel];
     
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSString *imageName = [[infoDictionary valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
+    NSString *appVersion = [DeviceConfig getAppVersion];
+    NSString *appIconName = [DeviceConfig getAppIconName];
     
-    iconView.image = [UIImage imageNamed:imageName];
-    versionLabel.text = [NSString stringWithFormat:@"版本号 %@",app_Version];
+    iconView.image = [UIImage imageNamed:appIconName];
+    versionLabel.text = [NSString stringWithFormat:@"版本号 %@",appVersion];
     
     return headerView;
 }

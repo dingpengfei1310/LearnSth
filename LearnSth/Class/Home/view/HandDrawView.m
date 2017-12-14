@@ -7,7 +7,7 @@
 //
 
 #import "HandDrawView.h"
-#import "CustomiseTool.h"
+#import "UIImage+Tool.h"
 
 @interface HandDrawView()
 
@@ -36,7 +36,7 @@
 
 - (void)setForekgroundColor:(UIColor *)forekgroundColor {
     _forekgroundColor = forekgroundColor;
-    _imageView.image = [CustomiseTool imageWithColor:_forekgroundColor];
+    _imageView.image = [UIImage imageWithColor:_forekgroundColor];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

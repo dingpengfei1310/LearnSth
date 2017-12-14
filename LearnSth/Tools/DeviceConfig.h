@@ -6,7 +6,7 @@
 //  Copyright © 2017年 丁鹏飞. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface DeviceConfig : NSObject
 
@@ -21,8 +21,10 @@
 + (NSString *)getADIdentifier;
 
 + (NSString *)getAppVersion;
++ (NSString *)getAppBuildVersion;
 + (NSString *)getAppName;
 + (NSString *)getAppDisplayName;
++ (NSString *)getAppIconName;
 
 + (NSString *)getIPAddress:(BOOL)preferIPv4;
 

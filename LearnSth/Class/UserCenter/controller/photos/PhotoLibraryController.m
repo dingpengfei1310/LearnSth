@@ -114,7 +114,7 @@ static NSString *Identifier = @"Cell";
 }
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
-    DNSLog(@"photoLibraryDidChange");
+    FFPrint(@"photoLibraryDidChange");
 }
 
 #pragma mark

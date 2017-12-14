@@ -8,6 +8,7 @@
 
 #import "LiveInfoViewController.h"
 #import "LiveModel.h"
+#import "UIImage+Tool.h"
 
 @interface LiveInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -98,14 +99,14 @@
         if (!_showTitle) {
             _showTitle = YES;
             self.title = self.liveModel.myname;
-            [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:KBaseAppColor]];
+            [self navigationBarBackgroundImage:[UIImage imageWithColor:KBaseAppColor]];
         }
     } else if (offsetY < -Screen_W * 0.5) {
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);
     } else if (offsetY < 64) {
         self.title = nil;
         UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:offsetY / 64.0];
-        [self navigationBarBackgroundImage:[CustomiseTool imageWithColor:color]];
+        [self navigationBarBackgroundImage:[UIImage imageWithColor:color]];
     }
 }
 

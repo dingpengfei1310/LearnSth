@@ -41,6 +41,4 @@ typedef NS_ENUM (NSInteger, LanguageType){
 + (long long)fileSizeAtPath:(NSString *)path;
 + (void)clearCacheAtPath:(NSString *)path;
 
-+ (UIImage *)imageWithColor:(UIColor *)color;
-
 @end

@@ -11,6 +11,7 @@
 #import "JPuzzlePiece.h"
 #import "JPuzzleStatus.h"
 #import "JPuzzleViewCell.h"
+#import "UIImage+Tool.h"
 
 @interface JPuzzleViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -68,7 +69,7 @@ const CGFloat LineSpace = 3.0;
         button.titleLabel.font = [UIFont systemFontOfSize:16];
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:KBaseAppColor forState:UIControlStateNormal];
-        [button setBackgroundImage:[CustomiseTool imageWithColor:KBackgroundColor]
+        [button setBackgroundImage:[UIImage imageWithColor:KBackgroundColor]
                           forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [buttonView addSubview:button];
