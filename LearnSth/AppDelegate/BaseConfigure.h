@@ -11,25 +11,19 @@
 
 #pragma mark
 //#ifdef DEBUG
-//# define NSLog(...) NSLog(__VA_ARGS__)
-//#else
-//# define NSLog(...)
-//#endif
-
-//#ifdef DEBUG
 //#define NSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 //#else
 //#define NSLog(FORMAT, ...)
 //#endif
 
-//#define DDNSLog(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+//#define FFPrint(FORMAT, ...) fprintf(stderr,"[%s] %s:%d行 %s\n",__TIME__, __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
 //[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String]
 //#ifdef __IPHONE_10_0
 //#endif
 
 #ifdef DEBUG
-#define FFPrint(...)           NSLog(__VA_ARGS__)
+#define FFPrint(...)          NSLog(__VA_ARGS__)
 #else
 #define FFPrint(...)
 #endif
@@ -38,8 +32,6 @@
 #define Screen_W              UIScreen.mainScreen.bounds.size.width
 #define Screen_H              UIScreen.mainScreen.bounds.size.height
 #define System_Version        UIDevice.currentDevice.systemVersion.floatValue
-
-//([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define IPHONE_X              (Screen_H == 812.0 || Screen_W == 812.0)
 #define StatusBarH            [[UIApplication sharedApplication] statusBarFrame].size.height

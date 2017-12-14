@@ -43,7 +43,7 @@
     const char *thePath = [[[NSBundle mainBundle] resourcePath] UTF8String];
     int ret = EXCARDS_Init(thePath);
     if (ret != 0) {
-        DNSLog(@"初始化失败：ret=%d", ret);
+        FFPrint(@"初始化失败：ret=%d", ret);
     }
     
     [self showVideoPreviewLayer];//前面已经判断有相机权限，否则会有错误

@@ -39,8 +39,7 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
-    
-    [self autoLogin];//自动登录
+    [self autoLoginWithToken];//自动登录
     
     return YES;
 }
@@ -77,7 +76,7 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
 
-- (void)autoLogin {
+- (void)autoLoginWithToken {
     [CustomiseTool setIsLogin:NO];
     
     if ([CustomiseTool loginToken]) {
@@ -104,7 +103,6 @@
     }
 }
 
-#pragma mark
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     if (self.isAutorotate) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
@@ -140,30 +138,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
-    //8.0
-    application.applicationIconBadgeNumber = 0;
-    if (application.applicationState != UIApplicationStateActive) {
-        FFPrint(@"%@",notification.userInfo);//
-        [self showAlertWithTitle:@"didReceiveLocalNotification"];
-    } else {
-        [self showAlertWithTitle:@"收到本地通知"];
-    }
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)(void))completionHandler {
-    FFPrint(@"%@ -- %@",identifier,notification.userInfo);
-    [self showAlertWithTitle:@"handleActionWithIdentifier"];
-    completionHandler();
-}
-
-- (void)showAlertWithTitle:(NSString *)title {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"message" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:action];
-    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-}
-
 #pragma mark
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -175,7 +149,7 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 //    [[UIApplication sharedApplication] performSelector:@selector(suspend)];//私有方法，模拟HOME键
     FFPrint(@"applicationDidEnterBackground");
-//    DNSLog(@"%f",application.backgroundTimeRemaining);
+//    FFPrint(@"%f",application.backgroundTimeRemaining);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

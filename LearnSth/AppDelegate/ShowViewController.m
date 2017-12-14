@@ -31,6 +31,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self addSubViews];
+}
+
+- (void)addSubViews {
     viewW = self.view.frame.size.width;
     viewH = self.view.frame.size.height;
     NSInteger pageCount = 2;
@@ -67,6 +71,7 @@
     [self.view addSubview:intoButton];
 }
 
+#pragma mark
 - (void)buttonClick:(UIButton *)button {
     if (self.DismissShowBlock) {
         self.DismissShowBlock();

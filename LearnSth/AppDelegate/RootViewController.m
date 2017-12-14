@@ -29,69 +29,51 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self networkMonitoring];
     [self loadViewControllersWithSelectIndex:0];
+    [self changeModel];
+    [self networkMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeModel) name:ChangeNightModel object:nil];
-    
-    [self changeModel];
 }
 
-#pragma mark
-- (void)networkMonitoring {
-    __block BOOL isFirst = YES;
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (!isFirst) {
-            if (status == AFNetworkReachabilityStatusNotReachable) {
-                [self showError:@"网络已断开连接"];
-            } else if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
-                [self showSuccess:@"网络已连接"];
-            }
-        }
-        isFirst = NO;
-    }];
-    
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-}
-
-- (void)checkNetworkType {
-    UIApplication *application = [UIApplication sharedApplication];
-    NSArray *children;
-    if ([[application valueForKeyPath:@"_statusBar"] isKindOfClass:NSClassFromString(@"UIStatusBar_Modern")]) {
-        children = [[[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    } else {
-        children = [[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    }
-    
-    NSString *status = [[NSString alloc] init];
-    NSInteger netType = 0;
-    
-    for (id child in children) {
-        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
-            netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
-            
-            switch (netType) {
-                case 0:
-                    status = @"noNet";
-                    break;
-                case 1:
-                    status = @"2G";
-                    break;
-                case 2:
-                    status = @"3G";
-                    break;
-                case 3:
-                    status = @"4G";
-                    break;
-                case 5:
-                    status = @"WIFI";
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-}
+//- (void)checkNetworkType {
+//    UIApplication *application = [UIApplication sharedApplication];
+//    NSArray *children;
+//    if ([[application valueForKeyPath:@"_statusBar"] isKindOfClass:NSClassFromString(@"UIStatusBar_Modern")]) {
+//        children = [[[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+//    } else {
+//        children = [[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+//    }
+//
+//    NSString *status = [[NSString alloc] init];
+//    NSInteger netType = 0;
+//
+//    for (id child in children) {
+//        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+//            netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
+//
+//            switch (netType) {
+//                case 0:
+//                    status = @"noNet";
+//                    break;
+//                case 1:
+//                    status = @"2G";
+//                    break;
+//                case 2:
+//                    status = @"3G";
+//                    break;
+//                case 3:
+//                    status = @"4G";
+//                    break;
+//                case 5:
+//                    status = @"WIFI";
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }
+//}
 
 #pragma mark
 - (void)loadViewControllersWithSelectIndex:(NSInteger)index {
@@ -182,6 +164,23 @@
     }
 }
 
+#pragma mark
+- (void)networkMonitoring {
+    __block BOOL isFirst = YES;
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (!isFirst) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [self showError:@"网络已断开连接"];
+            } else if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                [self showSuccess:@"网络已连接"];
+            }
+        }
+        isFirst = NO;
+    }];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
 - (void)changeModel {
     if ([CustomiseTool isNightModel]) {
         self.barView.backgroundColor = [UIColor darkGrayColor];
@@ -201,7 +200,6 @@
             }
         }
     }
-    
 }
 
 #pragma mark
