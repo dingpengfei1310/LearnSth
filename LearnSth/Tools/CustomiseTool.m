@@ -87,15 +87,13 @@ static NSString *ENLANGUAGE = @"en";
     return [[NSUserDefaults standardUserDefaults] integerForKey:KLanguageTypeCache];
 }
 
-+ (void)changeLanguage:(LanguageType)type oncompletion:(void(^)(void))comletion {
++ (void)changeLanguage:(LanguageType)type {
     if (type != [CustomiseTool languageType]) {
         [CustomiseTool setLanguage:type];
-        comletion();
     }
 }
 
 + (void)setLanguage:(LanguageType)type {
-    
     [[NSUserDefaults standardUserDefaults] setInteger:type forKey:KLanguageTypeCache];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

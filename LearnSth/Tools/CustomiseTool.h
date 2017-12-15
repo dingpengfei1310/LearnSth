@@ -35,7 +35,7 @@ typedef NS_ENUM (NSInteger, LanguageType){
 
 + (NSBundle *)languageBundle;
 + (LanguageType)languageType;
-+ (void)changeLanguage:(LanguageType)type oncompletion:(void(^)(void))comletion;
++ (void)changeLanguage:(LanguageType)type;
 
 + (long long)folderSizeAtPath:(NSString *)path;
 + (long long)fileSizeAtPath:(NSString *)path;

@@ -83,7 +83,9 @@
     UserViewController *userController = [[UserViewController alloc] init];
     UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
     
-    self.viewControllers = @[homeNVC,userNVC];
+//    self.viewControllers = @[homeNVC,userNVC];
+    
+    [self setViewControllers:@[homeNVC,userNVC] animated:YES];
     
     [self customizeBarButtonWithIndex:index];
     //    [self initTabBar];

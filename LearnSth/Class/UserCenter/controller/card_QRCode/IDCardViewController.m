@@ -95,7 +95,7 @@ const float margin = 20;
 - (void)scanClick {
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusAuthorized) {
-        [self toScanController];
+        [self enterScanController];
         
     } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
         [self showAuthorizationStatusDeniedAlertMessage:@"没有相机访问权限"];
@@ -103,13 +103,13 @@ const float margin = 20;
     } else if (status == AVAuthorizationStatusNotDetermined) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                granted ? [self toScanController] : 0;
+                granted ? [self enterScanController] : 0;
             });
         }];
     }
 }
 
-- (void)toScanController {
+- (void)enterScanController {
     ScanIDCardController *controller = [[ScanIDCardController alloc] init];
     controller.ScanResult = ^(IDCardInfo *cardInfo, UIImage *image) {
         self.cardImageView.image = image;

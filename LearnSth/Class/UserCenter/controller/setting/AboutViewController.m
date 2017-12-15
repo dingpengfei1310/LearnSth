@@ -23,7 +23,7 @@
     self.title = @"关于";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.titleArray = @[@"官方电话",@"官方网站"];
+    self.titleArray = @[@"电话",@"网站"];
     self.subTitleArray = @[@"4008886666",@"www.apple.com"];
     
     CGFloat barH = NavigationBarH + StatusBarH;
@@ -68,9 +68,6 @@
         NSURL *url = [NSURL URLWithString:telStr];
         
         [[UIApplication sharedApplication] openURL:url];
-//        UIWebView *webView = [[UIWebView alloc] init];
-//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
-//        [self.view addSubview:webView];
         
     } else if (indexPath.row == 1) {
         UIAlertController * alertController = [UIAlertController  alertControllerWithTitle:nil message:@"是否打开网站" preferredStyle:UIAlertControllerStyleAlert];

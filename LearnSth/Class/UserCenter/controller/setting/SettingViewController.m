@@ -55,6 +55,53 @@
     }
 }
 
+- (void)showAlertControllerToFile {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入密码" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
+        textField.placeholder = @"请输入密码";
+        if ([CustomiseTool isNightModel]) {
+            textField.keyboardAppearance = UIKeyboardAppearanceDark;
+        }
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
+    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UITextField *field = weakAlert.textFields[0];
+        if ([field.text isEqualToString:@"0000"]) {
+            [self enterFileController:YES];
+        } else {
+            [self showError:@"密码错误"];
+        }
+    }];
+    [alert addAction:cancelAction];
+    [alert addAction:certainAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+///Yes直接进入，不需要密码
+- (void)enterFileController:(BOOL)password {
+    if (password) {
+        FileScanViewController *controller = [[FileScanViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        [self showAlertControllerToFile];
+    }
+}
+
+///计算缓存大小
+- (CGFloat)calculateDiskCacheSize {
+    long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
+    CGFloat cacheSize = longSize / 1024.0 / 1024.0;
+    return cacheSize;
+}
+
 - (void)showAlertOnClearDiskCache {
     [self showAlertWithTitle:nil message:@"确定要清除缓存吗" cancel:nil destructive:^{
         [self clearDiskCache];
@@ -73,22 +120,41 @@
     });
 }
 
-- (CGFloat)calculateDiskCacheSize {
-    long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
-    CGFloat cacheSize = longSize / 1024.0 / 1024.0;
-    return cacheSize;
+- (void)showAlertOnChangeLanguage {
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [self changeLanguage:LanguageTypeEn];
+                                               }];
+    UIAlertAction *zh = [UIAlertAction actionWithTitle:DLocalizedString(@"简体中文")
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [self changeLanguage:LanguageTypeZH];
+                                               }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:DLocalizedString(@"取消")
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    
+    [actionSheet addAction:en];
+    [actionSheet addAction:zh];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 - (void)changeLanguage:(LanguageType)type {
     if ([CustomiseTool languageType] != type) {
         [self loading];
+        [CustomiseTool changeLanguage:type];
         
-        [CustomiseTool changeLanguage:type oncompletion:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self hideHUD];
             
             RootViewController *controller = (RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
             [controller loadViewControllersWithSelectIndex:2];
-        }];
+        });
     }
 }
 
@@ -103,37 +169,6 @@
         
         [self.navigationController popViewControllerAnimated:YES];
     }];
-}
-
-- (void)showAlertControllerToFile {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入密码" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
-        textField.placeholder = @"请输入密码";
-        if ([CustomiseTool isNightModel]) {
-            textField.keyboardAppearance = UIKeyboardAppearanceDark;
-        }
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    
-    __weak typeof(alert) weakAlert = alert;//你妹啊，这都有循环引用
-    UIAlertAction *certainAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        UITextField *field = weakAlert.textFields[0];
-        if ([field.text isEqualToString:@"123123123"]) {
-            FileScanViewController *controller = [[FileScanViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        } else {
-            [self showError:@"密码错误"];
-        }
-    }];
-    [alert addAction:cancelAction];
-    [alert addAction:certainAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark
@@ -198,36 +233,14 @@
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 2) {
-//        FileScanViewController *controller = [[FileScanViewController alloc] init];
-//        controller.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:controller animated:YES];
-        [self showAlertControllerToFile];
+        [self enterFileController:YES];
         
     } else if (indexPath.row == 3) {
         [self showAlertOnClearDiskCache];
         
     } else if (indexPath.row == 4) {
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [self showAlertOnChangeLanguage];
         
-        UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:LanguageTypeEn];
-                                                   }];
-        UIAlertAction *zh = [UIAlertAction actionWithTitle:DLocalizedString(@"简体中文")
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                       [self changeLanguage:LanguageTypeZH];
-                                                   }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:DLocalizedString(@"取消")
-                                                         style:UIAlertActionStyleCancel
-                                                       handler:nil];
-        
-        [actionSheet addAction:en];
-        [actionSheet addAction:zh];
-        [actionSheet addAction:cancel];
-        
-        [self presentViewController:actionSheet animated:YES completion:nil];
     } else if (indexPath.row == 5) {
         ShowViewController *showVC = [[ShowViewController alloc] init];
         showVC.DismissShowBlock = ^{
