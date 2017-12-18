@@ -47,13 +47,30 @@
     _toolBar.hidden = YES;
     [self.view addSubview:_toolBar];
     
-    _deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelectArray)];
+    _deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteBarButtonItemClick)];
     _deleteItem.tintColor = [UIColor grayColor];
     _deleteItem.enabled = NO;
     _toolBar.items = @[_deleteItem];
 }
 
 #pragma mark
+- (void)loadPreviewItems {
+    _previewItems = [NSMutableArray array];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *files = [fileManager contentsOfDirectoryAtPath:_previewItemPath error:NULL];
+    [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
+        if (![obj hasSuffix:@".DS_Store"]) {
+            NSString *filePath = [_previewItemPath stringByAppendingPathComponent:obj];
+            
+            BOOL flag;
+            if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
+                [_previewItems addObject:obj];
+            }
+        }
+    }];
+}
+
 - (void)tableViewEditing:(UIBarButtonItem *)buttonItem {
     self.editing = !self.editing;
     _toolBar.hidden = !self.editing;
@@ -74,42 +91,39 @@
     [self.tableView reloadData];
 }
 
-- (void)deleteSelectArray {
-    if (self.selectArray.count > 0) {
-        [self showAlertWithTitle:nil
-                         message:@"确定删除选中的文件吗?"
-                          cancel:nil
-                     destructive:^{
-                         for (NSIndexPath *indexPath in self.selectArray) {
-                             NSString *filePath = [_previewItemPath stringByAppendingPathComponent:_previewItems[indexPath.row]];
-                             NSFileManager *fileManager = [NSFileManager defaultManager];
-                             [fileManager removeItemAtPath:filePath error:NULL];
-                         }
-                         [self.selectArray removeAllObjects];
-                         
-                         [self loadPreviewItems];
-                         [self.tableView reloadData];
-                     }];
-    } else {
-        [self showError:@"请选择删除的文件"];
-    }
+- (void)deleteBarButtonItemClick {
+    [self showAlertWithTitle:nil
+                     message:@"确定删除选中的文件吗?"
+                      cancel:nil
+                 destructive:^{
+                     [self deleteSelectArray];
+                 }];
 }
 
-- (void)loadPreviewItems {
-    _previewItems = [NSMutableArray array];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *files = [fileManager contentsOfDirectoryAtPath:_previewItemPath error:NULL];
-    [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * stop) {
-        if (![obj hasSuffix:@".DS_Store"]) {
-            NSString *filePath = [_previewItemPath stringByAppendingPathComponent:obj];
-            
-            BOOL flag;
-            if ([fileManager fileExistsAtPath:filePath isDirectory:&flag] && !flag) {
-                [_previewItems addObject:obj];
-            }
+- (void)deleteSelectArray {
+    if (self.selectArray.count == 1) {
+        NSIndexPath *indexPath = self.selectArray.firstObject;
+        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:_previewItems[indexPath.row]];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtPath:filePath error:NULL];
+        
+        [self.selectArray removeAllObjects];
+        [self.previewItems removeObjectAtIndex:indexPath.row];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+        
+    } else {
+        for (NSIndexPath *indexPath in self.selectArray) {
+            NSString *filePath = [_previewItemPath stringByAppendingPathComponent:_previewItems[indexPath.row]];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            [fileManager removeItemAtPath:filePath error:NULL];
         }
-    }];
+        [self.selectArray removeAllObjects];
+        
+        _deleteItem.enabled = NO;
+        [self loadPreviewItems];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark
@@ -157,19 +171,21 @@
         self.selectIndex = indexPath.row;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-//        QLPreviewController *previewController = [[QLPreviewController alloc] init];
-//        previewController.dataSource = self;
-//        [self presentViewController:previewController animated:YES completion:nil];
-        
         NSString *fileName = self.previewItems[indexPath.row];
-        NSString *filePath = [_previewItemPath stringByAppendingPathComponent:fileName];
-        VideoPlayerController *cc = [[VideoPlayerController alloc] init];
-        cc.title = fileName;
-        cc.fileUrl = filePath;
-        cc.DismissBlock = ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
-        [self presentViewController:cc animated:YES completion:nil];
+        if ([fileName hasSuffix:@"mp4"]) {
+            NSString *filePath = [_previewItemPath stringByAppendingPathComponent:fileName];
+            VideoPlayerController *cc = [[VideoPlayerController alloc] init];
+            cc.title = fileName;
+            cc.fileUrl = filePath;
+            cc.DismissBlock = ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            };
+            [self presentViewController:cc animated:YES completion:nil];
+        } else {
+            QLPreviewController *previewController = [[QLPreviewController alloc] init];
+            previewController.dataSource = self;
+            [self presentViewController:previewController animated:YES completion:nil];
+        }
         
     } else {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -190,24 +206,7 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self showAlertWithTitle:nil
-                         message:@"确定删除这个文件吗?"
-                          cancel:^{
-                              [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                          }
-                     destructive:^{
-                         NSString *filePath = [_previewItemPath stringByAppendingPathComponent:_previewItems[indexPath.row]];
-                         NSFileManager *fileManager = [NSFileManager defaultManager];
-                         [fileManager removeItemAtPath:filePath error:NULL];
-                         
-                         [self.previewItems removeObjectAtIndex:indexPath.row];
-                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                     }];
-    }
-}
-
+#pragma mark
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editing) {
         return NO;
@@ -218,6 +217,36 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self showAlertWithTitle:nil
+                         message:@"确定删除这个文件吗?"
+                          cancel:^{
+                              [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                          }
+                     destructive:^{
+                         [self.selectArray addObject:indexPath];
+                         [self deleteSelectArray];
+                     }];
+    }
+}
+
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * action, NSIndexPath * indexPath) {
+//        [self showAlertWithTitle:nil
+//                         message:@"确定删除这个文件吗?"
+//                          cancel:^{
+//                              [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                          }
+//                     destructive:^{
+//                         [self.selectArray addObject:indexPath];
+//                         [self deleteSelectArray];
+//                     }];
+//    }];
+//
+//    return @[action];
+//}
 
 #pragma mark - QLPreviewControllerDataSource
 - (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
@@ -243,7 +272,6 @@
         
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-        _tableView.backgroundColor = KBackgroundColor;
         _tableView.rowHeight = 55;
         _tableView.dataSource = self;
         _tableView.delegate = self;
