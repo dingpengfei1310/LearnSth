@@ -9,11 +9,13 @@
 #import "MessageViewController.h"
 #import "MessageTableCell.h"
 
-@interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate> {
+    CGFloat viewW;
+}
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
-@property (nonatomic, strong) NSMutableArray *heightArray;
+//@property (nonatomic, strong) NSMutableArray *needLoadArr;
 
 @end
 
@@ -25,18 +27,32 @@ static NSString *reuseIdentifier = @"cell";
     [super viewDidLoad];
     self.title = @"消息";
     
-    self.dataArray = @[
-                       @"浅copy:指针复制，不会创建一个新的对象。\n深copy:内容复制，会创建一个新的对象。",
-                       @"对immutableObject，即不可变对象，执行copy，会得到不可变对象，并且是浅copy。\n对immutableObject，即不可变对象，执行mutableCopy，会得到可变对象，并且是深copy。\n对mutableObject，即可变对象，执行copy，会得到不可变对象，并且是深copy。\n对mutableObject，即可变对象，执行mutableCopy，会得到可变对象，并且是深copy。",
-                       @"如果想完美的解决NSArray嵌套NSArray这种情形，可以使用归档、解档的方式。\n归档和解档的前提是NSArray中所有的对象都实现了NSCoding协议。"
-                       ];
+    viewW = Screen_W;
+    NSArray *tempArray = @[
+                           @"浅copy:指针复制，不会创建一个新的对象。\n深copy:内容复制，会创建一个新的对象。",
+                           @"对immutableObject，即不可变对象，执行copy，会得到不可变对象，并且是浅copy。\n对immutableObject，即不可变对象，执行mutableCopy，会得到可变对象，并且是深copy。\n对mutableObject，即可变对象，执行copy，会得到不可变对象，并且是深copy。\n对mutableObject，即可变对象，执行mutableCopy，会得到可变对象，并且是深copy。",
+                           @"如果想完美的解决NSArray嵌套NSArray这种情形，可以使用归档、解档的方式。\n归档和解档的前提是NSArray中所有的对象都实现了NSCoding协议。"
+                           ];
     NSMutableArray *arrayM = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
-        [arrayM addObjectsFromArray:self.dataArray];
+    for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < tempArray.count; i++) {
+            
+            NSString *content = tempArray[i];
+            UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+            style.lineSpacing = 1.0;
+            style.lineBreakMode = NSLineBreakByCharWrapping;
+            NSDictionary *attribute = @{NSFontAttributeName:font,
+                                        NSParagraphStyleAttributeName:style};
+            
+            CGSize size = [content boundingRectWithSize:CGSizeMake(viewW - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+            
+            NSDictionary *info = @{@"content":content,
+                                   @"height":@(ceilf(size.height) + 40.0)};
+            [arrayM addObject:info];
+        }
     }
     self.dataArray = [NSArray arrayWithArray:arrayM];
-    
-    self.heightArray = [NSMutableArray array];
     [self.view addSubview:self.tableView];
 }
 
@@ -47,28 +63,15 @@ static NSString *reuseIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    cell.content = self.dataArray[indexPath.row];
+    NSDictionary *info = self.dataArray[indexPath.row];
+    cell.content = info[@"content"];
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.heightArray.count > indexPath.row) {
-        return [self.heightArray[indexPath.row] floatValue];
-        
-    } else {
-        NSString *content = self.dataArray[indexPath.row];
-        UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-        style.lineSpacing = 1.0;
-        style.lineBreakMode = NSLineBreakByCharWrapping;
-        NSDictionary *attribute = @{NSFontAttributeName:font,
-                                    NSParagraphStyleAttributeName:style};
-        
-        CGSize size = [content boundingRectWithSize:CGSizeMake(CGRectGetWidth(tableView.frame) - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
-        
-        [self.heightArray addObject:@(ceilf(size.height) + 40.0)];
-        return ceilf(size.height) + 40.0;
-    }
+    NSDictionary *info = self.dataArray[indexPath.row];
+    return [info[@"height"] floatValue];
 }
 
 #pragma mark
