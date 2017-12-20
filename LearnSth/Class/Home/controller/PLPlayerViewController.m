@@ -199,7 +199,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 }
 
 - (void)player:(PLPlayer *)player stoppedWithError:(NSError *)error {
-    NSLog(@"%@",error);
+    FFPrint(@"%@",error);
 }
 
 #pragma mark

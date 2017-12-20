@@ -48,9 +48,6 @@
     if (cell==nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
     }
     
     cell.textLabel.text = self.titleArray[indexPath.row];
@@ -104,8 +101,8 @@
     
     UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 85, width, 30)];
     versionLabel.textAlignment = NSTextAlignmentCenter;
-    versionLabel.font = [UIFont systemFontOfSize:15];
-    versionLabel.textColor = [UIColor grayColor];
+    versionLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    versionLabel.textColor = KBaseTextColor;
     [headerView addSubview:versionLabel];
     
     NSString *appVersion = [DeviceConfig getAppVersion];

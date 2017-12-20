@@ -46,12 +46,12 @@
 
 #pragma mark
 - (void)wifiUpload {
-    WiFiUploadManager *manager = [WiFiUploadManager shareManager];
-    BOOL success = [manager startHTTPServerAtPort:10000];
-    
-    if (success) {
-        FFPrint(@"URL = %@:%d",manager.ip,manager.port);
+    if ([[WiFiUploadManager shareManager] startHTTPServer]) {
+        FFPrint(@"%@",[WiFiUploadManager shareManager].savePath);
+        FFPrint(@"%@:%d",[WiFiUploadManager shareManager].ip,[WiFiUploadManager shareManager].port);
         [[WiFiUploadManager shareManager] showWiFiPageViewController:self];
+    } else {
+        [self showError:@"创建失败"];
     }
 }
 

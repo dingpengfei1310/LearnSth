@@ -34,6 +34,7 @@ const NSTimeInterval timeoutInterval = 15.0;
         
         NSMutableSet *multSet = [NSMutableSet setWithSet:_sessionManager.responseSerializer.acceptableContentTypes];
         [multSet addObject:@"text/html"];
+        [multSet addObject:@"text/plain"];
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithSet:multSet];
         _sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
     }
@@ -124,7 +125,7 @@ const NSTimeInterval timeoutInterval = 15.0;
 
 - (void)getHotLiveListWithParam:(NSDictionary *)paramers completion:(CompletionArray)completion {
     NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
-//    http://service.inke.com/api/live/aggregation?uid=147970465&interest=1&location=0
+//    http://service.inke.com/api/live/aggregation?uid=0&interest=1
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         if (array.count == 0) {
@@ -139,30 +140,20 @@ const NSTimeInterval timeoutInterval = 15.0;
     }];
 }
 
-#pragma mark
-- (void)getPDF {
-//    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/futuresoption.pdf"];
-//    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/optionstate.pdf"];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.203:6080/zdkh/show/security.pdf"];
-    
-    NSURLSessionDownloadTask *dd = [self.sessionManager downloadTaskWithRequest:[NSURLRequest requestWithURL:url] progress:^(NSProgress * downloadProgress) {
-        NSLog(@"downloadProgress");
-    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        NSString *ss = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
-        return [NSURL fileURLWithPath:[ss stringByAppendingPathComponent:@"p.pdf"]];
+///列表
+- (void)getYingKeLiveListCompletion:(CompletionArray)completion {
+    NSString * urlString = @"http://service.inke.com/api/live/aggregation?uid=0&interest=1";
+    [self getDataWithString:urlString paramets:nil success:^(id responseData) {
+        NSArray *array = [responseData objectForKey:@"lives"];
+        if (array.count == 0) {
+            NSError *error = [self errorWithResponse:responseData];
+            completion(nil,error);
+        } else {
+            completion(array,nil);
+        }
         
-    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-        NSLog(@"completionHandler");
-    }];
-    [dd resume];
-}
-
-- (void)getLoacalTestDataCompletion:(CompletionArray)completion {
-    NSString *localIP = @"http://192.168.1.146:80/test.json";
-    [self getDataWithString:localIP paramets:nil success:^(id responseData) {
-        completion(responseData[@"data"],nil);
     } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
+        completion(nil,error);
     }];
 }
 

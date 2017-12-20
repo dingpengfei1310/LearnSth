@@ -19,7 +19,7 @@
 
 @end
 
-static NSString *reuseIdentifier = @"cell";
+static NSString *reuseIdentifier = @"messCell";
 
 @implementation MessageViewController
 
@@ -27,33 +27,44 @@ static NSString *reuseIdentifier = @"cell";
     [super viewDidLoad];
     self.title = @"消息";
     
+    [self loadMessageData];
+    [self.view addSubview:self.tableView];
+}
+
+- (void)loadMessageData {
     viewW = Screen_W;
     NSArray *tempArray = @[
                            @"浅copy:指针复制，不会创建一个新的对象。\n深copy:内容复制，会创建一个新的对象。",
                            @"对immutableObject，即不可变对象，执行copy，会得到不可变对象，并且是浅copy。\n对immutableObject，即不可变对象，执行mutableCopy，会得到可变对象，并且是深copy。\n对mutableObject，即可变对象，执行copy，会得到不可变对象，并且是深copy。\n对mutableObject，即可变对象，执行mutableCopy，会得到可变对象，并且是深copy。",
                            @"如果想完美的解决NSArray嵌套NSArray这种情形，可以使用归档、解档的方式。\n归档和解档的前提是NSArray中所有的对象都实现了NSCoding协议。"
                            ];
-    NSMutableArray *arrayM = [NSMutableArray array];
-    for (int i = 0; i < 100; i++) {
-        for (int i = 0; i < tempArray.count; i++) {
-            
-            NSString *content = tempArray[i];
-            UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-            style.lineSpacing = 1.0;
-            style.lineBreakMode = NSLineBreakByCharWrapping;
-            NSDictionary *attribute = @{NSFontAttributeName:font,
-                                        NSParagraphStyleAttributeName:style};
-            
-            CGSize size = [content boundingRectWithSize:CGSizeMake(viewW - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
-            
-            NSDictionary *info = @{@"content":content,
-                                   @"height":@(ceilf(size.height) + 40.0)};
-            [arrayM addObject:info];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < tempArray.count; i++) {
+                
+                NSString *content = tempArray[i];
+                UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+                NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+                style.lineSpacing = 1.0;
+                style.lineBreakMode = NSLineBreakByCharWrapping;
+                NSDictionary *attribute = @{NSFontAttributeName:font,
+                                            NSParagraphStyleAttributeName:style};
+                
+                CGSize size = [content boundingRectWithSize:CGSizeMake(viewW - 40, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+                
+                NSDictionary *info = @{@"content":content,
+                                       @"height":@(ceilf(size.height) + 40.0)};
+                [arrayM addObject:info];
+            }
         }
-    }
-    self.dataArray = [NSArray arrayWithArray:arrayM];
-    [self.view addSubview:self.tableView];
+        
+        self.dataArray = [NSArray arrayWithArray:arrayM];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
 }
 
 #pragma mark

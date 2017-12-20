@@ -51,7 +51,6 @@ typedef void (^CancelBlock)(void);
 //}
 //
 //- (void)errorM {
-//    NSLog(@"can't find");
 //}
 //
 //- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {

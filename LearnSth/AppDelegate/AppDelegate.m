@@ -64,7 +64,7 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-5, 0)
                                                          forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16]}
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}
                                                 forState:UIControlStateNormal];
     
 //    if (@available(iOS 11.0, *)) {

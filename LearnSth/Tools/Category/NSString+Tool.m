@@ -23,7 +23,6 @@
 //
 //#pragma mark - 自定义
 //- (void)dd_lowercaseString {
-//    NSLog(@"准备小写^_^");
 //    [self dd_lowercaseString];
 //}
 

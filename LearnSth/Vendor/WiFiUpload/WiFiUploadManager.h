@@ -17,17 +17,20 @@ extern NSString * const WiFiUploadManagerDidEnd;
 @interface WiFiUploadManager : NSObject
 
 @property (nonatomic, strong) HTTPServer *httpServer;
-@property (nonatomic, copy) NSString *webPath;
-@property (nonatomic, copy) NSString *savePath;
+@property (nonatomic, strong, readonly) NSString *webPath;
+@property (nonatomic, strong, readonly) NSString *savePath;
 
 + (instancetype)shareManager;
-
-- (BOOL)startHTTPServerAtPort:(UInt16)port;
-- (BOOL)isServerRunning;
-- (void)stopHTTPServer;
-
 - (NSString *)ip;
 - (UInt16)port;
+
+//- (BOOL)startHTTPServerAtPort:(UInt16)port;
+///启动
+- (BOOL)startHTTPServer;
+- (BOOL)isServerRunning;
+///停止
+- (void)stopHTTPServer;
+
 
 - (void)showWiFiPageViewController:(UIViewController *)viewController;
 

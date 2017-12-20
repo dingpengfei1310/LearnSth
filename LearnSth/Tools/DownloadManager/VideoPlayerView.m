@@ -291,7 +291,7 @@ const CGFloat BottomH = 40;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
-            NSLog(@"status:AVPlayerItemStatusReadyToPlay");
+            FFPrint(@"status:AVPlayerItemStatusReadyToPlay");
             self.playSlider.userInteractionEnabled = YES;
             [self setMaxDuration:item.duration];
 //            [self videoPaly];

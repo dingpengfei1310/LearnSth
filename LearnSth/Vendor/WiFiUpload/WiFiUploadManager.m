@@ -18,6 +18,13 @@ NSString * const WiFiUploadManagerDidStart = @"FileUploadDidStartNotification";
 NSString * const WiFiUploadManagerProgress = @"FileUploadProgressNotification";
 NSString * const WiFiUploadManagerDidEnd = @"FileUploadDidEndNotification";
 
+@interface WiFiUploadManager ()
+
+@property (nonatomic, strong) NSString *webPath;
+@property (nonatomic, strong) NSString *savePath;
+
+@end
+
 @implementation WiFiUploadManager
 
 + (instancetype)shareManager {
@@ -35,18 +42,19 @@ NSString * const WiFiUploadManagerDidEnd = @"FileUploadDidEndNotification";
     if (self = [super init]) {
         self.webPath = [[NSBundle mainBundle] resourcePath];
         self.savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        NSLog(@"%@",self.savePath);
     }
     return self;
 }
 
 - (NSString *)ip {
-    return [self deviceIPAdress];
+    return [DeviceConfig getIPAddress:NO];
 }
+
 - (UInt16)port {
     return self.httpServer.port;
 }
 
+#pragma mark
 - (BOOL)startHTTPServerAtPort:(UInt16)port {
     HTTPServer *server = [HTTPServer new];
     server.port = port;
@@ -56,6 +64,10 @@ NSString * const WiFiUploadManagerDidEnd = @"FileUploadDidEndNotification";
     NSError *error = nil;
     [self.httpServer start:&error];
     return error == nil;
+}
+
+- (BOOL)startHTTPServer {
+    return [self startHTTPServerAtPort:10000];
 }
 
 - (BOOL)isServerRunning {
@@ -73,12 +85,6 @@ NSString * const WiFiUploadManagerDidEnd = @"FileUploadDidEndNotification";
     };
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:controller];
     [viewController presentViewController:nvc animated:YES completion:nil];
-}
-
-#pragma mark
-///IPAddress
-- (NSString *)deviceIPAdress {
-    return [DeviceConfig getIPAddress:NO];
 }
 
 @end

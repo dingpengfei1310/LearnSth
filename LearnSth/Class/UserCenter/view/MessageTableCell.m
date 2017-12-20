@@ -33,10 +33,9 @@
     [self.contentView addSubview:_contentBackgroundView];
     
     _contentLabel = [[UILabel alloc] init];
-    _contentLabel.layer.masksToBounds = YES;
-    _contentLabel.numberOfLines = 0;
-    _contentLabel.font = [UIFont systemFontOfSize:16];
-    _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//    _contentLabel.layer.masksToBounds = YES;
+//    _contentLabel.numberOfLines = 0;
+//    _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.contentView addSubview:_contentLabel];
 }
 

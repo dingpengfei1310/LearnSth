@@ -30,11 +30,11 @@ typedef NS_ENUM(NSInteger, HttpErrorCode) {
 /// 广告
 - (void)getAdBannerListCompletion:(CompletionArray)completion;
 
-///热门直播
+///热门
 - (void)getHotLiveListWithParam:(NSDictionary *)paramers
                      completion:(CompletionArray)completion;
 
-///本地测试数据
-- (void)getLoacalTestDataCompletion:(CompletionArray)completion;
+///列表
+- (void)getYingKeLiveListCompletion:(CompletionArray)completion;
 
 @end

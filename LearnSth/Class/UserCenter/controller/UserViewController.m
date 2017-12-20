@@ -12,6 +12,7 @@
 #import "UserInfoViewController.h"
 #import "SettingViewController.h"
 #import "StepCountViewController.h"
+#import "YingKeViewController.h"
 
 #import "HeaderImageViewCell.h"
 #import "UserManager.h"
@@ -61,6 +62,8 @@ static NSString *Identifier = @"cell";
     [self.view addSubview:self.tableView];
     
     [self addObserve];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
 }
 
 - (void)addObserve {
@@ -71,6 +74,12 @@ static NSString *Identifier = @"cell";
 }
 
 #pragma mark
+- (void)rightItemClick {
+    YingKeViewController *controller = [[YingKeViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)loginClick {
     if ([CustomiseTool isLogin]) {
         UserInfoViewController *controller = [[UserInfoViewController alloc] init];
