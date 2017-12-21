@@ -105,8 +105,9 @@
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);
     } else if (offsetY < 64) {
         self.title = nil;
-        UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:offsetY / 64.0];
-        [self navigationBarBackgroundImage:[UIImage imageWithColor:color]];
+        [self navigationBarBackgroundImage:[UIImage imageWithColor:KBaseAppColor]];
+//        UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:offsetY / 64.0];
+//        [self navigationBarBackgroundImage:[UIImage imageWithColor:color]];
     }
 }
 

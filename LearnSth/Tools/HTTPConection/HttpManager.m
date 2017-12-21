@@ -125,7 +125,6 @@ const NSTimeInterval timeoutInterval = 15.0;
 
 - (void)getHotLiveListWithParam:(NSDictionary *)paramers completion:(CompletionArray)completion {
     NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
-//    http://service.inke.com/api/live/aggregation?uid=0&interest=1
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
         if (array.count == 0) {
@@ -141,8 +140,10 @@ const NSTimeInterval timeoutInterval = 15.0;
 }
 
 ///列表
-- (void)getYingKeLiveListCompletion:(CompletionArray)completion {
-    NSString * urlString = @"http://service.inke.com/api/live/aggregation?uid=0&interest=1";
+- (void)getInKeLiveListCompletion:(CompletionArray)completion {
+//    NSString * urlString = @"http://service.inke.com/api/live/aggregation?uid=0&interest=1";
+    NSString * urlString = @"http://service.inke.com/api/live/simpleall?uid=0&interest=1";
+//    &proto=6
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"lives"];
         if (array.count == 0) {

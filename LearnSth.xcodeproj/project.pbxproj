@@ -122,8 +122,6 @@
 		1B8E812A1FE3C7070038FF77 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810B1FE3C7070038FF77 /* WiFiUploadManager.m */; };
 		1B8E812B1FE3C7070038FF77 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */; };
 		1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */; };
-		1BB590D11FEA648500CF8FD8 /* YingKeLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB590D01FEA648500CF8FD8 /* YingKeLiveModel.m */; };
-		1BB590D41FEA6A1E00CF8FD8 /* YingKeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB590D31FEA6A1E00CF8FD8 /* YingKeViewController.m */; };
 		1BB786A51E8E2D5B00185869 /* RotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB786A31E8E2D5B00185869 /* RotationViewController.m */; };
 		1BB786A61E8E2D5B00185869 /* RotationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BB786A41E8E2D5B00185869 /* RotationViewController.xib */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
@@ -394,10 +392,6 @@
 		1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
 		1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Tool.h"; sourceTree = "<group>"; };
 		1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Tool.m"; sourceTree = "<group>"; };
-		1BB590CF1FEA648500CF8FD8 /* YingKeLiveModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YingKeLiveModel.h; sourceTree = "<group>"; };
-		1BB590D01FEA648500CF8FD8 /* YingKeLiveModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YingKeLiveModel.m; sourceTree = "<group>"; };
-		1BB590D21FEA6A1E00CF8FD8 /* YingKeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YingKeViewController.h; sourceTree = "<group>"; };
-		1BB590D31FEA6A1E00CF8FD8 /* YingKeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YingKeViewController.m; sourceTree = "<group>"; };
 		1BB786A21E8E2D5B00185869 /* RotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationViewController.h; sourceTree = "<group>"; };
 		1BB786A31E8E2D5B00185869 /* RotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationViewController.m; sourceTree = "<group>"; };
 		1BB786A41E8E2D5B00185869 /* RotationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationViewController.xib; sourceTree = "<group>"; };
@@ -544,8 +538,6 @@
 				1BFEA6111EA747D60033CD15 /* DanMuModel.m */,
 				1B5E7BFA1E49C9BB00153A58 /* LiveModel.h */,
 				1B5E7BFB1E49C9BB00153A58 /* LiveModel.m */,
-				1BB590CF1FEA648500CF8FD8 /* YingKeLiveModel.h */,
-				1BB590D01FEA648500CF8FD8 /* YingKeLiveModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -600,8 +592,6 @@
 				1B65D2901F8CAB30000A679A /* userInfo */,
 				1B2D07E81DE7E8DB0034C22D /* UserViewController.h */,
 				1B2D07E91DE7E8DB0034C22D /* UserViewController.m */,
-				1BB590D21FEA6A1E00CF8FD8 /* YingKeViewController.h */,
-				1BB590D31FEA6A1E00CF8FD8 /* YingKeViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1403,7 +1393,6 @@
 				1B27B53B1F29B73B00AA36F3 /* UIView+SparkAnimation.m in Sources */,
 				1B4630DC1E669703000260D2 /* UIViewController+Tool.m in Sources */,
 				CF1A49561E0FA007007FD07D /* CustomizeButton.m in Sources */,
-				1BB590D41FEA6A1E00CF8FD8 /* YingKeViewController.m in Sources */,
 				1B34C7581F04CCC800026864 /* NSDate+Tool.m in Sources */,
 				1B2E587E1EBC76E800770953 /* DownloadModel.m in Sources */,
 				1B4630DF1E669703000260D2 /* SQLManager.m in Sources */,
@@ -1418,7 +1407,6 @@
 				1B430D6A1ED7D5420097248C /* SceneGameView.m in Sources */,
 				1B08C0961DF6A626005F3059 /* BannerScrollView.m in Sources */,
 				1B8E81201FE3C7070038FF77 /* TAPageControl.m in Sources */,
-				1BB590D11FEA648500CF8FD8 /* YingKeLiveModel.m in Sources */,
 				1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */,
 				1B8E811A1FE3C7070038FF77 /* PPNumberButton.m in Sources */,
 				1B008EE41E91F51C003AE2DB /* UIViewController+PopAction.m in Sources */,

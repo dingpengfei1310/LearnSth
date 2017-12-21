@@ -102,8 +102,17 @@ const  NSInteger liveColumn = 2;
                 [self.liveList addObjectsFromArray:[LiveModel liveWithArray:list]];
             }
         }
+
         [self.collectionView reloadData];
     }];
+    
+//    [[HttpManager shareManager] getInKeLiveListCompletion:^(NSArray *list, NSError *error) {
+//        [self.collectionView.mj_header endRefreshing];
+//        [self.collectionView.mj_footer endRefreshing];
+//
+//        self.liveList = [NSMutableArray arrayWithArray:[LiveModel liveWithArray:list]];
+//        [self.collectionView reloadData];
+//    }];
 }
 
 /**
@@ -251,11 +260,20 @@ const  NSInteger liveColumn = 2;
         }];
         
         MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;
-        NSArray *images = @[[UIImage imageNamed:@"refresh1"],
-                            [UIImage imageNamed:@"refresh2"],
-                            [UIImage imageNamed:@"refresh3"]];
-        [gifHeader setImages:images forState:MJRefreshStatePulling];
-        [gifHeader setImages:images forState:MJRefreshStateRefreshing];
+//        NSArray *images = @[[UIImage imageNamed:@"refresh1"],
+//                            [UIImage imageNamed:@"refresh2"],
+//                            [UIImage imageNamed:@"refresh3"]];
+//        [gifHeader setImages:images forState:MJRefreshStatePulling];
+//        [gifHeader setImages:images forState:MJRefreshStateRefreshing];
+        
+        NSMutableArray *imageArray = [NSMutableArray arrayWithCapacity:29];
+        for (NSInteger i = 137; i < 166; i++) {
+            NSString *imageName = [NSString stringWithFormat:@"loading_00%ld",i];
+            
+            [imageArray addObject:[UIImage imageNamed:imageName]];
+        }
+        [gifHeader setImages:imageArray duration:0.5 forState:MJRefreshStatePulling];
+        [gifHeader setImages:imageArray duration:0.5 forState:MJRefreshStateRefreshing];
         
         gifHeader.lastUpdatedTimeLabel.hidden = YES;
         gifHeader.stateLabel.hidden = YES;

@@ -35,6 +35,6 @@ typedef NS_ENUM(NSInteger, HttpErrorCode) {
                      completion:(CompletionArray)completion;
 
 ///列表
-- (void)getYingKeLiveListCompletion:(CompletionArray)completion;
+- (void)getInKeLiveListCompletion:(CompletionArray)completion;
 
 @end

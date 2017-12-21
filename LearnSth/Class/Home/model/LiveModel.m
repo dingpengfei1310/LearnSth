@@ -19,10 +19,34 @@
         [tempArray addObject:liveModel];
     }
     
+//    [tempArray sortUsingComparator:^NSComparisonResult(LiveModel *obj1, LiveModel *obj2) {
+//        NSInteger num1 = obj1.allnum.integerValue;
+//        NSInteger num2 = obj2.allnum.integerValue;
+//        
+//        return num1 < num2;
+//    }];
+    
     return [NSArray arrayWithArray:tempArray];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"city"]) {
+        self.gps = value;
+        
+    } else if ([key isEqualToString:@"name"]) {
+        self.familyName = value;
+        
+    } else if ([key isEqualToString:@"stream_addr"]) {
+        self.flv = value;
+        
+    } else if ([key isEqualToString:@"creator"]) {
+        self.myname = [value objectForKey:@"nick"];
+        self.bigpic = [value objectForKey:@"portrait"];
+        self.signatures = [value objectForKey:@"description"];
+        
+    } else if ([key isEqualToString:@"online_users"]) {
+        self.allnum = value;
+    }
 }
 
 @end
