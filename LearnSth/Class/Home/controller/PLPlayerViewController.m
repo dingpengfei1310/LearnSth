@@ -54,7 +54,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.player.playerView.gestureRecognizers = nil;
         [self.player play];
         
-//        [self addOriginalGesture];
+        [self addOriginalGesture];
         [self showForegroundView];
     }
 }

@@ -8,7 +8,6 @@
 
 #import "LiveCollectionCell.h"
 #import "LiveModel.h"
-#import "BaseConfigure.h"
 #import <UIImageView+WebCache.h>
 
 @interface LiveCollectionCell ()
@@ -31,23 +30,32 @@
 }
 
 - (void)initialize {
-    CGFloat width = CGRectGetWidth(self.contentView.bounds);
+    CGFloat cellWidth = CGRectGetWidth(self.contentView.bounds);
     
-    _liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+    _liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth)];
     [self.contentView addSubview:_liveImageView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, width, width * 0.7, 21)];
-    _nameLabel.backgroundColor = [UIColor whiteColor];
-    _nameLabel.font = [UIFont systemFontOfSize:12];
-    _nameLabel.textColor = KBaseTextColor;
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, cellWidth - 21, cellWidth * 0.7 - 2, 21)];
+    _nameLabel.backgroundColor = [UIColor clearColor];
+    _nameLabel.font = [UIFont boldSystemFontOfSize:10];
+    _nameLabel.textColor = [UIColor whiteColor];
     [self.contentView addSubview:_nameLabel];
     
-    _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(width * 0.7, width, width * 0.3, 21)];
+    _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth * 0.7, cellWidth - 21, cellWidth * 0.3 - 2, 21)];
     _countLabel.backgroundColor = [UIColor clearColor];
-    _countLabel.font = [UIFont boldSystemFontOfSize:10];
+    _countLabel.font = [UIFont systemFontOfSize:10];
     _countLabel.textAlignment = NSTextAlignmentRight;
-    _countLabel.textColor = KBaseAppColor;
+    _countLabel.textColor = [UIColor whiteColor];
     [self.contentView addSubview:_countLabel];
+    
+    CGRect rect = CGRectMake(-2, -14, cellWidth, 35);
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = rect;
+    gradientLayer.shadowPath = [UIBezierPath bezierPathWithRect:rect].CGPath;
+    gradientLayer.colors = @[(id)[UIColor colorWithWhite:0.0 alpha:0.0].CGColor,(id)[UIColor colorWithWhite:0.0 alpha:0.8].CGColor];
+    gradientLayer.locations = @[@(0.0),@(1.0)];
+    gradientLayer.shadowOffset = CGSizeMake(0, 0);
+    [self.nameLabel.layer addSublayer:gradientLayer];
 }
 
 - (void)setLiveModel:(LiveModel *)liveModel {
@@ -58,10 +66,8 @@
     NSInteger count = liveModel.allnum.integerValue;
     if (count < 10000) {
         self.countLabel.text = [NSString stringWithFormat:@"%ld",count];
-    } else if (count < 1000000) {
-        self.countLabel.text = [NSString stringWithFormat:@"%.2f万",count / 10000.0];
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%.0f万",count / 10000.0];
+        self.countLabel.text = [NSString stringWithFormat:@"%.1f万",count / 10000.0];
     }
     
     NSURL *url = [NSURL URLWithString:liveModel.bigpic];

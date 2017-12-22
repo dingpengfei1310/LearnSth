@@ -12,7 +12,6 @@
 #import "BaseConfigure.h"
 #import "UIView+Tool.h"
 #import <AVFoundation/AVFoundation.h>
-#import <NSObject+MemoryLeak.h>
 
 @interface VideoPlayerView () <UIGestureRecognizerDelegate>{
     id playerTimeObserver;
@@ -699,10 +698,6 @@ const CGFloat BottomH = 40;
     [_playerItem removeObserver:self forKeyPath:@"status"];
     [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-}
-
-- (BOOL)willDealloc {
-    return NO;
 }
 
 @end

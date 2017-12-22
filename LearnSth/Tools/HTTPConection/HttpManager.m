@@ -141,9 +141,9 @@ const NSTimeInterval timeoutInterval = 15.0;
 
 ///列表
 - (void)getInKeLiveListCompletion:(CompletionArray)completion {
-//    NSString * urlString = @"http://service.inke.com/api/live/aggregation?uid=0&interest=1";
-    NSString * urlString = @"http://service.inke.com/api/live/simpleall?uid=0&interest=1";
-//    &proto=6
+    NSString * urlString = @"http://service.inke.com/api/live/aggregation?uid=0&interest=1";
+//    NSString * urlString = @"http://service.inke.com/api/live/simpleall?uid=0&interest=1";
+    
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"lives"];
         if (array.count == 0) {

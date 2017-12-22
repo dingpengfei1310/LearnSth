@@ -23,5 +23,5 @@ target 'LearnSth' do
     pod 'FMDB'
     
     pod 'KVOController'
-    pod 'MLeaksFinder'
+#    pod 'MLeaksFinder'
 end

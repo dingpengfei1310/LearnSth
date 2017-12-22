@@ -17,6 +17,7 @@
 		1B16B4921EE51F3400F84CB1 /* JPuzzleStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16B4911EE51F3400F84CB1 /* JPuzzleStatus.m */; };
 		1B16B4951EE51F4B00F84CB1 /* JPuzzlePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */; };
 		1B1AF5721ED57CB500327BAD /* UINavigationBar+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */; };
+		1B2336C81FECEE2E00B8E9E1 /* InkeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2336C71FECEE2E00B8E9E1 /* InkeViewController.m */; };
 		1B27B53B1F29B73B00AA36F3 /* UIView+SparkAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */; };
 		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
 		1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29CA871EFBC397004177AD /* HandDrawView.m */; };
@@ -182,6 +183,8 @@
 		1B16B4941EE51F4B00F84CB1 /* JPuzzlePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPuzzlePiece.m; sourceTree = "<group>"; };
 		1B1AF5701ED57CB500327BAD /* UINavigationBar+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Tool.h"; sourceTree = "<group>"; };
 		1B1AF5711ED57CB500327BAD /* UINavigationBar+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Tool.m"; sourceTree = "<group>"; };
+		1B2336C61FECEE2E00B8E9E1 /* InkeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InkeViewController.h; sourceTree = "<group>"; };
+		1B2336C71FECEE2E00B8E9E1 /* InkeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InkeViewController.m; sourceTree = "<group>"; };
 		1B27B5391F29B73B00AA36F3 /* UIView+SparkAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SparkAnimation.h"; sourceTree = "<group>"; };
 		1B27B53A1F29B73B00AA36F3 /* UIView+SparkAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SparkAnimation.m"; sourceTree = "<group>"; };
 		1B29B87B1EEE3E660069780C /* LiveCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveCollectionView.h; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 				1B65D2981F8CAB30000A679A /* StepCountViewController.m */,
 				1B65D2991F8CAB30000A679A /* UserInfoViewController.h */,
 				1B65D29A1F8CAB30000A679A /* UserInfoViewController.m */,
+				1B2336C61FECEE2E00B8E9E1 /* InkeViewController.h */,
+				1B2336C71FECEE2E00B8E9E1 /* InkeViewController.m */,
 			);
 			path = userInfo;
 			sourceTree = "<group>";
@@ -1266,7 +1271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		84EAB8159764C26CAB90A78D /* [CP] Copy Pods Resources */ = {
@@ -1344,6 +1349,7 @@
 				1B16B4951EE51F4B00F84CB1 /* JPuzzlePiece.m in Sources */,
 				CF1A495A1E0FBD76007FD07D /* PhotosCollectionCell.m in Sources */,
 				1B8E811D1FE3C7070038FF77 /* TAAbstractDotView.m in Sources */,
+				1B2336C81FECEE2E00B8E9E1 /* InkeViewController.m in Sources */,
 				1B8E812B1FE3C7070038FF77 /* WiFiUploadViewController.m in Sources */,
 				1B8E81241FE3C7070038FF77 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				1B4630D81E669703000260D2 /* UICollectionView+Tool.m in Sources */,

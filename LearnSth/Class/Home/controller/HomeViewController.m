@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     CGFloat barH = NavigationBarH + StatusBarH;
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
@@ -55,7 +54,6 @@
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,6 +65,9 @@
     } else {
         self.liveCollectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
+    if ([CustomiseTool isLogin]) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -75,10 +76,6 @@
 }
 
 - (void)homeRightItemClick {
-//    SceneViewController *controller = [[SceneViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
-    
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];

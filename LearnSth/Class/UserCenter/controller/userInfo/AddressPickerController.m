@@ -41,6 +41,8 @@ const CGFloat PickViewAppearDuration = 0.3;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor clearColor];
+    
     self.pickerBackgroundView.transform = CGAffineTransformMakeTranslation(0, PickViewHeight + ToolbarHeight);
     [UIView animateWithDuration:PickViewAppearDuration animations:^{
         self.pickerBackgroundView.transform = CGAffineTransformIdentity;

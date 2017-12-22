@@ -46,6 +46,7 @@
 #pragma mark - color
 //#define KBaseAppColor         [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0]
 #define KBaseAppColor         [UIColor colorWithRed:250/255.0 green:30/255.0 blue:80/255.0 alpha:1.0]
+#define KBaseAppColorAlpha(a) [UIColor colorWithRed:250/255.0 green:30/255.0 blue:80/255.0 alpha:(a)]
 #define KBaseTextColor        [UIColor grayColor]
 #define KBackgroundColor      [UIColor groupTableViewBackgroundColor]
 

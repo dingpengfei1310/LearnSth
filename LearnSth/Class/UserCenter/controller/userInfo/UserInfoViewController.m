@@ -12,6 +12,7 @@
 #import "ScanQRCodeController.h"
 #import "IDCardViewController.h"
 #import "UserQRCodeController.h"
+#import "InkeViewController.h"
 
 #import "HttpConnection.h"
 #import "UserManager.h"
@@ -34,15 +35,15 @@ static NSString *Identifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.title = @"个人信息";
-    self.navigationItem.title = @"我";
+    self.title = @"个人信息";
     
     CGFloat barH = NavigationBarH + StatusBarH;
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
     
-    self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码"];
+    self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码",@"Live"];
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -243,6 +244,9 @@ static NSString *Identifier = @"cell";
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.row == 4) {
         UserQRCodeController *controller = [[UserQRCodeController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.row == 5) {
+        InkeViewController *controller = [[InkeViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

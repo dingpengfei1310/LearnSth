@@ -39,6 +39,8 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
+    
+    [CustomiseTool setIsLogin:NO];
 //    [self autoLoginWithToken];//自动登录
     
     return YES;
@@ -66,6 +68,8 @@
                                                          forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}
                                                 forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}
+                                                forState:UIControlStateHighlighted];
     
 //    if (@available(iOS 11.0, *)) {
 //        [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

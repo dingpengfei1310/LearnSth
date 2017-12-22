@@ -105,14 +105,6 @@ const  NSInteger liveColumn = 2;
 
         [self.collectionView reloadData];
     }];
-    
-//    [[HttpManager shareManager] getInKeLiveListCompletion:^(NSArray *list, NSError *error) {
-//        [self.collectionView.mj_header endRefreshing];
-//        [self.collectionView.mj_footer endRefreshing];
-//
-//        self.liveList = [NSMutableArray arrayWithArray:[LiveModel liveWithArray:list]];
-//        [self.collectionView reloadData];
-//    }];
 }
 
 /**
@@ -221,12 +213,15 @@ const  NSInteger liveColumn = 2;
 #pragma mark
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
+        CGFloat margin = 3.0;
         CGFloat viewW = CGRectGetWidth(self.frame);
-        CGFloat itemWidth = (viewW - (liveColumn + 1) * 10) / liveColumn;
+        CGFloat itemWidth = (viewW - margin) / liveColumn;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth + 21);//21是Text高度
-        flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        flowLayout.itemSize = CGSizeMake(itemWidth, itemWidth);
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
+        flowLayout.minimumInteritemSpacing = margin;//垂直滑动时，同一行左右间距
+        flowLayout.minimumLineSpacing = margin;//垂直滑动时，同一列上下间距
         
         _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                              collectionViewLayout:flowLayout];
@@ -272,8 +267,8 @@ const  NSInteger liveColumn = 2;
             
             [imageArray addObject:[UIImage imageNamed:imageName]];
         }
-        [gifHeader setImages:imageArray duration:0.5 forState:MJRefreshStatePulling];
-        [gifHeader setImages:imageArray duration:0.5 forState:MJRefreshStateRefreshing];
+        [gifHeader setImages:imageArray duration:0.8 forState:MJRefreshStatePulling];
+        [gifHeader setImages:imageArray duration:0.8 forState:MJRefreshStateRefreshing];
         
         gifHeader.lastUpdatedTimeLabel.hidden = YES;
         gifHeader.stateLabel.hidden = YES;
