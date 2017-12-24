@@ -82,11 +82,12 @@
 
 #pragma mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = @"暂无动态";
     
@@ -103,7 +104,8 @@
         }
     } else if (offsetY < -Screen_W * 0.5) {
         scrollView.contentOffset = CGPointMake(0, -Screen_W * 0.5);
-    } else if (offsetY < 64) {
+    } else {
+        _showTitle = NO;
         self.title = nil;
         [self navigationBarBackgroundImage:[UIImage imageWithColor:KBaseAppColorAlpha(offsetY / 64.0)]];
     }
@@ -113,8 +115,8 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableView.tableFooterView = [[UIView alloc] init];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+        _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 60;

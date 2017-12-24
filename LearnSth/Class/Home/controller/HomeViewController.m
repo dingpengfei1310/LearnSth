@@ -53,6 +53,7 @@
         [weakSelf presentViewController:nvc animated:YES completion:nil];
     };
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"  " style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(homeRightItemClick)];
 }
 
@@ -64,9 +65,6 @@
         self.liveCollectionView.backgroundColor = [UIColor blackColor];
     } else {
         self.liveCollectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    }
-    if ([CustomiseTool isLogin]) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
     }
 }
 

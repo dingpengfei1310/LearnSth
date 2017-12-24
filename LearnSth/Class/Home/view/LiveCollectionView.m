@@ -267,8 +267,8 @@ const  NSInteger liveColumn = 2;
             
             [imageArray addObject:[UIImage imageNamed:imageName]];
         }
-        [gifHeader setImages:imageArray duration:0.8 forState:MJRefreshStatePulling];
-        [gifHeader setImages:imageArray duration:0.8 forState:MJRefreshStateRefreshing];
+        [gifHeader setImages:imageArray duration:0.6 forState:MJRefreshStatePulling];
+        [gifHeader setImages:imageArray duration:0.6 forState:MJRefreshStateRefreshing];
         
         gifHeader.lastUpdatedTimeLabel.hidden = YES;
         gifHeader.stateLabel.hidden = YES;
