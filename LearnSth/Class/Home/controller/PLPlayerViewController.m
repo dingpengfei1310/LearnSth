@@ -25,6 +25,8 @@
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) CGPoint lastPanPoint;
 
+@property (nonatomic, assign) BOOL statusBarHidden;
+
 @end
 
 //const NSInteger PlayerViewTag = 99999;
@@ -33,7 +35,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 @implementation PLPlayerViewController
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return self.statusBarHidden;
 }
 
 - (void)viewDidLoad {
@@ -62,6 +64,12 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
