@@ -8,7 +8,6 @@
 
 #import "WiFiUploadViewController.h"
 #import "WiFiUploadManager.h"
-#import "BaseConfigure.h"
 
 //#import <SSZipArchive/ZipArchive.h>
 

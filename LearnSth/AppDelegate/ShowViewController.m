@@ -7,8 +7,6 @@
 //
 
 #import "ShowViewController.h"
-
-#import "BaseConfigure.h"
 #import "UIImage+Tool.h"
 
 @interface ShowViewController () <UIScrollViewDelegate>{

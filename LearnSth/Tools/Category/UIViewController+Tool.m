@@ -7,6 +7,7 @@
 //
 
 #import "UIViewController+Tool.h"
+#import "BaseConfigure.h"
 #import "UIImage+Tool.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
@@ -26,8 +27,7 @@ typedef void (^CancelBlock)(void);
 }
 
 - (void)navigationBarColorRestore {
-    UIColor *color = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:246/255.0 alpha:1.0];
-    UIImage *image = [UIImage imageWithColor:color];
+    UIImage *image = [UIImage imageWithColor:KBaseAppColor];
     [self.navigationController.navigationBar setBackgroundImage:image
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:image];

@@ -64,17 +64,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.statusBarHidden = YES;
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self navigationBarColorRestore];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.statusBarHidden = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
+    });
 }
 
 #pragma mark
@@ -214,14 +208,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 - (PLPlayer *)player {
     if (!_player) {
         PLPlayerOption *option = [PLPlayerOption defaultOption];
-//        [option setOptionValue:@15 forKey:PLPlayerOptionKeyTimeoutIntervalForMediaPackets];
-//        [option setOptionValue:@2000 forKey:PLPlayerOptionKeyMaxL1BufferDuration];
-//        [option setOptionValue:@1000 forKey:PLPlayerOptionKeyMaxL2BufferDuration];
-//        [option setOptionValue:@(NO) forKey:PLPlayerOptionKeyVideoToolbox];
-//        [option setOptionValue:@(kPLLogInfo) forKey:PLPlayerOptionKeyLogLevel];
+        [option setOptionValue:@(YES) forKey:PLPlayerOptionKeyVideoToolbox];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
-        
         _player = [PLPlayer playerWithURL:url option:option];
         _player.delegate = self;
         
