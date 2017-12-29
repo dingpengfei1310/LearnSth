@@ -40,6 +40,9 @@
         
         [self addSubview:self.indicatorView];
         [self.indicatorView startAnimating];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick)];
+        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
@@ -60,9 +63,6 @@
         NSURL *url = [NSURL URLWithString:imageArray[index]];
         [imageView sd_setImageWithURL:url placeholderImage:nil];
         [self.scrollView addSubview:imageView];
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick)];
-        [imageView addGestureRecognizer:tapGesture];
         
         if (i == 0) {
             self.leftImageView = imageView;
@@ -104,7 +104,7 @@
     }
     if (!_timer) {
         __weak typeof(self) wSelf = self;
-        self.timer = [NSTimer dd_timerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        self.timer = [NSTimer dd_timerWithTimeInterval:3.0 repeats:YES block:^(NSTimer *timer) {
             [wSelf autoScroll];
         }];
     }
@@ -152,7 +152,7 @@
 }
 
 - (void)imageClick {
-    if (self.ImageClickBlock) {
+    if (self.ImageClickBlock && _imageArray.count > 0) {
         self.ImageClickBlock(self.currentPage);
     }
 }

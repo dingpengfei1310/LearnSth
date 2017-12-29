@@ -10,6 +10,7 @@
 #import "WebViewController.h"
 #import "PLPlayerViewController.h"
 #import "JPuzzleViewController.h"
+#import "CircleViewController.h"
 
 #import "LiveCollectionView.h"
 
@@ -74,7 +75,10 @@
 }
 
 - (void)homeRightItemClick {
-    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
+//    JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+    CircleViewController *controller = [[CircleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

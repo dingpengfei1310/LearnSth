@@ -77,7 +77,7 @@ const  NSInteger liveColumn = 2;
             [imageStringArray addObject:obj.imageUrl];
         }];
         
-        self.bannerScrollView.imageArray = imageStringArray;
+        self.bannerScrollView.imageArray = [NSArray arrayWithArray:imageStringArray];
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
         
         [BannerModel cacheWithBanners:self.bannerList];
