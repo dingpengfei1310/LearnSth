@@ -9,7 +9,9 @@
 #import "AboutViewController.h"
 #import "DeviceConfig.h"
 
-@interface AboutViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import <StoreKit/StoreKit.h>
+
+@interface AboutViewController ()<UITableViewDataSource,UITableViewDelegate,SKStoreProductViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *subTitleArray;
@@ -22,6 +24,8 @@
     [super viewDidLoad];
     self.title = @"关于";
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(toAppStore)];
     
     self.titleArray = @[@"电话",@"网站"];
     self.subTitleArray = @[@"4008886666",@"www.apple.com"];
@@ -112,6 +116,26 @@
     versionLabel.text = [NSString stringWithFormat:@"版本号 %@",appVersion];
     
     return headerView;
+}
+
+#pragma mark
+- (void)toAppStore {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    SKStoreProductViewController *storeVC = [[SKStoreProductViewController alloc] init];
+    storeVC.delegate = self;
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:@"414478124"
+                                                     forKey:SKStoreProductParameterITunesItemIdentifier];
+    [self presentViewController:storeVC animated:YES completion:^{
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        [storeVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError * error) {
+        }];
+    }];
+}
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -44,12 +44,12 @@ const  NSInteger liveColumn = 2;
         
         [self addSubview:self.collectionView];
         [self loadBannerData];
-//        [self refreshLiveData];
+        [self refreshLiveData];
         
 //        [self loadData];//dispatch_group_t用法
         
 //        __weak typeof(self) weakSelf = self;
-//        [self.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
+//        [weakSelf.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
 //            [weakSelf.collectionView checkEmpty];
 //        } error:NULL];
     }
@@ -102,8 +102,9 @@ const  NSInteger liveColumn = 2;
                 [self.liveList addObjectsFromArray:[LiveModel liveWithArray:list]];
             }
         }
-
+        
         [self.collectionView reloadData];
+        [self.collectionView checkEmpty];
     }];
 }
 
@@ -228,9 +229,6 @@ const  NSInteger liveColumn = 2;
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-//        if ([UIDevice currentDevice].systemVersion.floatValue > 11.0) {
-//            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//        }
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -254,12 +252,12 @@ const  NSInteger liveColumn = 2;
             [weakSelf refreshLiveData];
         }];
         
+        _collectionView.clickBlock = ^{
+            weakSelf.page = 1;
+            [weakSelf refreshLiveData];
+        };
+        
         MJRefreshGifHeader *gifHeader = (MJRefreshGifHeader *)_collectionView.mj_header;
-//        NSArray *images = @[[UIImage imageNamed:@"refresh1"],
-//                            [UIImage imageNamed:@"refresh2"],
-//                            [UIImage imageNamed:@"refresh3"]];
-//        [gifHeader setImages:images forState:MJRefreshStatePulling];
-//        [gifHeader setImages:images forState:MJRefreshStateRefreshing];
         
         NSMutableArray *imageArray = [NSMutableArray arrayWithCapacity:29];
         for (NSInteger i = 137; i < 166; i++) {
