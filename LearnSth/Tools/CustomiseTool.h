@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM (NSInteger, LanguageType){
-    LanguageTypeZH = 0,
+typedef NS_ENUM (NSInteger, LanguageType) {
+    LanguageTypeAuto = 0,
+    LanguageTypeZH,
     LanguageTypeEn
 };
 

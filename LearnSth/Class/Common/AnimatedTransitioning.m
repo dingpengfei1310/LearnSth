@@ -41,72 +41,69 @@
     UIView *toViewSnapshot = [toView snapshotViewAfterScreenUpdates:YES];
     
     if (operation == AnimatedTransitioningOperationPresent) {
-        [containerView addSubview:fromViewSnapshot];
         [containerView addSubview:toViewSnapshot];
         toViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            fromViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
             toViewSnapshot.transform = CGAffineTransformIdentity;
-            
         } completion:^(BOOL finished) {
             [toViewSnapshot removeFromSuperview];
-            [fromViewSnapshot removeFromSuperview];
             
-            [containerView addSubview:toView];
-            [transitionContext completeTransition:YES];
+            if (![transitionContext transitionWasCancelled]) {
+                [containerView addSubview:toView];
+            }
+            [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     } else if (operation == AnimatedTransitioningOperationDismiss) {
         [containerView addSubview:toViewSnapshot];
         [containerView addSubview:fromViewSnapshot];
-        toViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
         
         //UIViewAnimationOptionCurveLinear。线性
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             fromViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
-            toViewSnapshot.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
+            [fromViewSnapshot removeFromSuperview];
+            [toViewSnapshot removeFromSuperview];
+            
             if (![transitionContext transitionWasCancelled]) {
                 [containerView addSubview:toView];
             }
-            
-            [toViewSnapshot removeFromSuperview];
-            [fromViewSnapshot removeFromSuperview];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
-    } else if (operation == AnimatedTransitioningOperationPop) {
-        [containerView addSubview:toViewSnapshot];
-        [containerView addSubview:fromViewSnapshot];
-        toViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
-        
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            fromViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
-            toViewSnapshot.transform = CGAffineTransformIdentity;
-            
-        } completion:^(BOOL finished) {
-            [toViewSnapshot removeFromSuperview];
-            [fromViewSnapshot removeFromSuperview];
-            
-            [containerView addSubview:toView];
-            [transitionContext completeTransition:YES];
-        }];
-    } else if (operation == AnimatedTransitioningOperationPush) {
-        [containerView addSubview:fromViewSnapshot];
-        [containerView addSubview:toViewSnapshot];
-        toViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
-        
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            fromViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
-            toViewSnapshot.transform = CGAffineTransformIdentity;
-            
-        } completion:^(BOOL finished) {
-            [toViewSnapshot removeFromSuperview];
-            [fromViewSnapshot removeFromSuperview];
-            
-            [containerView addSubview:toView];
-            [transitionContext completeTransition:YES];
-        }];
     }
+//    else if (operation == AnimatedTransitioningOperationPop) {
+//        [containerView addSubview:toViewSnapshot];
+//        [containerView addSubview:fromViewSnapshot];
+//        toViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
+//        
+//        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+//            fromViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
+//            toViewSnapshot.transform = CGAffineTransformIdentity;
+//            
+//        } completion:^(BOOL finished) {
+//            [toViewSnapshot removeFromSuperview];
+//            [fromViewSnapshot removeFromSuperview];
+//            
+//            [containerView addSubview:toView];
+//            [transitionContext completeTransition:YES];
+//        }];
+//    } else if (operation == AnimatedTransitioningOperationPush) {
+//        [containerView addSubview:fromViewSnapshot];
+//        [containerView addSubview:toViewSnapshot];
+//        toViewSnapshot.transform = CGAffineTransformMakeTranslation(viewWidth, 0);
+//        
+//        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+//            fromViewSnapshot.transform = CGAffineTransformMakeTranslation(-viewWidth * 0.2, 0);
+//            toViewSnapshot.transform = CGAffineTransformIdentity;
+//            
+//        } completion:^(BOOL finished) {
+//            [toViewSnapshot removeFromSuperview];
+//            [fromViewSnapshot removeFromSuperview];
+//            
+//            [containerView addSubview:toView];
+//            [transitionContext completeTransition:YES];
+//        }];
+//    }
 }
 
 - (void)transitioningTypeScaleWithOperation:(AnimatedTransitioningOperation)operation context:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -118,17 +115,23 @@
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     UIView *toViewSnapshot = [toView snapshotViewAfterScreenUpdates:YES];
     
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
     if (self.operation == AnimatedTransitioningOperationPush) {
         [containerView addSubview:toViewSnapshot];
         toViewSnapshot.frame = self.originalFrame;
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             toViewSnapshot.frame = containerView.frame;
-            
         } completion:^(BOOL finished) {
-            [containerView addSubview:toView];
             [toViewSnapshot removeFromSuperview];
             
+            if (![transitionContext transitionWasCancelled]) {
+                [containerView addSubview:toView];
+            } else {
+                [toVC.navigationController popViewControllerAnimated:NO];
+            }
             [transitionContext completeTransition:YES];
         }];
     } else if (self.operation == AnimatedTransitioningOperationPop) {
@@ -137,12 +140,15 @@
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             fromViewSnapshot.frame = self.originalFrame;
-            
         } completion:^(BOOL finished) {
-            [containerView addSubview:toView];
-            [toViewSnapshot removeFromSuperview];
             [fromViewSnapshot removeFromSuperview];
+            [toViewSnapshot removeFromSuperview];
             
+            if (![transitionContext transitionWasCancelled]) {
+                [containerView addSubview:toView];
+            } else {
+                [toVC.navigationController pushViewController:fromVC animated:NO];
+            }
             [transitionContext completeTransition:YES];
         }];
     } else if (self.operation == AnimatedTransitioningOperationPresent) {
@@ -153,10 +159,12 @@
             toViewSnapshot.frame = containerView.frame;
             
         } completion:^(BOOL finished) {
-            [containerView addSubview:toView];
             [toViewSnapshot removeFromSuperview];
             
-            [transitionContext completeTransition:YES];
+            if (![transitionContext transitionWasCancelled]) {
+                [containerView addSubview:toView];
+            }
+            [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }
 }

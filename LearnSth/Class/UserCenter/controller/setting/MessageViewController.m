@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
-//@property (nonatomic, strong) NSMutableArray *needLoadArr;
 
 @end
 
@@ -41,7 +40,7 @@ static NSString *reuseIdentifier = @"messCell";
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *arrayM = [NSMutableArray array];
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             for (int i = 0; i < tempArray.count; i++) {
                 
                 NSString *content = tempArray[i];

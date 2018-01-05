@@ -123,25 +123,34 @@
 - (void)showAlertOnChangeLanguage {
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:DLocalizedString(@"切换语言") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")
-                                                 style:UIAlertActionStyleDefault
-                                               handler:^(UIAlertAction * action) {
-                                                   [self changeLanguage:LanguageTypeEn];
-                                               }];
+    UIAlertAction *sys = [UIAlertAction actionWithTitle:DLocalizedString(@"系统")
+                                                  style:[self styleWithType:LanguageTypeAuto]
+                                                handler:^(UIAlertAction * action) {
+                                                    [self changeLanguage:LanguageTypeAuto];
+                                                }];
     UIAlertAction *zh = [UIAlertAction actionWithTitle:DLocalizedString(@"简体中文")
-                                                 style:UIAlertActionStyleDefault
+                                                 style:[self styleWithType:LanguageTypeZH]
                                                handler:^(UIAlertAction * action) {
                                                    [self changeLanguage:LanguageTypeZH];
+                                               }];
+    UIAlertAction *en = [UIAlertAction actionWithTitle:DLocalizedString(@"英语")
+                                                 style:[self styleWithType:LanguageTypeEn]
+                                               handler:^(UIAlertAction * action) {
+                                                   [self changeLanguage:LanguageTypeEn];
                                                }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:DLocalizedString(@"取消")
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil];
-    
-    [actionSheet addAction:en];
+    [actionSheet addAction:sys];
     [actionSheet addAction:zh];
+    [actionSheet addAction:en];
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (UIAlertActionStyle)styleWithType:(LanguageType)type {
+    return [CustomiseTool languageType] == type ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
 }
 
 - (void)changeLanguage:(LanguageType)type {

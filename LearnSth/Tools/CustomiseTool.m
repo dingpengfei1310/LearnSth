@@ -17,8 +17,8 @@ static NSString *KNightModel = @"NightModel";
 static NSString *KCurrentVersion = @"CurrentVersion";
 static NSString *KLanguageTypeCache = @"LanguageTypeCache";
 
-static NSString *ZHLANGUAGE = @"zh-Hans";
-static NSString *ENLANGUAGE = @"en";
+static NSString *ZHLanguage = @"zh-Hans";
+static NSString *ENLanguage = @"en";
 
 @interface CustomiseTool ()
 @end
@@ -72,11 +72,18 @@ static NSString *ENLANGUAGE = @"en";
 #pragma mark
 + (NSBundle *)languageBundle {
     LanguageType type = [CustomiseTool languageType];
-    NSString *language = ZHLANGUAGE;
-    if (type == LanguageTypeEn) {
-        language = ENLANGUAGE;
+    NSString *language = ZHLanguage;
+    if (type == LanguageTypeAuto) {
+        NSString *currentLanguage = [[NSBundle mainBundle] preferredLocalizations].firstObject;
+        if ([currentLanguage containsString:ZHLanguage]) {
+            language = ZHLanguage;
+        } else {
+            language = ENLanguage;
+        }
+    } else if (type == LanguageTypeEn) {
+        language = ENLanguage;
     } else if (type == LanguageTypeZH) {
-        language = ZHLANGUAGE;
+        language = ZHLanguage;
     }
     
     NSString *path = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];

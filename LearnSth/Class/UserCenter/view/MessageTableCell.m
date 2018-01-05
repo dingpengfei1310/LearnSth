@@ -33,8 +33,8 @@
     [self.contentView addSubview:_contentBackgroundView];
     
     _contentLabel = [[UILabel alloc] init];
+    _contentLabel.numberOfLines = 0;
 //    _contentLabel.layer.masksToBounds = YES;
-//    _contentLabel.numberOfLines = 0;
 //    _contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.contentView addSubview:_contentLabel];
 }
@@ -46,7 +46,6 @@
     
     self.contentBackgroundView.frame = CGRectMake(10, 10, cellWidth - 20, cellHeight - 20);
     self.contentLabel.frame = CGRectMake(20, 20, cellWidth - 40, cellHeight - 40);
-    self.contentLabel.numberOfLines = 0;
 //    CGRect rect = CGRectMake(0, 0, cellWidth - 20, cellHeight - 20);
 //    self.contentBackgroundView.layer.shadowPath = [UIBezierPath bezierPathWithRect:rect].CGPath;
 //    self.contentBackgroundView.layer.shadowOpacity = 0.1;

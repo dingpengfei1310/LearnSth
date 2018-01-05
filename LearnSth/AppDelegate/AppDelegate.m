@@ -41,7 +41,7 @@
     [self setNavigationBar];
     
     [CustomiseTool setIsLogin:NO];
-//    [self autoLoginWithToken];//自动登录
+    [self autoLoginWithToken];//自动登录
     
     return YES;
 }
