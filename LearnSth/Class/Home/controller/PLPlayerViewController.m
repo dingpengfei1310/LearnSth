@@ -186,7 +186,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         [self showForegroundView];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
-        [self.player playWithURL:url];
+        [self.player playWithURL:url sameSource:YES];
     } else {
         [self showError:@"没有更多数据"];
     }
@@ -202,13 +202,14 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 - (void)player:(PLPlayer *)player stoppedWithError:(NSError *)error {
     FFPrint(@"%@",error);
+    FFPrint(@"%@",_liveModel.flv);
 }
 
 #pragma mark
 - (PLPlayer *)player {
     if (!_player) {
         PLPlayerOption *option = [PLPlayerOption defaultOption];
-        [option setOptionValue:@(YES) forKey:PLPlayerOptionKeyVideoToolbox];
+        [option setOptionValue:@(NO) forKey:PLPlayerOptionKeyVideoToolbox];
         
         NSURL *url = [NSURL URLWithString:self.liveModel.flv];
         _player = [PLPlayer playerWithURL:url option:option];

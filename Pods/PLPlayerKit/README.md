@@ -18,18 +18,43 @@ PLPlayerKit 是一个适用于 iOS 的音视频播放器 SDK，可高度定制�
 - [x] 支持后台播放
 - [x] 支持使用 IP 地址的 URL 
 - [x] 支持软硬解自动切换
+- [x] 支持 H.265 格式播放
+- [x] 支持 HLS 七牛私有 DRM
+- [x] 支持点播倍速播放
+- [x] 支持点播 mp4 视频本地缓存播放
+- [x] 支持 SEI 数据回调
+- [x] 支持 rtmp 原始时间戳 
+- [x] 支持 flv 使用 mp3 音频格式
+- [x] 支持 http 的 DNS 异步解析
+- [x] 支持视频根据旋转角度自动旋转
+## 说明
+
+从 **v3.0.0** 开始，SDK 全面升级为七牛完全自研的播放器内核，拥有更加优异的性能，升级内容如下：
+
+- [x] 新增倍数播放功能（0.5x，1x，2x，4x 等）
+- [x] 新增 mp4 本地缓存功能
+- [x] 新增 HLS 七牛私有 DRM 的支持 
+- [x] 新增 H.265 格式播放的支持
+- [x] 优化 CPU、内存和功耗
+- [x] 优化首开效果，首开速度有大幅提升
+- [x] 优化重连逻辑，不用销毁播放器，网络断开后内部自动重连
+- [x] 优化 mp4 点播，使用双 IO 技术更高效地播放 moov 在尾部的 mp4 文件
+- [x] 支持播放过程中变速不变调，可实现更平滑的追帧效果，更少的卡顿率
+- [x] 新增支持 SEI 数据回调，更多数据交互
 
 ## 内容摘要
 
 - [快速开始](#1-快速开始)
 	- [配置工程](#配置工程)
 	- [示例代码](#示例代码)
-- [关于 2.0 版本](#关于2.0版本)
+- [关于 3.0 版本](#关于3.0版本)
 - [版本历史](#版本历史)
 
 ## 快速开始
 
 ### 配置工程
+
+#### CocoaPods 导入
 
 - 配置你的 Podfile 文件，添加如下配置信息
 
@@ -48,6 +73,14 @@ pod install
 ```
 
 - Done! 运行你工程的 workspace
+
+#### 手动导入  
+
+- 将 Pod 目录下的所有文件加入到工程中；
+- 添加 HappyDNS 库，把 [链接](https://github.com/qiniu/happy-dns-objc) 中的 HappyDNS 目录下的所有文件加入到工程中  
+- Build Setting 下 Other Linker Flags 中添加 -ObjC
+- Build Phases 下 Link Binary With Libraries 中添加如图所示
+![](http://sdk-release.qnsdk.com/PLPLayerKit.jpg)
 
 ### 示例代码
 
@@ -154,11 +187,69 @@ self.player.delegate = self;
 分辨可以检查是否可以播放以及当前 category 的设置是否可以后台播放。
 
 ## 其它依赖库版本号
-- FFmpeg : n3.1-dev
-- OpenSSL: OpenSSL_1_0_2h
-- Speex: 1.2rc1
+- FFmpeg : v3.3.x
+- OpenSSL: OpenSSL_1_1_0f
+- Speex: v1.2.0
 
 ## 版本历史
+- 3.2.0 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-3.2.0.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-3.2.0.md))
+- 功能
+  - 支持 flv 使用 mp3 音频格式
+  - 支持 http 的 DNS 异步解析
+  - 支持视频根据旋转角度自动旋转
+- 缺陷
+  - 修复失去音频第一帧渲染问题
+  - 修复 OpenGL crash 的问题
+  - 修复部分视频音画不同步的问题
+  - 修复部分视频花屏、马赛克的问题
+  - 修复弱网播放偶现快速切换卡顿的问题
+  - 修复进入后台切换第三方应用 crash 的问题
+  - 解决由第三方引起的 ffmpeg 冲突问题
+  - 修复直播 url 中含有 ?domain= 无法播放的问题
+  - 修复音频视频时长不匹配 resume 播放失败的问题
+- 3.1.0 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-3.1.0.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-3.1.0.md))
+- 功能
+  - 支持读取 mp3, aac 格式
+  - 支持读取 rtmp 流中的音视频时间戳信息
+  - 支持读取视频旋转角度参数
+  - 支持 mpeg 格式播放
+- 缺陷
+  - 修复 Stop 时偶现的 Crash 及卡住的问题
+  - 修复 ipv6 rtmp 无法播放的问题
+  - 修复播放纯音频/纯视频流时得不到 playing 状态的问题
+  - 修复特定 flv 流重复播放的问题
+  - 修复偶现 OpenGL crash 的问题
+- 3.0.2 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-3.0.2.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-3.0.2.md))
+- 功能
+  - 加长 URL 设置长度
+- 缺陷
+  - 修复 iPhone X 模拟器崩溃问题
+  - 修复数据缓存回调总时长出错问题
+  - 修复截图功能无效问题
+  - 修复 OpenGL 崩溃问题
+  - 修复无法修改 playerView 的 bounds 属性的问题
+- 3.0.1 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-3.0.1.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-3.0.1.md))
+- 功能
+  - 新增 SEI 数据回调
+  - 新增播放格式预设置
+  - 新增同格式快速播放接口
+- 缺陷
+  - 修复播放器错误时收不到 error 状态回调的问题
+  - 修复某些 mp4 无法播放的问题
+  - 修复多次 stop 时 crash 的问题
+- 3.0.0 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-3.0.0.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-3.0.0.md))
+- 全面升级为七牛自研的播放器内核，拥有更优异的性能
+- 功能
+  - 新增 HLS 七牛私有 DRM 的支持
+  - 新增 H.265 格式的播放
+  - 新增点播倍速播放
+  - 新增点播 mp4 视频缓存播放
+- 优化
+  - 优化包体大小
+  - 优化 CPU、内存和功耗
+  - 优化直播模式下的追帧策略，效果更加平滑
+  - 优化重连逻辑，不用销毁播放器，网络断开后内部自动重连
+  - 优化 mp4 点播，使用双 IO 技术更高效地播放 moov 在尾部的 mp4 文件
 - 2.4.3 ([Release Notes](https://github.com/pili-engineering/PLPlayerKit/blob/master/ReleaseNotes/release-notes-2.4.3.md) && [API Diffs](https://github.com/pili-engineering/PLPlayerKit/blob/master/APIDiffs/api-diffs-2.4.3.md))
 - 功能
   - 新增流分辨率变化的通知
