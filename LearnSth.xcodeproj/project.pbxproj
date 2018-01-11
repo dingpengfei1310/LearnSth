@@ -123,6 +123,7 @@
 		1B8E812B1FE3C7070038FF77 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */; };
 		1BA6EEF61F1768F600E99716 /* NSTimer+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
+		1BBFEEE2200763D500251C80 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */; };
 		1BCD9B5D1F25D9AC000492CC /* ShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* RootViewController.m */; };
 		1BD7691B1E8D0F5E00860D92 /* UIView+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7691A1E8D0F5E00860D92 /* UIView+Tool.m */; };
@@ -388,6 +389,7 @@
 		1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
 		1BA6EEF41F1768F600E99716 /* NSTimer+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Tool.h"; sourceTree = "<group>"; };
 		1BA6EEF51F1768F600E99716 /* NSTimer+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Tool.m"; sourceTree = "<group>"; };
+		1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1BCD9B5B1F25D9AC000492CC /* ShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController.h; sourceTree = "<group>"; };
 		1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				1B0F7590200621CA0066758D /* libstdc++.tbd in Frameworks */,
 				1B6150071F6BC0780083E096 /* HealthKit.framework in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
+				1BBFEEE2200763D500251C80 /* IJKMediaFramework.framework in Frameworks */,
 				1B8E81191FE3C7070038FF77 /* libexidcardios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,6 +825,7 @@
 		1B8E80C41FE3C7070038FF77 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */,
 				1B8E80C51FE3C7070038FF77 /* Aspects */,
 				1B8E80C81FE3C7070038FF77 /* BHBDrawBoarder */,
 				1B8E80D11FE3C7070038FF77 /* DDImageBrowser */,
@@ -1589,6 +1593,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LearnSth/Vendor",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1639,6 +1644,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LearnSth/Vendor",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;

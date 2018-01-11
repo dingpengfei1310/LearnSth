@@ -10,6 +10,8 @@
 #import "LiveInfoViewController.h"
 #import "LiveModel.h"
 
+#import <IJKMediaFramework/IJKMediaFramework.h>
+
 @interface PLPlayerViewController () {
     CGFloat viewW;
     CGFloat viewH;
@@ -17,6 +19,7 @@
 
 @property (nonatomic, strong) LiveModel *liveModel;
 
+@property (nonatomic, strong) id<IJKMediaPlayback> player;
 @property (nonatomic, strong) UIImageView *foregroundView;
 
 @property (nonatomic, strong) UIWindow *window;
@@ -49,6 +52,20 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
         
+        [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
+        IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+        
+        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
+        
+        self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
+        self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        self.player.view.frame = self.view.bounds;
+        self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
+        self.player.shouldAutoplay = YES;
+        
+        self.view.autoresizesSubviews = YES;
+        [self.view addSubview:self.player.view];
+        
         [self addOriginalGesture];
         [self showForegroundView];
     }
@@ -58,9 +75,13 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
     
+    [self installMovieNotificationObservers];
+    [self.player prepareToPlay];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.statusBarHidden = YES;
         [self setNeedsStatusBarAppearanceUpdate];
+        [self.player play];
     });
 }
 
@@ -97,59 +118,66 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.player shutdown];
+    [self removeMovieNotificationObservers];
+}
+
 - (void)smallWindow:(UIBarButtonItem *)sender {
-//    [self.player.playerView removeFromSuperview];
-//    [self.window addSubview:self.player.playerView];
-//
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.player.playerView.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
-//    } completion:^(BOOL finished) {
-//        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
-//        [self.player.playerView addGestureRecognizer:panGesture];
-//
-//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
-//        [self.player.playerView addGestureRecognizer:tapGesture];
-//    }];
-//
-//    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    controller.liveModel = self.liveModel;
-//    [self.navigationController pushViewController:controller animated:NO];
-//    controller.LiveInfoDismissBlock = ^{
-//        [self backToRootController];
-//    };
+    [self.player.view removeFromSuperview];
+    [self.window addSubview:self.player.view];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.player.view.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
+    } completion:^(BOOL finished) {
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
+        [self.player.view addGestureRecognizer:panGesture];
+
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
+        [self.player.view addGestureRecognizer:tapGesture];
+    }];
+
+    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    controller.liveModel = self.liveModel;
+    [self.navigationController pushViewController:controller animated:NO];
+    controller.LiveInfoDismissBlock = ^{
+        [self backToRootController];
+    };
 }
 
 - (void)movePlayerView:(UIPanGestureRecognizer *)gestureRecognizer {
-//    UIGestureRecognizerState state = gestureRecognizer.state;
-//    CGPoint point = [gestureRecognizer locationInView:self.window];
-//
-//    if (state == UIGestureRecognizerStateChanged) {
-//        CGFloat change_X = point.x - self.lastPanPoint.x;
-//        CGFloat change_Y = point.y - self.lastPanPoint.y;
-//
-//        CGPoint center = self.player.playerView.center;
-//
-//        CGFloat Center_X = center.x + change_X;
-//        CGFloat Center_Y = center.y + change_Y;
-//        CGFloat scale = PlayerViewScale * 0.5;
-//
-//        if (Center_X < viewW * scale) {
-//            Center_X = viewW * scale;
-//        } else if (Center_X > viewW * (1 - scale)) {
-//            Center_X = viewW * (1 - scale);
-//        }
-//
-//        if (Center_Y < viewH * scale) {
-//            Center_Y = viewH * scale;
-//        } else if (Center_Y > viewH * (1 - scale)) {
-//            Center_Y = viewH * (1 - scale);
-//        }
-//
-//        self.player.playerView.center = CGPointMake(Center_X, Center_Y);
-//    }
-//
-//    self.lastPanPoint = point;
+    UIGestureRecognizerState state = gestureRecognizer.state;
+    CGPoint point = [gestureRecognizer locationInView:self.window];
+
+    if (state == UIGestureRecognizerStateChanged) {
+        CGFloat change_X = point.x - self.lastPanPoint.x;
+        CGFloat change_Y = point.y - self.lastPanPoint.y;
+
+        CGPoint center = self.player.view.center;
+
+        CGFloat Center_X = center.x + change_X;
+        CGFloat Center_Y = center.y + change_Y;
+        CGFloat scale = PlayerViewScale * 0.5;
+
+        if (Center_X < viewW * scale) {
+            Center_X = viewW * scale;
+        } else if (Center_X > viewW * (1 - scale)) {
+            Center_X = viewW * (1 - scale);
+        }
+
+        if (Center_Y < viewH * scale) {
+            Center_Y = viewH * scale;
+        } else if (Center_Y > viewH * (1 - scale)) {
+            Center_Y = viewH * (1 - scale);
+        }
+
+        self.player.view.center = CGPointMake(Center_X, Center_Y);
+    }
+
+    self.lastPanPoint = point;
 }
 
 - (void)tapPlayerView:(UITapGestureRecognizer *)gestureRecognizer {
@@ -191,6 +219,136 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         _window = [UIApplication sharedApplication].keyWindow;
     }
     return _window;
+}
+
+#pragma mark -
+
+- (void)loadStateDidChange:(NSNotification*)notification
+{
+    //    MPMovieLoadStateUnknown        = 0,
+    //    MPMovieLoadStatePlayable       = 1 << 0,
+    //    MPMovieLoadStatePlaythroughOK  = 1 << 1, // Playback will be automatically started in this state when shouldAutoplay is YES
+    //    MPMovieLoadStateStalled        = 1 << 2, // Playback will be automatically paused in this state, if started
+    
+    IJKMPMovieLoadState loadState = _player.loadState;
+    
+    if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
+        NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
+    } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
+        NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
+    } else {
+        NSLog(@"loadStateDidChange: ???: %d\n", (int)loadState);
+    }
+}
+
+- (void)moviePlayBackDidFinish:(NSNotification*)notification
+{
+    //    MPMovieFinishReasonPlaybackEnded,
+    //    MPMovieFinishReasonPlaybackError,
+    //    MPMovieFinishReasonUserExited
+    int reason = [[[notification userInfo] valueForKey:IJKMPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    
+    switch (reason)
+    {
+        case IJKMPMovieFinishReasonPlaybackEnded:
+            NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
+            break;
+            
+        case IJKMPMovieFinishReasonUserExited:
+            NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonUserExited: %d\n", reason);
+            break;
+            
+        case IJKMPMovieFinishReasonPlaybackError:
+            NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackError: %d\n", reason);
+            break;
+            
+        default:
+            NSLog(@"playbackPlayBackDidFinish: ???: %d\n", reason);
+            break;
+    }
+}
+
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+{
+    NSLog(@"mediaIsPreparedToPlayDidChange\n");
+}
+
+- (void)moviePlayBackStateDidChange:(NSNotification*)notification
+{
+    //    MPMoviePlaybackStateStopped,
+    //    MPMoviePlaybackStatePlaying,
+    //    MPMoviePlaybackStatePaused,
+    //    MPMoviePlaybackStateInterrupted,
+    //    MPMoviePlaybackStateSeekingForward,
+    //    MPMoviePlaybackStateSeekingBackward
+    
+    switch (_player.playbackState)
+    {
+        case IJKMPMoviePlaybackStateStopped: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: stoped", (int)_player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStatePlaying: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: playing", (int)_player.playbackState);
+            [self.foregroundView removeFromSuperview];
+            self.foregroundView = nil;
+            break;
+        }
+        case IJKMPMoviePlaybackStatePaused: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: paused", (int)_player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStateInterrupted: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: interrupted", (int)_player.playbackState);
+            break;
+        }
+        case IJKMPMoviePlaybackStateSeekingForward:
+        case IJKMPMoviePlaybackStateSeekingBackward: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: seeking", (int)_player.playbackState);
+            break;
+        }
+        default: {
+            NSLog(@"IJKMPMoviePlayBackStateDidChange %d: unknown", (int)_player.playbackState);
+            break;
+        }
+    }
+}
+
+#pragma mark Install Movie Notifications
+
+/* Register observers for the various movie object notifications. */
+-(void)installMovieNotificationObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadStateDidChange:)
+                                                 name:IJKMPMoviePlayerLoadStateDidChangeNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                                 name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackStateDidChange:)
+                                                 name:IJKMPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:_player];
+}
+
+#pragma mark Remove Movie Notification Handlers
+
+/* Remove the movie notification observers from the movie object. */
+-(void)removeMovieNotificationObservers
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerLoadStateDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
 }
 
 - (void)didReceiveMemoryWarning {
