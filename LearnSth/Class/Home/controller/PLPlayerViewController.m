@@ -10,7 +10,7 @@
 #import "LiveInfoViewController.h"
 #import "LiveModel.h"
 
-#import <IJKMediaFramework/IJKMediaFramework.h>
+#import <IJKMediaFramework/IJKMediaPlayer.h>
 
 @interface PLPlayerViewController () {
     CGFloat viewW;
@@ -46,43 +46,61 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
 
     if (self.index < self.liveArray.count) {
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
         
+        [IJKFFMoviePlayerController setLogReport:NO];
+        [IJKFFMoviePlayerController setLogLevel:k_IJK_LOG_ERROR];
+        
         [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
-        IJKFFOptions *options = [IJKFFOptions optionsByDefault];
         
-        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
-        
-        self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
-        self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        self.player.view.frame = self.view.bounds;
-        self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
-        self.player.shouldAutoplay = YES;
-        
-        self.view.autoresizesSubviews = YES;
-        [self.view addSubview:self.player.view];
-        
-        [self addOriginalGesture];
-        [self showForegroundView];
+        [self playWithUrl:self.liveModel.flv];
     }
+}
+
+- (void)playWithUrl:(NSString *)urls {
+    if (self.player) {
+        [self removeMovieNotificationObservers];
+        [self.player.view removeFromSuperview];
+        [self.player shutdown];
+        self.player = nil;
+    }
+    
+    IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+    NSURL *url = [NSURL URLWithString:urls];
+    
+    self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
+    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.player.view.frame = self.view.bounds;
+    self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
+    self.player.shouldAutoplay = NO;
+    
+    [self.view addSubview:self.player.view];
+    [self.player prepareToPlay];
+    [self installMovieNotificationObservers];
+    
+    [self addOriginalGesture];
+    [self showForegroundView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
     
-    [self installMovieNotificationObservers];
-    [self.player prepareToPlay];
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.statusBarHidden = YES;
         [self setNeedsStatusBarAppearanceUpdate];
-        [self.player play];
     });
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.player shutdown];
+    [self removeMovieNotificationObservers];
 }
 
 #pragma mark
@@ -116,13 +134,6 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     if (self.PlayerDismissBlock) {
         self.PlayerDismissBlock();
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    [self.player shutdown];
-    [self removeMovieNotificationObservers];
 }
 
 - (void)smallWindow:(UIBarButtonItem *)sender {
@@ -186,16 +197,16 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
 
 //返回到这个页面的处理
 - (void)backToRootController {
-//    self.player.playerView.gestureRecognizers = nil;
-//
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.player.playerView.frame = self.view.bounds;
-//    } completion:^(BOOL finished) {
-//        [self.player.playerView removeFromSuperview];
-//        [self.view addSubview:self.player.playerView];
-//
-//        [self.navigationController popToRootViewControllerAnimated:NO];
-//    }];
+    self.player.view.gestureRecognizers = nil;
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.player.view.frame = self.view.bounds;
+    } completion:^(BOOL finished) {
+        [self.player.view removeFromSuperview];
+        [self.view addSubview:self.player.view];
+
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }];
 }
 
 - (void)nextLive {
@@ -205,8 +216,8 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.title = self.liveModel.myname;
         [self showForegroundView];
         
-//        NSURL *url = [NSURL URLWithString:self.liveModel.flv];
-//        [self.player playWithURL:url sameSource:YES];
+        [self playWithUrl:self.liveModel.flv];
+        
     } else {
         [self showError:@"没有更多数据"];
     }
@@ -233,6 +244,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     IJKMPMovieLoadState loadState = _player.loadState;
     
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
+        [self.player play];
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
     } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
