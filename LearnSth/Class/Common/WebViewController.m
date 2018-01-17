@@ -22,7 +22,7 @@
 
 @end
 
-static NSString *EstimatedProgress = @"estimatedProgress";
+static NSString *const estimatedProgress = @"estimatedProgress";
 
 @implementation WebViewController
 
@@ -43,7 +43,7 @@ static NSString *EstimatedProgress = @"estimatedProgress";
         //进度条
         __weak typeof(self) wSelf = self;
         _KVOController = [FBKVOController controllerWithObserver:self];
-        [_KVOController observe:wSelf.KWebView keyPath:EstimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(id  observer, id  object, NSDictionary<NSString *,id> * change) {
+        [_KVOController observe:wSelf.KWebView keyPath:estimatedProgress options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(id  observer, id  object, NSDictionary<NSString *,id> * change) {
             wSelf.progressView.progress = [change[NSKeyValueChangeNewKey] floatValue];
         }];
     }

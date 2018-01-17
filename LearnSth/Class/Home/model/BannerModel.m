@@ -13,7 +13,7 @@
 
 @end
 
-static NSString *KBannerCache = @"KBannerCache";
+static NSString *const KBannerCache = @"KBannerCache";
 
 @implementation BannerModel
 

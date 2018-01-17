@@ -10,8 +10,8 @@
 #import "NSString+Tool.h"
 #import <objc/runtime.h>
 
-static NSString *KDownloadCachePlist = @"DownloadCache.plist";
-static NSString *KDownloadDirectory = @"download";
+static NSString *const KDownloadCachePlist = @"DownloadCache.plist";
+static NSString *const KDownloadDirectory = @"download";
 
 @implementation DownloadModel
 

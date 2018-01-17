@@ -20,6 +20,9 @@
     CGFloat viewH;
 }
 
+//@property (nonatomic, copy) NSString *fileUrl;
+@property (nonatomic, copy) NSString *fileName;
+
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
@@ -54,33 +57,18 @@ const CGFloat HeightScale = 0.5625;//竖屏时，player高度
 const CGFloat BottomH = 40;
 
 @implementation VideoPlayerView
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithTitle:(NSString *)title playerItem:(AVPlayerItem *)playerItem {
     if (self = [super initWithFrame:CGRectZero]) {
         [self initialize];
-    }
-    return self;
-}
-
-- (void)initialize {
-    viewW = [UIScreen mainScreen].bounds.size.width;
-    viewH = [UIScreen mainScreen].bounds.size.height;
-    
-    self.backgroundColor = [UIColor blackColor];
-    self.clipsToBounds = YES;
-}
-
--(void)setFileUrl:(NSString *)fileUrl {
-    if (fileUrl && !_fileUrl) {
-        _fileUrl = fileUrl;
         
+        _fileName = title;
+        _playerItem = playerItem;
+        
+        _player = [AVPlayer playerWithPlayerItem:_playerItem];
+        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+        _playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
+        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
         [self.layer addSublayer:self.playerLayer];
         
         [self initTopView];
@@ -91,6 +79,29 @@ const CGFloat BottomH = 40;
         
         [self showHud];
     }
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title filePath:(NSString *)filePath {
+    NSURL *fileUrl;
+    if ([filePath hasPrefix:@"http"]) {
+        fileUrl = [NSURL URLWithString:filePath];
+    } else {
+        fileUrl = [NSURL fileURLWithPath:filePath];
+    }
+    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:fileUrl];
+    
+    if (self = [self initWithTitle:title playerItem:item]) {
+    }
+    return self;
+}
+
+- (void)initialize {
+    viewW = [UIScreen mainScreen].bounds.size.width;
+    viewH = [UIScreen mainScreen].bounds.size.height;
+    
+    self.backgroundColor = [UIColor blackColor];
+    self.clipsToBounds = YES;
 }
 
 #pragma mark
@@ -290,7 +301,6 @@ const CGFloat BottomH = 40;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerItemStatusReadyToPlay) {
-            FFPrint(@"status:AVPlayerItemStatusReadyToPlay");
             self.playSlider.userInteractionEnabled = YES;
             [self setMaxDuration:item.duration];
 //            [self videoPaly];
@@ -668,27 +678,6 @@ const CGFloat BottomH = 40;
     self.playSlider.center = sliderCenter;
     
     [self delayExecute];
-}
-
-#pragma mark
-- (AVPlayerLayer *)playerLayer {
-    if (!_playerLayer) {
-        
-        NSURL *url;
-        if ([self.fileUrl hasPrefix:@"http"]) {
-            url = [NSURL URLWithString:self.fileUrl];
-        } else {
-            url = [NSURL fileURLWithPath:self.fileUrl];
-        }
-        
-        _playerItem = [AVPlayerItem playerItemWithURL:url];
-        _player = [AVPlayer playerWithPlayerItem:_playerItem];
-        
-        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = CGRectMake(0, 0, viewW, viewW * HeightScale);
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    }
-    return _playerLayer;
 }
 
 - (void)dealloc {

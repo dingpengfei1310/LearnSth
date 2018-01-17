@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class PHAsset;
 @interface VideoPlayerController : UIViewController
 
 @property (nonatomic, copy) void (^DismissBlock)(void);
 
 @property (nonatomic, copy) NSString *fileUrl;
+
+@property (nonatomic, strong) PHAsset *asset;
 
 @end

@@ -18,7 +18,7 @@
 
 @end
 
-static NSString *reuseIdentifier = @"messCell";
+static NSString *const identifier = @"messCell";
 
 @implementation MessageViewController
 
@@ -72,7 +72,7 @@ static NSString *reuseIdentifier = @"messCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    MessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSDictionary *info = self.dataArray[indexPath.row];
     cell.content = info[@"content"];
 
@@ -91,7 +91,7 @@ static NSString *reuseIdentifier = @"messCell";
         CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
         
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-        [_tableView registerClass:[MessageTableCell class] forCellReuseIdentifier:reuseIdentifier];
+        [_tableView registerClass:[MessageTableCell class] forCellReuseIdentifier:identifier];
         
         _tableView.backgroundColor = KBackgroundColor;
         _tableView.tableFooterView = [[UIView alloc] init];

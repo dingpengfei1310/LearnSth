@@ -14,7 +14,7 @@
 
 @end
 
-static NSString *ReuseIdentifier = @"cell";
+static NSString *const identifier = @"cell";
 
 @implementation FilterCollectionView
 
@@ -56,7 +56,7 @@ static NSString *ReuseIdentifier = @"cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ReuseIdentifier forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     UIView *backgroundView = [[UIView alloc] init];
     backgroundView.backgroundColor = [UIColor groupTableViewBackgroundColor];

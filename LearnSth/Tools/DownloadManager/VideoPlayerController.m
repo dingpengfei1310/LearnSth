@@ -7,18 +7,15 @@
 //
 
 #import "VideoPlayerController.h"
-#import "AppDelegate.h"
 #import "VideoPlayerView.h"
+#import "AppDelegate.h"
 
-@interface VideoPlayerController () <UITableViewDataSource,UITableViewDelegate>{
-    id playerTimeObserver;
-}
+#import <Photos/Photos.h>
+
+@interface VideoPlayerController ()
 
 @property (nonatomic, assign) BOOL statusBarHidden;
 @property (nonatomic, assign) BOOL isLandscape;//是否横屏
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
 
 @property (nonatomic, strong) VideoPlayerView *playerView;
 
@@ -42,12 +39,45 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.view addSubview:self.playerView];
+//    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, 20)];
+//    statusBarView.backgroundColor = [UIColor blackColor];
+//    [self.view addSubview:statusBarView];
     
-//    self.dataArray = @[@"",@"",@"",@"",@""];
-//    [self.view addSubview:self.tableView];
+    if (self.asset) {
+        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        
+        [[PHImageManager defaultManager] requestPlayerItemForVideo:self.asset options:options resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                _playerView = [[VideoPlayerView alloc] initWithTitle:self.title playerItem:playerItem];
+                [self setPlayerBlock];
+                [self.view addSubview:_playerView];
+            });
+        }];
+    } else {
+        _playerView = [[VideoPlayerView alloc] initWithTitle:self.title filePath:_fileUrl];
+        
+        [self setPlayerBlock];
+        [self.view addSubview:_playerView];
+    }
+}
+
+- (void)setPlayerBlock {
+    __weak typeof(self) wSelf = self;
     
-//    [self.view bringSubviewToFront:self.playerView];
+    _playerView.BackBlock = ^{
+        [wSelf backToParentController];
+    };
+    
+    _playerView.FullScreenBlock = ^{
+        [wSelf rotationPlayer];
+    };
+    
+    _playerView.TapGestureBlock = ^{
+        wSelf.statusBarHidden = !wSelf.statusBarHidden;
+        [wSelf setNeedsStatusBarAppearanceUpdate];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,64 +122,6 @@
     
     //横屏:==。。。。竖屏:!=
     self.isLandscape = (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
-}
-
-#pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
-}
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [cell setSeparatorInset:UIEdgeInsetsZero];
-//}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text = @"rerwerwe";
-    
-    return cell;
-}
-
-#pragma mark - 
-- (VideoPlayerView *)playerView {
-    if (!_playerView) {
-        
-        UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, 20)];
-        statusBarView.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:statusBarView];
-        
-        __weak typeof(self) wSelf = self;
-        _playerView = [[VideoPlayerView alloc] init];
-        _playerView.fileName = self.title;
-        _playerView.fileUrl = self.fileUrl;
-        
-        _playerView.BackBlock = ^{
-            [wSelf backToParentController];
-        };
-        
-        _playerView.FullScreenBlock = ^{
-            [wSelf rotationPlayer];
-        };
-        
-        _playerView.TapGestureBlock = ^{
-            wSelf.statusBarHidden = !wSelf.statusBarHidden;
-            [wSelf setNeedsStatusBarAppearanceUpdate];
-        };
-        
-    }
-    return _playerView;
-}
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_playerView.frame), self.view.frame.size.width, self.view.frame.size.height - CGRectGetMaxY(_playerView.frame)) style:UITableViewStylePlain];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.rowHeight = 50;
-        _tableView.tableFooterView = [[UIView alloc] init];
-    }
-    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

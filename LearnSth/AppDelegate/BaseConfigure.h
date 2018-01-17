@@ -30,16 +30,17 @@
 #endif
 
 #pragma mark
+static const CGFloat NavigationBarH = 44.0;
+static const CGFloat HomeIndicatorH = 34.0;
+
 #define Screen_W              UIScreen.mainScreen.bounds.size.width
 #define Screen_H              UIScreen.mainScreen.bounds.size.height
-#define System_Version        UIDevice.currentDevice.systemVersion.floatValue
 
-#define IPHONE_X              (Screen_H == 812.0 || Screen_W == 812.0)
 #define StatusBarH            [[UIApplication sharedApplication] statusBarFrame].size.height
+#define IPHONE_X              (Screen_H == 812.0 || Screen_W == 812.0)
 #define TabBarH               (IPHONE_X ? 83.0 : 49.0)
-#define NavigationBarH        44.0
-#define HomeIndicatorH        34.0
 
+#pragma mark
 #define KDocumentPath         NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject
 #define KCachePath            NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject
 
@@ -57,6 +58,6 @@
 #define DLocalizedString(key) [[CustomiseTool languageBundle] localizedStringForKey:(key) value:@"" table:nil]
 
 #pragma mark - 通知
-#define ChangeNightModel      @"ChangeModelNotification"
+static NSString *const ChangeNightModel = @"ChangeModelNotification";
 
 #endif /* BaseConfigure_h */

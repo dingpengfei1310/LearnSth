@@ -58,7 +58,8 @@ const CGFloat minLineSpacing = 40;
 
 #pragma mark
 - (void)backClick:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)recognize:(UIButton *)button {

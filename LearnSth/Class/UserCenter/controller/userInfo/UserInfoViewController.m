@@ -28,8 +28,8 @@
 
 @end
 
-static NSString *HeaderIdentifier = @"headerCell";
-static NSString *Identifier = @"cell";
+static NSString *const headerIdentifier = @"headerCell";
+static NSString *const identifier = @"cell";
 
 @implementation UserInfoViewController
 
@@ -42,8 +42,8 @@ static NSString *Identifier = @"cell";
     
     self.dataArray = @[@"头像",@"名字",@"城市",@"身份证",@"二维码",@"Live"];
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HeaderIdentifier];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:headerIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -161,7 +161,7 @@ static NSString *Identifier = @"cell";
     UIColor *backgroundColor = ([CustomiseTool isNightModel] ? KCellBackgroundColor : [UIColor whiteColor]);
     
     if (indexPath.row ==0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerIdentifier];
         cell.backgroundColor = backgroundColor;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.dataArray[indexPath.row];
@@ -189,9 +189,9 @@ static NSString *Identifier = @"cell";
         
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Identifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
             cell.backgroundColor = backgroundColor;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }

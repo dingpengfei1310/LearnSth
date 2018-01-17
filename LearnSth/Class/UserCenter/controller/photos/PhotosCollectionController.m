@@ -11,13 +11,14 @@
 #import "DDImageBrowserVideo.h"
 #import "VideoScanController.h"
 #import "VideoProcessWithFilter.h"
+#import "VideoPlayerController.h"
 
 #import "PhotosCollectionCell.h"
 #import "AnimatedTransitioning.h"
 
 #import <Photos/Photos.h>
 
-@interface PhotosCollectionController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIViewControllerTransitioningDelegate>
+@interface PhotosCollectionController () <UICollectionViewDataSource,UICollectionViewDelegate,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGFloat itemWidth;
@@ -28,9 +29,9 @@
 
 @end
 
-static NSString * const reuseIdentifier = @"Cell";
-const CGFloat interitemSpacing = 5.0;
-const NSInteger photoColumn = 4;
+static NSString *const identifier = @"Cell";
+static const CGFloat interitemSpacing = 5.0;
+static const NSInteger photoColumn = 4;
 
 @implementation PhotosCollectionController
 
@@ -53,7 +54,7 @@ const NSInteger photoColumn = 4;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    PhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     cell.videoLabel.text = nil;
     PHAsset *asset = self.fetchResult[indexPath.row];
@@ -88,25 +89,8 @@ const NSInteger photoColumn = 4;
     self.selectIndex = indexPath.row;
     
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        UIViewController *controller;
-        if (self.scanType == VideoScanTypeNormal) {
-            DDImageBrowserVideo *videoController = [[DDImageBrowserVideo alloc] init];
-            videoController.asset = asset;
-            controller = videoController;
-            
-        } else if (self.scanType == VideoScanTypeFilter) {
-            VideoScanController *scanController = [[VideoScanController alloc] init];
-            scanController.asset = asset;
-            controller = scanController;
-            
-        } else if (self.scanType == VideoScanTypeTransform) {
-            VideoProcessWithFilter *filterController = [[VideoProcessWithFilter alloc] init];
-            filterController.asset = asset;
-            controller = filterController;
-        }
+        [self playMediaVideo];
         
-        controller.transitioningDelegate = self;
-        [self presentViewController:controller animated:YES completion:nil];
     } else {
         DDImageBrowserController *controller = [[DDImageBrowserController alloc] init];
         controller.transitioningDelegate = self;
@@ -119,6 +103,7 @@ const NSInteger photoColumn = 4;
     }
 }
 
+#pragma mark
 //当前点击的照片index(已过滤视频)
 - (NSInteger)calculateCurrentIndex:(NSInteger)row {
     int index = 0;
@@ -147,7 +132,6 @@ const NSInteger photoColumn = 4;
     }];
 }
 
-#pragma mark
 - (UIImage *)resizeImage:(UIImage *)originalImage {
     if (!originalImage) return nil;
     
@@ -168,7 +152,56 @@ const NSInteger photoColumn = 4;
     return resultImage;
 }
 
-#pragma mark UINavigationControllerDelegate - UIViewControllerTransitioningDelegate
+#pragma mark
+- (void)playMediaVideo {
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"播放1" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        PHAsset *asset = self.fetchResult[self.selectIndex];
+        VideoPlayerController *playerController = [[VideoPlayerController alloc] init];
+        playerController.asset = asset;
+        playerController.DismissBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:playerController animated:YES completion:nil];
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"播放2" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self playMediaVideoWithType];
+    }];
+    
+    [actionSheet addAction:cancelAction];
+    [actionSheet addAction:action1];
+    [actionSheet addAction:action2];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)playMediaVideoWithType {
+    PHAsset *asset = self.fetchResult[self.selectIndex];
+    
+    UIViewController *controller;
+    if (self.scanType == VideoScanTypeNormal) {
+        DDImageBrowserVideo *videoController = [[DDImageBrowserVideo alloc] init];
+        videoController.asset = asset;
+        controller = videoController;
+        
+    } else if (self.scanType == VideoScanTypeFilter) {
+        VideoScanController *scanController = [[VideoScanController alloc] init];
+        scanController.asset = asset;
+        controller = scanController;
+        
+    } else if (self.scanType == VideoScanTypeTransform) {
+        VideoProcessWithFilter *filterController = [[VideoProcessWithFilter alloc] init];
+        filterController.asset = asset;
+        controller = filterController;
+    }
+    
+    controller.transitioningDelegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark - UINavigationControllerDelegate - UIViewControllerTransitioningDelegate
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedTransitioning *transition = [[AnimatedTransitioning alloc] init];
     transition.operation = AnimatedTransitioningOperationPresent;
@@ -227,7 +260,7 @@ const NSInteger photoColumn = 4;
             _collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
         UINib *nib = [UINib nibWithNibName:@"PhotosCollectionCell" bundle:[NSBundle mainBundle]];
-        [_collectionView registerNib:nib forCellWithReuseIdentifier:reuseIdentifier];
+        [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
     }

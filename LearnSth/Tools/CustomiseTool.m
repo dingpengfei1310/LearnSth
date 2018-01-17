@@ -9,16 +9,16 @@
 #import "CustomiseTool.h"
 #import "DeviceConfig.h"
 
-static NSString *KIsLoginCache = @"UserLoginCache";
-static NSString *KLoginToken = @"UserLoginToken";
+static NSString *const KIsLoginCache = @"UserLoginCache";
+static NSString *const KLoginToken = @"UserLoginToken";
 
-static NSString *KNightModel = @"NightModel";
+static NSString *const KNightModel = @"NightModel";
 
-static NSString *KCurrentVersion = @"CurrentVersion";
-static NSString *KLanguageTypeCache = @"LanguageTypeCache";
+static NSString *const KCurrentVersion = @"CurrentVersion";
+static NSString *const KLanguageTypeCache = @"LanguageTypeCache";
 
-static NSString *ZHLanguage = @"zh-Hans";
-static NSString *ENLanguage = @"en";
+static NSString *const ZHLanguage = @"zh-Hans";
+static NSString *const ENLanguage = @"en";
 
 @interface CustomiseTool ()
 @end

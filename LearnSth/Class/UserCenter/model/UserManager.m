@@ -13,7 +13,7 @@
 @interface UserManager ()<NSCopying>
 @end
 
-static NSString *KUserManagerCache = @"KUserManagerCache";
+static NSString *const KUserManagerCache = @"KUserManagerCache";
 static UserManager *userModel = nil;
 
 static dispatch_once_t managerOnceToken;

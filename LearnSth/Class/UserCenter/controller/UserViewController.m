@@ -29,8 +29,8 @@
 
 @end
 
-static NSString *HeaderIdentifier = @"headerCell";
-static NSString *Identifier = @"cell";
+static NSString *const headerIdentifier = @"headerCell";
+static NSString *const identifier = @"cell";
 
 @implementation UserViewController
 
@@ -46,8 +46,8 @@ static NSString *Identifier = @"cell";
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
     
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
-    [self.tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:HeaderIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    [self.tableView registerClass:[HeaderImageViewCell class] forCellReuseIdentifier:headerIdentifier];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;//貌似先设置代理才有效，不知道为啥
@@ -125,7 +125,7 @@ static NSString *Identifier = @"cell";
     }
     
     if (indexPath.section == 0) {
-        HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderIdentifier];
+        HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.backgroundColor = backgroundColor;
         
@@ -133,7 +133,7 @@ static NSString *Identifier = @"cell";
         
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.backgroundColor = backgroundColor;
         

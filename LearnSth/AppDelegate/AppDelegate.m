@@ -25,6 +25,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    [self setNavigationBar];
+    [self autoLoginWithToken];//自动登录
+    
     if ([CustomiseTool isFirstLaunch]) {
         ShowViewController *showVC = [[ShowViewController alloc] init];
         showVC.DismissShowBlock = ^{
@@ -37,12 +40,6 @@
     }
     
     [self.window makeKeyAndVisible];
-    
-    [self setNavigationBar];
-    
-    [CustomiseTool setIsLogin:NO];
-    [self autoLoginWithToken];//自动登录
-    
     return YES;
 }
 

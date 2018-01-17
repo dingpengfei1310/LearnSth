@@ -31,9 +31,9 @@
 
 @end
 
-static NSString *reuseIdentifier = @"cell";
-static NSString *headerReuseIdentifier = @"headerCell";
-const  NSInteger liveColumn = 2;
+static NSString *const identifier = @"Cell";
+static NSString *const headerIdentifier = @"headerCell";
+static const NSInteger liveColumn = 2;
 
 @implementation LiveCollectionView
 
@@ -168,7 +168,7 @@ const  NSInteger liveColumn = 2;
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader] && self.bannerList.count > 0) {
-        UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerReuseIdentifier forIndexPath:indexPath];
+        UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
         
         BannerScrollView *scrollView = [reusableView viewWithTag:1111];
         if (!scrollView) {
@@ -186,7 +186,7 @@ const  NSInteger liveColumn = 2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     LiveModel *model = self.liveList[indexPath.item];
     cell.liveModel = model;
@@ -233,10 +233,10 @@ const  NSInteger liveColumn = 2;
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:identifier];
         [_collectionView registerClass:[UICollectionReusableView class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                   withReuseIdentifier:headerReuseIdentifier];
+                   withReuseIdentifier:headerIdentifier];
         
         __weak typeof(self) weakSelf = self;
         

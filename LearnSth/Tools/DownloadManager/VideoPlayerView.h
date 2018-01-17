@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class AVPlayerItem;
 @interface VideoPlayerView : UIView
 
 @property (nonatomic, copy) void (^BackBlock)(void);
 @property (nonatomic, copy) void (^FullScreenBlock)(void);
 @property (nonatomic, copy) void (^TapGestureBlock)(void);
 
-@property (nonatomic, copy) NSString *fileUrl;
-@property (nonatomic, copy) NSString *fileName;
+- (instancetype)initWithTitle:(NSString *)title playerItem:(AVPlayerItem *)playerItem;
+- (instancetype)initWithTitle:(NSString *)title filePath:(NSString *)filePath;
 
 - (void)pausePlayer;
 //- (void)screenCapture;

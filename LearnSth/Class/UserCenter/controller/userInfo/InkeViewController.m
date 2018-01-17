@@ -18,7 +18,7 @@
 
 @end
 
-static NSString *reuseIdentifier = @"cell";
+static NSString * const identifier = @"cell";
 
 @implementation InkeViewController
 
@@ -39,7 +39,7 @@ static NSString *reuseIdentifier = @"cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     LiveModel *model = self.dataArray[indexPath.item];
     cell.liveModel = model;
@@ -84,7 +84,7 @@ static NSString *reuseIdentifier = @"cell";
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        [_collectionView registerClass:[LiveCollectionCell class] forCellWithReuseIdentifier:identifier];
     }
     
     return _collectionView;

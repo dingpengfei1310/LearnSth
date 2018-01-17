@@ -17,7 +17,7 @@
 
 @end
 
-static NSString *Identifier = @"Cell";
+static NSString *const identifier = @"Cell";
 
 @implementation PhotoLibraryController
 
@@ -136,7 +136,7 @@ static NSString *Identifier = @"Cell";
         backgroundColor = [UIColor whiteColor];
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     cell.backgroundColor = backgroundColor;
     
     PHAssetCollection *assetCollection = self.smartAlbum[indexPath.row];
@@ -165,7 +165,7 @@ static NSString *Identifier = @"Cell";
         CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
         
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:Identifier];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableFooterView = [[UIView alloc] init];
