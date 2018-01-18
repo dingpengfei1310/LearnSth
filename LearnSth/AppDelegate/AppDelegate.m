@@ -7,14 +7,14 @@
 //
 
 #import "AppDelegate.h"
-#import "BaseConfigure.h"
-
 #import "RootViewController.h"
 #import "ShowViewController.h"
-#import "FPSLabel.h"
-#import "CustomiseTool.h"
+
 #import "HttpConnection.h"
+#import "BaseConfigure.h"
+#import "CustomiseTool.h"
 #import "UserManager.h"
+#import "FPSLabel.h"
 
 @interface AppDelegate ()
 @end
@@ -23,10 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-    [self setNavigationBar];
-    [self autoLoginWithToken];//自动登录
     
     if ([CustomiseTool isFirstLaunch]) {
         ShowViewController *showVC = [[ShowViewController alloc] init];
@@ -40,6 +36,10 @@
     }
     
     [self.window makeKeyAndVisible];
+    
+    [self setNavigationBar];
+    [self autoLoginWithToken];//自动登录
+    
     return YES;
 }
 
@@ -67,10 +67,6 @@
                                                 forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}
                                                 forState:UIControlStateHighlighted];
-    
-//    if (@available(iOS 11.0, *)) {
-//        [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//    }
     
 //    FPSLabel *fpsLabel = [[FPSLabel alloc] initWithFrame:CGRectMake(Screen_W * 0.5 - 50, 0, 20, 20)];
 //    [self.window addSubview:fpsLabel];
