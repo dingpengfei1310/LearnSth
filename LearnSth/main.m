@@ -11,8 +11,6 @@
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
-//        setenv("OS_ACTIVITY_MODE", "disable", 1);
-//        setenv("DYLD_PRINT_STATISTICS", "1", 1);
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

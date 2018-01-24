@@ -7,8 +7,10 @@
 //
 
 #import "AboutViewController.h"
-#import "DeviceConfig.h"
+#import "ShowViewController.h"
+#import "FeedbackController.h"
 
+#import "DeviceConfig.h"
 #import <StoreKit/StoreKit.h>
 
 @interface AboutViewController ()<UITableViewDataSource,UITableViewDelegate,SKStoreProductViewControllerDelegate>
@@ -29,8 +31,8 @@ static NSString *const identifier = @"cell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(toAppStore)];
     
-    self.titleArray = @[@"电话",@"网站"];
-    self.subTitleArray = @[@"4008886666",@"www.apple.com"];
+    self.titleArray = @[@"电话",@"网站",@"新功能",@"反馈"];
+    self.subTitleArray = @[@"4008886666",@"www.apple.com",@"",@""];
     
     CGFloat barH = NavigationBarH + StatusBarH;
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH);
@@ -86,6 +88,15 @@ static NSString *const identifier = @"cell";
         [alertController addAction:okAction];
         
         [self presentViewController:alertController animated:YES completion:nil];
+    } else if (indexPath.row == 2) {
+        ShowViewController *showVC = [[ShowViewController alloc] init];
+        showVC.DismissShowBlock = ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        };
+        [self presentViewController:showVC animated:YES completion:nil];
+    } else if (indexPath.row == 3) {
+        FeedbackController *controller = [[FeedbackController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 

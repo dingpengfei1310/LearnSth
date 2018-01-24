@@ -11,17 +11,18 @@
 #import "MessageViewController.h"
 #import "DownloadViewController.h"
 #import "FileScanViewController.h"
-#import "ShowViewController.h"
-#import "FeedbackController.h"
 #import "AboutViewController.h"
 
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+
+@property (nonatomic, strong) UIColor *cellBackgroundColor;
 
 @end
 
@@ -36,8 +37,6 @@
                        @"本机文件",
                        @"清除缓存",
                        @"语言",
-                       @"新功能",
-                       @"意见反馈",
                        @"关于"];
     [self.view addSubview:self.tableView];
     
@@ -186,24 +185,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIColor *backgroundColor;
-    if ([CustomiseTool isNightModel]) {
-        tableView.backgroundColor = [UIColor blackColor];
-        tableView.separatorColor = [UIColor blackColor];
-        
-        backgroundColor = KCellBackgroundColor;
-    } else {
-        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        tableView.separatorColor = [UIColor lightGrayColor];
-        
-        backgroundColor = [UIColor whiteColor];
-    }
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.backgroundColor = backgroundColor;
+        cell.backgroundColor = self.cellBackgroundColor;
     }
     cell.textLabel.text = self.dataArray[indexPath.row];
     cell.detailTextLabel.text = nil;
@@ -242,7 +228,30 @@
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.row == 2) {
-        [self enterFileController:YES];
+//        [self enterFileController:YES];
+        
+        NSError *serror;
+        LAContext *context = [[LAContext alloc] init];
+        
+        if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&serror]) {
+            [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                    localizedReason:@"请验证你的指纹"
+                              reply:^(BOOL success, NSError * _Nullable error) {
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      if (success) {
+                                          [self enterFileController:YES];
+                                      } else if (error.code == LAErrorUserFallback) {
+                                          [self enterFileController:NO];
+                                      }
+                                  });
+                              }];
+        } else {
+            if (serror.code == LAErrorTouchIDNotEnrolled || serror.code == LAErrorPasscodeNotSet) {
+                [self enterFileController:YES];
+            } else if (serror.code == LAErrorTouchIDLockout) {
+                [self showError:@"指纹已被锁定，请稍后再试"];
+            }
+        }
         
     } else if (indexPath.row == 3) {
         [self showAlertOnClearDiskCache];
@@ -251,15 +260,6 @@
         [self showAlertOnChangeLanguage];
         
     } else if (indexPath.row == 5) {
-        ShowViewController *showVC = [[ShowViewController alloc] init];
-        showVC.DismissShowBlock = ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
-        [self presentViewController:showVC animated:YES completion:nil];
-    } else if (indexPath.row == 6) {
-        FeedbackController *controller = [[FeedbackController alloc] init];
-        [self.navigationController pushViewController:controller animated:YES];
-    } else if (indexPath.row == 7) {
         AboutViewController *controller = [[AboutViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -284,8 +284,16 @@
             logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
             if ([CustomiseTool isNightModel]) {
                 logoutButon.backgroundColor = KCellBackgroundColor;
+                
+                _tableView.backgroundColor = [UIColor blackColor];
+                _tableView.separatorColor = [UIColor blackColor];
+                _cellBackgroundColor = KCellBackgroundColor;
             } else {
                 logoutButon.backgroundColor = [UIColor whiteColor];
+                
+                _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+                _tableView.separatorColor = [UIColor lightGrayColor];
+                _cellBackgroundColor = [UIColor whiteColor];
             }
             
             [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
