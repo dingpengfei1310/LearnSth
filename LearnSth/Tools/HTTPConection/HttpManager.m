@@ -111,12 +111,7 @@ const NSTimeInterval timeoutInterval = 15.0;
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         //code,data,msg
         NSArray *array = [responseData objectForKey:@"data"];
-        if (array.count == 0) {
-            NSError *error = [self errorWithResponse:responseData];
-            completion(nil,error);
-        } else {
-            completion(array,nil);
-        }
+        completion(array,nil);
         
     } failure:^(NSError *error) {
         completion(nil,error);
@@ -127,12 +122,7 @@ const NSTimeInterval timeoutInterval = 15.0;
     NSString * urlString = @"https://live.9158.com/Fans/GetHotLive";
     [self getDataWithString:urlString paramets:paramers success:^(id responseData) {
         NSArray *array = [[responseData objectForKey:@"data"] objectForKey:@"list"];
-        if (array.count == 0) {
-            NSError *error = [self errorWithResponse:responseData];
-            completion(nil,error);
-        } else {
-            completion(array,nil);
-        }
+        completion(array,nil);
         
     } failure:^(NSError *error) {
         completion(nil,error);
@@ -146,12 +136,7 @@ const NSTimeInterval timeoutInterval = 15.0;
     
     [self getDataWithString:urlString paramets:nil success:^(id responseData) {
         NSArray *array = [responseData objectForKey:@"lives"];
-        if (array.count == 0) {
-            NSError *error = [self errorWithResponse:responseData];
-            completion(nil,error);
-        } else {
-            completion(array,nil);
-        }
+        completion(array,nil);
         
     } failure:^(NSError *error) {
         completion(nil,error);

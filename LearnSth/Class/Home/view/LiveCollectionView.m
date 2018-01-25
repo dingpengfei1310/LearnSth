@@ -33,7 +33,8 @@
 
 static NSString *const identifier = @"Cell";
 static NSString *const headerIdentifier = @"headerCell";
-static const NSInteger liveColumn = 2;
+static const NSInteger liveColumn = 2;//多少列
+static const NSInteger itemPerPage = 20;//每页个数
 
 @implementation LiveCollectionView
 
@@ -100,6 +101,10 @@ static const NSInteger liveColumn = 2;
                 self.liveList = [NSMutableArray arrayWithArray:[LiveModel liveWithArray:list]];
             } else {
                 [self.liveList addObjectsFromArray:[LiveModel liveWithArray:list]];
+            }
+            
+            if (list.count < itemPerPage) {
+                [self.collectionView.mj_footer endRefreshingWithNoMoreData];
             }
         }
         
