@@ -279,28 +279,28 @@
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.layoutMargins = UIEdgeInsetsZero;
         
+        if ([CustomiseTool isNightModel]) {
+            _tableView.backgroundColor = [UIColor blackColor];
+            _tableView.separatorColor = [UIColor blackColor];
+            _cellBackgroundColor = KCellBackgroundColor;
+        } else {
+            _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            _tableView.separatorColor = [UIColor lightGrayColor];
+            _cellBackgroundColor = [UIColor whiteColor];
+        }
+        
         if ([CustomiseTool isLogin]) {
             UIButton *logoutButon = [UIButton buttonWithType:UIButtonTypeSystem];
+            logoutButon.backgroundColor = _cellBackgroundColor;
             logoutButon.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-            if ([CustomiseTool isNightModel]) {
-                logoutButon.backgroundColor = KCellBackgroundColor;
-                
-                _tableView.backgroundColor = [UIColor blackColor];
-                _tableView.separatorColor = [UIColor blackColor];
-                _cellBackgroundColor = KCellBackgroundColor;
-            } else {
-                logoutButon.backgroundColor = [UIColor whiteColor];
-                
-                _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-                _tableView.separatorColor = [UIColor lightGrayColor];
-                _cellBackgroundColor = [UIColor whiteColor];
-            }
             
             [logoutButon setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [logoutButon setTitle:@"退出登录" forState:UIControlStateNormal];
             [logoutButon addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
             _tableView.tableFooterView = logoutButon;
         }
+        
+        
     }
     return _tableView;
 }

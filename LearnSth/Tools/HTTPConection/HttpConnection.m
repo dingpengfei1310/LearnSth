@@ -293,7 +293,7 @@ static NSString *App_Key_Field = @"X-LC-Key";
     }];
 }
 
-#pragma mark -  上传图片
+#pragma mark - 上传图片
 - (void)uploadImageWithName:(NSString *)name data:(NSData *)data completion:(Completion)completion; {
     NSString *urlString = [NSString stringWithFormat:@"%@files/%@",FileUrl,name];
     

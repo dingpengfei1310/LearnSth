@@ -39,13 +39,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(notLogin)];
     
     [self initSubView];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLoginController)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(quickRegisterClick:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -173,14 +170,14 @@
         
         [[HttpConnection defaultConnection] userLoginWithParam:param completion:^(NSDictionary *data, NSError *error) {
             [self hideHUD];
-            
+
             if (!error) {
                 [CustomiseTool setIsLogin:YES];
                 [CustomiseTool setLoginToken:data[@"sessionToken"]];
-                
+
                 [[UserManager shareManager] updateUserWithDict:data];
                 [UserManager cacheToDisk];
-                
+
                 [self dismissLoginController];
             } else {
                 [self showErrorWithError:error];
@@ -198,8 +195,6 @@
 }
 
 - (void)forgetClick {
-//    [self showAlertWithTitle:nil message:@"怪我咯😂" operationTitle:@"知道了" operation:nil];
-    
     FindPasswordController *controller = [[FindPasswordController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -217,6 +212,11 @@
     
     [self.view endEditing:YES];
     return YES;
+}
+
+- (void)notLogin {
+    [CustomiseTool setIsLogin:YES];
+    [self dismissLoginController];
 }
 
 #pragma mark

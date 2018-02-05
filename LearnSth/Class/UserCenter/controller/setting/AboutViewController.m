@@ -27,7 +27,6 @@ static NSString *const identifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"关于";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(toAppStore)];
     

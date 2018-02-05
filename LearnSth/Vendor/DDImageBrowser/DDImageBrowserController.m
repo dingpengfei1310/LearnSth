@@ -38,7 +38,6 @@ const CGFloat minLineSpacing = 40;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.barView];

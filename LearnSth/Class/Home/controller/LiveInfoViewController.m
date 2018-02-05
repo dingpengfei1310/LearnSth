@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView.tableHeaderView = [self tableHeaderView];
     [self.view addSubview:self.tableView];

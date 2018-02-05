@@ -24,7 +24,6 @@ static NSString *const identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"相册";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     if (self.LibraryDismissBlock) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissLibraryController)];

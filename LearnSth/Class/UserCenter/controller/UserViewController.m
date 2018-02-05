@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) FBKVOController *kvoController;
 
+@property (nonatomic, strong) UIColor *cellBackgroundColor;
+
 //@property (nonatomic, strong) PanInteractiveTransition *interactiveTransition;
 
 @end
@@ -59,7 +61,28 @@ static NSString *const identifier = @"cell";
     self.tableView.estimatedSectionFooterHeight = 0;
     [self.view addSubview:self.tableView];
     
+    [self resetNightModel];
     [self addObserve];
+}
+
+- (void)resetNightModel {
+    if ([CustomiseTool isNightModel]) {
+        [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+        self.view.backgroundColor = [UIColor blackColor];
+        
+        _tableView.backgroundColor = [UIColor blackColor];
+        _tableView.separatorColor = [UIColor blackColor];
+        _cellBackgroundColor = KCellBackgroundColor;
+    } else {
+        [[UINavigationBar appearance] setBarTintColor:KBaseAppColor];
+        [self.navigationController.navigationBar setBarTintColor:KBaseAppColor];
+        self.view.backgroundColor = [UIColor whiteColor];
+        
+        _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _tableView.separatorColor = [UIColor lightGrayColor];
+        _cellBackgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (void)addObserve {
@@ -111,23 +134,10 @@ static NSString *const identifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIColor *backgroundColor;
-    if ([CustomiseTool isNightModel]) {
-        tableView.backgroundColor = [UIColor blackColor];
-        tableView.separatorColor = [UIColor blackColor];
-        
-        backgroundColor = KCellBackgroundColor;
-    } else {
-        tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        tableView.separatorColor = [UIColor lightGrayColor];
-        
-        backgroundColor = [UIColor whiteColor];
-    }
-    
     if (indexPath.section == 0) {
         HeaderImageViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.backgroundColor = backgroundColor;
+        cell.backgroundColor = _cellBackgroundColor;
         
         cell.userModel = [UserManager shareManager];
         
@@ -135,7 +145,7 @@ static NSString *const identifier = @"cell";
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.backgroundColor = backgroundColor;
+        cell.backgroundColor = _cellBackgroundColor;
         
         NSArray *array = self.dataArray[indexPath.section];
         cell.textLabel.text = array[indexPath.row];
@@ -181,22 +191,10 @@ static NSString *const identifier = @"cell";
         }
         
     } else if (indexPath.section == 2) {
-        BOOL model = [CustomiseTool isNightModel];
-        [CustomiseTool setNightModel:!model];
+        [CustomiseTool setNightModel:![CustomiseTool isNightModel]];
         
+        [self resetNightModel];
         [tableView reloadData];
-        
-        if ([CustomiseTool isNightModel]) {
-            [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
-            [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
-            self.view.backgroundColor = [UIColor blackColor];
-            
-        } else {
-            [[UINavigationBar appearance] setBarTintColor:KBaseAppColor];
-            [self.navigationController.navigationBar setBarTintColor:KBaseAppColor];
-            self.view.backgroundColor = [UIColor whiteColor];
-            
-        }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:ChangeNightModel object:nil];
         

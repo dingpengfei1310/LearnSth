@@ -66,11 +66,11 @@ typedef void (^CancelBlock)(void);
 
 #pragma mark - HUD提示框
 - (void)loading {
-    [self showMessage:nil toView:self.view hide:YES];
+    [self showMessage:nil toView:self.view hide:NO];
 }
 
 - (void)loadingWithText:(NSString *)text {
-    [self showMessage:text toView:self.view hide:YES];
+    [self showMessage:text toView:self.view hide:NO];
 }
 
 //- (void)loadingWithText:(NSString *)text cancelBlock:(void (^)(void))cancel {

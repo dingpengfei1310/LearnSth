@@ -46,6 +46,7 @@ static const NSInteger itemPerPage = 20;//每页个数
     [[HttpManager shareManager] getHotLiveListWithParam:param completion:^(NSArray *list, NSError *error) {
         
         if (error) {
+            _refreshing = NO;
             [self showErrorWithError:error];
             if (_currentPage > 1) {
                 _currentPage--;

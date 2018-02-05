@@ -38,7 +38,6 @@ const CGFloat LineSpace = 3.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _column = 3;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage)];

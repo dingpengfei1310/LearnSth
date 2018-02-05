@@ -30,60 +30,21 @@
     [super viewDidLoad];
     
     [self loadViewControllersWithSelectIndex:0];
-    [self changeModel];
+    [self changeNightModel];
     [self networkMonitoring];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeModel) name:ChangeNightModel object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNightModel) name:ChangeNightModel object:nil];
 }
-
-//- (void)checkNetworkType {
-//    UIApplication *application = [UIApplication sharedApplication];
-//    NSArray *children;
-//    if ([[application valueForKeyPath:@"_statusBar"] isKindOfClass:NSClassFromString(@"UIStatusBar_Modern")]) {
-//        children = [[[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-//    } else {
-//        children = [[[application valueForKeyPath:@"_statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-//    }
-//
-//    NSString *status = [[NSString alloc] init];
-//    NSInteger netType = 0;
-//
-//    for (id child in children) {
-//        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
-//            netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
-//
-//            switch (netType) {
-//                case 0:
-//                    status = @"noNet";
-//                    break;
-//                case 1:
-//                    status = @"2G";
-//                    break;
-//                case 2:
-//                    status = @"3G";
-//                    break;
-//                case 3:
-//                    status = @"4G";
-//                    break;
-//                case 5:
-//                    status = @"WIFI";
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    }
-//}
 
 #pragma mark
 - (void)loadViewControllersWithSelectIndex:(NSInteger)index {
     HomeViewController *homeController = [[HomeViewController alloc] init];
     UINavigationController *homeNVC = [[UINavigationController alloc] initWithRootViewController:homeController];
+    homeNVC.navigationBar.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];
     
     UserViewController *userController = [[UserViewController alloc] init];
     UINavigationController *userNVC = [[UINavigationController alloc] initWithRootViewController:userController];
-    
-//    self.viewControllers = @[homeNVC,userNVC];
+    userNVC.navigationBar.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];
     
     [self setViewControllers:@[homeNVC,userNVC] animated:YES];
     
@@ -123,14 +84,9 @@
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [button setImagePoisition:ImagePoisitionTop];
         
-        if (i == index) {
-            //当前选中的
+        if (i == index && i != self.viewControllers.count / 2) {
+            //当前选中的按钮。。理论上，中间不会是选中状态
             [self buttonClick:button];
-        } else if (i == titles.count / 2) {
-//            //理论上，中间这个不会是选中状态
-//            button.frame = CGRectMake(0, 0, 80, 80);
-//            button.center = CGPointMake(totalWidth * 0.5, 20);
-//            [button setImage:[UIImage imageNamed:@"redSpot"] forState:UIControlStateNormal];
         }
         
         [barView addSubview:button];
@@ -183,7 +139,7 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
-- (void)changeModel {
+- (void)changeNightModel {
     if ([CustomiseTool isNightModel]) {
         self.barView.backgroundColor = [UIColor darkGrayColor];
         

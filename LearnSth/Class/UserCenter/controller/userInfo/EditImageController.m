@@ -27,9 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"移动与缩放";
-    self.view.backgroundColor = [UIColor blackColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finish:)];
     
@@ -39,6 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self navigationBarColorClear];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 - (void)initSubView {
