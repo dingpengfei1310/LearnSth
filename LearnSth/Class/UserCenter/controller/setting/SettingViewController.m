@@ -13,6 +13,7 @@
 #import "FileScanViewController.h"
 #import "AboutViewController.h"
 
+#import "FileManager.h"
 #import "WiFiUploadManager.h"
 #import "UserManager.h"
 #import <LocalAuthentication/LocalAuthentication.h>
@@ -41,6 +42,7 @@
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(wifiUpload)];
+    
 }
 
 #pragma mark
@@ -58,6 +60,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入密码" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * textField) {
+        textField.secureTextEntry = YES;
         textField.placeholder = @"请输入密码";
         if ([CustomiseTool isNightModel]) {
             textField.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -96,8 +99,8 @@
 
 ///计算缓存大小
 - (CGFloat)calculateDiskCacheSize {
-    long long longSize = [CustomiseTool folderSizeAtPath:KCachePath];
-    CGFloat cacheSize = longSize / 1024.0 / 1024.0;
+    long long longSize = [FileManager folderSizeAtPath:KCachePath];
+    CGFloat cacheSize = longSize / 1000.0 / 1000.0;
     return cacheSize;
 }
 
@@ -110,7 +113,7 @@
 - (void)clearDiskCache {
     [self loadingWithText:@"清除中"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [CustomiseTool clearCacheAtPath:KCachePath];
+        [FileManager clearCacheAtPath:KCachePath];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self hideHUDAnimation];

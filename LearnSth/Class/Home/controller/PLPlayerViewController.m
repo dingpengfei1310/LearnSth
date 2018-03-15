@@ -58,6 +58,8 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         [IJKFFMoviePlayerController checkIfFFmpegVersionMatch:YES];
         
         [self playWithUrl:self.liveModel.flv];
+        
+        [self addOriginalGesture];
     }
 }
 
@@ -79,10 +81,9 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     self.player.shouldAutoplay = NO;
     
     [self.view addSubview:self.player.view];
-    [self.player prepareToPlay];
     [self installMovieNotificationObservers];
+    [self.player prepareToPlay];
     
-    [self addOriginalGesture];
     [self showForegroundView];
 }
 
@@ -136,28 +137,28 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-- (void)smallWindow:(UIBarButtonItem *)sender {
-    [self.player.view removeFromSuperview];
-    [self.window addSubview:self.player.view];
-
-    [UIView animateWithDuration:0.5 animations:^{
-        self.player.view.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
-    } completion:^(BOOL finished) {
-        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
-        [self.player.view addGestureRecognizer:panGesture];
-
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
-        [self.player.view addGestureRecognizer:tapGesture];
-    }];
-
-    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    controller.liveModel = self.liveModel;
-    [self.navigationController pushViewController:controller animated:NO];
-    controller.LiveInfoDismissBlock = ^{
-        [self backToRootController];
-    };
-}
+//- (void)smallWindow:(UIBarButtonItem *)sender {
+//    [self.player.view removeFromSuperview];
+//    [self.window addSubview:self.player.view];
+//
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.player.view.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
+//    } completion:^(BOOL finished) {
+//        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
+//        [self.player.view addGestureRecognizer:panGesture];
+//
+//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
+//        [self.player.view addGestureRecognizer:tapGesture];
+//    }];
+//
+//    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    controller.liveModel = self.liveModel;
+//    [self.navigationController pushViewController:controller animated:NO];
+//    controller.LiveInfoDismissBlock = ^{
+//        [self backToRootController];
+//    };
+//}
 
 - (void)movePlayerView:(UIPanGestureRecognizer *)gestureRecognizer {
     UIGestureRecognizerState state = gestureRecognizer.state;

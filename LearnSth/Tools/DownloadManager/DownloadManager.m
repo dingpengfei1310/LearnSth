@@ -203,7 +203,6 @@ static DownloadManager *manager = nil;
 
 #pragma mark  - NSURLSessionDownloadDelegate
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-    NSLog(@"didFinishDownloadingToURL:%@",location.absoluteString);
     unlink([self.currentModel.resumePath UTF8String]);//删除resumeData
     
     NSError *error;
@@ -228,8 +227,6 @@ static DownloadManager *manager = nil;
     self.timer = nil;
     
     if (error) {
-        NSLog(@"didCompleteWithError");
-        
         if (![error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"cancelled"]) {
             //不是用户取消。。下载失败
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -7,9 +7,10 @@
 //
 
 #import "FileScanViewController.h"
-#import "DDPreviewItem.h"
-#import <QuickLook/QLPreviewController.h>
 #import "VideoPlayerController.h"
+#import "DDPreviewItem.h"
+#import "FileManager.h"
+#import <QuickLook/QLPreviewController.h>
 
 @interface FileScanViewController ()<UITableViewDataSource,UITableViewDelegate,QLPreviewControllerDataSource>
 
@@ -150,8 +151,8 @@ static NSString *const identifier = @"cell";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *filePath = [_previewItemPath stringByAppendingPathComponent:fileName];
         
-        long long longSize = [CustomiseTool fileSizeAtPath:filePath];
-        CGFloat cacheSize = longSize / 1024.0 / 1024.0;
+        long long longSize = [FileManager fileSizeAtPath:filePath];
+        CGFloat cacheSize = longSize / 1000.0 / 1000.0;
         dispatch_async(dispatch_get_main_queue(),^{
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",cacheSize];
         });

@@ -7,19 +7,20 @@
 //
 
 #import "LiveCollectionView.h"
-#import "BannerScrollView.h"
 #import "LiveCollectionCell.h"
+#import "BannerScrollView.h"
 
 #import "BannerModel.h"
 #import "LiveModel.h"
 
-#import "UICollectionView+Tool.h"
+#import "UIScrollView+Empty.h"
 #import "UIView+Tool.h"
 #import "HttpManager.h"
 
+#import "Aspects.h"
 #import <MJRefresh/MJRefresh.h>
 
-@interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDataSourcePrefetching>
+@interface LiveCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) BannerScrollView *bannerScrollView;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -52,10 +53,10 @@ static const CGFloat threshold = 0.7;//预加载
         
 //        [self loadData];//dispatch_group_t用法
         
-//        __weak typeof(self) weakSelf = self;
-//        [weakSelf.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
-//            [weakSelf.collectionView checkEmpty];
-//        } error:NULL];
+        __weak typeof(self) weakSelf = self;
+        [weakSelf.collectionView aspect_hookSelector:@selector(reloadData) withOptions:AspectPositionBefore usingBlock:^{
+            [weakSelf.collectionView checkEmpty];
+        } error:NULL];
     }
     return self;
 }
@@ -211,7 +212,6 @@ static const CGFloat threshold = 0.7;//预加载
 }
 
 //- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-//    NSLog(@"prefetchItemsAtIndexPaths");
 //
 //    for (NSIndexPath *indexPath in indexPaths) {
 //        LiveCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];

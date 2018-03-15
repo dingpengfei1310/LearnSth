@@ -62,13 +62,7 @@
     _liveModel = liveModel;
     
     self.nameLabel.text = liveModel.myname;
-    
-    NSInteger count = liveModel.allnum.integerValue;
-    if (count < 10000) {
-        self.countLabel.text = [NSString stringWithFormat:@"%ld",count];
-    } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%.1f万",count / 10000.0];
-    }
+    self.countLabel.text = liveModel.watchers;
     
     NSURL *url = [NSURL URLWithString:liveModel.bigpic];
     [self.liveImageView sd_setImageWithURL:url];

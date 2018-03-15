@@ -8,6 +8,7 @@
 
 #import "CustomiseTool.h"
 #import "DeviceConfig.h"
+#import <sys/stat.h>
 
 static NSString *const KIsLoginCache = @"UserLoginCache";
 static NSString *const KLoginToken = @"UserLoginToken";
@@ -103,54 +104,6 @@ static NSString *const ENLanguage = @"en";
 + (void)setLanguage:(LanguageType)type {
     [[NSUserDefaults standardUserDefaults] setInteger:type forKey:KLanguageTypeCache];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-#pragma mark
-+ (long long)folderSizeAtPath:(NSString *)path {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    long long folderSize = 0;
-    
-    if ([fileManager fileExistsAtPath:path]) {
-        NSArray *childerFiles = [fileManager subpathsAtPath:path];
-        
-        for (NSString *fileName in childerFiles) {
-            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
-            
-            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
-                long long size = [fileManager attributesOfItemAtPath:fileAbsolutePath error:nil].fileSize;
-                folderSize += size;
-            }
-        }
-    }
-    
-    return folderSize;
-}
-
-+ (long long)fileSizeAtPath:(NSString *)path {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if ([fileManager fileExistsAtPath:path]) {
-        long long size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
-        return size;
-    }
-    
-    return 0;
-}
-
-+ (void)clearCacheAtPath:(NSString *)path {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if ([fileManager fileExistsAtPath:path]) {
-        NSArray *childerFiles = [fileManager subpathsAtPath:path];
-        
-        for (NSString *fileName in childerFiles) {
-            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
-            
-            if ([fileManager fileExistsAtPath:fileAbsolutePath]) {
-                [fileManager removeItemAtPath:fileAbsolutePath error:NULL];
-            }
-        }
-    }
 }
 
 @end

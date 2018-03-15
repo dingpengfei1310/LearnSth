@@ -38,7 +38,7 @@
     [self.window makeKeyAndVisible];
     
     [self setNavigationBar];
-    [self autoLoginWithToken];//自动登录
+//    [self autoLoginWithToken];//自动登录
     
     return YES;
 }

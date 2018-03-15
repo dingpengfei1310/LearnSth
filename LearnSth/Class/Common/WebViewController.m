@@ -31,7 +31,6 @@ static NSString *const estimatedProgress = @"estimatedProgress";
     
     if (self.urlString) {
 //        _urlString = @"https://m.weibo.cn/n/ever丶飞飞";
-        self.urlString = @"https://itunes.apple.com/cn/app/鼎赢/id1081279232?mt=8";
         self.urlString = [self.urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlString];
         

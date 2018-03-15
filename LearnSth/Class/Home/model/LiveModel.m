@@ -49,4 +49,14 @@
     }
 }
 
+#pragma mark
+- (NSString *)watchers {
+    NSInteger count = self.allnum.integerValue;
+    if (count < 10000) {
+        return [NSString stringWithFormat:@"%ld",count];
+    } else {
+        return [NSString stringWithFormat:@"%.1f万",count / 10000.0];
+    }
+}
+
 @end

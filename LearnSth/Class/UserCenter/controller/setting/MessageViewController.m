@@ -140,7 +140,6 @@ static const NSInteger itemPerPage = 20;//每页个数
     MessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSDictionary *info = self.dataArray[indexPath.row];
     cell.content = info[@"content"];
-
     return cell;
 }
 

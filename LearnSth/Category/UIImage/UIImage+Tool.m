@@ -13,26 +13,36 @@
 
 #pragma mark
 + (UIImage *)imageWithColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0, 0, 1.0, 1.0);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(1.0, 1.0), NO, 0);
     [color setFill];
-    CGContextFillRect(UIGraphicsGetCurrentContext(), rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-#pragma mark
-- (UIImage *)resizeImageWithSize:(CGSize)size {
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    [self drawInRect:rect];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, 1.0, 1.0));
     UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     return result;
+}
+
+#pragma mark
+- (UIImage *)resizeImageWithSize:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
+}
+
++(UIImage *)scaledImagewithData:(NSData *)data withSize:(CGSize)size scale:(CGFloat)scale orientation: (UIImageOrientation )orientation {
+    CGFloat maxPixelSize = MAX(size.width,size.height);
+    CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef )data, nil);
+    
+    NSDictionary *options = @{(__bridge id)kCGImageSourceCreateThumbnailFromImageAlways:(__bridge id )kCFBooleanTrue,
+                              (__bridge id )kCGImageSourceThumbnailMaxPixelSize: [NSNumber numberWithFloat:maxPixelSize]};
+    CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(sourceRef,0,(__bridge CFDictionaryRef)options);
+    UIImage *resultImage = [UIImage imageWithCGImage:imageRef scale:scale orientation:orientation];
+    CGImageRelease(imageRef);
+    CFRelease(sourceRef);
+    return resultImage;
 }
 
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius; {

@@ -26,9 +26,6 @@
         uptime = now.tv_sec - boottime.tv_sec;
         uptime += (double)(now.tv_usec - boottime.tv_usec) / 1000000.0;
     }
-    
-    //
-    NSLog(@"%f",uptime);
 }
 
 @end

@@ -31,15 +31,8 @@ typedef NS_ENUM (NSInteger, LanguageType) {
 + (void)setCurrentVersion;
 + (BOOL)isFirstLaunch;//是否（更新后）第一次启动
 
-//+ (void)setDownloadFile:(NSDictionary *)file;
-//+ (NSDictionary *)downloadFile;
-
 + (NSBundle *)languageBundle;
 + (LanguageType)languageType;
 + (void)changeLanguage:(LanguageType)type;
-
-+ (long long)folderSizeAtPath:(NSString *)path;
-+ (long long)fileSizeAtPath:(NSString *)path;
-+ (void)clearCacheAtPath:(NSString *)path;
 
 @end

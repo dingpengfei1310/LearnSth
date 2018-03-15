@@ -39,4 +39,6 @@
 
 + (NSArray<LiveModel *> *)liveWithArray:(NSArray *)array;
 
+- (NSString *)watchers;
+
 @end
