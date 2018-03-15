@@ -7,18 +7,14 @@
 //
 
 #import "HeaderImageViewCell.h"
-
 #import "BaseConfigure.h"
 #import "UserManager.h"
 #import "CustomiseTool.h"
-
-#import <NSData+ImageContentType.h>
-#import <FLAnimatedImage.h>
 #import <UIImageView+WebCache.h>
 
 @interface HeaderImageViewCell()
 
-@property (strong, nonatomic) FLAnimatedImageView *headerImageView;
+@property (strong, nonatomic) UIImageView *hImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *mobileLabel;
 
@@ -37,16 +33,16 @@
 }
 
 - (void)initSubViews {
-    _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
-    _headerImageView.layer.masksToBounds = YES;
-    _headerImageView.layer.cornerRadius = 25;
-    [self.contentView addSubview:_headerImageView];
+    _hImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
+    _hImageView.layer.masksToBounds = YES;
+    _hImageView.layer.cornerRadius = 25;
+    [self.contentView addSubview:_hImageView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_headerImageView.frame) + 10, 10, 200, 25)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_hImageView.frame) + 10, 10, 200, 25)];
     _nameLabel.font = [UIFont systemFontOfSize:13];
     [self.contentView addSubview:_nameLabel];
     
-    _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_headerImageView.frame) + 10, 35, 200, 25)];
+    _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_hImageView.frame) + 10, 35, 200, 25)];
     _mobileLabel.font = [UIFont systemFontOfSize:13];
     [self.contentView addSubview:_mobileLabel];
 }
@@ -57,25 +53,13 @@
         _nameLabel.text = userModel.username;
         _mobileLabel.text = userModel.mobilePhoneNumber;
         
-//        NSData *data = userModel.headerImageData;
-//        if (data) {
-//            if ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF) {
-//                _headerImageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];
-//            } else {
-//                _headerImageView.image = [UIImage imageWithData:data];
-//            }
-//        } else{
-//            _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
-//        }
-        
-        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headerUrl]
-                            placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
-        
+        [_hImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headerUrl]
+                       placeholderImage:[UIImage imageNamed:@"defaultHeader"]];
     } else {
         self.detailTextLabel.text = @"点击登录";
         _nameLabel.text = nil;
         _mobileLabel.text = nil;
-        _headerImageView.image = [UIImage imageNamed:@"defaultHeader"];
+        _hImageView.image = [UIImage imageNamed:@"defaultHeader"];
     }
 }
 

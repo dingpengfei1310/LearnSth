@@ -12,7 +12,7 @@
 
 @interface LiveCollectionCell ()
 
-@property (strong, nonatomic) UIImageView *liveImageView;
+@property (strong, nonatomic) UIImageView *lImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 
 @property (strong, nonatomic) UILabel *countLabel;
@@ -32,8 +32,8 @@
 - (void)initialize {
     CGFloat cellWidth = CGRectGetWidth(self.contentView.bounds);
     
-    _liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth)];
-    [self.contentView addSubview:_liveImageView];
+    _lImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth)];
+    [self.contentView addSubview:_lImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, cellWidth - 21, cellWidth * 0.7 - 2, 21)];
     _nameLabel.backgroundColor = [UIColor clearColor];
@@ -65,7 +65,7 @@
     self.countLabel.text = liveModel.watchers;
     
     NSURL *url = [NSURL URLWithString:liveModel.bigpic];
-    [self.liveImageView sd_setImageWithURL:url];
+    [self.lImageView sd_setImageWithURL:url];
 }
 
 @end

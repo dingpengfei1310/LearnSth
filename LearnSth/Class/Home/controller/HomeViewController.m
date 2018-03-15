@@ -29,7 +29,7 @@
     CGRect frame = CGRectMake(0, barH, Screen_W, Screen_H - barH - TabBarH);
     
     self.liveCollectionView = [[LiveCollectionView alloc] initWithFrame:frame];
-//    self.liveCollectionView.hidden = YES;
+    self.liveCollectionView.hidden = YES;
     [self.view addSubview:self.liveCollectionView];
     
     __weak typeof(self) weakSelf = self;

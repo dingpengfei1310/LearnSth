@@ -24,25 +24,13 @@
 
 #pragma mark
 - (UIImage *)resizeImageWithSize:(CGSize)size {
+//    return [self resizeImageWithSize:size orientation:UIImageOrientationUp];
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     return result;
-}
-
-+(UIImage *)scaledImagewithData:(NSData *)data withSize:(CGSize)size scale:(CGFloat)scale orientation: (UIImageOrientation )orientation {
-    CGFloat maxPixelSize = MAX(size.width,size.height);
-    CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef )data, nil);
-    
-    NSDictionary *options = @{(__bridge id)kCGImageSourceCreateThumbnailFromImageAlways:(__bridge id )kCFBooleanTrue,
-                              (__bridge id )kCGImageSourceThumbnailMaxPixelSize: [NSNumber numberWithFloat:maxPixelSize]};
-    CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(sourceRef,0,(__bridge CFDictionaryRef)options);
-    UIImage *resultImage = [UIImage imageWithCGImage:imageRef scale:scale orientation:orientation];
-    CGImageRelease(imageRef);
-    CFRelease(sourceRef);
-    return resultImage;
 }
 
 - (UIImage *)cornerImageWithSize:(CGSize)size radius:(CGFloat)radius; {
@@ -83,6 +71,24 @@
     
     return result;
 }
+
+//- (UIImage *)resizeImageWithSize:(CGSize)size orientation:(UIImageOrientation )orientation {
+//    NSData *data = UIImagePNGRepresentation(self);
+//    CGFloat maxPSize = MAX(size.width,size.height);
+//    CGFloat scale = [UIScreen mainScreen].scale;
+//    
+//    CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
+//    
+//    NSDictionary *options = @{(__bridge id)kCGImageSourceCreateThumbnailFromImageAlways:(__bridge id)kCFBooleanTrue,
+//                              (__bridge id)kCGImageSourceThumbnailMaxPixelSize:[NSNumber numberWithFloat:maxPSize]};
+//    CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(sourceRef,0,(__bridge CFDictionaryRef)options);
+//    UIImage *result = [UIImage imageWithCGImage:imageRef scale:scale orientation:orientation];
+//    
+//    CGImageRelease(imageRef);
+//    CFRelease(sourceRef);
+//    
+//    return result;
+//}
 
 #pragma mark
 - (BOOL)saveImageToAlbum {

@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//typedef NS_ENUM(NSInteger, UIImageResizeMode) {
-//    UIImageResizeModeUp,
-//    UIImageResizeModeLeft,
-//    UIImageResizeModeCenter,
-//    UIImageResizeModeBottom,
-//    UIImageResizeModeRight
-//};
-
 @interface UIImage (Tool)
 
 + (UIImage *)imageWithColor:(UIColor *)color;

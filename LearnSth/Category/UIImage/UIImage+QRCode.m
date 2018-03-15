@@ -137,8 +137,7 @@
     return colorImage;
 }
 
-void ProviderReleaseData (void *info, const void *data, size_t size)
-{
+void ProviderReleaseData (void *info, const void *data, size_t size) {
     free((void*)data);
 }
 
