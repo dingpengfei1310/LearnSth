@@ -18,6 +18,7 @@
 		1B2336C81FECEE2E00B8E9E1 /* InkeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2336C71FECEE2E00B8E9E1 /* InkeViewController.m */; };
 		1B29B87D1EEE3E660069780C /* LiveCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B87C1EEE3E660069780C /* LiveCollectionView.m */; };
 		1B29CA881EFBC397004177AD /* HandDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29CA871EFBC397004177AD /* HandDrawView.m */; };
+		1B2B1A8A205B735600E538AE /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2B1A84205B700800E538AE /* IJKMediaFramework.framework */; };
 		1B2BFE5B1F53AA3300860E6A /* HttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2BFE5A1F53AA3300860E6A /* HttpConnection.m */; };
 		1B2D07F51DE7E8DB0034C22D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07BF1DE7E8DB0034C22D /* WebViewController.m */; };
 		1B2D07F71DE7E8DB0034C22D /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C61DE7E8DB0034C22D /* BannerModel.m */; };
@@ -123,7 +124,6 @@
 		1B8E812A1FE3C7070038FF77 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810B1FE3C7070038FF77 /* WiFiUploadManager.m */; };
 		1B8E812B1FE3C7070038FF77 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */; };
 		1BB78F241DEC2BBF00C7D947 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2D07C31DE7E8DB0034C22D /* HomeViewController.m */; };
-		1BBFEEE2200763D500251C80 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */; };
 		1BCD9B5D1F25D9AC000492CC /* ShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */; };
 		1BD1761B1D9A73D300C28051 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD1761A1D9A73D300C28051 /* RootViewController.m */; };
 		1BDCED701DE57D97002A27B5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCED6E1DE57D97002A27B5 /* index.html */; };
@@ -181,6 +181,8 @@
 		1B29B87C1EEE3E660069780C /* LiveCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveCollectionView.m; sourceTree = "<group>"; };
 		1B29CA861EFBC397004177AD /* HandDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandDrawView.h; sourceTree = "<group>"; };
 		1B29CA871EFBC397004177AD /* HandDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandDrawView.m; sourceTree = "<group>"; };
+		1B2B1A84205B700800E538AE /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		1B2B1A86205B702100E538AE /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1B2BFE591F53AA3300860E6A /* HttpConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpConnection.h; sourceTree = "<group>"; };
 		1B2BFE5A1F53AA3300860E6A /* HttpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpConnection.m; sourceTree = "<group>"; };
 		1B2D07BE1DE7E8DB0034C22D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -389,7 +391,6 @@
 		1B8E810B1FE3C7070038FF77 /* WiFiUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadManager.m; sourceTree = "<group>"; };
 		1B8E810C1FE3C7070038FF77 /* WiFiUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadViewController.h; sourceTree = "<group>"; };
 		1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadViewController.m; sourceTree = "<group>"; };
-		1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		1BCD9B5B1F25D9AC000492CC /* ShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController.h; sourceTree = "<group>"; };
 		1BCD9B5C1F25D9AC000492CC /* ShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController.m; sourceTree = "<group>"; };
 		1BD176191D9A73D300C28051 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -440,8 +441,8 @@
 			files = (
 				1B0F7590200621CA0066758D /* libstdc++.tbd in Frameworks */,
 				1B6150071F6BC0780083E096 /* HealthKit.framework in Frameworks */,
+				1B2B1A8A205B735600E538AE /* IJKMediaFramework.framework in Frameworks */,
 				DC70711C937E46693E11C611 /* libPods-LearnSth.a in Frameworks */,
-				1BBFEEE2200763D500251C80 /* IJKMediaFramework.framework in Frameworks */,
 				1B8E81191FE3C7070038FF77 /* libexidcardios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +471,22 @@
 				1B16B48B1EE5047100F84CB1 /* JPuzzleViewController.m */,
 			);
 			path = JigsawPuzzle;
+			sourceTree = "<group>";
+		};
+		1B2B1A82205B6FF700E538AE /* IJKSim */ = {
+			isa = PBXGroup;
+			children = (
+				1B2B1A86205B702100E538AE /* IJKMediaFramework.framework */,
+			);
+			path = IJKSim;
+			sourceTree = "<group>";
+		};
+		1B2B1A83205B6FF800E538AE /* IJK */ = {
+			isa = PBXGroup;
+			children = (
+				1B2B1A84205B700800E538AE /* IJKMediaFramework.framework */,
+			);
+			path = IJK;
 			sourceTree = "<group>";
 		};
 		1B2D07BC1DE7E8DB0034C22D /* Class */ = {
@@ -896,11 +913,12 @@
 		1B8E80C41FE3C7070038FF77 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1BBFEEE1200763D500251C80 /* IJKMediaFramework.framework */,
 				1B8E80C51FE3C7070038FF77 /* Aspects */,
 				1B8E80C81FE3C7070038FF77 /* BHBDrawBoarder */,
 				1B8E80D11FE3C7070038FF77 /* DDImageBrowser */,
 				1B8E80DA1FE3C7070038FF77 /* FPSLabel */,
+				1B2B1A83205B6FF800E538AE /* IJK */,
+				1B2B1A82205B6FF700E538AE /* IJKSim */,
 				1B8E80DD1FE3C7070038FF77 /* LibexidCard */,
 				1B8E80E31FE3C7070038FF77 /* PPNumberButton */,
 				1B8E80E61FE3C7070038FF77 /* QRCode */,
@@ -1665,7 +1683,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/LearnSth/Vendor",
+					"$(PROJECT_DIR)/LearnSth/Vendor/IJK",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1716,7 +1734,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/LearnSth/Vendor",
+					"$(PROJECT_DIR)/LearnSth/Vendor/IJK",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;

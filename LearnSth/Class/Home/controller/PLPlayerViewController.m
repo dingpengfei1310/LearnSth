@@ -12,6 +12,12 @@
 
 #import <IJKMediaFramework/IJKMediaPlayer.h>
 
+//#if !TARGET_OS_SIMULATOR
+//#import <IJKMediaFramework/IJKMediaPlayer.h>
+//#else
+//#import <IJKMediaFramework/IJKMediaPlayer.h>
+//#endif
+
 @interface PLPlayerViewController () {
     CGFloat viewW;
     CGFloat viewH;
