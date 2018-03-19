@@ -74,6 +74,7 @@
     [self.liveCollectionView viewWillShow:NO];
 }
 
+#pragma mark
 - (void)homeRightItemClick {
     JPuzzleViewController *controller = [[JPuzzleViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;

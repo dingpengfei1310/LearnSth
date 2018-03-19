@@ -119,7 +119,6 @@
 		1B8E81251FE3C7070038FF77 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E80FF1FE3C7070038FF77 /* TPKeyboardAvoidingScrollView.m */; };
 		1B8E81261FE3C7070038FF77 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E81011FE3C7070038FF77 /* TPKeyboardAvoidingTableView.m */; };
 		1B8E81271FE3C7070038FF77 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E81031FE3C7070038FF77 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
-		1B8E81281FE3C7070038FF77 /* UIViewController+Swizzled.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E81061FE3C7070038FF77 /* UIViewController+Swizzled.m */; };
 		1B8E81291FE3C7070038FF77 /* WiFiUploadHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E81091FE3C7070038FF77 /* WiFiUploadHTTPConnection.m */; };
 		1B8E812A1FE3C7070038FF77 /* WiFiUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810B1FE3C7070038FF77 /* WiFiUploadManager.m */; };
 		1B8E812B1FE3C7070038FF77 /* WiFiUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8E810D1FE3C7070038FF77 /* WiFiUploadViewController.m */; };
@@ -383,8 +382,6 @@
 		1B8E81011FE3C7070038FF77 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		1B8E81021FE3C7070038FF77 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		1B8E81031FE3C7070038FF77 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
-		1B8E81051FE3C7070038FF77 /* UIViewController+Swizzled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Swizzled.h"; sourceTree = "<group>"; };
-		1B8E81061FE3C7070038FF77 /* UIViewController+Swizzled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Swizzled.m"; sourceTree = "<group>"; };
 		1B8E81081FE3C7070038FF77 /* WiFiUploadHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadHTTPConnection.h; sourceTree = "<group>"; };
 		1B8E81091FE3C7070038FF77 /* WiFiUploadHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFiUploadHTTPConnection.m; sourceTree = "<group>"; };
 		1B8E810A1FE3C7070038FF77 /* WiFiUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiUploadManager.h; sourceTree = "<group>"; };
@@ -924,7 +921,6 @@
 				1B8E80E61FE3C7070038FF77 /* QRCode */,
 				1B8E80EB1FE3C7070038FF77 /* SDCycleScrollView */,
 				1B8E80FB1FE3C7070038FF77 /* TPKeyboardAvoiding */,
-				1B8E81041FE3C7070038FF77 /* UIViewController+Swizzled */,
 				1B8E81071FE3C7070038FF77 /* WiFiUpload */,
 			);
 			path = Vendor;
@@ -1059,15 +1055,6 @@
 				1B8E81031FE3C7070038FF77 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
 			path = TPKeyboardAvoiding;
-			sourceTree = "<group>";
-		};
-		1B8E81041FE3C7070038FF77 /* UIViewController+Swizzled */ = {
-			isa = PBXGroup;
-			children = (
-				1B8E81051FE3C7070038FF77 /* UIViewController+Swizzled.h */,
-				1B8E81061FE3C7070038FF77 /* UIViewController+Swizzled.m */,
-			);
-			path = "UIViewController+Swizzled";
 			sourceTree = "<group>";
 		};
 		1B8E81071FE3C7070038FF77 /* WiFiUpload */ = {
@@ -1416,7 +1403,6 @@
 				1B65D2CD1F8CAEF4000A679A /* PhotoLibraryController.m in Sources */,
 				1B65D2CC1F8CAEEC000A679A /* LoginViewController.m in Sources */,
 				1B65D2CB1F8CAEE4000A679A /* UserInfoViewController.m in Sources */,
-				1B8E81281FE3C7070038FF77 /* UIViewController+Swizzled.m in Sources */,
 				1B65D2CA1F8CAED5000A679A /* StepCountViewController.m in Sources */,
 				1B65D2C91F8CAE45000A679A /* SettingViewController.m in Sources */,
 				1B8E810E1FE3C7070038FF77 /* Aspects.m in Sources */,
@@ -1683,7 +1669,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/LearnSth/Vendor/IJKSim",
+					"$(PROJECT_DIR)/LearnSth/Vendor/IJK",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1734,7 +1720,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/LearnSth/Vendor/IJKSim",
+					"$(PROJECT_DIR)/LearnSth/Vendor/IJK",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;

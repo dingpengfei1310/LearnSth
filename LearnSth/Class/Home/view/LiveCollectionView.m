@@ -272,6 +272,7 @@ static const CGFloat threshold = 0.7;//预加载
         
         _collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             weakSelf.page = 1;
+            weakSelf.noMoreData = NO;
             [weakSelf refreshLiveData];
         }];
 //        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -284,6 +285,7 @@ static const CGFloat threshold = 0.7;//预加载
         
         _collectionView.clickBlock = ^{
             weakSelf.page = 1;
+            weakSelf.noMoreData = NO;
             [weakSelf refreshLiveData];
         };
         

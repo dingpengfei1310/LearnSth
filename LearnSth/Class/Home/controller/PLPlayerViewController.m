@@ -12,12 +12,6 @@
 
 #import <IJKMediaFramework/IJKMediaPlayer.h>
 
-//#if !TARGET_OS_SIMULATOR
-//#import <IJKMediaFramework/IJKMediaPlayer.h>
-//#else
-//#import <IJKMediaFramework/IJKMediaPlayer.h>
-//#endif
-
 @interface PLPlayerViewController () {
     CGFloat viewW;
     CGFloat viewH;
@@ -52,7 +46,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissPlayerController)];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(smallWindow:)];
 
     if (self.index < self.liveArray.count) {
         self.liveModel = self.liveArray[self.index];
@@ -69,11 +63,32 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self navigationBarColorClear];
+    
+//    if (!self.player.isPlaying) {
+//        [self.player play];
+//    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.statusBarHidden = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
+    });
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self removeMovieNotificationObservers];
+}
+
+#pragma mark
 - (void)playWithUrl:(NSString *)urls {
     if (self.player) {
         [self removeMovieNotificationObservers];
-        [self.player.view removeFromSuperview];
         [self.player shutdown];
+        [self.player.view removeFromSuperview];
         self.player = nil;
     }
     
@@ -85,32 +100,14 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     self.player.view.frame = self.view.bounds;
     self.player.scalingMode = IJKMPMovieScalingModeAspectFit;
     self.player.shouldAutoplay = NO;
-    
     [self.view addSubview:self.player.view];
+    
     [self installMovieNotificationObservers];
     [self.player prepareToPlay];
     
     [self showForegroundView];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self navigationBarColorClear];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.statusBarHidden = YES;
-        [self setNeedsStatusBarAppearanceUpdate];
-    });
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    [self.player shutdown];
-    [self removeMovieNotificationObservers];
-}
-
-#pragma mark
 - (void)showForegroundView {
     if (!_foregroundView) {
         _foregroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -137,34 +134,36 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     [self.view addGestureRecognizer:nextGesture];
 }
 
+#pragma mark
 - (void)dismissPlayerController {
+    [self.player shutdown];
     if (self.PlayerDismissBlock) {
         self.PlayerDismissBlock();
     }
 }
 
-//- (void)smallWindow:(UIBarButtonItem *)sender {
-//    [self.player.view removeFromSuperview];
-//    [self.window addSubview:self.player.view];
-//
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.player.view.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
-//    } completion:^(BOOL finished) {
-//        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
-//        [self.player.view addGestureRecognizer:panGesture];
-//
-//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
-//        [self.player.view addGestureRecognizer:tapGesture];
-//    }];
-//
-//    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
-//    controller.hidesBottomBarWhenPushed = YES;
-//    controller.liveModel = self.liveModel;
-//    [self.navigationController pushViewController:controller animated:NO];
-//    controller.LiveInfoDismissBlock = ^{
-//        [self backToRootController];
-//    };
-//}
+- (void)smallWindow:(UIBarButtonItem *)sender {
+    [self.player.view removeFromSuperview];
+    [self.window addSubview:self.player.view];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.player.view.frame = CGRectMake((1 - PlayerViewScale) * viewW, 64, viewW * PlayerViewScale, viewH * PlayerViewScale);
+    } completion:^(BOOL finished) {
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(movePlayerView:)];
+        [self.player.view addGestureRecognizer:panGesture];
+
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPlayerView:)];
+        [self.player.view addGestureRecognizer:tapGesture];
+    }];
+
+    LiveInfoViewController *controller = [[LiveInfoViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    controller.liveModel = self.liveModel;
+    [self.navigationController pushViewController:controller animated:NO];
+    controller.LiveInfoDismissBlock = ^{
+        [self backToRootController];
+    };
+}
 
 - (void)movePlayerView:(UIPanGestureRecognizer *)gestureRecognizer {
     UIGestureRecognizerState state = gestureRecognizer.state;
@@ -230,19 +229,8 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-#pragma mark
-
-- (UIWindow *)window {
-    if (!_window) {
-        _window = [UIApplication sharedApplication].keyWindow;
-    }
-    return _window;
-}
-
 #pragma mark -
-
-- (void)loadStateDidChange:(NSNotification*)notification
-{
+- (void)loadStateDidChange:(NSNotification*)notification {
     //    MPMovieLoadStateUnknown        = 0,
     //    MPMovieLoadStatePlayable       = 1 << 0,
     //    MPMovieLoadStatePlaythroughOK  = 1 << 1, // Playback will be automatically started in this state when shouldAutoplay is YES
@@ -251,8 +239,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     IJKMPMovieLoadState loadState = _player.loadState;
     
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
-        [self.player play];
-        NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
+        if (!self.player.isPlaying) {
+            [self.player play];
+            NSLog(@"loadStateDidChange: IJKMPMovieLoadStatePlaythroughOK: %d\n", (int)loadState);
+        }
+        
     } else if ((loadState & IJKMPMovieLoadStateStalled) != 0) {
         NSLog(@"loadStateDidChange: IJKMPMovieLoadStateStalled: %d\n", (int)loadState);
     } else {
@@ -260,15 +251,13 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-- (void)moviePlayBackDidFinish:(NSNotification*)notification
-{
+- (void)moviePlayBackDidFinish:(NSNotification*)notification {
     //    MPMovieFinishReasonPlaybackEnded,
     //    MPMovieFinishReasonPlaybackError,
     //    MPMovieFinishReasonUserExited
     int reason = [[[notification userInfo] valueForKey:IJKMPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
     
-    switch (reason)
-    {
+    switch (reason) {
         case IJKMPMovieFinishReasonPlaybackEnded:
             NSLog(@"playbackStateDidChange: IJKMPMovieFinishReasonPlaybackEnded: %d\n", reason);
             break;
@@ -287,13 +276,11 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification
-{
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification {
     NSLog(@"mediaIsPreparedToPlayDidChange\n");
 }
 
-- (void)moviePlayBackStateDidChange:(NSNotification*)notification
-{
+- (void)moviePlayBackStateDidChange:(NSNotification*)notification {
     //    MPMoviePlaybackStateStopped,
     //    MPMoviePlaybackStatePlaying,
     //    MPMoviePlaybackStatePaused,
@@ -301,8 +288,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     //    MPMoviePlaybackStateSeekingForward,
     //    MPMoviePlaybackStateSeekingBackward
     
-    switch (_player.playbackState)
-    {
+    switch (_player.playbackState) {
         case IJKMPMoviePlaybackStateStopped: {
             NSLog(@"IJKMPMoviePlayBackStateDidChange %d: stoped", (int)_player.playbackState);
             break;
@@ -333,11 +319,10 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
 }
 
-#pragma mark Install Movie Notifications
+#pragma mark - Install Movie Notifications
 
 /* Register observers for the various movie object notifications. */
--(void)installMovieNotificationObservers
-{
+- (void)installMovieNotificationObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadStateDidChange:)
                                                  name:IJKMPMoviePlayerLoadStateDidChangeNotification
@@ -359,15 +344,20 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
                                                object:_player];
 }
 
-#pragma mark Remove Movie Notification Handlers
-
 /* Remove the movie notification observers from the movie object. */
--(void)removeMovieNotificationObservers
-{
+- (void)removeMovieNotificationObservers {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerLoadStateDidChangeNotification object:_player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
+}
+
+#pragma mark
+- (UIWindow *)window {
+    if (!_window) {
+        _window = [UIApplication sharedApplication].keyWindow;
+    }
+    return _window;
 }
 
 - (void)didReceiveMemoryWarning {
