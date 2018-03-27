@@ -93,6 +93,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
     }
     
     IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+    [options setPlayerOptionIntValue:1 forKey:@"videotoolbox"];
     NSURL *url = [NSURL URLWithString:urls];
     
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
@@ -220,7 +221,7 @@ const CGFloat PlayerViewScale = 0.4;//缩小后的view宽度占屏幕宽度的�
         self.index++;
         self.liveModel = self.liveArray[self.index];
         self.title = self.liveModel.myname;
-        [self showForegroundView];
+//        [self showForegroundView];
         
         [self playWithUrl:self.liveModel.flv];
         
